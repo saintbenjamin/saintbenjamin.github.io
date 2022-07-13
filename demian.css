@@ -1,0 +1,90 @@
+﻿body
+{ 
+font-family:"メイリオ","MS PGothic";
+font-size:10pt;
+color:#444444;
+line-height:150%
+
+scrollbar-3dlight-color:#ffffff;
+scrollbar-arrow-color:#EB9500;
+scrollbar-track-color:#ffffff;
+scrollbar-darkshadow-color:#ffffff;
+scrollbar-face-color:#ffffff;
+scrollbar-highlight-color:#Ffffff;
+scrollbar-shadow-color:#e0e0e0;
+background-color:transparent;
+overflow-x:hidden;
+}
+
+table 
+{ 
+font-family:"メイリオ","MS PGothic";
+font-size:10pt;
+color:#444444;
+line-height:150%
+}
+
+#voice {line-height:200%}
+#seminar {line-height:200%}
+#notice {line-height:200%}
+
+#bookmark1 {line-height:200%}
+#bookmark2 {line-height:200%}
+#bookmark3 {line-height:200%}
+
+#seminar A:link, #bookmark1 A:link, #bookmark2 A:link, #bookmark3 A:link{color:#444444; font-weight:bold;}
+#seminar A:visited, #bookmark1 A:visited, #bookmark2 A:visited, #bookmark3 A:visited{color:#444444; font-weight:bold;}
+#seminar A:hover, #bookmark1 A:hover, #bookmark2 A:hover, #bookmark3 A:hover{color:#444444; font-weight:bold;}
+#seminar A:active, #bookmark1 A:active, #bookmark2 A:active, #bookmark3 A:active{color:#444444; font-weight:bold;}
+
+A:link{color:#EB9500; font-weight:bold;}
+A:visited{color:#EB9500; font-weight:bold;}
+A:hover{color:#EB9500; font-weight:bold;}
+A:active{color:#EB9500; font-weight:bold;}
+
+
+.td-public 
+{
+font-size: 12px;
+color:#FFFFFF;
+background-color: #FFFFFF;
+text-align: center;
+padding-top: 3px;
+padding-right: 15px;
+padding-bottom: 3px;
+padding-left: 15px;
+border: 1px solid #FFFFFF;
+}
+
+.orangeText 
+{ 
+font-family:"メイリオ","MS PGothic";
+font-size:10pt;
+font-weight:bold;
+color:#EB9500;
+}
+
+.orange 
+{ 
+font-family:"メイリオ","MS PGothic";
+font-size:10pt;
+color:#EB9500;
+}
+C
+
+.grayText 
+{ 
+font-family:"メイリオ","MS PGothic";
+font-size:10pt;
+font-weight:bold;
+color:#444444;
+}
+
+.grayTextBackup 
+{ 
+font-family:"メイリオ","MS PGothic";
+font-size:10pt;
+font-weight:bold;
+color:#B1B1B1;
+}
+
