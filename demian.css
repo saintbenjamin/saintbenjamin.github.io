@@ -24,6 +24,11 @@ color:#444444;
 line-height:150%
 }
 
+table td, table td * 
+{
+vertical-align: top;
+}
+
 #voice {line-height:200%}
 #seminar {line-height:200%}
 #notice {line-height:200%}
