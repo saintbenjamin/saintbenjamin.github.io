@@ -1,0 +1,27 @@
+var classASolver__SAP =
+[
+    [ "block_index_t", "classASolver__SAP.html#a08c1081e684970bef1b7c2ffa817def8", null ],
+    [ "real_t", "classASolver__SAP.html#a75fffe1d8683cb1ab2d58b3311c2c7f8", null ],
+    [ "ASolver_SAP", "classASolver__SAP.html#a1afa6f5ec0e01992d314d3eb1eec7625", null ],
+    [ "ASolver_SAP", "classASolver__SAP.html#a09e788529bbc286939892f7bdfee8d06", null ],
+    [ "~ASolver_SAP", "classASolver__SAP.html#a183656f59ea9e596b15d1508b335bf49", null ],
+    [ "flop_count", "classASolver__SAP.html#a0ee25448c57bd5e5b0625c817636577c", null ],
+    [ "get_fopr", "classASolver__SAP.html#a513c709c1b4ca5c3de01043614b4e333", null ],
+    [ "init", "classASolver__SAP.html#a77596d5415a750fcfd165ce43cd83978", null ],
+    [ "set_parameters", "classASolver__SAP.html#ad13b898dd69e97f0969c318c4463c2ad", null ],
+    [ "set_parameters", "classASolver__SAP.html#a592cd3fcf75461b98e9bbc7e20ae9210", null ],
+    [ "solve", "classASolver__SAP.html#a4ee873e5d664f17bd1fa9293b312d972", null ],
+    [ "tidyup", "classASolver__SAP.html#a1384db83ffdc6a8dd1592cbfd7c1b820", null ],
+    [ "class_name", "classASolver__SAP.html#ab8f23fff136b271da0a3dd48e92ca43e", null ],
+    [ "m_block_index", "classASolver__SAP.html#a3f8f168ad669e3e7b1c82f5ef4647055", null ],
+    [ "m_fopr", "classASolver__SAP.html#a66a5f1b0c823219adce4a6fe0a804464", null ],
+    [ "m_min_res_iter", "classASolver__SAP.html#a3f9c24fc1fa67c0d7771465a82c8d567", null ],
+    [ "m_Nconv", "classASolver__SAP.html#a05cd1d16dbebb3865009f7a64d2cf060", null ],
+    [ "m_nconv", "classASolver__SAP.html#af125a53e77226a6eb58debd11979938f", null ],
+    [ "m_Niter", "classASolver__SAP.html#a2d2febbb500b6ea0f4892f8804a846ff", null ],
+    [ "m_p", "classASolver__SAP.html#a32d3c5076eee753231a8f09c82ef7ca3", null ],
+    [ "m_r", "classASolver__SAP.html#a65297712f80366f337a272ce9fb236b0", null ],
+    [ "m_sap_minres", "classASolver__SAP.html#a68cc8f3005c3082aeb1b4e94ab65ff3e", null ],
+    [ "m_Stop_cond", "classASolver__SAP.html#aff3b0756e0a99ac0839e2f05bbb97296", null ],
+    [ "m_x", "classASolver__SAP.html#ac1b7c615f665722cdc26b1988f0bb162", null ]
+];

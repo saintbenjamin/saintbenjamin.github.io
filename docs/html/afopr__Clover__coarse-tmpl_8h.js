@@ -1,0 +1,26 @@
+var afopr__Clover__coarse_tmpl_8h =
+[
+    [ "AFOPR_CLOVER_COARSE_TIMER", "afopr__Clover__coarse-tmpl_8h.html#aa8278e264e9aded921c45e57ca0e7dcc", null ],
+    [ "TIMER_boundary_start", "afopr__Clover__coarse-tmpl_8h.html#a54bb7948b1722e753b4690c690be3a8c", null ],
+    [ "TIMER_boundary_stop", "afopr__Clover__coarse-tmpl_8h.html#aeacc290b83824dcb4e0f2567a627a1c5", null ],
+    [ "TIMER_bulk_start", "afopr__Clover__coarse-tmpl_8h.html#a5c378826104b351b91e1dd38c587f53e", null ],
+    [ "TIMER_bulk_stop", "afopr__Clover__coarse-tmpl_8h.html#af269357e81b70be5701cd159e2235a3f", null ],
+    [ "TIMER_clear_start", "afopr__Clover__coarse-tmpl_8h.html#ae6bf23d656413991480280e65137b35b", null ],
+    [ "TIMER_clear_stop", "afopr__Clover__coarse-tmpl_8h.html#a52922d274f8e9924ffe7688c2d39ad93", null ],
+    [ "TIMER_comm_recv_start_start", "afopr__Clover__coarse-tmpl_8h.html#a91b5b7662116dcc12af73c5c73f47fa0", null ],
+    [ "TIMER_comm_recv_start_stop", "afopr__Clover__coarse-tmpl_8h.html#af560c0a7fbe19bbcb1cc38fb93801cc0", null ],
+    [ "TIMER_comm_recv_wait_start", "afopr__Clover__coarse-tmpl_8h.html#a927c242097e1feed2912b0d6b5825fb6", null ],
+    [ "TIMER_comm_recv_wait_stop", "afopr__Clover__coarse-tmpl_8h.html#a94479ce9c791949faff714e01524bc6a", null ],
+    [ "TIMER_comm_send_start_start", "afopr__Clover__coarse-tmpl_8h.html#aa935c6a67f382aa7c2e097f51be6fa14", null ],
+    [ "TIMER_comm_send_start_stop", "afopr__Clover__coarse-tmpl_8h.html#a9781dc5db873074c1454dc7257ccc1de", null ],
+    [ "TIMER_comm_send_wait_start", "afopr__Clover__coarse-tmpl_8h.html#adcc2976836e75a3df8f3e2d4049022f0", null ],
+    [ "TIMER_comm_send_wait_stop", "afopr__Clover__coarse-tmpl_8h.html#a1d453b5ec6109ea2d3c2f64b11552efb", null ],
+    [ "TIMER_comm_start", "afopr__Clover__coarse-tmpl_8h.html#a30c3128c7803629f5e09c21bf0532fc1", null ],
+    [ "TIMER_comm_stop", "afopr__Clover__coarse-tmpl_8h.html#a509d627e6bd10f826c5df7c8f0e23b83", null ],
+    [ "TIMER_comm_test_all_start", "afopr__Clover__coarse-tmpl_8h.html#ae35ffb909aba3c691f2e3590e704d4d8", null ],
+    [ "TIMER_comm_test_all_stop", "afopr__Clover__coarse-tmpl_8h.html#a1c7025bf7da66e45228dcc589a41e4db", null ],
+    [ "TIMER_mult_start", "afopr__Clover__coarse-tmpl_8h.html#a8d91aafc9c5a568d85101abe5958625c", null ],
+    [ "TIMER_mult_stop", "afopr__Clover__coarse-tmpl_8h.html#aa46adcd2b9691fc4427395d53f60aef0", null ],
+    [ "TIMER_pack_start", "afopr__Clover__coarse-tmpl_8h.html#a23e200553cf26f0e5145d4e2a530bb61", null ],
+    [ "TIMER_pack_stop", "afopr__Clover__coarse-tmpl_8h.html#a8b163c626203b710c254aa1273480eaf", null ]
+];

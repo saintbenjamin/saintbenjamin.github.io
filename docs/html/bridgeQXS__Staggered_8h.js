@@ -1,0 +1,25 @@
+var bridgeQXS__Staggered_8h =
+[
+    [ "mult_staggered_1", "bridgeQXS__Staggered_8h.html#a9562b3892bc4d86067f1340cfec04302", null ],
+    [ "mult_staggered_1", "bridgeQXS__Staggered_8h.html#ab44f8bcdc7e6fded54c2e05b49f52920", null ],
+    [ "mult_staggered_2", "bridgeQXS__Staggered_8h.html#afd2b59435eae1edf4646612c9736e814", null ],
+    [ "mult_staggered_2", "bridgeQXS__Staggered_8h.html#a7e06aaa99b0fce8b0bda1a1bf0b16337", null ],
+    [ "mult_staggered_axpby", "bridgeQXS__Staggered_8h.html#ac7d9551675ab0900a14df96f2736b925", null ],
+    [ "mult_staggered_axpby", "bridgeQXS__Staggered_8h.html#aa5d23bbdfa1a4a40f415c0d622185af5", null ],
+    [ "mult_staggered_bulk", "bridgeQXS__Staggered_8h.html#a9dfd04c3501463f2bbddcec24896ea8e", null ],
+    [ "mult_staggered_bulk", "bridgeQXS__Staggered_8h.html#a34540aa8a4e71fdbd51da7354b9bdca1", null ],
+    [ "mult_staggered_clear", "bridgeQXS__Staggered_8h.html#abfde0d54d8ccbdbc0d8674a41319f9c4", null ],
+    [ "mult_staggered_clear", "bridgeQXS__Staggered_8h.html#a7bb934354015fc892c28ed2d2f46e922", null ],
+    [ "mult_staggered_eo_1", "bridgeQXS__Staggered_8h.html#a019e7066c13fd08223943dd58390a582", null ],
+    [ "mult_staggered_eo_1", "bridgeQXS__Staggered_8h.html#a62b77b3c212323f0d870ed54677b5026", null ],
+    [ "mult_staggered_eo_2", "bridgeQXS__Staggered_8h.html#a02843bf3e5d443c7d1e2c11b51856625", null ],
+    [ "mult_staggered_eo_2", "bridgeQXS__Staggered_8h.html#aae78cf6762b0122808228a8021adf98c", null ],
+    [ "mult_staggered_eo_bulk", "bridgeQXS__Staggered_8h.html#a1ccf0e8b4dc491147a332b45d919f5d7", null ],
+    [ "mult_staggered_eo_bulk", "bridgeQXS__Staggered_8h.html#a00498078cd04747c38cb25cb33db8a6f", null ],
+    [ "mult_staggered_mult_Gd", "bridgeQXS__Staggered_8h.html#acedab7e067f6a51a15ac32b398a484f1", null ],
+    [ "mult_staggered_mult_Gd", "bridgeQXS__Staggered_8h.html#a9e0cd830956466f27467ba2b02bcf840", null ],
+    [ "mult_staggered_mult_Gn", "bridgeQXS__Staggered_8h.html#a5281272f26c6c45fd64f80008e5e0993", null ],
+    [ "mult_staggered_mult_Gn", "bridgeQXS__Staggered_8h.html#a527b68cbc43675be0ca6a1fab0f1b1da", null ],
+    [ "mult_staggered_phase", "bridgeQXS__Staggered_8h.html#a6012b0efbbb0a075517d030aa3802338", null ],
+    [ "mult_staggered_phase", "bridgeQXS__Staggered_8h.html#a2478826d2406e78a845010939018df0d", null ]
+];

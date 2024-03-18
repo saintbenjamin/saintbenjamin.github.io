@@ -1,0 +1,27 @@
+var afield_inc_8h =
+[
+    [ "AFIELD_HAS_DOTC_AND_NORM2", "afield-inc_8h.html#a3055bcc0f624c7a35f00a1e638dcc625", null ],
+    [ "axpy", "afield-inc_8h.html#a568621c99f81fe79c233781afb52fbb8", null ],
+    [ "axpy", "afield-inc_8h.html#a6b5a9fd139f131fe09124614bd8ea5dd", null ],
+    [ "axpy", "afield-inc_8h.html#a364f0aa6fde26db605af6b1fd8f17a3c", null ],
+    [ "axpy", "afield-inc_8h.html#aaa2a815c62786e4901b7aea070013fa9", null ],
+    [ "aypx", "afield-inc_8h.html#a5bec040f4b5d88bef9db2cf6dadc7038", null ],
+    [ "aypx", "afield-inc_8h.html#aa2365f4619a8e927e51cb5942da027c4", null ],
+    [ "convert", "afield-inc_8h.html#a570f79688f67953df980e78c4875bdf2", null ],
+    [ "convert", "afield-inc_8h.html#ae2651adf4226c6302aa3c768106bcacd", null ],
+    [ "convert_gauge", "afield-inc_8h.html#ac73a457349f4baf3e0b1c5ad179a5b02", null ],
+    [ "convert_h", "afield-inc_8h.html#a7603699b37bb41aeafb1904574bfb6b2", null ],
+    [ "convert_spinor", "afield-inc_8h.html#a28d3e45676038de3ed7857a0da8f2c75", null ],
+    [ "copy", "afield-inc_8h.html#a2aacdafc4e7bc17d219ded487c1ed2bb", null ],
+    [ "copy", "afield-inc_8h.html#a132e66c96e83fce00bbafb91272a2461", null ],
+    [ "dot", "afield-inc_8h.html#ad78e8f786844fff4885dc591b518e84e", null ],
+    [ "dotc", "afield-inc_8h.html#a1ef3d2c6ebb2a6fe639b10893a682689", null ],
+    [ "dotc_and_norm2", "afield-inc_8h.html#a569891ff633c707bb301afc19721882c", null ],
+    [ "norm2", "afield-inc_8h.html#a64eeefe39d5a11e42c66ee1b3ce29fc3", null ],
+    [ "reverse", "afield-inc_8h.html#a182cb3baa90e365bce9b428fb96f6bf0", null ],
+    [ "reverse", "afield-inc_8h.html#a06b98927f504dfae0a30752b2c6b16c1", null ],
+    [ "reverse_gauge", "afield-inc_8h.html#ab1872e2772eb551b880eed628ceec482", null ],
+    [ "reverse_spinor", "afield-inc_8h.html#aee69fedaf612b87a7e7734ec742831c2", null ],
+    [ "scal", "afield-inc_8h.html#aabbe5aaed6564bdeb9d3ab46409dcce7", null ],
+    [ "scal", "afield-inc_8h.html#a01a8510c89a46e639964e3c55aa53455", null ]
+];

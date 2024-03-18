@@ -1,0 +1,312 @@
+\_form#0=85x14:$xi(t=0,\vec{x})=0$
+\_form#1=124x35:\[
+ S_G=-\frac{\beta}{N_c}\sum_p{\rm Re}{\rm Tr} U_p
+\]
+\_form#2=231x35:\[
+S_g[U]=\frac{\beta}{N_c}\sum_{x}\sum_{\mu<\nu}\omega_{\mu\nu}(x)
+{\rm Re}{\rm Tr}\left(-U_{\mu\nu}(x)\right)
+\]
+\_form#3=154x14:$\omega_{0i}(t=0)=\omega_{0i}(t=T)=c_t$
+\_form#4=60x14:$\omega_{\mu\nu}(n)=1$
+\_form#5=245x39:\[
+ S_G=-\frac{\beta}{N_c}\left(c_0\sum_p{\rm Re}{\rm Tr} U_p
+ +c_1\sum_r{\rm Re}{\rm Tr} U_r\right)
+\]
+\_form#6=369x35:\[
+S[U]=
+\frac{\beta}{N_c}\sum_{{\cal C}\in{\cal S}_0}W_0({\cal C})
+{\rm Re}{\rm Tr}\left(-P({\cal C})\right)
++\frac{\beta}{N_c}\sum_{{\cal C}\in{\cal S}_1}W_1({\cal C})
+{\rm Re}{\rm Tr}\left(-R({\cal C})\right)
+\]
+\_form#7=9x11:${\cal C}$
+\_form#8=423x46:\[
+W_0({\cal C}) =
+      \left\{
+       \begin{array}{ll}
+         c_0 c^P_{\rm{t}}(g^2_0)
+       & \mbox{for } {\cal C} \in P_{\rm{t}} :
+          \mbox{Set of temporal plaquettes that just touch}
+       \\
+       &
+          \mbox{\hspace{19mm} one of the boundaries, }
+       \\
+         c_0
+       & \mbox{for } {\cal C} \in P_{\rm{other}} :
+          \mbox{otherwise, }
+       \end{array}
+            \right.
+\]
+\_form#9=435x46:\[
+W_1({\cal C})
+      =
+      \left\{
+       \begin{array}{ll}
+         c_1 c^R_{\rm{t}}(g^2_0)
+       & \mbox{for } {\cal C} \in R^2_{\rm{t}} :
+          \mbox{Set of temporal rectangles that have exactly}
+       \\
+       &
+          \mbox{\hspace{19mm} two links on a boundary, }
+       \\
+         c_1
+       & \mbox{for } {\cal C} \in R_{\rm{other}} :
+          \mbox{otherwise, }
+       \end{array}
+            \right.
+\]
+\_form#10=130x14:$\partial_t\chi(t,x)=D_\mu D_\mu\chi(t,x)$
+\_form#11=16x14:$D_\mu$
+\_form#12=51x14:$U_k(t=0)$
+\_form#13=16x13:$W_k$
+\_form#14=80x14:$U_k(t=N_t-1)$
+\_form#15=16x14:$W_k'$
+\_form#16=45x15:$=\Sigma_\mu'(x)$
+\_form#17=44x14:$=U_\mu(x)$
+\_form#18=168x16:$\Sigma_\mu'(x)\exp(iQ_\mu(x))+C_\mu^\dagger i\Lambda_\mu(x)$
+\_form#19=69x14:$i\Lambda_\mu(x)U_\mu(x)$
+\_form#20=45x14:$=\Sigma_\mu(x)$
+\_form#21=180x16:$-U_\nu(x+\mu)U_\mu^\dagger(x+\nu)U_\nu^\dagger(x)\Lambda_\nu(x)$
+\_form#22=248x16:$-U_\nu^\dagger(x+\mu-\nu)U_\mu^\dagger(x-\nu)\Lambda_\mu(x-\nu)U_\nu(x-\nu)$
+\_form#23=238x16:$U_\nu^\dagger(x+\mu-\nu)U_\mu^\dagger(x-\nu)\Lambda_\nu(x-\nu)U_\nu(x-\nu)$
+\_form#24=195x16:$\Lambda_\nu(x+\mu)U_\nu(x+\mu)U_\mu^\dagger(x+\nu)U_\nu^\dagger(x)$
+\_form#25=270x16:$-U_\nu^\dagger(x+\mu-\nu)\Lambda_\mu(x+\mu-\nu)U_\mu^\dagger(x-\nu)U_\nu(x-\nu)$
+\_form#26=204x16:$-U_\nu(x+\mu)U_\mu^\dagger(x+\nu)\Lambda_\mu(x+\nu)U_\nu^\dagger(x)$
+\_form#27=44x14:$=U_{\mu}(x)$
+\_form#28=53x18:$=V_{\mu;\nu}^{(2)}(x)$
+\_form#29=249x20:$\Xi_\mu^{(3)}(x)=\Sigma_\mu'(x)\exp(iQ_\mu^{(3)}(x))+C_\mu^{(3)\dagger} i\Lambda_\mu^{(3)}(x)$
+\_form#30=75x19:$i\Lambda_\mu^{(3)}(x)U_\mu(x)$
+\_form#31=53x18:$=\Sigma_{\mu;\nu}^{(3)}(x)$
+\_form#32=56x18:$=V_{\mu;\nu\rho}^{(1)}(x)$
+\_form#33=261x18:$\Xi_\mu^{(2)}(x)=\Sigma_{\mu;\nu}^{(3)}(x)\exp(iQ_{\mu;\nu}^{(2)}(x))+C_{\mu;\nu}^{(2)\dagger} i\Lambda_{\mu;\nu}^{(2)}(x)$
+\_form#34=78x19:$i\Lambda_{\mu;\nu}^{(2)}(x)U_\mu(x)$
+\_form#35=58x18:$=\Sigma_{\mu;\nu\rho}^{(2)}(x)$
+\_form#36=278x18:$\Xi_\mu^{(1)}(x)=\Sigma_{\mu;\nu\rho}^{(2)}(x)\exp(iQ_{\mu;\nu\rho}^{(1)}(x))+C_{\mu;\nu\rho}^{(1)\dagger}i\Lambda_{\mu;\nu\rho}^{(1)}(x)$
+\_form#37=83x19:$i\Lambda_{\mu;\nu\rho}^{(1)}(x)U_\mu(x)$
+\_form#38=36x13:\[
+U_3=1
+\]
+\_form#39=314x26:\[
+U_k(x)=\exp\left(aB_k(x)\right),\quad
+B_k(x)=\frac{1}{T}\left(x_0C_k'+(T-x_0)C_k\right)
+\]
+\_form#40=288x46:\[
+C_k=\frac{i}{L}\pmatrix{\phi_1\cr&\phi_2\cr&&\phi_3\cr},\quad
+C_k'=\frac{i}{L}\pmatrix{\phi'_1\cr&\phi'_2\cr&&\phi'_3\cr}
+\]
+\_form#41=140x26:\[
+A_\mu^a(x)={\overline{\psi}}(x)\gamma_\mu\gamma_5\frac{\tau^a}{2}\psi(x)
+\]
+\_form#42=128x26:\[
+P^a(x)={\overline{\psi}}(x)\gamma_5\frac{\tau^a}{2}\psi(x)
+\]
+\_form#43=146x35:\[
+{\cal O}^a=a^6\sum_{\vec{x},\vec{y}}\overline{\zeta}\left(\vec{x}\right)
+\gamma_5\frac{\tau^a}{2}\zeta\left(\vec{y}\right)
+\]
+\_form#44=156x35:\[
+{\cal O'}^a=a^6\sum_{\vec{x},\vec{y}}\overline{\zeta}'\left(\vec{x}\right)
+\gamma_5\frac{\tau^a}{2}\zeta'\left(\vec{y}\right)
+\]
+\_form#45=401x35:\[
+f_A(x_0)=-\frac{1}{N_f^2-1}\left\langle{A_0^a(x_0){\cal O}^a}\right\rangle
+=\frac{1}{2}\sum_{\vec{v},\vec{y}}{\rm tr}\left(
+\left\langle{\zeta(\vec{v}){\overline{\psi}}(x)}\right\rangle\gamma_0\gamma_5
+\left\langle{\psi(x)\overline{\zeta}(\vec{y})}\right\rangle\gamma_5\right)
+\]
+\_form#46=390x35:\[
+f_P(x_0)=-\frac{1}{N_f^2-1}\left\langle{P^a(x_0){\cal O}^a}\right\rangle
+=\frac{1}{2}\sum_{\vec{v},\vec{y}}{\rm tr}\left(
+\left\langle{\zeta(\vec{v}){\overline{\psi}}(x)}\right\rangle\gamma_5
+\left\langle{\psi(x)\overline{\zeta}(\vec{y})}\right\rangle\gamma_5\right)
+\]
+\_form#47=514x35:\[
+f_A'(x_0)=+\frac{1}{N_f^2-1}\left\langle{A_0^a(T-x_0){\cal O'}^a}\right\rangle
+=-\frac{1}{2}\sum_{\vec{v},\vec{y}}{\rm tr}\left(
+\left\langle{\zeta'(\vec{v}){\overline{\psi}}(T-x_0)}\right\rangle\gamma_0\gamma_5
+\left\langle{\psi(T-x_0)\overline{\zeta}'(\vec{y})}\right\rangle\gamma_5\right)
+\]
+\_form#48=493x35:\[
+f_P'(x_0)=-\frac{1}{N_f^2-1}\left\langle{P^a(T-x_0){\cal O'}^a}\right\rangle
+=\frac{1}{2}\sum_{\vec{v},\vec{y}}{\rm tr}\left(
+\left\langle{\zeta'(\vec{v}){\overline{\psi}}(T-x_0)}\right\rangle\gamma_5
+\left\langle{\psi(T-x_0)\overline{\zeta}'(\vec{y})}\right\rangle\gamma_5\right)
+\]
+\_form#49=24x10:$\Delta M$
+\_form#50=224x19:\[
+b_1\left({y},\alpha,a\right)_{\beta,b}=\widetilde{c}_t
+U_0^\dagger\left(\vec{y},0\right)_{ab}
+\delta_{y_0,1}\left(P_+\right)_{\alpha\beta}.
+\]
+\_form#51=55x16:$U_0^\dagger\left(\vec{y},0\right)_{ab}$
+\_form#52=45x13:$\alpha=\beta=$
+\_form#53=269x16:\[
+b_{T-1}\left({y},\alpha,a\right)_{\beta,b}=\widetilde{c}_tU_0(\vec{y},T-1)_{ab}
+\left(P_-\right)_{\alpha\beta}\delta_{y_0,T-1}
+\]
+\_form#54=79x14:$U_0\left(\vec{y},T-a\right)_{ab}$
+\_form#55=10x13:$\widetilde{c}_t$
+\_form#56=133x14:$O_{1\mu\nu}(x)=F_{\mu\rho}(x)F_{\nu\rho}(x)$
+\_form#57=19x14:$F_{\mu\nu}$
+\_form#58=253x14:$O_{1\mu\nu}(t_{\rm flow})=1/V_4\sum_{x}F_{\mu\rho}(t_{\rm flow},x)F_{\nu\rho}(t_{\rm flow},x)$
+\_form#59=243x14:$O_{2}(t_{\rm flow})=1/V_4\sum_{x}F_{\mu\nu}(t_{\rm flow},x)F_{\mu\nu}(t_{\rm flow},x)$
+\_form#60=359x16:$O_{1\mu\nu}(t_{\rm flow},t)=1/V_{xyz}\sum_{x,y,z}F_{\mu\rho}(t_{\rm flow},x,y,z,t)F_{\nu\rho}(t_{\rm flow},x,y,z,t)$
+\_form#61=461x16:$O_{1\mu\nu}(t_{\rm flow},t)=1/V_{xyz}\sum_{x,y,z}\cos(p_xx+p_yy+p_zz)F_{\mu\rho}(t_{\rm flow},x,y,z,t)F_{\nu\rho}(t_{\rm flow},x,y,z,t)$
+\_form#62=49x11:$0\le p_x\le$
+\_form#63=38x13:$\le p_y\le$
+\_form#64=38x11:$\le p_z\le$
+\_form#65=358x16:$O_{1\mu\nu}(t_{\rm flow},x)=1/V_{yzt}\sum_{y,z,t}F_{\mu\rho}(t_{\rm flow},x,y,z,t)F_{\nu\rho}(t_{\rm flow},x,y,z,t)$
+\_form#66=455x16:$O_{1\mu\nu}(t_{\rm flow},x)=1/V_{yzt}\sum_{y,z,t}\cos(p_yy+p_zz+p_tt)F_{\mu\rho}(t_{\rm flow},x,y,z,t)F_{\nu\rho}(t_{\rm flow},x,y,z,t)$
+\_form#67=358x16:$O_{1\mu\nu}(t_{\rm flow},y)=1/V_{xzt}\sum_{x,z,t}F_{\mu\rho}(t_{\rm flow},x,y,z,t)F_{\nu\rho}(t_{\rm flow},x,y,z,t)$
+\_form#68=456x16:$O_{1\mu\nu}(t_{\rm flow},y)=1/V_{xzt}\sum_{x,z,t}\cos(p_xx+p_zz+p_tt)F_{\mu\rho}(t_{\rm flow},x,y,z,t)F_{\nu\rho}(t_{\rm flow},x,y,z,t)$
+\_form#69=358x16:$O_{1\mu\nu}(t_{\rm flow},z)=1/V_{xyt}\sum_{x,y,t}F_{\mu\rho}(t_{\rm flow},x,y,z,t)F_{\nu\rho}(t_{\rm flow},x,y,z,t)$
+\_form#70=458x16:$O_{1\mu\nu}(t_{\rm flow},z)=1/V_{xyt}\sum_{x,y,t}\cos(p_xx+p_yy+p_tt)F_{\mu\rho}(t_{\rm flow},x,y,z,t)F_{\nu\rho}(t_{\rm flow},x,y,z,t)$
+\_form#71=95x14:$\sum_x {\rm Re}{\rm tr}(F_{\mu\nu}F_{\rho\sigma})$
+\_form#72=111x16:$\sum_{x,y,z} {\rm Re}{\rm tr}(F_{\mu\nu}F_{\rho\sigma})$
+\_form#73=225x16:$\sum_{x,y,z}cos(p_xx+p_yy+p_zz){\rm Re}{\rm tr}(F_{\mu\nu}F_{\rho\sigma})$
+\_form#74=109x16:$\sum_{y,z,t}{\rm Re}{\rm tr}(F_{\mu\nu}F_{\rho\sigma})$
+\_form#75=219x16:$\sum_{y,z,t}cos(p_yy+p_zz+p_tt){\rm Re}{\rm tr}(F_{\mu\nu}F_{\rho\sigma})$
+\_form#76=110x16:$\sum_{x,z,t} {\rm Re}{\rm tr}(F_{\mu\nu}F_{\rho\sigma})$
+\_form#77=220x16:$\sum_{x,z,t}cos(p_xx+p_zz+p_tt){\rm Re}{\rm tr}(F_{\mu\nu}F_{\rho\sigma})$
+\_form#78=110x16:$\sum_{x,y,t} {\rm Re}{\rm tr}(F_{\mu\nu}F_{\rho\sigma})$
+\_form#79=221x16:$\sum_{x,y,t}cos(p_xx+p_yy+p_tt){\rm Re}{\rm tr}(F_{\mu\nu}F_{\rho\sigma})$
+\_form#80=331x46:\[
+U_k(x)|_{t=0}=W_k(\vec{x})=\exp\left(a C_k\right),\quad
+C_k=\frac{i}{L}\pmatrix{\phi_1\cr&\phi_2\cr&&\phi_3\cr},
+\]
+\_form#81=334x46:\[
+U_k(x)|_{t=T}=W_k'(\vec{x})=\exp\left(a C_k'\right),\quad
+C_k'=\frac{i}{L}\pmatrix{\phi'_1\cr&\phi'_2\cr&&\phi'_3\cr},
+\]
+\_form#82=194x46:\[
+\verb|iomega0|=i\Omega_0=i\pmatrix{1\cr&-\frac{1}{2}\cr&&-\frac{1}{2}\cr}
+\]
+\_form#83=74x14:\[
+\verb|omega0|=i\Omega_0
+\]
+\_form#84=131x31:\[
+  \frac{k}{\overline{g}^2}=
+ \left\langle\frac{\partial S_g}{\partial\eta}\right\rangle
++\left\langle\frac{\partial S_f}{\partial\eta}\right\rangle
+  \]
+\_form#85=263x34:\[
+  k=12\left(\frac{L}{a}\right)^2
+  \left(\sin\theta+\sin\left(2\theta\right)\right),
+  \quad
+  \theta=\frac{1}{3}\pi\left(\frac{a^2}{TL}\right)
+  \]
+\_form#86=598x38:\[
+  \frac{\partial S_g}{\partial\eta}=
+  -\frac{2}{g_0^2}\sum_{\vec{x}}
+  c_t\sum_{k=1}^{3}\frac{a}{L}{\rm Re\ }{\rm tr}\Bigl(
+  i\Omega_0W_k(\vec{x})U_0(\vec{x}+\hat{k},0)U_k^\dagger(\vec{x},1)
+  U_0^\dagger(\vec{x},0)
+  -i\Omega_0W_k'U_0^\dagger(\vec{x}+\hat{k},T-1)U_k^\dagger(\vec{x},T-1)
+  U_0(\vec{x},T-1)
+  \Bigr)
+  \]
+\_form#87=528x38:\[
+  \frac{\partial S_g}{\partial\eta}=
+  -\frac{2}{g_0^2}\sum_{\vec{x}}
+  c_t\sum_{k=1}^{3}\frac{a}{L}{\rm Re\ }{\rm tr}\Bigl(
+  i\Omega_0\verb|upper|(3,k)(\vec{x},0)U_0^\dagger(\vec{x},0)
+  -i\Omega_0\verb|upper|(3,k)(\vec{x},T-1)^\dagger U_0(\vec{x},T-1)
+  \Bigr)
+  \]
+\_form#88=470x38:\[
+  -c_t\sum_{\vec{x}}\sum_{k=1}^{3}\frac{a}{L}{\rm Re\ }{\rm tr}\Bigl(
+  i\Omega_0\verb|upper|(3,k)(\vec{x},0)U_0^\dagger(\vec{x},0)
+  -i\Omega_0\verb|upper|(3,k)(\vec{x},T-1)^\dagger U_0(\vec{x},T-1)
+  \Bigr)
+  \]
+\_form#89=41x14:$\partial S_f/\partial\eta$
+\_form#90=216x39:\[
+  \frac{k}{\overline{g}^2}=
+ \left\langle\frac{\partial S_g^{\rm plaq}}{\partial\eta}\right\rangle
++\left\langle\frac{\partial S_g^{\rm rect}}{\partial\eta}\right\rangle
++\left\langle\frac{\partial S_f}{\partial\eta}\right\rangle
+\]
+\_form#91=413x38:\[
+\frac{\partial S_g}{\partial\eta}=
+-\frac{2}{g_0^2}c_1\sum_{\vec{x}}\sum_{k=1}^{3}
+\frac{ia}{L}{\rm Re}{\rm Tr}\Bigl(
+c_t^R\left(
+\Omega S_{kk0}(\vec{x},0)
++\Omega S_{0kk}(\vec{x},0)\right)
++\Omega S_{00k}(\vec{x},0)
+\Bigr)
+\]
+\_form#92=393x38:\[
++\frac{2}{g_0^2}c_1\sum_{\vec{x}}\sum_{k=1}^{3}
+\frac{ia}{L}{\rm Re}{\rm Tr}\Bigl(
+c_t^R\left(
+\Omega'S_{kk0}(\vec{x},T)
++\Omega'S_{0kk}(\vec{x},T)\right)
++\Omega'S_{00k}(\vec{x},T)
+\Bigr)
+\]
+\_form#93=329x16:\[
+S_{kk0}(\vec{x},0)=W_kW_kU_0(\vec{x}+2\hat{k},0)
+U_k^\dagger(\vec{x}+\hat{k},1)U_k^\dagger(\vec{x},1)U_0^\dagger(\vec{x},0)
+\]
+\_form#94=344x16:\[
+S_{0kk}(\vec{x},0)=W_kU_0(\vec{x}+\hat{k},0)U_k^\dagger(\vec{x},1)
+U_k^\dagger(\vec{x}-\hat{k},1)U_0^\dagger(\vec{x}-\hat{k},0)W_k
+\]
+\_form#95=346x16:\[
+S_{00k}(\vec{x},0)=W_kU_0(\vec{x}+\hat{k},0)U_0(\vec{x}+\hat{k},1)
+U_k^\dagger(\vec{x},2)U_0^\dagger(\vec{x},1)U_0^\dagger(\vec{x},0)
+\]
+\_form#96=406x16:\[
+S_{kk0}(\vec{x},T)=W_k'W_k'U_0^\dagger(\vec{x}+2\hat{k},T)
+U_k^\dagger(\vec{x}+\hat{k},T-1)U_k^\dagger(\vec{x},T-1)U_0(\vec{x},T-1)
+\]
+\_form#97=429x16:\[
+S_{0kk}(\vec{x},T)=W_k'U_0^\dagger(\vec{x}+\hat{k},T-1)
+U_k^\dagger(\vec{x},T-1)U_k^\dagger(\vec{x}-\hat{k},T-1)
+U_0(\vec{x}-\hat{k},T-1)W_k'
+\]
+\_form#98=431x16:\[
+S_{00k}(\vec{x},T)=W_k'U_0^\dagger(\vec{x}+\hat{k},T-1)
+U_0^\dagger(\vec{x}+\hat{k},T-2)U_k^\dagger(\vec{x},T-2)U_0(\vec{x},T-2)
+U_0(\vec{x},T-1)
+\]
+\_form#99=348x38:\[
+-\sum_{\vec{x}}\sum_{k=1}^{3}
+\frac{ia}{L}{\rm Re}{\rm Tr}\Bigl(
+c_t^R\left(
+\Omega S_{kk0}(\vec{x},0)
++\Omega S_{0kk}(\vec{x},0)\right)
++\Omega S_{00k}(\vec{x},0)
+\Bigr)
+\]
+\_form#100=368x38:\[
++\sum_{\vec{x}}\sum_{k=1}^{3}
+\frac{ia}{L}{\rm Re}{\rm Tr}\Bigl(
+c_t^R\left(
+\Omega'S_{kk0}(\vec{x},T)
++\Omega'S_{0kk}(\vec{x},T)\right)
++\Omega'S_{00k}(\vec{x},T)
+\Bigr)
+\]
+\_form#101=210x35:\[
+\frac{1}{3}\frac{1}{6L_xL_yL_zL_t-3L_xL_yL_z}\sum_{p\notin{\rm boundary}}U_p
+\]
+\_form#102=110x34:\[
+\frac{1}{3}\frac{1}{6L_xL_yL_zL_t}\sum_{p}U_p
+\]
+\_form#103=133x16:$1/V_{xyz}\sum_{x,y,z}q(x,y,z,t)$
+\_form#104=246x16:$1/V_{xyz}\sum_{x,y,z}\cos(p_xx+p_yy+p_zz)q(x,y,z,t)$
+\_form#105=129x16:$1/V_{yzt}\sum_{y,z,t}q(x,y,z,t)$
+\_form#106=238x16:$1/V_{yzt}\sum_{y,z,t}\cos(p_yy+p_zz+p_tt)q(x,y,z,t)$
+\_form#107=129x16:$1/V_{xzt}\sum_{x,z,t}q(x,y,z,t)$
+\_form#108=239x16:$1/V_{xzt}\sum_{x,z,t}\cos(p_xx+p_zz+p_tt)q(x,y,z,t)$
+\_form#109=130x16:$1/V_{xyt}\sum_{x,y,t}q(x,y,z,t)$
+\_form#110=240x16:$1/V_{xyt}\sum_{x,y,t}\cos(p_xx+p_yy+p_tt)q(x,y,z,t)$
+\_form#111=45x14:$=C_\mu(x)$
+\_form#112=34x14:$=iQ_\mu$
+\_form#113=26x10:$=i\Lambda$
+\_form#114=58x14:$=i\Lambda U_\mu(x)$
+\_form#115=180x16:$=\Sigma_\mu'(x)\exp(iQ_\mu(x))+C_\mu^\dagger i\Lambda_\mu(x)$
+\_form#116=18x9:$\gamma_{ab}$
+\_form#117=48x9:$\kappa_{ud}=\kappa_s$

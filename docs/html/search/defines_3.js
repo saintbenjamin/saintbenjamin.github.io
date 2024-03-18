@@ -1,0 +1,6 @@
+var searchData=
+[
+  ['check_5fnc_5f3_0',['CHECK_NC_3',['../gaugeFixing__Coulomb_8h.html#ae555c02b9516e97a482a49a07ce28ef7',1,'CHECK_NC_3():&#160;gaugeFixing_Coulomb.h'],['../gaugeFixing__Landau_8h.html#ae555c02b9516e97a482a49a07ce28ef7',1,'CHECK_NC_3():&#160;gaugeFixing_Landau.h']]],
+  ['chiral_5frotation_1',['CHIRAL_ROTATION',['../afopr__Clover__dd__double_8cpp.html#a835d1b5314302583facb02f8bf83274c',1,'CHIRAL_ROTATION():&#160;afopr_Clover_dd_double.cpp'],['../afopr__Clover__dd__float_8cpp.html#a835d1b5314302583facb02f8bf83274c',1,'CHIRAL_ROTATION():&#160;afopr_Clover_dd_float.cpp'],['../afopr__Clover__double_8cpp.html#a835d1b5314302583facb02f8bf83274c',1,'CHIRAL_ROTATION():&#160;afopr_Clover_double.cpp'],['../afopr__Clover__eo__double_8cpp.html#a835d1b5314302583facb02f8bf83274c',1,'CHIRAL_ROTATION():&#160;afopr_Clover_eo_double.cpp'],['../afopr__Clover__eo__float_8cpp.html#a835d1b5314302583facb02f8bf83274c',1,'CHIRAL_ROTATION():&#160;afopr_Clover_eo_float.cpp'],['../afopr__Clover__float_8cpp.html#a835d1b5314302583facb02f8bf83274c',1,'CHIRAL_ROTATION():&#160;afopr_Clover_float.cpp']]],
+  ['complex_2',['COMPLEX',['../eigensolver__IRArnoldi_8cpp.html#a930a566fa45fefdd326401c2efb53164',1,'COMPLEX():&#160;eigensolver_IRArnoldi.cpp'],['../eigensolver__IRLanczos_8cpp.html#a930a566fa45fefdd326401c2efb53164',1,'COMPLEX():&#160;eigensolver_IRLanczos.cpp']]]
+];

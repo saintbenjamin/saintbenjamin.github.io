@@ -1,0 +1,25 @@
+var classASolver__SAP__QWS =
+[
+    [ "real_t", "classASolver__SAP__QWS.html#aeb723da31b38565f2907cf572d67e53a", null ],
+    [ "ASolver_SAP_QWS", "classASolver__SAP__QWS.html#a7a70fd5ed298afabfe178910701c2824", null ],
+    [ "ASolver_SAP_QWS", "classASolver__SAP__QWS.html#ab7cdd7a908c2703267669cb9c9309e1f", null ],
+    [ "~ASolver_SAP_QWS", "classASolver__SAP__QWS.html#aa0c1f9e8b2c7f58a54fa09f38f87f998", null ],
+    [ "flop_count", "classASolver__SAP__QWS.html#af7e2a23e4c78a69f8e949b932738f0d0", null ],
+    [ "get_fopr", "classASolver__SAP__QWS.html#a10b5bcdff2b1af4c9842ca67dc3335ba", null ],
+    [ "init", "classASolver__SAP__QWS.html#af4c7696693e2d4a28d3297bf00b73df4", null ],
+    [ "set_parameters", "classASolver__SAP__QWS.html#a98f5c55399b9413c88ecaaefff097bd1", null ],
+    [ "set_parameters", "classASolver__SAP__QWS.html#a20e2106fe54715159eafaaf42b4707cc", null ],
+    [ "solve", "classASolver__SAP__QWS.html#a491a74479cfa458ba964b717d5fac52e", null ],
+    [ "tidyup", "classASolver__SAP__QWS.html#a46c18f1cb0ed1429af8d2a634b246401", null ],
+    [ "class_name", "classASolver__SAP__QWS.html#abed3e0438dbbd6e0bed1bbe05124a5ea", null ],
+    [ "m_b", "classASolver__SAP__QWS.html#aadbe5cd696823bb0424f93bcbc54fd21", null ],
+    [ "m_flop", "classASolver__SAP__QWS.html#a22e95fe4cdc8d994212ac2324e6be732", null ],
+    [ "m_fopr", "classASolver__SAP__QWS.html#a1fb10966539800665c4200a27ba89092", null ],
+    [ "m_Nconv", "classASolver__SAP__QWS.html#abafdf8c511447fdb65aa1625bcef9256", null ],
+    [ "m_nconv", "classASolver__SAP__QWS.html#acb61a8ffe3bee1a54965f77f50b98146", null ],
+    [ "m_Niter", "classASolver__SAP__QWS.html#a2272897a109b822e093df58725e71dd4", null ],
+    [ "m_nm", "classASolver__SAP__QWS.html#a93b9497cf131772ec324104db7e85b19", null ],
+    [ "m_r", "classASolver__SAP__QWS.html#ac822c8992365bccc52595f07b4e8f665", null ],
+    [ "m_Stop_cond", "classASolver__SAP__QWS.html#abf51b29ce6ab8c537d4df1d01cc535f6", null ],
+    [ "m_x", "classASolver__SAP__QWS.html#a8fe772889e258086ab770ea07d519c99", null ]
+];

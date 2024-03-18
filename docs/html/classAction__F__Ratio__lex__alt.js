@@ -1,0 +1,27 @@
+var classAction__F__Ratio__lex__alt =
+[
+    [ "real_t", "classAction__F__Ratio__lex__alt.html#ac6ea0dedca30eba0bb5050b7d83f6902", null ],
+    [ "Action_F_Ratio_lex_alt", "classAction__F__Ratio__lex__alt.html#a0e758323709430c7bb8a3465ffff62a9", null ],
+    [ "~Action_F_Ratio_lex_alt", "classAction__F__Ratio__lex__alt.html#a6b383de0bbff78853d6fd150a1999aac", null ],
+    [ "calcH", "classAction__F__Ratio__lex__alt.html#ade34f490c9070bc15f3a09f82cccd612", null ],
+    [ "force", "classAction__F__Ratio__lex__alt.html#a749175cd4529d80effed4007ac9af98d", null ],
+    [ "get_label", "classAction__F__Ratio__lex__alt.html#a0bb8522ae2f5f4791833e154ceff9bff", null ],
+    [ "init", "classAction__F__Ratio__lex__alt.html#a2e2c23d47f8fa80cef4d6b805ac0ae8a", null ],
+    [ "langevin", "classAction__F__Ratio__lex__alt.html#a2aab39d7c1e6c8ec6241ecf57f887d94", null ],
+    [ "set_config", "classAction__F__Ratio__lex__alt.html#ac42e8a9f41003b379a4b354df3b04bd4", null ],
+    [ "set_label", "classAction__F__Ratio__lex__alt.html#a8b1e7afc0cc11d7f4c265bb26fb61a32", null ],
+    [ "set_parameters", "classAction__F__Ratio__lex__alt.html#ad3ce68255a435f9be98b70b88ce0fed5", null ],
+    [ "set_parameters", "classAction__F__Ratio__lex__alt.html#a2db170b2a45a5e7e67d6ce2b7afefa9e", null ],
+    [ "tidyup", "classAction__F__Ratio__lex__alt.html#aa92bc5c832d7bd20f732b2c0d51d0277", null ],
+    [ "class_name", "classAction__F__Ratio__lex__alt.html#a5da46effe96a1672295c96dc302d3614", null ],
+    [ "m_fopr", "classAction__F__Ratio__lex__alt.html#a14b393a0b69ad97689b2285c275b7069", null ],
+    [ "m_fopr_force", "classAction__F__Ratio__lex__alt.html#a511507d75042ab5d4f47039f39ba3299", null ],
+    [ "m_fopr_prec", "classAction__F__Ratio__lex__alt.html#afe9d1b15ec45f0fa4e317c08f65bdb4f", null ],
+    [ "m_fopr_prec_force", "classAction__F__Ratio__lex__alt.html#a2754a9ecb919470079d9c4797ba68939", null ],
+    [ "m_fprop_H", "classAction__F__Ratio__lex__alt.html#a7817a878373c98fe566f499951c69941", null ],
+    [ "m_fprop_H_prec", "classAction__F__Ratio__lex__alt.html#ac4381225a650a96ed338db35d8d1c4b2", null ],
+    [ "m_fprop_MD", "classAction__F__Ratio__lex__alt.html#ac47cd826ffefc2445f640c619e70117e", null ],
+    [ "m_label", "classAction__F__Ratio__lex__alt.html#a4c0ae35ed6630827383429714f50a44b", null ],
+    [ "m_psf", "classAction__F__Ratio__lex__alt.html#a2a93692439160660eda4b8d2ed4aa47d", null ],
+    [ "m_U", "classAction__F__Ratio__lex__alt.html#a78b5bcefad133fc91c9b998041965485", null ]
+];
