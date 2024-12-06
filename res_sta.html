@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Statement</title>
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$']], // Define $...$ for inline math
+                displayMath: [['$$', '$$']] // $$...$$ for block math
+            }
+        };
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <style>
+            a {
+                color: darkorange;
+                text-decoration: none;
+            }
+        </style>
+    </head>
+<body>
+    <h3>Data analysis technique: toward the precise determination of $\left|V_{cb}\right|$
+        using the Oktay-Kronfeld action</h3>
+
+    My collaborators in LANL/SWME and I am having been worked for the calculation of
+    $\left|V_{cb}\right|$. 
+    For the heavy (light) quark, we are using the
+    <a href="https://arxiv.org/abs/0803.0523" target="_blank">Oktay-Kronfeld action</a> (<a href="https://arxiv.org/abs/hep-lat/0610092" target="_blank">HISQ action</a>).
+    For the sea quark, we use the <a href="https://arxiv.org/abs/1212.4768" target="_blank">MILC HISQ ensemble</a>.
+    <br/>
+    
+    During the Ph.D. course days, I have mainly worked on the data analysis
+    technique. 
+    For the determination of $\left|V_{cb}\right|$ combining
+    with the experimental result, we need to calculate semileptonic form
+    factor such as $\bar{B}\to D^{\ast}\ell\bar{\nu}$ at the zero recoil
+    ($w=1$). 
+    For it, we need to perform the 3pt correlation function
+    fit on the four channels: $B\to D^{\ast}$, $D^{\ast}\to B$, $B\to B$,
+    $D^{\ast}\to D^{\ast}$. 
+    Here, we do not use <a href="https://arxiv.org/abs/0808.2519" target="_blank">$\bar{R}^{\frac{1}{2}}$
+        constant fit method</a>. 
+    We use linear fit of
+    matrix elements for ground state or excited states, using fitting
+    parameters of 2pt correlator fit as input parameters.
+    <br/>
+    
+    Hence, we need to perform the 2pt correlator fit first. We use sequential
+    Bayesian method. For the least $\chi^{2}$ fitting, we use Broyden-Fletcher-Goldfarb-Shanno
+    algorithm, which is a quasi-Newton method. 
+    Any Newton method need
+    its initial guess. If we do not feed good initial guess ($\chi^{2}$-IG)
+    to the $\chi^{2}$ minimizer, then the computing time increases. But
+    if we feed good initial guess to the $\chi^{2}$ minimizer, then we
+    can save computing time dramatically. 
+    By this reason, we additionally
+    introduced Newton method to our 2pt correlation function fit. Note
+    that Newton method needs its own initial guess (N-IG). 
+    To put N-IG
+    within the radius of convergence, we further introduce scanning method.
+    <br/>
+    
+    To solve the Newton method, we need multiple time slices which is
+    equal to the number of fitting parameters. 
+    Those time slices can be
+    chosen within the fit range. By this, we have multiple time slice
+    combinations. Before the least $\chi^{2}$ fitting, we try Newton
+    method for all possible such time slice combinations. 
+    If the Newton
+    method finds roots, we save them. Or we abandon that time slice combination.
+    In the coarse lattice, at the final step of the sequential Bayesian
+    method, Newton method find $O\left(10^{4}\right)$ roots. 
+    In order
+    to monitor statistics for the $\chi^{2}$ distribution, we randomly
+    select $O\left(10^{3}\right)$ roots among them, for example.
+    <br/>
+    
+    By this kind of combination of scanning method, Newton method and
+    sequential Bayesian method, we can find global minimum and local minima
+    of $\chi^{2}$, consuming up all possible time slices. I updated our
+    fitting code. 
+    I developed and applied multidimensional iterative scanning
+    method to our fitting code. 
+    And I applied multidimensional Newton
+    method to our fitting code. 
+    <br/>
+    
+    Through these accomplishments, I am interested in the combinations of two or more various algorithms to compensate each other, such as sequential Bayesian method and Newton method.
+
+</body>
+</html>

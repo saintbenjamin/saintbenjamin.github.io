@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Benjamin Jaedon Choi's articles on arXiv</title>
+  <link rel="describes" href="https://orcid.org/0000-0002-5438-5490"/>
+  <updated>2024-12-04T00:00:00-05:00</updated>
+  <id>http://arxiv.org/a/choi_b_1</id>
+  <link href="http://arxiv.org/a/choi_b_1.atom2" rel="self" type="application/atom+xml"/>
+  <link rel="describes" href="http://arxiv.org/a/choi_b_1"/>
+  <entry>
+    <id>http://arxiv.org/abs/2411.18170v2</id>
+    <updated>2024-11-29T00:22:12-05:00</updated>
+    <published>2024-11-27T04:30:20-05:00</published>
+    <title>Machine Learning Estimation on the Trace of Inverse Dirac Operator using the Gradient Boosting Decision Tree Regression</title>
+    <summary>We present our preliminary results on the machine learning estimation of $\text{Tr} \, M^{-n}$ from other observables with the gradient boosting decision tree regression, where $M$ is the Dirac operator. Ordinarily, $\text{Tr} \, M^{-n}$ is obtained by linear CG solver for stochastic sources which needs considerable computational cost. Hence, we explore the possibility of cost reduction on the trace estimation by the adoption of gradient boosting decision tree algorithm. We also discuss effects of bias and its correction.</summary>
+    <author>
+      <name>Benjamin J. Choi, Hiroshi Ohno, Takayuki Sumimoto, Akio Tomiya</name>
+    </author>
+    <arxiv:comment xmlns:arxiv="http://arxiv.org/schemas/atom">9 pages, 5 figures, 5 tables, Proceedings of the 41st International Symposium on Lattice Field Theory (Lattice 2024), July 28th - August 3rd, 2024, University of Liverpool, UK</arxiv:comment>
+    <arxiv:journal_ref xmlns:arxiv="http://arxiv.org/schemas/atom">PoS(LATTICE2024)033</arxiv:journal_ref>
+    <link href="http://arxiv.org/abs/2411.18170v2" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2411.18170v2" rel="related" type="application/pdf"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="hep-lat" scheme="http://arxiv.org/schemas/atom" label="High Energy Physics - Lattice (hep-lat)"/>
+    <category term="hep-lat" scheme="http://arxiv.org/schemas/atom" label="High Energy Physics - Lattice (hep-lat)"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2401.01584v1</id>
+    <updated>2024-01-03T02:32:49-05:00</updated>
+    <published>2024-01-03T02:32:49-05:00</published>
+    <title>Progress report on testing robustness of the Newton method in data analysis on 2-point correlation function using a MILC HISQ ensemble</title>
+    <summary>We report recent progress in data analysis on the two point correlation functions which will be prerequisite to obtain semileptonic form factors for the $B_{(s)} \to D_{(s)}\ell\nu$ decays. We use a MILC HISQ ensemble for the measurement. We use the HISQ action for light quarks, and the Oktay-Kronfeld (OK) action for the heavy quarks ($b$ and $c$). We used a sequential Bayesian method for the data analysis. Here we test the new fitting methodology of Benjamin J.~Choi in a completely independent manner.</summary>
+    <author>
+      <name>Tanmoy Bhattacharya, Benjamin J. Choi, Rajan Gupta, Yong-Chull Jang, Seungyeob Jwa, Sunghee Kim, Sunkyu Lee, Weonjong Lee, Jaehoon Leem, Jeonghwan Pak, Sungwoo Park</name>
+    </author>
+    <arxiv:doi xmlns:arxiv="http://arxiv.org/schemas/atom">10.22323/1.453.0155</arxiv:doi>
+    <arxiv:comment xmlns:arxiv="http://arxiv.org/schemas/atom">9 pages, 7 figures, Lattice 2023 proceedings</arxiv:comment>
+    <arxiv:journal_ref xmlns:arxiv="http://arxiv.org/schemas/atom">PoS(LATTICE2023)155</arxiv:journal_ref>
+    <link href="http://arxiv.org/abs/2401.01584v1" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2401.01584v1" rel="related" type="application/pdf"/>
+    <link title="doi" href="http://dx.doi.org/10.22323/1.453.0155" rel="related"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="hep-lat" scheme="http://arxiv.org/schemas/atom" label="High Energy Physics - Lattice (hep-lat)"/>
+    <category term="hep-lat" scheme="http://arxiv.org/schemas/atom" label="High Energy Physics - Lattice (hep-lat)"/>
+    <category term="hep-ph" scheme="http://arxiv.org/schemas/atom" label="High Energy Physics - Phenomenology (hep-ph)"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2401.01561v1</id>
+    <updated>2024-01-03T01:24:36-05:00</updated>
+    <published>2024-01-03T01:24:36-05:00</published>
+    <title>Current progress on the semileptonic form factors for $\bar{B} \to D^{\ast} \ell \bar{\nu}$ decay using the Oktay-Kronfeld action</title>
+    <summary>We present recent progress in calculating the semileptonic form factors $h_{A_1}(w)$ for the $\bar{B} \to D^{\ast} \ell \bar{\nu}$ decays. We use the Oktay-Kronfeld (OK) action for the charm and bottom valence quarks and the HISQ action for light quarks. We adopt the Newton method combined with the scanning method to find a good initial guess for the $\chi^2$ minimizer in the fitting of the 2pt correlation functions. The main advantage is that the Newton method lets us to consume all the time slices allowed by the physical positivity. We report the first, reliable, but preliminary results for $h_{A_1}(w)/\rho_{A_1}$ at zero recoil ($w=1$). Here we use a MILC HISQ ensemble ($a = 0.12$ fm, $M_{\pi}$ = 220 MeV, and $N_f = 2 + 1 + 1$ flavors).</summary>
+    <author>
+      <name>Tanmoy Bhattacharya, Benjamin J. Choi, Rajan Gupta, Yong-Chull Jang, Seungyeob Jwa, Sunghee Kim, Sunkyu Lee, Weonjong Lee, Jaehoon Leem, Jeonghwan Pak, Sungwoo Park</name>
+    </author>
+    <arxiv:doi xmlns:arxiv="http://arxiv.org/schemas/atom">10.22323/1.453.0245</arxiv:doi>
+    <arxiv:comment xmlns:arxiv="http://arxiv.org/schemas/atom">9 pages, 3 figures, Lattice 2023 proceeding</arxiv:comment>
+    <arxiv:journal_ref xmlns:arxiv="http://arxiv.org/schemas/atom">PoS(LATTICE2023)245</arxiv:journal_ref>
+    <link href="http://arxiv.org/abs/2401.01561v1" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2401.01561v1" rel="related" type="application/pdf"/>
+    <link title="doi" href="http://dx.doi.org/10.22323/1.453.0245" rel="related"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="hep-lat" scheme="http://arxiv.org/schemas/atom" label="High Energy Physics - Lattice (hep-lat)"/>
+    <category term="hep-lat" scheme="http://arxiv.org/schemas/atom" label="High Energy Physics - Lattice (hep-lat)"/>
+    <category term="hep-ph" scheme="http://arxiv.org/schemas/atom" label="High Energy Physics - Phenomenology (hep-ph)"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2204.05848v1</id>
+    <updated>2022-04-12T10:49:29-04:00</updated>
+    <published>2022-04-12T10:49:29-04:00</published>
+    <title>Improved data analysis on two-point correlation function with sequential Bayesian method</title>
+    <summary>We report our progress in data analysis on two-point correlation functions of the $B$ meson using sequential Bayesian method. The data set of measurement is obtained using the Oktay-Kronfeld (OK) action for the bottom quarks (valence quarks) and the HISQ action for the light quarks on the MILC HISQ lattices. We find that the old initial guess for the $\chi^2$ minimizer in the fitting code is poor enough to slow down the analysis somewhat. In order to find a better initial guess, we adopt the Newton method. We find that the Newton method provides a natural test to check whether the $\chi^2$ minimizer finds a local minimum or the global minimum, and it also reduces the number of iterations dramatically.</summary>
+    <author>
+      <name>Tanmoy Bhattacharya, Benjamin J. Choi, Rajan Gupta, Yong-Chull Jang, Seungyeob Jwa, Sunkyu Lee, Weonjong Lee, Jaehoon Leem, Sungwoo Park, Boram Yoon</name>
+    </author>
+    <arxiv:doi xmlns:arxiv="http://arxiv.org/schemas/atom">10.22323/1.396.0136</arxiv:doi>
+    <arxiv:comment xmlns:arxiv="http://arxiv.org/schemas/atom">10 pages, 2 figures, 5 tables, Lattice 2021 proceeding</arxiv:comment>
+    <arxiv:journal_ref xmlns:arxiv="http://arxiv.org/schemas/atom">PoS (LATTICE2021) 136</arxiv:journal_ref>
+    <link href="http://arxiv.org/abs/2204.05848v1" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2204.05848v1" rel="related" type="application/pdf"/>
+    <link title="doi" href="http://dx.doi.org/10.22323/1.396.0136" rel="related"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="hep-lat" scheme="http://arxiv.org/schemas/atom" label="High Energy Physics - Lattice (hep-lat)"/>
+    <category term="hep-lat" scheme="http://arxiv.org/schemas/atom" label="High Energy Physics - Lattice (hep-lat)"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2003.09206v1</id>
+    <updated>2020-03-20T07:33:34-04:00</updated>
+    <published>2020-03-20T07:33:34-04:00</published>
+    <title>Semileptonic $B \to D^{(\ast)} \ell\nu$ Decay Form Factors using the Oktay-Kronfeld Action</title>
+    <summary>We report recent progress in calculating semileptonic form factors for the $\bar{B} \to D^\ast \ell \bar{\nu}$ and $\bar{B} \to D \ell \bar{\nu}$ decays using the Oktay-Kronfeld (OK) action for bottom and charm quarks. We use the second order in heavy quark effective power counting $\mathcal{O}(\lambda^2)$ improved currents in this work. The HISQ action is used for the light spectator quarks. We analyzed four $2+1+1$-flavor MILC HISQ ensembles with $a\approx 0.09\,\mathrm{fm}$, $0.12\,\mathrm{fm}$ and $M_\pi \approx 220\,\mathrm{MeV}$, $310\,\mathrm{MeV}$: $a09m220$, $a09m310$, $a12m220$, $a12m310$. Preliminary results for $B\to D^\ast\ell\nu$ decays form factor $h_{A_1}(w)$ at zero recoil ($w=1$) are reported. Preliminary results for $B \to D\,\ell\nu$ decays form factors $h_\pm(w)$ over a kinematic range $1&lt;w&lt;1.3$ are reported as well.</summary>
+    <author>
+      <name>Tanmoy Bhattacharya, Benjamin J. Choi, Rajan Gupta, Yong-Chull Jang, Seungyeob Jwa, Sunkyu Lee, Weonjong Lee, Jaehoon Leem, Sungwoo Park</name>
+    </author>
+    <arxiv:doi xmlns:arxiv="http://arxiv.org/schemas/atom">10.22323/1.363.0056</arxiv:doi>
+    <arxiv:comment xmlns:arxiv="http://arxiv.org/schemas/atom">7 pages, 7 figures, Lattice 2019 proceeding</arxiv:comment>
+    <arxiv:journal_ref xmlns:arxiv="http://arxiv.org/schemas/atom">PoS (LATTICE2019) 056</arxiv:journal_ref>
+    <link href="http://arxiv.org/abs/2003.09206v1" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2003.09206v1" rel="related" type="application/pdf"/>
+    <link title="doi" href="http://dx.doi.org/10.22323/1.363.0056" rel="related"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="hep-lat" scheme="http://arxiv.org/schemas/atom" label="High Energy Physics - Lattice (hep-lat)"/>
+    <category term="hep-lat" scheme="http://arxiv.org/schemas/atom" label="High Energy Physics - Lattice (hep-lat)"/>
+    <category term="hep-ph" scheme="http://arxiv.org/schemas/atom" label="High Energy Physics - Phenomenology (hep-ph)"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2002.04755v1</id>
+    <updated>2020-02-11T20:37:23-05:00</updated>
+    <published>2020-02-11T20:37:23-05:00</published>
+    <title>Leptonic decays of $B_{(s)}$ and $D_{(s)}$ using the OK action</title>
+    <summary>We present recent progress in the lattice calculation of leptonic decay constants for $B_{(s)}$ and $D_{(s)}$ mesons using the Oktay-Kronfeld (OK) action for charm and bottom valence quarks, whose masses are tuned non-perturbatively. The calculations are done on 6 HISQ ensembles generated by the MILC collaboration with $N_f=2+1+1$ flavors. We also use the HISQ action for the light spectator quarks. Results are presented for the ratios $f_{B_s}/f_B$ and $f_{D_s}/f_D$, which reflect $SU(3)$ flavor symmetry breaking, and are independent of the renormalization constants of the axial currents.</summary>
+    <author>
+      <name>Tanmoy Bhattacharya, Benjamin J. Choi, Rajan Gupta, Yong-Chull Jang, Seungyeob Jwa, Sunkyu Lee, Weonjong Lee, Jaehoon Leem, Sungwoo Park</name>
+    </author>
+    <arxiv:doi xmlns:arxiv="http://arxiv.org/schemas/atom">10.22323/1.363.0050</arxiv:doi>
+    <arxiv:comment xmlns:arxiv="http://arxiv.org/schemas/atom">7 pages, 10 figures, Lattice 2019 proceeding</arxiv:comment>
+    <arxiv:journal_ref xmlns:arxiv="http://arxiv.org/schemas/atom">PoS (LATTICE2019) 050</arxiv:journal_ref>
+    <link href="http://arxiv.org/abs/2002.04755v1" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2002.04755v1" rel="related" type="application/pdf"/>
+    <link title="doi" href="http://dx.doi.org/10.22323/1.363.0050" rel="related"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="hep-lat" scheme="http://arxiv.org/schemas/atom" label="High Energy Physics - Lattice (hep-lat)"/>
+    <category term="hep-lat" scheme="http://arxiv.org/schemas/atom" label="High Energy Physics - Lattice (hep-lat)"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/1812.07675v1</id>
+    <updated>2018-12-18T17:33:52-05:00</updated>
+    <published>2018-12-18T17:33:52-05:00</published>
+    <title>Update on $B\to D^\ast \ell \nu$ form factor at zero-recoil using the Oktay-Kronfeld action</title>
+    <summary>We present an update on the calculation of $\bar{B}\to D^\ast \ell \bar{\nu}$ semileptonic form factor at zero recoil using the Oktay-Kronfeld bottom and charm quarks on $N_f=2+1+1$ flavor HISQ ensembles generated by the MILC collaboration. Preliminary results are given for two ensembles with $a\approx 0.12$ and $0.09$ fm and $M_\pi\approx 310$ MeV. Calculations have been done with a number of valence quark masses, and the dependence of the form factor on them is investigated on the $a\approx 0.12$ fm ensemble. The excited state is controlled by using multistate fits to the three-point correlators measured at 4--6 source-sink separations.</summary>
+    <author>
+      <name>Tanmoy Bhattacharya, Rajan Gupta, Sungwoo Park, Yong-Chull Jang, Jon A. Bailey, Benjamin J. Choi, Hwancheol Jeong, Seungyeob Jwa, Sunkyu Lee, Weonjong Lee, Jeonghwan Pak, Jaehoon Leem</name>
+    </author>
+    <arxiv:doi xmlns:arxiv="http://arxiv.org/schemas/atom">10.22323/1.334.0283</arxiv:doi>
+    <arxiv:comment xmlns:arxiv="http://arxiv.org/schemas/atom">7 pages and 4 figures. Talk at The 36th Annual International Symposium on Lattice Field Theory - LATTICE2018</arxiv:comment>
+    <arxiv:journal_ref xmlns:arxiv="http://arxiv.org/schemas/atom">PoS (LATTICE2018) 283</arxiv:journal_ref>
+    <link href="http://arxiv.org/abs/1812.07675v1" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/1812.07675v1" rel="related" type="application/pdf"/>
+    <link title="doi" href="http://dx.doi.org/10.22323/1.334.0283" rel="related"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="hep-lat" scheme="http://arxiv.org/schemas/atom" label="High Energy Physics - Lattice (hep-lat)"/>
+    <category term="hep-lat" scheme="http://arxiv.org/schemas/atom" label="High Energy Physics - Lattice (hep-lat)"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/1810.13149v2</id>
+    <updated>2018-11-08T03:37:45-05:00</updated>
+    <published>2018-10-31T04:19:47-04:00</published>
+    <title>Perturbative calculation of $Z_q$ at the one-loop level using HYP-smeared staggered quarks</title>
+    <summary>We present matching factors for $Z_q$ calculated perturbatively at the one-loop level with improved staggered quarks. We calculate $Z_q$ with HYP-smeared staggered quarks and Symanzik-improved gluons using both RI-MOM and RI$'$-MOM schemes. We compare the results with those obtained using the nonperturbative renormalization (NPR) method.</summary>
+    <author>
+      <name>Benjamin J. Choi, Weonjong Lee, Jangho Kim, Sungwoo Park, Stephen R. Sharpe</name>
+    </author>
+    <arxiv:doi xmlns:arxiv="http://arxiv.org/schemas/atom">10.22323/1.334.0295</arxiv:doi>
+    <arxiv:comment xmlns:arxiv="http://arxiv.org/schemas/atom">7 pages, 10 figures, Lattice 2018 proceeding, typos fixed</arxiv:comment>
+    <arxiv:journal_ref xmlns:arxiv="http://arxiv.org/schemas/atom">PoS (LATTICE2018) 295</arxiv:journal_ref>
+    <link href="http://arxiv.org/abs/1810.13149v2" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/1810.13149v2" rel="related" type="application/pdf"/>
+    <link title="doi" href="http://dx.doi.org/10.22323/1.334.0295" rel="related"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="hep-lat" scheme="http://arxiv.org/schemas/atom" label="High Energy Physics - Lattice (hep-lat)"/>
+    <category term="hep-lat" scheme="http://arxiv.org/schemas/atom" label="High Energy Physics - Lattice (hep-lat)"/>
+  </entry>
+</feed>

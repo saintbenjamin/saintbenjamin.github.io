@@ -1,0 +1,101 @@
+body {
+    /* width: 800px; */
+    margin: 0 auto;
+    padding: 20px;
+    /* padding-top: 50px; */
+    background: #def;
+}
+header {
+    width: 100%;
+    opacity: 0.85;
+    background-color: #def;                
+    position: fixed;
+    /* z-index: 2; */
+    top: 0;
+    width: 100%;
+    /* height: 50px; */
+    text-align: center;
+    padding: 20px 10px; /* Add padding for a visually larger header */
+    font-size: 1.6rem; /* Large font size by default */
+    line-height: 1.2; /* Adjust line height for readability */                
+}
+main {
+    /* min-width: 600px;
+    max-width: 800px; */
+    margin: auto;
+    background-color: #def;
+}
+/* PC表示 */
+pc { display: block !important; }
+sp { display: none !important; }
+
+/* SP表示 */
+@media only screen and (max-width: 750px) {
+    side_pc { display: none !important; }
+    side_sp { display: block !important; }
+}
+
+
+/*画像配置*/
+side_pc{
+    display: block;
+}
+
+side_sp{
+    display: none;
+}
+
+side {
+    position: relative;
+    right: 0;
+    bottom: 10%;
+    -webkit-animation-name:side;
+    -webkit-animation-duration:2s;
+    -webkit-animation-iteration-count:infinite;
+    -webkit-animation-timing-function:ease;
+    
+    -moz-animation-name:side;
+    -moz-animation-duration:2s;
+    -moz-animation-iteration-count:infinite;
+    -moz-animation-timing-function:ease;
+}
+bar { font-size: 20px; }
+/* @-webkit-keyframes side {
+    0% {-webkit-transform:translate(0, 0);}
+    50% {-webkit-transform:translate(0, -10px);}
+    100% {-webkit-transform:translate(0, 0);}
+}
+@-moz-keyframes side {
+    0% {-moz-transform:translate(0, 0);}
+    50% {-moz-transform:translate(0, -10px);}
+    100% {-moz-transform:translate(0, 0);}
+} */
+
+#wrapper {
+    max-width: 600px;
+    margin: auto;
+}
+iframe {
+    display: block;
+    width: 100%;
+    border: none;
+    background-color: #def;
+    border-radius: 1em;
+}
+a {
+    color: darkorange;
+    text-decoration: none;
+}
+/* Ensure full width scaling for mobile devices */
+@media (max-width: 768px) {
+    header {
+        font-size: 1.8rem; /* Slightly smaller font size on tablets */
+        padding: 15px 10px; /* Adjust padding for smaller screens */
+    }
+}
+@media (max-width: 480px) {
+    header {
+        font-size: 1.5rem; /* Further reduce font size for small mobile screens */
+        padding: 10px 8px; /* Compact padding for small screens */
+    }
+}

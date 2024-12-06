@@ -1,0 +1,40 @@
+  body, html, h1, ul, li {
+    margin: 0;
+    padding: 0;
+    font-family: Crimson Text, 'Sawarabi Mincho', sans-serif;
+  }
+  
+  h1 {
+    font-size: 1em;
+    padding: 0.25em;
+    text-align: center;
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0 1em;
+  }
+  
+  li {
+    margin-top: 0.2em;
+  }
+  
+  a {
+    color: orangered;
+    text-decoration: none;
+  }
+
+  .outlined-text {
+    /* font-size: 1.0em; */
+    color: black; /* 텍스트 색상 */
+    text-shadow: 
+        0.5px  0.5px 0 white, 
+       -0.5px -0.5px 0 white, 
+        0.5px -0.5px 0 white, 
+       -0.5px  0.5px 0 white,
+        1.0px  1.0px 0 white, 
+       -1.0px -1.0px 0 white, 
+        1.0px -1.0px 0 white, 
+       -1.0px  1.0px 0 white;
+
+  }

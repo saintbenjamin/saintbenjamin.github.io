@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="wrapper.xsl"?>
+<!DOCTYPE wrapper [
+  <!-- <!ENTITY contents SYSTEM "https://arxiv.org/a/choi_b_1.atom2"> -->
+  <!ENTITY contents SYSTEM "local.xml">
+]>
+<wrapper>
+  &contents;
+</wrapper>
