@@ -68,7 +68,7 @@ p {
 
 /* Background image styling */
 .background {
-    position: absolute; /* absolute로 변경 */
+    position: fixed; /* absolute로 변경 */
     top: 0;
     left: 0;
     width: 100%;
