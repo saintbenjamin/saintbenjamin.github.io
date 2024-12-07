@@ -35,14 +35,12 @@ footer {
     justify-content: flex-end;
 }
 
-/* Optional: Add spacing between content for scrolling */
 p {
     font-size: 1.0rem;
     margin-top: 20px;
     margin-right: 20px;
 }
 
-/* Container for the icons */
 .icon-container {
     display: flex;
     justify-content: flex-end;
@@ -50,32 +48,28 @@ p {
     padding: 10px;
 }
 
-/* Icon styling */
 .icon-container i {
     font-size: 50px;
-    /* color: #333; */
     color: white;
-    transition: transform 0.3s ease, color 0.3s ease; /* Smooth transition for transform and color */
+    transition: transform 0.3s ease, color 0.3s ease;
     position: relative;
     z-index: 1;
 }
 
-/* Icon hover effect */
 .icon-container i:hover {
-    color: #3D3332; /* Change color to red on hover */
-    transform: translate(5px, 5px); /* Shift icon by 5px to the right and down */
-    cursor: pointer; /* Optional: Adds a pointer cursor on hover */
+    color: #3D3332;
+    transform: translate(5px, 5px);
+    cursor: pointer;
 }
 
-/* Background image styling */
 .background {
-    position: fixed; /* absolute로 변경 */
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background-image: url('./img/sop.jpg');
-    background-size: auto 100%; /* 이미지의 비율 유지 */
+    background-size: auto 100%;
     background-position: right;
     background-repeat: no-repeat;
     z-index: -2;
@@ -88,19 +82,6 @@ p {
     flex-direction: column;
 }
 
-.fade-in-text {
-    /* font-size: 2rem; */
-    font-weight: bold;
-    /* position: absolute;
-    top: 50%;
-    left: 50%; */
-    /* transform: translate(-50%, -50%); */
-    /* text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); */
-    color: white;
-    opacity: 0.3; /* Start invisible */
-    transition: opacity 1s ease-in; /* Smooth fade-in transition */
-}
-
 .background-image {
     width: 100%;
     max-width: 600px;
@@ -110,7 +91,7 @@ p {
 
 .outlined-text-superbig {
     font-size: 3.0em;
-    color: white; /* 텍스트 색상 */
+    color: white;
     text-shadow: 
         0.5px  0.5px 0 #3D3332, 
        -0.5px -0.5px 0 #3D3332, 
@@ -120,12 +101,11 @@ p {
        -1.0px -1.0px 0 #3D3332, 
         1.0px -1.0px 0 #3D3332, 
        -1.0px  1.0px 0 #3D3332;
-
 }
 
 .outlined-text-big {
     font-size: 2.0em;
-    color: white; /* 텍스트 색상 */
+    color: white;
     text-shadow: 
         0.5px  0.5px 0 #3D3332, 
        -0.5px -0.5px 0 #3D3332, 
@@ -135,13 +115,12 @@ p {
        -1.0px -1.0px 0 #3D3332, 
         1.0px -1.0px 0 #3D3332, 
        -1.0px  1.0px 0 #3D3332;
-
 }
 
 .outlined-text-semibig {
     font-size: 1.5em;
     font-weight: bold;
-    color: white; /* 텍스트 색상 */
+    color: white;
     text-shadow: 
         0.5px  0.5px 0 #3D3332, 
        -0.5px -0.5px 0 #3D3332, 
@@ -151,12 +130,10 @@ p {
        -1.0px -1.0px 0 #3D3332, 
         1.0px -1.0px 0 #3D3332, 
        -1.0px  1.0px 0 #3D3332;
-
 }
 
 .outlined-text {
-    /* font-size: 1.0em; */
-    color: white; /* 텍스트 색상 */
+    color: white;
     text-shadow: 
         0.5px  0.5px 0 #3D3332, 
        -0.5px -0.5px 0 #3D3332, 
@@ -166,23 +143,20 @@ p {
        -1.0px -1.0px 0 #3D3332, 
         1.0px -1.0px 0 #3D3332, 
        -1.0px  1.0px 0 #3D3332;
-
 }
 
-/* Remove bullets from the list */
 ul.no-bullets {
-    list-style-type: none;  /* Removes the bullet points */
-    padding-left: 20px;        /* Removes the default padding */
+    list-style-type: none;
+    padding-left: 20px;
 }
 
 li {
-    font-size: 1.2rem;      /* Optional: Adjust list item text size */
-    margin-bottom: 10px;    /* Optional: Add some spacing between items */
+    font-size: 1.2rem;
+    margin-bottom: 10px;
 }
 
-/* 햄버거 버튼 스타일 */
 .hamburger {
-    display: none; /* 기본적으로 숨김 */
+    display: none;
     flex-direction: column;
     width: 30px;
     height: 25px;
@@ -198,7 +172,6 @@ li {
     transition: all 0.3s ease;
 }
 
-/* 메뉴 스타일 */
 .menu {
     display: flex;
     list-style-type: none;
@@ -226,13 +199,11 @@ li {
     background-color: #444;
 }
 
-/* 모바일 화면에서 햄버거 버튼 보이도록 */
 @media (max-width: 768px) {
     .hamburger {
-        display: flex; /* 화면 크기가 768px 이하일 때 햄버거 버튼 보이도록 */
+        display: flex;
     }
 
-    /* 모바일에서는 메뉴가 기본적으로 숨겨짐 */
     .menu {
         display: none;
         flex-direction: column;
@@ -240,23 +211,22 @@ li {
         top: -100%;
         left: 0;
         width: 100%;
-        background-color: rgba(61, 51, 50, 1); /* 배경을 완전 불투명하게 설정 */
+        background-color: rgba(61, 51, 50, 1);
         z-index: 1;
     }
 
     .menu.open {
-        display: flex; /* 메뉴가 열린 상태에서 표시 */
+        display: flex;
         list-style-type: none;
         padding: 0;
         margin: 0;
-        background-color: rgba(61, 51, 50, 1); /* 배경을 완전 불투명하게 설정 */
+        background-color: rgba(61, 51, 50, 1);
         justify-content: center;
         position: absolute;
         top: 100%;
         left: 0;
         width: auto;
         height: auto;
-        /* transition: top 0.3s ease; 메뉴가 부드럽게 내려오도록 */
     }
 }
 
