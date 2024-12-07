@@ -1,13 +1,46 @@
   body, html, h1, ul, li {
     margin: 0;
     padding: 0;
-    font-family: Crimson Text, 'Sawarabi Mincho', sans-serif;
+  }
+
+  /* @font-face {
+    font-family: 'CMU serif';
+    src: url('fonts/cmunrm.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  } */
+
+  /* @font-face {
+    font-family: 'IPAex Mincho';
+    src: url('fonts/ipaexm.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  } */
+
+  @font-face {
+    font-family: 'IPAex Mincho';
+    src: url('fonts/IPAexMincho.woff2') format('woff2'),
+        url('fonts/IPAexMincho.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'IPAex Gothic';
+    src: url('fonts/ipaexg.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  body {
+    font-family: 'CMU Serif', 'IPAex Mincho', sans-serif;
   }
   
   h1 {
     font-size: 1em;
     padding: 0.25em;
-    text-align: center;
+    text-align: left;
   }
   
   ul {

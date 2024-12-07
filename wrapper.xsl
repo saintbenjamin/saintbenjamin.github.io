@@ -12,36 +12,39 @@
                 <title>
                     <xsl:value-of select="a:title"/>
                 </title>
-                <link rel="stylesheet" href="wrapper.css"/>
                 <script>
-                MathJax = {
-                    tex: {
-                        inlineMath: [['$', '$']], // Define $...$ for inline math
-                        displayMath: [['$$', '$$']] // $$...$$ for block math
-                    }
-                };
+                    MathJax = {
+                        tex: {
+                            inlineMath: [['$', '$']], // Define $...$ for inline math
+                            displayMath: [['$$', '$$']] // $$...$$ for block math
+                        }
+                    };
                 </script>
                 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+                <!-- <link href="https://fonts.googleapis.com/css2?family=Crimson+Text&display=swap"  rel="stylesheet">
                 <style>
-                .bold {
-                    font-weight: bold;
-                }
-                </style>
+                    <![CDATA[
+                        body {
+                            font-family: 'Crimson Text', sans-serif !important;
+                        }
+                    ]]>
+                </style> -->
+                <link rel="stylesheet" href="wrapper.css"/>
             </head>
             <body>
-            <h1 class="outlined-text-big">
-                <xsl:element name="a">
-                    <xsl:attribute name="href">
-                        <xsl:value-of select="a:id"/>
-                    </xsl:attribute>
-                    <xsl:attribute name="target">_blank</xsl:attribute>
-                    <xsl:value-of select="a:title"/>
-                </xsl:element>
-            </h1>
-            <ol class="outlined-text">
-                <xsl:apply-templates/>
-            </ol>
-        </body>
+                <h1 class="outlined-text">
+                    <xsl:element name="a">
+                        <xsl:attribute name="href">
+                            <xsl:value-of select="a:id"/>
+                        </xsl:attribute>
+                        <xsl:attribute name="target">_blank</xsl:attribute>
+                        <xsl:value-of select="a:title"/>
+                    </xsl:element>
+                </h1>
+                <ol class="outlined-text">
+                    <xsl:apply-templates/>
+                </ol>
+            </body>
         </html>
     </xsl:template> 
     <xsl:template match="a:entry">
