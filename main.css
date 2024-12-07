@@ -1,17 +1,26 @@
 @font-face {
-    font-family: 'IPAex Mincho';
-    src: url('fonts/IPAexMincho.woff2') format('woff2'),
-        url('fonts/IPAexMincho.woff') format('woff');
-    font-weight: normal;
+    font-family: 'Crimson Pro';
+    src: url('fonts/CrimsonPro-VariableFont_wght.ttf') format('truetype');
+    font-weight: 700;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'IPAex Gothic';
-    src: url('fonts/ipaexg.ttf') format('truetype');
+    font-family: 'Noto Serif JP';
+    src: url('fonts/NotoSerifJP-VariableFont_wght.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'IPAex Mincho';
+    src: url('fonts/IPAexMincho.woff2') format('woff2'),
+         url('fonts/IPAexMincho.woff')  format('woff');
     font-weight: normal;
     font-style: normal;
+    font-display: swap;
 }
 
 body {
@@ -19,7 +28,7 @@ body {
     padding: 0;
     display: flex;
     height: 100vh;
-    font-family: 'CMU Serif', 'IPAex Mincho', sans-serif;
+    font-family: 'Crimson Pro', 'Noto Serif JP', sans-serif;
     font-size: 1.0rem;
 }
 
