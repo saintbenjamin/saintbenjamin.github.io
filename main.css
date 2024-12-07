@@ -29,7 +29,7 @@ body {
     display: flex;
     height: 100vh;
     font-family: 'Crimson Pro', 'Noto Serif JP', sans-serif;
-    font-size: 1.0rem;
+    font-size: 1.5em;
 }
 
 header {
@@ -60,7 +60,7 @@ footer {
 }
 
 p {
-    font-size: 1.0rem;
+    font-size: 1.1rem;
     margin-top: 20px;
     margin-right: 20px;
 }

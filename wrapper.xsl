@@ -23,7 +23,7 @@
                 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
             </head>
             <body>
-                <h1 class="outlined-text">
+                <!-- <h1 class="outlined-text">
                     <xsl:element name="a">
                         <xsl:attribute name="href">
                             <xsl:value-of select="a:id"/>
@@ -31,7 +31,7 @@
                         <xsl:attribute name="target">_blank</xsl:attribute>
                         <xsl:value-of select="a:title"/>
                     </xsl:element>
-                </h1>
+                </h1> -->
                 <ol class="outlined-text">
                     <xsl:apply-templates/>
                 </ol>
