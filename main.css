@@ -1,17 +1,3 @@
-/* @font-face {
-    font-family: 'CMU serif';
-    src: url('fonts/cmunrm.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-} */
-
-/* @font-face {
-    font-family: 'CMU serif';
-    src: url('fonts/cmunrm.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-} */
-
 @font-face {
     font-family: 'IPAex Mincho';
     src: url('fonts/IPAexMincho.woff2') format('woff2'),
@@ -20,13 +6,6 @@
     font-style: normal;
     font-display: swap;
 }
-
-/* @font-face {
-    font-family: 'IPAex Mincho';
-    src: url('fonts/ipaexm.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-} */
 
 @font-face {
     font-family: 'IPAex Gothic';

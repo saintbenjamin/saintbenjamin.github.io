@@ -1,3 +1,12 @@
+        <script>
+            function resizeIframe(obj) {
+                obj.style.height = obj.contentWindow.document.documentElement.scrollHeight + 'px';
+            }
+        </script>
+
+                <!-- <iframe src="./wrapper.xml" scrolling="yes" onload="resizeIframe(this)" ></iframe> -->
+        
+
                 <ol class="outlined-text" start="9">
                     <li><em>PoS</em> <strong>LATTICE2024</strong> 033 [<a href="https://arxiv.org/abs/2411.18170">arXiv</a>]</li>
                     <ul>

@@ -13,11 +13,6 @@
             };
         </script>
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-        <script>
-            function resizeIframe(obj) {
-                obj.style.height = obj.contentWindow.document.documentElement.scrollHeight + 'px';
-            }
-        </script>
         <link href="https://fonts.googleapis.com/css2?family=CMU+Serif&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Sawarabi+Mincho" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Nanum+Myeongjo:400" rel="stylesheet">
@@ -195,7 +190,7 @@
             </div>
             <div class="menus" id="publication">
                 <h3 class="outlined-text-big">Publications</h3>
-                <iframe src="./wrapper.xml" scrolling="yes" onload="resizeIframe(this)" ></iframe>
+                <div id="xml-container" class="xml-content"></div>
                 <ol class="outlined-text" start="9">                    
                     <li><a href="https://arxiv.org/abs/1509.00592" target="_blank"><b>Kaon BSM $B$-parameters using improved staggered fermions from $N_f=2+1$ unquenched QCD</b></a></li>
                     <ul>
@@ -251,22 +246,43 @@
         <footer>
             <p class="outlined-text">&copy; 2024 Benjamin J. Choi. All rights reserved.</p>
             <div class="icon-container">
-              <a href="https://www.youtube.com/channel/UCX-16rGG_fl0_pAXfvp39aQ" target="_blank">
-                <i class="fab fa-youtube"></i>
-              </a>
-              <a href="https://www.instagram.com/benji_johannes/" target="_blank">
-                <i class="fab fa-instagram-square"></i>
-              </a>
-              <a href="https://www.facebook.com/benjamin.dion.choi" target="_blank">
-                <i class="fab fa-facebook-square"></i>
-              </a>
+                <a href="https://www.youtube.com/channel/UCX-16rGG_fl0_pAXfvp39aQ" target="_blank"><i class="fab fa-youtube"></i></a>
+                <a href="https://www.instagram.com/benji_johannes/" target="_blank"><i class="fab fa-instagram-square"></i></a>
+                <a href="https://www.facebook.com/benjamin.dion.choi" target="_blank"><i class="fab fa-facebook-square"></i></a>
             </div>  
-          </footer>
-          <script>
+        </footer>
+        <script>
             function toggleMenu() {
                 const menu = document.querySelector('.menu');
                 menu.classList.toggle('open');
             }
-          </script>
+            async function loadAndRenderXML() {
+                try {
+                        const xmlResponse = await fetch('local.xml');
+                        if (!xmlResponse.ok) throw new Error(`Failed to load XML: ${xmlResponse.statusText}`);
+                        const xmlText = await xmlResponse.text();
+                        const parser = new DOMParser();
+                        const xmlDoc = parser.parseFromString(xmlText, "application/xml");
+
+                        const xslResponse = await fetch('wrapper.xsl');
+                        if (!xslResponse.ok) throw new Error(`Failed to load XSL: ${xslResponse.statusText}`);
+                        const xslText = await xslResponse.text();
+                        const xslDoc = parser.parseFromString(xslText, "application/xml");
+
+                        const xsltProcessor = new XSLTProcessor();
+                        xsltProcessor.importStylesheet(xslDoc);
+
+                        const resultDocument = xsltProcessor.transformToFragment(xmlDoc, document);
+
+                        const container = document.getElementById('xml-container');
+                        container.innerHTML = '';
+                        container.appendChild(resultDocument);
+                    } catch (error) {
+                        console.error('Error rendering XML:', error);
+                        document.getElementById('xml-container').textContent = 'Error loading and rendering XML.';
+                    }
+            }
+            loadAndRenderXML();
+        </script>
     </body>
 </html>

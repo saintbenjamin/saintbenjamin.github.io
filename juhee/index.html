@@ -11,25 +11,19 @@
   <link rel="stylesheet" href="juhee.css">
 </head>
 <body>
-  <!-- <script src="fade_script.js"></script> -->
   <div class="background"></div>
   <header>
-
-    <!-- 햄버거 버튼 -->
     <div class="hamburger" onclick="toggleMenu()">
       <div></div>
       <div></div>
       <div></div>
     </div>
-
-    <!-- 메뉴 -->
     <ul class="menu">
       <li class="outlined-text-semibig"><a href="#home">Home</a></li>
       <li class="outlined-text-semibig"><a href="#edu">Education</a></li>
       <li class="outlined-text-semibig"><a href="#honor">Honors</a></li>
       <li class="outlined-text-semibig"><a href="#perf">Performance</a></li>
     </ul>
-
   </header>
   <main>
     <div class="menus" id="home">
@@ -316,8 +310,7 @@
     <br><br><br><br><br>
   </main>
   <footer>
-    <p class="outlined-text">&copy; 2024 Juhee Choi. All rights reserved.</p>
-
+    <p class="outlined-text">&copy; 2024 Sop. Juhee Choi. All rights reserved.</p>
     <div class="icon-container">
       <a href="https://www.youtube.com/channel/UCX-16rGG_fl0_pAXfvp39aQ" target="_blank">
         <i class="fab fa-youtube"></i>
@@ -328,11 +321,9 @@
       <a href="https://www.facebook.com/juhee.choi.5011" target="_blank">
         <i class="fab fa-facebook-square"></i>
       </a>
-      <!-- <i class="fab fa-twitter-square"></i> -->
     </div>  
   </footer>
   <script>
-    // 메뉴 열고 닫기
     function toggleMenu() {
         const menu = document.querySelector('.menu');
         menu.classList.toggle('open'); // open 클래스를 토글하여 메뉴를 보이게/숨기게 함
