@@ -1,10 +1,18 @@
+@font-face {
+    font-family: 'Noto Serif KR';
+    src: url('fonts/NotoSerifKR-VariableFont_wght.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
 body {
     margin: 0;
     padding: 0;
     display: flex;
     height: 100vh;
     background-color: #3D3332;
-    font-family: Crimson Text, 'Do Hyeon', 'Nanum Myeongjo', sans-serif;
+    font-family: 'Noto Serif KR', sans-serif;
 }
 
 header {
