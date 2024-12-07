@@ -1,8 +1,0 @@
-Starting Dropbox...dropbox: load fq extension '/home/benjamin/.dropbox-dist/dropbox-lnx.x86_64-214.3.5064/cryptography.hazmat.bindings._openssl.abi3.so'
-dropbox: load fq extension '/home/benjamin/.dropbox-dist/dropbox-lnx.x86_64-214.3.5064/cryptography.hazmat.bindings._padding.abi3.so'
-dropbox: load fq extension '/home/benjamin/.dropbox-dist/dropbox-lnx.x86_64-214.3.5064/apex._apex.abi3.so'
-dropbox: load fq extension '/home/benjamin/.dropbox-dist/dropbox-lnx.x86_64-214.3.5064/psutil._psutil_linux.cpython-38-x86_64-linux-gnu.so'
-dropbox: load fq extension '/home/benjamin/.dropbox-dist/dropbox-lnx.x86_64-214.3.5064/psutil._psutil_posix.cpython-38-x86_64-linux-gnu.so'
-dropbox: load fq extension '/home/benjamin/.dropbox-dist/dropbox-lnx.x86_64-214.3.5064/google._upb._message.cpython-38-x86_64-linux-gnu.so'
-dropbox: load fq extension '/home/benjamin/.dropbox-dist/dropbox-lnx.x86_64-214.3.5064/tornado.speedups.cpython-38-x86_64-linux-gnu.so'
-dropbox: load fq extension '/home/benjamin/.dropbox-dist/dropbox-lnx.x86_64-214.3.5064/wrapt._wrappers.cpython-38-x86_64-linux-gnu.so'
