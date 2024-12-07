@@ -41,6 +41,7 @@ body {
     display: flex;
     height: 100vh;
     font-family: 'CMU Serif', 'IPAex Mincho', sans-serif;
+    font-size: 1.0rem;
 }
 
 header {
@@ -95,6 +96,10 @@ p {
     color: orangered;
     transform: translate(5px, 5px);
     cursor: pointer;
+}
+
+.normben {
+    font-size: 1.0rem
 }
 
 .background {
