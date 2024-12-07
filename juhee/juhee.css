@@ -241,3 +241,12 @@ a {
     color: white;
     text-decoration: none;
 }
+
+.word-break {
+    display: flex; 
+    flex-wrap: wrap;
+    display: inline-block; 
+    word-break: keep-all;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
