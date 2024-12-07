@@ -240,7 +240,7 @@ li {
         top: -100%;
         left: 0;
         width: 100%;
-        background-color: rgba(0, 0, 0, 1); /* 배경을 완전 불투명하게 설정 */
+        background-color: rgba(61, 51, 50, 1); /* 배경을 완전 불투명하게 설정 */
         z-index: 1;
     }
 
@@ -249,7 +249,7 @@ li {
         list-style-type: none;
         padding: 0;
         margin: 0;
-        background-color: rgba(0, 0, 0, 1); /* 배경을 완전 불투명하게 설정 */
+        background-color: rgba(61, 51, 50, 1); /* 배경을 완전 불투명하게 설정 */
         justify-content: center;
         position: absolute;
         top: 100%;
