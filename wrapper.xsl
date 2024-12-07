@@ -21,14 +21,6 @@
                     };
                 </script>
                 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-                <!-- <link href="https://fonts.googleapis.com/css2?family=Crimson+Text&display=swap"  rel="stylesheet">
-                <style>
-                    <![CDATA[
-                        body {
-                            font-family: 'Crimson Text', sans-serif !important;
-                        }
-                    ]]>
-                </style> -->
                 <link rel="stylesheet" href="wrapper.css"/>
             </head>
             <body>

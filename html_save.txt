@@ -1,0 +1,69 @@
+                <ol class="outlined-text" start="9">
+                    <li><em>PoS</em> <strong>LATTICE2024</strong> 033 [<a href="https://arxiv.org/abs/2411.18170">arXiv</a>]</li>
+                    <ul>
+                        <li>Machine Learning Estimation on the Trace of Inverse Dirac Operator using the Gradient Boosting Decision Tree Regression</li>
+                        <li><strong>Benjamin J. Choi</strong>, Hiroshi Ohno, Takayuki Sumimoto and Akio Tomiya</li>
+                    </ul>
+                    <li><a href="https://doi.org/10.22323/1.453.0245"><em>PoS</em> <strong>LATTICE2023</strong> 245</a> [<a href="https://arxiv.org/abs/2401.01561">arXiv</a>]</li>
+                    <ul>
+                        <li>Current progress on the semileptonic form factors for \(B \to D^{(\ast)} \ell \nu\) decay using the Oktay-Kronfeld action</li>
+                        <li>Tanmoy Bhattacharya, <strong>Benjamin J. Choi</strong>, Rajan Gupta, Yong-Chull Jang, Seungyeob Jwa, Sunghee Kim, Sunkyu Lee, Weonjong Lee, Jaehoon Leem, Jeonghwan Pak and Sungwoo Park on behalf of LANL/SWME Collaboration</li>
+                    </ul>
+                    <li><a href="https://doi.org/10.22323/1.453.0155"><em>PoS</em> <strong>LATTICE2023</strong> 155</a> [<a href="https://arxiv.org/abs/arXiv:2401.01584">arXiv</a>]</li>
+                    <ul>
+                        <li>Progress report on testing robustness of the Newton method in data analysis on 2-point correlation function using a MILC HISQ ensemble</li>
+                        <li>Tanmoy Bhattacharya, <strong>Benjamin J. Choi</strong>, Rajan Gupta, Yong-Chull Jang, Seungyeob Jwa, Sunghee Kim, Sunkyu Lee, Weonjong Lee, Jaehoon Leem, Jeonghwan Pak and Sungwoo Park on behalf of LANL/SWME Collaboration</li>
+                    </ul>
+                    <li><a href="https://doi.org/10.22323/1.396.0136"><em>PoS</em> <strong>LATTICE2021</strong> 136</a> [<a href="https://arxiv.org/abs/2204.05848">arXiv</a>]</li>
+                    <ul>
+                        <li>Improved data analysis on two-point correlation function with sequential Bayesian method</li>
+                        <li>Tanmoy Bhattacharya, <strong>Benjamin J. Choi</strong>, Rajan Gupta, Yong-Chull Jang, Seungyeob Jwa, Sunkyu Lee, Weonjong Lee, Jaehoon Leem, Sungwoo Park and Boram Yoon on behalf of LANL/SWME Collaboration</li>
+                    </ul>
+                    <li><a href="https://doi.org/10.22323/1.363.0056"><em>PoS</em> <strong>LATTICE2019</strong> 56</a> [<a href="https://arxiv.org/abs/2003.09206">arXiv</a>]</li>
+                    <ul>
+                        <li>Semileptonic \(B \to D^{(\ast)} \ell \nu\) Decay Form Factors using the Oktay-Kronfeld Action</li>
+                        <li>Tanmoy Bhattacharya, <strong>Benjamin J. Choi</strong>, Rajan Gupta, Yong-Chull Jang, Seungyeob Jwa, Sunkyu Lee, Weonjong Lee, Jaehoon Leem and Sungwoo Park on behalf of LANL/SWME Collaboration</li>
+                    </ul>
+                    <li><a href="https://doi.org/10.22323/1.363.0050"><em>PoS</em> <strong>LATTICE2019</strong> 50</a> [<a href="https://arxiv.org/abs/2002.04755">arXiv</a>]</li>
+                    <ul>
+                        <li>Leptonic decays of \(B_{(s)}\) and \(D_{(s)}\) using the OK action</li>
+                        <li>Tanmoy Bhattacharya, <strong>Benjamin J. Choi</strong>, Rajan Gupta, Yong-Chull Jang, Seungyeob Jwa, Sunkyu Lee, Weonjong Lee, Jaehoon Leem and Sungwoo Park on behalf of LANL/SWME Collaboration</li>
+                    </ul>
+                    <li><a href="https://doi.org/10.22323/1.334.0295"><em>PoS</em> <strong>LATTICE2018</strong> 295</a> [<a href="https://arxiv.org/abs/1810.13149">arXiv</a>]</li>
+                    <ul>
+                        <li>Perturbative calculation of \(Z_q\) at the one-loop level using HYP-smeared staggered quarks</li>
+                        <li><strong>Benjamin J. Choi</strong>, Jangho Kim, Weonjong Lee, Sungwoo Park and Stephen R. Sharpe on behalf of SWME Collaboration</li>
+                    </ul>
+                    <li><a href="https://doi.org/10.22323/1.334.0283"><em>PoS</em> <strong>LATTICE2018</strong> 283</a> [<a href="https://arxiv.org/abs/1812.07675">arXiv</a>]</li>
+                    <ul>
+                        <li>Update on \(B \to D^\ast \ell \nu\) form factor at zero-recoil using the Oktay-Kronfeld action</li>
+                        <li>Jon A. Bailey, Tanmoy Bhattacharya, <strong>Benjamin J. Choi</strong>, Rajan Gupta, Yong-Chull Jang, Hwancheol Jeong, Seungyeob Jwa, Sunkyu Lee, Weonjong Lee, Jaehoon Leem, Jeonghwan Pak and Sungwoo Park on behalf of LANL/SWME Collaboration</li>
+                    </ul>
+                    <li><a href="https://doi.org/10.1103/PhysRevD.93.014511"><em>Phys. Rev.</em> <strong>D93</strong> 014511</a> [<a href="https://arxiv.org/abs/1509.00592">arXiv</a>]</li>
+                    <ul>
+                        <li>Kaon BSM $B$-parameters using improved staggered fermions from $N_f=2+1$ unquenched QCD</li>
+                        <li><strong>Benjamin J. Choi</strong>, Yong-Chull Jang, Chulwoo Jung, Hwancheol Jeong, Jangho Kim, Jongjeong Kim, Sunghee Kim, Weonjong Lee, Jaehoon Leem, Jeonghwan Pak, Sungwoo Park, Stephen R. Sharpe and Boram Yoon on behalf of SWME Collaboration</li>
+                    </ul>
+                </ol>
+
+                <!-- <li class="outlined-text-semibig"><a href="#res">Research Statements</a></li> -->
+
+            <!-- <div class="menus" id="res">
+                <br><br>
+                <h3>Research Statement</h3>
+                <iframe src="./res_sta.html" scrolling="yes" onload="resizeIframe(this)" ></iframe>
+                <br><br>
+            </div> -->
+
+
+
+            <!-- <div style="text-align: center">
+                <br><br>
+                    <iframe width="100%" height="100%" src="https://www.youtube.com/embed/GkQG5cQHB_I?si=u5rAWzIz0NcqfEwt" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                <br><br>
+                <img src="img/YUN_6275.JPG" alt="At the day of wedding ceremony" width="600" height="400" />
+                <br><br>
+            </div> -->
+
+
+              <!-- <i class="fab fa-twitter-square"></i> -->
