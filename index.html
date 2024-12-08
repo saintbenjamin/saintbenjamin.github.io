@@ -249,9 +249,17 @@
                 <a href="https://www.instagram.com/benji_johannes/" target="_blank"><i class="fab fa-instagram-square"></i></a>
                 <a href="https://www.facebook.com/benjamin.dion.choi" target="_blank"><i class="fab fa-facebook-square"></i></a>
                 <a href="https://www.youtube.com/channel/UCX-16rGG_fl0_pAXfvp39aQ" target="_blank"><i class="fab fa-youtube"></i></a> 
-            </div>  
+            </div>
+            <button class="qr-button" id="showQrButton">QR Code</button>
             <!-- <p class="outlined-text">&copy; 2024 Benjamin J. Choi. All rights reserved.</p> -->
         </footer>
+        <div class="overlay" id="qrOverlay">
+            <div class="popup">
+                <button class="close-btn" id="closeQrButton">&times;</button>
+                <img src="img/qr_code.png" alt="QR Code">
+                <p>Benjamin J. Choi</p>
+            </div>
+        </div>
         <script>
             function toggleMenu() {
                 const menu = document.querySelector('.menu');
@@ -291,6 +299,20 @@
             }
             loadAndRenderXML('talk_local.xml', 'talk.xsl', 'talk-container');
             loadAndRenderXML('arXiv_local.xml', 'arXiv.xsl', 'arXiv-container');
+            const showQrButton = document.getElementById('showQrButton');
+            const qrOverlay = document.getElementById('qrOverlay');
+            const closeQrButton = document.getElementById('closeQrButton');
+            showQrButton.addEventListener('click', () => {
+                qrOverlay.style.display = 'flex';
+            });
+            closeQrButton.addEventListener('click', () => {
+                qrOverlay.style.display = 'none';
+            });
+            qrOverlay.addEventListener('click', (e) => {
+                if (e.target === qrOverlay) {
+                    qrOverlay.style.display = 'none';
+                }
+            });
         </script>
     </body>
 </html>

@@ -58,8 +58,16 @@
       <a href="https://www.facebook.com/juhee.choi.5011" target="_blank">
         <i class="fab fa-facebook-square"></i>
       </a>
-    </div>  
+    </div>
+    <button class="qr-button" id="showQrButton">QR Code</button>
   </footer>
+  <div class="overlay" id="qrOverlay">
+    <div class="popup">
+        <button class="close-btn" id="closeQrButton">&times;</button>
+        <img src="img/juhee_qr_code.png" alt="QR Code">
+        <p>Sop. Juhee Choi</p>
+    </div>
+  </div>
   <script>
     function toggleMenu() {
         const menu = document.querySelector('.menu');
@@ -101,6 +109,20 @@
     loadAndRenderXML('edu_j_local.xml', 'perf.xsl', 'edu-j-container');
     loadAndRenderXML('honor_j_local.xml', 'honor_j.xsl', 'honor-j-container');
     loadAndRenderXML('perf_local.xml', 'perf.xsl', 'perf-container');
+    const showQrButton = document.getElementById('showQrButton');
+    const qrOverlay = document.getElementById('qrOverlay');
+    const closeQrButton = document.getElementById('closeQrButton');
+    showQrButton.addEventListener('click', () => {
+      qrOverlay.style.display = 'flex';
+    });
+    closeQrButton.addEventListener('click', () => {
+      qrOverlay.style.display = 'none';
+    });
+    qrOverlay.addEventListener('click', (e) => {
+      if (e.target === qrOverlay) {
+        qrOverlay.style.display = 'none';
+      }
+    });
   </script>
 </body>
 </html>
