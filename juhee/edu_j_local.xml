@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title>Soprano Juhee Choi's Educations</title>
+    <updated>2024-12-08T00:00:00-05:00</updated>
+    <id>juhee_edus</id>
+    <entry>
+        <title>2004-2008</title>
+        <perf_s>
+            <perf>
+                <id>juhee_2004-2008_1</id>
+                <title>서울대학교 음악대학 성악과 졸업</title>
+                <loc_s>
+                    <loc>이승현, 이영화, 김정아, 박세원 교수님 사사</loc>
+                </loc_s>
+            </perf>
+        </perf_s>
+    </entry>
+
+    <entry>
+        <title>2008-2010</title>
+        <perf_s>
+            <perf>
+                <id>juhee_2008-2010_1</id>
+                <title>서울대학교 음악대학 대학원 석사 졸업</title>
+                <loc_s>
+                    <loc>박세원 교수님 사사</loc>
+                    <loc>Olivier Messiaen의 가곡 『Poèmes pour MiⅡ』 연구: 연주자 입장에서의 분석을 중심으로</loc>
+                </loc_s>
+            </perf>
+        </perf_s>
+    </entry>
+
+    <entry>
+        <title>2018</title>
+        <perf_s>
+            <perf>
+                <id>juhee_2018_1</id>
+                <title>서울대학교 평생교육원 음악교육 전문지도자 과정 (관현악 지휘) 이수</title>
+            </perf>
+        </perf_s>
+    </entry>
+
+    <entry>
+        <title>2020-2021</title>
+        <perf_s>
+            <perf>
+                <id>juhee_2020-2021_1</id>
+                <title>오스트리아 빈 시립 음악예술대학교 COP (Certificate of Performance) 독창과 전문연주자과정 졸업</title>
+                <loc_s>
+                    <loc>Prof. Melba Ramos 사사</loc>
+                </loc_s>
+            </perf>
+        </perf_s>
+    </entry>
+
+</feed>
