@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title>Benjamin Jaedon Choi's talks</title>
+    <link rel="describes" href="https://orcid.org/0000-0002-5438-5490"/>
+    <updated>2024-12-04T00:00:00-05:00</updated>
+    <id>http://arxiv.org/a/choi_b_1</id>
+    <link href="http://arxiv.org/a/choi_b_1.atom2" rel="self" type="application/atom+xml"/>
+    <link rel="describes" href="http://arxiv.org/a/choi_b_1"/>
+    <entry>
+        <id>benji_1</id>
+        <updated>2024-09-25</updated>
+        <title>Machine Learning Estimation on the Trace of Inverse Dirac Operator using the Gradient Boosting Decision Tree Regression</title>
+        <author>
+            <name>Benjamin J. Choi, Hiroshi Ohno, Takayuki Sumimoto, Akio Tomiya</name>
+        </author>
+        <conf_en>2024 Annual Meeting for "Foundation of Machine Learning Physics"</conf_en>
+        <conf_jp>学術変革領域(A)「学習物理学の創成」R6年度領域会議</conf_jp>
+    </entry>
+</feed>

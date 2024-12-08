@@ -30,6 +30,7 @@
                 <li class="outlined-text-semibig"><a href="#edu">Education</a></li>
                 <li class="outlined-text-semibig"><a href="#academic">Experience</a></li>
                 <li class="outlined-text-semibig"><a href="#honor">Honors</a></li>
+                <li class="outlined-text-semibig"><a href="#talk">Talks</a></li>
                 <li class="outlined-text-semibig"><a href="#publication">Publications</a></li>
                 <li class="outlined-text-semibig"><a href="#links">Links</a></li>
             </ul>
@@ -202,6 +203,10 @@
                     </ul>
                 </ul>
             </div>
+            <div class="menus" id="talk">
+                <h3 class="outlined-text-big">Talks</h3>
+                <div id="talk-container" class="xml-content"></div>
+            </div>
             <div class="menus" id="publication">
                 <h3 class="outlined-text-big">Publications</h3>
                 <div id="arXiv-container" class="xml-content"></div>
@@ -282,6 +287,7 @@
                         document.getElementById(containerId).textContent = 'Error loading and rendering XML.';
                     }
             }
+            loadAndRenderXML('talk_local.xml', 'talk.xsl', 'talk-container');
             loadAndRenderXML('arXiv_local.xml', 'arXiv.xsl', 'arXiv-container');
         </script>
     </body>
