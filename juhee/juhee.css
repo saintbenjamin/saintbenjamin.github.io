@@ -177,7 +177,7 @@ a {
 }
 
 .qr-button {
-    background-color: orangered;
+    background-color: #3D3332;
     color: white;
     padding: 10px 20px;
     border: none;
@@ -187,7 +187,7 @@ a {
 }
 
 .qr-button:hover {
-    background-color: brown;
+    background-color: orange;
 }
 
 .overlay {
