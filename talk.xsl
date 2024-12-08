@@ -58,6 +58,9 @@
             <xsl:value-of select="substring-after(a:author, 'Benjamin J. Choi')"/></li>
             <li><xsl:value-of select="a:conf_en"/></li>
             <li><xsl:value-of select="a:conf_jp"/></li>
+            <li><xsl:value-of select="a:loc_en"/></li>
+            <li><xsl:value-of select="a:loc_jp"/></li>
+            <li><xsl:value-of select="a:session"/></li>
         </ul>
         <br/>
     </xsl:template> 
