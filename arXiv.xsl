@@ -51,13 +51,13 @@
         <!-- <a href="https://inspirehep.net/literature?q={arxiv:doi}" target="_blank">
             <b><xsl:value-of select="a:title"/></b>
         </a> -->
-        <ul>
+        <ul class="no-bullets">
             <li><xsl:value-of select="substring(a:updated, 1, 10)"/></li>
             <li><xsl:value-of select="substring-before(a:author, 'Benjamin J. Choi')"/>
-            <b><xsl:value-of select="substring('Benjamin J. Choi', 1)"/></b>
+            <u><xsl:value-of select="substring('Benjamin J. Choi', 1)"/></u>
             <xsl:value-of select="substring-after(a:author, 'Benjamin J. Choi')"/></li>
-            <li><xsl:value-of select="a:summary"/></li>
-            <li><xsl:value-of select="arxiv:comment"/></li>
+            <!-- <li><xsl:value-of select="a:summary"/></li>
+            <li><xsl:value-of select="arxiv:comment"/></li> -->
             <li><b><xsl:value-of select="arxiv:journal_ref"/></b></li>
             <li>
                 <xsl:for-each select="a:link[@title='pdf']">

@@ -162,6 +162,20 @@ li {
     margin-bottom: 10px;
 }
 
+a {
+    color: white;
+    text-decoration: none;
+}
+
+.word-break {
+    display: flex; 
+    flex-wrap: wrap;
+    display: inline-block; 
+    word-break: keep-all;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
 .hamburger {
     display: none;
     flex-direction: column;
@@ -235,18 +249,21 @@ li {
         width: auto;
         height: auto;
     }
-}
 
-a {
-    color: white;
-    text-decoration: none;
-}
+    .menu li a {
+        font-size: 2.0rem;
+        padding: 15px 20px;
+      }
 
-.word-break {
-    display: flex; 
-    flex-wrap: wrap;
-    display: inline-block; 
-    word-break: keep-all;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
+    p {
+        font-size: 2.0rem;
+        margin-top: 20px;
+        margin-right: 20px;
+    }
+
+    li {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+    }
+
 }

@@ -1,7 +1,7 @@
 @font-face {
     font-family: 'Crimson Pro';
     src: url('fonts/CrimsonPro-VariableFont_wght.ttf') format('truetype');
-    font-weight: 400;
+    font-weight: 700;
     font-style: normal;
     font-display: swap;
 }
@@ -9,7 +9,7 @@
 @font-face {
     font-family: 'Noto Serif JP';
     src: url('fonts/NotoSerifJP-VariableFont_wght.ttf') format('truetype');
-    font-weight: 400;
+    font-weight: 700;
     font-style: normal;
     font-display: swap;
 }
@@ -29,7 +29,7 @@ body {
     display: flex;
     height: 100vh;
     font-family: 'Crimson Pro', 'Noto Serif JP', sans-serif;
-    font-size: 1.5em;
+    font-size: 1.1rem;
 }
 
 header {
@@ -43,7 +43,7 @@ header {
 }
 
 main {
-    flex: 1;
+    /* flex: 1; */
     padding: 20px;
     color: black;
 }
@@ -65,6 +65,41 @@ p {
     margin-right: 20px;
 }
 
+ul.no-bullets {
+    list-style-type: none;
+    padding-left: 20px;
+}
+
+li {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+a {
+    color: orangered;
+    text-decoration: none;
+}
+
+.here-icon-container {
+    display: flex;
+    gap: 15px;
+    padding: 10px;
+}
+
+.here-icon-container i {
+    font-size: 30px;
+    color: gray;
+    transition: transform 0.3s ease, color 0.3s ease;
+    position: relative;
+    z-index: 1;
+}
+
+.here-icon-container i:hover {
+    color: orangered;
+    transform: translate(5px, 5px);
+    cursor: pointer;
+}
+
 .icon-container {
     display: flex;
     justify-content: flex-end;
@@ -73,7 +108,7 @@ p {
 }
 
 .icon-container i {
-    font-size: 50px;
+    font-size: 40px;
     color: gray;
     transition: transform 0.3s ease, color 0.3s ease;
     position: relative;
@@ -86,17 +121,13 @@ p {
     cursor: pointer;
 }
 
-.normben {
-    font-size: 1.0rem
-}
-
 .background {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('img/benji_bg.png');
+    background-image: url('img/benji_bg2.png');
     background-size: auto 100%;
     background-position: right;
     background-repeat: no-repeat;
@@ -118,7 +149,7 @@ p {
 }
 
 .outlined-text-superbig {
-    font-size: 3.0em;
+    font-size: 2.5em;
     color: black;
     text-shadow: 
         0.5px  0.5px 0 white, 
@@ -173,14 +204,13 @@ p {
        -1.0px  1.0px 0 white;
 }
 
-ul.no-bullets {
-    list-style-type: none;
-    padding-left: 20px;
-}
-
-li {
-    font-size: 1.2rem;
-    margin-bottom: 10px;
+.word-break {
+    display: flex; 
+    flex-wrap: wrap;
+    display: inline-block; 
+    word-break: keep-all;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .hamburger {
@@ -255,20 +285,21 @@ li {
         width: auto;
         height: auto;
     }
-}
 
-a {
-    color: orangered;
-    text-decoration: none;
-}
+    .menu li a {
+        font-size: 2.0rem;
+        padding: 15px 20px;
+      }
 
-#wrapper {
-    max-width: 600px;
-    margin: auto;
-}
-iframe {
-    display: block;
-    width: 100%;
-    border: none;
-    border-radius: 1em;
+    p {
+        font-size: 2.0rem;
+        margin-top: 20px;
+        margin-right: 20px;
+    }
+
+    li {
+        font-size: 2.0rem;
+        margin-bottom: 10px;
+    }
+
 }
