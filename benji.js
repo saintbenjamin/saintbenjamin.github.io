@@ -34,6 +34,8 @@ async function loadAndRenderXML(xmlUrl, xslUrl, containerId) {
             document.getElementById(containerId).textContent = 'Error loading and rendering XML.';
         }
 }
+loadAndRenderXML('jesus.xml', 'jesus.xsl', 'jesus-container');
+loadAndRenderXML('bio.xml', 'bio.xsl', 'bio-container');
 loadAndRenderXML('edu.xml', 'edu.xsl', 'edu-container');
 loadAndRenderXML('exp.xml', 'exp.xsl', 'exp-container');
 loadAndRenderXML('honor.xml', 'honor.xsl', 'honor-container');

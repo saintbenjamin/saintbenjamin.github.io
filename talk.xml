@@ -13,9 +13,9 @@
         <author>
             <name>Benjamin J. Choi, Hiroshi Ohno, Takayuki Sumimoto, Akio Tomiya</name>
         </author>
-        <conf_en>2024 Annual Meeting for "Foundation of Machine Learning Physics"</conf_en>
+        <conf_en link="https://mlphys.scphys.kyoto-u.ac.jp/events/#sec_02" target="_blank">2024 Annual Meeting for "Foundation of Machine Learning Physics"</conf_en>
         <conf_jp>学術変革領域(A)「学習物理学の創成」R6年度領域会議</conf_jp>
-        <loc_en>The University of Tokyo, Japan</loc_en>
+        <loc_en link="https://www.s.u-tokyo.ac.jp/en/hall/koshiba.html" target="_blank">The University of Tokyo, Japan</loc_en>
         <loc_jp>東京大学本郷地区キャンパス小柴ホール</loc_jp>
         <session>Talk</session>
     </entry>
@@ -23,12 +23,12 @@
     <entry>
         <id>benji_15</id>
         <updated>2024-07-29</updated>
-        <title>Machine Learning Estimation on the Trace of Inverse Dirac Operator using the Gradient Boosting Decision Tree Regression</title>
+        <title link="https://conference.ippp.dur.ac.uk/event/1265/contributions/7582/" target="_blank">Machine Learning Estimation on the Trace of Inverse Dirac Operator using the Gradient Boosting Decision Tree Regression</title>
         <author>
             <name>Benjamin J. Choi, Hiroshi Ohno, Takayuki Sumimoto, Akio Tomiya</name>
         </author>
-        <conf_en>The 41st International Symposium on Lattice Field Theory (Lattice 2024)</conf_en>
-        <conf_jp>第41回格子上の場の理論国際シンポジウム (Lattice 2024)</conf_jp>
+        <conf_en link="https://conference.ippp.dur.ac.uk/event/1265/" target="_blank">The 41st International Symposium on Lattice Field Theory (Lattice 2024)</conf_en>
+        <conf_jp>第41回格子上の場の理論国際シンポジウム</conf_jp>
         <loc_en>The University of Liverpool, UK</loc_en>
         <loc_jp>リバプール大学</loc_jp>
         <session>Talk</session>

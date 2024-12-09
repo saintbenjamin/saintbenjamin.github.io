@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title>Benjamin J. Choi's Information</title>
+    <updated>2024-12-09T00:00:00-05:00</updated>
+    <id>benji_education</id>
+    <entry>
+        <title>Christian</title>
+        <item_s>
+            <item>
+                <title link="https://www.euljiro.org/" target="_blank">The Eulji-ro Presbyterian Church, Seoul, South Korea</title>
+            </item>
+        </item_s>
+    </entry>
+    <entry>
+        <title>Postdoctoral researcher</title>
+        <item_s>
+            <item>
+                <title link="https://www.ccs.tsukuba.ac.jp/ccs_introduction/teacher/list/depart_particle/" target="_blank">Center for Computational Sciences, University of Tsukuba, 1-1-1 Tennodai, Tsukuba, Ibaraki 305-8577, Japan</title>
+            </item>
+            <item>
+                <title>Member of the Physical Society of Japan (日本物理学会) since Sep. 2024</title>
+            </item>
+            <item>
+                <title>Member of the Korean Physical Society (韓国物理学会) since Feb. 2016</title>
+            </item>
+            <item>
+                <title link="https://inspirehep.net/authors/1421094" target="_blank">iNSPIRE-HEP</title>
+            </item>
+            <item>
+                <title link="https://researchmap.jp/benjaminchoi" target="_blank">Researchmap</title>
+            </item>
+        </item_s>
+    </entry>
+
+</feed>
