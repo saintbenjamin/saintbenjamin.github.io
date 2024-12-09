@@ -11,6 +11,15 @@
                 <title>
                     <xsl:value-of select="a:title"/>
                 </title>
+                <script>
+                    MathJax = {
+                        tex: {
+                            inlineMath: [['$', '$']], // Define $...$ for inline math
+                            displayMath: [['$$', '$$']] // $$...$$ for block math
+                        }
+                    };
+                </script>
+                <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
             </head>
             <body>
                 <ul class="outlined-text no-bullets">

@@ -58,20 +58,19 @@
             <xsl:value-of select="substring-after(a:author, 'Benjamin J. Choi')"/></li>
             <!-- <li><xsl:value-of select="a:summary"/></li>
             <li><xsl:value-of select="arxiv:comment"/></li> -->
-            <li><b><xsl:value-of select="arxiv:journal_ref"/></b></li>
             <li>
-                <xsl:for-each select="a:link[@title='pdf']">
-                    <a href="{@href}" target="_blank">
-                        <xsl:value-of select="@href"/>
-                    </a>
-                </xsl:for-each>
-            </li>
-            <li>
-                <xsl:for-each select="a:link[@title='doi']">
-                    <a href="{@href}" target="_blank">
-                        <xsl:value-of select="@href"/>
-                    </a>
-                </xsl:for-each>
+                <xsl:choose>
+                    <xsl:when test="a:link[@title='doi']">
+                        <a href="{a:link[@title='doi']/@href}" target="_blank">
+                            <xsl:value-of select="arxiv:journal_ref"/>
+                        </a>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <a href="{a:link[@title='pdf']/@href}" target="_blank">
+                            <xsl:value-of select="arxiv:journal_ref"/>
+                        </a>
+                    </xsl:otherwise>
+                </xsl:choose>
             </li>
         </ul>
         <br/>
