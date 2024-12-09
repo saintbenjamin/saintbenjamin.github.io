@@ -23,14 +23,14 @@
                 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
             </head>
             <body>
-                <ul class="no-bullets">
+                <ul class="outlined-text no-bullets">
                     <xsl:apply-templates/>
                 </ul>
             </body>
         </html>
     </xsl:template> 
     <xsl:template match="a:entry">
-        <li class="outlined-text">
+        <li>
             <xsl:choose>
                 <xsl:when test="a:word_en/@link">
                     <a href="{a:word_en/@link}" target="_blank">
@@ -42,7 +42,7 @@
                 </xsl:otherwise>
             </xsl:choose>
         </li>
-        <li class="outlined-text">
+        <li>
             <xsl:choose>
                 <xsl:when test="a:word_jp/@link">
                     <a href="{a:word_jp/@link}" target="_blank">

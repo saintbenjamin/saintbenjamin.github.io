@@ -32,9 +32,9 @@
                 </xsl:otherwise>
             </xsl:choose>
         </li>
-        <ul class="utlined-text no-bullets">
+        <ul class="outlined-text no-bullets">
             <xsl:for-each select="a:item_s/a:item">
-                <ul class="no-bullets">
+                <ul class="outlined-text no-bullets">
                     <li>
                         <xsl:choose>
                             <xsl:when test="a:title/@link">
