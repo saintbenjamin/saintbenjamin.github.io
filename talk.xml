@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <title>Benjamin Jaedon Choi's talks</title>
-    <link rel="describes" href="https://orcid.org/0000-0002-5438-5490"/>
     <updated>2024-12-04T00:00:00-05:00</updated>
-    <id>http://arxiv.org/a/choi_b_1</id>
-    <link href="http://arxiv.org/a/choi_b_1.atom2" rel="self" type="application/atom+xml"/>
-    <link rel="describes" href="http://arxiv.org/a/choi_b_1"/>
+    <id>benji_talk</id>
     <entry>
         <id>benji_16</id>
         <updated>2024-09-25</updated>
@@ -29,7 +26,7 @@
         </author>
         <conf_en link="https://conference.ippp.dur.ac.uk/event/1265/" target="_blank">The 41st International Symposium on Lattice Field Theory (Lattice 2024)</conf_en>
         <conf_jp>第41回格子上の場の理論国際シンポジウム</conf_jp>
-        <loc_en>The University of Liverpool, UK</loc_en>
+        <loc_en link="https://www.liverpool.ac.uk/mathematical-sciences/events/lattice-2024/">The University of Liverpool, UK</loc_en>
         <loc_jp>リバプール大学</loc_jp>
         <session>Talk</session>
     </entry>
@@ -37,13 +34,13 @@
     <entry>
         <id>benji_14</id>
         <updated>2023-07-31</updated>
-        <title>Current Progress on the Semileptonic Form Factors for $\bar{B} \to D^{\ast} \ell \bar{\nu}$ Decay using the Oktay-Kronfeld Action</title>
+        <title link="https://indico.fnal.gov/event/57249/contributions/270573/" target="_blank">Current Progress on the Semileptonic Form Factors for $\bar{B} \to D^{\ast} \ell \bar{\nu}$ Decay using the Oktay-Kronfeld Action</title>
         <author>
             <name>Benjamin J. Choi</name>
         </author>
-        <conf_en>The 40th International Symposium on Lattice Field Theory (Lattice 2023)</conf_en>
-        <conf_jp>第40回格子上の場の理論国際シンポジウム (Lattice 2023)</conf_jp>
-        <loc_en>Fermilab, Illinois, USA</loc_en>
+        <conf_en link="https://indico.fnal.gov/event/57249/" target="_blank">The 40th International Symposium on Lattice Field Theory (Lattice 2023)</conf_en>
+        <conf_jp>第40回格子上の場の理論国際シンポジウム</conf_jp>
+        <loc_en link="https://www.fnal.gov/" target="_blank">Fermilab, Illinois, USA</loc_en>
         <loc_jp>フェルミ国立加速器研究所</loc_jp>
         <session>Talk</session>
     </entry>
@@ -55,8 +52,8 @@
         <author>
             <name>Benjamin J. Choi</name>
         </author>
-        <conf_en>The 15th Asia Pacific Physics Conference (APPC15)</conf_en>
-        <conf_jp>第15回アジア太平洋物理学コンファレンス (APPC15)</conf_jp>
+        <conf_en link="https://www.appc15.org/" target="_blank">The 15th Asia Pacific Physics Conference (APPC15)</conf_en>
+        <conf_jp>第15回アジア太平洋物理学コンファレンス</conf_jp>
         <loc_en>Online Conference</loc_en>
         <loc_jp>オンライン学会</loc_jp>
         <session>Talk</session>
@@ -65,13 +62,13 @@
     <entry>
         <id>benji_12</id>
         <updated>2022-08-09</updated>
-        <title>Data analysis on 2pt correlation function with the OK action</title>
+        <title link="https://indico.hiskp.uni-bonn.de/event/40/contributions/635/" target="_blank">Data analysis on 2pt correlation function with the OK action</title>
         <author>
             <name>Benjamin J. Choi</name>
         </author>
-        <conf_en>The 39th International Symposium on Lattice Field Theory (Lattice 2022)</conf_en>
-        <conf_jp>第39回格子上の場の理論国際シンポジウム (Lattice 2022)</conf_jp>
-        <loc_en>The Rhenish Friedrich Wilhelm University of Bonn, Germany</loc_en>
+        <conf_en link="https://indico.hiskp.uni-bonn.de/event/40/" target="_blank">The 39th International Symposium on Lattice Field Theory (Lattice 2022)</conf_en>
+        <conf_jp>第39回格子上の場の理論国際シンポジウム</conf_jp>
+        <loc_en link="https://www.uni-bonn.de/en" target="_blank">The Rhenish Friedrich Wilhelm University of Bonn, Germany</loc_en>
         <loc_jp>ライン・フリードリヒ・ヴィルヘルム大学ボン</loc_jp>
         <session>Poster</session>
     </entry>
@@ -79,11 +76,11 @@
     <entry>
         <id>benji_11</id>
         <updated>2021-07-29</updated>
-        <title>Data analysis on two-point correlation function with sequential Bayesian method</title>
+        <title link="https://indico.cern.ch/event/1006302/contributions/4376561/" target="_blank">Data analysis on two-point correlation function with sequential Bayesian method</title>
         <author>
             <name>Benjamin J. Choi</name>
         </author>
-        <conf_en>The 38th International Symposium on Lattice Field Theory (Lattice 2021)</conf_en>
+        <conf_en link="https://indico.cern.ch/event/1006302/" target="_blank">The 38th International Symposium on Lattice Field Theory (Lattice 2021)</conf_en>
         <conf_jp>第38回格子上の場の理論国際シンポジウム (Lattice 2021)</conf_jp>
         <loc_en>Zoom/Gather@MIT (Online Conference)</loc_en>
         <loc_jp>オンライン学会</loc_jp>
@@ -98,7 +95,7 @@
         <author>
             <name>Benjamin J. Choi</name>
         </author>
-        <conf_en>KPS 2021 Spring Meeting</conf_en>
+        <conf_en link="https://www.kps.or.kr/conference/event/index.php?cfrid=10" target="_blank">KPS 2021 Spring Meeting</conf_en>
         <conf_jp>韓国物理学会2021年春の学術論文発表会及び第97回定期総会</conf_jp>
         <loc_en>Online Conference</loc_en>
         <loc_jp>オンライン学会</loc_jp>
@@ -112,7 +109,7 @@
         <author>
             <name>Benjamin J. Choi</name>
         </author>
-        <conf_en>BK21+ Young Physicists' Workshop 2020</conf_en>
+        <conf_en link="https://physics.kaist.ac.kr/index.php?mid=p_news_event1&amp;page=5&amp;document_srl=10865" target="_blank">BK21+ Young Physicists' Workshop 2020</conf_en>
         <conf_jp>第12回BK21+若手物理学者ワークショップ</conf_jp>
         <loc_en>KAIST, South Korea</loc_en>
         <loc_jp>韓国科学技術院</loc_jp>
@@ -122,11 +119,11 @@
     <entry>
         <id>benji_08</id>
         <updated>2019-06-18</updated>
-        <title>Leptonic decays of $B_{(s)}$ and $D_{(s)}$ using the OK action</title>
+        <title link="https://indico.cern.ch/event/764552/contributions/3421211/" target="_blank">Leptonic decays of $B_{(s)}$ and $D_{(s)}$ using the OK action</title>
         <author>
             <name>Benjamin J. Choi</name>
         </author>
-        <conf_en>The 37th International Symposium on Lattice Field Theory (Lattice 2019)</conf_en>
+        <conf_en link="https://indico.cern.ch/event/764552/" target="_blank">The 37th International Symposium on Lattice Field Theory (Lattice 2019)</conf_en>
         <conf_jp>第37回格子上の場の理論国際シンポジウム (Lattice 2019)</conf_jp>
         <loc_en>Hilton Hotel Wuhan Riverside, China</loc_en>
         <loc_jp>ヒルトン武漢リバーサイド</loc_jp>
@@ -140,7 +137,7 @@
         <author>
             <name>Benjamin J. Choi</name>
         </author>
-        <conf_en>BK21+ Young Physicists' Workshop 2019</conf_en>
+        <conf_en link="https://physics.kaist.ac.kr/index.php?mid=p_news_event1&amp;page=6&amp;document_srl=9695" target="_blank">BK21+ Young Physicists' Workshop 2019</conf_en>
         <conf_jp>第11回BK21+若手物理学者ワークショップ</conf_jp>
         <loc_en>POSTECH, South Korea</loc_en>
         <loc_jp>浦項工科大学</loc_jp>
@@ -150,11 +147,11 @@
     <entry>
         <id>benji_06</id>
         <updated>2018-07-24</updated>
-        <title>Perturbative calculation of $Z_q$ at the one-loop level using HYP-smeared staggered quarks</title>
+        <title link="https://indico.fnal.gov/event/15949/contributions/34874/" target="_blank">Perturbative calculation of $Z_q$ at the one-loop level using HYP-smeared staggered quarks</title>
         <author>
             <name>Benjamin J. Choi</name>
         </author>
-        <conf_en>The 36th International Symposium on Lattice Field Theory (Lattice 2018)</conf_en>
+        <conf_en link="https://indico.fnal.gov/event/15949/" target="_blank">The 36th International Symposium on Lattice Field Theory (Lattice 2018)</conf_en>
         <conf_jp>第36回格子上の場の理論国際シンポジウム (Lattice 2018)</conf_jp>
         <loc_en>Kellogg Hotel and Conference Center, Michigan, USA</loc_en>
         <loc_jp>ケロッグホテル&amp;カンファレンスセンター</loc_jp>
@@ -168,7 +165,7 @@
         <author>
             <name>Benjamin J. Choi</name>
         </author>
-        <conf_en>BK21+ Young Physicists' Workshop 2018</conf_en>
+        <conf_en link="http://phya.snu.ac.kr/ypw2018/index.html" target="_blank">BK21+ Young Physicists' Workshop 2018</conf_en>
         <conf_jp>第10回BK21+若手物理学者ワークショップ</conf_jp>
         <loc_en>SNU, South Korea</loc_en>
         <loc_jp>ソウル大学</loc_jp>
@@ -182,7 +179,7 @@
         <author>
             <name>Benjamin J. Choi</name>
         </author>
-        <conf_en>KPS 2017 Fall Meeting</conf_en>
+        <conf_en link="https://www.kps.or.kr/content/conference/meeting_past.php" target="_blank">KPS 2017 Fall Meeting</conf_en>
         <conf_jp>韓国物理学会2017年秋の学術論文発表会及び臨時総会</conf_jp>
         <loc_en>Gyeongju HICO, South Korea</loc_en>
         <loc_jp>慶州画伯コンベンションセンター</loc_jp>
@@ -196,7 +193,7 @@
         <author>
             <name>Benjamin J. Choi</name>
         </author>
-        <conf_en>KPS 2016 Fall Meeting</conf_en>
+        <conf_en link="https://www.kps.or.kr/content/conference/meeting_past.php" target="_blank">KPS 2016 Fall Meeting</conf_en>
         <conf_jp>韓国物理学会2016年秋の学術論文発表会及び臨時総会</conf_jp>
         <loc_en>Gwangju Kim Daejung Convention Center station, South Korea</loc_en>
         <loc_jp>金大中コンベンションセンター</loc_jp>
@@ -206,13 +203,13 @@
     <entry>
         <id>benji_02</id>
         <updated>2016-07-26</updated>
-        <title>Perturbative calculation of $Z_q$ and $Z_m$ at the one-loop level using improved staggered quark</title>
+        <title link="https://conference.ippp.dur.ac.uk/event/470/contributions/2714/">Perturbative calculation of $Z_q$ and $Z_m$ at the one-loop level using improved staggered quark</title>
         <author>
             <name>Benjamin J. Choi</name>
         </author>
-        <conf_en>The 34th International Symposium on Lattice Field Theory (Lattice 2016)</conf_en>
+        <conf_en link="https://conference.ippp.dur.ac.uk/event/470/">The 34th International Symposium on Lattice Field Theory (Lattice 2016)</conf_en>
         <conf_jp>第34回格子上の場の理論国際シンポジウム (Lattice 2016)</conf_jp>
-        <loc_en>University of Southampton, UK</loc_en>
+        <loc_en link="https://www.southampton.ac.uk/lattice2016/">University of Southampton, UK</loc_en>
         <loc_jp>サウサンプトン大学</loc_jp>
         <session>Poster</session>
     </entry>
@@ -224,7 +221,7 @@
         <author>
             <name>Benjamin J. Choi</name>
         </author>
-        <conf_en>KPS 2016 Spring Meeting</conf_en>
+        <conf_en link="https://www.kps.or.kr/content/conference/meeting_past.php" target="_blank">KPS 2016 Spring Meeting</conf_en>
         <conf_jp>韓国物理学会2016年春の学術論文発表会及び第92回定期総会</conf_jp>
         <loc_en>Daejeon DCC, South Korea</loc_en>
         <loc_jp>大田コンベンションセンター</loc_jp>
