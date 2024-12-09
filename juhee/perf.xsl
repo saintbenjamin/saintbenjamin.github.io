@@ -15,6 +15,7 @@
             <body>
                 <ul class="outlined-text no-bullets">
                     <xsl:apply-templates/>
+                    <br/>
                 </ul>
             </body>
         </html>
@@ -31,6 +32,5 @@
                 </xsl:for-each>
             </ul>
         </xsl:for-each>
-        <br/>
     </xsl:template> 
 </xsl:stylesheet>

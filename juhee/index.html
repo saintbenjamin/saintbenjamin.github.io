@@ -8,68 +8,69 @@
   <link rel="stylesheet" href="juhee.css">
   <script src="juhee.js"></script>
 </head>
-<body>
-  <div class="background"></div>
-  <header>
-    <div class="hamburger" onclick="toggleMenu()">
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
-    <ul class="menu">
-      <li class="outlined-text-semibig"><a href="#home">Home</a></li>
-      <li class="outlined-text-semibig"><a href="#edu">Education</a></li>
-      <li class="outlined-text-semibig"><a href="#honor">Honors</a></li>
-      <li class="outlined-text-semibig"><a href="#perf">Performance</a></li>
-    </ul>
-  </header>
-  <main>
-    <div class="menus word-break" id="home">
-      <h1 class="outlined-text-big fade-in">Soprano Juhee Choi</h1>
+  <body>
+    <div class="background"></div>
+    <header>
+      <div class="hamburger" onclick="toggleMenu()">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <ul class="menu">
+        <li class="outlined-text-semibig"><a href="#home">Home</a></li>
+        <li class="outlined-text-semibig"><a href="#edu">Education</a></li>
+        <li class="outlined-text-semibig"><a href="#honor">Honors</a></li>
+        <li class="outlined-text-semibig"><a href="#perf">Performance</a></li>
+      </ul>
+    </header>
+    <main>
+      <div class="menus word-break" id="home">
+        <h1 class="outlined-text-big fade-in">Soprano Juhee Choi</h1>
+        <br><br>
+        <h1 class="outlined-text-semibig fade-in">Currently I am</h1>
+        <div id="bio-j-container" class="xml-content fade-in"></div>
+      </div>
       <br><br>
-      <h1 class="outlined-text-semibig fade-in">Currently I am</h1>
-      <div id="bio-j-container" class="xml-content fade-in"></div>
+      <div class="menus word-break" id="edu">
+        <h1 class="outlined-text-semibig fade-in">Education</h1>
+        <div id="edu-j-container" class="xml-content fade-in"></div>
+      </div>
+      <br><br>
+      <div class="menus word-break" id="honor">
+        <h1 class="outlined-text-semibig fade-in">Honors</h1>
+        <div id="honor-j-container" class="xml-content fade-in"></div>
+      </div>
+      <br><br>
+      <div class="menus word-break" id="perf">
+        <h1 class="outlined-text-semibig fade-in">Performances</h1>
+        <div id="perf-container" class="xml-content fade-in"></div>
+      </div>
+      <p style="color: #3D3332;">.</p>
+      <p style="color: #3D3332;">.</p>
+    </main>
+    <footer>
+      <!-- <p class="outlined-text">&copy; 2024 Sop. Juhee Choi. All rights reserved.</p> -->
+      <div class="icon-container">
+        <a href="https://www.youtube.com/channel/UCX-16rGG_fl0_pAXfvp39aQ" target="_blank">
+          <i class="fab fa-youtube"></i>
+        </a>
+        <a href="https://www.instagram.com/sop.juheechoi/" target="_blank">
+          <i class="fab fa-instagram-square"></i>
+        </a>
+        <a href="https://www.facebook.com/juhee.choi.5011" target="_blank">
+          <i class="fab fa-facebook-square"></i>
+        </a>
+      </div>
+      <button class="qr-button" id="showQrButton">QR Code</button>
+    </footer>
+    <div class="overlay" id="qrOverlay">
+      <div class="popup">
+          <button class="close-btn" id="closeQrButton">&times;</button>
+          <img src="img/juhee_qr_code.png" alt="QR Code">
+          <p>Sop. Juhee Choi</p>
+      </div>
     </div>
-    <br><br>
-    <div class="menus word-break" id="edu">
-      <h1 class="outlined-text-semibig fade-in">Education</h1>
-      <div id="edu-j-container" class="xml-content fade-in"></div>
-    </div>
-    <br><br>
-    <div class="menus word-break" id="honor">
-      <h1 class="outlined-text-semibig fade-in">Honors</h1>
-      <div id="honor-j-container" class="xml-content fade-in"></div>
-    </div>
-    <br><br>
-    <div class="menus word-break" id="perf">
-      <h1 class="outlined-text-semibig fade-in">Performances</h1>
-      <div id="perf-container" class="xml-content fade-in"></div>
-    </div>
-    <br><br><br><br><br><br><br><br>
-  </main>
-  <footer>
-    <!-- <p class="outlined-text">&copy; 2024 Sop. Juhee Choi. All rights reserved.</p> -->
-    <div class="icon-container">
-      <a href="https://www.youtube.com/channel/UCX-16rGG_fl0_pAXfvp39aQ" target="_blank">
-        <i class="fab fa-youtube"></i>
-      </a>
-      <a href="https://www.instagram.com/sop.juheechoi/" target="_blank">
-        <i class="fab fa-instagram-square"></i>
-      </a>
-      <a href="https://www.facebook.com/juhee.choi.5011" target="_blank">
-        <i class="fab fa-facebook-square"></i>
-      </a>
-    </div>
-    <button class="qr-button" id="showQrButton">QR Code</button>
-  </footer>
-  <div class="overlay" id="qrOverlay">
-    <div class="popup">
-        <button class="close-btn" id="closeQrButton">&times;</button>
-        <img src="img/juhee_qr_code.png" alt="QR Code">
-        <p>Sop. Juhee Choi</p>
-    </div>
-  </div>
-  <script src="juhee_fade.js"></script>
-  <script src="juhee_qr.js"></script>
-</body>
+    <script src="juhee_fade.js"></script>
+    <script src="juhee_qr.js"></script>
+  </body>
 </html>
