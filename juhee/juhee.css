@@ -258,11 +258,11 @@ a {
     list-style-type: none;
     padding: 0;
     margin: 0;
-    background-color: #3D3332;
+    /* background-color: #3D3332; */
     position: absolute;
     top: 0;
     right: 0;
-    width: 500px;
+    /* width: 500px; */
     height: 100%;
     justify-content: flex-end;
     align-items: center;
