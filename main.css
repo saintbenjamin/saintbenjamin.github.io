@@ -29,7 +29,6 @@ body {
     display: flex;
     height: 100vh;
     font-family: 'Crimson Pro', 'Noto Serif JP', sans-serif;
-    font-size: 1.1rem;
 }
 
 header {
@@ -43,7 +42,7 @@ header {
 }
 
 main {
-    /* flex: 1; */
+    flex: 1;
     padding: 20px;
     color: black;
 }
@@ -60,7 +59,7 @@ footer {
 }
 
 p {
-    font-size: 1.1rem;
+    font-size: 1.0rem;
     margin-top: 20px;
     margin-right: 20px;
 }
@@ -149,7 +148,7 @@ a {
 }
 
 .outlined-text-superbig {
-    font-size: 2.5em;
+    font-size: 2.5rem;
     color: black;
     text-shadow: 
         0.5px  0.5px 0 white, 
@@ -163,7 +162,7 @@ a {
 }
 
 .outlined-text-big {
-    font-size: 2.0em;
+    font-size: 2.0rem;
     color: black;
     text-shadow: 
         0.5px  0.5px 0 white, 
@@ -177,7 +176,7 @@ a {
 }
 
 .outlined-text-semibig {
-    font-size: 1.5em;
+    font-size: 1.5rem;
     font-weight: bold;
     color: black;
     text-shadow: 
@@ -366,5 +365,20 @@ a {
         font-size: 2.0rem;
         margin-bottom: 10px;
     }
+
+    .outlined-text-semibig {
+        font-size: 2.0rem;
+        font-weight: bold;
+        color: black;
+        text-shadow: 
+            0.5px  0.5px 0 white, 
+           -0.5px -0.5px 0 white, 
+            0.5px -0.5px 0 white, 
+           -0.5px  0.5px 0 white,
+            1.0px  1.0px 0 white, 
+           -1.0px -1.0px 0 white, 
+            1.0px -1.0px 0 white, 
+           -1.0px  1.0px 0 white;
+    }    
 
 }

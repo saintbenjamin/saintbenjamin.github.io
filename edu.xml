@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title>Benjamin J. Choi's Education</title>
+    <updated>2024-12-09T00:00:00-05:00</updated>
+    <id>benji_education</id>
+    <entry>
+        <title link="https://inspirehep.net/literature/2839267">Ph. D.</title>
+        <supervisor>Supervisor: Prof. Weonjong Lee</supervisor>
+        <title_jp>ソウル大学物理天文学部(理学博士)</title_jp>
+        <location link="https://physics.snu.ac.kr/en">Department of Physics and Astronomy, Seoul National University</location>
+        <date>Mar. 2016 - Feb. 2024</date>
+    </entry>
+
+    <entry>
+        <title>Master of Physics</title>
+        <supervisor>Supervisor: Prof. Kazuyuki Kanaya</supervisor>
+        <title_jp>筑波大学数理物質科学研究科素粒子理論研究室博士前期課程(物理学修士)</title_jp>
+        <location link="https://www-het.ph.tsukuba.ac.jp/">Particle Theory Group, Faculty of Pure and Applied Science, University of Tsukuba</location>
+        <date>Apr. 2010 - Mar. 2013</date>
+    </entry>
+
+    <entry>
+        <title>Bachelor of Science</title>
+        <supervisor>Supervisor: Prof. Nobuyuki Ishibashi</supervisor>
+        <title_jp>筑波大学第一学群自然学類物理学主専攻(理学士)</title_jp>
+        <location link="https://sse.tsukuba.ac.jp/introduction/physics/">College of Natural Sciences, First Cluster of Colleges, University of Tsukuba</location>
+        <date>Apr. 2006 - Mar. 2010.</date>
+    </entry>
+
+</feed>

@@ -34,5 +34,9 @@ async function loadAndRenderXML(xmlUrl, xslUrl, containerId) {
             document.getElementById(containerId).textContent = 'Error loading and rendering XML.';
         }
 }
-loadAndRenderXML('talk_local.xml', 'talk.xsl', 'talk-container');
-loadAndRenderXML('arXiv_local.xml', 'arXiv.xsl', 'arXiv-container');
+loadAndRenderXML('edu.xml', 'edu.xsl', 'edu-container');
+loadAndRenderXML('exp.xml', 'exp.xsl', 'exp-container');
+loadAndRenderXML('honor.xml', 'honor.xsl', 'honor-container');
+loadAndRenderXML('talk.xml', 'talk.xsl', 'talk-container');
+loadAndRenderXML('pub.xml', 'pub.xsl', 'pub-container');
+loadAndRenderXML('link.xml', 'link.xsl', 'link-container');

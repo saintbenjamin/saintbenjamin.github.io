@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title>Benjamin J. Choi's Experiences</title>
+    <updated>2024-12-09T00:00:00-05:00</updated>
+    <id>benji_experiences</id>
+    <entry>
+        <title>Research Associate</title>
+        <title_jp>ソウル大学総長任命研究員</title_jp>
+        <location link="https://ribs.snu.ac.kr/">The Research Institute of Basic Science, Seoul National University</location>
+        <desc>Supervisor: Prof. Weonjong Lee</desc>
+        <date>Sep. 2015 - Feb. 2016</date>
+    </entry>
+
+    <entry>
+        <title>Social Service Personnel</title>
+        <title_jp>社会服務要員（大韓民国陸軍補充役）</title_jp>
+        <location link="https://www.sdm.go.kr/en/eng/main/index.jsp">Seodaemun-gu Office, Seoul, Republic of Korea</location>
+        <desc link="https://mma.go.kr/contents.do?mc=mma0000744">ROK Army Supplementary Service (Mandatory Military Service)</desc>
+        <date>Jul. 2013 - Aug. 2015</date>
+    </entry>
+</feed>

@@ -32,34 +32,78 @@
                         <xsl:value-of select="a:title"/>
                     </xsl:element>
                 </h1> -->
-                <ol class="outlined-text">
+                <ol>
                     <xsl:apply-templates/>
                 </ol>
             </body>
         </html>
     </xsl:template> 
     <xsl:template match="a:entry">
-        <li>
-            <!-- <xsl:element name="a">
-                <xsl:attribute name="href">
-                    <xsl:value-of select="a:id"/>
-                </xsl:attribute>
-                <xsl:attribute name="target">_blank</xsl:attribute> -->
-                <b><xsl:value-of select="a:title"/></b>
-            <!-- </xsl:element> -->
+        <li class="outlined-text-semibig">
+            <xsl:choose>
+                <xsl:when test="a:title/@link">
+                    <a href="{a:title/@link}" target="_blank">
+                        <xsl:value-of select="a:title"/>
+                    </a>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="a:title"/>
+                </xsl:otherwise>
+            </xsl:choose>
         </li>
-        <!-- <a href="https://inspirehep.net/literature?q={arxiv:doi}" target="_blank">
-            <b><xsl:value-of select="a:title"/></b>
-        </a> -->
-        <ul class="no-bullets">
+        <ul class="outlined-text no-bullets">
             <li><xsl:value-of select="a:updated"/></li>
             <li><xsl:value-of select="substring-before(a:author, 'Benjamin J. Choi')"/>
             <u><xsl:value-of select="substring('Benjamin J. Choi', 1)"/></u>
             <xsl:value-of select="substring-after(a:author, 'Benjamin J. Choi')"/></li>
-            <li><xsl:value-of select="a:conf_en"/></li>
-            <li><xsl:value-of select="a:conf_jp"/></li>
-            <li><xsl:value-of select="a:loc_en"/></li>
-            <li><xsl:value-of select="a:loc_jp"/></li>
+            <li>
+                <xsl:choose>
+                    <xsl:when test="a:conf_en/@link">
+                        <a href="{a:conf_en/@link}" target="_blank">
+                            <xsl:value-of select="a:conf_en"/>
+                        </a>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="a:conf_en"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </li>
+            <li>
+                <xsl:choose>
+                    <xsl:when test="a:conf_jp/@link">
+                        <a href="{a:conf_jp/@link}" target="_blank">
+                            <xsl:value-of select="a:conf_jp"/>
+                        </a>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="a:conf_jp"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </li>
+            <li>
+                <xsl:choose>
+                    <xsl:when test="a:loc_en/@link">
+                        <a href="{a:loc_en/@link}" target="_blank">
+                            <xsl:value-of select="a:loc_en"/>
+                        </a>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="a:loc_en"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </li>
+            <li>
+                <xsl:choose>
+                    <xsl:when test="a:loc_jp/@link">
+                        <a href="{a:loc_jp/@link}" target="_blank">
+                            <xsl:value-of select="a:loc_jp"/>
+                        </a>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="a:loc_jp"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </li>
             <li><xsl:value-of select="a:session"/></li>
         </ul>
         <br/>

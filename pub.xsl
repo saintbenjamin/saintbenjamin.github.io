@@ -32,14 +32,14 @@
                         <xsl:value-of select="a:title"/>
                     </xsl:element>
                 </h1> -->
-                <ol class="outlined-text">
+                <ol>
                     <xsl:apply-templates/>
                 </ol>
             </body>
         </html>
     </xsl:template> 
     <xsl:template match="a:entry">
-        <li>
+        <li class="outlined-text-semibig">
             <xsl:element name="a">
                 <xsl:attribute name="href">
                     <xsl:value-of select="a:id"/>
@@ -51,7 +51,7 @@
         <!-- <a href="https://inspirehep.net/literature?q={arxiv:doi}" target="_blank">
             <b><xsl:value-of select="a:title"/></b>
         </a> -->
-        <ul class="no-bullets">
+        <ul class="outlined-text no-bullets">
             <li><xsl:value-of select="substring(a:updated, 1, 10)"/></li>
             <li><xsl:value-of select="substring-before(a:author, 'Benjamin J. Choi')"/>
             <u><xsl:value-of select="substring('Benjamin J. Choi', 1)"/></u>

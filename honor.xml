@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title>Benjamin J. Choi's Honors</title>
+    <updated>2024-12-09T00:00:00-05:00</updated>
+    <id>benji_honors</id>
+    <entry>
+        <title>Academic Next Generation Fellowship</title>
+        <title_jp>基礎学問分野・学問後続世代奨学金</title_jp>
+        <location>Seoul National University</location>
+        <date>Mar. 2021 - Feb. 2024</date>
+    </entry>
+
+    <entry>
+        <title>GSI Scholarship</title>
+        <title_jp>講義研究支援奨学金</title_jp>
+        <location>Seoul National University</location>
+        <date>Mar. 2017 - Feb. 2019</date>
+    </entry>
+
+    <entry>
+        <title>BK Scholarship</title>
+        <title_jp>BK(ブレイン・コリア)博士スカラシップ</title_jp>
+        <location>Seoul National University</location>
+        <date>Mar. 2016 - Aug. 2016</date>
+    </entry>
+
+    <entry>
+        <title>Japan-Korea Joint Government Scholarship</title>
+        <title_jp>日韓共同理工系学部留学生第6期</title_jp>
+        <location>University of Tsukuba, MEXT (Japan), MOE (Korea)</location>
+        <date>Apr. 2006 - Mar. 2010</date>
+    </entry>
+
+</feed>

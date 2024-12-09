@@ -104,3 +104,49 @@
 
 
               <!-- <i class="fab fa-twitter-square"></i> -->
+
+
+
+  <entry>
+    <id>https://arxiv.org/abs/1509.00592v3</id>
+    <updated>2015-12-22T23:22:46-05:00</updated>
+    <published>2015-09-02T07:46:32-04:00</published>
+    <title>Kaon BSM $B$-parameters using improved staggered fermions from $N_f=2+1$ unquenched QCD</title>
+    <summary>   
+      We present results for the matrix elements of the additional $\Delta S=2$
+      operators that appear in models of physics beyond the Standard Model (BSM),
+      expressed in terms of four BSM $B$-parameters.
+      Combined with experimental results for $\Delta M_K$ and $\epsilon_K$,
+      these constrain the parameters of BSM models.
+      We use improved staggered fermions, with valence HYP-smeared quarks and
+      $N_f=2+1$ flavors of ``asqtad" sea quarks. The configurations have been generated
+      by the MILC collaboration.
+      The matching between lattice and continuum four-fermion operators and bilinears
+      is done perturbatively at one-loop order.
+      We use three lattice spacings for the continuum extrapolation: $a\approx 0.09$, $0.06$ and
+      $0.045\;$fm. Valence light-quark masses range down to $\approx m_s^{\rm phys}/13$
+      while the light sea-quark masses range down to $\approx m_s^{\rm phys}/20$.
+      Compared to our previous published work, we have added four additional lattice
+      ensembles, leading to better controlled extrapolations in the lattice spacing and
+      sea-quark masses.
+      We report final results for two renormalization scales, $\mu=2\;\text{GeV}$ and $3\;\text{GeV}$,
+      and compare them to those obtained by other collaborations.
+      Agreement is found for two of the four BSM $B$-parameters ($B_2$ and $B_3^\text{SUSY}$).
+      The other two ($B_4$ and $B_5$) differ significantly
+      from those obtained using RI-MOM renormalization as an intermediate scheme,
+      but are in agreement with recent preliminary results obtained by
+      the RBC-UKQCD collaboration using RI-SMOM intermediate schemes.
+    </summary>
+    <author>
+      <name>Benjamin J. Choi, Yong-Chull Jang, Chulwoo Jung, Hwancheol Jeong, Jangho Kim, Jongjeong Kim, Sunghee Kim, Weonjong Lee, Jaehoon Leem, Jeonghwan Pak, Sungwoo Park, Stephen R. Sharpe, Boram Yoon</name>
+    </author>
+    <arxiv:doi xmlns:arxiv="http://arxiv.org/schemas/atom">10.1103/PhysRevD.93.014511</arxiv:doi>
+    <arxiv:comment xmlns:arxiv="http://arxiv.org/schemas/atom">17 pages, 24 figures, 13 tables, and updated</arxiv:comment>
+    <arxiv:journal_ref xmlns:arxiv="http://arxiv.org/schemas/atom">Phys. Rev. D 93, 014511 (2016)</arxiv:journal_ref>
+    <link href="https://arxiv.org/abs/1509.00592v3" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/1509.00592v3" rel="related" type="application/pdf"/>
+    <link title="doi" href="https://doi.org/10.1103/PhysRevD.93.014511" rel="related"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="hep-lat" scheme="http://arxiv.org/schemas/atom" label="High Energy Physics - Lattice (hep-lat)"/>
+    <category term="hep-lat" scheme="http://arxiv.org/schemas/atom" label="High Energy Physics - Lattice (hep-lat)"/>
+    <category term="hep-lat" scheme="http://arxiv.org/schemas/atom" label="High Energy Physics - Phenomenology (hep-ph)"/>
+  </entry>

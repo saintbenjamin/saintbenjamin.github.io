@@ -21,16 +21,11 @@
     </xsl:template> 
     <xsl:template match="a:entry">
         <li class="outlined-text-semibig"><b><xsl:value-of select="a:title"/></b></li>
-        <xsl:for-each select="a:perf_s/a:perf">
-            <ul class="no-bullets">
-                <li><xsl:value-of select="a:title"/></li>
-                <xsl:for-each select="a:loc_s/a:loc">
-                    <ul class="no-bullets">
-                        <li><xsl:value-of select="."/></li>
-                    </ul>
-                </xsl:for-each>
-            </ul>
-        </xsl:for-each>
+        <ul class="no-bullets">
+            <li><xsl:value-of select="a:title_jp"/></li>
+            <li><xsl:value-of select="a:location"/></li>
+            <li><xsl:value-of select="a:date"/></li>
+        </ul>
         <br/>
     </xsl:template> 
 </xsl:stylesheet>

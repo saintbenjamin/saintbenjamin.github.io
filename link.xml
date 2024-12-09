@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title>Benjamin J. Choi's Education</title>
+    <updated>2024-12-09T00:00:00-05:00</updated>
+    <id>benji_education</id>
+    <entry>
+        <title>Academia</title>
+        <item_s>
+            <item>
+                <title link="https://www-het.ph.tsukuba.ac.jp/~latticeqcd_ai/latticeqcd_ai/" target="_blank">Large-scale lattice QCD simulation and development of AI technology</title>
+            </item>
+            <item>
+                <title link="https://chain-track-dd9.notion.site/Lattice-QCD-ML-f88a01373d394ba28c4ac39821b75a63#0674afe907384f87bfc23eb25381c656" target="_blank">Lattice QCD + ML (Notion page of Akio Tomiya)</title>
+            </item>
+            <item>
+                <title link="https://qiita.com/cometscome_phys" target="_blank">Qiita Blog of Yuki Nagai</title>
+            </item>
+            <item>
+                <title link="https://www.rrz.uni-hamburg.de/services/hpc/bqcd/" target="_blank">BQCD</title>
+            </item>
+            <item>
+                <title link="https://research.kek.jp/people/matufuru/Research/Docs/Bridge/index.html" target="_blank">Bridge++ Documents</title>
+            </item>
+            <item>
+                <title link="https://compphysschool.github.io/homepage2025/" target="_blank">計算物理春の学校 2025</title>
+            </item>
+            <item>
+                <title link="https://sites.google.com/site/postdocrumor/" target="_blank">HEP Theory Postdoc Rumor Mill</title>
+            </item>
+        </item_s>
+    </entry>
+
+    <entry>
+        <title>Classical Music</title>
+        <item_s>
+            <item>
+                <title link="https://www-het.ph.tsukuba.ac.jp/~benchoi/juhee/" target="_blank">Soprano Juhee Choi</title>
+            </item>
+        </item_s>
+    </entry>
+
+    <entry>
+        <title>Favorite sports teams</title>
+        <item_s>
+            <item>
+                <title link="https://www.giants.jp/" target="_blank">Yomiuri Giants</title>
+                <desc>A NPB team. Its ballpark is Tokyo dome.</desc>
+            </item>
+            <item>
+                <title link="https://www.japan-baseball.jp/" target="_blank">Samurai Japan</title>
+                <desc>The Japan national baseball team.</desc>
+            </item>
+            <item>
+                <title link="https://www.hanwhaeagles.co.kr/EN/index.do" target="_blank">Hanwha Eagles</title>
+                <desc>A KBO team. Its ballpark is Daejeon Baseball Dream Park.</desc>
+            </item>
+        </item_s>
+    </entry>
+
+    <entry>
+        <title>Favorite sports stars</title>
+        <item_s>
+            <item>
+                <title link="https://npb.jp/bis/players/41343824.html" target="_blank">Yutaka Enatsu</title>
+                <desc>a.k.a. <em>the 21 balls of Enatsu</em>.</desc>
+            </item>
+            <item>
+                <title link="https://npb.jp/bis/players/41743865.html" target="_blank">Tsunemi Tsuda</title>
+                <desc>a.k.a. <em>the stopper of the flame</em>.</desc>
+            </item>
+            <item>
+                <title link="https://npb.jp/bis/players/01105111.html" target="_blank">Hisashi Iwakuma</title>
+                <desc>A Japanese hero of 2nd World Baseball Classic championship.</desc>
+            </item>
+            <item>
+                <title link="http://eng.koreabaseball.com/Teams/PlayerInfoPitcher/Summary.aspx?pcode=79764" target="_blank">JANG, Min Je</title>
+                <desc>My favorite Korean professional baseball pitcher of Hanwha Eagles.</desc>
+            </item>
+            <item>
+                <title link="https://npb.jp/bis/players/01305137.html" target="_blank">Shohei Ohtani</title>
+                <desc>The superstar of LA Dodgers.</desc>
+            </item>
+            <item>
+                <title link="https://www.jfa.jp/samuraiblue/member/mitoma_kaoru.html" target="_blank">Kaoru Mitoma</title>
+                <desc>A football player of the Samurai Blue. <em>University of Tsukuba Alumni</em>.</desc>
+            </item>
+            <item>
+                <title link="https://www.jfa.jp/samuraiblue/member/doan_ritsu.html" target="_blank">Kaoru Mitoma</title>
+                <desc>A football player of the Samurai Blue.</desc>
+            </item>
+        </item_s>
+    </entry>
+
+</feed>
