@@ -4,39 +4,12 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Benjamin J. Choi</title>
-        <script>
-            MathJax = {
-                tex: {
-                    inlineMath: [['$', '$']], // Define $...$ for inline math
-                    displayMath: [['$$', '$$']] // $$...$$ for block math
-                }
-            };
-        </script>
-        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">      
         <link rel="stylesheet" href="main.css">
-        <script src="benji.js"></script>
     </head>
     <body>
         <div class="background"></div>
-        <header>
-            <div class="hamburger" onclick="toggleMenu()">
-                <div></div>
-                <div></div>
-                <div></div>
-            </div>
-            <ul class="menu">
-                <li class="outlined-text-semibig"><a href="#jesus">Jesus</a></li>
-                <li class="outlined-text-semibig"><a href="#bio">Bio.</a></li>
-                <li class="outlined-text-semibig"><a href="#edu">Edu.</a></li>
-                <li class="outlined-text-semibig"><a href="#academic">Exp.</a></li>
-                <li class="outlined-text-semibig"><a href="#honor">Honors</a></li>
-                <li class="outlined-text-semibig"><a href="#talk">Talks</a></li>
-                <li class="outlined-text-semibig"><a href="#publication">Pub.</a></li>
-                <li class="outlined-text-semibig"><a href="#research">R.S.</a></li>
-                <li class="outlined-text-semibig"><a href="#links">Links</a></li>
-            </ul>
-        </header>
+        <div id="header-container"></div>
         <main>
             <div class="menus" id="jesus">
                 <h3 class="outlined-text-big fade-in">The Word of Heavenly Father</h3>
@@ -112,8 +85,18 @@
                 <p>Benjamin J. Choi</p>
             </div>
         </div>
+        <script>
+            MathJax = {
+                tex: {
+                    inlineMath: [['$', '$']], // Define $...$ for inline math
+                    displayMath: [['$$', '$$']] // $$...$$ for block math
+                }
+            };
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="benji.js"></script>
         <script src="benji_fade.js"></script>
         <script src="benji_qr.js"></script>
-        <!-- <script src="benji_spacing.js"></script> -->
+        <script src="benji_hf.js"></script>
     </body>
 </html>
