@@ -13,7 +13,7 @@
 
     <entry>
         <title>Master of Physics</title>
-        <supervisor>Supervisor: Prof. Kazuyuki Kanaya</supervisor>
+        <supervisor link="https://www2.ccs.tsukuba.ac.jp/people/kanaya/kanaya-j.html" target="_blank">Supervisor: Prof. Kazuyuki Kanaya</supervisor>
         <title_jp>筑波大学数理物質科学研究科素粒子理論研究室博士前期課程(物理学修士)</title_jp>
         <location link="https://www-het.ph.tsukuba.ac.jp/">Particle Theory Group, Faculty of Pure and Applied Science, University of Tsukuba</location>
         <date>Apr. 2010 - Mar. 2013</date>
@@ -21,9 +21,9 @@
 
     <entry>
         <title>Bachelor of Science</title>
-        <supervisor>Supervisor: Prof. Nobuyuki Ishibashi</supervisor>
+        <supervisor link="https://www-het.ph.tsukuba.ac.jp/%7Eishibash/index.html" target="_blank">Supervisor: Prof. Nobuyuki Ishibashi</supervisor>
         <title_jp>筑波大学第一学群自然学類物理学主専攻(理学士)</title_jp>
-        <location link="https://sse.tsukuba.ac.jp/introduction/physics/">College of Natural Sciences, First Cluster of Colleges, University of Tsukuba</location>
+        <location link="https://sse.tsukuba.ac.jp/introduction/physics/" target="_blank">College of Natural Sciences, First Cluster of Colleges, University of Tsukuba</location>
         <date>Apr. 2006 - Mar. 2010.</date>
     </entry>
 
