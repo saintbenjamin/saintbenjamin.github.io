@@ -370,7 +370,7 @@ a {
     }    
 
     p {
-        font-size: 1.5rem;
+        font-size: 2.0rem;
         margin-top: 20px;
         margin-right: 20px;
     }
@@ -380,8 +380,22 @@ a {
         margin-bottom: 10px;
     }
 
+    .outlined-text-big {
+        font-size: 2.5rem;
+        color: black;
+        text-shadow: 
+            0.5px  0.5px 0 white, 
+           -0.5px -0.5px 0 white, 
+            0.5px -0.5px 0 white, 
+           -0.5px  0.5px 0 white,
+            1.0px  1.0px 0 white, 
+           -1.0px -1.0px 0 white, 
+            1.0px -1.0px 0 white, 
+           -1.0px  1.0px 0 white;
+    }    
+
     .outlined-text-semibig {
-        font-size: 2.0rem;
+        font-size: 2.2rem;
         font-weight: bold;
         color: black;
         text-shadow: 
