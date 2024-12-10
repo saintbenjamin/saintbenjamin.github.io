@@ -4,6 +4,20 @@
     <updated>2024-12-04T00:00:00-05:00</updated>
     <id>benji_talk</id>
     <entry>
+        <id>benji_17</id>
+        <updated>2024-12-14</updated>
+        <title>Machine Learning Estimation on the Trace of Inverse Dirac Operator using the Gradient Boosting Decision Tree Regression</title>
+        <author>
+            <name>Benjamin J. Choi, Hiroshi Ohno, Takayuki Sumimoto, Akio Tomiya</name>
+        </author>
+        <conf_en link="https://ohno.github.io/julia_in_physics_2024/" target="_blank">Julia in Physics 2024</conf_en>
+        <conf_jp>Julia in Physics 2024 研究会</conf_jp>
+        <loc_en link="https://www.u-tokyo.ac.jp/campusmap/cam01_13_01_j.html" target="_blank">The University of Tokyo, Japan</loc_en>
+        <loc_jp>東京大学 本郷地区キャンパス(浅野キャンパス) 情報基盤センター(本館) 214</loc_jp>
+        <session>Talk</session>
+    </entry>
+
+    <entry>
         <id>benji_16</id>
         <updated>2024-09-25</updated>
         <title>Machine Learning Estimation on the Trace of Inverse Dirac Operator using the Gradient Boosting Decision Tree Regression</title>
