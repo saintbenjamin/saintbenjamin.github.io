@@ -71,7 +71,7 @@
     </author>
     <arxiv:doi xmlns:arxiv="http://arxiv.org/schemas/atom">10.22323/1.396.0136</arxiv:doi>
     <arxiv:comment xmlns:arxiv="http://arxiv.org/schemas/atom">10 pages, 2 figures, 5 tables, Lattice 2021 proceeding</arxiv:comment>
-    <arxiv:journal_ref xmlns:arxiv="http://arxiv.org/schemas/atom">PoS (LATTICE2021) 136</arxiv:journal_ref>
+    <arxiv:journal_ref xmlns:arxiv="http://arxiv.org/schemas/atom">PoS(LATTICE2021)136</arxiv:journal_ref>
     <link href="http://arxiv.org/abs/2204.05848v1" rel="alternate" type="text/html"/>
     <link title="pdf" href="http://arxiv.org/pdf/2204.05848v1" rel="related" type="application/pdf"/>
     <link title="doi" href="http://dx.doi.org/10.22323/1.396.0136" rel="related"/>
@@ -89,7 +89,7 @@
     </author>
     <arxiv:doi xmlns:arxiv="http://arxiv.org/schemas/atom">10.22323/1.363.0056</arxiv:doi>
     <arxiv:comment xmlns:arxiv="http://arxiv.org/schemas/atom">7 pages, 7 figures, Lattice 2019 proceeding</arxiv:comment>
-    <arxiv:journal_ref xmlns:arxiv="http://arxiv.org/schemas/atom">PoS (LATTICE2019) 056</arxiv:journal_ref>
+    <arxiv:journal_ref xmlns:arxiv="http://arxiv.org/schemas/atom">PoS(LATTICE2019)056</arxiv:journal_ref>
     <link href="http://arxiv.org/abs/2003.09206v1" rel="alternate" type="text/html"/>
     <link title="pdf" href="http://arxiv.org/pdf/2003.09206v1" rel="related" type="application/pdf"/>
     <link title="doi" href="http://dx.doi.org/10.22323/1.363.0056" rel="related"/>
@@ -108,7 +108,7 @@
     </author>
     <arxiv:doi xmlns:arxiv="http://arxiv.org/schemas/atom">10.22323/1.363.0050</arxiv:doi>
     <arxiv:comment xmlns:arxiv="http://arxiv.org/schemas/atom">7 pages, 10 figures, Lattice 2019 proceeding</arxiv:comment>
-    <arxiv:journal_ref xmlns:arxiv="http://arxiv.org/schemas/atom">PoS (LATTICE2019) 050</arxiv:journal_ref>
+    <arxiv:journal_ref xmlns:arxiv="http://arxiv.org/schemas/atom">PoS(LATTICE2019)050</arxiv:journal_ref>
     <link href="http://arxiv.org/abs/2002.04755v1" rel="alternate" type="text/html"/>
     <link title="pdf" href="http://arxiv.org/pdf/2002.04755v1" rel="related" type="application/pdf"/>
     <link title="doi" href="http://dx.doi.org/10.22323/1.363.0050" rel="related"/>
@@ -126,7 +126,7 @@
     </author>
     <arxiv:doi xmlns:arxiv="http://arxiv.org/schemas/atom">10.22323/1.334.0283</arxiv:doi>
     <arxiv:comment xmlns:arxiv="http://arxiv.org/schemas/atom">7 pages and 4 figures. Talk at The 36th Annual International Symposium on Lattice Field Theory - LATTICE2018</arxiv:comment>
-    <arxiv:journal_ref xmlns:arxiv="http://arxiv.org/schemas/atom">PoS (LATTICE2018) 283</arxiv:journal_ref>
+    <arxiv:journal_ref xmlns:arxiv="http://arxiv.org/schemas/atom">PoS(LATTICE2018)283</arxiv:journal_ref>
     <link href="http://arxiv.org/abs/1812.07675v1" rel="alternate" type="text/html"/>
     <link title="pdf" href="http://arxiv.org/pdf/1812.07675v1" rel="related" type="application/pdf"/>
     <link title="doi" href="http://dx.doi.org/10.22323/1.334.0283" rel="related"/>
@@ -144,7 +144,7 @@
     </author>
     <arxiv:doi xmlns:arxiv="http://arxiv.org/schemas/atom">10.22323/1.334.0295</arxiv:doi>
     <arxiv:comment xmlns:arxiv="http://arxiv.org/schemas/atom">7 pages, 10 figures, Lattice 2018 proceeding, typos fixed</arxiv:comment>
-    <arxiv:journal_ref xmlns:arxiv="http://arxiv.org/schemas/atom">PoS (LATTICE2018) 295</arxiv:journal_ref>
+    <arxiv:journal_ref xmlns:arxiv="http://arxiv.org/schemas/atom">PoS(LATTICE2018)295</arxiv:journal_ref>
     <link href="http://arxiv.org/abs/1810.13149v2" rel="alternate" type="text/html"/>
     <link title="pdf" href="http://arxiv.org/pdf/1810.13149v2" rel="related" type="application/pdf"/>
     <link title="doi" href="http://dx.doi.org/10.22323/1.334.0295" rel="related"/>
