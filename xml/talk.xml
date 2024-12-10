@@ -4,6 +4,21 @@
     <updated>2024-12-04T00:00:00-05:00</updated>
     <id>benji_talk</id>
     <entry>
+        <id>benji_18</id>
+        <updated>2025-01-10</updated>
+        <title>Machine Learning Estimation on the Trace of Inverse Dirac Operator using the Gradient Boosting Decision Tree Regression</title>
+        <author>
+            <name>Benjamin J. Choi, Hiroshi Ohno, Takayuki Sumimoto, Akio Tomiya</name>
+        </author>
+        <conf_en link="https://kds.kek.jp/event/52621/" target="_blank">Symposium of Basic Science Research Programs on the Fugaku supercomputer</conf_en>
+        <conf_jp>「富岳成果創出加速プログラム」基礎科学合同シンポジウム</conf_jp>
+        <loc_en link="https://kanda-c.jp/" target="_blank">Kanda Urbannet Conference, Tokyo, Japan</loc_en>
+        <loc_jp>アーバンネット神田カンファレンス</loc_jp>
+        <session>Talk</session>
+    </entry>
+
+    <id>benji_talk</id>
+    <entry>
         <id>benji_17</id>
         <updated>2024-12-14</updated>
         <title>Machine Learning Estimation on the Trace of Inverse Dirac Operator using the Gradient Boosting Decision Tree Regression</title>
