@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Benjamin Jaedon Choi's articles on arXiv</title>
   <link rel="describes" href="https://orcid.org/0000-0002-5438-5490"/>
-  <updated>2024-12-04T00:00:00-05:00</updated>
+  <updated>2024-12-10T00:00:00-05:00</updated>
   <id>http://arxiv.org/a/choi_b_1</id>
   <link href="http://arxiv.org/a/choi_b_1.atom2" rel="self" type="application/atom+xml"/>
   <link rel="describes" href="http://arxiv.org/a/choi_b_1"/>
@@ -151,7 +151,7 @@
     <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="hep-lat" scheme="http://arxiv.org/schemas/atom" label="High Energy Physics - Lattice (hep-lat)"/>
     <category term="hep-lat" scheme="http://arxiv.org/schemas/atom" label="High Energy Physics - Lattice (hep-lat)"/>
   </entry>
-    <entry>
+  <entry>
     <id>http://arxiv.org/abs/1509.00592v3</id>
     <updated>2015-12-22T18:22:46-05:00</updated>
     <published>2015-09-02T03:46:32-04:00</published>
