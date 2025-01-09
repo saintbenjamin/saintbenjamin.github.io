@@ -19,6 +19,7 @@
     <arxiv:journal_ref xmlns:arxiv="http://arxiv.org/schemas/atom">PoS(LATTICE2024)033</arxiv:journal_ref>
     <link href="http://arxiv.org/abs/2411.18170v2" rel="alternate" type="text/html"/>
     <link title="pdf" href="http://arxiv.org/pdf/2411.18170v2" rel="related" type="application/pdf"/>
+    <link title="doi" href="https://dx.doi.org/10.22323/1.466.0033" rel="related"/>
     <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="hep-lat" scheme="http://arxiv.org/schemas/atom" label="High Energy Physics - Lattice (hep-lat)"/>
     <category term="hep-lat" scheme="http://arxiv.org/schemas/atom" label="High Energy Physics - Lattice (hep-lat)"/>
   </entry>
