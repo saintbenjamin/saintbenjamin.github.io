@@ -4,6 +4,20 @@
     <updated>2024-12-04T00:00:00-05:00</updated>
     <id>benji_talk</id>
     <entry>
+        <id>benji_20</id>
+        <updated>2025-03-19</updated>
+        <title>Machine Learning-based Estimation of the Cumulants of Chiral Order Parameters using Gradient Boosting Decision Tree Regression</title>
+        <author>
+            <name>Benjamin J. Choi, Hiroshi Ohno, Takayuki Sumimoto, Akio Tomiya</name>
+        </author>
+        <conf_en link="https://www.jps.or.jp/activities/meetings/spring/spring_index.php" target="_blank">The Physical Society of Japan 2025 Spring Meeting</conf_en>
+        <conf_jp>日本物理学会2025年春季大会</conf_jp>
+        <loc_en>Online Conference</loc_en>
+        <loc_jp>オンライン開催</loc_jp>
+        <session>Talk</session>
+    </entry>
+
+    <entry>
         <id>benji_19</id>
         <updated>2025-02-21</updated>
         <title>Machine Learning Estimation on the Trace of Inverse Dirac Operator using the Gradient Boosting Decision Tree Regression</title>
