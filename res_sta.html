@@ -1,3 +1,68 @@
+<!-- First -->
+
+<p class="outlined-text-semibig">
+    <em>Machine Learning-based Estimation of the Cumulants of Chiral Condensate using Gradient Boosting Decision Tree Regression</em>
+</p>
+
+<p class="outlined-text">
+    In Quantum Chromodynamics (QCD), the calculation of higher-order cumulants
+    of the chiral condensate is necessary to investigate the location of the
+    critical endpoint of the finite-temperature phase transition.
+</p>
+
+<p class="outlined-text">
+    For example, the kurtosis intersection method is often used to determine the critical endpoint of the finite-temperature phase transition. The calculation of these cumulants of the chiral order parameter involves evaluating $\textrm{Tr} \; M^{-n}$ ($n=1,2,3,4$), i.e., the trace of the inverse Dirac operator raised to the power of up to four. This requires solving a large number of linear equations involving the Dirac matrix.
+</p>
+
+<p class="outlined-text">
+    In lattice Quantum Chromodynamics (Lattice QCD), the Dirac operator is a
+    very large and sparse matrix. Consequently, solving these linear equations
+    requires the conjugate gradient method, which incurs a very high
+    computational cost.
+</p>
+
+<p class="outlined-text">
+    Therefore, in this study, we proposed a method to reduce this computational cost by utilizing machine learning to estimate $\mathrm{Tr} M^{-n}$ from more easily computable physical quantities.
+</p>
+
+<p class="outlined-text">
+    As the estimation method, we adopted a technique that combines gradient boosting decision tree regression and the bias correction approximation method <a href="https://arxiv.org/abs/1605.04659" target="_blank">proposed by Yoon et al.</a>.
+
+    Furthermore, as proof-of-concept data, we used lattice QCD simulation results from <a href="https://doi.org/10.22323/1.334.0174" target="_blank">a previous study</a>, which employed the Iwasaki gauge action and an $O(a)$-improved Wilson quark action with four degenerate flavors.
+</p>
+
+<p class="outlined-text">
+    In this study, supervised learning was performed as the machine learning approach. The original dataset was divided into two main parts: a labeled dataset and an unlabeled dataset. The labeled dataset was further split into a training set and a bias correction set.
+</p>
+
+<p class="outlined-text">
+    The training set was used exclusively to construct the model for gradient boosting decision tree regression. The trained machine learning model was then used to estimate values for the unlabeled dataset, and bias correction approximation was applied.
+
+    To improve statistical accuracy, we also computed the weighted average of the previously obtained results and the labeled dataset.
+</p>
+
+<p class="outlined-text">
+    Additionally, we investigated how the estimation accuracy of $\textrm{Tr} \; M^{-n}$ ($n=2,3,4$) changed by varying the proportion of the labeled dataset and the training set within it.
+
+    Here, $\textrm{Tr} \; M^{-1}$ was directly taken from the original dataset as input.
+</p>
+
+<p class="outlined-text">
+    Subsequently, the susceptibility, skewness, and kurtosis of the chiral condensate were computed and compared with the results obtained using the original dataset.
+</p>
+
+<p class="outlined-text">
+    The results showed that, for all the validation datasets used, even when the labeled dataset comprised only about $5\%$ of the total data, the susceptibility, skewness, and kurtosis all closely matched the values obtained from the original dataset.
+</p>
+
+<p class="outlined-text">
+    Therefore, it is possible to compute various cumulants, including kurtosis, with the same accuracy as the original dataset while requiring only about $(100+5+5+5)/400 \approx 28.75 \%$ of the original computational cost.
+</p>
+
+
+
+<!-- Second -->
+
 <p class="outlined-text-semibig">
     <em>Data analysis technique: toward the precise determination of
     $\left|V_{cb}\right|$ using the Oktay-Kronfeld action</em>
