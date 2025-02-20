@@ -4,7 +4,7 @@
     <updated>2024-12-04T00:00:00-05:00</updated>
     <id>benji_talk</id>
     <entry>
-        <id>benji_20</id>
+        <id>benji_21</id>
         <updated>2025-03-19</updated>
         <title>Machine Learning-based Estimation of the Cumulants of Chiral Condensate using Gradient Boosting Decision Tree Regression</title>
         <author>
@@ -15,6 +15,20 @@
         <loc_en>Online Virtual Meeting</loc_en>
         <loc_jp>オンライン開催</loc_jp>
         <session>Talk</session>
+    </entry>
+
+    <entry>
+        <id>benji_20</id>
+        <updated>2025-03-12</updated>
+        <title>Machine Learning-based Estimation of the Cumulants of Chiral Condensate using Gradient Boosting Decision Tree Regression</title>
+        <author>
+            <name>Benjamin J. Choi, Hiroshi Ohno, Takayuki Sumimoto, Akio Tomiya</name>
+        </author>
+        <conf_en link="https://compphysschool.github.io/homepage2025/" target="_blank">The 2025 Spring School on Computational Physics</conf_en>
+        <conf_jp>計算物理春の学校 2025</conf_jp>
+        <loc_en>Okinawa Prefectural Municipal and Village Government Hall, Okinawa, Japan</loc_en>
+        <loc_jp>沖縄県市町村自治会館</loc_jp>
+        <session>Poster</session>
     </entry>
 
     <entry>
