@@ -220,6 +220,52 @@ a {
        -1.0px  1.0px 0 white;
 }
 
+.paren-ol{
+  list-style:none;
+  counter-reset:item;
+  margin:0.5rem 0 0;
+  padding-left:2rem;
+}
+.paren-ol > li{
+  counter-increment:item;
+  position:relative;
+  margin:0.25rem 0;
+}
+.paren-ol > li::before{
+  content:"(" counter(item) ") ";
+  position:absolute;
+  left:-2rem;
+}
+
+.bullet-ul{
+  list-style: disc;
+  list-style-position: outside;
+  margin: 0.5rem 0 0;
+  padding-left: 1.25rem;
+}
+.bullet-ul > li{
+  margin: 0.25rem 0;
+}
+
+.bullet-ul ul{ 
+    list-style: circle; 
+    margin: 0.25rem 0 0; 
+}
+.bullet-ul ul ul{ 
+    list-style: square; 
+}
+
+.sc {
+  font-variant: small-caps;
+}
+
+code {
+  font-family: monospace;
+  background: #f5f5f5;
+  padding: 0.1em 0.3em;
+  border-radius: 3px;
+}
+
 .word-break {
     display: flex; 
     flex-wrap: wrap;
