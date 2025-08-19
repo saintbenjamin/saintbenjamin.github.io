@@ -4,6 +4,41 @@
     <updated>2024-12-04T00:00:00-05:00</updated>
     <id>benji_talk</id>
     <entry>
+        <id>benji_23</id>
+        <updated>2025-09-16</updated>
+        <title>Machine Learning-Based Estimation of Cumulants of Chiral Condensate via Multi-Ensemble Reweighting</title>
+        <author>
+            <name>Benjamin J. Choi, Hiroshi Ohno, Akio Tomiya</name>
+        </author>
+        <conf_en
+        link="https://www.jps.or.jp/activities/meetings/annual/annual-index.php"
+        target="_blank">The Physical Society of Japan 2025 Annual Meeting</conf_en>
+        <conf_jp>日本物理学会第80回年次大会(2025年)</conf_jp>
+        <loc_en>Hiroshima University, Hiroshima, Japan</loc_en>
+        <loc_jp>広島大学東広島キャンパス</loc_jp>
+        <session>Talk</session>
+    </entry>
+
+    <entry>
+        <id>benji_22</id>
+        <updated>2025-09-09</updated>
+        <title>Machine Learning-Based Estimation of Cumulants of Chiral Condensate via Multi-Ensemble Reweighting</title>
+        <author>
+            <name>Benjamin J. Choi, Hiroshi Ohno, Akio Tomiya</name>
+        </author>
+        <conf_en
+        link="https://www-het.ph.tsukuba.ac.jp/~latticeqcd_ai/workshop2025/"
+        target="_blank">Workshop for the Program for Promoting Researches on the
+        Supercomputer Fugaku: Large-scale lattice QCD simulation and development
+        of AI technology</conf_en>
+        <conf_jp>「富岳」成果創出加速プログラム超大規模格子 QCD による新物理探索
+        と次世代計算に向けた AI 技術開発総括研究会</conf_jp>
+        <loc_en>Vision Center Tamachi, Tokyo, Japan</loc_en>
+        <loc_jp>ビジョンセンター田町</loc_jp>
+        <session>Talk</session>
+    </entry>
+
+    <entry>
         <id>benji_21</id>
         <updated>2025-03-19</updated>
         <title>Machine Learning-based Estimation of the Cumulants of Chiral Condensate using Gradient Boosting Decision Tree Regression</title>
