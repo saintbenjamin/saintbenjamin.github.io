@@ -4,6 +4,20 @@
     <updated>2024-12-04T00:00:00-05:00</updated>
     <id>benji_talk</id>
     <entry>
+        <id>benji_24</id>
+        <updated>2025-10-24</updated>
+        <title>Machine Learning-Based Estimation of Cumulants of Chiral Condensate via Multi-Ensemble Reweighting</title>
+        <author>
+            <name>Benjamin J. Choi, Hiroshi Ohno, Akio Tomiya</name>
+        </author>
+        <conf_en link="https://www.kps.or.kr/conference/event/index.php?cfrid=25" target="_blank">KPS 2025 Fall Meeting</conf_en>
+        <conf_jp>韓国物理学会2025年秋の学術論文発表会及び臨時総会</conf_jp>
+        <loc_en>Gwangju Kim Daejung Convention Center, South Korea</loc_en>
+        <loc_jp>金大中コンベンションセンター</loc_jp>
+        <session>Talk</session>
+    </entry>
+
+    <entry>
         <id>benji_23</id>
         <updated>2025-09-16</updated>
         <title>Machine Learning-Based Estimation of Cumulants of Chiral Condensate via Multi-Ensemble Reweighting</title>
