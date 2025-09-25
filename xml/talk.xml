@@ -4,7 +4,7 @@
     <updated>2024-12-04T00:00:00-05:00</updated>
     <id>benji_talk</id>
     <entry>
-        <id>benji_24</id>
+        <id>benji_25</id>
         <updated>2025-10-24</updated>
         <title>Machine Learning-Based Estimation of Cumulants of Chiral Condensate via Multi-Ensemble Reweighting</title>
         <author>
@@ -15,6 +15,20 @@
         <loc_en>Gwangju Kim Daejung Convention Center, South Korea</loc_en>
         <loc_jp>金大中コンベンションセンター</loc_jp>
         <session>Talk</session>
+    </entry>
+
+    <entry>
+        <id>benji_24</id>
+        <updated>2025-10-10</updated>
+        <title>Machine Learning-Based Estimation of Cumulants of Chiral Condensate via Multi-Ensemble Reweighting</title>
+        <author>
+            <name>Benjamin J. Choi, Hiroshi Ohno, Akio Tomiya</name>
+        </author>
+        <conf_en link="https://sites.google.com/view/isqbs2025" target="_blank">10th International Symposium of Quantum Beam Science</conf_en>
+        <conf_jp>第10回量子ビームサイエンス国際シンポジウム(ISQBS2025)</conf_jp>
+        <loc_en>Ibaraki University, Mito, Japan</loc_en>
+        <loc_jp>茨城大学水戸キャンパス</loc_jp>
+        <session>Poster</session>
     </entry>
 
     <entry>
@@ -36,7 +50,7 @@
     <entry>
         <id>benji_22</id>
         <updated>2025-09-09</updated>
-        <title>Machine Learning-Based Estimation of Cumulants of Chiral Condensate via Multi-Ensemble Reweighting</title>
+        <title link="https://www-het.ph.tsukuba.ac.jp/~latticeqcd_ai/workshop2025/slide/1st_1/Choi.pdf" target="_blank">Machine Learning-Based Estimation of Cumulants of Chiral Condensate via Multi-Ensemble Reweighting</title>
         <author>
             <name>Benjamin J. Choi, Hiroshi Ohno, Akio Tomiya</name>
         </author>
