@@ -4,6 +4,20 @@
     <updated>2024-12-04T00:00:00-05:00</updated>
     <id>benji_talk</id>
     <entry>
+        <id>benji_26</id>
+        <updated>2025-11-25</updated>
+        <title link="https://indico.global/event/14504/contributions/137858/" target="_blank">Machine Learning-Based Estimation of Cumulants of Chiral Condensate via Multi-Ensemble Reweighting with Deborah.jl</title>
+        <author>
+            <name>Benjamin J. Choi, Hiroshi Ohno, Akio Tomiya</name>
+        </author>
+        <conf_en link="https://indico.global/event/14504" target="_blank">The 42nd International Symposium on Lattice Field Theory (Lattice 2025)</conf_en>
+        <conf_jp>第42回格子上の場の理論国際シンポジウム</conf_jp>
+        <loc_en>TIFR Mumbai, India</loc_en>
+        <loc_jp>タタ基礎研究所</loc_jp>
+        <session>Talk</session>
+    </entry>
+
+    <entry>
         <id>benji_25</id>
         <updated>2025-10-24</updated>
         <title>Machine Learning-Based Estimation of Cumulants of Chiral Condensate via Multi-Ensemble Reweighting</title>
