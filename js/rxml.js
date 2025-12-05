@@ -39,6 +39,6 @@ loadAndRenderXML('xml/bio.xml',   'xsl/bio.xsl',   'bio-container');
 loadAndRenderXML('xml/edu.xml',   'xsl/edu.xsl',   'edu-container');
 loadAndRenderXML('xml/exp.xml',   'xsl/exp.xsl',   'exp-container');
 loadAndRenderXML('xml/honor.xml', 'xsl/honor.xsl', 'honor-container');
-loadAndRenderXML('xml/talk.xml',  'xsl/talk.xsl',  'talk-container');
 //loadAndRenderXML('xml/pub.xml',   'xsl/pub.xsl',   'pub-container');
+loadAndRenderXML('xml/talk.xml',  'xsl/talk.xsl',  'talk-container');
 loadAndRenderXML('xml/link.xml',  'xsl/link.xsl',  'link-container');
