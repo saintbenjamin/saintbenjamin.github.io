@@ -386,34 +386,11 @@ code {
 #arxivfeed li,
 #arxivfeed a,
 #arxivfeed span,
+#arxivfeed .list-title,
 #arxivfeed div {
     font-family: 'Crimson Pro', 'Noto Serif JP', sans-serif !important;
-    line-height: 1.4;
+    font-size: 1.2rem;
 }
-
-/* Apply the same styling to the widget wrapper (used by myarticles.js) */
-div.arxivfeed,
-div.arxivfeed p,
-div.arxivfeed li,
-div.arxivfeed a,
-div.arxivfeed span,
-div.arxivfeed div {
-    font-family: 'Crimson Pro', 'Noto Serif JP', sans-serif !important;
-    line-height: 1.4;
-}
-
-/* --- Larger styling for the paper title --- */
-/* Titles in arXiv feeds are usually inside `.list-title` elements */
-#arxivfeed .list-title,
-#arxivfeed .list-title a {
-    font-weight: bold;
-}
-
-/* --- Smaller styling for metadata (authors, comments, subjects, journal, DOI) --- */
-#arxivfeed .list-authors,
-#arxivfeed .list-comments,
-#arxivfeed .list-subjects,
-#arxivfeed .list-journal-ref,
 
 /* === Apply white outline (stroke-like effect) to all visible text inside arxivfeed === */
 #arxivfeed p,
@@ -437,6 +414,14 @@ div.arxivfeed div {
         1.0px -1.0px 0 white, 
        -1.0px  1.0px 0 white;
 }
+
+/* Larger font for paper titles */
+#arxivfeed .list-title,
+#arxivfeed .list-title a {
+    font-size: 1.5rem !important;  /* bigger than 1.0rem base */
+    font-weight: bold;
+}
+
 
 @media (max-width: 768px) {
     .hamburger {
@@ -517,6 +502,49 @@ div.arxivfeed div {
            -1.0px -1.0px 0 white, 
             1.0px -1.0px 0 white, 
            -1.0px  1.0px 0 white;
+    }
+
+    /* === arXiv myarticles widget font & size === */
+
+    /* Base text styling */
+    #arxivfeed,
+    #arxivfeed p,
+    #arxivfeed li,
+    #arxivfeed a,
+    #arxivfeed span,
+    #arxivfeed div {
+        font-family: 'Crimson Pro', 'Noto Serif JP', sans-serif !important;
+        font-size: 2.0rem;
+    }
+
+    /* === Apply white outline (stroke-like effect) to all visible text inside arxivfeed === */
+    #arxivfeed p,
+    #arxivfeed li,
+    #arxivfeed a,
+    #arxivfeed h1,
+    #arxivfeed h2,
+    #arxivfeed h3,
+    #arxivfeed h4,
+    #arxivfeed h5,
+    #arxivfeed h6,
+    #arxivfeed span,
+    #arxivfeed div {
+        text-shadow: 
+            0.5px  0.5px 0 white, 
+        -0.5px -0.5px 0 white, 
+            0.5px -0.5px 0 white, 
+        -0.5px  0.5px 0 white,
+            1.0px  1.0px 0 white, 
+        -1.0px -1.0px 0 white, 
+            1.0px -1.0px 0 white, 
+        -1.0px  1.0px 0 white;
+    }
+
+    /* Larger font for paper titles */
+    #arxivfeed .list-title,
+    #arxivfeed .list-title a {
+        font-size: 2.5rem !important;  /* bigger than 1.0rem base */
+        font-weight: bold;
     }
 
 }
