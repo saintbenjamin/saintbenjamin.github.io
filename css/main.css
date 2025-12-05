@@ -530,13 +530,13 @@ code {
     #arxivfeed span,
     #arxivfeed div {
         text-shadow: 
-            0.5px  0.5px 0 white, 
+        0.5px  0.5px 0 white, 
         -0.5px -0.5px 0 white, 
-            0.5px -0.5px 0 white, 
+        0.5px -0.5px 0 white, 
         -0.5px  0.5px 0 white,
-            1.0px  1.0px 0 white, 
+        1.0px  1.0px 0 white, 
         -1.0px -1.0px 0 white, 
-            1.0px -1.0px 0 white, 
+        1.0px -1.0px 0 white, 
         -1.0px  1.0px 0 white;
     }
 
