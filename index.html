@@ -4,30 +4,31 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Benjamin J. Choi</title>
-
         <!-- Styles -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">      
         <link rel="stylesheet" href="css/main.css">
-
         <!-- Favicons -->
         <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
         <link rel="shortcut icon" href="icons/favicon.ico">
         <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
         <link rel="manifest" href="icons/site.webmanifest">
-
         <!-- arXiv feed -->
         <script src="js/arxiv_config.js"></script>
         <script src="https://arxiv.org/js/myarticles.js"></script>
     </head>
     <body>
+        <!-- Background layer -->
         <div class="background"></div>
+        <!-- Dynamic header (loaded via JS) -->
         <div id="header-container"></div>
         <main>
+            <!-- Scripture section -->
             <div class="menus" id="jesus">
                 <h3 class="outlined-text-big fade-in">The Word of Heavenly Father</h3>
                 <div id="jesus-container" class="xml-content fade-in"></div>
-            </div> 
+            </div>
+            <!-- Biography section -->
             <div class="menus" id="bio">
                 <div class="here-icon-container">
                     <h1 class="outlined-text-superbig word-break fade-in" style="white-space: nowrap;">
@@ -52,47 +53,57 @@
                 </ul>
                 <br/>
             </div>
+            <!-- Education section -->
             <div class="menus" id="edu">
                 <h3 class="outlined-text-big fade-in">Education</h3>
                 <div id="edu-container" class="xml-content fade-in"></div>
             </div>
+            <!-- Academic Experience section -->
             <div class="menus" id="academic">
                 <h3 class="outlined-text-big fade-in">Academic and Other Experience</h3>
                 <div id="exp-container" class="xml-content fade-in"></div>
             </div>
+            <!-- Honors / Awards -->
             <div class="menus" id="honor">
                 <h3 class="outlined-text-big fade-in">Honors</h3>
                 <div id="honor-container" class="xml-content fade-in"></div>
             </div>
+            <!-- Publications (arXiv feed) -->
             <div class="menus" id="publication">
                 <h3 class="outlined-text-big fade-in">Publications</h3>
                 <div id="pub-container" class="xml-content fade-in">
                     <div id="arxivfeed">Loading arXiv articles...</div>
                 </div>
             </div>
+            <!-- Talks / Presentations -->
             <div class="menus" id="talk">
                 <h3 class="outlined-text-big fade-in">Presentations</h3>
                 <div id="talk-container" class="xml-content"></div>
             </div>
+            <!-- Research Statement -->
             <div class="menus" id="research">
                 <h3 class="outlined-text-big fade-in">Research Statement</h3>
                 <div class="content" id="res-sta"></div>
             </div>
+            <!-- External links -->
             <div class="menus" id="links">
                 <h3 class="outlined-text-big fade-in">External Links</h3>
                 <div id="link-container" class="xml-content fade-in"></div>
             </div>
             <br><br><br><br><br>
         </main>
+        <!-- Footer section -->
         <footer>
             <div class="icon-container">
                 <a href="https://orcid.org/0000-0002-5438-5490" target="_blank"><i class="fab fa-orcid"></i></a>
                 <a href="https://github.com/saintbenjamin" target="_blank"><i class="fab fa-github"></i></a>
                 <a href="https://www.youtube.com/channel/UCX-16rGG_fl0_pAXfvp39aQ" target="_blank"><i class="fab fa-youtube"></i></a> 
             </div>
+            <!-- QR popup trigger -->
             <button class="qr-button" id="showQrButton">QR Code</button>
             <!-- <p class="outlined-text">&copy; 2024 Benjamin J. Choi. All rights reserved.</p> -->
         </footer>
+        <!-- Overlay for QR popup -->
         <div class="overlay" id="qrOverlay">
             <div class="popup">
                 <button class="close-btn" id="closeQrButton">&times;</button>
@@ -100,6 +111,7 @@
                 <p>Benjamin J. Choi</p>
             </div>
         </div>
+        <!-- Scripts -->
         <script src="js/mathjax_config.js" defer></script>
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
         <script src="js/rxml.js" defer></script>
