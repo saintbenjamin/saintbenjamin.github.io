@@ -1,3 +1,4 @@
+// arxiv_config.js
 var arxiv_authorid = "choi_b_1";
 var arxiv_format = "arxiv";
 var arxiv_max_entries = 0;
