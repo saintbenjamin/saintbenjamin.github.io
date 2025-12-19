@@ -4,6 +4,34 @@
     <updated>2024-12-04T00:00:00-05:00</updated>
     <id>benji_talk</id>
     <entry>
+        <id>benji_28</id>
+        <updated>2025-01-21</updated>
+        <title>Machine Learning-Based Estimation of Cumulants of Chiral Condensate via Multi-Ensemble Reweighting with Deborah.jl</title>
+        <author>
+            <name>Benjamin J. Choi, Hiroshi Ohno, Akio Tomiya</name>
+        </author>
+        <conf_en link="https://conference-indico.kek.jp/event/355/" target="_blank">The 2nd "AI+HEP in East Asia" workshop</conf_en>
+        <conf_jp>第2回東アジアAI+高エネルギー物理学ワークショップ</conf_jp>
+        <loc_en link="https://www.kek.jp/ja/" target="_blank">KEK, Tsukuba, Japan</loc_en>
+        <loc_jp>高エネルギー加速器研究機構</loc_jp>
+        <session>Talk</session>
+    </entry>
+
+    <entry>
+        <id>benji_27</id>
+        <updated>2025-01-15</updated>
+        <title>Machine Learning-Based Estimation of Cumulants of Chiral Condensate via Multi-Ensemble Reweighting with Deborah.jl</title>
+        <author>
+            <name>Benjamin J. Choi, Hiroshi Ohno, Akio Tomiya</name>
+        </author>
+        <conf_en link="https://kds.kek.jp/event/57304/" target="_blank">Symposium of Basic Science Research Programs on the Fugaku supercomputer</conf_en>
+        <conf_jp>「富岳成果創出加速プログラム」基礎科学合同シンポジウム</conf_jp>
+        <loc_en link="https://solacity.jp/" target="_blank">Ochanomizu Sola city Conference Center, Tokyo, Japan</loc_en>
+        <loc_jp>御茶ノ水ソラシティカンファレンスセンター</loc_jp>
+        <session>Talk</session>
+    </entry>
+
+    <entry>
         <id>benji_26</id>
         <updated>2025-11-04</updated>
         <title link="https://indico.global/event/14504/contributions/137858/" target="_blank">Machine Learning-Based Estimation of Cumulants of Chiral Condensate via Multi-Ensemble Reweighting with Deborah.jl</title>
