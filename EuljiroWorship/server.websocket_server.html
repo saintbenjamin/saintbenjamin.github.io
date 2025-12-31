@@ -1,0 +1,236 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>server.websocket_server &mdash; EuljiroWorship 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=2709fde1"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="server" href="server.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            EuljiroWorship
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Modules</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="EuljiroWorship.html">EuljiroWorship</a></li>
+<li class="toctree-l2"><a class="reference internal" href="controller.html">controller</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html">core</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="server.html">server</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="server.html#server-components">Server Components</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="server.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">server.websocket_server</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">EuljiroWorship</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">Modules</a></li>
+          <li class="breadcrumb-item"><a href="server.html">server</a></li>
+      <li class="breadcrumb-item active">server.websocket_server</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/server.websocket_server.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="server-websocket-server">
+<h1>server.websocket_server<a class="headerlink" href="#server-websocket-server" title="Link to this heading"></a></h1>
+<section id="websocket-server">
+<h2>WebSocket Server<a class="headerlink" href="#websocket-server" title="Link to this heading"></a></h2>
+<p>This module implements an aiohttp-based WebSocket server for real-time
+broadcasting of slide data to overlay clients.</p>
+<p>It is designed to be robust in live worship environments and includes:</p>
+<ul class="simple">
+<li><p>Heartbeat handling (ping / pong)</p></li>
+<li><p>Broadcast fan-out to multiple clients</p></li>
+<li><p>Automatic cleanup of disconnected or faulty (“zombie”) clients</p></li>
+<li><p>Graceful shutdown with proper socket closure</p></li>
+</ul>
+<p>The server listens on <code class="docutils literal notranslate"><span class="pre">/ws</span></code> and expects incoming messages to be JSON
+representations of slide data, which are then forwarded to all connected
+clients.</p>
+</section>
+<section id="module-server.websocket_server">
+<span id="module-reference"></span><h2>Module Reference<a class="headerlink" href="#module-server.websocket_server" title="Link to this heading"></a></h2>
+<p>File: EuljiroWorship/server/websocket_server.py</p>
+<p>WebSocket server for broadcasting slide data using aiohttp with resilient error handling.</p>
+<p>This module runs an aiohttp-based WebSocket server that listens for slide JSON messages and broadcasts them to all connected clients in real time.</p>
+<p>Features:</p>
+<ul class="simple">
+<li><p>Real-time broadcast to multiple connected clients</p></li>
+<li><p>Ping/pong heartbeat handling</p></li>
+<li><p>Error isolation per client connection</p></li>
+<li><p>Automatic cleanup of disconnected (“zombie”) clients</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
+</dd>
+<dt class="field-even">Affiliated Church<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
+</dd>
+<dt class="field-odd">Address<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
+</dd>
+<dt class="field-even">Telephone<span class="colon">:</span></dt>
+<dd class="field-even"><p>+82-2-2266-3070</p>
+</dd>
+<dt class="field-odd">E-mail<span class="colon">:</span></dt>
+<dd class="field-odd"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
+</dd>
+<dt class="field-even">License<span class="colon">:</span></dt>
+<dd class="field-even"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
+</dd>
+</dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="server.websocket_server.websocket_handler">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">server.websocket_server.</span></span><span class="sig-name descname"><span class="pre">websocket_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/server/websocket_server.html#websocket_handler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#server.websocket_server.websocket_handler" title="Link to this definition"></a></dt>
+<dd><p>Handle a single WebSocket client connection.</p>
+<dl class="simple">
+<dt>The handler:</dt><dd><ul class="simple">
+<li><p>upgrades the incoming HTTP request to a WebSocket</p></li>
+<li><p>registers the client in the global client set</p></li>
+<li><p>responds to heartbeat “ping” messages with “pong”</p></li>
+<li><p>attempts to parse incoming text frames as JSON and broadcast them</p></li>
+<li><p>ensures the client is removed and closed on disconnect/errors</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> (<em>aiohttp.web.Request</em>) – Incoming request for WebSocket upgrade.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The prepared WebSocket response object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>aiohttp.web.WebSocketResponse</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="server.websocket_server.broadcast">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">server.websocket_server.</span></span><span class="sig-name descname"><span class="pre">broadcast</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slide_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/server/websocket_server.html#broadcast"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#server.websocket_server.broadcast" title="Link to this definition"></a></dt>
+<dd><p>Broadcast a slide payload to all currently connected WebSocket clients.</p>
+<p>The payload is JSON-serialized and sent as a text frame. The function
+also performs basic client hygiene:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>detects and removes closed or errored (“zombie”) connections</p></li>
+<li><p>removes clients that fail to receive within a short timeout</p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>slide_dict</strong> (<em>dict</em>) – Slide payload to broadcast. Must be JSON-serializable.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="server.websocket_server.on_shutdown">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">server.websocket_server.</span></span><span class="sig-name descname"><span class="pre">on_shutdown</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/server/websocket_server.html#on_shutdown"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#server.websocket_server.on_shutdown" title="Link to this definition"></a></dt>
+<dd><p>Close all active WebSocket connections during server shutdown.</p>
+<p>This coroutine is registered to <code class="docutils literal notranslate"><span class="pre">app.on_shutdown</span></code> and is expected
+to run when aiohttp is stopping. It attempts to close all active client
+sockets with a normal “going away” code.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>app</strong> (<em>aiohttp.web.Application</em>) – The aiohttp application instance.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="server.html" class="btn btn-neutral float-left" title="server" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Benjamin J. Choi.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

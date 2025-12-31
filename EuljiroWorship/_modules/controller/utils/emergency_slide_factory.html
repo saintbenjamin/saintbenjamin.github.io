@@ -1,0 +1,486 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>controller.utils.emergency_slide_factory &mdash; EuljiroWorship 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=2709fde1"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            EuljiroWorship
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">Modules</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">EuljiroWorship</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">controller.utils.emergency_slide_factory</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for controller.utils.emergency_slide_factory</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">File: EuljiroWorship/controller/utils/emergency_slide_factory.py</span>
+
+<span class="sd">Generates slide dictionaries for emergency captions.</span>
+
+<span class="sd">This module defines ``EmergencySlideFactory``, a utility that builds slide payloads</span>
+<span class="sd">consumable by the slide controller / overlay pipeline.</span>
+
+<span class="sd">Supported inputs:</span>
+
+<span class="sd">- Bible references (parsed by ``core.utils.bible_parser.parse_reference``)</span>
+<span class="sd">- Manual fallback captions and messages</span>
+<span class="sd">- Preset responsive readings (교독문) loaded from JSON files</span>
+<span class="sd">- Preset hymns loaded from JSON files</span>
+
+<span class="sd">Outputs:</span>
+
+<span class="sd">- A list of slide dictionaries with keys: ``style``, ``caption``, ``headline``</span>
+
+<span class="sd">Notes:</span>
+
+<span class="sd">- Bible verse text is wrapped into smaller chunks (currently ``width=50``) to avoid</span>
+<span class="sd">  overly long single-slide lines.</span>
+<span class="sd">- Version display aliases are loaded from ``paths.ALIASES_VERSION_FILE``.</span>
+
+<span class="sd">:Author: Benjamin Jaedon Choi - https://github.com/saintbenjamin</span>
+<span class="sd">:Affiliated Church: The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</span>
+<span class="sd">:Address: The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</span>
+<span class="sd">:Telephone: +82-2-2266-3070</span>
+<span class="sd">:E-mail: euljirochurch [at] G.M.A.I.L. (replace [at] with @ and G.M.A.I.L as you understood.)</span>
+<span class="sd">:License: MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">textwrap</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">core.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">paths</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">core.utils.bible_data_loader</span><span class="w"> </span><span class="kn">import</span> <span class="n">BibleDataLoader</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">core.utils.bible_parser</span><span class="w"> </span><span class="kn">import</span> <span class="n">parse_reference</span>
+
+<div class="viewcode-block" id="EmergencySlideFactory">
+<a class="viewcode-back" href="../../../controller.utils.html#controller.utils.emergency_slide_factory.EmergencySlideFactory">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">EmergencySlideFactory</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Factory for constructing emergency slide blocks.</span>
+
+<span class="sd">    This class converts user-facing emergency inputs into a list of slide dicts.</span>
+
+<span class="sd">    Primary responsibilities:</span>
+
+<span class="sd">    - Detect whether the first line is a Bible reference via ``parse_reference()``</span>
+<span class="sd">    - If a reference is valid, retrieve verses using ``BibleDataLoader``</span>
+<span class="sd">    - Wrap long verse text into multiple slides using ``textwrap.wrap``</span>
+<span class="sd">    - If not a reference, build a fallback &quot;manual&quot; slide payload</span>
+<span class="sd">    - Load preset materials:</span>
+
+<span class="sd">    - Responsive readings (respo) from JSON</span>
+<span class="sd">    - Hymns from JSON</span>
+
+<span class="sd">    Slide dict schema::</span>
+
+<span class="sd">        {</span>
+<span class="sd">            &quot;style&quot;: str,     # e.g., &quot;verse&quot;, &quot;lyrics&quot;, &quot;greet&quot;, ...</span>
+<span class="sd">            &quot;caption&quot;: str,   # title / reference line</span>
+<span class="sd">            &quot;headline&quot;: str,  # main body text shown on screen</span>
+<span class="sd">        }</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="EmergencySlideFactory.__init__">
+<a class="viewcode-back" href="../../../controller.utils.html#controller.utils.emergency_slide_factory.EmergencySlideFactory.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bible_loader</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the factory.</span>
+
+<span class="sd">        Loads Bible version display aliases from `paths.ALIASES_VERSION_FILE` and</span>
+<span class="sd">        prepares a `BibleDataLoader` instance (either the provided one or a default).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            bible_loader (BibleDataLoader | None):</span>
+<span class="sd">                Optional custom Bible loader. If None, a default `BibleDataLoader()`</span>
+<span class="sd">                is created and used.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">ALIASES_VERSION_FILE</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">VERSION_ALIASES</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">loader</span> <span class="o">=</span> <span class="n">bible_loader</span> <span class="ow">or</span> <span class="n">BibleDataLoader</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="EmergencySlideFactory.create_from_input">
+<a class="viewcode-back" href="../../../controller.utils.html#controller.utils.emergency_slide_factory.EmergencySlideFactory.create_from_input">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_from_input</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line1</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">line2</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">version</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create emergency slides from a pair of user input lines.</span>
+
+<span class="sd">        Behavior:</span>
+<span class="sd">        - If `line1` is parsed as a Bible reference (e.g., &quot;요 3:16&quot;, &quot;요한복음 3:16&quot;),</span>
+<span class="sd">        this method retrieves the verse text and returns verse-style slides.</span>
+<span class="sd">        - If the reference represents a full chapter request (verse_range like (1, -1)),</span>
+<span class="sd">        it expands the range to the chapter&#39;s maximum verse count when possible.</span>
+<span class="sd">        - If `line1` is NOT a valid reference, it falls back to a single manual slide</span>
+<span class="sd">        where `line1` becomes the caption and `line2` becomes the headline.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            line1 (str):</span>
+<span class="sd">                First line of user input. Interpreted as either a Bible reference</span>
+<span class="sd">                or a manual caption.</span>
+<span class="sd">            line2 (str):</span>
+<span class="sd">                Second line of user input. Interpreted as either ignored (when the</span>
+<span class="sd">                first line is a valid reference) or a manual headline/message.</span>
+<span class="sd">            version (str | None):</span>
+<span class="sd">                Preferred Bible version name to use when resolving verse text.</span>
+<span class="sd">                If None, the loader&#39;s default/available version list is used.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list[dict]:</span>
+<span class="sd">                A list of slide dictionaries. Returns an empty list if no valid</span>
+<span class="sd">                output can be produced (e.g., empty manual input or failed verse load).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">parsed</span> <span class="o">=</span> <span class="n">parse_reference</span><span class="p">(</span><span class="n">line1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">parsed</span><span class="p">:</span>
+            <span class="n">book_id</span><span class="p">,</span> <span class="n">chapter</span><span class="p">,</span> <span class="n">verses</span> <span class="o">=</span> <span class="n">parsed</span>
+
+            <span class="c1"># Handle full chapter request (verse_range = (1, -1))</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">verses</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="ow">and</span> <span class="n">verses</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">max_verse</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">loader</span><span class="o">.</span><span class="n">get_verses</span><span class="p">(</span><span class="n">version</span><span class="p">)[</span><span class="n">book_id</span><span class="p">][</span><span class="nb">str</span><span class="p">(</span><span class="n">chapter</span><span class="p">)])</span>
+                    <span class="n">verses</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_verse</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+                <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[ERROR] Failed to expand full chapter: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="p">[]</span>
+
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">build_bible_slides</span><span class="p">(</span><span class="n">book_id</span><span class="p">,</span> <span class="n">chapter</span><span class="p">,</span> <span class="n">verses</span><span class="p">,</span> <span class="n">version</span><span class="p">)</span>
+
+        <span class="c1"># Fallback for custom manual input</span>
+        <span class="n">caption</span> <span class="o">=</span> <span class="n">line1</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="n">headline</span> <span class="o">=</span> <span class="n">line2</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">caption</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">headline</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[DEBUG] No input provided. Empty slide list returned.&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">[]</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[DEBUG] Manual fallback: caption=&#39;</span><span class="si">{</span><span class="n">caption</span><span class="si">}</span><span class="s2">&#39;, headline=&#39;</span><span class="si">{</span><span class="n">headline</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[{</span>
+            <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;verse&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;caption&quot;</span><span class="p">:</span> <span class="n">caption</span> <span class="ow">or</span> <span class="s2">&quot;대한예수교장로회(통합) 을지로교회&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;headline&quot;</span><span class="p">:</span> <span class="n">headline</span> <span class="ow">or</span> <span class="s2">&quot;(내용 없음)&quot;</span>
+        <span class="p">}]</span></div>
+
+
+<div class="viewcode-block" id="EmergencySlideFactory.build_bible_slides">
+<a class="viewcode-back" href="../../../controller.utils.html#controller.utils.emergency_slide_factory.EmergencySlideFactory.build_bible_slides">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">build_bible_slides</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">book_id</span><span class="p">,</span> <span class="n">chapter</span><span class="p">,</span> <span class="n">verses</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Build verse-style slides for the given Bible location and verse range.</span>
+
+<span class="sd">        This method attempts to retrieve verse text using `BibleDataLoader.get_verse()`.</span>
+<span class="sd">        If `version` is provided, it tries that version first; otherwise it iterates</span>
+<span class="sd">        available versions and returns the first successful slide set.</span>
+
+<span class="sd">        Each verse is wrapped using `textwrap.wrap(..., width=50)` to avoid overly long</span>
+<span class="sd">        single lines, producing multiple slides per verse when needed.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            book_id (str):</span>
+<span class="sd">                Internal Bible book identifier (e.g., &quot;John&quot;).</span>
+<span class="sd">            chapter (int):</span>
+<span class="sd">                Chapter number.</span>
+<span class="sd">            verses (list[int] | tuple[int, int]):</span>
+<span class="sd">                Verse numbers to include. The implementation currently uses</span>
+<span class="sd">                `min(verses)` and `max(verses)` to define an inclusive range.</span>
+<span class="sd">            version (str | None):</span>
+<span class="sd">                Preferred Bible version name. If None, tries multiple versions.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list[dict]:</span>
+<span class="sd">                A list of verse-style slide dictionaries. If verse retrieval fails</span>
+<span class="sd">                for all attempted versions, returns an empty list.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">verses</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">verses</span><span class="p">)</span>
+        <span class="n">target_versions</span> <span class="o">=</span> <span class="p">[</span><span class="n">version</span><span class="p">]</span> <span class="k">if</span> <span class="n">version</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">loader</span><span class="o">.</span><span class="n">aliases_version</span>
+
+        <span class="k">for</span> <span class="n">ver</span> <span class="ow">in</span> <span class="n">target_versions</span><span class="p">:</span>
+            <span class="n">alias</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">VERSION_ALIASES</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ver</span><span class="p">,</span> <span class="n">ver</span><span class="p">)</span>
+            <span class="n">slides</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">verse_num</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">verse_text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loader</span><span class="o">.</span><span class="n">get_verse</span><span class="p">(</span><span class="n">ver</span><span class="p">,</span> <span class="n">book_id</span><span class="p">,</span> <span class="n">chapter</span><span class="p">,</span> <span class="n">verse_num</span><span class="p">)</span>
+                    <span class="n">reftext</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">loader</span><span class="o">.</span><span class="n">get_standard_book</span><span class="p">(</span><span class="n">book_id</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;ko&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">chapter</span><span class="si">}</span><span class="s2">장 </span><span class="si">{</span><span class="n">verse_num</span><span class="si">}</span><span class="s2">절 (</span><span class="si">{</span><span class="n">alias</span><span class="si">}</span><span class="s2">)&quot;</span>
+                    <span class="n">chunks</span> <span class="o">=</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">wrap</span><span class="p">(</span><span class="n">verse_text</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span> <span class="n">width</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">chunks</span><span class="p">:</span>
+                        <span class="n">slides</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                            <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;verse&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;caption&quot;</span><span class="p">:</span> <span class="n">reftext</span><span class="p">,</span>
+                            <span class="s2">&quot;headline&quot;</span><span class="p">:</span> <span class="n">chunk</span>
+                        <span class="p">})</span>
+                <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                    <span class="k">continue</span>
+            <span class="k">if</span> <span class="n">slides</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">slides</span>
+
+        <span class="k">return</span> <span class="n">result</span></div>
+
+
+<div class="viewcode-block" id="EmergencySlideFactory.create_from_respo">
+<a class="viewcode-back" href="../../../controller.utils.html#controller.utils.emergency_slide_factory.EmergencySlideFactory.create_from_respo">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_from_respo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">number</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Load a responsive reading (교독문) JSON by number and generate slides.</span>
+
+<span class="sd">        The expected JSON format contains:</span>
+
+<span class="sd">        - ``title``: str (optional)</span>
+<span class="sd">        - ``slides``: list of entries, each typically containing:</span>
+
+<span class="sd">        - ``speaker``: str</span>
+<span class="sd">        - ``headline``: str</span>
+
+<span class="sd">        For each entry, one slide is created containing a single speaker-response</span>
+<span class="sd">        line formatted in an HTML-like style (e.g., ``&quot;&lt;b&gt;...&lt;/b&gt;&quot;``).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            number (int):</span>
+<span class="sd">                Responsive reading number (e.g., 123).</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list[dict]:</span>
+<span class="sd">                A list of slide dictionaries (style ``&quot;verse&quot;``).</span>
+<span class="sd">                If loading fails, returns a one-slide fallback with an error message.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;respo&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;responsive_</span><span class="si">{</span><span class="n">number</span><span class="si">:</span><span class="s2">03d</span><span class="si">}</span><span class="s2">.json&quot;</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+                <span class="n">title</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;성시교독 </span><span class="si">{</span><span class="n">number</span><span class="si">}</span><span class="s2">번&quot;</span><span class="p">)</span>
+                <span class="n">slides_raw</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;slides&quot;</span><span class="p">,</span> <span class="p">[])</span>
+
+                <span class="n">slides</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">slides_raw</span><span class="p">:</span>
+                    <span class="n">speaker</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;speaker&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                    <span class="n">headline</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;headline&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="n">speaker</span> <span class="ow">or</span> <span class="n">headline</span><span class="p">:</span>
+                        <span class="n">slides</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                            <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;verse&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;caption&quot;</span><span class="p">:</span> <span class="n">title</span><span class="p">,</span>
+                            <span class="s2">&quot;headline&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;&lt;b&gt;</span><span class="si">{</span><span class="n">speaker</span><span class="si">}</span><span class="s2">:&lt;/b&gt; </span><span class="si">{</span><span class="n">headline</span><span class="si">}</span><span class="s2">&quot;</span>
+                        <span class="p">})</span>
+
+                <span class="k">return</span> <span class="n">slides</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[{</span>
+                <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;verse&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;caption&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;성시교독 </span><span class="si">{</span><span class="n">number</span><span class="si">}</span><span class="s2">번&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;headline&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;(교독문 </span><span class="si">{</span><span class="n">number</span><span class="si">}</span><span class="s2">번을 불러올 수 없습니다)&quot;</span>
+            <span class="p">}]</span></div>
+
+
+<div class="viewcode-block" id="EmergencySlideFactory.format_responsive_text">
+<a class="viewcode-back" href="../../../controller.utils.html#controller.utils.emergency_slide_factory.EmergencySlideFactory.format_responsive_text">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">format_responsive_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">slides_raw</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Format responsive reading entries into a single joined string.</span>
+
+<span class="sd">        Each entry is converted into one line using an HTML-like emphasis for the</span>
+<span class="sd">        speaker name::</span>
+
+<span class="sd">            &quot;&lt;b&gt;{speaker}:&lt;/b&gt; {headline}&quot;</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            slides_raw (list[dict]):</span>
+<span class="sd">                Raw entry list, where each entry may include:</span>
+
+<span class="sd">                - ``speaker``: str</span>
+<span class="sd">                - ``headline``: str</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str:</span>
+<span class="sd">                A newline-joined formatted text block. Empty entries are skipped.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">slides_raw</span><span class="p">:</span>
+            <span class="n">speaker</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;speaker&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="n">headline</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;headline&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">speaker</span> <span class="ow">or</span> <span class="n">headline</span><span class="p">:</span>
+                <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&lt;b&gt;</span><span class="si">{</span><span class="n">speaker</span><span class="si">}</span><span class="s2">:&lt;/b&gt; </span><span class="si">{</span><span class="n">headline</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="EmergencySlideFactory.create_from_hymn">
+<a class="viewcode-back" href="../../../controller.utils.html#controller.utils.emergency_slide_factory.EmergencySlideFactory.create_from_hymn">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_from_hymn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">number</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Load a hymn JSON by number and split it into lyric slides.</span>
+
+<span class="sd">        The expected JSON format contains:</span>
+<span class="sd">        - &quot;title&quot;: str (optional)</span>
+<span class="sd">        - &quot;headline&quot;: str (lyrics text, typically multi-line)</span>
+
+<span class="sd">        Lyrics are split into chunks of two lines per slide.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            number (int):</span>
+<span class="sd">                Hymn number (e.g., 88).</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list[dict]:</span>
+<span class="sd">                A list of slide dictionaries with style &quot;lyrics&quot;.</span>
+<span class="sd">                If loading fails, returns a one-slide fallback with an error message.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;hymns&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;hymn_</span><span class="si">{</span><span class="n">number</span><span class="si">:</span><span class="s2">03d</span><span class="si">}</span><span class="s2">.json&quot;</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+                <span class="n">title</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;새찬송가 </span><span class="si">{</span><span class="n">number</span><span class="si">}</span><span class="s2">장&quot;</span><span class="p">)</span>
+                <span class="n">body</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;headline&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+                <span class="n">lines</span> <span class="o">=</span> <span class="n">body</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">slides</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">lines</span><span class="p">),</span> <span class="mi">2</span><span class="p">):</span>  <span class="c1"># Group by 2 lines</span>
+                    <span class="n">chunk</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="n">chunk</span><span class="p">:</span>
+                        <span class="n">slides</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                            <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;lyrics&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;caption&quot;</span><span class="p">:</span> <span class="n">title</span><span class="p">,</span>
+                            <span class="s2">&quot;headline&quot;</span><span class="p">:</span> <span class="n">chunk</span>
+                        <span class="p">})</span>
+
+                <span class="k">return</span> <span class="n">slides</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[{</span>
+                <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;lyrics&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;caption&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;새찬송가 </span><span class="si">{</span><span class="n">number</span><span class="si">}</span><span class="s2">장&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;headline&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;(찬송가 </span><span class="si">{</span><span class="n">number</span><span class="si">}</span><span class="s2">번을 불러올 수 없습니다)&quot;</span>
+            <span class="p">}]</span></div>
+
+
+<div class="viewcode-block" id="EmergencySlideFactory.create_manual_slide">
+<a class="viewcode-back" href="../../../controller.utils.html#controller.utils.emergency_slide_factory.EmergencySlideFactory.create_manual_slide">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_manual_slide</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">style</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">caption</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generate slide(s) from manually provided content.</span>
+
+<span class="sd">        Behavior:</span>
+<span class="sd">        - If `style` is &quot;lyrics&quot;, the input text is split by lines and grouped</span>
+<span class="sd">        into 2-line chunks per slide.</span>
+<span class="sd">        - For all other styles, a single slide is produced as-is.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            style (str):</span>
+<span class="sd">                Internal slide style (e.g., &quot;verse&quot;, &quot;greet&quot;, &quot;lyrics&quot;).</span>
+<span class="sd">            caption (str):</span>
+<span class="sd">                Caption/title string shown above or alongside the main text.</span>
+<span class="sd">            text (str):</span>
+<span class="sd">                Main body text for the slide(s).</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list[dict]:</span>
+<span class="sd">                List of slide dictionaries ready to be exported.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">style</span> <span class="o">==</span> <span class="s2">&quot;lyrics&quot;</span><span class="p">:</span>
+            <span class="n">lines</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">slides</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">lines</span><span class="p">),</span> <span class="mi">2</span><span class="p">):</span>
+                <span class="n">chunk</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">chunk</span><span class="p">:</span>
+                    <span class="n">slides</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                        <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;lyrics&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;caption&quot;</span><span class="p">:</span> <span class="n">caption</span><span class="p">,</span>
+                        <span class="s2">&quot;headline&quot;</span><span class="p">:</span> <span class="n">chunk</span>
+                    <span class="p">})</span>
+            <span class="k">return</span> <span class="n">slides</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[{</span>
+                <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="n">style</span><span class="p">,</span>
+                <span class="s2">&quot;caption&quot;</span><span class="p">:</span> <span class="n">caption</span><span class="p">,</span>
+                <span class="s2">&quot;headline&quot;</span><span class="p">:</span> <span class="n">text</span>
+            <span class="p">}]</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Benjamin J. Choi.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

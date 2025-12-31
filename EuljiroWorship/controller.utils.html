@@ -1,0 +1,1278 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>controller.utils &mdash; EuljiroWorship 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=2709fde1"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="controller.helper" href="controller.helper.html" />
+    <link rel="prev" title="controller.ui" href="controller.ui.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            EuljiroWorship
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Modules</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="EuljiroWorship.html">EuljiroWorship</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="controller.html">controller</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="controller.ui.html">controller.ui</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">controller.utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#controller.utils.slide_controller_data_manager.SlideControllerDataManager"><code class="docutils literal notranslate"><span class="pre">SlideControllerDataManager</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#controller.utils.slide_file_watcher.SlideFileWatcher"><code class="docutils literal notranslate"><span class="pre">SlideFileWatcher</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#controller.utils.slide_websocket_manager.SlideWebSocketManager"><code class="docutils literal notranslate"><span class="pre">SlideWebSocketManager</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#controller.utils.emergency_caption_handler.EmergencyCaptionHandler"><code class="docutils literal notranslate"><span class="pre">EmergencyCaptionHandler</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#controller.utils.emergency_slide_factory.EmergencySlideFactory"><code class="docutils literal notranslate"><span class="pre">EmergencySlideFactory</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#controller.utils.keyword_highlight_delegate.KeywordHighlightDelegate"><code class="docutils literal notranslate"><span class="pre">KeywordHighlightDelegate</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#controller.utils.keyword_result_model_light.KeywordResultTableModelLight"><code class="docutils literal notranslate"><span class="pre">KeywordResultTableModelLight</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="controller.helper.html">controller.helper</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="core.html">core</a></li>
+<li class="toctree-l2"><a class="reference internal" href="server.html">server</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">EuljiroWorship</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">Modules</a></li>
+          <li class="breadcrumb-item"><a href="controller.html">controller</a></li>
+      <li class="breadcrumb-item active">controller.utils</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/controller.utils.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-controller.utils">
+<span id="controller-utils"></span><h1>controller.utils<a class="headerlink" href="#module-controller.utils" title="Link to this heading"></a></h1>
+<p id="module-controller.utils.slide_controller_data_manager">File: EuljiroWorship/controller/utils/slide_controller_data_manager.py</p>
+<p>Persistent data manager for the slide controller.</p>
+<p>This module manages the persistent state used by the slide controller:
+- Loading slide data from the active slide JSON file
+- Tracking the current slide index
+- Backing up slide data before emergency interruption
+- Restoring slides after emergency mode is cleared</p>
+<p>It intentionally contains no UI logic and serves as a thin I/O and state
+coordination layer for SlideController.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
+</dd>
+<dt class="field-even">Affiliated Church<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
+</dd>
+<dt class="field-odd">Address<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
+</dd>
+<dt class="field-even">Telephone<span class="colon">:</span></dt>
+<dd class="field-even"><p>+82-2-2266-3070</p>
+</dd>
+<dt class="field-odd">E-mail<span class="colon">:</span></dt>
+<dd class="field-odd"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
+</dd>
+<dt class="field-even">License<span class="colon">:</span></dt>
+<dd class="field-even"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="controller.utils.slide_controller_data_manager.SlideControllerDataManager">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">controller.utils.slide_controller_data_manager.</span></span><span class="sig-name descname"><span class="pre">SlideControllerDataManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slide_file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/slide_controller_data_manager.html#SlideControllerDataManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.slide_controller_data_manager.SlideControllerDataManager" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Manages persistent slide data and controller state.</p>
+<p>This class is responsible for:
+- Loading slide data from disk
+- Keeping track of the current slide index
+- Backing up slide data before emergency interruption
+- Restoring slide data after emergency mode exits</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="controller.utils.slide_controller_data_manager.SlideControllerDataManager.slide_file">
+<span class="sig-name descname"><span class="pre">slide_file</span></span><a class="headerlink" href="#controller.utils.slide_controller_data_manager.SlideControllerDataManager.slide_file" title="Link to this definition"></a></dt>
+<dd><p>Path to the active slide JSON file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="controller.utils.slide_controller_data_manager.SlideControllerDataManager.slides">
+<span class="sig-name descname"><span class="pre">slides</span></span><a class="headerlink" href="#controller.utils.slide_controller_data_manager.SlideControllerDataManager.slides" title="Link to this definition"></a></dt>
+<dd><p>List of currently loaded slide dictionaries.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[dict]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="controller.utils.slide_controller_data_manager.SlideControllerDataManager.index">
+<span class="sig-name descname"><span class="pre">index</span></span><a class="headerlink" href="#controller.utils.slide_controller_data_manager.SlideControllerDataManager.index" title="Link to this definition"></a></dt>
+<dd><p>Current slide index.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="controller.utils.slide_controller_data_manager.SlideControllerDataManager.last_slide_index">
+<span class="sig-name descname"><span class="pre">last_slide_index</span></span><a class="headerlink" href="#controller.utils.slide_controller_data_manager.SlideControllerDataManager.last_slide_index" title="Link to this definition"></a></dt>
+<dd><p>Previously active slide index, if tracked.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.utils.slide_controller_data_manager.SlideControllerDataManager.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slide_file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/slide_controller_data_manager.html#SlideControllerDataManager.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.slide_controller_data_manager.SlideControllerDataManager.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize the data manager with a slide file path.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>slide_file</strong> (<em>str</em>) – Path to the JSON file currently used by the slide controller.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.utils.slide_controller_data_manager.SlideControllerDataManager.load_slides">
+<span class="sig-name descname"><span class="pre">load_slides</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/slide_controller_data_manager.html#SlideControllerDataManager.load_slides"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.slide_controller_data_manager.SlideControllerDataManager.load_slides" title="Link to this definition"></a></dt>
+<dd><p>Load slides from the active slide file into memory.</p>
+<p>On success, populates <cite>self.slides</cite> with parsed slide dictionaries.
+On failure, resets the slide list to an empty list and prints an error.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.utils.slide_controller_data_manager.SlideControllerDataManager.backup_slides">
+<span class="sig-name descname"><span class="pre">backup_slides</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/slide_controller_data_manager.html#SlideControllerDataManager.backup_slides"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.slide_controller_data_manager.SlideControllerDataManager.backup_slides" title="Link to this definition"></a></dt>
+<dd><p>Create a backup copy of the active slide file.</p>
+<p>Copies <cite>paths.SLIDE_FILE</cite> to <cite>paths.SLIDE_BACKUP_FILE</cite>.
+This backup is used to restore slides after emergency caption mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.utils.slide_controller_data_manager.SlideControllerDataManager.restore_from_backup">
+<span class="sig-name descname"><span class="pre">restore_from_backup</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/slide_controller_data_manager.html#SlideControllerDataManager.restore_from_backup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.slide_controller_data_manager.SlideControllerDataManager.restore_from_backup" title="Link to this definition"></a></dt>
+<dd><p>Restore slide data from the backup file if available.</p>
+<p>Loads slides from <cite>paths.SLIDE_BACKUP_FILE</cite> into memory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if backup restoration succeeded.
+False if no backup exists or restoration failed.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.utils.slide_controller_data_manager.SlideControllerDataManager.clear_backups">
+<span class="sig-name descname"><span class="pre">clear_backups</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/slide_controller_data_manager.html#SlideControllerDataManager.clear_backups"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.slide_controller_data_manager.SlideControllerDataManager.clear_backups" title="Link to this definition"></a></dt>
+<dd><p>Remove the slide backup file if it exists.</p>
+<p>Deletes <cite>paths.SLIDE_BACKUP_FILE</cite> from disk to clear stale backup state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p id="module-controller.utils.slide_file_watcher">File: EuljiroWorship/controller/utils/slide_file_watcher.py</p>
+<p>Slide file watcher for the slide controller.</p>
+<p>This module continuously monitors the slide output JSON file used by the
+slide controller. It detects file modification events via polling and emits
+Qt signals when:</p>
+<ul class="simple">
+<li><p>Slide content is updated (non-empty JSON)</p></li>
+<li><p>Slide content is cleared (empty JSON), typically indicating the end of
+emergency caption mode</p></li>
+</ul>
+<p>The watcher is designed to run inside a QThread and communicate with the
+SlideController via Qt signals only.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
+</dd>
+<dt class="field-even">Affiliated Church<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
+</dd>
+<dt class="field-odd">Address<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
+</dd>
+<dt class="field-even">Telephone<span class="colon">:</span></dt>
+<dd class="field-even"><p>+82-2-2266-3070</p>
+</dd>
+<dt class="field-odd">E-mail<span class="colon">:</span></dt>
+<dd class="field-odd"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
+</dd>
+<dt class="field-even">License<span class="colon">:</span></dt>
+<dd class="field-even"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="controller.utils.slide_file_watcher.SlideFileWatcher">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">controller.utils.slide_file_watcher.</span></span><span class="sig-name descname"><span class="pre">SlideFileWatcher</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slide_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">poll_interval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/slide_file_watcher.html#SlideFileWatcher"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.slide_file_watcher.SlideFileWatcher" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QObject</span></code></p>
+<p>Watches a slide JSON file and emits signals on content changes.</p>
+<p>This watcher polls the target slide file at a fixed interval and detects
+changes using the file’s modified timestamp.</p>
+<dl class="simple">
+<dt>Signals:</dt><dd><dl class="simple">
+<dt>slide_changed(list, int):</dt><dd><p>Emitted when the slide file is updated with non-empty content.
+The second argument represents the initial slide index.</p>
+</dd>
+<dt>slide_cleared():</dt><dd><p>Emitted when the slide file becomes empty, typically signaling
+the end of emergency caption mode.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="controller.utils.slide_file_watcher.SlideFileWatcher.slide_changed">
+<span class="sig-name descname"><span class="pre">slide_changed</span></span><a class="headerlink" href="#controller.utils.slide_file_watcher.SlideFileWatcher.slide_changed" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="controller.utils.slide_file_watcher.SlideFileWatcher.slide_cleared">
+<span class="sig-name descname"><span class="pre">slide_cleared</span></span><a class="headerlink" href="#controller.utils.slide_file_watcher.SlideFileWatcher.slide_cleared" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.utils.slide_file_watcher.SlideFileWatcher.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slide_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">poll_interval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/slide_file_watcher.html#SlideFileWatcher.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.slide_file_watcher.SlideFileWatcher.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize the slide file watcher.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>slide_file</strong> (<em>str</em>) – Path to the JSON slide file to monitor.</p></li>
+<li><p><strong>poll_interval</strong> (<em>int</em><em>, </em><em>optional</em>) – Polling interval in seconds. Defaults to 1.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.utils.slide_file_watcher.SlideFileWatcher.stop">
+<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/slide_file_watcher.html#SlideFileWatcher.stop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.slide_file_watcher.SlideFileWatcher.stop" title="Link to this definition"></a></dt>
+<dd><p>Stop the file watching loop.</p>
+<p>This method signals the watcher to exit its polling loop gracefully.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.utils.slide_file_watcher.SlideFileWatcher.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/slide_file_watcher.html#SlideFileWatcher.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.slide_file_watcher.SlideFileWatcher.run" title="Link to this definition"></a></dt>
+<dd><p>Start monitoring the slide file for changes.</p>
+<p>This method runs an infinite polling loop while the watcher is active.
+When a file modification is detected:</p>
+<ul class="simple">
+<li><p>Emits <cite>slide_changed</cite> if the file contains slide data</p></li>
+<li><p>Emits <cite>slide_cleared</cite> if the file is empty</p></li>
+</ul>
+<p>This method is intended to be executed inside a QThread.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="controller.utils.slide_file_watcher.SlideFileWatcher.staticMetaObject">
+<span class="sig-name descname"><span class="pre">staticMetaObject</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">PySide6.QtCore.QMetaObject(&quot;SlideFileWatcher&quot;</span> <span class="pre">inherits</span> <span class="pre">&quot;QObject&quot;:</span> <span class="pre">Methods:</span>&#160;&#160; <span class="pre">#4</span> <span class="pre">type=Signal,</span> <span class="pre">signature=slide_changed(QVariantList,int),</span> <span class="pre">parameters=QVariantList,</span> <span class="pre">int</span>&#160;&#160; <span class="pre">#5</span> <span class="pre">type=Signal,</span> <span class="pre">signature=slide_cleared()</span> <span class="pre">)</span></em><a class="headerlink" href="#controller.utils.slide_file_watcher.SlideFileWatcher.staticMetaObject" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<p id="module-controller.utils.slide_websocket_manager">File: EuljiroWorship/controller/utils/slide_websocket_manager.py</p>
+<p>WebSocket manager for broadcasting slide data to overlay clients.</p>
+<p>This module provides a thin wrapper around the <cite>websocket-client</cite> library
+to manage a single outbound WebSocket connection used by the slide controller.
+It is responsible for:</p>
+<ul class="simple">
+<li><p>Establishing and closing the WebSocket connection</p></li>
+<li><p>Serializing slide dictionaries to JSON</p></li>
+<li><p>Sending slide data to overlay clients in real time</p></li>
+<li><p>Tracking basic connection state</p></li>
+</ul>
+<p>The manager is intentionally lightweight and synchronous, as it is used
+from the GUI thread with short-lived send operations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
+</dd>
+<dt class="field-even">Affiliated Church<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
+</dd>
+<dt class="field-odd">Address<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
+</dd>
+<dt class="field-even">Telephone<span class="colon">:</span></dt>
+<dd class="field-even"><p>+82-2-2266-3070</p>
+</dd>
+<dt class="field-odd">E-mail<span class="colon">:</span></dt>
+<dd class="field-odd"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
+</dd>
+<dt class="field-even">License<span class="colon">:</span></dt>
+<dd class="field-even"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="controller.utils.slide_websocket_manager.SlideWebSocketManager">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">controller.utils.slide_websocket_manager.</span></span><span class="sig-name descname"><span class="pre">SlideWebSocketManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uri</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/slide_websocket_manager.html#SlideWebSocketManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.slide_websocket_manager.SlideWebSocketManager" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Manages a WebSocket connection for sending slide data to overlay systems.</p>
+<p>This class wraps a single WebSocket connection created via the
+<cite>websocket-client</cite> library and provides simple methods for:</p>
+<ul class="simple">
+<li><p>Connecting to a WebSocket server</p></li>
+<li><p>Sending slide dictionaries as JSON</p></li>
+<li><p>Querying connection state</p></li>
+<li><p>Closing the connection safely</p></li>
+</ul>
+<p>It does not implement reconnection logic or background threads by design;
+higher-level components are expected to handle retry behavior if needed.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.utils.slide_websocket_manager.SlideWebSocketManager.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uri</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/slide_websocket_manager.html#SlideWebSocketManager.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.slide_websocket_manager.SlideWebSocketManager.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize the WebSocket manager.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>uri</strong> (<em>str</em>) – WebSocket server URI
+(e.g., “ws://127.0.0.1:8765/ws”).</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.utils.slide_websocket_manager.SlideWebSocketManager.connect">
+<span class="sig-name descname"><span class="pre">connect</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/slide_websocket_manager.html#SlideWebSocketManager.connect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.slide_websocket_manager.SlideWebSocketManager.connect" title="Link to this definition"></a></dt>
+<dd><p>Establish a connection to the WebSocket server.</p>
+<p>Attempts to create a WebSocket connection using the configured URI.
+On failure, the internal connection state is cleared.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.utils.slide_websocket_manager.SlideWebSocketManager.send">
+<span class="sig-name descname"><span class="pre">send</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slide_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/slide_websocket_manager.html#SlideWebSocketManager.send"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.slide_websocket_manager.SlideWebSocketManager.send" title="Link to this definition"></a></dt>
+<dd><p>Send a slide dictionary to the WebSocket server.</p>
+<p>The slide data is serialized to JSON using UTF-8 encoding
+(ensure_ascii=False) before transmission.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>slide_dict</strong> (<em>dict</em>) – Dictionary containing slide data to send.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.utils.slide_websocket_manager.SlideWebSocketManager.is_connected">
+<span class="sig-name descname"><span class="pre">is_connected</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/slide_websocket_manager.html#SlideWebSocketManager.is_connected"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.slide_websocket_manager.SlideWebSocketManager.is_connected" title="Link to this definition"></a></dt>
+<dd><p>Check whether the WebSocket connection is active.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if a WebSocket connection exists, False otherwise.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.utils.slide_websocket_manager.SlideWebSocketManager.disconnect">
+<span class="sig-name descname"><span class="pre">disconnect</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/slide_websocket_manager.html#SlideWebSocketManager.disconnect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.slide_websocket_manager.SlideWebSocketManager.disconnect" title="Link to this definition"></a></dt>
+<dd><p>Close the WebSocket connection safely.</p>
+<p>Any errors during shutdown are caught and logged, and the internal
+connection state is cleared.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p>File: EuljiroWorship/controller/utils/interruptor_watcher.py</p>
+<p>Watches <cite>verse_output.txt</cite> and emits a Qt signal when the emergency text is cleared.</p>
+<p>This module defines a lightweight polling watcher used by the slide controller.
+It monitors the emergency verse file (<cite>paths.VERSE_FILE</cite>) and detects the state
+transition from <strong>non-empty</strong> to <strong>empty</strong>. When that transition occurs, it emits
+<cite>InterruptorWatcher.interruptor_cleared</cite>, allowing the controller to restore the
+previous slide session and exit emergency mode.</p>
+<p>Key behavior:
+- Polls the verse file at a configurable interval (<cite>poll_interval</cite>)
+- Emits a signal only on the transition: non-empty → empty
+- Provides a stop mechanism for clean thread shutdown</p>
+<dl class="field-list simple">
+<dt class="field-odd">Author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
+</dd>
+<dt class="field-even">Affiliated Church<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
+</dd>
+<dt class="field-odd">Address<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
+</dd>
+<dt class="field-even">Telephone<span class="colon">:</span></dt>
+<dd class="field-even"><p>+82-2-2266-3070</p>
+</dd>
+<dt class="field-odd">E-mail<span class="colon">:</span></dt>
+<dd class="field-odd"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
+</dd>
+<dt class="field-even">License<span class="colon">:</span></dt>
+<dd class="field-even"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">controller.utils.interruptor_watcher.</span></span><span class="sig-name descname"><span class="pre">InterruptorWatcher</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">poll_interval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/interruptor_watcher.html#InterruptorWatcher"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QObject</span></code></p>
+<p>Monitors the emergency verse output file and emits a signal when it is cleared.</p>
+<p>This watcher is designed to run inside a <cite>QThread</cite> loop (polling-based).
+It reads <cite>paths.VERSE_FILE</cite> periodically and tracks the last observed content.
+When the file transitions from non-empty content to an empty string, it emits
+<cite>interruptor_cleared</cite>.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">interruptor_cleared</span></span></dt>
+<dd><p>Emitted when the verse file becomes empty after previously containing text.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Signal</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">interruptor_cleared</span></span></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">poll_interval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/interruptor_watcher.html#InterruptorWatcher.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Initialize the watcher.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>poll_interval</strong> (<em>int</em><em> | </em><em>float</em>) – Time in seconds between file polls.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/interruptor_watcher.html#InterruptorWatcher.stop"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Stop the watcher loop.</p>
+<p>This method signals the polling loop in <cite>run()</cite> to exit cleanly.
+It is intended to be called during controller shutdown.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/interruptor_watcher.html#InterruptorWatcher.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Start monitoring the verse output file.</p>
+<p>This method runs a polling loop while <cite>_running</cite> is True:
+- If the verse file exists, read and strip its content.
+- If the content transitions from non-empty to empty, emit <cite>interruptor_cleared</cite>.
+- Sleep for <cite>poll_interval</cite> seconds between polls.</p>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>This is a polling-based watcher (not filesystem event-based).</p></li>
+<li><p>Intended to be executed in a background <cite>QThread</cite>.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">restore_last_slide</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/interruptor_watcher.html#InterruptorWatcher.restore_last_slide"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Restore the previous slide state after emergency caption is cleared.</p>
+<p>This is a thin helper that delegates restoration to <cite>SlideControllerDataManager</cite>.
+It is not used directly by the watcher loop unless called externally.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">staticMetaObject</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">PySide6.QtCore.QMetaObject(&quot;InterruptorWatcher&quot;</span> <span class="pre">inherits</span> <span class="pre">&quot;QObject&quot;:</span> <span class="pre">Methods:</span>&#160;&#160; <span class="pre">#4</span> <span class="pre">type=Signal,</span> <span class="pre">signature=interruptor_cleared()</span> <span class="pre">)</span></em></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<p id="module-controller.utils.emergency_caption_handler">File: EuljiroWorship/controller/utils/emergency_caption_handler.py</p>
+<p>Handles the emergency caption workflow triggered from the slide controller.</p>
+<p>This module coordinates the emergency caption process by:
+- Launching the emergency caption dialog
+- Collecting finalized slide data from the dialog
+- Writing emergency slides to the slide output JSON file</p>
+<p>The handler acts as a thin orchestration layer between the UI dialog
+(EmergencyCaptionDialog), the slide factory, and the slide output file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
+</dd>
+<dt class="field-even">Affiliated Church<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
+</dd>
+<dt class="field-odd">Address<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
+</dd>
+<dt class="field-even">Telephone<span class="colon">:</span></dt>
+<dd class="field-even"><p>+82-2-2266-3070</p>
+</dd>
+<dt class="field-odd">E-mail<span class="colon">:</span></dt>
+<dd class="field-odd"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
+</dd>
+<dt class="field-even">License<span class="colon">:</span></dt>
+<dd class="field-even"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="controller.utils.emergency_caption_handler.EmergencyCaptionHandler">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">controller.utils.emergency_caption_handler.</span></span><span class="sig-name descname"><span class="pre">EmergencyCaptionHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/emergency_caption_handler.html#EmergencyCaptionHandler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.emergency_caption_handler.EmergencyCaptionHandler" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Manages the emergency caption input and export workflow.</p>
+<p>This class is responsible for:
+- Opening the emergency caption dialog as a modal window
+- Retrieving finalized slide data from the dialog
+- Writing emergency slides to the slide output JSON file</p>
+<p>The handler does not perform slide parsing itself; it delegates
+slide creation to EmergencyCaptionDialog and EmergencySlideFactory.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.utils.emergency_caption_handler.EmergencyCaptionHandler.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/emergency_caption_handler.html#EmergencyCaptionHandler.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.emergency_caption_handler.EmergencyCaptionHandler.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize the emergency caption handler.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>parent</strong> (<em>QWidget</em>) – Parent widget used to anchor the emergency caption dialog
+as a modal window.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.utils.emergency_caption_handler.EmergencyCaptionHandler.handle">
+<span class="sig-name descname"><span class="pre">handle</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/emergency_caption_handler.html#EmergencyCaptionHandler.handle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.emergency_caption_handler.EmergencyCaptionHandler.handle" title="Link to this definition"></a></dt>
+<dd><p>Launch the emergency caption dialog and export generated slides.</p>
+<p>This method:
+- Opens the emergency caption dialog
+- Waits for user confirmation or cancellation
+- Retrieves finalized slide data from the dialog
+- Writes the slides to the configured slide output file</p>
+<p>If the dialog is cancelled, no file is written.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of generated emergency slide dictionaries if confirmed,
+or None if the dialog was cancelled.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list[dict] | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p id="module-controller.utils.emergency_slide_factory">File: EuljiroWorship/controller/utils/emergency_slide_factory.py</p>
+<p>Generates slide dictionaries for emergency captions.</p>
+<p>This module defines <code class="docutils literal notranslate"><span class="pre">EmergencySlideFactory</span></code>, a utility that builds slide payloads
+consumable by the slide controller / overlay pipeline.</p>
+<p>Supported inputs:</p>
+<ul class="simple">
+<li><p>Bible references (parsed by <code class="docutils literal notranslate"><span class="pre">core.utils.bible_parser.parse_reference</span></code>)</p></li>
+<li><p>Manual fallback captions and messages</p></li>
+<li><p>Preset responsive readings (교독문) loaded from JSON files</p></li>
+<li><p>Preset hymns loaded from JSON files</p></li>
+</ul>
+<p>Outputs:</p>
+<ul class="simple">
+<li><p>A list of slide dictionaries with keys: <code class="docutils literal notranslate"><span class="pre">style</span></code>, <code class="docutils literal notranslate"><span class="pre">caption</span></code>, <code class="docutils literal notranslate"><span class="pre">headline</span></code></p></li>
+</ul>
+<p>Notes:</p>
+<ul class="simple">
+<li><p>Bible verse text is wrapped into smaller chunks (currently <code class="docutils literal notranslate"><span class="pre">width=50</span></code>) to avoid
+overly long single-slide lines.</p></li>
+<li><p>Version display aliases are loaded from <code class="docutils literal notranslate"><span class="pre">paths.ALIASES_VERSION_FILE</span></code>.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
+</dd>
+<dt class="field-even">Affiliated Church<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
+</dd>
+<dt class="field-odd">Address<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
+</dd>
+<dt class="field-even">Telephone<span class="colon">:</span></dt>
+<dd class="field-even"><p>+82-2-2266-3070</p>
+</dd>
+<dt class="field-odd">E-mail<span class="colon">:</span></dt>
+<dd class="field-odd"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
+</dd>
+<dt class="field-even">License<span class="colon">:</span></dt>
+<dd class="field-even"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="controller.utils.emergency_slide_factory.EmergencySlideFactory">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">controller.utils.emergency_slide_factory.</span></span><span class="sig-name descname"><span class="pre">EmergencySlideFactory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bible_loader</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/emergency_slide_factory.html#EmergencySlideFactory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.emergency_slide_factory.EmergencySlideFactory" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Factory for constructing emergency slide blocks.</p>
+<p>This class converts user-facing emergency inputs into a list of slide dicts.</p>
+<p>Primary responsibilities:</p>
+<ul class="simple">
+<li><p>Detect whether the first line is a Bible reference via <code class="docutils literal notranslate"><span class="pre">parse_reference()</span></code></p></li>
+<li><p>If a reference is valid, retrieve verses using <code class="docutils literal notranslate"><span class="pre">BibleDataLoader</span></code></p></li>
+<li><p>Wrap long verse text into multiple slides using <code class="docutils literal notranslate"><span class="pre">textwrap.wrap</span></code></p></li>
+<li><p>If not a reference, build a fallback “manual” slide payload</p></li>
+<li><p>Load preset materials:</p></li>
+<li><p>Responsive readings (respo) from JSON</p></li>
+<li><p>Hymns from JSON</p></li>
+</ul>
+<p>Slide dict schema:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>     <span class="c1"># e.g., &quot;verse&quot;, &quot;lyrics&quot;, &quot;greet&quot;, ...</span>
+    <span class="s2">&quot;caption&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>   <span class="c1"># title / reference line</span>
+    <span class="s2">&quot;headline&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>  <span class="c1"># main body text shown on screen</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.utils.emergency_slide_factory.EmergencySlideFactory.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bible_loader</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/emergency_slide_factory.html#EmergencySlideFactory.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.emergency_slide_factory.EmergencySlideFactory.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize the factory.</p>
+<p>Loads Bible version display aliases from <cite>paths.ALIASES_VERSION_FILE</cite> and
+prepares a <cite>BibleDataLoader</cite> instance (either the provided one or a default).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>bible_loader</strong> (<a class="reference internal" href="core.utils.html#core.utils.bible_data_loader.BibleDataLoader" title="core.utils.bible_data_loader.BibleDataLoader"><em>BibleDataLoader</em></a><em> | </em><em>None</em>) – Optional custom Bible loader. If None, a default <cite>BibleDataLoader()</cite>
+is created and used.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.utils.emergency_slide_factory.EmergencySlideFactory.create_from_input">
+<span class="sig-name descname"><span class="pre">create_from_input</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">line1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/emergency_slide_factory.html#EmergencySlideFactory.create_from_input"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.emergency_slide_factory.EmergencySlideFactory.create_from_input" title="Link to this definition"></a></dt>
+<dd><p>Create emergency slides from a pair of user input lines.</p>
+<p>Behavior:
+- If <cite>line1</cite> is parsed as a Bible reference (e.g., “요 3:16”, “요한복음 3:16”),
+this method retrieves the verse text and returns verse-style slides.
+- If the reference represents a full chapter request (verse_range like (1, -1)),
+it expands the range to the chapter’s maximum verse count when possible.
+- If <cite>line1</cite> is NOT a valid reference, it falls back to a single manual slide
+where <cite>line1</cite> becomes the caption and <cite>line2</cite> becomes the headline.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>line1</strong> (<em>str</em>) – First line of user input. Interpreted as either a Bible reference
+or a manual caption.</p></li>
+<li><p><strong>line2</strong> (<em>str</em>) – Second line of user input. Interpreted as either ignored (when the
+first line is a valid reference) or a manual headline/message.</p></li>
+<li><p><strong>version</strong> (<em>str</em><em> | </em><em>None</em>) – Preferred Bible version name to use when resolving verse text.
+If None, the loader’s default/available version list is used.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of slide dictionaries. Returns an empty list if no valid
+output can be produced (e.g., empty manual input or failed verse load).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[dict]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.utils.emergency_slide_factory.EmergencySlideFactory.build_bible_slides">
+<span class="sig-name descname"><span class="pre">build_bible_slides</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">book_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chapter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verses</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/emergency_slide_factory.html#EmergencySlideFactory.build_bible_slides"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.emergency_slide_factory.EmergencySlideFactory.build_bible_slides" title="Link to this definition"></a></dt>
+<dd><p>Build verse-style slides for the given Bible location and verse range.</p>
+<p>This method attempts to retrieve verse text using <cite>BibleDataLoader.get_verse()</cite>.
+If <cite>version</cite> is provided, it tries that version first; otherwise it iterates
+available versions and returns the first successful slide set.</p>
+<p>Each verse is wrapped using <cite>textwrap.wrap(…, width=50)</cite> to avoid overly long
+single lines, producing multiple slides per verse when needed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>book_id</strong> (<em>str</em>) – Internal Bible book identifier (e.g., “John”).</p></li>
+<li><p><strong>chapter</strong> (<em>int</em>) – Chapter number.</p></li>
+<li><p><strong>verses</strong> (<em>list</em><em>[</em><em>int</em><em>] </em><em>| </em><em>tuple</em><em>[</em><em>int</em><em>, </em><em>int</em><em>]</em>) – Verse numbers to include. The implementation currently uses
+<cite>min(verses)</cite> and <cite>max(verses)</cite> to define an inclusive range.</p></li>
+<li><p><strong>version</strong> (<em>str</em><em> | </em><em>None</em>) – Preferred Bible version name. If None, tries multiple versions.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of verse-style slide dictionaries. If verse retrieval fails
+for all attempted versions, returns an empty list.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[dict]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.utils.emergency_slide_factory.EmergencySlideFactory.create_from_respo">
+<span class="sig-name descname"><span class="pre">create_from_respo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">number</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/emergency_slide_factory.html#EmergencySlideFactory.create_from_respo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.emergency_slide_factory.EmergencySlideFactory.create_from_respo" title="Link to this definition"></a></dt>
+<dd><p>Load a responsive reading (교독문) JSON by number and generate slides.</p>
+<p>The expected JSON format contains:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">title</span></code>: str (optional)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">slides</span></code>: list of entries, each typically containing:</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">speaker</span></code>: str</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">headline</span></code>: str</p></li>
+</ul>
+<p>For each entry, one slide is created containing a single speaker-response
+line formatted in an HTML-like style (e.g., <code class="docutils literal notranslate"><span class="pre">&quot;&lt;b&gt;...&lt;/b&gt;&quot;</span></code>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>number</strong> (<em>int</em>) – Responsive reading number (e.g., 123).</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of slide dictionaries (style <code class="docutils literal notranslate"><span class="pre">&quot;verse&quot;</span></code>).
+If loading fails, returns a one-slide fallback with an error message.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[dict]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.utils.emergency_slide_factory.EmergencySlideFactory.format_responsive_text">
+<span class="sig-name descname"><span class="pre">format_responsive_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slides_raw</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/emergency_slide_factory.html#EmergencySlideFactory.format_responsive_text"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.emergency_slide_factory.EmergencySlideFactory.format_responsive_text" title="Link to this definition"></a></dt>
+<dd><p>Format responsive reading entries into a single joined string.</p>
+<p>Each entry is converted into one line using an HTML-like emphasis for the
+speaker name:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;&lt;b&gt;</span><span class="si">{speaker}</span><span class="s2">:&lt;/b&gt; </span><span class="si">{headline}</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>slides_raw</strong> (<em>list</em><em>[</em><em>dict</em><em>]</em>) – <p>Raw entry list, where each entry may include:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">speaker</span></code>: str</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">headline</span></code>: str</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A newline-joined formatted text block. Empty entries are skipped.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.utils.emergency_slide_factory.EmergencySlideFactory.create_from_hymn">
+<span class="sig-name descname"><span class="pre">create_from_hymn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">number</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/emergency_slide_factory.html#EmergencySlideFactory.create_from_hymn"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.emergency_slide_factory.EmergencySlideFactory.create_from_hymn" title="Link to this definition"></a></dt>
+<dd><p>Load a hymn JSON by number and split it into lyric slides.</p>
+<p>The expected JSON format contains:
+- “title”: str (optional)
+- “headline”: str (lyrics text, typically multi-line)</p>
+<p>Lyrics are split into chunks of two lines per slide.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>number</strong> (<em>int</em>) – Hymn number (e.g., 88).</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of slide dictionaries with style “lyrics”.
+If loading fails, returns a one-slide fallback with an error message.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[dict]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.utils.emergency_slide_factory.EmergencySlideFactory.create_manual_slide">
+<span class="sig-name descname"><span class="pre">create_manual_slide</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">style</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caption</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/emergency_slide_factory.html#EmergencySlideFactory.create_manual_slide"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.emergency_slide_factory.EmergencySlideFactory.create_manual_slide" title="Link to this definition"></a></dt>
+<dd><p>Generate slide(s) from manually provided content.</p>
+<p>Behavior:
+- If <cite>style</cite> is “lyrics”, the input text is split by lines and grouped
+into 2-line chunks per slide.
+- For all other styles, a single slide is produced as-is.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>style</strong> (<em>str</em>) – Internal slide style (e.g., “verse”, “greet”, “lyrics”).</p></li>
+<li><p><strong>caption</strong> (<em>str</em>) – Caption/title string shown above or alongside the main text.</p></li>
+<li><p><strong>text</strong> (<em>str</em>) – Main body text for the slide(s).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of slide dictionaries ready to be exported.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[dict]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p id="module-controller.utils.keyword_highlight_delegate">File: EuljiroWorship/controller/utils/keyword_highlight_delegate.py</p>
+<p>QStyledItemDelegate implementation for keyword highlighting in Qt item views.</p>
+<p>This module defines a delegate that renders cell text using QTextDocument so that:
+- HTML tags (e.g., &lt;b&gt;) are supported.
+- Newlines are rendered as multi-line content (&lt;br&gt;).
+- Specified keywords are highlighted by wrapping them in red &lt;span&gt; tags.
+- Row height can be computed from the HTML-rendered content.</p>
+<dl class="simple">
+<dt>Typical usage:</dt><dd><p>view.setItemDelegate(KeywordHighlightDelegate(keywords=[“하나님”, “세상”]))</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
+</dd>
+<dt class="field-even">Affiliated Church<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
+</dd>
+<dt class="field-odd">Address<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
+</dd>
+<dt class="field-even">Telephone<span class="colon">:</span></dt>
+<dd class="field-even"><p>+82-2-2266-3070</p>
+</dd>
+<dt class="field-odd">E-mail<span class="colon">:</span></dt>
+<dd class="field-odd"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
+</dd>
+<dt class="field-even">License<span class="colon">:</span></dt>
+<dd class="field-even"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="controller.utils.keyword_highlight_delegate.KeywordHighlightDelegate">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">controller.utils.keyword_highlight_delegate.</span></span><span class="sig-name descname"><span class="pre">KeywordHighlightDelegate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/keyword_highlight_delegate.html#KeywordHighlightDelegate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.keyword_highlight_delegate.KeywordHighlightDelegate" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QStyledItemDelegate</span></code></p>
+<p>Custom item delegate that highlights keywords in model text using HTML rendering.</p>
+<p>This delegate converts the cell text into HTML and wraps each keyword occurrence
+with a red-colored &lt;span&gt;. Rendering is done via QTextDocument to support:
+- HTML formatting
+- Multi-line wrapping
+- Accurate sizeHint calculation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>keywords</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – Keywords to highlight. Empty strings are ignored.</p></li>
+<li><p><strong>parent</strong> (<em>QWidget</em><em> | </em><em>None</em>) – Optional parent widget.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.utils.keyword_highlight_delegate.KeywordHighlightDelegate.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keywords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/keyword_highlight_delegate.html#KeywordHighlightDelegate.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.keyword_highlight_delegate.KeywordHighlightDelegate.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize the delegate with keywords to highlight.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>keywords</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – Keywords to highlight. Empty strings are ignored.</p></li>
+<li><p><strong>parent</strong> (<em>QWidget</em><em> | </em><em>None</em>) – Optional parent widget.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.utils.keyword_highlight_delegate.KeywordHighlightDelegate.paint">
+<span class="sig-name descname"><span class="pre">paint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">painter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">option</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/keyword_highlight_delegate.html#KeywordHighlightDelegate.paint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.keyword_highlight_delegate.KeywordHighlightDelegate.paint" title="Link to this definition"></a></dt>
+<dd><p>Paint a single cell using HTML rendering, highlighting configured keywords.</p>
+<p>Behavior:
+- Fills the background depending on selection state.
+- Converts the cell text to HTML with keyword highlighting.
+- Uses QTextDocument to render the HTML with wrapping.
+- Draws the document contents with a small padding offset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>painter</strong> (<em>QPainter</em>) – Painter used for drawing.</p></li>
+<li><p><strong>option</strong> (<em>QStyleOptionViewItem</em>) – Style and geometry information for the item.</p></li>
+<li><p><strong>index</strong> (<em>QModelIndex</em>) – Model index for the cell being painted.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.utils.keyword_highlight_delegate.KeywordHighlightDelegate.sizeHint">
+<span class="sig-name descname"><span class="pre">sizeHint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">option</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/keyword_highlight_delegate.html#KeywordHighlightDelegate.sizeHint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.keyword_highlight_delegate.KeywordHighlightDelegate.sizeHint" title="Link to this definition"></a></dt>
+<dd><p>Return the preferred size for a cell based on HTML-rendered content.</p>
+<p>Computes the document size using QTextDocument with the same width constraints
+used during painting, then adds padding so the content does not touch borders.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>option</strong> (<em>QStyleOptionViewItem</em>) – Style and geometry information for the item.</p></li>
+<li><p><strong>index</strong> (<em>QModelIndex</em>) – Model index for the cell.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Preferred size for the rendered cell content.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QSize</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p id="module-controller.utils.keyword_result_model_light">File: EuljiroWorship/controller/utils/keyword_result_model_light.py</p>
+<p>Lightweight QAbstractTableModel for displaying Bible keyword search results.</p>
+<p>This module defines a minimal table model optimized for keyword search output:
+- Two-column layout: Bible reference and verse text
+- Designed for read-only display in QTableView
+- Supports tooltip display of highlighted (HTML-formatted) verse text
+- Uses standard book name mapping for localized display</p>
+<p>The model is intentionally lightweight and stateless, suitable for frequent
+replacement when running new keyword searches.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
+</dd>
+<dt class="field-even">Affiliated Church<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
+</dd>
+<dt class="field-odd">Address<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
+</dd>
+<dt class="field-even">Telephone<span class="colon">:</span></dt>
+<dd class="field-even"><p>+82-2-2266-3070</p>
+</dd>
+<dt class="field-odd">E-mail<span class="colon">:</span></dt>
+<dd class="field-odd"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
+</dd>
+<dt class="field-even">License<span class="colon">:</span></dt>
+<dd class="field-even"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="controller.utils.keyword_result_model_light.KeywordResultTableModelLight">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">controller.utils.keyword_result_model_light.</span></span><span class="sig-name descname"><span class="pre">KeywordResultTableModelLight</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/keyword_result_model_light.html#KeywordResultTableModelLight"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.keyword_result_model_light.KeywordResultTableModelLight" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QAbstractTableModel</span></code></p>
+<p>Lightweight table model for Bible keyword search results.</p>
+<p>This model presents search results in exactly two columns:</p>
+<ul class="simple">
+<li><p>Column 0: Bible reference (localized book name + chapter:verse)</p></li>
+<li><p>Column 1: Verse text</p></li>
+</ul>
+<p>Design notes:</p>
+<ul class="simple">
+<li><p>Read-only model (no editing or mutation support)</p></li>
+<li><p>Optimized for rapid recreation on each search</p></li>
+<li><p>Tooltip role is used to expose highlighted (HTML) text for delegates</p></li>
+</ul>
+<p>Attributes:</p>
+<dl>
+<dt>results (list[dict]):</dt><dd><p>List of search result dictionaries.</p>
+<p>Each entry is expected to contain:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">book</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">chapter</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">verse</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">text</span></code></p></li>
+<li><p>optional <code class="docutils literal notranslate"><span class="pre">highlighted</span></code></p></li>
+</ul>
+</dd>
+<dt>book_names (dict[str, str]):</dt><dd><p>Mapping from internal book IDs to localized (Korean) book names.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.utils.keyword_result_model_light.KeywordResultTableModelLight.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/keyword_result_model_light.html#KeywordResultTableModelLight.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.keyword_result_model_light.KeywordResultTableModelLight.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize the model with keyword search results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>results</strong> (<em>list</em><em>[</em><em>dict</em><em>]</em>) – <p>List of search result entries. Each dictionary should include
+at least the following keys:</p>
+<ul class="simple">
+<li><p>book</p></li>
+<li><p>chapter</p></li>
+<li><p>verse</p></li>
+<li><p>text</p></li>
+</ul>
+<p>An optional <code class="docutils literal notranslate"><span class="pre">highlighted</span></code> field may be provided for tooltip
+display.</p>
+</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.utils.keyword_result_model_light.KeywordResultTableModelLight.load_book_names">
+<span class="sig-name descname"><span class="pre">load_book_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/keyword_result_model_light.html#KeywordResultTableModelLight.load_book_names"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.keyword_result_model_light.KeywordResultTableModelLight.load_book_names" title="Link to this definition"></a></dt>
+<dd><p>Load localized Bible book names from the standard book definition file.</p>
+<p>Reads the JSON file defined by paths.STANDARD_BOOK_FILE and extracts
+Korean book names for display in the reference column.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Mapping from internal book ID to Korean book name.
+Returns an empty dictionary if loading fails.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict[str, str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.utils.keyword_result_model_light.KeywordResultTableModelLight.rowCount">
+<span class="sig-name descname"><span class="pre">rowCount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">PySide6.QtCore.QModelIndex</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/keyword_result_model_light.html#KeywordResultTableModelLight.rowCount"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.keyword_result_model_light.KeywordResultTableModelLight.rowCount" title="Link to this definition"></a></dt>
+<dd><p>Return the number of rows in the model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>parent</strong> (<em>QModelIndex</em>) – Unused parent index (required by Qt interface).</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Number of search result entries.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.utils.keyword_result_model_light.KeywordResultTableModelLight.columnCount">
+<span class="sig-name descname"><span class="pre">columnCount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">PySide6.QtCore.QModelIndex</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/keyword_result_model_light.html#KeywordResultTableModelLight.columnCount"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.keyword_result_model_light.KeywordResultTableModelLight.columnCount" title="Link to this definition"></a></dt>
+<dd><p>Return the number of columns in the model.</p>
+<p>This model always exposes exactly two columns:
+- Reference
+- Verse text</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>parent</strong> (<em>QModelIndex</em>) – Unused parent index (required by Qt interface).</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Number of columns (always 2).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.utils.keyword_result_model_light.KeywordResultTableModelLight.data">
+<span class="sig-name descname"><span class="pre">data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">role</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">PySide6.QtCore.Qt.DisplayRole</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/keyword_result_model_light.html#KeywordResultTableModelLight.data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.keyword_result_model_light.KeywordResultTableModelLight.data" title="Link to this definition"></a></dt>
+<dd><p>Return data for the given index and role.</p>
+<p>Supported roles are:</p>
+<dl class="simple">
+<dt>Qt.DisplayRole</dt><dd><p>Column 0 returns the formatted Bible reference (book chapter:verse).
+Column 1 returns the verse text.</p>
+</dd>
+<dt>Qt.ToolTipRole</dt><dd><p>Column 1 returns highlighted HTML text if available;
+otherwise, the plain verse text is returned.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>index</strong> (<em>QModelIndex</em>) – Model index identifying the row and column.</p></li>
+<li><p><strong>role</strong> (<em>Qt.ItemDataRole</em>) – Requested data role.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Data for the given role, or None if not applicable.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.utils.keyword_result_model_light.KeywordResultTableModelLight.headerData">
+<span class="sig-name descname"><span class="pre">headerData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">section</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orientation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">role</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">PySide6.QtCore.Qt.DisplayRole</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/keyword_result_model_light.html#KeywordResultTableModelLight.headerData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.keyword_result_model_light.KeywordResultTableModelLight.headerData" title="Link to this definition"></a></dt>
+<dd><p>Return header labels for the table view.</p>
+<p>Provides Korean column headers for horizontal orientation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>section</strong> (<em>int</em>) – Column index.</p></li>
+<li><p><strong>orientation</strong> (<em>Qt.Orientation</em>) – Header orientation (horizontal or vertical).</p></li>
+<li><p><strong>role</strong> (<em>Qt.ItemDataRole</em>) – Requested data role.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Column header label if applicable, otherwise None.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="controller.ui.html" class="btn btn-neutral float-left" title="controller.ui" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="controller.helper.html" class="btn btn-neutral float-right" title="controller.helper" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Benjamin J. Choi.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

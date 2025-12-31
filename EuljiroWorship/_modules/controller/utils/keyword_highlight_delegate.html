@@ -1,0 +1,288 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>controller.utils.keyword_highlight_delegate &mdash; EuljiroWorship 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=2709fde1"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            EuljiroWorship
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">Modules</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">EuljiroWorship</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">controller.utils.keyword_highlight_delegate</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for controller.utils.keyword_highlight_delegate</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">File: EuljiroWorship/controller/utils/keyword_highlight_delegate.py</span>
+
+<span class="sd">QStyledItemDelegate implementation for keyword highlighting in Qt item views.</span>
+
+<span class="sd">This module defines a delegate that renders cell text using QTextDocument so that:</span>
+<span class="sd">- HTML tags (e.g., &lt;b&gt;) are supported.</span>
+<span class="sd">- Newlines are rendered as multi-line content (&lt;br&gt;).</span>
+<span class="sd">- Specified keywords are highlighted by wrapping them in red &lt;span&gt; tags.</span>
+<span class="sd">- Row height can be computed from the HTML-rendered content.</span>
+
+<span class="sd">Typical usage:</span>
+<span class="sd">    view.setItemDelegate(KeywordHighlightDelegate(keywords=[&quot;하나님&quot;, &quot;세상&quot;]))</span>
+
+<span class="sd">:Author: Benjamin Jaedon Choi - https://github.com/saintbenjamin</span>
+<span class="sd">:Affiliated Church: The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</span>
+<span class="sd">:Address: The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</span>
+<span class="sd">:Telephone: +82-2-2266-3070</span>
+<span class="sd">:E-mail: euljirochurch [at] G.M.A.I.L. (replace [at] with @ and G.M.A.I.L as you understood.)</span>
+<span class="sd">:License: MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">QStyledItemDelegate</span><span class="p">,</span> <span class="n">QStyle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtGui</span><span class="w"> </span><span class="kn">import</span> <span class="n">QTextDocument</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtCore</span><span class="w"> </span><span class="kn">import</span> <span class="n">QPoint</span><span class="p">,</span> <span class="n">QSize</span>
+
+<div class="viewcode-block" id="KeywordHighlightDelegate">
+<a class="viewcode-back" href="../../../controller.utils.html#controller.utils.keyword_highlight_delegate.KeywordHighlightDelegate">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">KeywordHighlightDelegate</span><span class="p">(</span><span class="n">QStyledItemDelegate</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Custom item delegate that highlights keywords in model text using HTML rendering.</span>
+
+<span class="sd">    This delegate converts the cell text into HTML and wraps each keyword occurrence</span>
+<span class="sd">    with a red-colored &lt;span&gt;. Rendering is done via QTextDocument to support:</span>
+<span class="sd">    - HTML formatting</span>
+<span class="sd">    - Multi-line wrapping</span>
+<span class="sd">    - Accurate sizeHint calculation</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        keywords (list[str]):</span>
+<span class="sd">            Keywords to highlight. Empty strings are ignored.</span>
+<span class="sd">        parent (QWidget | None):</span>
+<span class="sd">            Optional parent widget.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="KeywordHighlightDelegate.__init__">
+<a class="viewcode-back" href="../../../controller.utils.html#controller.utils.keyword_highlight_delegate.KeywordHighlightDelegate.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keywords</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the delegate with keywords to highlight.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            keywords (list[str]):</span>
+<span class="sd">                Keywords to highlight. Empty strings are ignored.</span>
+<span class="sd">            parent (QWidget | None):</span>
+<span class="sd">                Optional parent widget.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">keywords</span> <span class="o">=</span> <span class="n">keywords</span></div>
+
+
+<div class="viewcode-block" id="KeywordHighlightDelegate.paint">
+<a class="viewcode-back" href="../../../controller.utils.html#controller.utils.keyword_highlight_delegate.KeywordHighlightDelegate.paint">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">paint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">painter</span><span class="p">,</span> <span class="n">option</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Paint a single cell using HTML rendering, highlighting configured keywords.</span>
+
+<span class="sd">        Behavior:</span>
+<span class="sd">        - Fills the background depending on selection state.</span>
+<span class="sd">        - Converts the cell text to HTML with keyword highlighting.</span>
+<span class="sd">        - Uses QTextDocument to render the HTML with wrapping.</span>
+<span class="sd">        - Draws the document contents with a small padding offset.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            painter (QPainter):</span>
+<span class="sd">                Painter used for drawing.</span>
+<span class="sd">            option (QStyleOptionViewItem):</span>
+<span class="sd">                Style and geometry information for the item.</span>
+<span class="sd">            index (QModelIndex):</span>
+<span class="sd">                Model index for the cell being painted.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">text</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">paint</span><span class="p">(</span><span class="n">painter</span><span class="p">,</span> <span class="n">option</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span>
+
+        <span class="n">painter</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+        <span class="c1"># Draw background depending on selection state</span>
+        <span class="k">if</span> <span class="n">option</span><span class="o">.</span><span class="n">state</span> <span class="o">&amp;</span> <span class="n">QStyle</span><span class="o">.</span><span class="n">State_Selected</span><span class="p">:</span>
+            <span class="n">painter</span><span class="o">.</span><span class="n">fillRect</span><span class="p">(</span><span class="n">option</span><span class="o">.</span><span class="n">rect</span><span class="p">,</span> <span class="n">option</span><span class="o">.</span><span class="n">palette</span><span class="o">.</span><span class="n">highlight</span><span class="p">())</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">painter</span><span class="o">.</span><span class="n">fillRect</span><span class="p">(</span><span class="n">option</span><span class="o">.</span><span class="n">rect</span><span class="p">,</span> <span class="n">option</span><span class="o">.</span><span class="n">backgroundBrush</span><span class="p">)</span>
+
+        <span class="c1"># Convert keywords to HTML-marked-up string</span>
+        <span class="n">html</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_highlight_keywords</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+
+        <span class="c1"># Use QTextDocument for proper HTML rendering and line wrapping</span>
+        <span class="n">doc</span> <span class="o">=</span> <span class="n">QTextDocument</span><span class="p">()</span>
+        <span class="n">doc</span><span class="o">.</span><span class="n">setDefaultFont</span><span class="p">(</span><span class="n">option</span><span class="o">.</span><span class="n">font</span><span class="p">)</span>
+        <span class="n">doc</span><span class="o">.</span><span class="n">setHtml</span><span class="p">(</span><span class="n">html</span><span class="p">)</span>
+        <span class="n">doc</span><span class="o">.</span><span class="n">setTextWidth</span><span class="p">(</span><span class="n">option</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">width</span><span class="p">()</span> <span class="o">-</span> <span class="mi">8</span><span class="p">)</span>  <span class="c1"># Account for horizontal padding</span>
+
+        <span class="c1"># Offset drawing to avoid touching borders</span>
+        <span class="n">painter</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">option</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">topLeft</span><span class="p">()</span> <span class="o">+</span> <span class="n">QPoint</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+        <span class="n">doc</span><span class="o">.</span><span class="n">drawContents</span><span class="p">(</span><span class="n">painter</span><span class="p">)</span>
+
+        <span class="n">painter</span><span class="o">.</span><span class="n">restore</span><span class="p">()</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_highlight_keywords</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convert raw text into HTML with keyword highlighting.</span>
+
+<span class="sd">        This method:</span>
+<span class="sd">        - Escapes HTML special characters (&amp;, &lt;, &gt;).</span>
+<span class="sd">        - Converts newline characters to &lt;br&gt;.</span>
+<span class="sd">        - Wraps each keyword occurrence with:</span>
+<span class="sd">            &lt;span style=&#39;color:red&#39;&gt;...&lt;/span&gt;</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            This implementation performs simple string replacement and does not</span>
+<span class="sd">            use regex or word-boundary matching.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            text (str):</span>
+<span class="sd">                Original cell text.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str:</span>
+<span class="sd">                HTML-formatted string with highlighted keywords.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">escaped_text</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&amp;&quot;</span><span class="p">,</span> <span class="s2">&quot;&amp;amp;&quot;</span><span class="p">)</span>
+                <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&lt;&quot;</span><span class="p">,</span> <span class="s2">&quot;&amp;lt;&quot;</span><span class="p">)</span>
+                <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;&amp;gt;&quot;</span><span class="p">)</span>
+                <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;br&gt;&quot;</span><span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">kw</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">keywords</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">kw</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">escaped_kw</span> <span class="o">=</span> <span class="n">kw</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&amp;&quot;</span><span class="p">,</span> <span class="s2">&quot;&amp;amp;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&lt;&quot;</span><span class="p">,</span> <span class="s2">&quot;&amp;lt;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;&amp;gt;&quot;</span><span class="p">)</span>
+            <span class="n">escaped_text</span> <span class="o">=</span> <span class="n">escaped_text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
+                <span class="n">escaped_kw</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;&lt;span style=&#39;color:red&#39;&gt;</span><span class="si">{</span><span class="n">escaped_kw</span><span class="si">}</span><span class="s2">&lt;/span&gt;&quot;</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">escaped_text</span>
+
+<div class="viewcode-block" id="KeywordHighlightDelegate.sizeHint">
+<a class="viewcode-back" href="../../../controller.utils.html#controller.utils.keyword_highlight_delegate.KeywordHighlightDelegate.sizeHint">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">sizeHint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">option</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the preferred size for a cell based on HTML-rendered content.</span>
+
+<span class="sd">        Computes the document size using QTextDocument with the same width constraints</span>
+<span class="sd">        used during painting, then adds padding so the content does not touch borders.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            option (QStyleOptionViewItem):</span>
+<span class="sd">                Style and geometry information for the item.</span>
+<span class="sd">            index (QModelIndex):</span>
+<span class="sd">                Model index for the cell.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            QSize:</span>
+<span class="sd">                Preferred size for the rendered cell content.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">text</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">sizeHint</span><span class="p">(</span><span class="n">option</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span>
+
+        <span class="n">html</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_highlight_keywords</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+        <span class="n">doc</span> <span class="o">=</span> <span class="n">QTextDocument</span><span class="p">()</span>
+        <span class="n">doc</span><span class="o">.</span><span class="n">setDefaultFont</span><span class="p">(</span><span class="n">option</span><span class="o">.</span><span class="n">font</span><span class="p">)</span>
+        <span class="n">doc</span><span class="o">.</span><span class="n">setHtml</span><span class="p">(</span><span class="n">html</span><span class="p">)</span>
+        <span class="n">doc</span><span class="o">.</span><span class="n">setTextWidth</span><span class="p">(</span><span class="n">option</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">width</span><span class="p">()</span> <span class="o">-</span> <span class="mi">8</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">doc</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">toSize</span><span class="p">()</span> <span class="o">+</span> <span class="n">QSize</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>  <span class="c1"># padding</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Benjamin J. Choi.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
