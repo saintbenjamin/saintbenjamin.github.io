@@ -282,7 +282,7 @@ SlideController via Qt signals only.</p>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="controller.utils.slide_file_watcher.SlideFileWatcher">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">controller.utils.slide_file_watcher.</span></span><span class="sig-name descname"><span class="pre">SlideFileWatcher</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slide_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">poll_interval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/slide_file_watcher.html#SlideFileWatcher"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.slide_file_watcher.SlideFileWatcher" title="Link to this definition"></a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">controller.utils.slide_file_watcher.</span></span><span class="sig-name descname"><span class="pre">SlideFileWatcher</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/slide_file_watcher.html#SlideFileWatcher"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.slide_file_watcher.SlideFileWatcher" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QObject</span></code></p>
 <p>Watches a slide JSON file and emits signals on content changes.</p>
 <p>This watcher polls the target slide file at a fixed interval and detects
@@ -301,12 +301,8 @@ the end of emergency caption mode.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="controller.utils.slide_file_watcher.SlideFileWatcher.slide_changed">
 <span class="sig-name descname"><span class="pre">slide_changed</span></span><a class="headerlink" href="#controller.utils.slide_file_watcher.SlideFileWatcher.slide_changed" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="controller.utils.slide_file_watcher.SlideFileWatcher.slide_cleared">
-<span class="sig-name descname"><span class="pre">slide_cleared</span></span><a class="headerlink" href="#controller.utils.slide_file_watcher.SlideFileWatcher.slide_cleared" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="controller.utils.slide_file_watcher.SlideFileWatcher.__init__">
@@ -354,11 +350,6 @@ When a file modification is detected:</p>
 </dd>
 </dl>
 </dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="controller.utils.slide_file_watcher.SlideFileWatcher.staticMetaObject">
-<span class="sig-name descname"><span class="pre">staticMetaObject</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">PySide6.QtCore.QMetaObject(&quot;SlideFileWatcher&quot;</span> <span class="pre">inherits</span> <span class="pre">&quot;QObject&quot;:</span> <span class="pre">Methods:</span>&#160;&#160; <span class="pre">#4</span> <span class="pre">type=Signal,</span> <span class="pre">signature=slide_changed(QVariantList,int),</span> <span class="pre">parameters=QVariantList,</span> <span class="pre">int</span>&#160;&#160; <span class="pre">#5</span> <span class="pre">type=Signal,</span> <span class="pre">signature=slide_cleared()</span> <span class="pre">)</span></em><a class="headerlink" href="#controller.utils.slide_file_watcher.SlideFileWatcher.staticMetaObject" title="Link to this definition"></a></dt>
-<dd></dd></dl>
 
 </dd></dl>
 
@@ -516,7 +507,7 @@ previous slide session and exit emergency mode.</p>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">controller.utils.interruptor_watcher.</span></span><span class="sig-name descname"><span class="pre">InterruptorWatcher</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">poll_interval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/interruptor_watcher.html#InterruptorWatcher"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">controller.utils.interruptor_watcher.</span></span><span class="sig-name descname"><span class="pre">InterruptorWatcher</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/interruptor_watcher.html#InterruptorWatcher"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QObject</span></code></p>
 <p>Monitors the emergency verse output file and emits a signal when it is cleared.</p>
 <p>This watcher is designed to run inside a <cite>QThread</cite> loop (polling-based).
@@ -533,11 +524,6 @@ When the file transitions from non-empty content to an empty string, it emits
 </dd>
 </dl>
 </dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">interruptor_cleared</span></span></dt>
-<dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py">
@@ -607,11 +593,6 @@ It is not used directly by the watcher loop unless called externally.</p>
 </dd>
 </dl>
 </dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">staticMetaObject</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">PySide6.QtCore.QMetaObject(&quot;InterruptorWatcher&quot;</span> <span class="pre">inherits</span> <span class="pre">&quot;QObject&quot;:</span> <span class="pre">Methods:</span>&#160;&#160; <span class="pre">#4</span> <span class="pre">type=Signal,</span> <span class="pre">signature=interruptor_cleared()</span> <span class="pre">)</span></em></dt>
-<dd></dd></dl>
 
 </dd></dl>
 

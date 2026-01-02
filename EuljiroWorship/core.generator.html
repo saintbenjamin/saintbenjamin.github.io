@@ -444,7 +444,7 @@ result when accepted.</p>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="core.generator.ui.slide_generator_dialog.SlideGeneratorDialog">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.ui.slide_generator_dialog.</span></span><span class="sig-name descname"><span class="pre">SlideGeneratorDialog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">style</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caption</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headline</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator_dialog.html#SlideGeneratorDialog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator_dialog.SlideGeneratorDialog" title="Link to this definition"></a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.ui.slide_generator_dialog.</span></span><span class="sig-name descname"><span class="pre">SlideGeneratorDialog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator_dialog.html#SlideGeneratorDialog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator_dialog.SlideGeneratorDialog" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QDialog</span></code></p>
 <p>Modal dialog for editing a single slide.</p>
 <p>This dialog embeds <cite>SlideGeneratorRightContents</cite> to provide the same
@@ -506,11 +506,6 @@ edited slide data.</p>
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="core.generator.ui.slide_generator_dialog.SlideGeneratorDialog.staticMetaObject">
-<span class="sig-name descname"><span class="pre">staticMetaObject</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">PySide6.QtCore.QMetaObject(&quot;SlideGeneratorDialog&quot;</span> <span class="pre">inherits</span> <span class="pre">&quot;QDialog&quot;:</span> <span class="pre">)</span></em><a class="headerlink" href="#core.generator.ui.slide_generator_dialog.SlideGeneratorDialog.staticMetaObject" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
 </dd></dl>
 
 <p id="module-core.generator.ui.slide_generator_right_contents">File: EuljiroWorship/core/generator/ui/slide_generator_right_contents.py</p>
@@ -543,7 +538,7 @@ the generator to remain modular and extensible as new slide styles are added.</p
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="core.generator.ui.slide_generator_right_contents.SlideGeneratorRightContents">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.ui.slide_generator_right_contents.</span></span><span class="sig-name descname"><span class="pre">SlideGeneratorRightContents</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">style</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generator_window</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caption</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator_right_contents.html#SlideGeneratorRightContents"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator_right_contents.SlideGeneratorRightContents" title="Link to this definition"></a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.ui.slide_generator_right_contents.</span></span><span class="sig-name descname"><span class="pre">SlideGeneratorRightContents</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator_right_contents.html#SlideGeneratorRightContents"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator_right_contents.SlideGeneratorRightContents" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
 <p>Right-hand dynamic content panel for editing slide data.</p>
 <p>This widget selects and embeds a style-specific editor pane based on the
@@ -600,11 +595,6 @@ sub-panes so they can access shared state or utilities.</p></li>
 </dd>
 </dl>
 </dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="core.generator.ui.slide_generator_right_contents.SlideGeneratorRightContents.staticMetaObject">
-<span class="sig-name descname"><span class="pre">staticMetaObject</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">PySide6.QtCore.QMetaObject(&quot;SlideGeneratorRightContents&quot;</span> <span class="pre">inherits</span> <span class="pre">&quot;QWidget&quot;:</span> <span class="pre">)</span></em><a class="headerlink" href="#core.generator.ui.slide_generator_right_contents.SlideGeneratorRightContents.staticMetaObject" title="Link to this definition"></a></dt>
-<dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="core.generator.ui.slide_generator_right_contents.SlideGeneratorRightContents.get_slide_data">
@@ -800,7 +790,7 @@ through exported JSON and the WebSocket-based overlay pipeline.</p>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.ui.slide_generator.</span></span><span class="sig-name descname"><span class="pre">SlideGenerator</span></span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator" title="Link to this definition"></a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.ui.slide_generator.</span></span><span class="sig-name descname"><span class="pre">SlideGenerator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QMainWindow</span></code></p>
 <p>Main window for the EuljiroWorship slide generator (PySide6/Qt).</p>
 <p>The generator provides a table-based slide session editor and supports:
@@ -1023,11 +1013,6 @@ and triggers a save flow</p>
 </dd>
 </dl>
 </dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator.staticMetaObject">
-<span class="sig-name descname"><span class="pre">staticMetaObject</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">PySide6.QtCore.QMetaObject(&quot;SlideGenerator&quot;</span> <span class="pre">inherits</span> <span class="pre">&quot;QMainWindow&quot;:</span> <span class="pre">)</span></em><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator.staticMetaObject" title="Link to this definition"></a></dt>
-<dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator.open_settings_dialog">
@@ -1285,7 +1270,7 @@ submission and synchronization with the parent generator window.</p>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="core.generator.ui.contents.anthem_content.AnthemContent">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.ui.contents.anthem_content.</span></span><span class="sig-name descname"><span class="pre">AnthemContent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generator_window</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caption</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/anthem_content.html#AnthemContent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.anthem_content.AnthemContent" title="Link to this definition"></a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.ui.contents.anthem_content.</span></span><span class="sig-name descname"><span class="pre">AnthemContent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/anthem_content.html#AnthemContent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.anthem_content.AnthemContent" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
 <p>Content editor widget for ‘anthem’ style slides.</p>
 <p>This widget provides input fields for:
@@ -1384,11 +1369,6 @@ not match the expected format.</p>
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="core.generator.ui.contents.anthem_content.AnthemContent.staticMetaObject">
-<span class="sig-name descname"><span class="pre">staticMetaObject</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">PySide6.QtCore.QMetaObject(&quot;AnthemContent&quot;</span> <span class="pre">inherits</span> <span class="pre">&quot;QWidget&quot;:</span> <span class="pre">)</span></em><a class="headerlink" href="#core.generator.ui.contents.anthem_content.AnthemContent.staticMetaObject" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
 </dd></dl>
 
 <p id="module-core.generator.ui.contents.corner_content">File: EuljiroWorship/core/generator/ui/contents/corner_content.py</p>
@@ -1422,7 +1402,7 @@ submission and synchronization with the parent generator window.</p>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="core.generator.ui.contents.corner_content.CornerContent">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.ui.contents.corner_content.</span></span><span class="sig-name descname"><span class="pre">CornerContent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generator_window</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caption</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/corner_content.html#CornerContent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.corner_content.CornerContent" title="Link to this definition"></a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.ui.contents.corner_content.</span></span><span class="sig-name descname"><span class="pre">CornerContent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/corner_content.html#CornerContent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.corner_content.CornerContent" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
 <p>Content editor widget for ‘corner’ style slides.</p>
 <p>This widget provides input fields for:
@@ -1516,11 +1496,6 @@ otherwise, None.</p>
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="core.generator.ui.contents.corner_content.CornerContent.staticMetaObject">
-<span class="sig-name descname"><span class="pre">staticMetaObject</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">PySide6.QtCore.QMetaObject(&quot;CornerContent&quot;</span> <span class="pre">inherits</span> <span class="pre">&quot;QWidget&quot;:</span> <span class="pre">)</span></em><a class="headerlink" href="#core.generator.ui.contents.corner_content.CornerContent.staticMetaObject" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
 </dd></dl>
 
 <p id="module-core.generator.ui.contents.greet_content">File: EuljiroWorship/core/generator/ui/contents/greet_content.py</p>
@@ -1554,7 +1529,7 @@ with the parent generator window.</p>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="core.generator.ui.contents.greet_content.GreetContent">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.ui.contents.greet_content.</span></span><span class="sig-name descname"><span class="pre">GreetContent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generator_window</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caption</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/greet_content.html#GreetContent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.greet_content.GreetContent" title="Link to this definition"></a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.ui.contents.greet_content.</span></span><span class="sig-name descname"><span class="pre">GreetContent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/greet_content.html#GreetContent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.greet_content.GreetContent" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
 <p>Content editor widget for ‘greet’ style slides.</p>
 <p>This widget provides input fields for:
@@ -1648,11 +1623,6 @@ otherwise, None.</p>
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="core.generator.ui.contents.greet_content.GreetContent.staticMetaObject">
-<span class="sig-name descname"><span class="pre">staticMetaObject</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">PySide6.QtCore.QMetaObject(&quot;GreetContent&quot;</span> <span class="pre">inherits</span> <span class="pre">&quot;QWidget&quot;:</span> <span class="pre">)</span></em><a class="headerlink" href="#core.generator.ui.contents.greet_content.GreetContent.staticMetaObject" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
 </dd></dl>
 
 <p id="module-core.generator.ui.contents.hymn_content">File: EuljiroWorship/core/generator/ui/contents/hymn_content.py</p>
@@ -1686,7 +1656,7 @@ for that dataset within the slide generator.</p>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="core.generator.ui.contents.hymn_content.HymnContent">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.ui.contents.hymn_content.</span></span><span class="sig-name descname"><span class="pre">HymnContent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generator_window</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caption</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/hymn_content.html#HymnContent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.hymn_content.HymnContent" title="Link to this definition"></a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.ui.contents.hymn_content.</span></span><span class="sig-name descname"><span class="pre">HymnContent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/hymn_content.html#HymnContent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.hymn_content.HymnContent" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
 <p>Content editor widget for ‘hymn’ style slides.</p>
 <p>This widget provides input fields and controls for:
@@ -1846,11 +1816,6 @@ operation is aborted and the user is warned.</p>
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="core.generator.ui.contents.hymn_content.HymnContent.staticMetaObject">
-<span class="sig-name descname"><span class="pre">staticMetaObject</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">PySide6.QtCore.QMetaObject(&quot;HymnContent&quot;</span> <span class="pre">inherits</span> <span class="pre">&quot;QWidget&quot;:</span> <span class="pre">)</span></em><a class="headerlink" href="#core.generator.ui.contents.hymn_content.HymnContent.staticMetaObject" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
 </dd></dl>
 
 <p id="module-core.generator.ui.contents.image_content">File: EuljiroWorship/core/generator/ui/contents/image_content.py</p>
@@ -1886,7 +1851,7 @@ submission and synchronization with the parent generator window.</p>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="core.generator.ui.contents.image_content.ImageContent">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.ui.contents.image_content.</span></span><span class="sig-name descname"><span class="pre">ImageContent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generator_window</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caption</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/image_content.html#ImageContent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.image_content.ImageContent" title="Link to this definition"></a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.ui.contents.image_content.</span></span><span class="sig-name descname"><span class="pre">ImageContent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/image_content.html#ImageContent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.image_content.ImageContent" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
 <p>Content editor widget for ‘image’ style slides.</p>
 <p>This widget allows users to:
@@ -2039,11 +2004,6 @@ to load and preview the referenced image.</p>
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="core.generator.ui.contents.image_content.ImageContent.staticMetaObject">
-<span class="sig-name descname"><span class="pre">staticMetaObject</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">PySide6.QtCore.QMetaObject(&quot;ImageContent&quot;</span> <span class="pre">inherits</span> <span class="pre">&quot;QWidget&quot;:</span> <span class="pre">)</span></em><a class="headerlink" href="#core.generator.ui.contents.image_content.ImageContent.staticMetaObject" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
 </dd></dl>
 
 <p id="module-core.generator.ui.contents.lyrics_content">File: EuljiroWorship/core/generator/ui/contents/lyrics_content.py</p>
@@ -2076,7 +2036,7 @@ submission and synchronization with the parent generator window.</p>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="core.generator.ui.contents.lyrics_content.LyricsContent">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.ui.contents.lyrics_content.</span></span><span class="sig-name descname"><span class="pre">LyricsContent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generator_window</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caption</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/lyrics_content.html#LyricsContent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.lyrics_content.LyricsContent" title="Link to this definition"></a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.ui.contents.lyrics_content.</span></span><span class="sig-name descname"><span class="pre">LyricsContent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/lyrics_content.html#LyricsContent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.lyrics_content.LyricsContent" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
 <p>Content editor widget for ‘lyrics’ style slides.</p>
 <p>This widget allows users to enter:
@@ -2172,11 +2132,6 @@ otherwise, None.</p>
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="core.generator.ui.contents.lyrics_content.LyricsContent.staticMetaObject">
-<span class="sig-name descname"><span class="pre">staticMetaObject</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">PySide6.QtCore.QMetaObject(&quot;LyricsContent&quot;</span> <span class="pre">inherits</span> <span class="pre">&quot;QWidget&quot;:</span> <span class="pre">)</span></em><a class="headerlink" href="#core.generator.ui.contents.lyrics_content.LyricsContent.staticMetaObject" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
 </dd></dl>
 
 <p id="module-core.generator.ui.contents.prayer_content">File: EuljiroWorship/core/generator/ui/contents/prayer_content.py</p>
@@ -2208,7 +2163,7 @@ submission and synchronization with the parent slide generator.</p>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="core.generator.ui.contents.prayer_content.PrayerContent">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.ui.contents.prayer_content.</span></span><span class="sig-name descname"><span class="pre">PrayerContent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generator_window</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caption</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'기도'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/prayer_content.html#PrayerContent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.prayer_content.PrayerContent" title="Link to this definition"></a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.ui.contents.prayer_content.</span></span><span class="sig-name descname"><span class="pre">PrayerContent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/prayer_content.html#PrayerContent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.prayer_content.PrayerContent" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
 <p>Content editor widget for ‘prayer’ style slides.</p>
 <p>This widget allows users to specify:
@@ -2302,11 +2257,6 @@ otherwise, None.</p>
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="core.generator.ui.contents.prayer_content.PrayerContent.staticMetaObject">
-<span class="sig-name descname"><span class="pre">staticMetaObject</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">PySide6.QtCore.QMetaObject(&quot;PrayerContent&quot;</span> <span class="pre">inherits</span> <span class="pre">&quot;QWidget&quot;:</span> <span class="pre">)</span></em><a class="headerlink" href="#core.generator.ui.contents.prayer_content.PrayerContent.staticMetaObject" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
 </dd></dl>
 
 <p id="module-core.generator.ui.contents.respo_content">File: EuljiroWorship/core/generator/ui/contents/respo_content.py</p>
@@ -2340,7 +2290,7 @@ automatic synchronization with the slide generator.</p>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="core.generator.ui.contents.respo_content.RespoContent">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.ui.contents.respo_content.</span></span><span class="sig-name descname"><span class="pre">RespoContent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generator_window</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caption</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/respo_content.html#RespoContent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.respo_content.RespoContent" title="Link to this definition"></a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.ui.contents.respo_content.</span></span><span class="sig-name descname"><span class="pre">RespoContent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/respo_content.html#RespoContent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.respo_content.RespoContent" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
 <p>Content editor widget for ‘respo’ (responsive reading) slides.</p>
 <p>This widget allows users to:
@@ -2476,11 +2426,6 @@ responsive reading number under <cite>data/respo/</cite>. A warning is shown
 if no valid number is provided.</p>
 </dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="core.generator.ui.contents.respo_content.RespoContent.staticMetaObject">
-<span class="sig-name descname"><span class="pre">staticMetaObject</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">PySide6.QtCore.QMetaObject(&quot;RespoContent&quot;</span> <span class="pre">inherits</span> <span class="pre">&quot;QWidget&quot;:</span> <span class="pre">)</span></em><a class="headerlink" href="#core.generator.ui.contents.respo_content.RespoContent.staticMetaObject" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
 </dd></dl>
 
 <p id="module-core.generator.ui.contents.verse_content">File: EuljiroWorship/core/generator/ui/contents/verse_content.py</p>
@@ -2515,7 +2460,7 @@ the internal Bible data engine, and previewing the formatted output.</p>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="core.generator.ui.contents.verse_content.VerseContent">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.ui.contents.verse_content.</span></span><span class="sig-name descname"><span class="pre">VerseContent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generator_window</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caption</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/verse_content.html#VerseContent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.verse_content.VerseContent" title="Link to this definition"></a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.ui.contents.verse_content.</span></span><span class="sig-name descname"><span class="pre">VerseContent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/verse_content.html#VerseContent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.verse_content.VerseContent" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
 <p>Content editor widget for ‘verse’ (Bible verse) slides.</p>
 <p>This widget allows the user to input a Bible reference
@@ -2609,11 +2554,6 @@ is non-empty.</p>
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="core.generator.ui.contents.verse_content.VerseContent.staticMetaObject">
-<span class="sig-name descname"><span class="pre">staticMetaObject</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">PySide6.QtCore.QMetaObject(&quot;VerseContent&quot;</span> <span class="pre">inherits</span> <span class="pre">&quot;QWidget&quot;:</span> <span class="pre">)</span></em><a class="headerlink" href="#core.generator.ui.contents.verse_content.VerseContent.staticMetaObject" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
 </dd></dl>
 
 <p id="module-core.generator.ui.contents.video_content">File: EuljiroWorship/core/generator/ui/contents/video_content.py</p>
@@ -2649,7 +2589,7 @@ submission and synchronization with the parent generator window.</p>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="core.generator.ui.contents.video_content.VideoContent">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.ui.contents.video_content.</span></span><span class="sig-name descname"><span class="pre">VideoContent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generator_window</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caption</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/video_content.html#VideoContent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.video_content.VideoContent" title="Link to this definition"></a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.ui.contents.video_content.</span></span><span class="sig-name descname"><span class="pre">VideoContent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/video_content.html#VideoContent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.video_content.VideoContent" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
 <p>Content editor widget for ‘video’ style slides.</p>
 <p>This widget allows users to:
@@ -2816,11 +2756,6 @@ If the file already exists at the destination, it is not copied again.</p>
 </dd>
 </dl>
 </dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="core.generator.ui.contents.video_content.VideoContent.staticMetaObject">
-<span class="sig-name descname"><span class="pre">staticMetaObject</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">PySide6.QtCore.QMetaObject(&quot;VideoContent&quot;</span> <span class="pre">inherits</span> <span class="pre">&quot;QWidget&quot;:</span> <span class="pre">)</span></em><a class="headerlink" href="#core.generator.ui.contents.video_content.VideoContent.staticMetaObject" title="Link to this definition"></a></dt>
-<dd></dd></dl>
 
 </dd></dl>
 
@@ -3227,7 +3162,7 @@ to insert line breaks in multi-line fields.</p>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="core.generator.utils.slide_input_submitter.SlideInputSubmitter">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.utils.slide_input_submitter.</span></span><span class="sig-name descname"><span class="pre">SlideInputSubmitter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">build_slide_func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_widgets</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/utils/slide_input_submitter.html#SlideInputSubmitter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.utils.slide_input_submitter.SlideInputSubmitter" title="Link to this definition"></a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.utils.slide_input_submitter.</span></span><span class="sig-name descname"><span class="pre">SlideInputSubmitter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/utils/slide_input_submitter.html#SlideInputSubmitter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.utils.slide_input_submitter.SlideInputSubmitter" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QObject</span></code></p>
 <p>Event-filter helper that submits slide edits when the user presses Enter.</p>
 <p>This object installs an event filter on a set of input widgets (e.g., QLineEdit,
@@ -3330,17 +3265,12 @@ should be ignored by this submitter.</p>
 4) Restore focus to the first registered input widget for fast iteration.</p>
 </dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="core.generator.utils.slide_input_submitter.SlideInputSubmitter.staticMetaObject">
-<span class="sig-name descname"><span class="pre">staticMetaObject</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">PySide6.QtCore.QMetaObject(&quot;SlideInputSubmitter&quot;</span> <span class="pre">inherits</span> <span class="pre">&quot;QObject&quot;:</span> <span class="pre">)</span></em><a class="headerlink" href="#core.generator.utils.slide_input_submitter.SlideInputSubmitter.staticMetaObject" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
 </section>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>inputs</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>QWidget</em><em>]</em>)</p></li>
-<li><p><strong>generator</strong> (<em>QWidget</em>)</p></li>
+<li><p><strong>inputs</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>PySide6.QtWidgets.QWidget</em><em>]</em>)</p></li>
+<li><p><strong>generator</strong> (<em>PySide6.QtWidgets.QWidget</em>)</p></li>
 <li><p><strong>build_slide_func</strong> (<em>Callable</em><em>[</em><em>[</em><em>]</em><em>, </em><em>dict</em><em> | </em><em>list</em><em> | </em><em>None</em><em>]</em>)</p></li>
 </ul>
 </dd>
