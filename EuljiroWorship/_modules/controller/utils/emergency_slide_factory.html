@@ -232,7 +232,7 @@
 <span class="sd">        If `version` is provided, it tries that version first; otherwise it iterates</span>
 <span class="sd">        available versions and returns the first successful slide set.</span>
 
-<span class="sd">        Each verse is wrapped using `textwrap.wrap(..., width=50)` to avoid overly long</span>
+<span class="sd">        Each verse is wrapped using `textwrap.wrap(..., width=60)` to avoid overly long</span>
 <span class="sd">        single lines, producing multiple slides per verse when needed.</span>
 
 <span class="sd">        Args:</span>
@@ -262,7 +262,7 @@
                 <span class="k">try</span><span class="p">:</span>
                     <span class="n">verse_text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loader</span><span class="o">.</span><span class="n">get_verse</span><span class="p">(</span><span class="n">ver</span><span class="p">,</span> <span class="n">book_id</span><span class="p">,</span> <span class="n">chapter</span><span class="p">,</span> <span class="n">verse_num</span><span class="p">)</span>
                     <span class="n">reftext</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">loader</span><span class="o">.</span><span class="n">get_standard_book</span><span class="p">(</span><span class="n">book_id</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;ko&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">chapter</span><span class="si">}</span><span class="s2">장 </span><span class="si">{</span><span class="n">verse_num</span><span class="si">}</span><span class="s2">절 (</span><span class="si">{</span><span class="n">alias</span><span class="si">}</span><span class="s2">)&quot;</span>
-                    <span class="n">chunks</span> <span class="o">=</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">wrap</span><span class="p">(</span><span class="n">verse_text</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span> <span class="n">width</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+                    <span class="n">chunks</span> <span class="o">=</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">wrap</span><span class="p">(</span><span class="n">verse_text</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span> <span class="n">width</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
                     <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">chunks</span><span class="p">:</span>
                         <span class="n">slides</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
                             <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;verse&quot;</span><span class="p">,</span>
