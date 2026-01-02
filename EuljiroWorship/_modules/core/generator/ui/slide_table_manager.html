@@ -1,0 +1,362 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>core.generator.ui.slide_table_manager &mdash; EuljiroWorship 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=2709fde1"></script>
+      <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            EuljiroWorship
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../modules.html">Modules</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">EuljiroWorship</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">core.generator.ui.slide_table_manager</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for core.generator.ui.slide_table_manager</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">File: EuljiroWorship/core/generator/ui/slide_table_manager.py</span>
+
+<span class="sd">Row-level table operations for the slide generator.</span>
+
+<span class="sd">This module defines `SlideTableManager`, a helper class responsible for</span>
+<span class="sd">manipulating rows in the slide table widget used by the generator UI.</span>
+<span class="sd">It encapsulates all row operations (insert, delete, move, swap) and</span>
+<span class="sd">coordinates with the parent generator to enforce edit restrictions</span>
+<span class="sd">(e.g., when the slide controller is running).</span>
+
+<span class="sd">:Author: Benjamin Jaedon Choi - https://github.com/saintbenjamin</span>
+<span class="sd">:Affiliated Church: The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</span>
+<span class="sd">:Address: The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</span>
+<span class="sd">:Telephone: +82-2-2266-3070</span>
+<span class="sd">:E-mail: euljirochurch [at] G.M.A.I.L. (replace [at] with @ and G.M.A.I.L as you understood.)</span>
+<span class="sd">:License: MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">QComboBox</span><span class="p">,</span> <span class="n">QTableWidgetItem</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">core.config.style_map</span><span class="w"> </span><span class="kn">import</span> <span class="n">STYLE_LIST</span>
+
+<div class="viewcode-block" id="SlideTableManager">
+<a class="viewcode-back" href="../../../../core.generator.ui.html#core.generator.ui.slide_table_manager.SlideTableManager">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">SlideTableManager</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Manage row-level operations on the slide table.</span>
+
+<span class="sd">    This class owns all logic related to modifying the table rows that</span>
+<span class="sd">    represent slides, including insertion, deletion, reordering, and</span>
+<span class="sd">    style selection handling. It delegates edit-safety checks to the</span>
+<span class="sd">    parent generator to ensure consistency with the controller state.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    table : QTableWidget</span>
+<span class="sd">        The table widget that lists slide rows.</span>
+<span class="sd">    generator :</span>
+<span class="sd">        Reference to the main slide generator window, used for edit</span>
+<span class="sd">        permission checks and coordination.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="SlideTableManager.__init__">
+<a class="viewcode-back" href="../../../../core.generator.ui.html#core.generator.ui.slide_table_manager.SlideTableManager.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">generator</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the table manager.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            table (QTableWidget):</span>
+<span class="sd">                The table widget used to display and edit slide rows.</span>
+<span class="sd">            generator:</span>
+<span class="sd">                The main SlideGenerator window. This object is queried to</span>
+<span class="sd">                determine whether edits are currently allowed.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">table</span> <span class="o">=</span> <span class="n">table</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">generator</span> <span class="o">=</span> <span class="n">generator</span></div>
+
+
+<div class="viewcode-block" id="SlideTableManager.add_row">
+<a class="viewcode-back" href="../../../../core.generator.ui.html#core.generator.ui.slide_table_manager.SlideTableManager.add_row">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_row</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Append a new slide row to the end of the table.</span>
+
+<span class="sd">        If the slide controller is currently running, the operation is</span>
+<span class="sd">        aborted to prevent edits that would not be reflected in output.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">generator</span><span class="o">.</span><span class="n">warn_if_controller_running</span><span class="p">():</span>
+            <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">insert_row</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">rowCount</span><span class="p">())</span></div>
+
+
+<div class="viewcode-block" id="SlideTableManager.insert_row">
+<a class="viewcode-back" href="../../../../core.generator.ui.html#core.generator.ui.slide_table_manager.SlideTableManager.insert_row">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">insert_row</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">above</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">connect_signal</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Insert a new slide row at a specified position.</span>
+
+<span class="sd">        If no explicit row index is provided, the insertion position is</span>
+<span class="sd">        determined from the current table selection. A style selection</span>
+<span class="sd">        combo box and empty caption/headline cells are created for the row.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            row (int | None):</span>
+<span class="sd">                Target row index. If None, uses the current selection or</span>
+<span class="sd">                appends to the end of the table.</span>
+<span class="sd">            above (bool):</span>
+<span class="sd">                If True, insert above the reference row; otherwise insert below.</span>
+<span class="sd">            connect_signal (bool):</span>
+<span class="sd">                Whether to connect the style combo box change signal to</span>
+<span class="sd">                the corresponding handler.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">generator</span><span class="o">.</span><span class="n">warn_if_controller_running</span><span class="p">():</span>
+            <span class="k">return</span>
+
+        <span class="c1"># Determine insertion index</span>
+        <span class="k">if</span> <span class="n">row</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">current_row</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">currentRow</span><span class="p">()</span>
+            <span class="n">row</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">rowCount</span><span class="p">()</span> <span class="k">if</span> <span class="n">current_row</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="k">else</span> <span class="p">(</span><span class="n">current_row</span> <span class="k">if</span> <span class="n">above</span> <span class="k">else</span> <span class="n">current_row</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">row</span> <span class="o">=</span> <span class="n">row</span> <span class="k">if</span> <span class="n">above</span> <span class="k">else</span> <span class="n">row</span> <span class="o">+</span> <span class="mi">1</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">insertRow</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+
+        <span class="c1"># Style combo box</span>
+        <span class="n">combo</span> <span class="o">=</span> <span class="n">QComboBox</span><span class="p">()</span>
+        <span class="n">combo</span><span class="o">.</span><span class="n">addItems</span><span class="p">(</span><span class="n">STYLE_LIST</span><span class="p">)</span>
+        <span class="n">combo</span><span class="o">.</span><span class="n">setMinimumWidth</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">connect_signal</span><span class="p">:</span>
+            <span class="n">combo</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s2">&quot;row_index&quot;</span><span class="p">,</span> <span class="n">row</span><span class="p">)</span>
+            <span class="n">combo</span><span class="o">.</span><span class="n">currentIndexChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span> <span class="n">_</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="n">row</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_combo_change_by_row</span><span class="p">(</span><span class="n">r</span><span class="p">))</span>
+
+        <span class="c1"># Add cells to row</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setCellWidget</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">combo</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">QTableWidgetItem</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">QTableWidgetItem</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">))</span>
+
+        <span class="c1"># Focus the new row</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setCurrentCell</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SlideTableManager.handle_combo_change_by_row">
+<a class="viewcode-back" href="../../../../core.generator.ui.html#core.generator.ui.slide_table_manager.SlideTableManager.handle_combo_change_by_row">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">handle_combo_change_by_row</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handle a style change in the combo box for a specific row.</span>
+
+<span class="sd">        This method is triggered when the style combo box in the given row</span>
+<span class="sd">        changes. It is intended to synchronize the selected style with</span>
+<span class="sd">        other parts of the generator UI (e.g., the right-hand detail pane).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            row (int):</span>
+<span class="sd">                Row index whose style selection has changed.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">combo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">cellWidget</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">combo</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[!] No combo found in row </span><span class="si">{</span><span class="n">row</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span></div>
+
+
+<div class="viewcode-block" id="SlideTableManager.delete_selected_row">
+<a class="viewcode-back" href="../../../../core.generator.ui.html#core.generator.ui.slide_table_manager.SlideTableManager.delete_selected_row">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">delete_selected_row</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Delete the currently selected slide row from the table.</span>
+
+<span class="sd">        If no row is selected, this method does nothing. If the slide</span>
+<span class="sd">        controller is running, deletion is aborted.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">generator</span><span class="o">.</span><span class="n">warn_if_controller_running</span><span class="p">():</span>
+            <span class="k">return</span>
+        <span class="n">selected</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">currentRow</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">selected</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">removeRow</span><span class="p">(</span><span class="n">selected</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SlideTableManager.move_row_up">
+<a class="viewcode-back" href="../../../../core.generator.ui.html#core.generator.ui.slide_table_manager.SlideTableManager.move_row_up">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">move_row_up</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Move the selected slide row up by one position.</span>
+
+<span class="sd">        If the selected row is already at the top, no action is taken.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">row</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">currentRow</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">row</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">swap_rows</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">row</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">selectRow</span><span class="p">(</span><span class="n">row</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SlideTableManager.move_row_down">
+<a class="viewcode-back" href="../../../../core.generator.ui.html#core.generator.ui.slide_table_manager.SlideTableManager.move_row_down">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">move_row_down</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Move the selected slide row down by one position.</span>
+
+<span class="sd">        If the selected row is already at the bottom, no action is taken.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">row</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">currentRow</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">row</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">rowCount</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">swap_rows</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">row</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">selectRow</span><span class="p">(</span><span class="n">row</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SlideTableManager.swap_rows">
+<a class="viewcode-back" href="../../../../core.generator.ui.html#core.generator.ui.slide_table_manager.SlideTableManager.swap_rows">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">swap_rows</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row1</span><span class="p">,</span> <span class="n">row2</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Swap the contents of two rows in the slide table.</span>
+
+<span class="sd">        This includes swapping:</span>
+<span class="sd">        - The selected values of the style combo boxes</span>
+<span class="sd">        - The text contents of the caption and headline cells</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            row1 (int):</span>
+<span class="sd">                Index of the first row.</span>
+<span class="sd">            row2 (int):</span>
+<span class="sd">                Index of the second row.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            IndexError:</span>
+<span class="sd">                If either row index is out of bounds for the table.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">col</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="c1"># Swap combo box selections</span>
+                <span class="n">w1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">cellWidget</span><span class="p">(</span><span class="n">row1</span><span class="p">,</span> <span class="n">col</span><span class="p">)</span>
+                <span class="n">w2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">cellWidget</span><span class="p">(</span><span class="n">row2</span><span class="p">,</span> <span class="n">col</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">w1</span> <span class="ow">and</span> <span class="n">w2</span><span class="p">:</span>
+                    <span class="n">t1</span> <span class="o">=</span> <span class="n">w1</span><span class="o">.</span><span class="n">currentText</span><span class="p">()</span>
+                    <span class="n">t2</span> <span class="o">=</span> <span class="n">w2</span><span class="o">.</span><span class="n">currentText</span><span class="p">()</span>
+                    <span class="n">w1</span><span class="o">.</span><span class="n">setCurrentText</span><span class="p">(</span><span class="n">t2</span><span class="p">)</span>
+                    <span class="n">w2</span><span class="o">.</span><span class="n">setCurrentText</span><span class="p">(</span><span class="n">t1</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Swap cell text</span>
+                <span class="n">item1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">row1</span><span class="p">,</span> <span class="n">col</span><span class="p">)</span>
+                <span class="n">item2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">row2</span><span class="p">,</span> <span class="n">col</span><span class="p">)</span>
+                <span class="n">t1</span> <span class="o">=</span> <span class="n">item1</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="k">if</span> <span class="n">item1</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+                <span class="n">t2</span> <span class="o">=</span> <span class="n">item2</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="k">if</span> <span class="n">item2</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">row1</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">QTableWidgetItem</span><span class="p">(</span><span class="n">t2</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">row2</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">QTableWidgetItem</span><span class="p">(</span><span class="n">t1</span><span class="p">))</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Benjamin J. Choi.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

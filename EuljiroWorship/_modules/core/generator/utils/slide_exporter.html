@@ -1,0 +1,318 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>core.generator.utils.slide_exporter &mdash; EuljiroWorship 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=2709fde1"></script>
+      <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            EuljiroWorship
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../modules.html">Modules</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">EuljiroWorship</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">core.generator.utils.slide_exporter</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for core.generator.utils.slide_exporter</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">File: EuljiroWorship/core/generator/utils/slide_exporter.py</span>
+
+<span class="sd">Slide export pipeline for converting generator slide data into</span>
+<span class="sd">overlay-ready slide blocks.</span>
+
+<span class="sd">This module defines the SlideExporter class, which takes structured</span>
+<span class="sd">slide dictionaries produced by the generator UI and transforms them</span>
+<span class="sd">into a flattened sequence of slides suitable for real-time overlay</span>
+<span class="sd">display. The exporter applies style-specific rules such as line</span>
+<span class="sd">segmentation, verse splitting, and style normalization.</span>
+
+<span class="sd">:Author: Benjamin Jaedon Choi - https://github.com/saintbenjamin</span>
+<span class="sd">:Affiliated Church: The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</span>
+<span class="sd">:Address: The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</span>
+<span class="sd">:Telephone: +82-2-2266-3070</span>
+<span class="sd">:E-mail: euljirochurch [at] G.M.A.I.L. (replace [at] with @ and G.M.A.I.L as you understood.)</span>
+<span class="sd">:License: MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">core.generator.utils.text_splitter</span><span class="w"> </span><span class="kn">import</span> <span class="n">split_by_length</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">core.generator.utils.segment_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">segment_lyrics_for_export</span>
+
+<div class="viewcode-block" id="SlideExporter">
+<a class="viewcode-back" href="../../../../core.generator.html#core.generator.utils.slide_exporter.SlideExporter">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">SlideExporter</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert generator-format slides into overlay-ready slide blocks.</span>
+
+<span class="sd">    This exporter applies style-specific transformation rules, including automatic</span>
+<span class="sd">    line splitting, slide segmentation, and style normalization.</span>
+
+<span class="sd">    Supported styles and behaviors:</span>
+
+<span class="sd">    - ``lyrics`` / ``hymn`` / ``anthem``</span>
+
+<span class="sd">        - Lyrics are split into two-line slides using blank-line boundaries.</span>
+<span class="sd">        - Hymn slides are exported as ``lyrics``.</span>
+<span class="sd">        - Anthem slides preserve caption and optional choir name.</span>
+
+<span class="sd">    - ``verse``</span>
+
+<span class="sd">        - Each (reference, verse) pair is split by character length.</span>
+
+<span class="sd">    - ``respo``</span>
+
+<span class="sd">        - Each response line is exported as an individual ``verse``-style slide.</span>
+
+<span class="sd">    - ``intro`` / ``blank``</span>
+
+<span class="sd">        - Passed through with minimal transformation.</span>
+
+<span class="sd">    - Other styles</span>
+
+<span class="sd">        - Passed through unchanged.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        settings (dict | None):</span>
+<span class="sd">            Optional exporter settings.</span>
+
+<span class="sd">            Supported keys:</span>
+
+<span class="sd">                - ``max_chars`` (int):</span>
+<span class="sd">                    Maximum characters per text chunk.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="SlideExporter.__init__">
+<a class="viewcode-back" href="../../../../core.generator.html#core.generator.utils.slide_exporter.SlideExporter.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">settings</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the slide exporter.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            settings (dict | None):</span>
+<span class="sd">                Optional configuration dictionary.</span>
+<span class="sd">                If provided, &quot;max_chars&quot; controls the maximum number of</span>
+<span class="sd">                characters allowed per exported text block.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_chars</span> <span class="o">=</span> <span class="p">(</span><span class="n">settings</span> <span class="ow">or</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;max_chars&quot;</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SlideExporter.export">
+<a class="viewcode-back" href="../../../../core.generator.html#core.generator.utils.slide_exporter.SlideExporter.export">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">export</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">raw_slides</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Transform generator slides into a flat list of overlay slides.</span>
+
+<span class="sd">        The exporter iterates over generator-format slide dictionaries</span>
+<span class="sd">        and applies style-dependent rules to produce a sequence of</span>
+<span class="sd">        overlay-ready slides.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            raw_slides (list[dict]):</span>
+<span class="sd">                List of slide dictionaries produced by the generator.</span>
+<span class="sd">                Each dictionary is expected to include at least:</span>
+<span class="sd">                - &quot;style&quot;</span>
+<span class="sd">                - &quot;caption&quot;</span>
+<span class="sd">                - &quot;headline&quot;</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list[dict]:</span>
+<span class="sd">                A flattened list of slide dictionaries suitable for</span>
+<span class="sd">                overlay display.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">slide</span> <span class="ow">in</span> <span class="n">raw_slides</span><span class="p">:</span>
+            <span class="n">style</span> <span class="o">=</span> <span class="n">slide</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;style&quot;</span><span class="p">,</span> <span class="s2">&quot;lyrics&quot;</span><span class="p">)</span>
+            <span class="n">caption</span> <span class="o">=</span> <span class="n">slide</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;caption&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="n">headline</span> <span class="o">=</span> <span class="n">slide</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;headline&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="n">image_path</span> <span class="o">=</span> <span class="n">slide</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;image_path&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+            <span class="c1"># Lyrics, Hymn, Anthem</span>
+            <span class="k">if</span> <span class="n">style</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;lyrics&quot;</span><span class="p">,</span> <span class="s2">&quot;anthem&quot;</span><span class="p">,</span> <span class="s2">&quot;hymn&quot;</span><span class="p">}:</span>
+                <span class="k">if</span> <span class="n">style</span> <span class="o">==</span> <span class="s2">&quot;anthem&quot;</span><span class="p">:</span>
+                    <span class="c1"># Extract choir name if not separately stored</span>
+                    <span class="n">caption_main</span> <span class="o">=</span> <span class="n">slide</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;caption&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                    <span class="n">caption_choir</span> <span class="o">=</span> <span class="n">slide</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;caption_choir&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">caption_choir</span><span class="p">:</span>
+                        <span class="n">parts</span> <span class="o">=</span> <span class="n">caption_main</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+                        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                            <span class="n">caption_main</span><span class="p">,</span> <span class="n">caption_choir</span> <span class="o">=</span> <span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">caption_choir</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+                    <span class="n">slide</span><span class="p">[</span><span class="s2">&quot;caption&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">caption_main</span>
+                    <span class="n">slide</span><span class="p">[</span><span class="s2">&quot;caption_choir&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">caption_choir</span>
+
+                <span class="n">split_slides</span> <span class="o">=</span> <span class="n">segment_lyrics_for_export</span><span class="p">(</span><span class="n">slide</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">split_slides</span><span class="p">:</span>
+                    <span class="n">export_style</span> <span class="o">=</span> <span class="s2">&quot;lyrics&quot;</span> <span class="k">if</span> <span class="n">style</span> <span class="o">==</span> <span class="s2">&quot;hymn&quot;</span> <span class="k">else</span> <span class="n">style</span>
+                    <span class="n">s</span><span class="p">[</span><span class="s2">&quot;style&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">export_style</span>
+                    <span class="k">if</span> <span class="n">style</span> <span class="o">==</span> <span class="s2">&quot;anthem&quot;</span><span class="p">:</span>
+                        <span class="n">s</span><span class="p">[</span><span class="s2">&quot;caption_choir&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">slide</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;caption_choir&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+                    <span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+                <span class="k">continue</span>
+
+            <span class="c1"># Bible verses</span>
+            <span class="k">elif</span> <span class="n">style</span> <span class="o">==</span> <span class="s2">&quot;verse&quot;</span><span class="p">:</span>
+                <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">headline</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span> <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()]</span>
+                <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">ref</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                    <span class="n">verse_text</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+                    <span class="n">chunks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split_text</span><span class="p">(</span><span class="n">verse_text</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">chunks</span><span class="p">:</span>
+                        <span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                            <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;verse&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;caption&quot;</span><span class="p">:</span> <span class="n">ref</span><span class="p">,</span>
+                            <span class="s2">&quot;headline&quot;</span><span class="p">:</span> <span class="n">chunk</span>
+                        <span class="p">})</span>
+                    <span class="n">i</span> <span class="o">+=</span> <span class="mi">2</span>
+
+                <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">lines</span><span class="p">):</span>
+                    <span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                        <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;verse&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;caption&quot;</span><span class="p">:</span> <span class="n">lines</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+                        <span class="s2">&quot;headline&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span>
+                    <span class="p">})</span>
+                <span class="k">continue</span>
+
+            <span class="c1"># Responsive reading (each line = 1 slide)</span>
+            <span class="k">elif</span> <span class="n">style</span> <span class="o">==</span> <span class="s2">&quot;respo&quot;</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">headline</span><span class="o">.</span><span class="n">splitlines</span><span class="p">():</span>
+                    <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+                        <span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                            <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;verse&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;caption&quot;</span><span class="p">:</span> <span class="n">caption</span><span class="p">,</span>
+                            <span class="s2">&quot;headline&quot;</span><span class="p">:</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                        <span class="p">})</span>
+                <span class="k">continue</span>
+
+            <span class="c1"># Intro or blank</span>
+            <span class="k">elif</span> <span class="n">style</span> <span class="o">==</span> <span class="s2">&quot;intro&quot;</span><span class="p">:</span>
+                <span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                    <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;intro&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;caption&quot;</span><span class="p">:</span> <span class="n">caption</span><span class="p">,</span>
+                    <span class="s2">&quot;headline&quot;</span><span class="p">:</span> <span class="n">headline</span>
+                <span class="p">})</span>
+                <span class="k">continue</span>
+
+            <span class="k">elif</span> <span class="n">style</span> <span class="o">==</span> <span class="s2">&quot;blank&quot;</span><span class="p">:</span>
+                <span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                    <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;blank&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;caption&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;headline&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span>
+                <span class="p">})</span>
+                <span class="k">continue</span>
+
+            <span class="c1"># Passthrough for other styles</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                    <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="n">style</span><span class="p">,</span>
+                    <span class="s2">&quot;caption&quot;</span><span class="p">:</span> <span class="n">caption</span><span class="p">,</span>
+                    <span class="s2">&quot;headline&quot;</span><span class="p">:</span> <span class="n">headline</span>
+                <span class="p">})</span>
+
+        <span class="k">return</span> <span class="n">output</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_split_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Split a text string into smaller chunks by character count.</span>
+
+<span class="sd">        This helper delegates to `split_by_length`, using the configured</span>
+<span class="sd">        maximum character length for exported slides.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            text (str):</span>
+<span class="sd">                Input text to be split.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list[str]:</span>
+<span class="sd">                List of text chunks, each within the configured length.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">split_by_length</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">max_chars</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">max_chars</span><span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Benjamin J. Choi.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

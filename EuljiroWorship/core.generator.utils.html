@@ -1,0 +1,667 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>core.generator.utils &mdash; EuljiroWorship 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=2709fde1"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            EuljiroWorship
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Modules</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">EuljiroWorship</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">core.generator.utils</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/core.generator.utils.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-core.generator.utils">
+<span id="core-generator-utils"></span><h1>core.generator.utils<a class="headerlink" href="#module-core.generator.utils" title="Link to this heading"></a></h1>
+<p id="module-core.generator.utils.icon_helpers">File: EuljiroWorship/core/generator/utils/icon_helpers.py</p>
+<p>Utility helpers for applying SVG icons to Qt widgets.</p>
+<p>This module provides small helper functions used throughout the slide
+generator UI to standardize icon handling, including resolving icon
+paths and applying SVG icons to QPushButton instances.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
+</dd>
+<dt class="field-even">Affiliated Church<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
+</dd>
+<dt class="field-odd">Address<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
+</dd>
+<dt class="field-even">Telephone<span class="colon">:</span></dt>
+<dd class="field-even"><p>+82-2-2266-3070</p>
+</dd>
+<dt class="field-odd">E-mail<span class="colon">:</span></dt>
+<dd class="field-odd"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
+</dd>
+<dt class="field-even">License<span class="colon">:</span></dt>
+<dd class="field-even"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
+</dd>
+</dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="core.generator.utils.icon_helpers.set_svg_icon">
+<span class="sig-prename descclassname"><span class="pre">core.generator.utils.icon_helpers.</span></span><span class="sig-name descname"><span class="pre">set_svg_icon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">button</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">svg_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/utils/icon_helpers.html#set_svg_icon"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.utils.icon_helpers.set_svg_icon" title="Link to this definition"></a></dt>
+<dd><p>Apply an SVG icon to a QPushButton.</p>
+<p>This helper sets the button icon, icon size, and optionally a text
+label. If no text is provided, the button is rendered in icon-only mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>button</strong> (<em>QPushButton</em>) – Target button to modify.</p></li>
+<li><p><strong>svg_path</strong> (<em>str</em>) – Absolute or resolved path to the SVG icon file.</p></li>
+<li><p><strong>size</strong> (<em>int</em><em>, </em><em>optional</em>) – Icon width and height in pixels. Defaults to 24.</p></li>
+<li><p><strong>text</strong> (<em>str</em><em> | </em><em>None</em><em>, </em><em>optional</em>) – Optional button label. If None, no text is shown.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="core.generator.utils.icon_helpers.get_icon_path">
+<span class="sig-prename descclassname"><span class="pre">core.generator.utils.icon_helpers.</span></span><span class="sig-name descname"><span class="pre">get_icon_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/utils/icon_helpers.html#get_icon_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.utils.icon_helpers.get_icon_path" title="Link to this definition"></a></dt>
+<dd><p>Resolve the full filesystem path of an icon file.</p>
+<p>This function prepends the configured icon directory path to the
+given icon filename.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> (<em>str</em>) – Icon filename (e.g., “save.svg”).</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Absolute path to the icon file.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p id="module-core.generator.utils.segment_utils">File: EuljiroWorship/core/generator/utils/segment_utils.py</p>
+<p>Utilities for segmenting slide data during export.</p>
+<p>This module contains helper functions used at export time to transform
+generator slide data into overlay-ready slide units. In particular, it
+handles segmentation of multi-line lyrics content into multiple slides
+using blank-line boundaries and fixed two-line grouping rules.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
+</dd>
+<dt class="field-even">Affiliated Church<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
+</dd>
+<dt class="field-odd">Address<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
+</dd>
+<dt class="field-even">Telephone<span class="colon">:</span></dt>
+<dd class="field-even"><p>+82-2-2266-3070</p>
+</dd>
+<dt class="field-odd">E-mail<span class="colon">:</span></dt>
+<dd class="field-odd"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
+</dd>
+<dt class="field-even">License<span class="colon">:</span></dt>
+<dd class="field-even"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
+</dd>
+</dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="core.generator.utils.segment_utils.segment_lyrics_for_export">
+<span class="sig-prename descclassname"><span class="pre">core.generator.utils.segment_utils.</span></span><span class="sig-name descname"><span class="pre">segment_lyrics_for_export</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/utils/segment_utils.html#segment_lyrics_for_export"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.utils.segment_utils.segment_lyrics_for_export" title="Link to this definition"></a></dt>
+<dd><p>Split a single ‘lyrics’ slide into multiple export-ready slides.</p>
+<p>This function takes a lyrics-style slide dictionary and divides its
+multiline headline text into smaller slides according to the following
+rules:</p>
+<ul class="simple">
+<li><p>Blank lines force a slide break.</p></li>
+<li><p>Non-empty lines are grouped into slides of up to two lines.</p></li>
+<li><p>Remaining lines are emitted as a final slide if fewer than two.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>dict</em>) – Slide dictionary with at least the keys:
+- “style”: expected to be “lyrics”
+- “caption”: title of the song
+- “headline”: multiline lyrics text</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of slide dictionaries, each containing:
+- “style”
+- “caption”
+- “headline” (two lines or fewer)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[dict]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p id="module-core.generator.utils.slide_exporter">File: EuljiroWorship/core/generator/utils/slide_exporter.py</p>
+<p>Slide export pipeline for converting generator slide data into
+overlay-ready slide blocks.</p>
+<p>This module defines the SlideExporter class, which takes structured
+slide dictionaries produced by the generator UI and transforms them
+into a flattened sequence of slides suitable for real-time overlay
+display. The exporter applies style-specific rules such as line
+segmentation, verse splitting, and style normalization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
+</dd>
+<dt class="field-even">Affiliated Church<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
+</dd>
+<dt class="field-odd">Address<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
+</dd>
+<dt class="field-even">Telephone<span class="colon">:</span></dt>
+<dd class="field-even"><p>+82-2-2266-3070</p>
+</dd>
+<dt class="field-odd">E-mail<span class="colon">:</span></dt>
+<dd class="field-odd"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
+</dd>
+<dt class="field-even">License<span class="colon">:</span></dt>
+<dd class="field-even"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="core.generator.utils.slide_exporter.SlideExporter">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.utils.slide_exporter.</span></span><span class="sig-name descname"><span class="pre">SlideExporter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/utils/slide_exporter.html#SlideExporter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.utils.slide_exporter.SlideExporter" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Convert generator-format slides into overlay-ready slide blocks.</p>
+<p>This exporter applies style-specific transformation rules, including
+automatic line splitting, slide segmentation, and style normalization.</p>
+<p>Supported styles and behaviors:
+- lyrics / hymn / anthem:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Lyrics are split into two-line slides using blank-line boundaries.</p></li>
+<li><p>Hymn slides are exported as “lyrics”.</p></li>
+<li><p>Anthem slides preserve caption and optional choir name.</p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><dl class="simple">
+<dt>verse:</dt><dd><ul>
+<li><p>Each (reference, verse) pair is split by character length.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>respo:</dt><dd><ul>
+<li><p>Each response line is exported as an individual verse-style slide.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>intro / blank:</dt><dd><ul>
+<li><p>Passed through with minimal transformation.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>other styles:</dt><dd><ul>
+<li><p>Passed through unchanged.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>settings</strong> (<em>dict</em><em> | </em><em>None</em>) – Optional exporter settings.
+Supported keys:
+- “max_chars” (int): Maximum characters per text chunk.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.utils.slide_exporter.SlideExporter.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/utils/slide_exporter.html#SlideExporter.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.utils.slide_exporter.SlideExporter.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize the slide exporter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>settings</strong> (<em>dict</em><em> | </em><em>None</em>) – Optional configuration dictionary.
+If provided, “max_chars” controls the maximum number of
+characters allowed per exported text block.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.utils.slide_exporter.SlideExporter.export">
+<span class="sig-name descname"><span class="pre">export</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_slides</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/utils/slide_exporter.html#SlideExporter.export"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.utils.slide_exporter.SlideExporter.export" title="Link to this definition"></a></dt>
+<dd><p>Transform generator slides into a flat list of overlay slides.</p>
+<p>The exporter iterates over generator-format slide dictionaries
+and applies style-dependent rules to produce a sequence of
+overlay-ready slides.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>raw_slides</strong> (<em>list</em><em>[</em><em>dict</em><em>]</em>) – List of slide dictionaries produced by the generator.
+Each dictionary is expected to include at least:
+- “style”
+- “caption”
+- “headline”</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A flattened list of slide dictionaries suitable for
+overlay display.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[dict]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p id="module-core.generator.utils.slide_generator_data_manager">File: EuljiroWorship/core/generator/utils/slide_generator_data_manager.py</p>
+<p>Data management layer for the slide generator table UI.</p>
+<p>This module defines SlideGeneratorDataManager, which is responsible for
+loading slide data from JSON files into the generator table, collecting
+edited table contents back into structured slide dictionaries, and
+handling style-specific normalization (e.g., anthem choir names,
+Bible verse formatting).</p>
+<p>It acts as the sole translation layer between:
+- Persistent slide JSON files
+- The QTableWidget-based generator UI</p>
+<dl class="field-list simple">
+<dt class="field-odd">Author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
+</dd>
+<dt class="field-even">Affiliated Church<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
+</dd>
+<dt class="field-odd">Address<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
+</dd>
+<dt class="field-even">Telephone<span class="colon">:</span></dt>
+<dd class="field-even"><p>+82-2-2266-3070</p>
+</dd>
+<dt class="field-odd">E-mail<span class="colon">:</span></dt>
+<dd class="field-odd"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
+</dd>
+<dt class="field-even">License<span class="colon">:</span></dt>
+<dd class="field-even"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="core.generator.utils.slide_generator_data_manager.SlideGeneratorDataManager">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.utils.slide_generator_data_manager.</span></span><span class="sig-name descname"><span class="pre">SlideGeneratorDataManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table_widget</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/utils/slide_generator_data_manager.html#SlideGeneratorDataManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.utils.slide_generator_data_manager.SlideGeneratorDataManager" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Manage slide data exchange between JSON files and the generator table UI.</p>
+<p>Responsibilities:
+- Load slide JSON data into the QTableWidget
+- Convert table rows back into structured slide dictionaries
+- Handle style-specific preprocessing and normalization</p>
+<blockquote>
+<div><p>(e.g., anthem choir names, verse formatting)</p>
+</div></blockquote>
+<p>This class intentionally contains no UI logic beyond table population,
+serving as a thin data-adapter layer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>table_widget</strong> (<em>QTableWidget</em>) – The table widget used in the slide generator UI.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.utils.slide_generator_data_manager.SlideGeneratorDataManager.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table_widget</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/utils/slide_generator_data_manager.html#SlideGeneratorDataManager.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.utils.slide_generator_data_manager.SlideGeneratorDataManager.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize the data manager with a reference to the generator table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>table_widget</strong> (<em>QTableWidget</em>) – Table widget that stores slide rows in the generator UI.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.utils.slide_generator_data_manager.SlideGeneratorDataManager.load_from_file">
+<span class="sig-name descname"><span class="pre">load_from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/utils/slide_generator_data_manager.html#SlideGeneratorDataManager.load_from_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.utils.slide_generator_data_manager.SlideGeneratorDataManager.load_from_file" title="Link to this definition"></a></dt>
+<dd><p>Load slide data from a JSON file and populate the generator table.</p>
+<p>This method:
+- Clears the existing table
+- Inserts rows matching the number of slides
+- Applies style aliases to the style combo box
+- Performs style-specific preprocessing:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Merges anthem caption and choir name</p></li>
+<li><p>Formats multi-verse Bible slides for readability</p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – Path to the slide JSON file.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of slide dictionaries loaded from the file.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[dict]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.utils.slide_generator_data_manager.SlideGeneratorDataManager.save_to_file">
+<span class="sig-name descname"><span class="pre">save_to_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/utils/slide_generator_data_manager.html#SlideGeneratorDataManager.save_to_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.utils.slide_generator_data_manager.SlideGeneratorDataManager.save_to_file" title="Link to this definition"></a></dt>
+<dd><p>Save the current table contents to a JSON slide file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – Destination file path.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.utils.slide_generator_data_manager.SlideGeneratorDataManager.collect_slide_data">
+<span class="sig-name descname"><span class="pre">collect_slide_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/utils/slide_generator_data_manager.html#SlideGeneratorDataManager.collect_slide_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.utils.slide_generator_data_manager.SlideGeneratorDataManager.collect_slide_data" title="Link to this definition"></a></dt>
+<dd><p>Collect slide data from the generator table and normalize it.</p>
+<p>This method reads each table row and converts it into a slide
+dictionary using internal style keys. Style-specific handling
+is applied where necessary (e.g., anthem caption/choir separation).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of structured slide dictionaries.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list[dict]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p id="module-core.generator.utils.slide_input_submitter">File: EuljiroWorship/core/generator/utils/slide_input_submitter.py</p>
+<p>Handles submission logic for slide input forms in the slide generator UI.</p>
+<p>This module defines <cite>SlideInputSubmitter</cite>, which listens for Enter key presses
+on specified input widgets and triggers slide generation. It allows Shift+Enter
+to insert line breaks in multi-line fields.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
+</dd>
+<dt class="field-even">Affiliated Church<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
+</dd>
+<dt class="field-odd">Address<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
+</dd>
+<dt class="field-even">Telephone<span class="colon">:</span></dt>
+<dd class="field-even"><p>+82-2-2266-3070</p>
+</dd>
+<dt class="field-odd">E-mail<span class="colon">:</span></dt>
+<dd class="field-odd"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
+</dd>
+<dt class="field-even">License<span class="colon">:</span></dt>
+<dd class="field-even"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="core.generator.utils.slide_input_submitter.SlideInputSubmitter">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.utils.slide_input_submitter.</span></span><span class="sig-name descname"><span class="pre">SlideInputSubmitter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/utils/slide_input_submitter.html#SlideInputSubmitter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.utils.slide_input_submitter.SlideInputSubmitter" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QObject</span></code></p>
+<p>Event-filter helper that submits slide edits when the user presses Enter.</p>
+<p>This object installs an event filter on a set of input widgets (e.g., QLineEdit,
+QTextEdit/QPlainTextEdit, custom widgets) and interprets the Enter/Return key as a
+“submit” trigger.</p>
+<p>Behavior rules:
+- Enter/Return triggers submission.
+- Shift+Enter is treated as a literal newline (i.e., it does <em>not</em> submit).
+- Widgets listed in <cite>ignore_widgets</cite> are excluded from Enter-submit handling.</p>
+<section id="notes">
+<h2>Notes<a class="headerlink" href="#notes" title="Link to this heading"></a></h2>
+<p>Submission is performed by calling <cite>build_slide_func()</cite>. If it returns a falsy value
+(None / empty), nothing happens. If the generator exposes <cite>save_slides_to_file</cite>,
+the submitter will save automatically after a successful build.</p>
+<dl class="field-list simple">
+<dt class="field-odd">param inputs<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Mapping of logical input names to widget instances.
+All widgets in this mapping receive this object’s event filter.</p>
+</dd>
+<dt class="field-even">type inputs<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict[str, QWidget]</p>
+</dd>
+<dt class="field-odd">param generator<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The generator window/controller instance. If it provides
+<cite>save_slides_to_file(show_message: bool)</cite>, it will be called after submission.</p>
+</dd>
+<dt class="field-even">type generator<span class="colon">:</span></dt>
+<dd class="field-even"><p>QWidget</p>
+</dd>
+<dt class="field-odd">param build_slide_func<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Callable that constructs
+slide data (single dict or list of dicts) from current widget state.</p>
+</dd>
+<dt class="field-even">type build_slide_func<span class="colon">:</span></dt>
+<dd class="field-even"><p>Callable[[], dict | list | None]</p>
+</dd>
+<dt class="field-odd">param ignore_widgets<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional list of widgets whose Enter key
+should be ignored by this submitter.</p>
+</dd>
+<dt class="field-even">type ignore_widgets<span class="colon">:</span></dt>
+<dd class="field-even"><p>list[QWidget] | None</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.utils.slide_input_submitter.SlideInputSubmitter.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">build_slide_func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_widgets</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/utils/slide_input_submitter.html#SlideInputSubmitter.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.utils.slide_input_submitter.SlideInputSubmitter.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize the submitter and install event filters on input widgets.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>inputs</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>QWidget</em><em>]</em>) – Widgets to monitor for Enter-submit.</p></li>
+<li><p><strong>generator</strong> (<em>QWidget</em>) – Receiver/owner that performs persistence operations.</p></li>
+<li><p><strong>build_slide_func</strong> (<em>Callable</em><em>[</em><em>[</em><em>]</em><em>, </em><em>dict</em><em> | </em><em>list</em><em> | </em><em>None</em><em>]</em>) – Slide builder callback.</p></li>
+<li><p><strong>ignore_widgets</strong> (<em>list</em><em>[</em><em>QWidget</em><em>] </em><em>| </em><em>None</em>) – Widgets to exclude from Enter-submit.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.utils.slide_input_submitter.SlideInputSubmitter.eventFilter">
+<span class="sig-name descname"><span class="pre">eventFilter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/utils/slide_input_submitter.html#SlideInputSubmitter.eventFilter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.utils.slide_input_submitter.SlideInputSubmitter.eventFilter" title="Link to this definition"></a></dt>
+<dd><p>Intercept keypress events to detect Enter-submit.</p>
+<ul class="simple">
+<li><p>If <cite>obj</cite> is in <cite>ignore_widgets</cite>, this filter does nothing.</p></li>
+<li><dl class="simple">
+<dt>If the key is Enter/Return:</dt><dd><ul>
+<li><p>Shift+Enter passes through (newline behavior).</p></li>
+<li><p>Otherwise, submit and consume the key event.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> – Event source object (typically one of the registered widgets).</p></li>
+<li><p><strong>event</strong> – Incoming Qt event.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the event was handled here (consumed), else False.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.utils.slide_input_submitter.SlideInputSubmitter.try_submit_slide">
+<span class="sig-name descname"><span class="pre">try_submit_slide</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/utils/slide_input_submitter.html#SlideInputSubmitter.try_submit_slide"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.utils.slide_input_submitter.SlideInputSubmitter.try_submit_slide" title="Link to this definition"></a></dt>
+<dd><p>Build and persist slide data using the registered callback.</p>
+<p>Workflow:
+1) Call <cite>build_slide_func()</cite> to obtain slide data.
+2) If slide data is falsy, do nothing.
+3) If the generator provides <cite>save_slides_to_file</cite>, save silently.
+4) Restore focus to the first registered input widget for fast iteration.</p>
+</dd></dl>
+
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>inputs</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>PySide6.QtWidgets.QWidget</em><em>]</em>)</p></li>
+<li><p><strong>generator</strong> (<em>PySide6.QtWidgets.QWidget</em>)</p></li>
+<li><p><strong>build_slide_func</strong> (<em>Callable</em><em>[</em><em>[</em><em>]</em><em>, </em><em>dict</em><em> | </em><em>list</em><em> | </em><em>None</em><em>]</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p id="module-core.generator.utils.text_splitter">File: EuljiroWorship/core/generator/utils/text_splitter.py</p>
+<p>Provides utility function for splitting text into chunks of specified length.</p>
+<p>This module contains a simple text segmentation helper used primarily during
+slide export. Its main purpose is to prevent excessively long lines from being
+rendered as a single overlay line by splitting text into display-friendly units.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
+</dd>
+<dt class="field-even">Affiliated Church<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
+</dd>
+<dt class="field-odd">Address<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
+</dd>
+<dt class="field-even">Telephone<span class="colon">:</span></dt>
+<dd class="field-even"><p>+82-2-2266-3070</p>
+</dd>
+<dt class="field-odd">E-mail<span class="colon">:</span></dt>
+<dd class="field-odd"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
+</dd>
+<dt class="field-even">License<span class="colon">:</span></dt>
+<dd class="field-even"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
+</dd>
+</dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="core.generator.utils.text_splitter.split_by_length">
+<span class="sig-prename descclassname"><span class="pre">core.generator.utils.text_splitter.</span></span><span class="sig-name descname"><span class="pre">split_by_length</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_chars</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">60</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/utils/text_splitter.html#split_by_length"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.utils.text_splitter.split_by_length" title="Link to this definition"></a></dt>
+<dd><p>Split a text string into multiple chunks constrained by a maximum character length.</p>
+<p>This helper uses Python’s <cite>textwrap.wrap()</cite> to break a long string into
+word-aware segments. Line breaks are inserted at appropriate word boundaries
+whenever possible, ensuring that each resulting chunk does not exceed
+<cite>max_chars</cite> characters.</p>
+<p>This function is intentionally simple and presentation-oriented:
+- It does not preserve original newlines.
+- It does not apply hyphenation.
+- It assumes the input text is a single logical paragraph.</p>
+<p>Typical use cases include:
+- Splitting long Bible verses for overlay display.
+- Breaking lyrics or responsive readings into readable slide units.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>text</strong> (<em>str</em>) – Input text to be split.</p></li>
+<li><p><strong>max_chars</strong> (<em>int</em>) – Maximum number of characters allowed per chunk.
+Defaults to 60.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of text chunks, each suitable for individual slide display.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Benjamin J. Choi.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,607 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>core.generator.ui.slide_generator &mdash; EuljiroWorship 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=2709fde1"></script>
+      <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            EuljiroWorship
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../modules.html">Modules</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">EuljiroWorship</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">core.generator.ui.slide_generator</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for core.generator.ui.slide_generator</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">File: EuljiroWorship/core/generator/ui/slide_generator.py</span>
+
+<span class="sd">Main window class for the EuljiroWorship slide generator GUI.</span>
+
+<span class="sd">This module defines the main Qt window (`SlideGenerator`) that drives the</span>
+<span class="sd">slide authoring workflow:</span>
+
+<span class="sd">- Manage a table of slides (add/insert/delete/reorder).</span>
+<span class="sd">- Edit slides via a style-specific modal editor dialog.</span>
+<span class="sd">- Save/load a &quot;session&quot; JSON file for ongoing editing.</span>
+<span class="sd">- Export overlay-ready slide JSON for the live controller/overlay.</span>
+<span class="sd">- Open and apply persistent generator settings (fonts, paths, etc.).</span>
+
+<span class="sd">The generator is typically launched from the project entry point</span>
+<span class="sd">(`EuljiroWorship.py`) and interacts with a slide controller process</span>
+<span class="sd">through exported JSON and the WebSocket-based overlay pipeline.</span>
+
+<span class="sd">:Author: Benjamin Jaedon Choi - https://github.com/saintbenjamin</span>
+<span class="sd">:Affiliated Church: The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</span>
+<span class="sd">:Address: The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</span>
+<span class="sd">:Telephone: +82-2-2266-3070</span>
+<span class="sd">:E-mail: euljirochurch [at] G.M.A.I.L. (replace [at] with @ and G.M.A.I.L as you understood.)</span>
+<span class="sd">:License: MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">datetime</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">QMainWindow</span><span class="p">,</span> <span class="n">QTableWidget</span><span class="p">,</span> <span class="n">QWidget</span><span class="p">,</span> 
+    <span class="n">QFileDialog</span><span class="p">,</span> <span class="n">QMessageBox</span><span class="p">,</span> <span class="n">QHeaderView</span><span class="p">,</span> 
+    <span class="n">QAbstractItemView</span><span class="p">,</span> <span class="n">QInputDialog</span><span class="p">,</span> <span class="n">QDialog</span><span class="p">,</span> 
+    <span class="n">QTableWidgetItem</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtGui</span><span class="w"> </span><span class="kn">import</span> <span class="n">QFont</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">core.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">paths</span><span class="p">,</span> <span class="n">style_map</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">core.generator.settings_generator</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_generator_settings</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">core.generator.settings_last_path</span><span class="w"> </span><span class="kn">import</span> <span class="n">save_last_path</span><span class="p">,</span> <span class="n">load_last_path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">core.generator.ui.settings_dialog</span><span class="w"> </span><span class="kn">import</span> <span class="n">SettingsDialog</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">core.generator.ui.slide_generator_dialog</span><span class="w"> </span><span class="kn">import</span> <span class="n">SlideGeneratorDialog</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">core.generator.ui.slide_generator_ui_builder</span><span class="w"> </span><span class="kn">import</span> <span class="n">SlideGeneratorUIBuilder</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">core.generator.ui.slide_table_manager</span><span class="w"> </span><span class="kn">import</span> <span class="n">SlideTableManager</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">core.generator.utils.slide_exporter</span><span class="w"> </span><span class="kn">import</span> <span class="n">SlideExporter</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">core.generator.utils.slide_generator_data_manager</span><span class="w"> </span><span class="kn">import</span> <span class="n">SlideGeneratorDataManager</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">core.plugin.slide_controller_launcher</span><span class="w"> </span><span class="kn">import</span> <span class="n">SlideControllerLauncher</span>
+
+<div class="viewcode-block" id="SlideGenerator">
+<a class="viewcode-back" href="../../../../core.generator.ui.html#core.generator.ui.slide_generator.SlideGenerator">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">SlideGenerator</span><span class="p">(</span><span class="n">QMainWindow</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Main window for the EuljiroWorship slide generator (PySide6/Qt).</span>
+
+<span class="sd">    The generator provides a table-based slide session editor and supports:</span>
+<span class="sd">    - Creating, inserting, deleting, and reordering slide rows in a table</span>
+<span class="sd">    - Editing each slide via a style-specific modal dialog (on double-click)</span>
+<span class="sd">    - Loading/saving slide sessions as JSON files</span>
+<span class="sd">    - Exporting an overlay-ready JSON (prepends a blank slide for clean initial state)</span>
+<span class="sd">    - Launching the slide controller for live output (if not already running)</span>
+
+<span class="sd">    Core collaborators (high-level)</span>
+<span class="sd">    -------------------------------</span>
+<span class="sd">    - SlideTableManager:</span>
+<span class="sd">        Owns table row operations (add/insert/delete/move) for the main table widget.</span>
+<span class="sd">    - SlideGeneratorDataManager:</span>
+<span class="sd">        Loads/saves and collects slide session data from the table.</span>
+<span class="sd">    - SlideExporter:</span>
+<span class="sd">        Converts the internal slide session into the overlay JSON format.</span>
+<span class="sd">    - SlideControllerLauncher:</span>
+<span class="sd">        Launches the controller process/UI that pushes slides to the overlay target.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - On startup, this window may show a file-open dialog to load an existing session.</span>
+<span class="sd">      If the user cancels, a blank session is created.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="SlideGenerator.__init__">
+<a class="viewcode-back" href="../../../../core.generator.ui.html#core.generator.ui.slide_generator.SlideGenerator.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Construct the main generator window and initialize the UI state.</span>
+
+<span class="sd">        This initializer:</span>
+<span class="sd">        - Creates and configures the main slide table widget</span>
+<span class="sd">        - Initializes core helper components (table manager, data manager, UI builder, launcher)</span>
+<span class="sd">        - Prompts the user to load an existing slide session via an OS file dialog</span>
+<span class="sd">        (if canceled, starts with a blank session)</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s2">&quot;대한예수교장로회(통합) 을지로교회 예배 슬라이드 제너레이터&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">first_save_done</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">reverse_style_aliases</span> <span class="o">=</span> <span class="n">style_map</span><span class="o">.</span><span class="n">REVERSE_ALIASES</span>
+
+        <span class="c1"># --- Left-side slide table setup ---</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">table</span> <span class="o">=</span> <span class="n">QTableWidget</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">horizontalHeader</span><span class="p">()</span><span class="o">.</span><span class="n">setStretchLastSection</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">horizontalHeader</span><span class="p">()</span><span class="o">.</span><span class="n">setSectionResizeMode</span><span class="p">(</span><span class="n">QHeaderView</span><span class="o">.</span><span class="n">Stretch</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setHorizontalHeaderLabels</span><span class="p">([</span><span class="s2">&quot;스타일&quot;</span><span class="p">,</span> <span class="s2">&quot;소제목&quot;</span><span class="p">,</span> <span class="s2">&quot;본문&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">verticalHeader</span><span class="p">()</span><span class="o">.</span><span class="n">setDefaultSectionSize</span><span class="p">(</span><span class="mi">44</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">verticalHeader</span><span class="p">()</span><span class="o">.</span><span class="n">setVisible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setSelectionBehavior</span><span class="p">(</span><span class="n">QTableWidget</span><span class="o">.</span><span class="n">SelectRows</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setSelectionMode</span><span class="p">(</span><span class="n">QTableWidget</span><span class="o">.</span><span class="n">SingleSelection</span><span class="p">)</span>
+
+        <span class="c1"># Adjust column resize behavior</span>
+        <span class="n">header</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">horizontalHeader</span><span class="p">()</span>
+        <span class="n">header</span><span class="o">.</span><span class="n">setSectionResizeMode</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">QHeaderView</span><span class="o">.</span><span class="n">ResizeToContents</span><span class="p">)</span>
+        <span class="n">header</span><span class="o">.</span><span class="n">setSectionResizeMode</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">QHeaderView</span><span class="o">.</span><span class="n">Interactive</span><span class="p">)</span>
+        <span class="n">header</span><span class="o">.</span><span class="n">setSectionResizeMode</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">QHeaderView</span><span class="o">.</span><span class="n">Interactive</span><span class="p">)</span>
+
+        <span class="c1"># --- Right-side placeholder panel ---</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">detail_widget</span> <span class="o">=</span> <span class="n">QWidget</span><span class="p">()</span>
+
+        <span class="c1"># --- Core components ---</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">slide_controller_launcher</span> <span class="o">=</span> <span class="n">SlideControllerLauncher</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">table_manager</span> <span class="o">=</span> <span class="n">SlideTableManager</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_manager</span> <span class="o">=</span> <span class="n">SlideGeneratorDataManager</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">worship_name</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui_builder</span> <span class="o">=</span> <span class="n">SlideGeneratorUIBuilder</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">worship_name</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">last_saved_path</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="c1"># Prompt is removed — instead, load file and extract name</span>
+        <span class="n">load_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">()</span>  <span class="c1"># Shows OS file dialog on startup</span>
+        <span class="k">if</span> <span class="n">load_path</span><span class="p">:</span>
+            <span class="n">filename_only</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">load_path</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">worship_name</span> <span class="o">=</span> <span class="n">filename_only</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui_builder</span><span class="o">.</span><span class="n">set_worship_label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">worship_name</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">last_saved_path</span> <span class="o">=</span> <span class="n">load_path</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">table_manager</span><span class="o">.</span><span class="n">add_row</span><span class="p">()</span>  <span class="c1"># User cancelled → start blank</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">worship_name</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui_builder</span><span class="o">.</span><span class="n">set_worship_label</span><span class="p">(</span><span class="s2">&quot;(No file loaded)&quot;</span><span class="p">)</span>
+ 
+        <span class="c1"># Safety: disable in-place editing</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setEditTriggers</span><span class="p">(</span><span class="n">QAbstractItemView</span><span class="o">.</span><span class="n">NoEditTriggers</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setSelectionBehavior</span><span class="p">(</span><span class="n">QAbstractItemView</span><span class="o">.</span><span class="n">SelectRows</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setSelectionMode</span><span class="p">(</span><span class="n">QAbstractItemView</span><span class="o">.</span><span class="n">SingleSelection</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SlideGenerator.save_slides_to_file">
+<a class="viewcode-back" href="../../../../core.generator.ui.html#core.generator.ui.slide_generator.SlideGenerator.save_slides_to_file">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">save_slides_to_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">show_message</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Save the current slide session to the last saved path.</span>
+
+<span class="sd">        If no previous save path exists, a timestamp-based filename is generated</span>
+<span class="sd">        in the current working directory. The session data is collected from the</span>
+<span class="sd">        table via ``SlideGeneratorDataManager.collect_slide_data()`` and written</span>
+<span class="sd">        as UTF-8 JSON.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            show_message (bool):</span>
+<span class="sd">                If True, shows a confirmation message box after saving.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Generate default filename if needed</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_saved_path</span><span class="p">:</span>
+            <span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">_%H%M%S&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">last_saved_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">now</span><span class="si">}</span><span class="s2">_slides.json&quot;</span>
+
+        <span class="n">slide_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_manager</span><span class="o">.</span><span class="n">collect_slide_data</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">slide_data</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">last_saved_path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">slide_data</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+            <span class="n">save_last_path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">last_saved_path</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">show_message</span><span class="p">:</span>
+                <span class="n">QMessageBox</span><span class="o">.</span><span class="n">information</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;저장 완료&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">last_saved_path</span><span class="si">}</span><span class="s2"> 로 저장되었습니다.&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SlideGenerator.handle_ctrl_s">
+<a class="viewcode-back" href="../../../../core.generator.ui.html#core.generator.ui.slide_generator.SlideGenerator.handle_ctrl_s">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">handle_ctrl_s</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handle the Ctrl+S shortcut for saving.</span>
+
+<span class="sd">        Behavior:</span>
+<span class="sd">        - If this is the first save in the current session (or no prior save path exists),</span>
+<span class="sd">        triggers a &quot;save as&quot; flow that prompts the user for a path.</span>
+<span class="sd">        - Otherwise, saves to the last known path and shows a confirmation dialog.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">first_save_done</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_saved_path</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">save_to_file</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">first_save_done</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">save_slides_to_file</span><span class="p">(</span><span class="n">show_message</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SlideGenerator.load_from_file">
+<a class="viewcode-back" href="../../../../core.generator.ui.html#core.generator.ui.slide_generator.SlideGenerator.load_from_file">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">load_from_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Load a slide session JSON file into the generator.</span>
+
+<span class="sd">        If ``path`` is None, an OS file-open dialog is shown. The initial directory</span>
+<span class="sd">        is derived from the last opened file record (if available); otherwise the</span>
+<span class="sd">        current working directory is used.</span>
+
+<span class="sd">        After loading:</span>
+<span class="sd">        - The table is populated via the data manager</span>
+<span class="sd">        - The worship/session name label is updated from the filename stem</span>
+<span class="sd">        - ``first_save_done`` is reset so the next Ctrl+S follows the intended flow</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            path (str | None):</span>
+<span class="sd">                Absolute or relative path to the JSON file. If None, a dialog is shown.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str | None:</span>
+<span class="sd">                The resolved path that was loaded, or None if the user canceled the dialog</span>
+<span class="sd">                or no file was selected.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="p">:</span>
+            <span class="c1"># Try to read directory of last opened file</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">SETTING_LAST_OPEN_FILE</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                    <span class="n">record</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+                    <span class="n">last_path</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;last_opened_file&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">last_path</span><span class="p">):</span>
+                        <span class="n">default_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">last_path</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">default_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="n">default_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+
+            <span class="c1"># Prompt file dialog</span>
+            <span class="n">path</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">QFileDialog</span><span class="o">.</span><span class="n">getOpenFileName</span><span class="p">(</span>
+                <span class="bp">self</span><span class="p">,</span>
+                <span class="s2">&quot;불러올 파일 선택&quot;</span><span class="p">,</span>
+                <span class="n">default_dir</span><span class="p">,</span>
+                <span class="s2">&quot;JSON Files (*.json);;All Files (*)&quot;</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_manager</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="n">filename_only</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">path</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">worship_name</span> <span class="o">=</span> <span class="n">filename_only</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui_builder</span><span class="o">.</span><span class="n">set_worship_label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">worship_name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">first_save_done</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="n">path</span></div>
+
+
+<div class="viewcode-block" id="SlideGenerator.save_as">
+<a class="viewcode-back" href="../../../../core.generator.ui.html#core.generator.ui.slide_generator.SlideGenerator.save_as">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">save_as</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Save the current session using an explicit &quot;Save As&quot; dialog.</span>
+
+<span class="sd">        This always forces the file-save dialog regardless of whether a previous</span>
+<span class="sd">        save path exists.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_to_file</span><span class="p">(</span><span class="n">force_dialog</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">first_save_done</span> <span class="o">=</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="SlideGenerator.save_to_file">
+<a class="viewcode-back" href="../../../../core.generator.ui.html#core.generator.ui.slide_generator.SlideGenerator.save_to_file">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">save_to_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">force_dialog</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Save the current slide session as a JSON file.</span>
+
+<span class="sd">        Save destination selection rules:</span>
+<span class="sd">        - If ``path`` is provided, saves directly to that path.</span>
+<span class="sd">        - Else if ``force_dialog`` is False and ``self.last_saved_path`` exists,</span>
+<span class="sd">        saves to ``self.last_saved_path`` without prompting.</span>
+<span class="sd">        - Otherwise, opens an OS file-save dialog and saves to the chosen path.</span>
+
+<span class="sd">        The slide session is collected via ``SlideGeneratorDataManager.collect_slide_data()``</span>
+<span class="sd">        and written as UTF-8 JSON.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            path (str | None):</span>
+<span class="sd">                Destination file path. If None, follows the selection rules above.</span>
+<span class="sd">            force_dialog (bool):</span>
+<span class="sd">                If True, always shows the OS save dialog when ``path`` is None.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+
+        <span class="c1"># Force dialog even if last_saved_path exists</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">force_dialog</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_saved_path</span><span class="p">:</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_saved_path</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="p">:</span>
+            <span class="n">default_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">worship_name</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="s1">&#39;worship&#39;</span><span class="si">}</span><span class="s2">.json&quot;</span>
+            <span class="n">default_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">last_saved_path</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_saved_path</span> <span class="k">else</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+            <span class="n">default_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">default_dir</span><span class="p">,</span> <span class="n">default_name</span><span class="p">)</span>
+
+            <span class="n">path</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">QFileDialog</span><span class="o">.</span><span class="n">getSaveFileName</span><span class="p">(</span>
+                <span class="bp">self</span><span class="p">,</span>
+                <span class="s2">&quot;Save Slide File&quot;</span><span class="p">,</span>
+                <span class="n">default_path</span><span class="p">,</span>
+                <span class="s2">&quot;JSON Files (*.json);;All Files (*)&quot;</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="p">:</span>
+                <span class="k">return</span>
+
+        <span class="c1"># Save</span>
+        <span class="n">slide_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_manager</span><span class="o">.</span><span class="n">collect_slide_data</span><span class="p">()</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">slide_data</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">last_saved_path</span> <span class="o">=</span> <span class="n">path</span></div>
+
+
+<div class="viewcode-block" id="SlideGenerator.warn_if_controller_running">
+<a class="viewcode-back" href="../../../../core.generator.ui.html#core.generator.ui.slide_generator.SlideGenerator.warn_if_controller_running">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">warn_if_controller_running</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Warn the user if the slide controller is currently running.</span>
+
+<span class="sd">        If the controller is running, edits made in the generator may not be</span>
+<span class="sd">        reflected in the live output until the controller is restarted. This</span>
+<span class="sd">        method shows a warning dialog and signals whether editing should be blocked.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool:</span>
+<span class="sd">                True if the controller is running (warning shown),</span>
+<span class="sd">                False otherwise.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">slide_controller_launcher</span><span class="o">.</span><span class="n">is_running</span><span class="p">():</span>
+            <span class="n">QMessageBox</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="bp">self</span><span class="p">,</span>
+                <span class="s2">&quot;편집 불가&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;현재 슬라이드 컨트롤러가 실행 중입니다.</span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="s2">&quot;편집 내용은 출력에 반영되지 않습니다.</span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="s2">&quot;컨트롤러를 종료한 후 다시 출력해 주세요.&quot;</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="SlideGenerator.export_slides_for_overlay">
+<a class="viewcode-back" href="../../../../core.generator.ui.html#core.generator.ui.slide_generator.SlideGenerator.export_slides_for_overlay">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">export_slides_for_overlay</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Export the current session into overlay-ready JSON and launch the controller.</span>
+
+<span class="sd">        Steps:</span>
+<span class="sd">        1) Collect slide session data from the table.</span>
+<span class="sd">        2) Prepend a blank slide to ensure a clean initial screen.</span>
+<span class="sd">        3) Convert slides into overlay format via ``SlideExporter``.</span>
+<span class="sd">        4) Write the exported JSON to ``paths.SLIDE_FILE`` (UTF-8).</span>
+<span class="sd">        5) Launch the slide controller if it is not already running.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">slides</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_manager</span><span class="o">.</span><span class="n">collect_slide_data</span><span class="p">()</span>
+
+        <span class="c1"># Insert a blank slide as the initial screen</span>
+        <span class="n">slides</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">{</span>
+            <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;blank&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;caption&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;headline&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span>
+        <span class="p">})</span>
+
+        <span class="n">exporter</span> <span class="o">=</span> <span class="n">SlideExporter</span><span class="p">(</span><span class="n">settings</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;max_chars&quot;</span><span class="p">:</span> <span class="mi">60</span><span class="p">})</span>
+        <span class="n">exported</span> <span class="o">=</span> <span class="n">exporter</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">slides</span><span class="p">)</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">SLIDE_FILE</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">exported</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">slide_controller_launcher</span><span class="o">.</span><span class="n">launch_if_needed</span><span class="p">(</span><span class="n">parent_widget</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SlideGenerator.handle_table_double_click">
+<a class="viewcode-back" href="../../../../core.generator.ui.html#core.generator.ui.slide_generator.SlideGenerator.handle_table_double_click">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">handle_table_double_click</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">column</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Open the style-specific slide editor dialog for the selected table row.</span>
+
+<span class="sd">        This method:</span>
+<span class="sd">        - Reads the current style/caption/headline values from the table row</span>
+<span class="sd">        - Converts the displayed style label into an internal style key</span>
+<span class="sd">        - Opens ``SlideGeneratorDialog`` as a modal editor</span>
+<span class="sd">        - If the user accepts, writes the updated values back into the table</span>
+<span class="sd">        and triggers a save flow</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            row (int):</span>
+<span class="sd">                Row index of the double-clicked table row.</span>
+<span class="sd">            column (int):</span>
+<span class="sd">                Column index of the double-click event. (Currently unused.)</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">core.generator.ui.slide_generator_dialog</span><span class="w"> </span><span class="kn">import</span> <span class="n">SlideGeneratorDialog</span>
+
+        <span class="c1"># Retrieve style key from style alias</span>
+        <span class="n">style_combo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">cellWidget</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">style_text</span> <span class="o">=</span> <span class="n">style_combo</span><span class="o">.</span><span class="n">currentText</span><span class="p">()</span> <span class="k">if</span> <span class="n">style_combo</span> <span class="k">else</span> <span class="s2">&quot;가사&quot;</span>
+        <span class="n">style_key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">reverse_style_aliases</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">style_text</span><span class="p">,</span> <span class="s2">&quot;lyrics&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Retrieve current caption and headline</span>
+        <span class="n">caption</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">headline</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+
+        <span class="c1"># Launch modal editor dialog</span>
+        <span class="n">dialog</span> <span class="o">=</span> <span class="n">SlideGeneratorDialog</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="n">style_key</span><span class="p">,</span> <span class="n">caption</span><span class="o">=</span><span class="n">caption</span><span class="p">,</span> <span class="n">headline</span><span class="o">=</span><span class="n">headline</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">dialog</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span> <span class="o">==</span> <span class="n">QDialog</span><span class="o">.</span><span class="n">DialogCode</span><span class="o">.</span><span class="n">Accepted</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">dialog</span><span class="o">.</span><span class="n">get_result</span><span class="p">()</span>
+
+            <span class="c1"># Merge choir name for anthem slides</span>
+            <span class="n">new_caption</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;caption&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;caption_choir&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;style&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;anthem&quot;</span> <span class="k">else</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;caption&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="p">)</span>
+
+            <span class="c1"># Update table cells</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">QTableWidgetItem</span><span class="p">(</span><span class="n">new_caption</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">QTableWidgetItem</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;headline&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">handle_ctrl_s</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="SlideGenerator.open_settings_dialog">
+<a class="viewcode-back" href="../../../../core.generator.ui.html#core.generator.ui.slide_generator.SlideGenerator.open_settings_dialog">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">open_settings_dialog</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Open the generator settings dialog and apply changes if accepted.</span>
+
+<span class="sd">        If the dialog is accepted:</span>
+<span class="sd">        - Settings are persisted via the dialog&#39;s save routine</span>
+<span class="sd">        - Font settings are (intended to be) applied to the generator UI</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">dialog</span> <span class="o">=</span> <span class="n">SettingsDialog</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">dialog</span><span class="o">.</span><span class="n">exec</span><span class="p">():</span>
+            <span class="n">settings</span> <span class="o">=</span> <span class="n">dialog</span><span class="o">.</span><span class="n">save_settings</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">apply_generator_font_settings</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="SlideGenerator.apply_generator_font_settings">
+<a class="viewcode-back" href="../../../../core.generator.ui.html#core.generator.ui.slide_generator.SlideGenerator.apply_generator_font_settings">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">apply_generator_font_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Apply the current persistent font settings to the generator UI.</span>
+
+<span class="sd">        Reads the generator settings and constructs a ``QFont`` using:</span>
+<span class="sd">        - ``font_family`` (default: &quot;Malgun Gothic&quot;)</span>
+<span class="sd">        - ``font_size``   (default: 24)</span>
+<span class="sd">        - ``font_weight`` (default: &quot;Normal&quot;; &quot;Bold&quot; enables bold)</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">settings</span> <span class="o">=</span> <span class="n">load_generator_settings</span><span class="p">()</span>
+        <span class="n">family</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;font_family&quot;</span><span class="p">,</span> <span class="s2">&quot;Malgun Gothic&quot;</span><span class="p">)</span>
+        <span class="n">size</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;font_size&quot;</span><span class="p">,</span> <span class="mi">24</span><span class="p">)</span>
+        <span class="n">weight</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;font_weight&quot;</span><span class="p">,</span> <span class="s2">&quot;Normal&quot;</span><span class="p">)</span>
+
+        <span class="n">font</span> <span class="o">=</span> <span class="n">QFont</span><span class="p">(</span><span class="n">family</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span>
+        <span class="n">font</span><span class="o">.</span><span class="n">setBold</span><span class="p">(</span><span class="n">weight</span> <span class="o">==</span> <span class="s2">&quot;Bold&quot;</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Benjamin J. Choi.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

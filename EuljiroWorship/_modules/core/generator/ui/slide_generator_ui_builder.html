@@ -1,0 +1,319 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>core.generator.ui.slide_generator_ui_builder &mdash; EuljiroWorship 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=2709fde1"></script>
+      <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            EuljiroWorship
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../modules.html">Modules</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">EuljiroWorship</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">core.generator.ui.slide_generator_ui_builder</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for core.generator.ui.slide_generator_ui_builder</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">File: EuljiroWorship/core/generator/ui/slide_generator_ui_builder.py</span>
+
+<span class="sd">UI builder for the Slide Generator main window.</span>
+
+<span class="sd">This module defines `SlideGeneratorUIBuilder`, a helper class responsible for</span>
+<span class="sd">constructing and wiring the full Qt UI layout of the slide generator window.</span>
+<span class="sd">It separates UI composition from application logic to keep the main window</span>
+<span class="sd">class (`SlideGenerator`) focused on workflow and state management.</span>
+
+<span class="sd">The builder assembles:</span>
+<span class="sd">- A top row of action buttons with icons (load, save, add, insert, delete, move, export)</span>
+<span class="sd">- A central table area for listing and managing slides</span>
+<span class="sd">- A label showing the current worship/session name</span>
+<span class="sd">- A menu bar entry for accessing generator settings</span>
+<span class="sd">- Keyboard shortcuts (e.g., Ctrl+S) and signal connections</span>
+
+<span class="sd">:Author: Benjamin Jaedon Choi - https://github.com/saintbenjamin</span>
+<span class="sd">:Affiliated Church: The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</span>
+<span class="sd">:Address: The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</span>
+<span class="sd">:Telephone: +82-2-2266-3070</span>
+<span class="sd">:E-mail: euljirochurch [at] G.M.A.I.L. (replace [at] with @ and G.M.A.I.L as you understood.)</span>
+<span class="sd">:License: MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">QWidget</span><span class="p">,</span> <span class="n">QVBoxLayout</span><span class="p">,</span> <span class="n">QHBoxLayout</span><span class="p">,</span> 
+    <span class="n">QPushButton</span><span class="p">,</span> <span class="n">QSizePolicy</span><span class="p">,</span> <span class="n">QLabel</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtGui</span><span class="w"> </span><span class="kn">import</span> <span class="n">QKeySequence</span><span class="p">,</span> <span class="n">QShortcut</span><span class="p">,</span> <span class="n">QAction</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">core.generator.utils.icon_helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">set_svg_icon</span><span class="p">,</span> <span class="n">get_icon_path</span>
+
+<div class="viewcode-block" id="SlideGeneratorUIBuilder">
+<a class="viewcode-back" href="../../../../core.generator.ui.html#core.generator.ui.slide_generator_ui_builder.SlideGeneratorUIBuilder">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">SlideGeneratorUIBuilder</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Build and wire the full UI layout for the slide generator window.</span>
+
+<span class="sd">    This builder is responsible for composing the visual layout and connecting</span>
+<span class="sd">    UI controls to the corresponding handlers exposed by the parent window.</span>
+<span class="sd">    It does not own application state; instead, it assumes that the parent</span>
+<span class="sd">    provides the necessary widgets and methods.</span>
+
+<span class="sd">    Constructed UI elements</span>
+<span class="sd">    -----------------------</span>
+<span class="sd">    - A horizontal toolbar of action buttons (with SVG icons)</span>
+<span class="sd">    - A label displaying the current worship/session name</span>
+<span class="sd">    - The central slide table widget</span>
+<span class="sd">    - A &#39;Tools &gt; Settings&#39; menu entry</span>
+<span class="sd">    - Keyboard shortcuts and signal-slot connections</span>
+
+<span class="sd">    Required parent interface</span>
+<span class="sd">    -------------------------</span>
+<span class="sd">    The parent object is expected to provide at least:</span>
+<span class="sd">    - `table` (QTableWidget): main slide table widget</span>
+<span class="sd">    - `menuBar()` -&gt; QMenuBar</span>
+<span class="sd">    - `table_manager`: row manipulation logic</span>
+<span class="sd">    - `load_from_file()`: load slide session</span>
+<span class="sd">    - `save_as()`: save slide session</span>
+<span class="sd">    - `export_slides_for_overlay()`: export overlay JSON</span>
+<span class="sd">    - `open_settings_dialog()`: open settings dialog</span>
+<span class="sd">    - `handle_table_double_click(row, column)`: edit slide dialog</span>
+<span class="sd">    - `apply_generator_font_settings()`: apply font preferences</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="SlideGeneratorUIBuilder.__init__">
+<a class="viewcode-back" href="../../../../core.generator.ui.html#core.generator.ui.slide_generator_ui_builder.SlideGeneratorUIBuilder.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">worship_name</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the UI builder and immediately construct the UI layout.</span>
+
+<span class="sd">        This constructor stores references to the parent window and the initial</span>
+<span class="sd">        worship/session name, then calls `setup_ui()` to build and connect all</span>
+<span class="sd">        UI components.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            parent (QMainWindow or QWidget):</span>
+<span class="sd">                The main SlideGenerator window that owns the UI and application logic.</span>
+<span class="sd">                It must expose the methods and attributes required by this builder.</span>
+<span class="sd">            worship_name (str):</span>
+<span class="sd">                Initial worship/session name to display above the slide table.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="n">parent</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">worship_name</span> <span class="o">=</span> <span class="n">worship_name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setup_ui</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="SlideGeneratorUIBuilder.setup_ui">
+<a class="viewcode-back" href="../../../../core.generator.ui.html#core.generator.ui.slide_generator_ui_builder.SlideGeneratorUIBuilder.setup_ui">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">setup_ui</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Construct and wire the complete slide generator UI.</span>
+
+<span class="sd">        This method performs the following:</span>
+<span class="sd">        - Registers keyboard shortcuts (e.g., Ctrl+S for saving)</span>
+<span class="sd">        - Creates action buttons with SVG icons and connects them to parent handlers</span>
+<span class="sd">        - Assembles the button toolbar, label, and slide table into a vertical layout</span>
+<span class="sd">        - Adds a &#39;Tools &gt; Settings&#39; menu entry to the menu bar</span>
+<span class="sd">        - Applies persisted font settings to the UI</span>
+<span class="sd">        - Connects table double-click events to the slide editor dialog</span>
+<span class="sd">        - Installs the composed layout as the parent&#39;s central widget</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span>
+
+        <span class="c1"># Assign Ctrl+S to trigger save operation</span>
+        <span class="n">QShortcut</span><span class="p">(</span><span class="n">QKeySequence</span><span class="p">(</span><span class="s2">&quot;Ctrl+S&quot;</span><span class="p">),</span> <span class="n">parent</span><span class="p">)</span><span class="o">.</span><span class="n">activated</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">handle_ctrl_s</span><span class="p">)</span>
+
+        <span class="c1"># Generator action buttons with SVG icons</span>
+        <span class="n">load_btn</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">()</span>
+        <span class="n">set_svg_icon</span><span class="p">(</span><span class="n">load_btn</span><span class="p">,</span> <span class="n">get_icon_path</span><span class="p">(</span><span class="s2">&quot;load.svg&quot;</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+        <span class="n">save_btn</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">()</span>
+        <span class="n">set_svg_icon</span><span class="p">(</span><span class="n">save_btn</span><span class="p">,</span> <span class="n">get_icon_path</span><span class="p">(</span><span class="s2">&quot;save.svg&quot;</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+        <span class="n">add_btn</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">()</span>
+        <span class="n">set_svg_icon</span><span class="p">(</span><span class="n">add_btn</span><span class="p">,</span> <span class="n">get_icon_path</span><span class="p">(</span><span class="s2">&quot;add.svg&quot;</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+        <span class="n">insert_above_btn</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">()</span>
+        <span class="n">set_svg_icon</span><span class="p">(</span><span class="n">insert_above_btn</span><span class="p">,</span> <span class="n">get_icon_path</span><span class="p">(</span><span class="s2">&quot;insert_above.svg&quot;</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+        <span class="n">insert_below_btn</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">()</span>
+        <span class="n">set_svg_icon</span><span class="p">(</span><span class="n">insert_below_btn</span><span class="p">,</span> <span class="n">get_icon_path</span><span class="p">(</span><span class="s2">&quot;insert_below.svg&quot;</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+        <span class="n">del_btn</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">()</span>
+        <span class="n">set_svg_icon</span><span class="p">(</span><span class="n">del_btn</span><span class="p">,</span> <span class="n">get_icon_path</span><span class="p">(</span><span class="s2">&quot;del.svg&quot;</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+        <span class="n">up_btn</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">()</span>
+        <span class="n">set_svg_icon</span><span class="p">(</span><span class="n">up_btn</span><span class="p">,</span> <span class="n">get_icon_path</span><span class="p">(</span><span class="s2">&quot;up.svg&quot;</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+        <span class="n">down_btn</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">()</span>
+        <span class="n">set_svg_icon</span><span class="p">(</span><span class="n">down_btn</span><span class="p">,</span> <span class="n">get_icon_path</span><span class="p">(</span><span class="s2">&quot;down.svg&quot;</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+        <span class="n">export_btn</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">()</span>
+        <span class="n">set_svg_icon</span><span class="p">(</span><span class="n">export_btn</span><span class="p">,</span> <span class="n">get_icon_path</span><span class="p">(</span><span class="s2">&quot;export.svg&quot;</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+
+        <span class="c1"># Apply consistent button height and layout policy</span>
+        <span class="k">for</span> <span class="n">btn</span> <span class="ow">in</span> <span class="p">[</span><span class="n">load_btn</span><span class="p">,</span> <span class="n">save_btn</span><span class="p">,</span> <span class="n">add_btn</span><span class="p">,</span> <span class="n">insert_above_btn</span><span class="p">,</span>
+                    <span class="n">insert_below_btn</span><span class="p">,</span> <span class="n">del_btn</span><span class="p">,</span> <span class="n">up_btn</span><span class="p">,</span> <span class="n">down_btn</span><span class="p">]:</span>
+            <span class="n">btn</span><span class="o">.</span><span class="n">setSizePolicy</span><span class="p">(</span><span class="n">QSizePolicy</span><span class="o">.</span><span class="n">Preferred</span><span class="p">,</span> <span class="n">QSizePolicy</span><span class="o">.</span><span class="n">Fixed</span><span class="p">)</span>
+            <span class="n">btn</span><span class="o">.</span><span class="n">setMinimumHeight</span><span class="p">(</span><span class="mi">28</span><span class="p">)</span>
+
+        <span class="c1"># Connect button actions to parent handlers</span>
+        <span class="n">load_btn</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">)</span>
+        <span class="n">save_btn</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">save_as</span><span class="p">)</span>
+        <span class="n">add_btn</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">table_manager</span><span class="o">.</span><span class="n">add_row</span><span class="p">)</span>
+        <span class="n">insert_above_btn</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">parent</span><span class="o">.</span><span class="n">table_manager</span><span class="o">.</span><span class="n">insert_row</span><span class="p">(</span><span class="n">above</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+        <span class="n">insert_below_btn</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">parent</span><span class="o">.</span><span class="n">table_manager</span><span class="o">.</span><span class="n">insert_row</span><span class="p">(</span><span class="n">above</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+        <span class="n">del_btn</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">table_manager</span><span class="o">.</span><span class="n">delete_selected_row</span><span class="p">)</span>
+        <span class="n">up_btn</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">table_manager</span><span class="o">.</span><span class="n">move_row_up</span><span class="p">)</span>
+        <span class="n">down_btn</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">table_manager</span><span class="o">.</span><span class="n">move_row_down</span><span class="p">)</span>
+        <span class="n">export_btn</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">export_slides_for_overlay</span><span class="p">)</span>
+
+        <span class="c1"># Arrange buttons horizontally</span>
+        <span class="n">btn_layout</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">()</span>
+        <span class="n">btn_layout</span><span class="o">.</span><span class="n">setContentsMargins</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">btn_layout</span><span class="o">.</span><span class="n">setSpacing</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">btn</span> <span class="ow">in</span> <span class="p">[</span><span class="n">load_btn</span><span class="p">,</span> <span class="n">save_btn</span><span class="p">,</span> <span class="n">add_btn</span><span class="p">,</span> <span class="n">insert_above_btn</span><span class="p">,</span>
+                    <span class="n">insert_below_btn</span><span class="p">,</span> <span class="n">del_btn</span><span class="p">,</span> <span class="n">up_btn</span><span class="p">,</span> <span class="n">down_btn</span><span class="p">,</span> <span class="n">export_btn</span><span class="p">]:</span>
+            <span class="n">btn_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">btn</span><span class="p">)</span>
+
+        <span class="c1"># Wrap button layout in a QWidget container</span>
+        <span class="n">btn_container</span> <span class="o">=</span> <span class="n">QWidget</span><span class="p">()</span>
+        <span class="n">btn_container</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">btn_layout</span><span class="p">)</span>
+        <span class="n">btn_container</span><span class="o">.</span><span class="n">setSizePolicy</span><span class="p">(</span><span class="n">QSizePolicy</span><span class="o">.</span><span class="n">Preferred</span><span class="p">,</span> <span class="n">QSizePolicy</span><span class="o">.</span><span class="n">Minimum</span><span class="p">)</span>
+
+        <span class="c1"># Worship name label (used as section title)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">worship_label</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">worship_name</span><span class="p">)</span>
+
+        <span class="c1"># Allow the table to expand and fill available space</span>
+        <span class="n">parent</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setSizePolicy</span><span class="p">(</span><span class="n">QSizePolicy</span><span class="o">.</span><span class="n">Expanding</span><span class="p">,</span> <span class="n">QSizePolicy</span><span class="o">.</span><span class="n">Expanding</span><span class="p">)</span>
+
+        <span class="c1"># Final vertical layout assembly</span>
+        <span class="n">main_layout</span> <span class="o">=</span> <span class="n">QVBoxLayout</span><span class="p">()</span>
+        <span class="n">main_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">btn_container</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">main_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">worship_label</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">main_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">table</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1"># Create &#39;Tools &gt; Settings&#39; menu</span>
+        <span class="n">menubar</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">menuBar</span><span class="p">()</span>
+        <span class="n">tool_menu</span> <span class="o">=</span> <span class="n">menubar</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="s2">&quot;도구&quot;</span><span class="p">)</span>
+        <span class="n">settings_action</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="s2">&quot;설정&quot;</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
+        <span class="n">settings_action</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">open_settings_dialog</span><span class="p">)</span>
+        <span class="n">tool_menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="n">settings_action</span><span class="p">)</span>
+
+        <span class="c1"># Apply saved font settings (from user config)</span>
+        <span class="n">parent</span><span class="o">.</span><span class="n">apply_generator_font_settings</span><span class="p">()</span>
+
+        <span class="c1"># Link double-click on table rows to editor dialog</span>
+        <span class="n">parent</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">cellDoubleClicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">handle_table_double_click</span><span class="p">)</span>
+
+        <span class="c1"># Wrap layout into a central widget</span>
+        <span class="n">central</span> <span class="o">=</span> <span class="n">QWidget</span><span class="p">()</span>
+        <span class="n">central</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">main_layout</span><span class="p">)</span>
+        <span class="n">parent</span><span class="o">.</span><span class="n">setCentralWidget</span><span class="p">(</span><span class="n">central</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SlideGeneratorUIBuilder.set_worship_label">
+<a class="viewcode-back" href="../../../../core.generator.ui.html#core.generator.ui.slide_generator_ui_builder.SlideGeneratorUIBuilder.set_worship_label">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_worship_label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Update the worship/session name label shown above the slide table.</span>
+
+<span class="sd">        This method is typically called after loading a session file or when the</span>
+<span class="sd">        session name changes, and simply updates the text of the label if it exists.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            name (str):</span>
+<span class="sd">                New name to display (e.g., a worship title derived from the filename).</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;worship_label&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">worship_label</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">name</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Benjamin J. Choi.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
