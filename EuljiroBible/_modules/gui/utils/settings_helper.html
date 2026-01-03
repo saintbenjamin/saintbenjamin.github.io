@@ -88,22 +88,27 @@
 <a class="viewcode-back" href="../../../gui.utils.html#gui.utils.settings_helper.update_overlay_settings">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">update_overlay_settings</span><span class="p">(</span><span class="n">settings</span><span class="p">,</span> <span class="n">widget_overlays</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Updates the given settings dictionary with current values from overlay-related UI widgets.</span>
+<span class="sd">    Update the given settings dictionary with current values from overlay-related UI widgets.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        settings (dict): The settings dictionary to be updated.</span>
-<span class="sd">        widget_overlays (dict): A dictionary of UI widgets used for overlay settings.</span>
-<span class="sd">            Expected keys:</span>
-<span class="sd">                - &quot;font_combo&quot; (QComboBox or QFontComboBox): Font family selector</span>
-<span class="sd">                - &quot;size_combo&quot; (QComboBox): Font size selector</span>
-<span class="sd">                - &quot;weight_combo&quot; (QComboBox): Font weight selector</span>
-<span class="sd">                - &quot;alpha_slider&quot; (QSlider): Background transparency slider</span>
-<span class="sd">                - &quot;text_color_btn&quot; (QPushButton): Text color preview button</span>
-<span class="sd">                - &quot;bg_color_btn&quot; (QPushButton): Background color preview button</span>
-<span class="sd">                - &quot;mode_combo&quot; (QComboBox): Overlay mode selector (&quot;fullscreen&quot; or &quot;resizable&quot;)</span>
+<span class="sd">        settings (dict):</span>
+<span class="sd">            Settings dictionary to be updated.</span>
+
+<span class="sd">        widget_overlays (dict):</span>
+<span class="sd">            Dictionary of UI widgets used for overlay settings.</span>
+
+<span class="sd">            Expected keys include:</span>
+<span class="sd">            font_combo (QComboBox or QFontComboBox),</span>
+<span class="sd">            size_combo (QComboBox),</span>
+<span class="sd">            weight_combo (QComboBox),</span>
+<span class="sd">            alpha_slider (QSlider),</span>
+<span class="sd">            text_color_btn (QPushButton),</span>
+<span class="sd">            bg_color_btn (QPushButton),</span>
+<span class="sd">            mode_combo (QComboBox; values: &quot;fullscreen&quot; or &quot;resizable&quot;).</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        dict: The updated settings dictionary with overlay display configurations.</span>
+<span class="sd">        dict:</span>
+<span class="sd">            Updated settings dictionary containing overlay display configuration.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">font_family</span> <span class="o">=</span> <span class="n">widget_overlays</span><span class="p">[</span><span class="s2">&quot;font_family_combo&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">currentText</span><span class="p">()</span>
     <span class="n">font_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">widget_overlays</span><span class="p">[</span><span class="s2">&quot;font_size_combo&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">currentText</span><span class="p">())</span>
