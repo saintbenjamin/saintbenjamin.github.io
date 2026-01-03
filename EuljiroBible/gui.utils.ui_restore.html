@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>gui.constant &mdash; EuljiroBible 1.5 documentation</title>
+  <title>gui.utils.ui_restore &mdash; EuljiroBible 1.5 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
@@ -19,8 +19,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="gui.ui" href="gui.ui.html" />
-    <link rel="prev" title="gui.config" href="gui.config.html" /> 
+    <link rel="next" title="gui.utils.utils_dialog" href="gui.utils.utils_dialog.html" />
+    <link rel="prev" title="gui.utils.state_saver" href="gui.utils.state_saver.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -49,17 +49,29 @@
 <li class="toctree-l2"><a class="reference internal" href="cli.html">cli</a></li>
 <li class="toctree-l2"><a class="reference internal" href="core.html">core</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="gui.html">gui</a><ul class="current">
-<li class="toctree-l3 current"><a class="reference internal" href="gui.html#subpackages">Subpackages</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="gui.config.html">gui.config</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">gui.constant</a></li>
-<li class="toctree-l4"><a class="reference internal" href="gui.ui.html">gui.ui</a></li>
-<li class="toctree-l4"><a class="reference internal" href="gui.utils.html">gui.utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gui.config.html">gui.config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gui.constants.html">gui.constants</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gui.gui_main.html">gui.gui_main</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gui.launch.html">gui.launch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gui.ui.html">gui.ui</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="gui.utils.html">gui.utils</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="gui.utils.keyword_highlight_delegate.html">gui.utils.keyword_highlight_delegate</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.utils.keyword_result_model.html">gui.utils.keyword_result_model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.utils.logger.html">gui.utils.logger</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.utils.overlay_factory.html">gui.utils.overlay_factory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.utils.settings_helper.html">gui.utils.settings_helper</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.utils.state_saver.html">gui.utils.state_saver</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">gui.utils.ui_restore</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.utils.utils_dialog.html">gui.utils.utils_dialog</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.utils.utils_display.html">gui.utils.utils_display</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.utils.utils_env.html">gui.utils.utils_env</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.utils.utils_fonts.html">gui.utils.utils_fonts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.utils.utils_save.html">gui.utils.utils_save</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.utils.utils_theme.html">gui.utils.utils_theme</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.utils.utils_validation.html">gui.utils.utils_validation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.utils.verse_output_handler.html">gui.utils.verse_output_handler</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="gui.html#submodules">Submodules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="gui.html#module-gui.gui_main">gui.gui_main</a></li>
-<li class="toctree-l3"><a class="reference internal" href="gui.html#module-gui.launch">gui.launch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="gui.html#module-gui">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -82,9 +94,10 @@
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="modules.html">Modules</a></li>
           <li class="breadcrumb-item"><a href="gui.html">gui</a></li>
-      <li class="breadcrumb-item active">gui.constant</li>
+          <li class="breadcrumb-item"><a href="gui.utils.html">gui.utils</a></li>
+      <li class="breadcrumb-item active">gui.utils.ui_restore</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/gui.constant.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/gui.utils.ui_restore.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -92,20 +105,14 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="gui-constant">
-<h1>gui.constant<a class="headerlink" href="#gui-constant" title="Link to this heading"></a></h1>
-<section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
-</section>
-<section id="module-gui.constants.messages">
-<span id="gui-constants-messages"></span><h2>gui.constants.messages<a class="headerlink" href="#module-gui.constants.messages" title="Link to this heading"></a></h2>
+  <section id="module-gui.utils.ui_restore">
+<span id="gui-utils-ui-restore"></span><h1>gui.utils.ui_restore<a class="headerlink" href="#module-gui.utils.ui_restore" title="Link to this heading"></a></h1>
 <dl class="field-list simple">
 <dt class="field-odd">File<span class="colon">:</span></dt>
-<dd class="field-odd"><p>EuljiroBible/gui/constants/messages.py</p>
+<dd class="field-odd"><p>EuljiroBible/gui/utils/ui_restore.py</p>
 </dd>
 </dl>
-<p>Centralized error message constants for user-facing dialogs in EuljiroBible.
-Intended for reuse across GUI modules to maintain consistency and easy localization.</p>
+<p>Restores user settings into the main window UI components.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Author<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
@@ -126,18 +133,28 @@ Intended for reuse across GUI modules to maintain consistency and easy localizat
 <dd class="field-even"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
 </dd>
 </dl>
-</section>
-<section id="module-gui.constants">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-gui.constants" title="Link to this heading"></a></h2>
-</section>
+<dl class="py function">
+<dt class="sig sig-object py" id="gui.utils.ui_restore.restore_settings_to_ui">
+<span class="sig-prename descclassname"><span class="pre">gui.utils.ui_restore.</span></span><span class="sig-name descname"><span class="pre">restore_settings_to_ui</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">win</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">settings</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/ui_restore.html#restore_settings_to_ui"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.ui_restore.restore_settings_to_ui" title="Link to this definition"></a></dt>
+<dd><p>Applies saved settings to the main window’s UI components.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>win</strong> (<em>MainWindow</em>) – The main window instance.</p></li>
+<li><p><strong>settings</strong> (<em>dict</em>) – Loaded user settings.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="gui.config.html" class="btn btn-neutral float-left" title="gui.config" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="gui.ui.html" class="btn btn-neutral float-right" title="gui.ui" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="gui.utils.state_saver.html" class="btn btn-neutral float-left" title="gui.utils.state_saver" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="gui.utils.utils_dialog.html" class="btn btn-neutral float-right" title="gui.utils.utils_dialog" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

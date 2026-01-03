@@ -101,7 +101,7 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">gui.ui.tab_settings</span><span class="w"> </span><span class="kn">import</span> <span class="n">TabSettings</span>
 
 <div class="viewcode-block" id="WindowMain">
-<a class="viewcode-back" href="../../../gui.ui.html#gui.ui.window_main.WindowMain">[docs]</a>
+<a class="viewcode-back" href="../../../gui.ui.window_main.html#gui.ui.window_main.WindowMain">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">WindowMain</span><span class="p">(</span><span class="n">QMainWindow</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Main application window class for EuljiroBible.</span>
@@ -111,7 +111,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="WindowMain.__init__">
-<a class="viewcode-back" href="../../../gui.ui.html#gui.ui.window_main.WindowMain.__init__">[docs]</a>
+<a class="viewcode-back" href="../../../gui.ui.window_main.html#gui.ui.window_main.WindowMain.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version_list</span><span class="p">,</span> <span class="n">settings</span><span class="p">,</span> <span class="n">icon_path</span><span class="p">,</span> <span class="n">app_version</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initializes the WindowMain.</span>
@@ -234,7 +234,7 @@
 
 
 <div class="viewcode-block" id="WindowMain.tr">
-<a class="viewcode-back" href="../../../gui.ui.html#gui.ui.window_main.WindowMain.tr">[docs]</a>
+<a class="viewcode-back" href="../../../gui.ui.window_main.html#gui.ui.window_main.WindowMain.tr">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">tr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Translates a UI key into the current language.</span>
@@ -249,7 +249,7 @@
 
 
 <div class="viewcode-block" id="WindowMain.change_language">
-<a class="viewcode-back" href="../../../gui.ui.html#gui.ui.window_main.WindowMain.change_language">[docs]</a>
+<a class="viewcode-back" href="../../../gui.ui.window_main.html#gui.ui.window_main.WindowMain.change_language">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">change_language</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lang_code</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Changes the UI language dynamically.</span>
@@ -311,7 +311,7 @@
 
 
 <div class="viewcode-block" id="WindowMain.refresh_settings_and_tabs">
-<a class="viewcode-back" href="../../../gui.ui.html#gui.ui.window_main.WindowMain.refresh_settings_and_tabs">[docs]</a>
+<a class="viewcode-back" href="../../../gui.ui.window_main.html#gui.ui.window_main.WindowMain.refresh_settings_and_tabs">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">refresh_settings_and_tabs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">settings</span> <span class="o">=</span> <span class="n">ConfigManager</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tab_verse</span><span class="o">.</span><span class="n">update_button_layout</span><span class="p">()</span>
@@ -320,7 +320,7 @@
 
 
 <div class="viewcode-block" id="WindowMain.apply_tab_icons">
-<a class="viewcode-back" href="../../../gui.ui.html#gui.ui.window_main.WindowMain.apply_tab_icons">[docs]</a>
+<a class="viewcode-back" href="../../../gui.ui.window_main.html#gui.ui.window_main.WindowMain.apply_tab_icons">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">apply_tab_icons</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Applies SVG icons to each tab in the tab widget, unless on macOS.</span>
@@ -336,7 +336,7 @@
 
 
 <div class="viewcode-block" id="WindowMain.update_poll_button_text">
-<a class="viewcode-back" href="../../../gui.ui.html#gui.ui.window_main.WindowMain.update_poll_button_text">[docs]</a>
+<a class="viewcode-back" href="../../../gui.ui.window_main.html#gui.ui.window_main.WindowMain.update_poll_button_text">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">update_poll_button_text</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Updates the polling toggle button text based on polling state.</span>
@@ -351,7 +351,7 @@
 
 
 <div class="viewcode-block" id="WindowMain.on_poll_toggle_clicked">
-<a class="viewcode-back" href="../../../gui.ui.html#gui.ui.window_main.WindowMain.on_poll_toggle_clicked">[docs]</a>
+<a class="viewcode-back" href="../../../gui.ui.window_main.html#gui.ui.window_main.WindowMain.on_poll_toggle_clicked">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">on_poll_toggle_clicked</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Handles the polling toggle button click event.</span>
@@ -371,7 +371,7 @@
 
 
 <div class="viewcode-block" id="WindowMain.show_about">
-<a class="viewcode-back" href="../../../gui.ui.html#gui.ui.window_main.WindowMain.show_about">[docs]</a>
+<a class="viewcode-back" href="../../../gui.ui.window_main.html#gui.ui.window_main.WindowMain.show_about">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">show_about</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Displays the About dialog.</span>
@@ -384,7 +384,7 @@
 
 
 <div class="viewcode-block" id="WindowMain.open_monitor_memory">
-<a class="viewcode-back" href="../../../gui.ui.html#gui.ui.window_main.WindowMain.open_monitor_memory">[docs]</a>
+<a class="viewcode-back" href="../../../gui.ui.window_main.html#gui.ui.window_main.WindowMain.open_monitor_memory">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">open_monitor_memory</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Opens the real-time memory monitor window.</span>
@@ -396,7 +396,7 @@
 
 
 <div class="viewcode-block" id="WindowMain.trigger_error">
-<a class="viewcode-back" href="../../../gui.ui.html#gui.ui.window_main.WindowMain.trigger_error">[docs]</a>
+<a class="viewcode-back" href="../../../gui.ui.window_main.html#gui.ui.window_main.WindowMain.trigger_error">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">trigger_error</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Deliberately triggers a ZeroDivisionError for testing error handling.</span>
@@ -410,7 +410,7 @@
 
 
 <div class="viewcode-block" id="WindowMain.closeEvent">
-<a class="viewcode-back" href="../../../gui.ui.html#gui.ui.window_main.WindowMain.closeEvent">[docs]</a>
+<a class="viewcode-back" href="../../../gui.ui.window_main.html#gui.ui.window_main.WindowMain.closeEvent">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">closeEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Handles cleanup and settings saving before application closes.</span>

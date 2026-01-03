@@ -90,7 +90,7 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">core.utils.logger</span><span class="w"> </span><span class="kn">import</span> <span class="n">log_error</span>
 
 <div class="viewcode-block" id="BibleDataLoader">
-<a class="viewcode-back" href="../../../core.utils.html#core.utils.bible_data_loader.BibleDataLoader">[docs]</a>
+<a class="viewcode-back" href="../../../core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">BibleDataLoader</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Loads and lazily caches Bible-related JSON data: version aliases, book aliases, canonical names,</span>
@@ -100,7 +100,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="BibleDataLoader.__init__">
-<a class="viewcode-back" href="../../../core.utils.html#core.utils.bible_data_loader.BibleDataLoader.__init__">[docs]</a>
+<a class="viewcode-back" href="../../../core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">json_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">text_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initializes the data loader with optional override paths.</span>
@@ -122,7 +122,7 @@
 
 
 <div class="viewcode-block" id="BibleDataLoader.get_verses">
-<a class="viewcode-back" href="../../../core.utils.html#core.utils.bible_data_loader.BibleDataLoader.get_verses">[docs]</a>
+<a class="viewcode-back" href="../../../core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader.get_verses">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_verses</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Retrieves all verses for a given Bible version, loading from disk if needed.</span>
@@ -144,7 +144,7 @@
 
 
 <div class="viewcode-block" id="BibleDataLoader.get_books_for_version">
-<a class="viewcode-back" href="../../../core.utils.html#core.utils.bible_data_loader.BibleDataLoader.get_books_for_version">[docs]</a>
+<a class="viewcode-back" href="../../../core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader.get_books_for_version">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_books_for_version</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the list of books available for the specified version.</span>
@@ -177,7 +177,7 @@
             <span class="k">return</span> <span class="p">{}</span>
 
 <div class="viewcode-block" id="BibleDataLoader.get_standard_book">
-<a class="viewcode-back" href="../../../core.utils.html#core.utils.bible_data_loader.BibleDataLoader.get_standard_book">[docs]</a>
+<a class="viewcode-back" href="../../../core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader.get_standard_book">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_standard_book</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">book_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">lang_code</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns localized canonical book name from internal ID.</span>
@@ -193,7 +193,7 @@
 
 
 <div class="viewcode-block" id="BibleDataLoader.get_sort_key">
-<a class="viewcode-back" href="../../../core.utils.html#core.utils.bible_data_loader.BibleDataLoader.get_sort_key">[docs]</a>
+<a class="viewcode-back" href="../../../core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader.get_sort_key">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_sort_key</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a key function for sorting version names by region prefix.</span>
@@ -209,7 +209,7 @@
 
 
 <div class="viewcode-block" id="BibleDataLoader.load_version">
-<a class="viewcode-back" href="../../../core.utils.html#core.utils.bible_data_loader.BibleDataLoader.load_version">[docs]</a>
+<a class="viewcode-back" href="../../../core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader.load_version">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">load_version</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version_key</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Manually loads a Bible version into memory.</span>
@@ -227,7 +227,7 @@
 
 
 <div class="viewcode-block" id="BibleDataLoader.load_versions">
-<a class="viewcode-back" href="../../../core.utils.html#core.utils.bible_data_loader.BibleDataLoader.load_versions">[docs]</a>
+<a class="viewcode-back" href="../../../core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader.load_versions">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">load_versions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target_versions</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">target_versions</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
@@ -241,7 +241,7 @@
 
 
 <div class="viewcode-block" id="BibleDataLoader.get_max_verse">
-<a class="viewcode-back" href="../../../core.utils.html#core.utils.bible_data_loader.BibleDataLoader.get_max_verse">[docs]</a>
+<a class="viewcode-back" href="../../../core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader.get_max_verse">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_max_verse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">book</span><span class="p">,</span> <span class="n">chapter</span><span class="p">):</span>
         <span class="n">version_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">version</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">version_data</span><span class="p">:</span>
@@ -256,7 +256,7 @@
 
 
 <div class="viewcode-block" id="BibleDataLoader.extract_verses">
-<a class="viewcode-back" href="../../../core.utils.html#core.utils.bible_data_loader.BibleDataLoader.extract_verses">[docs]</a>
+<a class="viewcode-back" href="../../../core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader.extract_verses">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">extract_verses</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">versions</span><span class="p">,</span> <span class="n">book</span><span class="p">,</span> <span class="n">chapter</span><span class="p">,</span> <span class="n">verse_range</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Extracts specific verses across multiple versions for given book/chapter/range.</span>
@@ -300,7 +300,7 @@
 
 
 <div class="viewcode-block" id="BibleDataLoader.get_verses_for_display">
-<a class="viewcode-back" href="../../../core.utils.html#core.utils.bible_data_loader.BibleDataLoader.get_verses_for_display">[docs]</a>
+<a class="viewcode-back" href="../../../core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader.get_verses_for_display">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_verses_for_display</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">versions</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">book</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">chapter</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verse_range</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns either extracted subset or full data depending on arguments.</span>
@@ -321,7 +321,7 @@
 
 
 <div class="viewcode-block" id="BibleDataLoader.get_book_alias">
-<a class="viewcode-back" href="../../../core.utils.html#core.utils.bible_data_loader.BibleDataLoader.get_book_alias">[docs]</a>
+<a class="viewcode-back" href="../../../core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader.get_book_alias">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_book_alias</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lang_code</span><span class="o">=</span><span class="s2">&quot;ko&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns book ID to alias mapping for display in selected language.</span>
@@ -339,7 +339,7 @@
 
 
 <div class="viewcode-block" id="BibleDataLoader.get_version_alias">
-<a class="viewcode-back" href="../../../core.utils.html#core.utils.bible_data_loader.BibleDataLoader.get_version_alias">[docs]</a>
+<a class="viewcode-back" href="../../../core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader.get_version_alias">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_version_alias</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lang_code</span><span class="o">=</span><span class="s2">&quot;ko&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns mapping of version keys to localized version aliases.</span>
@@ -361,7 +361,7 @@
 
     <span class="c1"># For compatibility with EuljiroWorship system    </span>
 <div class="viewcode-block" id="BibleDataLoader.get_verse">
-<a class="viewcode-back" href="../../../core.utils.html#core.utils.bible_data_loader.BibleDataLoader.get_verse">[docs]</a>
+<a class="viewcode-back" href="../../../core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader.get_verse">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_verse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">book</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">chapter</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">verse</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Retrieves a single verse from a specified version/book/chapter/verse.</span>

@@ -90,7 +90,7 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">core.utils.utils_output</span><span class="w"> </span><span class="kn">import</span> <span class="n">format_output</span>
 
 <div class="viewcode-block" id="parse_verse_range">
-<a class="viewcode-back" href="../../../core.logic.html#core.logic.verse_logic.parse_verse_range">[docs]</a>
+<a class="viewcode-back" href="../../../core.logic.verse_logic.html#core.logic.verse_logic.parse_verse_range">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">parse_verse_range</span><span class="p">(</span><span class="n">verse_text</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">book</span><span class="p">,</span> <span class="n">chapter</span><span class="p">,</span> <span class="n">bible_data</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Parses a verse input string and returns a (start, end) tuple.</span>
@@ -140,7 +140,7 @@
 
 
 <div class="viewcode-block" id="shift_verse_value">
-<a class="viewcode-back" href="../../../core.logic.html#core.logic.verse_logic.shift_verse_value">[docs]</a>
+<a class="viewcode-back" href="../../../core.logic.verse_logic.html#core.logic.verse_logic.shift_verse_value">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">shift_verse_value</span><span class="p">(</span><span class="n">current_verse</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">delta</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">max_verse</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Computes a new verse number by applying delta with bounds.</span>
@@ -162,7 +162,7 @@
 
 
 <div class="viewcode-block" id="resolve_reference">
-<a class="viewcode-back" href="../../../core.logic.html#core.logic.verse_logic.resolve_reference">[docs]</a>
+<a class="viewcode-back" href="../../../core.logic.verse_logic.html#core.logic.verse_logic.resolve_reference">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">resolve_reference</span><span class="p">(</span><span class="n">version_list</span><span class="p">,</span> <span class="n">book_str</span><span class="p">,</span> <span class="n">chapter_str</span><span class="p">,</span> <span class="n">verse_str</span><span class="p">,</span> <span class="n">bible_data</span><span class="p">,</span> <span class="n">lang_code</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Resolves raw user input strings into normalized reference values.</span>
@@ -199,7 +199,7 @@
 
 
 <div class="viewcode-block" id="get_common_books_among_versions">
-<a class="viewcode-back" href="../../../core.logic.html#core.logic.verse_logic.get_common_books_among_versions">[docs]</a>
+<a class="viewcode-back" href="../../../core.logic.verse_logic.html#core.logic.verse_logic.get_common_books_among_versions">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">get_common_books_among_versions</span><span class="p">(</span><span class="n">versions</span><span class="p">,</span> <span class="n">get_verses_func</span><span class="p">,</span> <span class="n">bible_data</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns list of books that are common to all selected versions.</span>
@@ -230,7 +230,7 @@
 
 
 <div class="viewcode-block" id="validate_versions_and_books">
-<a class="viewcode-back" href="../../../core.logic.html#core.logic.verse_logic.validate_versions_and_books">[docs]</a>
+<a class="viewcode-back" href="../../../core.logic.verse_logic.html#core.logic.verse_logic.validate_versions_and_books">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">validate_versions_and_books</span><span class="p">(</span><span class="n">versions</span><span class="p">,</span> <span class="n">bible_data</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Checks whether the versions are valid and share common books.</span>
@@ -254,7 +254,7 @@
 
 
 <div class="viewcode-block" id="display_verse_logic">
-<a class="viewcode-back" href="../../../core.logic.html#core.logic.verse_logic.display_verse_logic">[docs]</a>
+<a class="viewcode-back" href="../../../core.logic.verse_logic.html#core.logic.verse_logic.display_verse_logic">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">display_verse_logic</span><span class="p">(</span>
     <span class="n">ref_func</span><span class="p">,</span>
     <span class="n">output_target</span><span class="p">,</span>

@@ -1,21 +1,7 @@
 core.logic
 ==========
 
-Submodules
-----------
+.. toctree::
+   :maxdepth: 7
 
-core.logic.verse\_logic
----------------------------
-
-.. automodule:: core.logic.verse_logic
-   :members:
-   :show-inheritance:
-   :undoc-members:
-
-Module contents
----------------
-
-.. automodule:: core.logic
-   :members:
-   :show-inheritance:
-   :undoc-members:
+   core.logic.verse_logic

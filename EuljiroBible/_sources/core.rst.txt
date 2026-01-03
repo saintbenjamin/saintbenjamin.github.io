@@ -1,20 +1,9 @@
 core
 ====
 
-Subpackages
------------
-
 .. toctree::
-   :maxdepth: 4
+   :maxdepth: 7
 
    core.config
    core.logic
    core.utils
-
-Module contents
----------------
-
-.. automodule:: core
-   :members:
-   :show-inheritance:
-   :undoc-members:

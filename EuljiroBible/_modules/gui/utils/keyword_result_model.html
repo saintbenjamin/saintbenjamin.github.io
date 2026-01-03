@@ -86,7 +86,7 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtCore</span><span class="w"> </span><span class="kn">import</span> <span class="n">Qt</span><span class="p">,</span> <span class="n">QAbstractTableModel</span><span class="p">,</span> <span class="n">QModelIndex</span>
 
 <div class="viewcode-block" id="KeywordResultTableModel">
-<a class="viewcode-back" href="../../../gui.utils.html#gui.utils.keyword_result_model.KeywordResultTableModel">[docs]</a>
+<a class="viewcode-back" href="../../../gui.utils.keyword_result_model.html#gui.utils.keyword_result_model.KeywordResultTableModel">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">KeywordResultTableModel</span><span class="p">(</span><span class="n">QAbstractTableModel</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    QAbstractTableModel implementation for Bible keyword search results.</span>
@@ -110,7 +110,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">tr</span> <span class="o">=</span> <span class="n">tr</span> 
 
 <div class="viewcode-block" id="KeywordResultTableModel.rowCount">
-<a class="viewcode-back" href="../../../gui.utils.html#gui.utils.keyword_result_model.KeywordResultTableModel.rowCount">[docs]</a>
+<a class="viewcode-back" href="../../../gui.utils.keyword_result_model.html#gui.utils.keyword_result_model.KeywordResultTableModel.rowCount">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">rowCount</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="n">QModelIndex</span><span class="p">()):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the number of rows in the model.</span>
@@ -122,7 +122,7 @@
 
 
 <div class="viewcode-block" id="KeywordResultTableModel.columnCount">
-<a class="viewcode-back" href="../../../gui.utils.html#gui.utils.keyword_result_model.KeywordResultTableModel.columnCount">[docs]</a>
+<a class="viewcode-back" href="../../../gui.utils.keyword_result_model.html#gui.utils.keyword_result_model.KeywordResultTableModel.columnCount">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">columnCount</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="n">QModelIndex</span><span class="p">()):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the number of columns in the model.</span>
@@ -139,7 +139,7 @@
 
 
 <div class="viewcode-block" id="KeywordResultTableModel.data">
-<a class="viewcode-back" href="../../../gui.utils.html#gui.utils.keyword_result_model.KeywordResultTableModel.data">[docs]</a>
+<a class="viewcode-back" href="../../../gui.utils.keyword_result_model.html#gui.utils.keyword_result_model.KeywordResultTableModel.data">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">role</span><span class="o">=</span><span class="n">Qt</span><span class="o">.</span><span class="n">DisplayRole</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the data for a given cell in the model.</span>
@@ -167,7 +167,7 @@
 
 
 <div class="viewcode-block" id="KeywordResultTableModel.headerData">
-<a class="viewcode-back" href="../../../gui.utils.html#gui.utils.keyword_result_model.KeywordResultTableModel.headerData">[docs]</a>
+<a class="viewcode-back" href="../../../gui.utils.keyword_result_model.html#gui.utils.keyword_result_model.KeywordResultTableModel.headerData">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">headerData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">,</span> <span class="n">orientation</span><span class="p">,</span> <span class="n">role</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the header labels for columns.</span>

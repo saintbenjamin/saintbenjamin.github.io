@@ -89,7 +89,7 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtCore</span><span class="w"> </span><span class="kn">import</span> <span class="n">QPoint</span>
 
 <div class="viewcode-block" id="KeywordHighlightDelegate">
-<a class="viewcode-back" href="../../../gui.utils.html#gui.utils.keyword_highlight_delegate.KeywordHighlightDelegate">[docs]</a>
+<a class="viewcode-back" href="../../../gui.utils.keyword_highlight_delegate.html#gui.utils.keyword_highlight_delegate.KeywordHighlightDelegate">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">KeywordHighlightDelegate</span><span class="p">(</span><span class="n">QStyledItemDelegate</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Custom delegate to render keyword search results with highlighted terms</span>
@@ -106,7 +106,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">keywords</span> <span class="o">=</span> <span class="n">keywords</span>  <span class="c1"># list[str]</span>
 
 <div class="viewcode-block" id="KeywordHighlightDelegate.paint">
-<a class="viewcode-back" href="../../../gui.utils.html#gui.utils.keyword_highlight_delegate.KeywordHighlightDelegate.paint">[docs]</a>
+<a class="viewcode-back" href="../../../gui.utils.keyword_highlight_delegate.html#gui.utils.keyword_highlight_delegate.KeywordHighlightDelegate.paint">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">paint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">painter</span><span class="p">,</span> <span class="n">option</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Renders the cell with HTML-formatted text, highlighting keywords.</span>

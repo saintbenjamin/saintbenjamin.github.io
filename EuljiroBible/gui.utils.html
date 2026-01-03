@@ -19,7 +19,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="gui.ui.locale" href="gui.ui.locale.html" /> 
+    <link rel="next" title="gui.utils.keyword_highlight_delegate" href="gui.utils.keyword_highlight_delegate.html" />
+    <link rel="prev" title="gui.ui.window_main" href="gui.ui.window_main.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -48,17 +49,29 @@
 <li class="toctree-l2"><a class="reference internal" href="cli.html">cli</a></li>
 <li class="toctree-l2"><a class="reference internal" href="core.html">core</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="gui.html">gui</a><ul class="current">
-<li class="toctree-l3 current"><a class="reference internal" href="gui.html#subpackages">Subpackages</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="gui.config.html">gui.config</a></li>
-<li class="toctree-l4"><a class="reference internal" href="gui.constant.html">gui.constant</a></li>
-<li class="toctree-l4"><a class="reference internal" href="gui.ui.html">gui.ui</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">gui.utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gui.config.html">gui.config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gui.constants.html">gui.constants</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gui.gui_main.html">gui.gui_main</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gui.launch.html">gui.launch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gui.ui.html">gui.ui</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">gui.utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gui.utils.keyword_highlight_delegate.html">gui.utils.keyword_highlight_delegate</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.utils.keyword_result_model.html">gui.utils.keyword_result_model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.utils.logger.html">gui.utils.logger</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.utils.overlay_factory.html">gui.utils.overlay_factory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.utils.settings_helper.html">gui.utils.settings_helper</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.utils.state_saver.html">gui.utils.state_saver</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.utils.ui_restore.html">gui.utils.ui_restore</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.utils.utils_dialog.html">gui.utils.utils_dialog</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.utils.utils_display.html">gui.utils.utils_display</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.utils.utils_env.html">gui.utils.utils_env</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.utils.utils_fonts.html">gui.utils.utils_fonts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.utils.utils_save.html">gui.utils.utils_save</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.utils.utils_theme.html">gui.utils.utils_theme</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.utils.utils_validation.html">gui.utils.utils_validation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.utils.verse_output_handler.html">gui.utils.verse_output_handler</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="gui.html#submodules">Submodules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="gui.html#module-gui.gui_main">gui.gui_main</a></li>
-<li class="toctree-l3"><a class="reference internal" href="gui.html#module-gui.launch">gui.launch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="gui.html#module-gui">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -93,928 +106,103 @@
              
   <section id="gui-utils">
 <h1>gui.utils<a class="headerlink" href="#gui-utils" title="Link to this heading"></a></h1>
-<section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
-</section>
-<section id="module-gui.utils.keyword_highlight_delegate">
-<span id="gui-utils-keyword-highlight-delegate"></span><h2>gui.utils.keyword_highlight_delegate<a class="headerlink" href="#module-gui.utils.keyword_highlight_delegate" title="Link to this heading"></a></h2>
-<dl class="field-list simple">
-<dt class="field-odd">File<span class="colon">:</span></dt>
-<dd class="field-odd"><p>EuljiroBible/gui/utils/keyword_highlight_delegate.py</p>
-</dd>
-</dl>
-<p>Provides a QStyledItemDelegate that highlights specified keywords in red
-within a QTextDocument, supporting HTML formatting and line wrapping.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Author<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
-</dd>
-<dt class="field-even">Affiliated Church<span class="colon">:</span></dt>
-<dd class="field-even"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
-</dd>
-<dt class="field-odd">Address<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
-</dd>
-<dt class="field-even">Telephone<span class="colon">:</span></dt>
-<dd class="field-even"><p>+82-2-2266-3070</p>
-</dd>
-<dt class="field-odd">E-mail<span class="colon">:</span></dt>
-<dd class="field-odd"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
-</dd>
-<dt class="field-even">License<span class="colon">:</span></dt>
-<dd class="field-even"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
-</dd>
-</dl>
-<dl class="py class">
-<dt class="sig sig-object py" id="gui.utils.keyword_highlight_delegate.KeywordHighlightDelegate">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gui.utils.keyword_highlight_delegate.</span></span><span class="sig-name descname"><span class="pre">KeywordHighlightDelegate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/keyword_highlight_delegate.html#KeywordHighlightDelegate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.keyword_highlight_delegate.KeywordHighlightDelegate" title="Link to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QStyledItemDelegate</span></code></p>
-<p>Custom delegate to render keyword search results with highlighted terms
-using QTextDocument for HTML and multiline support.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>keywords</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – List of keywords to highlight</p></li>
-<li><p><strong>parent</strong> (<em>QWidget</em><em> | </em><em>None</em>) – Optional parent QWidget</p></li>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="gui.utils.keyword_highlight_delegate.html">gui.utils.keyword_highlight_delegate</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gui.utils.keyword_highlight_delegate.html#gui.utils.keyword_highlight_delegate.KeywordHighlightDelegate"><code class="docutils literal notranslate"><span class="pre">KeywordHighlightDelegate</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gui.utils.keyword_highlight_delegate.html#gui.utils.keyword_highlight_delegate.KeywordHighlightDelegate.paint"><code class="docutils literal notranslate"><span class="pre">KeywordHighlightDelegate.paint()</span></code></a></li>
 </ul>
-</dd>
-</dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="gui.utils.keyword_highlight_delegate.KeywordHighlightDelegate.paint">
-<span class="sig-name descname"><span class="pre">paint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">painter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">option</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/keyword_highlight_delegate.html#KeywordHighlightDelegate.paint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.keyword_highlight_delegate.KeywordHighlightDelegate.paint" title="Link to this definition"></a></dt>
-<dd><p>Renders the cell with HTML-formatted text, highlighting keywords.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>painter</strong> (<em>QPainter</em>) – QPainter object used for rendering</p></li>
-<li><p><strong>option</strong> (<em>QStyleOptionViewItem</em>) – Styling options for the item</p></li>
-<li><p><strong>index</strong> (<em>QModelIndex</em>) – Index of the model item</p></li>
+</li>
 </ul>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-</section>
-<section id="module-gui.utils.keyword_result_model">
-<span id="gui-utils-keyword-result-model"></span><h2>gui.utils.keyword_result_model<a class="headerlink" href="#module-gui.utils.keyword_result_model" title="Link to this heading"></a></h2>
-<dl class="field-list simple">
-<dt class="field-odd">File<span class="colon">:</span></dt>
-<dd class="field-odd"><p>EuljiroBible/gui/utils/keyword_result_model.py</p>
-</dd>
-</dl>
-<p>Provides a QAbstractTableModel for displaying Bible keyword search results.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Author<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
-</dd>
-<dt class="field-even">Affiliated Church<span class="colon">:</span></dt>
-<dd class="field-even"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
-</dd>
-<dt class="field-odd">Address<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
-</dd>
-<dt class="field-even">Telephone<span class="colon">:</span></dt>
-<dd class="field-even"><p>+82-2-2266-3070</p>
-</dd>
-<dt class="field-odd">E-mail<span class="colon">:</span></dt>
-<dd class="field-odd"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
-</dd>
-<dt class="field-even">License<span class="colon">:</span></dt>
-<dd class="field-even"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
-</dd>
-</dl>
-<dl class="py class">
-<dt class="sig sig-object py" id="gui.utils.keyword_result_model.KeywordResultTableModel">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gui.utils.keyword_result_model.</span></span><span class="sig-name descname"><span class="pre">KeywordResultTableModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/keyword_result_model.html#KeywordResultTableModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.keyword_result_model.KeywordResultTableModel" title="Link to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QAbstractTableModel</span></code></p>
-<p>QAbstractTableModel implementation for Bible keyword search results.</p>
-<p>This model provides three columns:
-0. Row number
-1. Book + chapter:verse (with localized alias)
-2. Verse text</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>results</strong> – List of verse dictionaries</p></li>
-<li><p><strong>bible_data</strong> – BibleDataLoader instance for resolving book aliases</p></li>
-<li><p><strong>current_language</strong> – Language code (e.g., ‘ko’, ‘en’) for localization</p></li>
-<li><p><strong>tr</strong> – Translation function</p></li>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gui.utils.keyword_result_model.html">gui.utils.keyword_result_model</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gui.utils.keyword_result_model.html#gui.utils.keyword_result_model.KeywordResultTableModel"><code class="docutils literal notranslate"><span class="pre">KeywordResultTableModel</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gui.utils.keyword_result_model.html#gui.utils.keyword_result_model.KeywordResultTableModel.rowCount"><code class="docutils literal notranslate"><span class="pre">KeywordResultTableModel.rowCount()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gui.utils.keyword_result_model.html#gui.utils.keyword_result_model.KeywordResultTableModel.columnCount"><code class="docutils literal notranslate"><span class="pre">KeywordResultTableModel.columnCount()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gui.utils.keyword_result_model.html#gui.utils.keyword_result_model.KeywordResultTableModel.data"><code class="docutils literal notranslate"><span class="pre">KeywordResultTableModel.data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gui.utils.keyword_result_model.html#gui.utils.keyword_result_model.KeywordResultTableModel.headerData"><code class="docutils literal notranslate"><span class="pre">KeywordResultTableModel.headerData()</span></code></a></li>
 </ul>
-</dd>
-</dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="gui.utils.keyword_result_model.KeywordResultTableModel.rowCount">
-<span class="sig-name descname"><span class="pre">rowCount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">PySide6.QtCore.QModelIndex</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/keyword_result_model.html#KeywordResultTableModel.rowCount"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.keyword_result_model.KeywordResultTableModel.rowCount" title="Link to this definition"></a></dt>
-<dd><p>Returns the number of rows in the model.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>parent</strong> – QModelIndex (not used)</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Row count</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="gui.utils.keyword_result_model.KeywordResultTableModel.columnCount">
-<span class="sig-name descname"><span class="pre">columnCount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">PySide6.QtCore.QModelIndex</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/keyword_result_model.html#KeywordResultTableModel.columnCount"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.keyword_result_model.KeywordResultTableModel.columnCount" title="Link to this definition"></a></dt>
-<dd><p>Returns the number of columns in the model.</p>
-<p>Columns:
-0 - Index number
-1 - Reference (book + chapter:verse)
-2 - Verse text</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>parent</strong> – QModelIndex (not used)</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Column count (always 3)</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="gui.utils.keyword_result_model.KeywordResultTableModel.data">
-<span class="sig-name descname"><span class="pre">data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">role</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">PySide6.QtCore.Qt.DisplayRole</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/keyword_result_model.html#KeywordResultTableModel.data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.keyword_result_model.KeywordResultTableModel.data" title="Link to this definition"></a></dt>
-<dd><p>Returns the data for a given cell in the model.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> – QModelIndex specifying row and column</p></li>
-<li><p><strong>role</strong> – Qt item role (only DisplayRole is handled)</p></li>
+</li>
 </ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Display string for the given index</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="gui.utils.keyword_result_model.KeywordResultTableModel.headerData">
-<span class="sig-name descname"><span class="pre">headerData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">section</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orientation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">role</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/keyword_result_model.html#KeywordResultTableModel.headerData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.keyword_result_model.KeywordResultTableModel.headerData" title="Link to this definition"></a></dt>
-<dd><p>Returns the header labels for columns.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>section</strong> – Column index</p></li>
-<li><p><strong>orientation</strong> – Qt.Horizontal or Qt.Vertical</p></li>
-<li><p><strong>role</strong> – Qt item role</p></li>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gui.utils.logger.html">gui.utils.logger</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gui.utils.logger.html#gui.utils.logger.log_error_with_dialog"><code class="docutils literal notranslate"><span class="pre">log_error_with_dialog()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="gui.utils.logger.html#gui.utils.logger.handle_exception"><code class="docutils literal notranslate"><span class="pre">handle_exception()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="gui.utils.logger.html#gui.utils.logger.MonitorErrorLog"><code class="docutils literal notranslate"><span class="pre">MonitorErrorLog</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gui.utils.logger.html#gui.utils.logger.MonitorErrorLog.load_log"><code class="docutils literal notranslate"><span class="pre">MonitorErrorLog.load_log()</span></code></a></li>
 </ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Header label string or None</p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-</section>
-<section id="module-gui.utils.logger">
-<span id="gui-utils-logger"></span><h2>gui.utils.logger<a class="headerlink" href="#module-gui.utils.logger" title="Link to this heading"></a></h2>
-<dl class="field-list simple">
-<dt class="field-odd">File<span class="colon">:</span></dt>
-<dd class="field-odd"><p>gui/utils/gui_logger.py</p>
-</dd>
-</dl>
-<p>Provides GUI-specific logging helpers for EuljiroBible, including error dialog and log viewer.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Author<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
-</dd>
-<dt class="field-even">Affiliated Church<span class="colon">:</span></dt>
-<dd class="field-even"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
-</dd>
-<dt class="field-odd">Address<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
-</dd>
-<dt class="field-even">Telephone<span class="colon">:</span></dt>
-<dd class="field-even"><p>+82-2-2266-3070</p>
-</dd>
-<dt class="field-odd">E-mail<span class="colon">:</span></dt>
-<dd class="field-odd"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
-</dd>
-<dt class="field-even">License<span class="colon">:</span></dt>
-<dd class="field-even"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
-</dd>
-</dl>
-<dl class="py function">
-<dt class="sig sig-object py" id="gui.utils.logger.log_error_with_dialog">
-<span class="sig-prename descclassname"><span class="pre">gui.utils.logger.</span></span><span class="sig-name descname"><span class="pre">log_error_with_dialog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exception</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Error'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra_message</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/logger.html#log_error_with_dialog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.logger.log_error_with_dialog" title="Link to this definition"></a></dt>
-<dd><p>Logs an error and shows a GUI message box to the user with an option to view the error log.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>parent</strong> (<em>QWidget</em>) – The parent widget for the QMessageBox.</p></li>
-<li><p><strong>exception</strong> (<em>Exception</em>) – The exception object to log and display.</p></li>
-<li><p><strong>title</strong> (<em>str</em>) – The title of the message box.</p></li>
-<li><p><strong>extra_message</strong> (<em>str</em><em>, </em><em>optional</em>) – Additional context to show in the message box.</p></li>
+</li>
 </ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="gui.utils.logger.handle_exception">
-<span class="sig-prename descclassname"><span class="pre">gui.utils.logger.</span></span><span class="sig-name descname"><span class="pre">handle_exception</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exception</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Error'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_message</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/logger.html#handle_exception"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.logger.handle_exception" title="Link to this definition"></a></dt>
-<dd><p>Shortcut to log and show exception with dialog. Can be used globally in GUI.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>exception</strong> (<em>Exception</em>) – The exception to handle.</p></li>
-<li><p><strong>title</strong> (<em>str</em>) – Dialog title.</p></li>
-<li><p><strong>user_message</strong> (<em>str</em>) – Optional message for user context.</p></li>
-<li><p><strong>parent</strong> (<em>QWidget</em><em>, </em><em>optional</em>) – Parent widget.</p></li>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gui.utils.overlay_factory.html">gui.utils.overlay_factory</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gui.utils.overlay_factory.html#gui.utils.overlay_factory.create_overlay"><code class="docutils literal notranslate"><span class="pre">create_overlay()</span></code></a></li>
 </ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="gui.utils.logger.MonitorErrorLog">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gui.utils.logger.</span></span><span class="sig-name descname"><span class="pre">MonitorErrorLog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/logger.html#MonitorErrorLog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.logger.MonitorErrorLog" title="Link to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
-<p>A window that displays the contents of the application error log file.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="gui.utils.logger.MonitorErrorLog.load_log">
-<span class="sig-name descname"><span class="pre">load_log</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/logger.html#MonitorErrorLog.load_log"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.logger.MonitorErrorLog.load_log" title="Link to this definition"></a></dt>
-<dd><p>Loads and displays the error log content in the text edit field.</p>
-</dd></dl>
-
-</dd></dl>
-
-</section>
-<section id="module-gui.utils.overlay_factory">
-<span id="gui-utils-overlay-factory"></span><h2>gui.utils.overlay_factory<a class="headerlink" href="#module-gui.utils.overlay_factory" title="Link to this heading"></a></h2>
-<dl class="field-list simple">
-<dt class="field-odd">File<span class="colon">:</span></dt>
-<dd class="field-odd"><p>EuljiroBible/gui/utils/overlay_factory.py</p>
-</dd>
-</dl>
-<p>Provides a factory function to instantiate the WidgetOverlay using
-current settings and display geometry.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Author<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
-</dd>
-<dt class="field-even">Affiliated Church<span class="colon">:</span></dt>
-<dd class="field-even"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
-</dd>
-<dt class="field-odd">Address<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
-</dd>
-<dt class="field-even">Telephone<span class="colon">:</span></dt>
-<dd class="field-even"><p>+82-2-2266-3070</p>
-</dd>
-<dt class="field-odd">E-mail<span class="colon">:</span></dt>
-<dd class="field-odd"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
-</dd>
-<dt class="field-even">License<span class="colon">:</span></dt>
-<dd class="field-even"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
-</dd>
-</dl>
-<dl class="py function">
-<dt class="sig sig-object py" id="gui.utils.overlay_factory.create_overlay">
-<span class="sig-prename descclassname"><span class="pre">gui.utils.overlay_factory.</span></span><span class="sig-name descname"><span class="pre">create_overlay</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geometry</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/overlay_factory.html#create_overlay"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.overlay_factory.create_overlay" title="Link to this definition"></a></dt>
-<dd><p>Creates an WidgetOverlay instance using the provided settings and screen geometry.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>settings</strong> (<em>dict</em>) – Settings dictionary containing overlay style configurations.</p></li>
-<li><p><strong>geometry</strong> (<em>QRect</em>) – Geometry of the screen on which to display the overlay.</p></li>
-<li><p><strong>parent</strong> (<em>QWidget</em><em>, </em><em>optional</em>) – Optional parent widget for the overlay.</p></li>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gui.utils.settings_helper.html">gui.utils.settings_helper</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gui.utils.settings_helper.html#gui.utils.settings_helper.update_overlay_settings"><code class="docutils literal notranslate"><span class="pre">update_overlay_settings()</span></code></a></li>
 </ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A fully configured and ready-to-show overlay widget.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="gui.ui.html#gui.ui.widget_overlay.WidgetOverlay" title="gui.ui.widget_overlay.WidgetOverlay">WidgetOverlay</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
-<section id="module-gui.utils.settings_helper">
-<span id="gui-utils-settings-helper"></span><h2>gui.utils.settings_helper<a class="headerlink" href="#module-gui.utils.settings_helper" title="Link to this heading"></a></h2>
-<dl class="field-list simple">
-<dt class="field-odd">File<span class="colon">:</span></dt>
-<dd class="field-odd"><p>EuljiroBible/gui/utils/settings_helper.py</p>
-</dd>
-</dl>
-<p>Provides helper functions for extracting and updating settings
-based on user interface widget states, especially overlay-related UI components.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Author<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
-</dd>
-<dt class="field-even">Affiliated Church<span class="colon">:</span></dt>
-<dd class="field-even"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
-</dd>
-<dt class="field-odd">Address<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
-</dd>
-<dt class="field-even">Telephone<span class="colon">:</span></dt>
-<dd class="field-even"><p>+82-2-2266-3070</p>
-</dd>
-<dt class="field-odd">E-mail<span class="colon">:</span></dt>
-<dd class="field-odd"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
-</dd>
-<dt class="field-even">License<span class="colon">:</span></dt>
-<dd class="field-even"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
-</dd>
-</dl>
-<dl class="py function">
-<dt class="sig sig-object py" id="gui.utils.settings_helper.update_overlay_settings">
-<span class="sig-prename descclassname"><span class="pre">gui.utils.settings_helper.</span></span><span class="sig-name descname"><span class="pre">update_overlay_settings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">widget_overlays</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/settings_helper.html#update_overlay_settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.settings_helper.update_overlay_settings" title="Link to this definition"></a></dt>
-<dd><p>Update the given settings dictionary with current values from overlay-related UI widgets.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>settings</strong> (<em>dict</em>) – Settings dictionary to be updated.</p></li>
-<li><p><strong>widget_overlays</strong> (<em>dict</em>) – <p>Dictionary of UI widgets used for overlay settings.</p>
-<p>Expected keys include:
-font_combo (QComboBox or QFontComboBox),
-size_combo (QComboBox),
-weight_combo (QComboBox),
-alpha_slider (QSlider),
-text_color_btn (QPushButton),
-bg_color_btn (QPushButton),
-mode_combo (QComboBox; values: “fullscreen” or “resizable”).</p>
-</p></li>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gui.utils.state_saver.html">gui.utils.state_saver</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gui.utils.state_saver.html#gui.utils.state_saver.save_settings_from_ui"><code class="docutils literal notranslate"><span class="pre">save_settings_from_ui()</span></code></a></li>
 </ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Updated settings dictionary containing overlay display configuration.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>dict</p>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
-<section id="module-gui.utils.state_saver">
-<span id="gui-utils-state-saver"></span><h2>gui.utils.state_saver<a class="headerlink" href="#module-gui.utils.state_saver" title="Link to this heading"></a></h2>
-<dl class="field-list simple">
-<dt class="field-odd">File<span class="colon">:</span></dt>
-<dd class="field-odd"><p>EuljiroBible/gui/utils/state_saver.py</p>
-</dd>
-</dl>
-<p>Provides utility functions to save application settings from the UI state in EuljiroBible.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Author<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
-</dd>
-<dt class="field-even">Affiliated Church<span class="colon">:</span></dt>
-<dd class="field-even"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
-</dd>
-<dt class="field-odd">Address<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
-</dd>
-<dt class="field-even">Telephone<span class="colon">:</span></dt>
-<dd class="field-even"><p>+82-2-2266-3070</p>
-</dd>
-<dt class="field-odd">E-mail<span class="colon">:</span></dt>
-<dd class="field-odd"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
-</dd>
-<dt class="field-even">License<span class="colon">:</span></dt>
-<dd class="field-even"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
-</dd>
-</dl>
-<dl class="py function">
-<dt class="sig sig-object py" id="gui.utils.state_saver.save_settings_from_ui">
-<span class="sig-prename descclassname"><span class="pre">gui.utils.state_saver.</span></span><span class="sig-name descname"><span class="pre">save_settings_from_ui</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tab_verse</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/state_saver.html#save_settings_from_ui"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.state_saver.save_settings_from_ui" title="Link to this definition"></a></dt>
-<dd><p>Saves UI state settings into the settings.json file.</p>
-<p>Captures font settings, last selected versions, last book/chapter/verse,
-and dark mode status from the UI and persists them.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>app</strong> (<em>QApplication</em>) – The main application instance.</p></li>
-<li><p><strong>tab_verse</strong> (<a class="reference internal" href="gui.ui.html#gui.ui.tab_verse.TabVerse" title="gui.ui.tab_verse.TabVerse"><em>TabVerse</em></a>) – The verse tab widget containing the UI state.</p></li>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gui.utils.ui_restore.html">gui.utils.ui_restore</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gui.utils.ui_restore.html#gui.utils.ui_restore.restore_settings_to_ui"><code class="docutils literal notranslate"><span class="pre">restore_settings_to_ui()</span></code></a></li>
 </ul>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
-<section id="module-gui.utils.ui_restore">
-<span id="gui-utils-ui-restore"></span><h2>gui.utils.ui_restore<a class="headerlink" href="#module-gui.utils.ui_restore" title="Link to this heading"></a></h2>
-<dl class="field-list simple">
-<dt class="field-odd">File<span class="colon">:</span></dt>
-<dd class="field-odd"><p>EuljiroBible/gui/utils/ui_restore.py</p>
-</dd>
-</dl>
-<p>Restores user settings into the main window UI components.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Author<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
-</dd>
-<dt class="field-even">Affiliated Church<span class="colon">:</span></dt>
-<dd class="field-even"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
-</dd>
-<dt class="field-odd">Address<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
-</dd>
-<dt class="field-even">Telephone<span class="colon">:</span></dt>
-<dd class="field-even"><p>+82-2-2266-3070</p>
-</dd>
-<dt class="field-odd">E-mail<span class="colon">:</span></dt>
-<dd class="field-odd"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
-</dd>
-<dt class="field-even">License<span class="colon">:</span></dt>
-<dd class="field-even"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
-</dd>
-</dl>
-<dl class="py function">
-<dt class="sig sig-object py" id="gui.utils.ui_restore.restore_settings_to_ui">
-<span class="sig-prename descclassname"><span class="pre">gui.utils.ui_restore.</span></span><span class="sig-name descname"><span class="pre">restore_settings_to_ui</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">win</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">settings</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/ui_restore.html#restore_settings_to_ui"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.ui_restore.restore_settings_to_ui" title="Link to this definition"></a></dt>
-<dd><p>Applies saved settings to the main window’s UI components.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>win</strong> (<em>MainWindow</em>) – The main window instance.</p></li>
-<li><p><strong>settings</strong> (<em>dict</em>) – Loaded user settings.</p></li>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gui.utils.utils_dialog.html">gui.utils.utils_dialog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gui.utils.utils_dialog.html#gui.utils.utils_dialog.set_color_from_dialog"><code class="docutils literal notranslate"><span class="pre">set_color_from_dialog()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="gui.utils.utils_dialog.html#gui.utils.utils_dialog.get_save_path"><code class="docutils literal notranslate"><span class="pre">get_save_path()</span></code></a></li>
 </ul>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
-<section id="module-gui.utils.utils_dialog">
-<span id="gui-utils-utils-dialog"></span><h2>gui.utils.utils_dialog<a class="headerlink" href="#module-gui.utils.utils_dialog" title="Link to this heading"></a></h2>
-<dl class="field-list simple">
-<dt class="field-odd">File<span class="colon">:</span></dt>
-<dd class="field-odd"><p>EuljiroBible/gui/utils/utils_dialog.py</p>
-</dd>
-</dl>
-<p>Provides helper functions for GUI dialogs such as color selection and file save location.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Author<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
-</dd>
-<dt class="field-even">Affiliated Church<span class="colon">:</span></dt>
-<dd class="field-even"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
-</dd>
-<dt class="field-odd">Address<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
-</dd>
-<dt class="field-even">Telephone<span class="colon">:</span></dt>
-<dd class="field-even"><p>+82-2-2266-3070</p>
-</dd>
-<dt class="field-odd">E-mail<span class="colon">:</span></dt>
-<dd class="field-odd"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
-</dd>
-<dt class="field-even">License<span class="colon">:</span></dt>
-<dd class="field-even"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
-</dd>
-</dl>
-<dl class="py function">
-<dt class="sig sig-object py" id="gui.utils.utils_dialog.set_color_from_dialog">
-<span class="sig-prename descclassname"><span class="pre">gui.utils.utils_dialog.</span></span><span class="sig-name descname"><span class="pre">set_color_from_dialog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">button</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">setting_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/utils_dialog.html#set_color_from_dialog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.utils_dialog.set_color_from_dialog" title="Link to this definition"></a></dt>
-<dd><p>Opens QColorDialog, updates button color, saves to settings, and runs callback.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>button</strong> (<em>QPushButton</em>) – The button to update the background color of.</p></li>
-<li><p><strong>setting_key</strong> (<em>str</em>) – Settings dictionary key to update.</p></li>
-<li><p><strong>callback</strong> (<em>function</em><em>, </em><em>optional</em>) – Function to call after color is applied.</p></li>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gui.utils.utils_display.html">gui.utils.utils_display</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gui.utils.utils_display.html#gui.utils.utils_display.get_display_descriptions"><code class="docutils literal notranslate"><span class="pre">get_display_descriptions()</span></code></a></li>
 </ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="gui.utils.utils_dialog.get_save_path">
-<span class="sig-prename descclassname"><span class="pre">gui.utils.utils_dialog.</span></span><span class="sig-name descname"><span class="pre">get_save_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Text</span> <span class="pre">Files</span> <span class="pre">(*.txt)'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/utils_dialog.html#get_save_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.utils_dialog.get_save_path" title="Link to this definition"></a></dt>
-<dd><p>Opens a file dialog and returns the selected save path.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>parent</strong> (<em>QWidget</em>) – Parent widget for dialog.</p></li>
-<li><p><strong>current_path</strong> (<em>str</em>) – Initial path.</p></li>
-<li><p><strong>title</strong> (<em>str</em>) – Dialog title.</p></li>
-<li><p><strong>file_filter</strong> (<em>str</em>) – File type filter string.</p></li>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gui.utils.utils_env.html">gui.utils.utils_env</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gui.utils.utils_env.html#gui.utils.utils_env.setup_environment"><code class="docutils literal notranslate"><span class="pre">setup_environment()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="gui.utils.utils_env.html#gui.utils.utils_env.verify_wsl_display"><code class="docutils literal notranslate"><span class="pre">verify_wsl_display()</span></code></a></li>
 </ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Selected path or empty string if cancelled.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>str</p>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
-<section id="module-gui.utils.utils_display">
-<span id="gui-utils-utils-display"></span><h2>gui.utils.utils_display<a class="headerlink" href="#module-gui.utils.utils_display" title="Link to this heading"></a></h2>
-<dl class="field-list simple">
-<dt class="field-odd">File<span class="colon">:</span></dt>
-<dd class="field-odd"><p>EuljiroBible/gui/utils/utils_display.py</p>
-</dd>
-</dl>
-<p>Provides utility functions for listing display screen descriptions in EuljiroBible.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Author<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
-</dd>
-<dt class="field-even">Affiliated Church<span class="colon">:</span></dt>
-<dd class="field-even"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
-</dd>
-<dt class="field-odd">Address<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
-</dd>
-<dt class="field-even">Telephone<span class="colon">:</span></dt>
-<dd class="field-even"><p>+82-2-2266-3070</p>
-</dd>
-<dt class="field-odd">E-mail<span class="colon">:</span></dt>
-<dd class="field-odd"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
-</dd>
-<dt class="field-even">License<span class="colon">:</span></dt>
-<dd class="field-even"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
-</dd>
-</dl>
-<dl class="py function">
-<dt class="sig sig-object py" id="gui.utils.utils_display.get_display_descriptions">
-<span class="sig-prename descclassname"><span class="pre">gui.utils.utils_display.</span></span><span class="sig-name descname"><span class="pre">get_display_descriptions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/utils_display.html#get_display_descriptions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.utils_display.get_display_descriptions" title="Link to this definition"></a></dt>
-<dd><p>Returns a list of human-readable descriptions for all connected displays.</p>
-<p>Each description includes the display number, resolution, and position.</p>
-<p class="rubric">Example</p>
-<p>[“Display 1: 1920x1080 &#64; (0,0)”, “Display 2: 1280x1024 &#64; (1920,0)”]</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>List of display descriptions in the format “Display N: WxH &#64; (X,Y)”.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>list[str]</p>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
-<section id="module-gui.utils.utils_env">
-<span id="gui-utils-utils-env"></span><h2>gui.utils.utils_env<a class="headerlink" href="#module-gui.utils.utils_env" title="Link to this heading"></a></h2>
-<dl class="field-list simple">
-<dt class="field-odd">File<span class="colon">:</span></dt>
-<dd class="field-odd"><p>EuljiroBible/gui/utils/utils_env.py</p>
-</dd>
-</dl>
-<p>Configures and validates environment settings required for GUI display (e.g. WSL compatibility).</p>
-<dl class="field-list simple">
-<dt class="field-odd">Author<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
-</dd>
-<dt class="field-even">Affiliated Church<span class="colon">:</span></dt>
-<dd class="field-even"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
-</dd>
-<dt class="field-odd">Address<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
-</dd>
-<dt class="field-even">Telephone<span class="colon">:</span></dt>
-<dd class="field-even"><p>+82-2-2266-3070</p>
-</dd>
-<dt class="field-odd">E-mail<span class="colon">:</span></dt>
-<dd class="field-odd"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
-</dd>
-<dt class="field-even">License<span class="colon">:</span></dt>
-<dd class="field-even"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
-</dd>
-</dl>
-<dl class="py function">
-<dt class="sig sig-object py" id="gui.utils.utils_env.setup_environment">
-<span class="sig-prename descclassname"><span class="pre">gui.utils.utils_env.</span></span><span class="sig-name descname"><span class="pre">setup_environment</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/utils_env.html#setup_environment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.utils_env.setup_environment" title="Link to this definition"></a></dt>
-<dd><p>Sets Qt environment variables for scaling on HiDPI or fractional displays.</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="gui.utils.utils_env.verify_wsl_display">
-<span class="sig-prename descclassname"><span class="pre">gui.utils.utils_env.</span></span><span class="sig-name descname"><span class="pre">verify_wsl_display</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/utils_env.html#verify_wsl_display"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.utils_env.verify_wsl_display" title="Link to this definition"></a></dt>
-<dd><p>Ensures DISPLAY environment variable is set when running under WSL.
-Exits the app with a user-friendly message if not configured correctly.</p>
-</dd></dl>
-
-</section>
-<section id="module-gui.utils.utils_fonts">
-<span id="gui-utils-utils-fonts"></span><h2>gui.utils.utils_fonts<a class="headerlink" href="#module-gui.utils.utils_fonts" title="Link to this heading"></a></h2>
-<dl class="field-list simple">
-<dt class="field-odd">File<span class="colon">:</span></dt>
-<dd class="field-odd"><p>EuljiroBible/gui/utils/utils_fonts.py</p>
-</dd>
-</dl>
-<p>Provides utility functions for managing fonts across the GUI and overlay in EuljiroBible.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Author<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
-</dd>
-<dt class="field-even">Affiliated Church<span class="colon">:</span></dt>
-<dd class="field-even"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
-</dd>
-<dt class="field-odd">Address<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
-</dd>
-<dt class="field-even">Telephone<span class="colon">:</span></dt>
-<dd class="field-even"><p>+82-2-2266-3070</p>
-</dd>
-<dt class="field-odd">E-mail<span class="colon">:</span></dt>
-<dd class="field-odd"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
-</dd>
-<dt class="field-even">License<span class="colon">:</span></dt>
-<dd class="field-even"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
-</dd>
-</dl>
-<dl class="py function">
-<dt class="sig sig-object py" id="gui.utils.utils_fonts.create_app_font">
-<span class="sig-prename descclassname"><span class="pre">gui.utils.utils_fonts.</span></span><span class="sig-name descname"><span class="pre">create_app_font</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">family</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight_value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/utils_fonts.html#create_app_font"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.utils_fonts.create_app_font" title="Link to this definition"></a></dt>
-<dd><p>Creates a QFont instance with the given settings.
-Converts int weight to QFont.Weight safely.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>family</strong> (<em>str</em>) – Font family name (e.g., “Noto Sans”).</p></li>
-<li><p><strong>size</strong> (<em>int</em>) – Font point size.</p></li>
-<li><p><strong>weight_value</strong> (<em>int</em>) – Integer weight value (e.g., 50, 75).</p></li>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gui.utils.utils_fonts.html">gui.utils.utils_fonts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gui.utils.utils_fonts.html#gui.utils.utils_fonts.create_app_font"><code class="docutils literal notranslate"><span class="pre">create_app_font()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="gui.utils.utils_fonts.html#gui.utils.utils_fonts.load_application_settings"><code class="docutils literal notranslate"><span class="pre">load_application_settings()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="gui.utils.utils_fonts.html#gui.utils.utils_fonts.apply_font_to_children"><code class="docutils literal notranslate"><span class="pre">apply_font_to_children()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="gui.utils.utils_fonts.html#gui.utils.utils_fonts.apply_main_font_to_app"><code class="docutils literal notranslate"><span class="pre">apply_main_font_to_app()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="gui.utils.utils_fonts.html#gui.utils.utils_fonts.apply_overlay_font"><code class="docutils literal notranslate"><span class="pre">apply_overlay_font()</span></code></a></li>
 </ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Configured QFont instance.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>QFont</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="gui.utils.utils_fonts.load_application_settings">
-<span class="sig-prename descclassname"><span class="pre">gui.utils.utils_fonts.</span></span><span class="sig-name descname"><span class="pre">load_application_settings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/utils_fonts.html#load_application_settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.utils_fonts.load_application_settings" title="Link to this definition"></a></dt>
-<dd><p>Loads saved font settings from settings file and applies to QApplication.</p>
-<p>If loading fails, a fallback font is applied and exception is logged.</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="gui.utils.utils_fonts.apply_font_to_children">
-<span class="sig-prename descclassname"><span class="pre">gui.utils.utils_fonts.</span></span><span class="sig-name descname"><span class="pre">apply_font_to_children</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">widget</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/utils_fonts.html#apply_font_to_children"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.utils_fonts.apply_font_to_children" title="Link to this definition"></a></dt>
-<dd><p>Recursively applies the given font to the specified widget and all its child widgets.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>widget</strong> (<em>QWidget</em>) – The root widget to apply the font to.</p></li>
-<li><p><strong>font</strong> (<em>QFont</em>) – The font to apply.</p></li>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gui.utils.utils_save.html">gui.utils.utils_save</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gui.utils.utils_save.html#gui.utils.utils_save.save_user_settings"><code class="docutils literal notranslate"><span class="pre">save_user_settings()</span></code></a></li>
 </ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="gui.utils.utils_fonts.apply_main_font_to_app">
-<span class="sig-prename descclassname"><span class="pre">gui.utils.utils_fonts.</span></span><span class="sig-name descname"><span class="pre">apply_main_font_to_app</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">font_family</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font_weight</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root_widget</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/utils_fonts.html#apply_main_font_to_app"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.utils_fonts.apply_main_font_to_app" title="Link to this definition"></a></dt>
-<dd><p>Applies the main font settings to the QApplication and all children of the given root widget.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>font_family</strong> (<em>str</em>) – Font family name.</p></li>
-<li><p><strong>font_size</strong> (<em>int</em>) – Font size.</p></li>
-<li><p><strong>font_weight</strong> (<em>QFont.Weight</em>) – Font weight enum.</p></li>
-<li><p><strong>root_widget</strong> (<em>QWidget</em>) – Root widget to apply font recursively.</p></li>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gui.utils.utils_theme.html">gui.utils.utils_theme</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gui.utils.utils_theme.html#gui.utils.utils_theme.set_dark_mode"><code class="docutils literal notranslate"><span class="pre">set_dark_mode()</span></code></a></li>
 </ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="gui.utils.utils_fonts.apply_overlay_font">
-<span class="sig-prename descclassname"><span class="pre">gui.utils.utils_fonts.</span></span><span class="sig-name descname"><span class="pre">apply_overlay_font</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">widget_overlay</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">settings</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/utils_fonts.html#apply_overlay_font"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.utils_fonts.apply_overlay_font" title="Link to this definition"></a></dt>
-<dd><p>Applies font settings to the overlay widget and re-applies overlay styles.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>widget_overlay</strong> (<a class="reference internal" href="gui.ui.html#gui.ui.widget_overlay.WidgetOverlay" title="gui.ui.widget_overlay.WidgetOverlay"><em>WidgetOverlay</em></a>) – The overlay instance.</p></li>
-<li><p><strong>settings</strong> (<em>dict</em>) – Dictionary with keys: display_font_family, display_font_size, display_font_weight</p></li>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gui.utils.utils_validation.html">gui.utils.utils_validation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gui.utils.utils_validation.html#gui.utils.utils_validation.verify_bible_data"><code class="docutils literal notranslate"><span class="pre">verify_bible_data()</span></code></a></li>
 </ul>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
-<section id="module-gui.utils.utils_save">
-<span id="gui-utils-utils-save"></span><h2>gui.utils.utils_save<a class="headerlink" href="#module-gui.utils.utils_save" title="Link to this heading"></a></h2>
-<dl class="field-list simple">
-<dt class="field-odd">File<span class="colon">:</span></dt>
-<dd class="field-odd"><p>EuljiroBible/gui/utils/utils_save.py</p>
-</dd>
-</dl>
-<p>Handles saving of user settings from the GUI state at exit.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Author<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
-</dd>
-<dt class="field-even">Affiliated Church<span class="colon">:</span></dt>
-<dd class="field-even"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
-</dd>
-<dt class="field-odd">Address<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
-</dd>
-<dt class="field-even">Telephone<span class="colon">:</span></dt>
-<dd class="field-even"><p>+82-2-2266-3070</p>
-</dd>
-<dt class="field-odd">E-mail<span class="colon">:</span></dt>
-<dd class="field-odd"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
-</dd>
-<dt class="field-even">License<span class="colon">:</span></dt>
-<dd class="field-even"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
-</dd>
-</dl>
-<dl class="py function">
-<dt class="sig sig-object py" id="gui.utils.utils_save.save_user_settings">
-<span class="sig-prename descclassname"><span class="pre">gui.utils.utils_save.</span></span><span class="sig-name descname"><span class="pre">save_user_settings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">win</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/utils_save.html#save_user_settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.utils_save.save_user_settings" title="Link to this definition"></a></dt>
-<dd><p>Saves user settings at exit from the GUI state.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>app</strong> (<em>QApplication</em>) – The application instance.</p></li>
-<li><p><strong>win</strong> (<em>QMainWindow</em>) – The main window containing tab state.</p></li>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gui.utils.verse_output_handler.html">gui.utils.verse_output_handler</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gui.utils.verse_output_handler.html#gui.utils.verse_output_handler.VerseOutputHandler"><code class="docutils literal notranslate"><span class="pre">VerseOutputHandler</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gui.utils.verse_output_handler.html#gui.utils.verse_output_handler.VerseOutputHandler.__init__"><code class="docutils literal notranslate"><span class="pre">VerseOutputHandler.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gui.utils.verse_output_handler.html#gui.utils.verse_output_handler.VerseOutputHandler.apply_output_text"><code class="docutils literal notranslate"><span class="pre">VerseOutputHandler.apply_output_text()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gui.utils.verse_output_handler.html#gui.utils.verse_output_handler.VerseOutputHandler.save_verse"><code class="docutils literal notranslate"><span class="pre">VerseOutputHandler.save_verse()</span></code></a></li>
 </ul>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
-<section id="module-gui.utils.utils_theme">
-<span id="gui-utils-utils-theme"></span><h2>gui.utils.utils_theme<a class="headerlink" href="#module-gui.utils.utils_theme" title="Link to this heading"></a></h2>
-<dl class="field-list simple">
-<dt class="field-odd">File<span class="colon">:</span></dt>
-<dd class="field-odd"><p>EuljiroBible/gui/utils/utils_theme.py</p>
-</dd>
-</dl>
-<p>Handles theme switching and dynamic layout refresh for EuljiroBible GUI components.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Author<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
-</dd>
-<dt class="field-even">Affiliated Church<span class="colon">:</span></dt>
-<dd class="field-even"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
-</dd>
-<dt class="field-odd">Address<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
-</dd>
-<dt class="field-even">Telephone<span class="colon">:</span></dt>
-<dd class="field-even"><p>+82-2-2266-3070</p>
-</dd>
-<dt class="field-odd">E-mail<span class="colon">:</span></dt>
-<dd class="field-odd"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
-</dd>
-<dt class="field-even">License<span class="colon">:</span></dt>
-<dd class="field-even"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
-</dd>
-</dl>
-<dl class="py function">
-<dt class="sig sig-object py" id="gui.utils.utils_theme.set_dark_mode">
-<span class="sig-prename descclassname"><span class="pre">gui.utils.utils_theme.</span></span><span class="sig-name descname"><span class="pre">set_dark_mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/utils_theme.html#set_dark_mode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.utils_theme.set_dark_mode" title="Link to this definition"></a></dt>
-<dd><p>Applies or removes the application’s dark theme.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>app</strong> (<em>QApplication</em>) – QApplication instance.</p></li>
-<li><p><strong>enable</strong> (<em>bool</em>) – True to apply dark theme, False to revert.</p></li>
+</li>
 </ul>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
-<section id="module-gui.utils.utils_validation">
-<span id="gui-utils-utils-validation"></span><h2>gui.utils.utils_validation<a class="headerlink" href="#module-gui.utils.utils_validation" title="Link to this heading"></a></h2>
-<dl class="field-list simple">
-<dt class="field-odd">File<span class="colon">:</span></dt>
-<dd class="field-odd"><p>EuljiroBible/gui/utils/utils_validation.py</p>
-</dd>
-</dl>
-<p>Validates presence of Bible data files necessary to launch the GUI properly.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Author<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
-</dd>
-<dt class="field-even">Affiliated Church<span class="colon">:</span></dt>
-<dd class="field-even"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
-</dd>
-<dt class="field-odd">Address<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
-</dd>
-<dt class="field-even">Telephone<span class="colon">:</span></dt>
-<dd class="field-even"><p>+82-2-2266-3070</p>
-</dd>
-<dt class="field-odd">E-mail<span class="colon">:</span></dt>
-<dd class="field-odd"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
-</dd>
-<dt class="field-even">License<span class="colon">:</span></dt>
-<dd class="field-even"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
-</dd>
-</dl>
-<dl class="py function">
-<dt class="sig sig-object py" id="gui.utils.utils_validation.verify_bible_data">
-<span class="sig-prename descclassname"><span class="pre">gui.utils.utils_validation.</span></span><span class="sig-name descname"><span class="pre">verify_bible_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/utils_validation.html#verify_bible_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.utils_validation.verify_bible_data" title="Link to this definition"></a></dt>
-<dd><p>Verifies that Bible data directory and required JSON files exist.</p>
-<p>This function displays an error message and exits the app if the data directory or files are missing.</p>
-</dd></dl>
-
-</section>
-<section id="module-gui.utils.verse_output_handler">
-<span id="gui-utils-verse-output-handler"></span><h2>gui.utils.verse_output_handler<a class="headerlink" href="#module-gui.utils.verse_output_handler" title="Link to this heading"></a></h2>
-<dl class="field-list simple">
-<dt class="field-odd">File<span class="colon">:</span></dt>
-<dd class="field-odd"><p>EuljiroBible/gui/utils/verse_output_handler.py</p>
-</dd>
-</dl>
-<p>Handles text display and file saving for formatted Bible verses in the GUI.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Author<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
-</dd>
-<dt class="field-even">Affiliated Church<span class="colon">:</span></dt>
-<dd class="field-even"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
-</dd>
-<dt class="field-odd">Address<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
-</dd>
-<dt class="field-even">Telephone<span class="colon">:</span></dt>
-<dd class="field-even"><p>+82-2-2266-3070</p>
-</dd>
-<dt class="field-odd">E-mail<span class="colon">:</span></dt>
-<dd class="field-odd"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
-</dd>
-<dt class="field-even">License<span class="colon">:</span></dt>
-<dd class="field-even"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
-</dd>
-</dl>
-<dl class="py class">
-<dt class="sig sig-object py" id="gui.utils.verse_output_handler.VerseOutputHandler">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gui.utils.verse_output_handler.</span></span><span class="sig-name descname"><span class="pre">VerseOutputHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">display_box</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">settings</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/verse_output_handler.html#VerseOutputHandler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.verse_output_handler.VerseOutputHandler" title="Link to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Manages displaying and saving Bible verse text in the GUI.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>display_box</strong> (<em>QTextEdit</em>) – QTextEdit widget where verses will be shown</p></li>
-<li><p><strong>settings</strong> (<em>dict</em>) – Application settings dictionary</p></li>
+</li>
 </ul>
-</dd>
-</dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="gui.utils.verse_output_handler.VerseOutputHandler.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">display_box</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">settings</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/verse_output_handler.html#VerseOutputHandler.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.verse_output_handler.VerseOutputHandler.__init__" title="Link to this definition"></a></dt>
-<dd><p>Initialize the handler with the display box and configuration.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>display_box</strong> (<em>QTextEdit</em>) – The QTextEdit area for displaying verse output</p></li>
-<li><p><strong>settings</strong> (<em>dict</em>) – Dictionary containing application settings (e.g. output path)</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="gui.utils.verse_output_handler.VerseOutputHandler.apply_output_text">
-<span class="sig-name descname"><span class="pre">apply_output_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/verse_output_handler.html#VerseOutputHandler.apply_output_text"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.verse_output_handler.VerseOutputHandler.apply_output_text" title="Link to this definition"></a></dt>
-<dd><p>Display the given verse text in the output box with proper formatting.</p>
-<p>Applies a block format with approximately 150% line spacing.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>text</strong> (<em>str</em>) – The verse string to render</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="gui.utils.verse_output_handler.VerseOutputHandler.save_verse">
-<span class="sig-name descname"><span class="pre">save_verse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">formatted_text</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/verse_output_handler.html#VerseOutputHandler.save_verse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.verse_output_handler.VerseOutputHandler.save_verse" title="Link to this definition"></a></dt>
-<dd><p>Save the formatted verse text to the file(s) specified in settings.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>formatted_text</strong> (<em>str</em>) – The string of formatted verses</p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-</section>
-<section id="module-gui.utils">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-gui.utils" title="Link to this heading"></a></h2>
-</section>
+</div>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="gui.ui.locale.html" class="btn btn-neutral float-left" title="gui.ui.locale" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="gui.ui.window_main.html" class="btn btn-neutral float-left" title="gui.ui.window_main" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="gui.utils.keyword_highlight_delegate.html" class="btn btn-neutral float-right" title="gui.utils.keyword_highlight_delegate" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

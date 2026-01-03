@@ -1,21 +1,7 @@
 gui.config
 ==========
 
-Submodules
-----------
+.. toctree::
+   :maxdepth: 7
 
-gui.config.config\_manager
---------------------------
-
-.. automodule:: gui.config.config_manager
-   :members:
-   :show-inheritance:
-   :undoc-members:
-
-Module contents
----------------
-
-.. automodule:: gui.config
-   :members:
-   :show-inheritance:
-   :undoc-members:
+   gui.config.config_manager

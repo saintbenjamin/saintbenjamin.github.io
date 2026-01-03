@@ -1,0 +1,282 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>gui.ui.tab_verse_selection_manager &mdash; EuljiroBible 1.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=aaadad1f"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="gui.ui.tab_verse_ui" href="gui.ui.tab_verse_ui.html" />
+    <link rel="prev" title="gui.ui.tab_verse_logic" href="gui.ui.tab_verse_logic.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            EuljiroBible
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Modules</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="EuljiroBible.html">EuljiroBible</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli.html">cli</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html">core</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="gui.html">gui</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="gui.config.html">gui.config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gui.constants.html">gui.constants</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gui.gui_main.html">gui.gui_main</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gui.launch.html">gui.launch</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="gui.ui.html">gui.ui</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="gui.ui.locale.html">gui.ui.locale</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.ui.common.html">gui.ui.common</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.ui.monitor_memory.html">gui.ui.monitor_memory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.ui.tab_keyword.html">gui.ui.tab_keyword</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.ui.tab_keyword_logic.html">gui.ui.tab_keyword_logic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.ui.tab_keyword_ui.html">gui.ui.tab_keyword_ui</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.ui.tab_settings.html">gui.ui.tab_settings</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.ui.tab_settings_logic.html">gui.ui.tab_settings_logic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.ui.tab_settings_ui.html">gui.ui.tab_settings_ui</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.ui.tab_verse.html">gui.ui.tab_verse</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.ui.tab_verse_logic.html">gui.ui.tab_verse_logic</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">gui.ui.tab_verse_selection_manager</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.ui.tab_verse_ui.html">gui.ui.tab_verse_ui</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.ui.widget_overlay.html">gui.ui.widget_overlay</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.ui.window_main.html">gui.ui.window_main</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="gui.utils.html">gui.utils</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">EuljiroBible</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">Modules</a></li>
+          <li class="breadcrumb-item"><a href="gui.html">gui</a></li>
+          <li class="breadcrumb-item"><a href="gui.ui.html">gui.ui</a></li>
+      <li class="breadcrumb-item active">gui.ui.tab_verse_selection_manager</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/gui.ui.tab_verse_selection_manager.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-gui.ui.tab_verse_selection_manager">
+<span id="gui-ui-tab-verse-selection-manager"></span><h1>gui.ui.tab_verse_selection_manager<a class="headerlink" href="#module-gui.ui.tab_verse_selection_manager" title="Link to this heading"></a></h1>
+<dl class="field-list simple">
+<dt class="field-odd">File<span class="colon">:</span></dt>
+<dd class="field-odd"><p>EuljiroBible/gui/ui/tab_verse_selection_manager.py</p>
+</dd>
+</dl>
+<p>Handles version selection and book/chapter dropdown synchronization in the TabVerse panel.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
+</dd>
+<dt class="field-even">Affiliated Church<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
+</dd>
+<dt class="field-odd">Address<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
+</dd>
+<dt class="field-even">Telephone<span class="colon">:</span></dt>
+<dd class="field-even"><p>+82-2-2266-3070</p>
+</dd>
+<dt class="field-odd">E-mail<span class="colon">:</span></dt>
+<dd class="field-odd"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
+</dd>
+<dt class="field-even">License<span class="colon">:</span></dt>
+<dd class="field-even"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="gui.ui.tab_verse_selection_manager.TabVerseSelectionManager">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gui.ui.tab_verse_selection_manager.</span></span><span class="sig-name descname"><span class="pre">TabVerseSelectionManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bible_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version_helper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tr_func</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_verse_selection_manager.html#TabVerseSelectionManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_verse_selection_manager.TabVerseSelectionManager" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Manages the logic for updating version checkboxes, summary label,
+and dropdowns for book and chapter selection in the TabVerse UI.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>bible_data</strong> (<a class="reference internal" href="core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader" title="core.utils.bible_data_loader.BibleDataLoader"><em>BibleDataLoader</em></a>) – Instance of BibleDataLoader</p></li>
+<li><p><strong>version_helper</strong> (<a class="reference internal" href="core.utils.verse_version_helper.html#core.utils.verse_version_helper.VerseVersionHelper" title="core.utils.verse_version_helper.VerseVersionHelper"><em>VerseVersionHelper</em></a>) – Helper for version selection and validation</p></li>
+<li><p><strong>tr_func</strong> (<em>Callable</em><em>[</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>]</em>) – Translation function (usually <cite>self.tr</cite>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.tab_verse_selection_manager.TabVerseSelectionManager.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bible_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version_helper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tr_func</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_verse_selection_manager.html#TabVerseSelectionManager.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_verse_selection_manager.TabVerseSelectionManager.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize the manager with data and helpers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>bible_data</strong> – Bible data loader</p></li>
+<li><p><strong>version_helper</strong> – Instance for managing selected versions</p></li>
+<li><p><strong>tr_func</strong> – Translation function</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.tab_verse_selection_manager.TabVerseSelectionManager.create_version_checkbox">
+<span class="sig-name descname"><span class="pre">create_version_checkbox</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_verse_selection_manager.html#TabVerseSelectionManager.create_version_checkbox"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_verse_selection_manager.TabVerseSelectionManager.create_version_checkbox" title="Link to this definition"></a></dt>
+<dd><p>Creates a checkbox for a given Bible version.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parent</strong> – Parent widget with access to bible_data and update method</p></li>
+<li><p><strong>version_name</strong> (<em>str</em>) – Full name of the version</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Configured QCheckBox</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QCheckBox</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.tab_verse_selection_manager.TabVerseSelectionManager.update_grid_layout">
+<span class="sig-name descname"><span class="pre">update_grid_layout</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_verse_selection_manager.html#TabVerseSelectionManager.update_grid_layout"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_verse_selection_manager.TabVerseSelectionManager.update_grid_layout" title="Link to this definition"></a></dt>
+<dd><p>Updates the layout grid for version checkboxes based on platform-specific width.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>parent</strong> – Parent widget with scroll and layout references</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.tab_verse_selection_manager.TabVerseSelectionManager.update_version_summary">
+<span class="sig-name descname"><span class="pre">update_version_summary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_verse_selection_manager.html#TabVerseSelectionManager.update_version_summary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_verse_selection_manager.TabVerseSelectionManager.update_version_summary" title="Link to this definition"></a></dt>
+<dd><p>Updates the label summarizing selected versions and repopulates book dropdown.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>parent</strong> – TabVerse instance with summary label and dropdown widgets</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.tab_verse_selection_manager.TabVerseSelectionManager.populate_book_dropdown">
+<span class="sig-name descname"><span class="pre">populate_book_dropdown</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lang_code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_verse_selection_manager.html#TabVerseSelectionManager.populate_book_dropdown"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_verse_selection_manager.TabVerseSelectionManager.populate_book_dropdown" title="Link to this definition"></a></dt>
+<dd><p>Populates the book dropdown with all standard books.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parent</strong> – TabVerse instance with combo box</p></li>
+<li><p><strong>lang_code</strong> (<em>str</em><em> | </em><em>None</em>) – Language code (‘ko’ or ‘en’)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.tab_verse_selection_manager.TabVerseSelectionManager.update_book_dropdown">
+<span class="sig-name descname"><span class="pre">update_book_dropdown</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lang_code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_verse_selection_manager.html#TabVerseSelectionManager.update_book_dropdown"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_verse_selection_manager.TabVerseSelectionManager.update_book_dropdown" title="Link to this definition"></a></dt>
+<dd><p>Updates the book dropdown to show only those available in all selected versions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parent</strong> – TabVerse instance with input fields and book combo box</p></li>
+<li><p><strong>lang_code</strong> – Language code (‘ko’ or ‘en’)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.tab_verse_selection_manager.TabVerseSelectionManager.update_chapter_dropdown">
+<span class="sig-name descname"><span class="pre">update_chapter_dropdown</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_verse_selection_manager.html#TabVerseSelectionManager.update_chapter_dropdown"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_verse_selection_manager.TabVerseSelectionManager.update_chapter_dropdown" title="Link to this definition"></a></dt>
+<dd><p>Updates the chapter dropdown to reflect the selected book and version.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>parent</strong> – TabVerse instance with combo boxes and data access</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="gui.ui.tab_verse_logic.html" class="btn btn-neutral float-left" title="gui.ui.tab_verse_logic" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="gui.ui.tab_verse_ui.html" class="btn btn-neutral float-right" title="gui.ui.tab_verse_ui" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Benjamin J. Choi.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

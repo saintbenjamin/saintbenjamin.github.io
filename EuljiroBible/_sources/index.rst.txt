@@ -2,7 +2,7 @@ EuljiroBible Document
 =====================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 7
    :caption: Contents
 
    modules
