@@ -114,27 +114,27 @@
 <dd class="field-odd"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
 </dd>
 </dl>
-<p>Watches <cite>paths.VERSE_FILE</cite> (verse_output.txt) and converts it into slide JSON
-written to <cite>paths.SLIDE_FILE</cite> for real-time display by the slide controller.</p>
+<p>Watches <code class="docutils literal notranslate"><span class="pre">paths.VERSE_FILE</span></code> (verse_output.txt) and converts it into slide JSON
+written to <code class="docutils literal notranslate"><span class="pre">paths.SLIDE_FILE</span></code> for real-time display by the slide controller.</p>
 <p>This module runs as a small background helper process. It uses watchdog to
 monitor the project base directory for changes to the verse output file, then
 parses the content into one or more slide dictionaries.</p>
 <p>Key behaviors</p>
 <ul class="simple">
 <li><p>If the last line looks like a structured Bible reference header, it generates
-per-verse slides with wrapped lines (<cite>textwrap.wrap</cite>) and style “verse”.</p></li>
+per-verse slides with wrapped lines (<code class="docutils literal notranslate"><span class="pre">textwrap.wrap</span></code>) and style “verse”.</p></li>
 <li><p>Otherwise, it treats the file as a free-form emergency message and generates
 style “lyrics” slides grouped by up to 2 lines (or by character budget).</p></li>
 <li><p>Before overwriting the slide file, it may create a backup at
-<cite>paths.SLIDE_BACKUP_FILE</cite> (only if the backup file does not already exist).</p></li>
+<code class="docutils literal notranslate"><span class="pre">paths.SLIDE_BACKUP_FILE</span></code> (only if the backup file does not already exist).</p></li>
 </ul>
 <dl class="py function">
 <dt class="sig sig-object py" id="controller.helper.verse_interruptor.parse_verse_output">
 <span class="sig-prename descclassname"><span class="pre">controller.helper.verse_interruptor.</span></span><span class="sig-name descname"><span class="pre">parse_verse_output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_chars</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">60</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/helper/verse_interruptor.html#parse_verse_output"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.helper.verse_interruptor.parse_verse_output" title="Link to this definition"></a></dt>
-<dd><p>Parse <cite>verse_output.txt</cite> into a list of slide dictionaries.</p>
+<dd><p>Parse <code class="docutils literal notranslate"><span class="pre">verse_output.txt</span></code> into a list of slide dictionaries.</p>
 <p>The input file is interpreted as:</p>
 <ul class="simple">
-<li><p>Structured mode: If the last line matches one of the  expected header forms (e.g., “(&lt;book&gt; &lt;chapter&gt;장 …”, “(&lt;book&gt; &lt;chapter&gt;:&lt;verse&gt;, …”), the earlier lines are treated as verse body lines. Each verse line is wrapped to <cite>max_chars</cite> and converted into style “verse” slides.</p></li>
+<li><p>Structured mode: If the last line matches one of the  expected header forms (e.g., “(&lt;book&gt; &lt;chapter&gt;장 …”, “(&lt;book&gt; &lt;chapter&gt;:&lt;verse&gt;, …”), the earlier lines are treated as verse body lines. Each verse line is wrapped to <code class="docutils literal notranslate"><span class="pre">max_chars</span></code> and converted into style “verse” slides.</p></li>
 <li><p>Fallback mode: If no header pattern matches, the entire file is treated as a free-form emergency message. Non-empty lines are grouped into slides (up to 2 lines per slide or until the approximate character budget is met) using style “lyrics” and a fixed church caption.</p></li>
 </ul>
 <p class="rubric">Notes</p>
@@ -168,8 +168,8 @@ grouping fallback message lines. Defaults to 50.</p></li>
 <dt class="sig sig-object py" id="controller.helper.verse_interruptor.backup_slide_if_not_emergency">
 <span class="sig-prename descclassname"><span class="pre">controller.helper.verse_interruptor.</span></span><span class="sig-name descname"><span class="pre">backup_slide_if_not_emergency</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/helper/verse_interruptor.html#backup_slide_if_not_emergency"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.helper.verse_interruptor.backup_slide_if_not_emergency" title="Link to this definition"></a></dt>
 <dd><p>Create a backup copy of the current slide JSON file if no backup exists yet.</p>
-<p>This function writes <cite>paths.SLIDE_BACKUP_FILE</cite> only when that file does not
-already exist. The source is <cite>paths.SLIDE_FILE</cite> if it exists and can be read.</p>
+<p>This function writes <code class="docutils literal notranslate"><span class="pre">paths.SLIDE_BACKUP_FILE</span></code> only when that file does not
+already exist. The source is <code class="docutils literal notranslate"><span class="pre">paths.SLIDE_FILE</span></code> if it exists and can be read.</p>
 <p>The backup is intended to support restoration after an emergency subtitle
 session ends. The current implementation skips backup if the loaded slides
 contain any slide whose “style” equals “verse_interrupt”.</p>
@@ -188,7 +188,7 @@ contain any slide whose “style” equals “verse_interrupt”.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>slides</strong> (<em>list</em><em>[</em><em>dict</em><em>]</em>) – Slide dictionaries to write.</p></li>
-<li><p><strong>path</strong> (<em>str</em>) – Destination JSON file path (typically <cite>paths.SLIDE_FILE</cite>).</p></li>
+<li><p><strong>path</strong> (<em>str</em>) – Destination JSON file path (typically <code class="docutils literal notranslate"><span class="pre">paths.SLIDE_FILE</span></code>).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -204,8 +204,8 @@ contain any slide whose “style” equals “verse_interrupt”.</p>
 <p>Watchdog event handler for updates to verse_output.txt.</p>
 <p>This handler listens for filesystem modification events and, when the target
 file is modified, parses it into slides and writes the resulting JSON to
-<cite>paths.SLIDE_FILE</cite>. If slides are generated, it attempts to create a backup
-via <cite>backup_slide_if_not_emergency()</cite> before overwriting the slide file.</p>
+<code class="docutils literal notranslate"><span class="pre">paths.SLIDE_FILE</span></code>. If slides are generated, it attempts to create a backup
+via <code class="docutils literal notranslate"><span class="pre">backup_slide_if_not_emergency()</span></code> before overwriting the slide file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -222,10 +222,10 @@ via <cite>backup_slide_if_not_emergency()</cite> before overwriting the slide fi
 <span class="sig-name descname"><span class="pre">on_modified</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/helper/verse_interruptor.html#VerseFileHandler.on_modified"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.helper.verse_interruptor.VerseFileHandler.on_modified" title="Link to this definition"></a></dt>
 <dd><p>Handle watchdog “modified” events for verse_output.txt.</p>
 <p>If the modified path matches the target verse file, this callback:
-1) Parses <cite>paths.VERSE_FILE</cite> into slide dictionaries.
+1) Parses <code class="docutils literal notranslate"><span class="pre">paths.VERSE_FILE</span></code> into slide dictionaries.
 2) If any slides were produced:
 - Creates a backup (if applicable)
-- Writes slides to <cite>paths.SLIDE_FILE</cite>
+- Writes slides to <code class="docutils literal notranslate"><span class="pre">paths.SLIDE_FILE</span></code>
 3) Otherwise logs that no slides were generated.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -243,8 +243,8 @@ via <cite>backup_slide_if_not_emergency()</cite> before overwriting the slide fi
 <dt class="sig sig-object py" id="controller.helper.verse_interruptor.start_interruptor">
 <span class="sig-prename descclassname"><span class="pre">controller.helper.verse_interruptor.</span></span><span class="sig-name descname"><span class="pre">start_interruptor</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/helper/verse_interruptor.html#start_interruptor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.helper.verse_interruptor.start_interruptor" title="Link to this definition"></a></dt>
 <dd><p>Start the watchdog observer loop for verse_output.txt.</p>
-<p>This sets up an Observer to watch <cite>paths.BASE_DIR</cite> (non-recursive) and uses
-<cite>VerseFileHandler</cite> to react to modifications. The function then blocks the
+<p>This sets up an Observer to watch <code class="docutils literal notranslate"><span class="pre">paths.BASE_DIR</span></code> (non-recursive) and uses
+<code class="docutils literal notranslate"><span class="pre">VerseFileHandler</span></code> to react to modifications. The function then blocks the
 main thread in a sleep loop until interrupted (Ctrl+C).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
