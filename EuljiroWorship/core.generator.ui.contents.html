@@ -1,0 +1,1695 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>core.generator.ui.contents &mdash; EuljiroWorship 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=2709fde1"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="core.generator.utils" href="core.generator.utils.html" />
+    <link rel="prev" title="core.generator.ui" href="core.generator.ui.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            EuljiroWorship
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Modules</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="EuljiroWorship.html">EuljiroWorship</a></li>
+<li class="toctree-l2"><a class="reference internal" href="controller.html">controller</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="core.html">core</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="core.config.html">core.config</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="core.generator.html">core.generator</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="core.generator.html#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.generator.html#module-core.generator.settings_generator">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.generator.html#module-core.generator">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="core.plugin.html">core.plugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.utils.html">core.utils</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="server.html">server</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">EuljiroWorship</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">Modules</a></li>
+          <li class="breadcrumb-item"><a href="core.html">core</a></li>
+          <li class="breadcrumb-item"><a href="core.generator.html">core.generator</a></li>
+          <li class="breadcrumb-item"><a href="core.generator.ui.html">core.generator.ui</a></li>
+      <li class="breadcrumb-item active">core.generator.ui.contents</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/core.generator.ui.contents.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="core-generator-ui-contents">
+<h1>core.generator.ui.contents<a class="headerlink" href="#core-generator-ui-contents" title="Link to this heading"></a></h1>
+<section id="module-core.generator.ui.contents.anthem_content">
+<span id="submodules"></span><h2>Submodules<a class="headerlink" href="#module-core.generator.ui.contents.anthem_content" title="Link to this heading"></a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">File<span class="colon">:</span></dt>
+<dd class="field-odd"><p>EuljiroWorship/core/generator/ui/contents/anthem_content.py</p>
+</dd>
+</dl>
+<p>UI content widget for editing ‘anthem’ style slides.</p>
+<p>This module defines <cite>AnthemContent</cite>, a QWidget responsible for collecting
+input data required to generate an anthem-style slide. The widget provides
+fields for specifying the choir name and the anthem title, and converts the
+input into a standardized slide dictionary used by the generator.</p>
+<p>The widget integrates with <cite>SlideInputSubmitter</cite> to support automatic
+submission and synchronization with the parent generator window.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
+</dd>
+<dt class="field-even">Affiliated Church<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
+</dd>
+<dt class="field-odd">Address<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
+</dd>
+<dt class="field-even">Telephone<span class="colon">:</span></dt>
+<dd class="field-even"><p>+82-2-2266-3070</p>
+</dd>
+<dt class="field-odd">E-mail<span class="colon">:</span></dt>
+<dd class="field-odd"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
+</dd>
+<dt class="field-even">License<span class="colon">:</span></dt>
+<dd class="field-even"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="core.generator.ui.contents.anthem_content.AnthemContent">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.ui.contents.anthem_content.</span></span><span class="sig-name descname"><span class="pre">AnthemContent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/anthem_content.html#AnthemContent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.anthem_content.AnthemContent" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
+<p>Content editor widget for ‘anthem’ style slides.</p>
+<p>This widget provides input fields for:
+- Choir or group name
+- Anthem title</p>
+<p>The collected input is transformed into a slide dictionary containing
+<cite>caption</cite>, <cite>caption_choir</cite>, and <cite>headline</cite> fields, which are later used
+by the slide exporter and controller.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>caption</strong> (<em>str</em>)</p></li>
+<li><p><strong>headline</strong> (<em>str</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.anthem_content.AnthemContent.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generator_window</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caption</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/anthem_content.html#AnthemContent.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.anthem_content.AnthemContent.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize the anthem content editor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parent</strong> (<em>QWidget</em>) – Parent widget container.</p></li>
+<li><p><strong>generator_window</strong> – Reference to the generator window, used for submitting slide data
+and triggering auto-save behavior.</p></li>
+<li><p><strong>caption</strong> (<em>str</em>) – Initial caption value, typically containing the choir name.</p></li>
+<li><p><strong>headline</strong> (<em>str</em>) – Initial headline value, typically containing the anthem title.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.anthem_content.AnthemContent.build_ui">
+<span class="sig-name descname"><span class="pre">build_ui</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/anthem_content.html#AnthemContent.build_ui"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.anthem_content.AnthemContent.build_ui" title="Link to this definition"></a></dt>
+<dd><p>Construct the UI elements for editing an anthem slide.</p>
+<p>This method builds input fields for the choir name and anthem title,
+arranges them vertically, and registers the inputs with
+<cite>SlideInputSubmitter</cite> to enable automatic submission and synchronization
+with the generator window.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.anthem_content.AnthemContent.build_anthem_slide">
+<span class="sig-name descname"><span class="pre">build_anthem_slide</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/anthem_content.html#AnthemContent.build_anthem_slide"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.anthem_content.AnthemContent.build_anthem_slide" title="Link to this definition"></a></dt>
+<dd><p>Conditionally generate anthem slide data.</p>
+<p>This method checks whether at least one input field contains non-empty
+text. If all inputs are empty, no slide data is generated.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Slide data dictionary if at least one input is provided;
+otherwise, None.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.anthem_content.AnthemContent.get_slide_data">
+<span class="sig-name descname"><span class="pre">get_slide_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/anthem_content.html#AnthemContent.get_slide_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.anthem_content.AnthemContent.get_slide_data" title="Link to this definition"></a></dt>
+<dd><p>Generate the slide data dictionary for an anthem slide.</p>
+<p>The method parses the choir name input to separate the main caption
+and choir identifier. Default values are applied when the input does
+not match the expected format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary representing the anthem slide, including:
+- style
+- caption
+- caption_choir
+- headline</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="field-list simple" id="module-core.generator.ui.contents.corner_content">
+<dt class="field-odd">File<span class="colon">:</span></dt>
+<dd class="field-odd"><p>EuljiroWorship/core/generator/ui/contents/corner_content.py</p>
+</dd>
+</dl>
+<p>UI content widget for editing ‘corner’ style slides.</p>
+<p>This module defines <cite>CornerContent</cite>, a QWidget that provides simple text
+inputs for creating corner-style slides. A corner slide typically displays
+a short headline and a caption in a fixed corner position on the screen,
+and is commonly used for sermon titles, worship order sections, or brief
+section headers.</p>
+<p>The widget integrates with <cite>SlideInputSubmitter</cite> to support automatic
+submission and synchronization with the parent generator window.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
+</dd>
+<dt class="field-even">Affiliated Church<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
+</dd>
+<dt class="field-odd">Address<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
+</dd>
+<dt class="field-even">Telephone<span class="colon">:</span></dt>
+<dd class="field-even"><p>+82-2-2266-3070</p>
+</dd>
+<dt class="field-odd">E-mail<span class="colon">:</span></dt>
+<dd class="field-odd"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
+</dd>
+<dt class="field-even">License<span class="colon">:</span></dt>
+<dd class="field-even"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="core.generator.ui.contents.corner_content.CornerContent">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.ui.contents.corner_content.</span></span><span class="sig-name descname"><span class="pre">CornerContent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/corner_content.html#CornerContent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.corner_content.CornerContent" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
+<p>Content editor widget for ‘corner’ style slides.</p>
+<p>This widget provides input fields for:
+- Headline text (main title)
+- Caption text (subtitle or secondary label)</p>
+<p>The collected input is converted into a slide data dictionary
+containing <cite>style</cite>, <cite>caption</cite>, and <cite>headline</cite> fields.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>caption</strong> (<em>str</em>)</p></li>
+<li><p><strong>headline</strong> (<em>str</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.corner_content.CornerContent.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generator_window</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caption</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/corner_content.html#CornerContent.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.corner_content.CornerContent.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize the corner slide content editor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parent</strong> (<em>QWidget</em>) – Parent widget container.</p></li>
+<li><p><strong>generator_window</strong> – Reference to the generator window, used for submitting slide data
+and enabling auto-save behavior.</p></li>
+<li><p><strong>caption</strong> (<em>str</em>) – Initial caption text (e.g., subtitle or section label).</p></li>
+<li><p><strong>headline</strong> (<em>str</em>) – Initial headline text (e.g., main title).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.corner_content.CornerContent.build_ui">
+<span class="sig-name descname"><span class="pre">build_ui</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/corner_content.html#CornerContent.build_ui"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.corner_content.CornerContent.build_ui" title="Link to this definition"></a></dt>
+<dd><p>Construct the UI elements for editing a corner-style slide.</p>
+<p>This method creates labeled input fields for headline and caption,
+arranges them vertically, and registers the inputs with
+<cite>SlideInputSubmitter</cite> to enable automatic submission.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.corner_content.CornerContent.build_corner_slide">
+<span class="sig-name descname"><span class="pre">build_corner_slide</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/corner_content.html#CornerContent.build_corner_slide"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.corner_content.CornerContent.build_corner_slide" title="Link to this definition"></a></dt>
+<dd><p>Conditionally generate corner slide data.</p>
+<p>If both the headline and caption fields are empty, no slide data is
+generated. Otherwise, the current input values are returned as a
+slide data dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Slide data dictionary if at least one field is non-empty;
+otherwise, None.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.corner_content.CornerContent.get_slide_data">
+<span class="sig-name descname"><span class="pre">get_slide_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/corner_content.html#CornerContent.get_slide_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.corner_content.CornerContent.get_slide_data" title="Link to this definition"></a></dt>
+<dd><p>Generate the slide data dictionary for a corner slide.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary representing the corner slide, including:
+- style
+- caption
+- headline</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="field-list simple" id="module-core.generator.ui.contents.greet_content">
+<dt class="field-odd">File<span class="colon">:</span></dt>
+<dd class="field-odd"><p>EuljiroWorship/core/generator/ui/contents/greet_content.py</p>
+</dd>
+</dl>
+<p>UI content widget for editing ‘greet’ style slides.</p>
+<p>This module defines <cite>GreetContent</cite>, a QWidget that provides input fields
+for greeting or message-style slides. These slides are typically used for
+welcome messages, sermon titles with extended descriptions, or other
+freeform announcements.</p>
+<p>The widget supports a short caption and a multiline headline, and integrates
+with <cite>SlideInputSubmitter</cite> to enable automatic submission and synchronization
+with the parent generator window.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
+</dd>
+<dt class="field-even">Affiliated Church<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
+</dd>
+<dt class="field-odd">Address<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
+</dd>
+<dt class="field-even">Telephone<span class="colon">:</span></dt>
+<dd class="field-even"><p>+82-2-2266-3070</p>
+</dd>
+<dt class="field-odd">E-mail<span class="colon">:</span></dt>
+<dd class="field-odd"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
+</dd>
+<dt class="field-even">License<span class="colon">:</span></dt>
+<dd class="field-even"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="core.generator.ui.contents.greet_content.GreetContent">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.ui.contents.greet_content.</span></span><span class="sig-name descname"><span class="pre">GreetContent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/greet_content.html#GreetContent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.greet_content.GreetContent" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
+<p>Content editor widget for ‘greet’ style slides.</p>
+<p>This widget provides input fields for:
+- Caption: A short reference or subtitle (e.g., Bible reference)
+- Headline: A multiline main message or greeting text</p>
+<p>The collected input is converted into a slide data dictionary
+containing <cite>style</cite>, <cite>caption</cite>, and <cite>headline</cite> fields.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>caption</strong> (<em>str</em>)</p></li>
+<li><p><strong>headline</strong> (<em>str</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.greet_content.GreetContent.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generator_window</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caption</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/greet_content.html#GreetContent.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.greet_content.GreetContent.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize the greet slide content editor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parent</strong> (<em>QWidget</em>) – Parent widget container.</p></li>
+<li><p><strong>generator_window</strong> – Reference to the generator window, used for submitting slide data
+and enabling auto-save behavior.</p></li>
+<li><p><strong>caption</strong> (<em>str</em>) – Initial caption value (e.g., reference or short label).</p></li>
+<li><p><strong>headline</strong> (<em>str</em>) – Initial headline value (e.g., greeting or main message).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.greet_content.GreetContent.build_ui">
+<span class="sig-name descname"><span class="pre">build_ui</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/greet_content.html#GreetContent.build_ui"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.greet_content.GreetContent.build_ui" title="Link to this definition"></a></dt>
+<dd><p>Construct the UI elements for editing a greet-style slide.</p>
+<p>This method creates labeled input fields for caption and multiline
+headline content, arranges them vertically, and registers the inputs
+with <cite>SlideInputSubmitter</cite> to enable automatic submission.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.greet_content.GreetContent.build_greet_slide">
+<span class="sig-name descname"><span class="pre">build_greet_slide</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/greet_content.html#GreetContent.build_greet_slide"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.greet_content.GreetContent.build_greet_slide" title="Link to this definition"></a></dt>
+<dd><p>Conditionally generate greet slide data.</p>
+<p>If both caption and headline fields are empty, no slide data is
+generated. Otherwise, the current input values are returned as a
+slide data dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Slide data dictionary if at least one field is non-empty;
+otherwise, None.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.greet_content.GreetContent.get_slide_data">
+<span class="sig-name descname"><span class="pre">get_slide_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/greet_content.html#GreetContent.get_slide_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.greet_content.GreetContent.get_slide_data" title="Link to this definition"></a></dt>
+<dd><p>Generate the slide data dictionary for a greet slide.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary representing the greet slide, including:
+- style
+- caption
+- headline</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="field-list simple" id="module-core.generator.ui.contents.hymn_content">
+<dt class="field-odd">File<span class="colon">:</span></dt>
+<dd class="field-odd"><p>EuljiroWorship/core/generator/ui/contents/hymn_content.py</p>
+</dd>
+</dl>
+<p>UI content widget for editing ‘hymn’ style slides.</p>
+<p>This module defines <cite>HymnContent</cite>, a QWidget that provides an interface for
+editing hymn-based slides. It supports selecting a hymn by number, loading
+its title and lyrics from local JSON files, editing the content, and saving
+updates back to the hymn database.</p>
+<p>Hymn data is stored as JSON files under a predefined directory (e.g.,
+<cite>data/hymns/</cite>), and this widget serves as a lightweight editor and viewer
+for that dataset within the slide generator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
+</dd>
+<dt class="field-even">Affiliated Church<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
+</dd>
+<dt class="field-odd">Address<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
+</dd>
+<dt class="field-even">Telephone<span class="colon">:</span></dt>
+<dd class="field-even"><p>+82-2-2266-3070</p>
+</dd>
+<dt class="field-odd">E-mail<span class="colon">:</span></dt>
+<dd class="field-odd"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
+</dd>
+<dt class="field-even">License<span class="colon">:</span></dt>
+<dd class="field-even"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="core.generator.ui.contents.hymn_content.HymnContent">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.ui.contents.hymn_content.</span></span><span class="sig-name descname"><span class="pre">HymnContent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/hymn_content.html#HymnContent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.hymn_content.HymnContent" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
+<p>Content editor widget for ‘hymn’ style slides.</p>
+<p>This widget provides input fields and controls for:
+- Selecting a hymn by number
+- Viewing and editing the hymn title
+- Viewing and editing the hymn lyrics
+- Loading hymn data from a local JSON database
+- Saving edited hymn data back to the database</p>
+<p>The edited content can be exported as slide data for use in the
+slide generator and controller.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>caption</strong> (<em>str</em>)</p></li>
+<li><p><strong>headline</strong> (<em>str</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.hymn_content.HymnContent.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generator_window</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caption</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/hymn_content.html#HymnContent.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.hymn_content.HymnContent.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize the hymn content editor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parent</strong> (<em>QWidget</em>) – Parent widget container.</p></li>
+<li><p><strong>generator_window</strong> – Reference to the generator window, used for submitting slide data
+and enabling auto-save behavior.</p></li>
+<li><p><strong>caption</strong> (<em>str</em>) – Initial title or caption value, often containing the hymn title.</p></li>
+<li><p><strong>headline</strong> (<em>str</em>) – Initial lyrics text.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.hymn_content.HymnContent.build_ui">
+<span class="sig-name descname"><span class="pre">build_ui</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/hymn_content.html#HymnContent.build_ui"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.hymn_content.HymnContent.build_ui" title="Link to this definition"></a></dt>
+<dd><p>Construct the UI layout and bind widget actions.</p>
+<p>This method initializes all input fields and buttons, sets up layout
+structure, and attempts to automatically extract the hymn number from
+the initial caption if present.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.hymn_content.HymnContent.load_hymn_by_number">
+<span class="sig-name descname"><span class="pre">load_hymn_by_number</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/hymn_content.html#HymnContent.load_hymn_by_number"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.hymn_content.HymnContent.load_hymn_by_number" title="Link to this definition"></a></dt>
+<dd><p>Load hymn data from the local JSON database using the selected number.</p>
+<p>The method validates the hymn number, checks that it falls within the
+available range, and attempts to load the corresponding JSON file.
+On success, the title and lyrics fields are populated.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>OSError</strong> – If the hymn directory cannot be accessed.</p></li>
+<li><p><strong>json.JSONDecodeError</strong> – If the hymn JSON file exists but contains invalid data.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.hymn_content.HymnContent.build_hymn_slide">
+<span class="sig-name descname"><span class="pre">build_hymn_slide</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/hymn_content.html#HymnContent.build_hymn_slide"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.hymn_content.HymnContent.build_hymn_slide" title="Link to this definition"></a></dt>
+<dd><p>Conditionally generate hymn slide data.</p>
+<p>If both the title and lyrics fields are empty, no slide data is
+generated. Otherwise, the current input values are returned as
+a slide data dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Slide data dictionary if at least one field is non-empty;
+otherwise, None.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.hymn_content.HymnContent.get_hymn_number_range">
+<span class="sig-name descname"><span class="pre">get_hymn_number_range</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/hymn_content.html#HymnContent.get_hymn_number_range"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.hymn_content.HymnContent.get_hymn_number_range" title="Link to this definition"></a></dt>
+<dd><p>Determine the valid range of hymn numbers from the local database.</p>
+<p>This method scans the hymn JSON directory and extracts the minimum
+and maximum hymn numbers available.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple containing the minimum and maximum hymn numbers.
+Returns (0, 0) if no valid hymn files are found.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple[int, int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.hymn_content.HymnContent.get_slide_data">
+<span class="sig-name descname"><span class="pre">get_slide_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/hymn_content.html#HymnContent.get_slide_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.hymn_content.HymnContent.get_slide_data" title="Link to this definition"></a></dt>
+<dd><p>Generate the slide data dictionary for a hymn slide.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary representing the hymn slide, including:
+- style
+- caption (hymn title)
+- headline (lyrics)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.hymn_content.HymnContent.save_hymn_json">
+<span class="sig-name descname"><span class="pre">save_hymn_json</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/hymn_content.html#HymnContent.save_hymn_json"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.hymn_content.HymnContent.save_hymn_json" title="Link to this definition"></a></dt>
+<dd><p>Save the current hymn data back to its JSON file.</p>
+<p>This method updates the title and lyrics fields in the corresponding
+hymn JSON file. If the hymn number is missing or invalid, the save
+operation is aborted and the user is warned.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>OSError</strong> – If the hymn file cannot be written.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="field-list simple" id="module-core.generator.ui.contents.image_content">
+<dt class="field-odd">File<span class="colon">:</span></dt>
+<dd class="field-odd"><p>EuljiroWorship/core/generator/ui/contents/image_content.py</p>
+</dd>
+</dl>
+<p>UI content widget for editing ‘image’ style slides.</p>
+<p>This module defines <cite>ImageContent</cite>, a QWidget that allows users to select
+an image file, preview it, and associate it with caption text for use
+in image-based slides. Selected images are copied into a local <cite>img/</cite>
+directory for reliable access by overlay HTML files.</p>
+<p>In this slide style, the <cite>headline</cite> field is repurposed to store the
+relative image path, while the <cite>caption</cite> field is used as accompanying
+text displayed alongside the image.</p>
+<p>The widget integrates with <cite>SlideInputSubmitter</cite> to support automatic
+submission and synchronization with the parent generator window.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
+</dd>
+<dt class="field-even">Affiliated Church<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
+</dd>
+<dt class="field-odd">Address<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
+</dd>
+<dt class="field-even">Telephone<span class="colon">:</span></dt>
+<dd class="field-even"><p>+82-2-2266-3070</p>
+</dd>
+<dt class="field-odd">E-mail<span class="colon">:</span></dt>
+<dd class="field-odd"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
+</dd>
+<dt class="field-even">License<span class="colon">:</span></dt>
+<dd class="field-even"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="core.generator.ui.contents.image_content.ImageContent">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.ui.contents.image_content.</span></span><span class="sig-name descname"><span class="pre">ImageContent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/image_content.html#ImageContent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.image_content.ImageContent" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
+<p>Content editor widget for ‘image’ style slides.</p>
+<p>This widget allows users to:
+- Select an image file from disk
+- Copy the selected image into a local image directory for overlay use
+- Preview the selected image
+- Enter optional caption text associated with the image</p>
+<p>In this slide style, the image path is stored in the <cite>headline</cite> field
+of the slide data dictionary, while the <cite>caption</cite> field contains
+accompanying text.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>caption</strong> (<em>str</em>)</p></li>
+<li><p><strong>headline</strong> (<em>str</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.image_content.ImageContent.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generator_window</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caption</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/image_content.html#ImageContent.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.image_content.ImageContent.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize the image content editor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parent</strong> (<em>QWidget</em>) – Parent widget container.</p></li>
+<li><p><strong>generator_window</strong> – Reference to the generator window, used for submitting slide data
+and enabling auto-save behavior.</p></li>
+<li><p><strong>caption</strong> (<em>str</em>) – Initial caption text associated with the image.</p></li>
+<li><p><strong>headline</strong> (<em>str</em>) – Initial image path (stored in the headline field).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.image_content.ImageContent.build_ui">
+<span class="sig-name descname"><span class="pre">build_ui</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/image_content.html#ImageContent.build_ui"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.image_content.ImageContent.build_ui" title="Link to this definition"></a></dt>
+<dd><p>Construct the UI elements for editing an image slide.</p>
+<p>This method builds input fields for caption and image path, a button
+for selecting an image file, and an image preview area. It also
+registers the input fields with <cite>SlideInputSubmitter</cite> to enable
+automatic submission.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.image_content.ImageContent.select_image">
+<span class="sig-name descname"><span class="pre">select_image</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/image_content.html#ImageContent.select_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.image_content.ImageContent.select_image" title="Link to this definition"></a></dt>
+<dd><p>Prompt the user to select an image file and register it for slide use.</p>
+<p>The selected image is copied into the local image directory and its
+relative path is stored in the headline field. A preview of the image
+is displayed in the UI.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.image_content.ImageContent.copy_to_img_folder">
+<span class="sig-name descname"><span class="pre">copy_to_img_folder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/image_content.html#ImageContent.copy_to_img_folder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.image_content.ImageContent.copy_to_img_folder" title="Link to this definition"></a></dt>
+<dd><p>Copy the selected image file into the local image directory.</p>
+<p>If the destination directory does not exist, it is created. If the
+image already exists at the destination, it is not copied again.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>source_path</strong> (<em>str</em>) – Absolute path to the source image file.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Relative image path suitable for use in overlay HTML
+(e.g., “img/example.png”).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>OSError</strong> – If the file cannot be copied or the destination directory
+    cannot be created.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.image_content.ImageContent.build_image_slide">
+<span class="sig-name descname"><span class="pre">build_image_slide</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/image_content.html#ImageContent.build_image_slide"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.image_content.ImageContent.build_image_slide" title="Link to this definition"></a></dt>
+<dd><p>Conditionally generate image slide data.</p>
+<p>If no image path has been selected, no slide data is generated.
+Otherwise, the current inputs are returned as a slide data dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Slide data dictionary if an image is selected; otherwise, None.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.image_content.ImageContent.get_slide_data">
+<span class="sig-name descname"><span class="pre">get_slide_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/image_content.html#ImageContent.get_slide_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.image_content.ImageContent.get_slide_data" title="Link to this definition"></a></dt>
+<dd><p>Generate the slide data dictionary for an image slide.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary representing the image slide, including:
+- style
+- caption
+- headline (relative image path)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.image_content.ImageContent.set_content">
+<span class="sig-name descname"><span class="pre">set_content</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/image_content.html#ImageContent.set_content"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.image_content.ImageContent.set_content" title="Link to this definition"></a></dt>
+<dd><p>Restore saved image slide data into the editor UI.</p>
+<p>This method populates the caption and image path fields and attempts
+to load and preview the referenced image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>dict</em>) – Slide data dictionary containing caption and image path.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="field-list simple" id="module-core.generator.ui.contents.lyrics_content">
+<dt class="field-odd">File<span class="colon">:</span></dt>
+<dd class="field-odd"><p>EuljiroWorship/core/generator/ui/contents/lyrics_content.py</p>
+</dd>
+</dl>
+<p>UI content widget for editing ‘lyrics’ style slides.</p>
+<p>This module defines <cite>LyricsContent</cite>, a QWidget that provides input fields
+for entering a song or praise title and its lyrics. The lyrics are entered
+as multiline text and are later split into multiple slides according to
+the generator’s export rules (typically every two lines).</p>
+<p>The widget integrates with <cite>SlideInputSubmitter</cite> to support automatic
+submission and synchronization with the parent generator window.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
+</dd>
+<dt class="field-even">Affiliated Church<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
+</dd>
+<dt class="field-odd">Address<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
+</dd>
+<dt class="field-even">Telephone<span class="colon">:</span></dt>
+<dd class="field-even"><p>+82-2-2266-3070</p>
+</dd>
+<dt class="field-odd">E-mail<span class="colon">:</span></dt>
+<dd class="field-odd"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
+</dd>
+<dt class="field-even">License<span class="colon">:</span></dt>
+<dd class="field-even"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="core.generator.ui.contents.lyrics_content.LyricsContent">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.ui.contents.lyrics_content.</span></span><span class="sig-name descname"><span class="pre">LyricsContent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/lyrics_content.html#LyricsContent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.lyrics_content.LyricsContent" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
+<p>Content editor widget for ‘lyrics’ style slides.</p>
+<p>This widget allows users to enter:
+- A title for the song or praise
+- Multiline lyrics text</p>
+<p>The lyrics content is stored as raw text and later processed by the
+slide exporter, which splits the text into multiple slides according
+to predefined rules (e.g., two lines per slide).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>caption</strong> (<em>str</em>)</p></li>
+<li><p><strong>headline</strong> (<em>str</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.lyrics_content.LyricsContent.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generator_window</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caption</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/lyrics_content.html#LyricsContent.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.lyrics_content.LyricsContent.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize the lyrics content editor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parent</strong> (<em>QWidget</em>) – Parent widget container.</p></li>
+<li><p><strong>generator_window</strong> – Reference to the generator main window, used for submitting
+slide data and enabling auto-save behavior.</p></li>
+<li><p><strong>caption</strong> (<em>str</em>) – Initial title text for the lyrics slide.</p></li>
+<li><p><strong>headline</strong> (<em>str</em>) – Initial lyrics content.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.lyrics_content.LyricsContent.build_ui">
+<span class="sig-name descname"><span class="pre">build_ui</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/lyrics_content.html#LyricsContent.build_ui"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.lyrics_content.LyricsContent.build_ui" title="Link to this definition"></a></dt>
+<dd><p>Construct the UI elements for editing a lyrics-style slide.</p>
+<p>This method creates labeled input fields for the lyrics title and
+multiline lyrics content, arranges them vertically, and registers
+the title input with <cite>SlideInputSubmitter</cite> to enable automatic
+submission.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.lyrics_content.LyricsContent.build_lyrics_slide">
+<span class="sig-name descname"><span class="pre">build_lyrics_slide</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/lyrics_content.html#LyricsContent.build_lyrics_slide"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.lyrics_content.LyricsContent.build_lyrics_slide" title="Link to this definition"></a></dt>
+<dd><p>Conditionally generate lyrics slide data.</p>
+<p>If both the title and lyrics fields are empty, no slide data is
+generated. Otherwise, the current input values are returned as a
+slide data dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Slide data dictionary if at least one field is non-empty;
+otherwise, None.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.lyrics_content.LyricsContent.get_slide_data">
+<span class="sig-name descname"><span class="pre">get_slide_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/lyrics_content.html#LyricsContent.get_slide_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.lyrics_content.LyricsContent.get_slide_data" title="Link to this definition"></a></dt>
+<dd><p>Generate the slide data dictionary for a lyrics slide.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary representing the lyrics slide, including:
+- style
+- caption (song title)
+- headline (raw lyrics text)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="field-list simple" id="module-core.generator.ui.contents.prayer_content">
+<dt class="field-odd">File<span class="colon">:</span></dt>
+<dd class="field-odd"><p>EuljiroWorship/core/generator/ui/contents/prayer_content.py</p>
+</dd>
+</dl>
+<p>UI content widget for editing ‘prayer’ style slides.</p>
+<p>This module defines <cite>PrayerContent</cite>, a QWidget that provides input fields
+for creating prayer slides. A prayer slide typically consists of a short
+title (e.g., “기도”) and the name of the person leading the prayer.</p>
+<p>The widget integrates with <cite>SlideInputSubmitter</cite> to support automatic
+submission and synchronization with the parent slide generator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
+</dd>
+<dt class="field-even">Affiliated Church<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
+</dd>
+<dt class="field-odd">Address<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
+</dd>
+<dt class="field-even">Telephone<span class="colon">:</span></dt>
+<dd class="field-even"><p>+82-2-2266-3070</p>
+</dd>
+<dt class="field-odd">E-mail<span class="colon">:</span></dt>
+<dd class="field-odd"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
+</dd>
+<dt class="field-even">License<span class="colon">:</span></dt>
+<dd class="field-even"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="core.generator.ui.contents.prayer_content.PrayerContent">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.ui.contents.prayer_content.</span></span><span class="sig-name descname"><span class="pre">PrayerContent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/prayer_content.html#PrayerContent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.prayer_content.PrayerContent" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
+<p>Content editor widget for ‘prayer’ style slides.</p>
+<p>This widget allows users to specify:
+- A short prayer title (usually “기도”)
+- The name of the prayer leader</p>
+<p>The entered values are exported as a simple slide dictionary and
+rendered using the ‘prayer’ slide style.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>caption</strong> (<em>str</em>)</p></li>
+<li><p><strong>headline</strong> (<em>str</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.prayer_content.PrayerContent.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generator_window</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caption</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'기도'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/prayer_content.html#PrayerContent.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.prayer_content.PrayerContent.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize the prayer content editor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parent</strong> (<em>QWidget</em>) – Parent widget container.</p></li>
+<li><p><strong>generator_window</strong> – Reference to the generator main window, used for slide submission
+and auto-save behavior.</p></li>
+<li><p><strong>caption</strong> (<em>str</em>) – Initial prayer title. Defaults to “기도”.</p></li>
+<li><p><strong>headline</strong> (<em>str</em>) – Initial name of the prayer leader.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.prayer_content.PrayerContent.build_ui">
+<span class="sig-name descname"><span class="pre">build_ui</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/prayer_content.html#PrayerContent.build_ui"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.prayer_content.PrayerContent.build_ui" title="Link to this definition"></a></dt>
+<dd><p>Construct the UI elements for editing a prayer slide.</p>
+<p>This method creates labeled input fields for the prayer title and
+the prayer leader’s name, arranges them vertically, and registers
+the inputs with <cite>SlideInputSubmitter</cite> to enable automatic submission.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.prayer_content.PrayerContent.build_prayer_slide">
+<span class="sig-name descname"><span class="pre">build_prayer_slide</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/prayer_content.html#PrayerContent.build_prayer_slide"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.prayer_content.PrayerContent.build_prayer_slide" title="Link to this definition"></a></dt>
+<dd><p>Conditionally generate prayer slide data.</p>
+<p>If both the title and leader name fields are empty, no slide data is
+generated. Otherwise, the current input values are returned as a
+slide data dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Slide data dictionary if at least one field is non-empty;
+otherwise, None.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.prayer_content.PrayerContent.get_slide_data">
+<span class="sig-name descname"><span class="pre">get_slide_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/prayer_content.html#PrayerContent.get_slide_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.prayer_content.PrayerContent.get_slide_data" title="Link to this definition"></a></dt>
+<dd><p>Generate the slide data dictionary for a prayer slide.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary representing the prayer slide, including:
+- style
+- caption (prayer title)
+- headline (prayer leader name)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="field-list simple" id="module-core.generator.ui.contents.respo_content">
+<dt class="field-odd">File<span class="colon">:</span></dt>
+<dd class="field-odd"><p>EuljiroWorship/core/generator/ui/contents/respo_content.py</p>
+</dd>
+</dl>
+<p>UI content widget for editing ‘respo’ (responsive reading) style slides.</p>
+<p>This module defines <cite>RespoContent</cite>, a QWidget that provides a table-based
+editor for responsive readings (교독문). Each slide consists of a title
+and a sequence of speaker–response pairs, which are rendered as formatted
+HTML for slide output.</p>
+<p>The widget supports loading and saving responsive readings from JSON files
+stored under <cite>data/respo/</cite>, and integrates with <cite>SlideInputSubmitter</cite> for
+automatic synchronization with the slide generator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
+</dd>
+<dt class="field-even">Affiliated Church<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
+</dd>
+<dt class="field-odd">Address<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
+</dd>
+<dt class="field-even">Telephone<span class="colon">:</span></dt>
+<dd class="field-even"><p>+82-2-2266-3070</p>
+</dd>
+<dt class="field-odd">E-mail<span class="colon">:</span></dt>
+<dd class="field-odd"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
+</dd>
+<dt class="field-even">License<span class="colon">:</span></dt>
+<dd class="field-even"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="core.generator.ui.contents.respo_content.RespoContent">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.ui.contents.respo_content.</span></span><span class="sig-name descname"><span class="pre">RespoContent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/respo_content.html#RespoContent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.respo_content.RespoContent" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
+<p>Content editor widget for ‘respo’ (responsive reading) slides.</p>
+<p>This widget allows users to:
+- Select a responsive reading by number
+- Edit the title of the reading
+- Edit speaker–response pairs using a table interface</p>
+<p>The table contents are converted into formatted HTML and exported
+as slide data for rendering.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>caption</strong> (<em>str</em>)</p></li>
+<li><p><strong>headline</strong> (<em>str</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.respo_content.RespoContent.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generator_window</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caption</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/respo_content.html#RespoContent.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.respo_content.RespoContent.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize the responsive reading editor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parent</strong> (<em>QWidget</em>) – Parent widget container.</p></li>
+<li><p><strong>generator_window</strong> – Reference to the generator main window, used for submission
+and auto-save behavior.</p></li>
+<li><p><strong>caption</strong> (<em>str</em>) – Initial slide caption, typically a numbered title.</p></li>
+<li><p><strong>headline</strong> (<em>str</em>) – Initial slide body content (unused for direct editing; rebuilt
+from table data).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.respo_content.RespoContent.build_ui">
+<span class="sig-name descname"><span class="pre">build_ui</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/respo_content.html#RespoContent.build_ui"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.respo_content.RespoContent.build_ui" title="Link to this definition"></a></dt>
+<dd><p>Construct the UI layout for responsive reading editing.</p>
+<p>The layout includes:
+- A number input field with load button
+- A title input field
+- A two-column table for speaker and response text
+- A save button for writing data back to JSON</p>
+<p>This method also initializes auto-loading when a numbered caption
+is detected.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.respo_content.RespoContent.load_respo_by_number">
+<span class="sig-name descname"><span class="pre">load_respo_by_number</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/respo_content.html#RespoContent.load_respo_by_number"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.respo_content.RespoContent.load_respo_by_number" title="Link to this definition"></a></dt>
+<dd><p>Load responsive reading data from a JSON file.</p>
+<p>The JSON file is selected based on the number entered by the user
+and must exist under the <cite>data/respo/</cite> directory. The loaded data
+populates the title field and the speaker–response table.</p>
+<p>Displays a warning dialog if the input is invalid or out of range.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.respo_content.RespoContent.build_respo_slide">
+<span class="sig-name descname"><span class="pre">build_respo_slide</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/respo_content.html#RespoContent.build_respo_slide"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.respo_content.RespoContent.build_respo_slide" title="Link to this definition"></a></dt>
+<dd><p>Conditionally generate responsive reading slide data.</p>
+<p>If both the title and formatted body are empty, no slide data is
+produced. Otherwise, the current table contents are formatted and
+returned as slide data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Slide data dictionary if valid; otherwise, None.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.respo_content.RespoContent.get_respo_number_range">
+<span class="sig-name descname"><span class="pre">get_respo_number_range</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/respo_content.html#RespoContent.get_respo_number_range"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.respo_content.RespoContent.get_respo_number_range" title="Link to this definition"></a></dt>
+<dd><p>Determine the valid range of responsive reading numbers.</p>
+<p>Scans the <cite>data/respo/</cite> directory for available JSON files and
+extracts their numeric identifiers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Minimum and maximum available responsive reading numbers.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>tuple[int, int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.respo_content.RespoContent.get_slide_data">
+<span class="sig-name descname"><span class="pre">get_slide_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/respo_content.html#RespoContent.get_slide_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.respo_content.RespoContent.get_slide_data" title="Link to this definition"></a></dt>
+<dd><p>Generate the slide data dictionary for export.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dictionary containing:
+- style: ‘respo’
+- caption: title of the responsive reading
+- headline: formatted HTML body</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.respo_content.RespoContent.format_responsive_text">
+<span class="sig-name descname"><span class="pre">format_responsive_text</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/respo_content.html#RespoContent.format_responsive_text"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.respo_content.RespoContent.format_responsive_text" title="Link to this definition"></a></dt>
+<dd><p>Convert table contents into formatted HTML text.</p>
+<p>Each row in the table is rendered as a bold speaker label followed
+by the corresponding response text.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>HTML-formatted responsive reading content.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.respo_content.RespoContent.save_respo_json">
+<span class="sig-name descname"><span class="pre">save_respo_json</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/respo_content.html#RespoContent.save_respo_json"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.respo_content.RespoContent.save_respo_json" title="Link to this definition"></a></dt>
+<dd><p>Save the current responsive reading data to a JSON file.</p>
+<p>The data is written back to the file corresponding to the selected
+responsive reading number under <cite>data/respo/</cite>. A warning is shown
+if no valid number is provided.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="field-list simple" id="module-core.generator.ui.contents.verse_content">
+<dt class="field-odd">File<span class="colon">:</span></dt>
+<dd class="field-odd"><p>EuljiroWorship/core/generator/ui/contents/verse_content.py</p>
+</dd>
+</dl>
+<p>UI content widget for editing ‘verse’ style slides.</p>
+<p>This module defines <cite>VerseContent</cite>, a QWidget that provides an interface
+for entering Bible references, fetching the corresponding verses from
+the internal Bible data engine, and previewing the formatted output.</p>
+<p>The widget supports:
+- Selecting a Bible version
+- Parsing and validating Scripture references
+- Expanding verse ranges and full chapters
+- Writing fetched verses to <cite>verse_output.txt</cite> for emergency overlay use</p>
+<dl class="field-list simple">
+<dt class="field-odd">Author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
+</dd>
+<dt class="field-even">Affiliated Church<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
+</dd>
+<dt class="field-odd">Address<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
+</dd>
+<dt class="field-even">Telephone<span class="colon">:</span></dt>
+<dd class="field-even"><p>+82-2-2266-3070</p>
+</dd>
+<dt class="field-odd">E-mail<span class="colon">:</span></dt>
+<dd class="field-odd"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
+</dd>
+<dt class="field-even">License<span class="colon">:</span></dt>
+<dd class="field-even"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="core.generator.ui.contents.verse_content.VerseContent">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.ui.contents.verse_content.</span></span><span class="sig-name descname"><span class="pre">VerseContent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/verse_content.html#VerseContent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.verse_content.VerseContent" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
+<p>Content editor widget for ‘verse’ (Bible verse) slides.</p>
+<p>This widget allows the user to input a Bible reference
+(e.g., “요한복음 3:16”), fetch the corresponding verse text from
+the selected Bible version, and preview the formatted output.</p>
+<p>The fetched verses are also written to <cite>verse_output.txt</cite> to support
+emergency subtitle overlays.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>caption</strong> (<em>str</em>)</p></li>
+<li><p><strong>headline</strong> (<em>str</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.verse_content.VerseContent.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generator_window</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caption</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/verse_content.html#VerseContent.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.verse_content.VerseContent.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize the verse slide editor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parent</strong> (<em>QWidget</em>) – Parent widget container.</p></li>
+<li><p><strong>generator_window</strong> – Reference to the generator main window, used for submission
+and synchronization.</p></li>
+<li><p><strong>caption</strong> (<em>str</em>) – Initial Bible reference string.</p></li>
+<li><p><strong>headline</strong> (<em>str</em>) – Initial verse text content.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.verse_content.VerseContent.build_ui">
+<span class="sig-name descname"><span class="pre">build_ui</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/verse_content.html#VerseContent.build_ui"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.verse_content.VerseContent.build_ui" title="Link to this definition"></a></dt>
+<dd><p>Construct the UI layout for verse editing.</p>
+<p>The layout includes:
+- A Bible version selector
+- A reference input field
+- A multi-line text preview for verse content</p>
+<p>The reference input is connected to dynamic verse fetching when
+the user presses Enter.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.verse_content.VerseContent.try_fetch_verse_output">
+<span class="sig-name descname"><span class="pre">try_fetch_verse_output</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/verse_content.html#VerseContent.try_fetch_verse_output"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.verse_content.VerseContent.try_fetch_verse_output" title="Link to this definition"></a></dt>
+<dd><p>Fetch and display Bible verses based on the entered reference.</p>
+<p>This method:
+- Parses the reference string
+- Loads the selected Bible version
+- Expands verse ranges or full chapters if needed
+- Formats and displays the verse text
+- Writes the output to <cite>verse_output.txt</cite></p>
+<p>Displays an error message in the preview area if parsing or loading fails.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.verse_content.VerseContent.build_verse_slide">
+<span class="sig-name descname"><span class="pre">build_verse_slide</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/verse_content.html#VerseContent.build_verse_slide"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.verse_content.VerseContent.build_verse_slide" title="Link to this definition"></a></dt>
+<dd><p>Conditionally build verse slide data.</p>
+<p>Returns slide data only if either the reference or verse text
+is non-empty.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Slide data dictionary if valid; otherwise, None.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.verse_content.VerseContent.get_slide_data">
+<span class="sig-name descname"><span class="pre">get_slide_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/verse_content.html#VerseContent.get_slide_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.verse_content.VerseContent.get_slide_data" title="Link to this definition"></a></dt>
+<dd><p>Return the current verse slide data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dictionary containing:
+- style: ‘verse’
+- caption: Bible reference string
+- headline: Verse text content</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="field-list simple" id="module-core.generator.ui.contents.video_content">
+<dt class="field-odd">File<span class="colon">:</span></dt>
+<dd class="field-odd"><p>EuljiroWorship/core/generator/ui/contents/video_content.py</p>
+</dd>
+</dl>
+<p>UI content widget for editing ‘video’ style slides.</p>
+<p>This module defines <cite>VideoContent</cite>, a QWidget that allows users to select
+a video file, preview it, and associate it with caption text for use
+in video-based slides. Selected videos are copied into a local <cite>html/img/</cite>
+directory for reliable access by overlay HTML files.</p>
+<p>In this slide style, the <cite>headline</cite> field is repurposed to store the
+relative video path, while the <cite>caption</cite> field is used as accompanying
+text displayed alongside the video.</p>
+<p>The widget integrates with <cite>SlideInputSubmitter</cite> to support automatic
+submission and synchronization with the parent generator window.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
+</dd>
+<dt class="field-even">Affiliated Church<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
+</dd>
+<dt class="field-odd">Address<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
+</dd>
+<dt class="field-even">Telephone<span class="colon">:</span></dt>
+<dd class="field-even"><p>+82-2-2266-3070</p>
+</dd>
+<dt class="field-odd">E-mail<span class="colon">:</span></dt>
+<dd class="field-odd"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
+</dd>
+<dt class="field-even">License<span class="colon">:</span></dt>
+<dd class="field-even"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="core.generator.ui.contents.video_content.VideoContent">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.ui.contents.video_content.</span></span><span class="sig-name descname"><span class="pre">VideoContent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/video_content.html#VideoContent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.video_content.VideoContent" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
+<p>Content editor widget for ‘video’ style slides.</p>
+<p>This widget allows users to:
+- Select a video file from disk
+- Copy the selected video into a local image directory for overlay use (html/img)
+- Preview the selected video (play/pause)
+- Enter optional caption text associated with the video</p>
+<p>In this slide style, the video path is stored in the <cite>headline</cite> field
+of the slide data dictionary, while the <cite>caption</cite> field contains
+accompanying text.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>caption</strong> (<em>str</em>)</p></li>
+<li><p><strong>headline</strong> (<em>str</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.video_content.VideoContent.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generator_window</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caption</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/video_content.html#VideoContent.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.video_content.VideoContent.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize the video content editor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parent</strong> (<em>QWidget</em>) – Parent widget container.</p></li>
+<li><p><strong>generator_window</strong> – Reference to the generator window, used for submitting slide data
+and enabling auto-save behavior.</p></li>
+<li><p><strong>caption</strong> (<em>str</em>) – Initial caption text associated with the video.</p></li>
+<li><p><strong>headline</strong> (<em>str</em>) – Initial video path (stored in the headline field).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.video_content.VideoContent.build_ui">
+<span class="sig-name descname"><span class="pre">build_ui</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/video_content.html#VideoContent.build_ui"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.video_content.VideoContent.build_ui" title="Link to this definition"></a></dt>
+<dd><p>Construct the UI elements for editing a video slide.</p>
+<p>Builds input fields for caption and video path, a button for selecting
+a video file, and a video preview area. Registers the input fields with
+<cite>SlideInputSubmitter</cite> to enable automatic submission.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.video_content.VideoContent.select_video">
+<span class="sig-name descname"><span class="pre">select_video</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/video_content.html#VideoContent.select_video"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.video_content.VideoContent.select_video" title="Link to this definition"></a></dt>
+<dd><p>Prompt the user to select a video file and register it for slide use.</p>
+<p>The selected video is copied into the local <cite>html/img</cite> directory and its
+relative path is stored in the headline field.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.video_content.VideoContent.copy_to_img_folder">
+<span class="sig-name descname"><span class="pre">copy_to_img_folder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/video_content.html#VideoContent.copy_to_img_folder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.video_content.VideoContent.copy_to_img_folder" title="Link to this definition"></a></dt>
+<dd><p>Copy the selected video file into the local image directory (html/img).</p>
+<p>If the destination directory does not exist, it is created.
+If the file already exists at the destination, it is not copied again.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>source_path</strong> (<em>str</em>) – Absolute path to the source video file.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Relative path for overlay HTML usage, e.g. “img/example.mp4”.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>OSError</strong> – If the file cannot be copied or the destination directory cannot be created.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.video_content.VideoContent.play_preview">
+<span class="sig-name descname"><span class="pre">play_preview</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/video_content.html#VideoContent.play_preview"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.video_content.VideoContent.play_preview" title="Link to this definition"></a></dt>
+<dd><p>Start playing the preview video.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.video_content.VideoContent.pause_preview">
+<span class="sig-name descname"><span class="pre">pause_preview</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/video_content.html#VideoContent.pause_preview"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.video_content.VideoContent.pause_preview" title="Link to this definition"></a></dt>
+<dd><p>Pause the preview video.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.video_content.VideoContent.stop_preview">
+<span class="sig-name descname"><span class="pre">stop_preview</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/video_content.html#VideoContent.stop_preview"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.video_content.VideoContent.stop_preview" title="Link to this definition"></a></dt>
+<dd><p>Stop the preview video.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.video_content.VideoContent.build_video_slide">
+<span class="sig-name descname"><span class="pre">build_video_slide</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/video_content.html#VideoContent.build_video_slide"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.video_content.VideoContent.build_video_slide" title="Link to this definition"></a></dt>
+<dd><p>Conditionally generate video slide data.</p>
+<p>If no video path has been selected, no slide data is generated.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Slide data dictionary if a video is selected; otherwise, None.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.video_content.VideoContent.get_slide_data">
+<span class="sig-name descname"><span class="pre">get_slide_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/video_content.html#VideoContent.get_slide_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.video_content.VideoContent.get_slide_data" title="Link to this definition"></a></dt>
+<dd><p>Generate the slide data dictionary for a video slide.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dictionary representing the video slide:
+- style
+- caption
+- headline (relative video path, e.g., “img/foo.mp4”)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.video_content.VideoContent.set_content">
+<span class="sig-name descname"><span class="pre">set_content</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/video_content.html#VideoContent.set_content"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.video_content.VideoContent.set_content" title="Link to this definition"></a></dt>
+<dd><p>Restore saved video slide data into the editor UI.</p>
+<p>Populates caption and video path fields and attempts to load preview.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>dict</em>) – Slide data dictionary containing caption and video path.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-core.generator.ui.contents">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-core.generator.ui.contents" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="core.generator.ui.html" class="btn btn-neutral float-left" title="core.generator.ui" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="core.generator.utils.html" class="btn btn-neutral float-right" title="core.generator.utils" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Benjamin J. Choi.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

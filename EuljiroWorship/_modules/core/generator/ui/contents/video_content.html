@@ -116,7 +116,7 @@
 
 
 <div class="viewcode-block" id="VideoContent">
-<a class="viewcode-back" href="../../../../../core.generator.html#core.generator.ui.contents.video_content.VideoContent">[docs]</a>
+<a class="viewcode-back" href="../../../../../core.generator.ui.contents.html#core.generator.ui.contents.video_content.VideoContent">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">VideoContent</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Content editor widget for &#39;video&#39; style slides.</span>
@@ -133,7 +133,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="VideoContent.__init__">
-<a class="viewcode-back" href="../../../../../core.generator.html#core.generator.ui.contents.video_content.VideoContent.__init__">[docs]</a>
+<a class="viewcode-back" href="../../../../../core.generator.ui.contents.html#core.generator.ui.contents.video_content.VideoContent.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">generator_window</span><span class="p">,</span> <span class="n">caption</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">headline</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize the video content editor.</span>
@@ -170,7 +170,7 @@
 
 
 <div class="viewcode-block" id="VideoContent.build_ui">
-<a class="viewcode-back" href="../../../../../core.generator.html#core.generator.ui.contents.video_content.VideoContent.build_ui">[docs]</a>
+<a class="viewcode-back" href="../../../../../core.generator.ui.contents.html#core.generator.ui.contents.video_content.VideoContent.build_ui">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">build_ui</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Construct the UI elements for editing a video slide.</span>
@@ -250,7 +250,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="o">.</span><span class="n">setVideoOutput</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">video_widget</span><span class="p">)</span>
 
 <div class="viewcode-block" id="VideoContent.select_video">
-<a class="viewcode-back" href="../../../../../core.generator.html#core.generator.ui.contents.video_content.VideoContent.select_video">[docs]</a>
+<a class="viewcode-back" href="../../../../../core.generator.ui.contents.html#core.generator.ui.contents.video_content.VideoContent.select_video">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">select_video</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Prompt the user to select a video file and register it for slide use.</span>
@@ -283,7 +283,7 @@
 
 
 <div class="viewcode-block" id="VideoContent.copy_to_img_folder">
-<a class="viewcode-back" href="../../../../../core.generator.html#core.generator.ui.contents.video_content.VideoContent.copy_to_img_folder">[docs]</a>
+<a class="viewcode-back" href="../../../../../core.generator.ui.contents.html#core.generator.ui.contents.video_content.VideoContent.copy_to_img_folder">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">copy_to_img_folder</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Copy the selected video file into the local image directory (html/img).</span>
@@ -356,7 +356,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">preview_label</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;비디오 로딩 실패&quot;</span><span class="p">)</span>
 
 <div class="viewcode-block" id="VideoContent.play_preview">
-<a class="viewcode-back" href="../../../../../core.generator.html#core.generator.ui.contents.video_content.VideoContent.play_preview">[docs]</a>
+<a class="viewcode-back" href="../../../../../core.generator.ui.contents.html#core.generator.ui.contents.video_content.VideoContent.play_preview">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">play_preview</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Start playing the preview video.</span>
@@ -369,7 +369,7 @@
 
 
 <div class="viewcode-block" id="VideoContent.pause_preview">
-<a class="viewcode-back" href="../../../../../core.generator.html#core.generator.ui.contents.video_content.VideoContent.pause_preview">[docs]</a>
+<a class="viewcode-back" href="../../../../../core.generator.ui.contents.html#core.generator.ui.contents.video_content.VideoContent.pause_preview">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">pause_preview</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Pause the preview video.</span>
@@ -382,7 +382,7 @@
 
 
 <div class="viewcode-block" id="VideoContent.stop_preview">
-<a class="viewcode-back" href="../../../../../core.generator.html#core.generator.ui.contents.video_content.VideoContent.stop_preview">[docs]</a>
+<a class="viewcode-back" href="../../../../../core.generator.ui.contents.html#core.generator.ui.contents.video_content.VideoContent.stop_preview">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">stop_preview</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Stop the preview video.</span>
@@ -395,7 +395,7 @@
 
 
 <div class="viewcode-block" id="VideoContent.build_video_slide">
-<a class="viewcode-back" href="../../../../../core.generator.html#core.generator.ui.contents.video_content.VideoContent.build_video_slide">[docs]</a>
+<a class="viewcode-back" href="../../../../../core.generator.ui.contents.html#core.generator.ui.contents.video_content.VideoContent.build_video_slide">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">build_video_slide</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Conditionally generate video slide data.</span>
@@ -413,7 +413,7 @@
 
 
 <div class="viewcode-block" id="VideoContent.get_slide_data">
-<a class="viewcode-back" href="../../../../../core.generator.html#core.generator.ui.contents.video_content.VideoContent.get_slide_data">[docs]</a>
+<a class="viewcode-back" href="../../../../../core.generator.ui.contents.html#core.generator.ui.contents.video_content.VideoContent.get_slide_data">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_slide_data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generate the slide data dictionary for a video slide.</span>
@@ -433,7 +433,7 @@
 
 
 <div class="viewcode-block" id="VideoContent.set_content">
-<a class="viewcode-back" href="../../../../../core.generator.html#core.generator.ui.contents.video_content.VideoContent.set_content">[docs]</a>
+<a class="viewcode-back" href="../../../../../core.generator.ui.contents.html#core.generator.ui.contents.video_content.VideoContent.set_content">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">set_content</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Restore saved video slide data into the editor UI.</span>

@@ -92,7 +92,7 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">QWidget</span><span class="p">,</span> <span class="n">QApplication</span>
 
 <div class="viewcode-block" id="SlideInputSubmitter">
-<a class="viewcode-back" href="../../../../core.generator.html#core.generator.utils.slide_input_submitter.SlideInputSubmitter">[docs]</a>
+<a class="viewcode-back" href="../../../../core.generator.utils.html#core.generator.utils.slide_input_submitter.SlideInputSubmitter">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">SlideInputSubmitter</span><span class="p">(</span><span class="n">QObject</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Event-filter helper that submits slide edits when the user presses Enter.</span>
@@ -124,7 +124,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="SlideInputSubmitter.__init__">
-<a class="viewcode-back" href="../../../../core.generator.html#core.generator.utils.slide_input_submitter.SlideInputSubmitter.__init__">[docs]</a>
+<a class="viewcode-back" href="../../../../core.generator.utils.html#core.generator.utils.slide_input_submitter.SlideInputSubmitter.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">inputs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">QWidget</span><span class="p">],</span>
@@ -153,7 +153,7 @@
 
 
 <div class="viewcode-block" id="SlideInputSubmitter.eventFilter">
-<a class="viewcode-back" href="../../../../core.generator.html#core.generator.utils.slide_input_submitter.SlideInputSubmitter.eventFilter">[docs]</a>
+<a class="viewcode-back" href="../../../../core.generator.utils.html#core.generator.utils.slide_input_submitter.SlideInputSubmitter.eventFilter">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">eventFilter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Intercept keypress events to detect Enter-submit.</span>
@@ -184,7 +184,7 @@
 
 
 <div class="viewcode-block" id="SlideInputSubmitter.try_submit_slide">
-<a class="viewcode-back" href="../../../../core.generator.html#core.generator.utils.slide_input_submitter.SlideInputSubmitter.try_submit_slide">[docs]</a>
+<a class="viewcode-back" href="../../../../core.generator.utils.html#core.generator.utils.slide_input_submitter.SlideInputSubmitter.try_submit_slide">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">try_submit_slide</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Build and persist slide data using the registered callback.</span>
