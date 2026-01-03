@@ -1,0 +1,432 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>core.utils.bible_data_loader &mdash; EuljiroWorship 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=2709fde1"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="core.utils.bible_keyword_searcher" href="core.utils.bible_keyword_searcher.html" />
+    <link rel="prev" title="core.utils" href="core.utils.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            EuljiroWorship
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Modules</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="EuljiroWorship.html">EuljiroWorship</a></li>
+<li class="toctree-l2"><a class="reference internal" href="controller.html">controller</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="core.html">core</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="core.config.html">core.config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.generator.html">core.generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.plugin.html">core.plugin</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="core.utils.html">core.utils</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">core.utils.bible_data_loader</a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.utils.bible_keyword_searcher.html">core.utils.bible_keyword_searcher</a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.utils.bible_parser.html">core.utils.bible_parser</a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.utils.logger.html">core.utils.logger</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="server.html">server</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">EuljiroWorship</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">Modules</a></li>
+          <li class="breadcrumb-item"><a href="core.html">core</a></li>
+          <li class="breadcrumb-item"><a href="core.utils.html">core.utils</a></li>
+      <li class="breadcrumb-item active">core.utils.bible_data_loader</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/core.utils.bible_data_loader.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-core.utils.bible_data_loader">
+<span id="core-utils-bible-data-loader"></span><h1>core.utils.bible_data_loader<a class="headerlink" href="#module-core.utils.bible_data_loader" title="Link to this heading"></a></h1>
+<dl class="field-list simple">
+<dt class="field-odd">File<span class="colon">:</span></dt>
+<dd class="field-odd"><p>EuljiroWorship/core/utils/bible_data_loader.py</p>
+</dd>
+</dl>
+<p>Handles lazy loading and caching of Bible text and metadata from JSON sources.</p>
+<p>This module provides a unified data access layer for Bible-related resources,
+including:</p>
+<ul class="simple">
+<li><p>Bible version aliases</p></li>
+<li><p>Book name aliases</p></li>
+<li><p>Canonical book names</p></li>
+<li><p>Custom sort order</p></li>
+<li><p>Full Bible text data</p></li>
+</ul>
+<p>All Bible text JSON files are loaded lazily and cached in memory on first access
+to minimize startup cost and disk I/O.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
+</dd>
+<dt class="field-even">Affiliated Church<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
+</dd>
+<dt class="field-odd">Address<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
+</dd>
+<dt class="field-even">Telephone<span class="colon">:</span></dt>
+<dd class="field-even"><p>+82-2-2266-3070</p>
+</dd>
+<dt class="field-odd">E-mail<span class="colon">:</span></dt>
+<dd class="field-odd"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
+</dd>
+<dt class="field-even">License<span class="colon">:</span></dt>
+<dd class="field-even"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="core.utils.bible_data_loader.BibleDataLoader">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.utils.bible_data_loader.</span></span><span class="sig-name descname"><span class="pre">BibleDataLoader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">json_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/utils/bible_data_loader.html#BibleDataLoader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.utils.bible_data_loader.BibleDataLoader" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Lazy-loading data manager for Bible text and metadata.</p>
+<p>This class loads and caches Bible-related JSON resources on demand,
+including version metadata, book aliases, canonical book names, and
+full Bible text files.</p>
+<p>Bible text files are loaded per version only when first requested
+and stored in an internal cache to avoid repeated disk access.</p>
+<p>The class is shared by both EuljiroBible and EuljiroWorship systems
+and therefore includes several compatibility helper methods.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="core.utils.bible_data_loader.BibleDataLoader.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">json_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/utils/bible_data_loader.html#BibleDataLoader.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.utils.bible_data_loader.BibleDataLoader.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize the Bible data loader.</p>
+<p>Optional directory overrides can be supplied for testing or
+alternative data layouts.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>json_dir</strong> (<em>str</em><em>, </em><em>optional</em>) – Directory containing Bible metadata JSON files
+(aliases, canonical names, sort order).</p></li>
+<li><p><strong>text_dir</strong> (<em>str</em><em>, </em><em>optional</em>) – Directory containing Bible text JSON files.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.utils.bible_data_loader.BibleDataLoader.get_verses">
+<span class="sig-name descname"><span class="pre">get_verses</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/utils/bible_data_loader.html#BibleDataLoader.get_verses"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.utils.bible_data_loader.BibleDataLoader.get_verses" title="Link to this definition"></a></dt>
+<dd><p>Retrieve all verses for a given Bible version.</p>
+<p>The version data is loaded from disk only once and cached
+internally for subsequent access.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>version</strong> (<em>str</em>) – Bible version key (e.g. “NKRV”, “KJV”).</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Nested dictionary structure containing the full Bible
+text for the specified version.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.utils.bible_data_loader.BibleDataLoader.get_books_for_version">
+<span class="sig-name descname"><span class="pre">get_books_for_version</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/utils/bible_data_loader.html#BibleDataLoader.get_books_for_version"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.utils.bible_data_loader.BibleDataLoader.get_books_for_version" title="Link to this definition"></a></dt>
+<dd><p>Return the list of books available in a given Bible version.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>version</strong> (<em>str</em>) – Bible version key.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of book identifiers present in the version.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.utils.bible_data_loader.BibleDataLoader.get_standard_book">
+<span class="sig-name descname"><span class="pre">get_standard_book</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">book_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lang_code</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/utils/bible_data_loader.html#BibleDataLoader.get_standard_book"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.utils.bible_data_loader.BibleDataLoader.get_standard_book" title="Link to this definition"></a></dt>
+<dd><p>Return the localized canonical name of a Bible book.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>book_id</strong> (<em>str</em>) – Canonical book identifier (e.g. “John”).</p></li>
+<li><p><strong>lang_code</strong> (<em>str</em>) – Language code (e.g. “ko”, “en”).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Localized book name if available, otherwise the book ID.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.utils.bible_data_loader.BibleDataLoader.get_sort_key">
+<span class="sig-name descname"><span class="pre">get_sort_key</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/utils/bible_data_loader.html#BibleDataLoader.get_sort_key"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.utils.bible_data_loader.BibleDataLoader.get_sort_key" title="Link to this definition"></a></dt>
+<dd><p>Return a sorting key function for Bible version names.</p>
+<p>The key function sorts versions using a predefined regional
+prefix order followed by lexicographical ordering.</p>
+<p>This method is required by both GUI and CLI code paths.
+DO NOT DELETE.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Callable suitable for use as the <cite>key</cite> argument in sorted().</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>function</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.utils.bible_data_loader.BibleDataLoader.load_version">
+<span class="sig-name descname"><span class="pre">load_version</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version_key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/utils/bible_data_loader.html#BibleDataLoader.load_version"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.utils.bible_data_loader.BibleDataLoader.load_version" title="Link to this definition"></a></dt>
+<dd><p>Explicitly load a Bible version into memory.</p>
+<p>This method forces loading even if lazy access has not yet occurred.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>version_key</strong> (<em>str</em>) – Bible version key (filename without extension).</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.utils.bible_data_loader.BibleDataLoader.load_versions">
+<span class="sig-name descname"><span class="pre">load_versions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target_versions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/utils/bible_data_loader.html#BibleDataLoader.load_versions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.utils.bible_data_loader.BibleDataLoader.load_versions" title="Link to this definition"></a></dt>
+<dd><p>Load multiple Bible versions into memory.</p>
+<p>If no target list is provided, all available versions
+in the text directory are loaded.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>target_versions</strong> (<em>list</em><em>, </em><em>optional</em>) – List of version keys to load.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.utils.bible_data_loader.BibleDataLoader.get_max_verse">
+<span class="sig-name descname"><span class="pre">get_max_verse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">book</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chapter</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/utils/bible_data_loader.html#BibleDataLoader.get_max_verse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.utils.bible_data_loader.BibleDataLoader.get_max_verse" title="Link to this definition"></a></dt>
+<dd><p>Return the maximum verse number for a given chapter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>version</strong> (<em>str</em>) – Bible version key.</p></li>
+<li><p><strong>book</strong> (<em>str</em>) – Book identifier.</p></li>
+<li><p><strong>chapter</strong> (<em>int</em>) – Chapter number.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Maximum verse number, or 0 if unavailable.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.utils.bible_data_loader.BibleDataLoader.extract_verses">
+<span class="sig-name descname"><span class="pre">extract_verses</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">versions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">book</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chapter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verse_range</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/utils/bible_data_loader.html#BibleDataLoader.extract_verses"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.utils.bible_data_loader.BibleDataLoader.extract_verses" title="Link to this definition"></a></dt>
+<dd><p>Extract a specific verse range across multiple Bible versions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>versions</strong> (<em>list</em>) – List of Bible version keys.</p></li>
+<li><p><strong>book</strong> (<em>str</em>) – Book identifier.</p></li>
+<li><p><strong>chapter</strong> (<em>int</em>) – Chapter number.</p></li>
+<li><p><strong>verse_range</strong> (<em>tuple</em>) – (start, end) or (start, -1) for full chapter.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Nested dictionary of extracted verses grouped by version.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.utils.bible_data_loader.BibleDataLoader.get_verses_for_display">
+<span class="sig-name descname"><span class="pre">get_verses_for_display</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">versions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">book</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chapter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verse_range</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/utils/bible_data_loader.html#BibleDataLoader.get_verses_for_display"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.utils.bible_data_loader.BibleDataLoader.get_verses_for_display" title="Link to this definition"></a></dt>
+<dd><p>Return either a filtered verse subset or full Bible data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>versions</strong> (<em>list</em><em>, </em><em>optional</em>) – Bible version keys.</p></li>
+<li><p><strong>book</strong> (<em>str</em><em>, </em><em>optional</em>) – Book identifier.</p></li>
+<li><p><strong>chapter</strong> (<em>int</em><em>, </em><em>optional</em>) – Chapter number.</p></li>
+<li><p><strong>verse_range</strong> (<em>tuple</em><em>, </em><em>optional</em>) – Verse range.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Structured Bible text data.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.utils.bible_data_loader.BibleDataLoader.get_book_alias">
+<span class="sig-name descname"><span class="pre">get_book_alias</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lang_code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ko'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/utils/bible_data_loader.html#BibleDataLoader.get_book_alias"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.utils.bible_data_loader.BibleDataLoader.get_book_alias" title="Link to this definition"></a></dt>
+<dd><p>Return mapping of book IDs to localized aliases.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>lang_code</strong> (<em>str</em>) – Language code.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Mapping of book_id -&gt; localized name.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.utils.bible_data_loader.BibleDataLoader.get_version_alias">
+<span class="sig-name descname"><span class="pre">get_version_alias</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lang_code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ko'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/utils/bible_data_loader.html#BibleDataLoader.get_version_alias"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.utils.bible_data_loader.BibleDataLoader.get_version_alias" title="Link to this definition"></a></dt>
+<dd><p>Return mapping of Bible version keys to localized aliases.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>lang_code</strong> (<em>str</em>) – Language code.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Mapping of version_key -&gt; alias string.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.utils.bible_data_loader.BibleDataLoader.get_verse">
+<span class="sig-name descname"><span class="pre">get_verse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">book</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chapter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verse</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/utils/bible_data_loader.html#BibleDataLoader.get_verse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.utils.bible_data_loader.BibleDataLoader.get_verse" title="Link to this definition"></a></dt>
+<dd><p>Retrieve a single verse from the loaded Bible data.</p>
+<p>This method exists for compatibility with the EuljiroWorship system.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>version</strong> (<em>str</em>) – Bible version key.</p></li>
+<li><p><strong>book</strong> (<em>str</em>) – Book identifier.</p></li>
+<li><p><strong>chapter</strong> (<em>int</em>) – Chapter number.</p></li>
+<li><p><strong>verse</strong> (<em>int</em>) – Verse number.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Verse text if found, otherwise None.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="core.utils.html" class="btn btn-neutral float-left" title="core.utils" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="core.utils.bible_keyword_searcher.html" class="btn btn-neutral float-right" title="core.utils.bible_keyword_searcher" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Benjamin J. Choi.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

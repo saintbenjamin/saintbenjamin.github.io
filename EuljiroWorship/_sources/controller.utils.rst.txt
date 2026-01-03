@@ -1,48 +1,15 @@
 controller.utils
 ================
 
-.. automodule:: controller.utils
-   :members:
-   :undoc-members:
-   :show-inheritance:
+.. toctree::
+   :maxdepth: 5
 
-.. automodule:: controller.utils.slide_controller_data_manager
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-.. automodule:: controller.utils.slide_file_watcher
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-.. automodule:: controller.utils.slide_websocket_manager
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-.. automodule:: controller.utils.interruptor_watcher
-   :members:
-   :undoc-members:
-   :show-inheritance:
-   :no-index:
-
-.. automodule:: controller.utils.emergency_caption_handler
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-.. automodule:: controller.utils.emergency_slide_factory
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-.. automodule:: controller.utils.keyword_highlight_delegate
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-.. automodule:: controller.utils.keyword_result_model_light
-   :members:
-   :undoc-members:
-   :show-inheritance:
+   controller.utils.emergency_caption_handler
+   controller.utils.emergency_slide_factory
+   controller.utils.interruptor_watcher
+   controller.utils.keyword_highlight_delegate
+   controller.utils.keyword_result_model_light
+   controller.utils.slide_controller_data_manager
+   controller.utils.slide_file_watcher
+   controller.utils.slide_websocket_manager
+ 

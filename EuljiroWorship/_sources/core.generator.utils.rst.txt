@@ -1,43 +1,12 @@
 core.generator.utils
 ====================
 
-Submodules
-----------
+.. toctree::
+   :maxdepth: 5
 
-.. automodule:: core.generator.utils.icon_helpers
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-.. automodule:: core.generator.utils.segment_utils
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-.. automodule:: core.generator.utils.slide_exporter
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-.. automodule:: core.generator.utils.slide_generator_data_manager
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-.. automodule:: core.generator.utils.slide_input_submitter
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-.. automodule:: core.generator.utils.text_splitter
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Module contents
----------------
-
-.. automodule:: core.generator.utils
-   :members:
-   :undoc-members:
-   :show-inheritance:
+   core.generator.utils.icon_helpers
+   core.generator.utils.segment_utils
+   core.generator.utils.slide_exporter
+   core.generator.utils.slide_generator_data_manager
+   core.generator.utils.slide_input_submitter
+   core.generator.utils.text_splitter

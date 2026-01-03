@@ -1,0 +1,275 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>core.generator.ui.settings_dialog &mdash; EuljiroWorship 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=2709fde1"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="core.generator.ui.slide_generator" href="core.generator.ui.slide_generator.html" />
+    <link rel="prev" title="core.generator.ui.contents.video_content" href="core.generator.ui.contents.video_content.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            EuljiroWorship
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Modules</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="EuljiroWorship.html">EuljiroWorship</a></li>
+<li class="toctree-l2"><a class="reference internal" href="controller.html">controller</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="core.html">core</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="core.config.html">core.config</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="core.generator.html">core.generator</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="core.generator.ui.html">core.generator.ui</a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.generator.utils.html">core.generator.utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.generator.settings_generator.html">core.generator.settings_generator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.generator.settings_last_path.html">core.generator.settings_last_path</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="core.plugin.html">core.plugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.utils.html">core.utils</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="server.html">server</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">EuljiroWorship</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">Modules</a></li>
+          <li class="breadcrumb-item"><a href="core.html">core</a></li>
+          <li class="breadcrumb-item"><a href="core.generator.html">core.generator</a></li>
+          <li class="breadcrumb-item"><a href="core.generator.ui.html">core.generator.ui</a></li>
+      <li class="breadcrumb-item active">core.generator.ui.settings_dialog</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/core.generator.ui.settings_dialog.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-core.generator.ui.settings_dialog">
+<span id="core-generator-ui-settings-dialog"></span><h1>core.generator.ui.settings_dialog<a class="headerlink" href="#module-core.generator.ui.settings_dialog" title="Link to this heading"></a></h1>
+<dl class="field-list simple">
+<dt class="field-odd">File<span class="colon">:</span></dt>
+<dd class="field-odd"><p>EuljiroWorship/core/generator/ui/settings_dialog.py</p>
+</dd>
+</dl>
+<p>Settings dialog for the slide generator and controller.</p>
+<p>This module defines <cite>SettingsDialog</cite>, a modal dialog that allows users to
+configure persistent UI-related settings shared by the slide generator
+(and controller), including:</p>
+<ul class="simple">
+<li><p>Font family</p></li>
+<li><p>Font size</p></li>
+<li><p>Font weight</p></li>
+<li><p>Output path for the emergency subtitle file (e.g., <cite>verse_output.txt</cite>)</p></li>
+</ul>
+<p>Settings are stored in a JSON file at a well-defined location and are
+loaded automatically when the dialog is opened.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
+</dd>
+<dt class="field-even">Affiliated Church<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
+</dd>
+<dt class="field-odd">Address<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
+</dd>
+<dt class="field-even">Telephone<span class="colon">:</span></dt>
+<dd class="field-even"><p>+82-2-2266-3070</p>
+</dd>
+<dt class="field-odd">E-mail<span class="colon">:</span></dt>
+<dd class="field-odd"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
+</dd>
+<dt class="field-even">License<span class="colon">:</span></dt>
+<dd class="field-even"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="core.generator.ui.settings_dialog.SettingsDialog">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.ui.settings_dialog.</span></span><span class="sig-name descname"><span class="pre">SettingsDialog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/settings_dialog.html#SettingsDialog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.settings_dialog.SettingsDialog" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QDialog</span></code></p>
+<p>Dialog for configuring generator and controller settings.</p>
+<p>This dialog provides controls for selecting font preferences used
+throughout the generator/controller UI and for specifying the file
+path of the emergency subtitle output file.</p>
+<p>The dialog follows a simple lifecycle:
+- Load persisted settings on construction.
+- Allow the user to modify values via UI controls.
+- Persist updated settings when accepted.</p>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>font_combo<span class="classifier">QFontComboBox</span></dt><dd><p>Font family selector.</p>
+</dd>
+<dt>size_spin<span class="classifier">QSpinBox</span></dt><dd><p>Font size selector.</p>
+</dd>
+<dt>weight_combo<span class="classifier">QComboBox</span></dt><dd><p>Font weight selector.</p>
+</dd>
+<dt>path_line<span class="classifier">QLineEdit</span></dt><dd><p>Text field for the emergency subtitle file path.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.settings_dialog.SettingsDialog.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/settings_dialog.html#SettingsDialog.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.settings_dialog.SettingsDialog.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize the settings dialog.</p>
+<p>This constructor builds the full UI layout, initializes all input
+widgets, and loads previously saved settings from the persistent
+settings file into the UI.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>parent</strong> (<em>QWidget</em><em> | </em><em>None</em>) – Optional parent widget for modal ownership.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.settings_dialog.SettingsDialog.browse_path">
+<span class="sig-name descname"><span class="pre">browse_path</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/settings_dialog.html#SettingsDialog.browse_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.settings_dialog.SettingsDialog.browse_path" title="Link to this definition"></a></dt>
+<dd><p>Open a file dialog to select the emergency subtitle output file.</p>
+<p>This method shows a file-open dialog filtered to text files and, if
+the user selects a file, updates the corresponding path input field.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.settings_dialog.SettingsDialog.load_settings">
+<span class="sig-name descname"><span class="pre">load_settings</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/settings_dialog.html#SettingsDialog.load_settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.settings_dialog.SettingsDialog.load_settings" title="Link to this definition"></a></dt>
+<dd><p>Load persisted settings from the JSON settings file into the UI.</p>
+<p>If the settings file exists, this method reads the JSON content and
+updates the font selectors and emergency subtitle path field.
+If the file does not exist, default values remain in effect.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>json.JSONDecodeError</strong> – If the settings file exists but contains invalid JSON.</p></li>
+<li><p><strong>OSError</strong> – If the settings file cannot be read.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.settings_dialog.SettingsDialog.save_settings">
+<span class="sig-name descname"><span class="pre">save_settings</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/settings_dialog.html#SettingsDialog.save_settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.settings_dialog.SettingsDialog.save_settings" title="Link to this definition"></a></dt>
+<dd><p>Persist the current settings to the JSON settings file.</p>
+<p>This method collects values from the UI controls, writes them to the
+settings file in UTF-8 encoded JSON format, and returns the saved
+settings dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary containing the persisted settings, including font
+preferences and the emergency subtitle file path.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>OSError</strong> – If the settings file cannot be written.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="core.generator.ui.contents.video_content.html" class="btn btn-neutral float-left" title="core.generator.ui.contents.video_content" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="core.generator.ui.slide_generator.html" class="btn btn-neutral float-right" title="core.generator.ui.slide_generator" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Benjamin J. Choi.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

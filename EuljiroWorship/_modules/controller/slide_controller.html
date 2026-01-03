@@ -1,0 +1,754 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>controller.slide_controller &mdash; EuljiroWorship 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=2709fde1"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            EuljiroWorship
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">Modules</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">EuljiroWorship</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">controller.slide_controller</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for controller.slide_controller</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">:File: EuljiroWorship/controller/slide_controller.py</span>
+
+<span class="sd">Main slide controller module for managing and broadcasting slides in real-time.</span>
+
+<span class="sd">This module provides the GUI entry point and the main controller widget</span>
+<span class="sd">used by the slide controller application. It wires together the PySide6 UI,</span>
+<span class="sd">file watchers, WebSocket broadcasting, and the emergency verse interruptor.</span>
+
+<span class="sd">Key responsibilities in this module:</span>
+
+<span class="sd">- Ensure the project root is importable (sys.path injection for direct execution)</span>
+<span class="sd">- Define `launch_interruptor()` to start the verse interruptor as a detached process</span>
+<span class="sd">- Define `SlideController`, the main QWidget that:</span>
+<span class="sd">    - loads and displays slide data</span>
+<span class="sd">    - sends slides via WebSocket</span>
+<span class="sd">    - reacts to slide file changes / emergency interruptor clear events</span>
+
+<span class="sd">:Author: Benjamin Jaedon Choi - https://github.com/saintbenjamin</span>
+<span class="sd">:Affiliated Church: The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</span>
+<span class="sd">:Address: The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</span>
+<span class="sd">:Telephone: +82-2-2266-3070</span>
+<span class="sd">:E-mail: euljirochurch [at] G.M.A.I.L. (replace [at] with @ and G.M.A.I.L as you understood.)</span>
+<span class="sd">:License: MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span><span class="o">,</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="c1"># ─────────────────────────────────────────────</span>
+<span class="n">CURRENT_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))</span>
+<span class="n">PROJECT_ROOT</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CURRENT_DIR</span><span class="p">,</span> <span class="s2">&quot;..&quot;</span><span class="p">))</span>
+
+<span class="k">if</span> <span class="n">PROJECT_ROOT</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">:</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">PROJECT_ROOT</span><span class="p">)</span>
+<span class="c1"># ─────────────────────────────────────────────</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">subprocess</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">shutil</span>
+
+<span class="c1"># PySide6 GUI essentials</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">QApplication</span><span class="p">,</span> <span class="n">QWidget</span><span class="p">,</span> <span class="n">QAbstractItemView</span><span class="p">,</span> <span class="n">QTableWidgetItem</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtCore</span><span class="w"> </span><span class="kn">import</span> <span class="n">Qt</span><span class="p">,</span> <span class="n">QEvent</span><span class="p">,</span> <span class="n">QThread</span><span class="p">,</span> <span class="n">QTimer</span><span class="p">,</span> <span class="n">Slot</span>
+
+<span class="c1"># Project imports</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">controller.utils.emergency_caption_handler</span><span class="w"> </span><span class="kn">import</span> <span class="n">EmergencyCaptionHandler</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">controller.utils.emergency_slide_factory</span><span class="w"> </span><span class="kn">import</span> <span class="n">EmergencySlideFactory</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">controller.utils.interruptor_watcher</span><span class="w"> </span><span class="kn">import</span> <span class="n">InterruptorWatcher</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">controller.utils.slide_controller_data_manager</span><span class="w"> </span><span class="kn">import</span> <span class="n">SlideControllerDataManager</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">controller.utils.slide_file_watcher</span><span class="w"> </span><span class="kn">import</span> <span class="n">SlideFileWatcher</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">controller.ui.slide_controller_ui_builder</span><span class="w"> </span><span class="kn">import</span> <span class="n">SlideControllerUIBuilder</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">controller.utils.slide_websocket_manager</span><span class="w"> </span><span class="kn">import</span> <span class="n">SlideWebSocketManager</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">core.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">paths</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">core.generator.settings_generator</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_font_from_settings</span>
+
+<div class="viewcode-block" id="launch_interruptor">
+<a class="viewcode-back" href="../../controller.slide_controller.html#controller.slide_controller.launch_interruptor">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">launch_interruptor</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Launch the verse interruptor script as a detached background process.</span>
+
+<span class="sd">    This starts `launcher/verse_interruptor.py` using the current Python</span>
+<span class="sd">    interpreter (`sys.executable`) and suppresses stdin/stdout/stderr to</span>
+<span class="sd">    avoid blocking or cluttering the controller GUI.</span>
+
+<span class="sd">    The interruptor script is expected to watch the emergency verse output</span>
+<span class="sd">    file (e.g., `paths.VERSE_FILE`) and handle its own logic independently.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        None</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">devnull</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">devnull</span><span class="p">:</span>
+            <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span>
+                <span class="p">[</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="s2">&quot;launcher/verse_interruptor.py&quot;</span><span class="p">],</span>
+                <span class="n">stdout</span><span class="o">=</span><span class="n">devnull</span><span class="p">,</span>
+                <span class="n">stderr</span><span class="o">=</span><span class="n">devnull</span><span class="p">,</span>
+                <span class="n">stdin</span><span class="o">=</span><span class="n">devnull</span><span class="p">,</span>
+                <span class="n">close_fds</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[✓] Launched verse_interruptor.py&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[x] Failed to launch interruptor:&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SlideController">
+<a class="viewcode-back" href="../../controller.slide_controller.html#controller.slide_controller.SlideController">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">SlideController</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Main controller widget for managing and broadcasting worship slides.</span>
+
+<span class="sd">    This controller loads slides from a JSON file, displays them in a table UI,</span>
+<span class="sd">    and broadcasts the currently selected slide to the overlay via WebSocket.</span>
+<span class="sd">    It also manages &quot;emergency mode&quot; slides and restores the previous slide set</span>
+<span class="sd">    after the interruptor file is cleared.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        slide_file (str):</span>
+<span class="sd">            Path to the slide JSON file.</span>
+<span class="sd">        ws_uri (str):</span>
+<span class="sd">            WebSocket URI used to broadcast slide data.</span>
+<span class="sd">        data (SlideControllerDataManager):</span>
+<span class="sd">            Slide data manager instance responsible for loading/restoring slides.</span>
+<span class="sd">        slides (list[dict]):</span>
+<span class="sd">            Current list of slide dictionaries.</span>
+<span class="sd">        index (int):</span>
+<span class="sd">            Current slide index.</span>
+<span class="sd">        index_backup (int):</span>
+<span class="sd">            Backup index saved before entering emergency mode.</span>
+<span class="sd">        emergency_mode (bool):</span>
+<span class="sd">            Whether the controller is currently in emergency mode.</span>
+<span class="sd">        slide_factory (EmergencySlideFactory):</span>
+<span class="sd">            Factory used to build emergency slides.</span>
+<span class="sd">        ws_manager (SlideWebSocketManager):</span>
+<span class="sd">            WebSocket manager for overlay communication.</span>
+<span class="sd">        caption_handler (EmergencyCaptionHandler):</span>
+<span class="sd">            Dialog/handler used to generate emergency slides from user input.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="SlideController.__init__">
+<a class="viewcode-back" href="../../controller.slide_controller.html#controller.slide_controller.SlideController.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">slide_file</span><span class="p">,</span> <span class="n">ws_uri</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the SlideController UI and subsystems.</span>
+
+<span class="sd">        This sets up the window, loads slides, connects to the WebSocket server,</span>
+<span class="sd">        builds the UI, and starts background threads for:</span>
+<span class="sd">        - Watching slide file changes</span>
+<span class="sd">        - Watching interruptor (emergency verse) clear events</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            slide_file (str):</span>
+<span class="sd">                Path to the slide JSON file to load.</span>
+<span class="sd">            ws_uri (str):</span>
+<span class="sd">                WebSocket URI for broadcasting slide data</span>
+<span class="sd">                (e.g., &quot;ws://127.0.0.1:8765/ws&quot;).</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s2">&quot;대한예수교장로회(통합) 을지로교회 슬라이드 컨트롤러&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span>
+
+        <span class="c1"># File path and WebSocket info</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">slide_file</span> <span class="o">=</span> <span class="n">slide_file</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ws_uri</span> <span class="o">=</span> <span class="n">ws_uri</span>
+
+        <span class="c1"># Load slide data and initial index</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">SlideControllerDataManager</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">slide_file</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">load_slides</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">slides</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">slides</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">index</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">index_backup</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">emergency_mode</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">slide_factory</span> <span class="o">=</span> <span class="n">EmergencySlideFactory</span><span class="p">()</span>
+
+        <span class="c1"># WebSocket manager</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ws_manager</span> <span class="o">=</span> <span class="n">SlideWebSocketManager</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ws_uri</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ws_manager</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+
+        <span class="c1"># UI setup</span>
+        <span class="n">SlideControllerUIBuilder</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">build_ui</span><span class="p">()</span>
+
+        <span class="c1"># Emergency caption handler</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">caption_handler</span> <span class="o">=</span> <span class="n">EmergencyCaptionHandler</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">send_current_slide</span><span class="p">()</span>
+
+        <span class="c1"># Set up SlideFileWatcher thread</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">slide_thread</span> <span class="o">=</span> <span class="n">QThread</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">slide_watcher</span> <span class="o">=</span> <span class="n">SlideFileWatcher</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">slide_file</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">slide_watcher</span><span class="o">.</span><span class="n">moveToThread</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">slide_thread</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">slide_watcher</span><span class="o">.</span><span class="n">slide_changed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">on_slide_changed</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">slide_watcher</span><span class="o">.</span><span class="n">slide_cleared</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">on_slide_cleared</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">slide_thread</span><span class="o">.</span><span class="n">started</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">slide_watcher</span><span class="o">.</span><span class="n">run</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">slide_thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+        <span class="c1"># Set up InterruptorWatcher thread</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">interruptor_thread</span> <span class="o">=</span> <span class="n">QThread</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">interruptor_watcher</span> <span class="o">=</span> <span class="n">InterruptorWatcher</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">interruptor_watcher</span><span class="o">.</span><span class="n">moveToThread</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">interruptor_thread</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">interruptor_watcher</span><span class="o">.</span><span class="n">interruptor_cleared</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">on_interruptor_cleared</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">interruptor_thread</span><span class="o">.</span><span class="n">started</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">interruptor_watcher</span><span class="o">.</span><span class="n">run</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">interruptor_thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+        <span class="c1"># Apply user font settings (font is set but not directly applied here)</span>
+        <span class="n">font</span> <span class="o">=</span> <span class="n">get_font_from_settings</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="SlideController.insert_blank_if_needed">
+<a class="viewcode-back" href="../../controller.slide_controller.html#controller.slide_controller.SlideController.insert_blank_if_needed">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">insert_blank_if_needed</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Ensure the slide file begins with a blank slide.</span>
+
+<span class="sd">        If the file exists and the first slide is not style &quot;blank&quot;, this inserts a</span>
+<span class="sd">        blank slide at index 0 and writes the updated list back to disk.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">SLIDE_FILE</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">SLIDE_FILE</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                    <span class="n">slides</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">slides</span> <span class="ow">and</span> <span class="n">slides</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;style&quot;</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">&quot;blank&quot;</span><span class="p">:</span>
+                    <span class="n">slides</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">{</span>
+                        <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;blank&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;caption&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;headline&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span>
+                    <span class="p">})</span>
+                    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">SLIDE_FILE</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                        <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">slides</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[!] Blank insert failed:&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SlideController.load_slides">
+<a class="viewcode-back" href="../../controller.slide_controller.html#controller.slide_controller.SlideController.load_slides">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">load_slides</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Load slide data from the controller&#39;s slide JSON file.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list:</span>
+<span class="sd">                Parsed list of slide dictionaries loaded from disk.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">slide_file</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SlideController.keyPressEvent">
+<a class="viewcode-back" href="../../controller.slide_controller.html#controller.slide_controller.SlideController.keyPressEvent">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">keyPressEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handle keyboard navigation for slide movement.</span>
+
+<span class="sd">        Right/Down/Space moves forward, Left/Up moves backward.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            event (QKeyEvent):</span>
+<span class="sd">                Key press event object.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span><span class="p">()</span> <span class="ow">in</span> <span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">Key_Right</span><span class="p">,</span> <span class="n">Qt</span><span class="o">.</span><span class="n">Key_Down</span><span class="p">,</span> <span class="n">Qt</span><span class="o">.</span><span class="n">Key_Space</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">next_slide</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span><span class="p">()</span> <span class="ow">in</span> <span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">Key_Left</span><span class="p">,</span> <span class="n">Qt</span><span class="o">.</span><span class="n">Key_Up</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">prev_slide</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="SlideController.update_label">
+<a class="viewcode-back" href="../../controller.slide_controller.html#controller.slide_controller.SlideController.update_label">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">update_label</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Update the UI label and table selection for the current slide.</span>
+
+<span class="sd">        The label shows:</span>
+<span class="sd">        - Current page (1-based)</span>
+<span class="sd">        - Total pages</span>
+<span class="sd">        - A short preview of the first line of the headline</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">slide</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">slides</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">]</span>
+        <span class="n">preview</span> <span class="o">=</span> <span class="n">slide</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;headline&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">][:</span><span class="mi">80</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">slides</span><span class="p">)</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">preview</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">selectRow</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SlideController.send_current_slide">
+<a class="viewcode-back" href="../../controller.slide_controller.html#controller.slide_controller.SlideController.send_current_slide">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">send_current_slide</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Send the current slide to the overlay via WebSocket.</span>
+
+<span class="sd">        If the WebSocket is connected, the slide dict at `self.index` is sent.</span>
+<span class="sd">        If not connected, a warning is printed.</span>
+
+<span class="sd">        When not in emergency mode, also updates `self.data.index` so the current</span>
+<span class="sd">        position can be persisted by the data manager.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">slide</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">slides</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ws_manager</span><span class="o">.</span><span class="n">is_connected</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ws_manager</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">slide</span><span class="p">)</span>
+            <span class="c1"># print(f&quot;[→] Sent slide {self.index+1}&quot;)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[!] WebSocket not connected.&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">emergency_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span></div>
+
+
+<div class="viewcode-block" id="SlideController.next_slide">
+<a class="viewcode-back" href="../../controller.slide_controller.html#controller.slide_controller.SlideController.next_slide">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">next_slide</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Move to the next slide if one exists.</span>
+
+<span class="sd">        Increments `self.index`, updates the UI label/table highlight,</span>
+<span class="sd">        and broadcasts the slide.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">slides</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">update_label</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">send_current_slide</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="SlideController.prev_slide">
+<a class="viewcode-back" href="../../controller.slide_controller.html#controller.slide_controller.SlideController.prev_slide">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">prev_slide</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Move to the previous slide if available.</span>
+
+<span class="sd">        Decrements `self.index`, updates the UI label/table highlight,</span>
+<span class="sd">        and broadcasts the slide.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">update_label</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">send_current_slide</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="SlideController.on_cell_clicked">
+<a class="viewcode-back" href="../../controller.slide_controller.html#controller.slide_controller.SlideController.on_cell_clicked">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">on_cell_clicked</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">_column</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Jump to a slide when a table row is clicked.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            row (int):</span>
+<span class="sd">                The clicked row index (0-based), used as the slide index.</span>
+<span class="sd">            _column (int):</span>
+<span class="sd">                Unused column index (Qt signal provides it).</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">row</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_label</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">send_current_slide</span><span class="p">()</span></div>
+
+
+    <span class="nd">@Slot</span><span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">on_slide_changed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">slides</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handle slide file modification events from SlideFileWatcher.</span>
+
+<span class="sd">        Replaces the internal slide list and index with the new values,</span>
+<span class="sd">        updates the UI, and broadcasts the current slide.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            slides (list):</span>
+<span class="sd">                Newly loaded slides from the watcher.</span>
+<span class="sd">            index (int):</span>
+<span class="sd">                Index to set as the current slide.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">slides</span> <span class="o">=</span> <span class="n">slides</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">index</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_label</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">send_current_slide</span><span class="p">()</span>
+
+    <span class="nd">@Slot</span><span class="p">()</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">on_slide_cleared</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handle slide file cleared events from SlideFileWatcher.</span>
+
+<span class="sd">        Attempts to restore slides from backup via the data manager.</span>
+<span class="sd">        If restoration fails, falls back to a single blank slide.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[!] Slide file was cleared. Attempting to restore...&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">restore_from_backup</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">slides</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">slides</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">index_backup</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">slides</span> <span class="o">=</span> <span class="p">[{</span><span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;blank&quot;</span><span class="p">,</span> <span class="s2">&quot;caption&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;headline&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">}]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_label</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">send_current_slide</span><span class="p">()</span>
+
+    <span class="nd">@Slot</span><span class="p">()</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">on_interruptor_cleared</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handle interruptor-cleared events from InterruptorWatcher.</span>
+
+<span class="sd">        When the emergency verse file is cleared, this restores the previous slides</span>
+<span class="sd">        (via `on_slide_cleared()`) and exits emergency mode.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[✓] Detected interruptor cleared. Restoring previous slides...&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">on_slide_cleared</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">emergency_mode</span> <span class="o">=</span> <span class="kc">False</span>
+
+<div class="viewcode-block" id="SlideController.eventFilter">
+<a class="viewcode-back" href="../../controller.slide_controller.html#controller.slide_controller.SlideController.eventFilter">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">eventFilter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Capture key events globally to allow slide navigation without focus.</span>
+
+<span class="sd">        This enables arrow/space navigation even when focus is on other widgets.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            source (QObject):</span>
+<span class="sd">                Event source object.</span>
+<span class="sd">            event (QEvent):</span>
+<span class="sd">                Incoming event.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool:</span>
+<span class="sd">                True if the event was handled here, otherwise delegates to parent.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="o">==</span> <span class="n">QEvent</span><span class="o">.</span><span class="n">KeyPress</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span><span class="p">()</span> <span class="ow">in</span> <span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">Key_Right</span><span class="p">,</span> <span class="n">Qt</span><span class="o">.</span><span class="n">Key_Down</span><span class="p">,</span> <span class="n">Qt</span><span class="o">.</span><span class="n">Key_Space</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">next_slide</span><span class="p">()</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span><span class="p">()</span> <span class="ow">in</span> <span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">Key_Left</span><span class="p">,</span> <span class="n">Qt</span><span class="o">.</span><span class="n">Key_Up</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">prev_slide</span><span class="p">()</span>
+                <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">eventFilter</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SlideController.launch_emergency_caption">
+<a class="viewcode-back" href="../../controller.slide_controller.html#controller.slide_controller.SlideController.launch_emergency_caption">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">launch_emergency_caption</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Enter emergency mode and generate emergency slides from user input.</span>
+
+<span class="sd">        Saves the current index to `index_backup`, invokes the emergency caption</span>
+<span class="sd">        handler, and if slides are returned, replaces the current slide list with</span>
+<span class="sd">        the emergency slides starting from index 0.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">emergency_mode</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">index_backup</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span>
+        <span class="n">slides</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">caption_handler</span><span class="o">.</span><span class="n">handle</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">slides</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">slides</span> <span class="o">=</span> <span class="n">slides</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rebuild_table</span><span class="p">()</span>  <span class="c1"># ✅ Update the table</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">update_label</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="SlideController.jump_to_index">
+<a class="viewcode-back" href="../../controller.slide_controller.html#controller.slide_controller.SlideController.jump_to_index">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">jump_to_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Jump directly to a given slide index.</span>
+
+<span class="sd">        If the index is valid, sets `self.index`, broadcasts the slide,</span>
+<span class="sd">        updates the table selection, scrolls it into view, and updates the label.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            idx (int):</span>
+<span class="sd">                Target slide index (0-based).</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">idx</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">slides</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">idx</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">send_current_slide</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setCurrentCell</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">scrollToItem</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">QAbstractItemView</span><span class="o">.</span><span class="n">PositionAtCenter</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">update_label</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="SlideController.jump_to_previous">
+<a class="viewcode-back" href="../../controller.slide_controller.html#controller.slide_controller.SlideController.jump_to_previous">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">jump_to_previous</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Jump to the previous slide and center it in the table view.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">send_current_slide</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setCurrentCell</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">scrollToItem</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">QAbstractItemView</span><span class="o">.</span><span class="n">PositionAtCenter</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">update_label</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="SlideController.jump_to_next">
+<a class="viewcode-back" href="../../controller.slide_controller.html#controller.slide_controller.SlideController.jump_to_next">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">jump_to_next</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Jump to the next slide and center it in the table view.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">slides</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">send_current_slide</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setCurrentCell</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">scrollToItem</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">QAbstractItemView</span><span class="o">.</span><span class="n">PositionAtCenter</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">update_label</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="SlideController.jump_to_page">
+<a class="viewcode-back" href="../../controller.slide_controller.html#controller.slide_controller.SlideController.jump_to_page">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">jump_to_page</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Jump to a slide page based on the number typed in the page input box.</span>
+
+<span class="sd">        The UI value is interpreted as 1-based; internally converted to 0-based.</span>
+<span class="sd">        If invalid, prints an error message.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">page_num</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">page_input</span><span class="o">.</span><span class="n">text</span><span class="p">())</span> <span class="o">-</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">page_num</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">slides</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">page_num</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">send_current_slide</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setCurrentCell</span><span class="p">(</span><span class="n">page_num</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">scrollToItem</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">page_num</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">QAbstractItemView</span><span class="o">.</span><span class="n">PositionAtCenter</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">update_label</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[!] Invalid page number&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[!] Page input is not a valid number&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SlideController.clear_emergency_caption">
+<a class="viewcode-back" href="../../controller.slide_controller.html#controller.slide_controller.SlideController.clear_emergency_caption">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">clear_emergency_caption</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Clear the emergency verse output file and restore normal slides.</span>
+
+<span class="sd">        This writes an empty string to `paths.VERSE_FILE`, clears `paths.SLIDE_FILE`,</span>
+<span class="sd">        then attempts restoration from backup via SlideControllerDataManager.</span>
+
+<span class="sd">        After restoration, rebuilds the table, updates the label, and scrolls</span>
+<span class="sd">        the restored index into view.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">VERSE_FILE</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">SLIDE_FILE</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">([],</span> <span class="n">f</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="n">slide_manager</span> <span class="o">=</span> <span class="n">SlideControllerDataManager</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">SLIDE_FILE</span><span class="p">)</span>
+        <span class="n">slide_manager</span><span class="o">.</span><span class="n">restore_from_backup</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">slides</span> <span class="o">=</span> <span class="n">slide_manager</span><span class="o">.</span><span class="n">slides</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">index_backup</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;index_backup&quot;</span><span class="p">)</span> <span class="k">else</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rebuild_table</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_label</span><span class="p">()</span>
+        <span class="n">QTimer</span><span class="o">.</span><span class="n">singleShot</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">scrollToItem</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">QAbstractItemView</span><span class="o">.</span><span class="n">PositionAtCenter</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="SlideController.rebuild_table">
+<a class="viewcode-back" href="../../controller.slide_controller.html#controller.slide_controller.SlideController.rebuild_table">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">rebuild_table</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Rebuild the slide table widget using the current `self.slides`.</span>
+
+<span class="sd">        Each row displays:</span>
+<span class="sd">        - Page number (1-based)</span>
+<span class="sd">        - Caption</span>
+<span class="sd">        - First line preview of headline (trimmed)</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setRowCount</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">slide</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">slides</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">insertRow</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">QTableWidgetItem</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">QTableWidgetItem</span><span class="p">(</span><span class="n">slide</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;caption&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)))</span>
+            <span class="n">headline</span> <span class="o">=</span> <span class="n">slide</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;headline&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">][:</span><span class="mi">50</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">QTableWidgetItem</span><span class="p">(</span><span class="n">headline</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="SlideController.closeEvent">
+<a class="viewcode-back" href="../../controller.slide_controller.html#controller.slide_controller.SlideController.closeEvent">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">closeEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gracefully stop background threads and disconnect WebSocket before exit.</span>
+
+<span class="sd">        Stops file watchers, quits threads, waits for them to finish, disconnects</span>
+<span class="sd">        the WebSocket manager, then delegates to QWidget.closeEvent().</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            event (QCloseEvent):</span>
+<span class="sd">                Close event object.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">slide_watcher</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">interruptor_watcher</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">slide_thread</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">interruptor_thread</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">slide_thread</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">interruptor_thread</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ws_manager</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">closeEvent</span><span class="p">(</span><span class="n">event</span><span class="p">)</span></div>
+</div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Entry point for the slide controller application.</span>
+
+<span class="sd">    This launches the verse interruptor, applies font settings,</span>
+<span class="sd">    and starts the GUI event loop.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">SlideControllerDataManager</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">SLIDE_FILE</span><span class="p">)</span><span class="o">.</span><span class="n">backup_slides</span><span class="p">()</span>
+
+    <span class="n">launch_interruptor</span><span class="p">()</span>
+
+    <span class="n">app</span> <span class="o">=</span> <span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">setStyle</span><span class="p">(</span><span class="s2">&quot;Fusion&quot;</span><span class="p">)</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">setFont</span><span class="p">(</span><span class="n">get_font_from_settings</span><span class="p">())</span>
+
+    <span class="n">controller</span> <span class="o">=</span> <span class="n">SlideController</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">SLIDE_FILE</span><span class="p">,</span> <span class="s2">&quot;ws://127.0.0.1:8765/ws&quot;</span><span class="p">)</span>
+    <span class="n">controller</span><span class="o">.</span><span class="n">insert_blank_if_needed</span><span class="p">()</span>
+    <span class="n">controller</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">exec</span><span class="p">())</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Benjamin J. Choi.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

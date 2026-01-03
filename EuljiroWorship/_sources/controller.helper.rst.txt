@@ -1,12 +1,7 @@
 controller.helper
 =================
 
-.. automodule:: controller.helper
-   :members:
-   :undoc-members:
-   :show-inheritance:
+.. toctree::
+   :maxdepth: 5
 
-.. automodule:: controller.helper.verse_interruptor
-   :members:
-   :undoc-members:
-   :show-inheritance:
+   controller.helper.verse_interruptor

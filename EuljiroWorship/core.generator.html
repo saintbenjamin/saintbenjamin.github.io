@@ -20,7 +20,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="core.generator.ui" href="core.generator.ui.html" />
-    <link rel="prev" title="core.config" href="core.config.html" /> 
+    <link rel="prev" title="core.config.style_map" href="core.config.style_map.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -50,9 +50,10 @@
 <li class="toctree-l2 current"><a class="reference internal" href="core.html">core</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="core.config.html">core.config</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">core.generator</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#subpackages">Subpackages</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-core.generator.settings_generator">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-core.generator">Module contents</a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.html">core.generator.ui</a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.generator.utils.html">core.generator.utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.generator.settings_generator.html">core.generator.settings_generator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.generator.settings_last_path.html">core.generator.settings_last_path</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="core.plugin.html">core.plugin</a></li>
@@ -92,282 +93,260 @@
              
   <section id="core-generator">
 <h1>core.generator<a class="headerlink" href="#core-generator" title="Link to this heading"></a></h1>
-<section id="subpackages">
-<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading"></a></h2>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="core.generator.ui.html">core.generator.ui</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="core.generator.ui.html#subpackages">Subpackages</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="core.generator.ui.contents.html">core.generator.ui.contents</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.contents.html#module-core.generator.ui.contents.anthem_content">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.contents.html#module-core.generator.ui.contents">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.generator.ui.contents.html">core.generator.ui.contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="core.generator.ui.contents.anthem_content.html">core.generator.ui.contents.anthem_content</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.contents.anthem_content.html#core.generator.ui.contents.anthem_content.AnthemContent"><code class="docutils literal notranslate"><span class="pre">AnthemContent</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="core.generator.ui.contents.anthem_content.html#core.generator.ui.contents.anthem_content.AnthemContent.__init__"><code class="docutils literal notranslate"><span class="pre">AnthemContent.__init__()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="core.generator.ui.contents.anthem_content.html#core.generator.ui.contents.anthem_content.AnthemContent.build_ui"><code class="docutils literal notranslate"><span class="pre">AnthemContent.build_ui()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="core.generator.ui.contents.anthem_content.html#core.generator.ui.contents.anthem_content.AnthemContent.build_anthem_slide"><code class="docutils literal notranslate"><span class="pre">AnthemContent.build_anthem_slide()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="core.generator.ui.contents.anthem_content.html#core.generator.ui.contents.anthem_content.AnthemContent.get_slide_data"><code class="docutils literal notranslate"><span class="pre">AnthemContent.get_slide_data()</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="core.generator.ui.html#module-core.generator.ui.settings_dialog">Submodules</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="core.generator.ui.html#core.generator.ui.settings_dialog.SettingsDialog"><code class="docutils literal notranslate"><span class="pre">SettingsDialog</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.html#core.generator.ui.settings_dialog.SettingsDialog.__init__"><code class="docutils literal notranslate"><span class="pre">SettingsDialog.__init__()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.html#core.generator.ui.settings_dialog.SettingsDialog.browse_path"><code class="docutils literal notranslate"><span class="pre">SettingsDialog.browse_path()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.html#core.generator.ui.settings_dialog.SettingsDialog.load_settings"><code class="docutils literal notranslate"><span class="pre">SettingsDialog.load_settings()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.html#core.generator.ui.settings_dialog.SettingsDialog.save_settings"><code class="docutils literal notranslate"><span class="pre">SettingsDialog.save_settings()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="core.generator.ui.html#core.generator.ui.slide_generator_dialog.SlideGeneratorDialog"><code class="docutils literal notranslate"><span class="pre">SlideGeneratorDialog</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.html#core.generator.ui.slide_generator_dialog.SlideGeneratorDialog.__init__"><code class="docutils literal notranslate"><span class="pre">SlideGeneratorDialog.__init__()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.html#core.generator.ui.slide_generator_dialog.SlideGeneratorDialog.get_result"><code class="docutils literal notranslate"><span class="pre">SlideGeneratorDialog.get_result()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="core.generator.ui.html#core.generator.ui.slide_generator_right_contents.SlideGeneratorRightContents"><code class="docutils literal notranslate"><span class="pre">SlideGeneratorRightContents</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.html#core.generator.ui.slide_generator_right_contents.SlideGeneratorRightContents.__init__"><code class="docutils literal notranslate"><span class="pre">SlideGeneratorRightContents.__init__()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.html#core.generator.ui.slide_generator_right_contents.SlideGeneratorRightContents.get_slide_data"><code class="docutils literal notranslate"><span class="pre">SlideGeneratorRightContents.get_slide_data()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="core.generator.ui.html#core.generator.ui.slide_generator_ui_builder.SlideGeneratorUIBuilder"><code class="docutils literal notranslate"><span class="pre">SlideGeneratorUIBuilder</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.html#core.generator.ui.slide_generator_ui_builder.SlideGeneratorUIBuilder.__init__"><code class="docutils literal notranslate"><span class="pre">SlideGeneratorUIBuilder.__init__()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.html#core.generator.ui.slide_generator_ui_builder.SlideGeneratorUIBuilder.setup_ui"><code class="docutils literal notranslate"><span class="pre">SlideGeneratorUIBuilder.setup_ui()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.html#core.generator.ui.slide_generator_ui_builder.SlideGeneratorUIBuilder.set_worship_label"><code class="docutils literal notranslate"><span class="pre">SlideGeneratorUIBuilder.set_worship_label()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="core.generator.ui.html#core.generator.ui.slide_generator.SlideGenerator"><code class="docutils literal notranslate"><span class="pre">SlideGenerator</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.html#core.generator.ui.slide_generator.SlideGenerator.__init__"><code class="docutils literal notranslate"><span class="pre">SlideGenerator.__init__()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.html#core.generator.ui.slide_generator.SlideGenerator.save_slides_to_file"><code class="docutils literal notranslate"><span class="pre">SlideGenerator.save_slides_to_file()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.html#core.generator.ui.slide_generator.SlideGenerator.handle_ctrl_s"><code class="docutils literal notranslate"><span class="pre">SlideGenerator.handle_ctrl_s()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.html#core.generator.ui.slide_generator.SlideGenerator.load_from_file"><code class="docutils literal notranslate"><span class="pre">SlideGenerator.load_from_file()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.html#core.generator.ui.slide_generator.SlideGenerator.save_as"><code class="docutils literal notranslate"><span class="pre">SlideGenerator.save_as()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.html#core.generator.ui.slide_generator.SlideGenerator.save_to_file"><code class="docutils literal notranslate"><span class="pre">SlideGenerator.save_to_file()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.html#core.generator.ui.slide_generator.SlideGenerator.warn_if_controller_running"><code class="docutils literal notranslate"><span class="pre">SlideGenerator.warn_if_controller_running()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.html#core.generator.ui.slide_generator.SlideGenerator.export_slides_for_overlay"><code class="docutils literal notranslate"><span class="pre">SlideGenerator.export_slides_for_overlay()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.html#core.generator.ui.slide_generator.SlideGenerator.handle_table_double_click"><code class="docutils literal notranslate"><span class="pre">SlideGenerator.handle_table_double_click()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.html#core.generator.ui.slide_generator.SlideGenerator.open_settings_dialog"><code class="docutils literal notranslate"><span class="pre">SlideGenerator.open_settings_dialog()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.html#core.generator.ui.slide_generator.SlideGenerator.apply_generator_font_settings"><code class="docutils literal notranslate"><span class="pre">SlideGenerator.apply_generator_font_settings()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="core.generator.ui.html#core.generator.ui.slide_table_manager.SlideTableManager"><code class="docutils literal notranslate"><span class="pre">SlideTableManager</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.html#core.generator.ui.slide_table_manager.SlideTableManager.__init__"><code class="docutils literal notranslate"><span class="pre">SlideTableManager.__init__()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.html#core.generator.ui.slide_table_manager.SlideTableManager.add_row"><code class="docutils literal notranslate"><span class="pre">SlideTableManager.add_row()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.html#core.generator.ui.slide_table_manager.SlideTableManager.insert_row"><code class="docutils literal notranslate"><span class="pre">SlideTableManager.insert_row()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.html#core.generator.ui.slide_table_manager.SlideTableManager.handle_combo_change_by_row"><code class="docutils literal notranslate"><span class="pre">SlideTableManager.handle_combo_change_by_row()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.html#core.generator.ui.slide_table_manager.SlideTableManager.delete_selected_row"><code class="docutils literal notranslate"><span class="pre">SlideTableManager.delete_selected_row()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.html#core.generator.ui.slide_table_manager.SlideTableManager.move_row_up"><code class="docutils literal notranslate"><span class="pre">SlideTableManager.move_row_up()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.html#core.generator.ui.slide_table_manager.SlideTableManager.move_row_down"><code class="docutils literal notranslate"><span class="pre">SlideTableManager.move_row_down()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.html#core.generator.ui.slide_table_manager.SlideTableManager.swap_rows"><code class="docutils literal notranslate"><span class="pre">SlideTableManager.swap_rows()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.generator.ui.contents.corner_content.html">core.generator.ui.contents.corner_content</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.contents.corner_content.html#core.generator.ui.contents.corner_content.CornerContent"><code class="docutils literal notranslate"><span class="pre">CornerContent</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="core.generator.ui.contents.corner_content.html#core.generator.ui.contents.corner_content.CornerContent.__init__"><code class="docutils literal notranslate"><span class="pre">CornerContent.__init__()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="core.generator.ui.contents.corner_content.html#core.generator.ui.contents.corner_content.CornerContent.build_ui"><code class="docutils literal notranslate"><span class="pre">CornerContent.build_ui()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="core.generator.ui.contents.corner_content.html#core.generator.ui.contents.corner_content.CornerContent.build_corner_slide"><code class="docutils literal notranslate"><span class="pre">CornerContent.build_corner_slide()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="core.generator.ui.contents.corner_content.html#core.generator.ui.contents.corner_content.CornerContent.get_slide_data"><code class="docutils literal notranslate"><span class="pre">CornerContent.get_slide_data()</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="core.generator.ui.html#module-core.generator.ui">Module contents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.generator.ui.contents.greet_content.html">core.generator.ui.contents.greet_content</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.contents.greet_content.html#core.generator.ui.contents.greet_content.GreetContent"><code class="docutils literal notranslate"><span class="pre">GreetContent</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="core.generator.ui.contents.greet_content.html#core.generator.ui.contents.greet_content.GreetContent.__init__"><code class="docutils literal notranslate"><span class="pre">GreetContent.__init__()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="core.generator.ui.contents.greet_content.html#core.generator.ui.contents.greet_content.GreetContent.build_ui"><code class="docutils literal notranslate"><span class="pre">GreetContent.build_ui()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="core.generator.ui.contents.greet_content.html#core.generator.ui.contents.greet_content.GreetContent.build_greet_slide"><code class="docutils literal notranslate"><span class="pre">GreetContent.build_greet_slide()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="core.generator.ui.contents.greet_content.html#core.generator.ui.contents.greet_content.GreetContent.get_slide_data"><code class="docutils literal notranslate"><span class="pre">GreetContent.get_slide_data()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="core.generator.ui.contents.hymn_content.html">core.generator.ui.contents.hymn_content</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.contents.hymn_content.html#core.generator.ui.contents.hymn_content.HymnContent"><code class="docutils literal notranslate"><span class="pre">HymnContent</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="core.generator.ui.contents.hymn_content.html#core.generator.ui.contents.hymn_content.HymnContent.__init__"><code class="docutils literal notranslate"><span class="pre">HymnContent.__init__()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="core.generator.ui.contents.hymn_content.html#core.generator.ui.contents.hymn_content.HymnContent.build_ui"><code class="docutils literal notranslate"><span class="pre">HymnContent.build_ui()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="core.generator.ui.contents.hymn_content.html#core.generator.ui.contents.hymn_content.HymnContent.load_hymn_by_number"><code class="docutils literal notranslate"><span class="pre">HymnContent.load_hymn_by_number()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="core.generator.ui.contents.hymn_content.html#core.generator.ui.contents.hymn_content.HymnContent.build_hymn_slide"><code class="docutils literal notranslate"><span class="pre">HymnContent.build_hymn_slide()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="core.generator.ui.contents.hymn_content.html#core.generator.ui.contents.hymn_content.HymnContent.get_hymn_number_range"><code class="docutils literal notranslate"><span class="pre">HymnContent.get_hymn_number_range()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="core.generator.ui.contents.hymn_content.html#core.generator.ui.contents.hymn_content.HymnContent.get_slide_data"><code class="docutils literal notranslate"><span class="pre">HymnContent.get_slide_data()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="core.generator.ui.contents.hymn_content.html#core.generator.ui.contents.hymn_content.HymnContent.save_hymn_json"><code class="docutils literal notranslate"><span class="pre">HymnContent.save_hymn_json()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="core.generator.ui.contents.image_content.html">core.generator.ui.contents.image_content</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.contents.image_content.html#core.generator.ui.contents.image_content.ImageContent"><code class="docutils literal notranslate"><span class="pre">ImageContent</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="core.generator.ui.contents.image_content.html#core.generator.ui.contents.image_content.ImageContent.__init__"><code class="docutils literal notranslate"><span class="pre">ImageContent.__init__()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="core.generator.ui.contents.image_content.html#core.generator.ui.contents.image_content.ImageContent.build_ui"><code class="docutils literal notranslate"><span class="pre">ImageContent.build_ui()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="core.generator.ui.contents.image_content.html#core.generator.ui.contents.image_content.ImageContent.select_image"><code class="docutils literal notranslate"><span class="pre">ImageContent.select_image()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="core.generator.ui.contents.image_content.html#core.generator.ui.contents.image_content.ImageContent.copy_to_img_folder"><code class="docutils literal notranslate"><span class="pre">ImageContent.copy_to_img_folder()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="core.generator.ui.contents.image_content.html#core.generator.ui.contents.image_content.ImageContent.build_image_slide"><code class="docutils literal notranslate"><span class="pre">ImageContent.build_image_slide()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="core.generator.ui.contents.image_content.html#core.generator.ui.contents.image_content.ImageContent.get_slide_data"><code class="docutils literal notranslate"><span class="pre">ImageContent.get_slide_data()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="core.generator.ui.contents.image_content.html#core.generator.ui.contents.image_content.ImageContent.set_content"><code class="docutils literal notranslate"><span class="pre">ImageContent.set_content()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="core.generator.ui.contents.lyrics_content.html">core.generator.ui.contents.lyrics_content</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.contents.lyrics_content.html#core.generator.ui.contents.lyrics_content.LyricsContent"><code class="docutils literal notranslate"><span class="pre">LyricsContent</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="core.generator.ui.contents.lyrics_content.html#core.generator.ui.contents.lyrics_content.LyricsContent.__init__"><code class="docutils literal notranslate"><span class="pre">LyricsContent.__init__()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="core.generator.ui.contents.lyrics_content.html#core.generator.ui.contents.lyrics_content.LyricsContent.build_ui"><code class="docutils literal notranslate"><span class="pre">LyricsContent.build_ui()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="core.generator.ui.contents.lyrics_content.html#core.generator.ui.contents.lyrics_content.LyricsContent.build_lyrics_slide"><code class="docutils literal notranslate"><span class="pre">LyricsContent.build_lyrics_slide()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="core.generator.ui.contents.lyrics_content.html#core.generator.ui.contents.lyrics_content.LyricsContent.get_slide_data"><code class="docutils literal notranslate"><span class="pre">LyricsContent.get_slide_data()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="core.generator.ui.contents.prayer_content.html">core.generator.ui.contents.prayer_content</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.contents.prayer_content.html#core.generator.ui.contents.prayer_content.PrayerContent"><code class="docutils literal notranslate"><span class="pre">PrayerContent</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="core.generator.ui.contents.prayer_content.html#core.generator.ui.contents.prayer_content.PrayerContent.__init__"><code class="docutils literal notranslate"><span class="pre">PrayerContent.__init__()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="core.generator.ui.contents.prayer_content.html#core.generator.ui.contents.prayer_content.PrayerContent.build_ui"><code class="docutils literal notranslate"><span class="pre">PrayerContent.build_ui()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="core.generator.ui.contents.prayer_content.html#core.generator.ui.contents.prayer_content.PrayerContent.build_prayer_slide"><code class="docutils literal notranslate"><span class="pre">PrayerContent.build_prayer_slide()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="core.generator.ui.contents.prayer_content.html#core.generator.ui.contents.prayer_content.PrayerContent.get_slide_data"><code class="docutils literal notranslate"><span class="pre">PrayerContent.get_slide_data()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="core.generator.ui.contents.respo_content.html">core.generator.ui.contents.respo_content</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.contents.respo_content.html#core.generator.ui.contents.respo_content.RespoContent"><code class="docutils literal notranslate"><span class="pre">RespoContent</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="core.generator.ui.contents.respo_content.html#core.generator.ui.contents.respo_content.RespoContent.__init__"><code class="docutils literal notranslate"><span class="pre">RespoContent.__init__()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="core.generator.ui.contents.respo_content.html#core.generator.ui.contents.respo_content.RespoContent.build_ui"><code class="docutils literal notranslate"><span class="pre">RespoContent.build_ui()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="core.generator.ui.contents.respo_content.html#core.generator.ui.contents.respo_content.RespoContent.load_respo_by_number"><code class="docutils literal notranslate"><span class="pre">RespoContent.load_respo_by_number()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="core.generator.ui.contents.respo_content.html#core.generator.ui.contents.respo_content.RespoContent.build_respo_slide"><code class="docutils literal notranslate"><span class="pre">RespoContent.build_respo_slide()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="core.generator.ui.contents.respo_content.html#core.generator.ui.contents.respo_content.RespoContent.get_respo_number_range"><code class="docutils literal notranslate"><span class="pre">RespoContent.get_respo_number_range()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="core.generator.ui.contents.respo_content.html#core.generator.ui.contents.respo_content.RespoContent.get_slide_data"><code class="docutils literal notranslate"><span class="pre">RespoContent.get_slide_data()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="core.generator.ui.contents.respo_content.html#core.generator.ui.contents.respo_content.RespoContent.format_responsive_text"><code class="docutils literal notranslate"><span class="pre">RespoContent.format_responsive_text()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="core.generator.ui.contents.respo_content.html#core.generator.ui.contents.respo_content.RespoContent.save_respo_json"><code class="docutils literal notranslate"><span class="pre">RespoContent.save_respo_json()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="core.generator.ui.contents.verse_content.html">core.generator.ui.contents.verse_content</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.contents.verse_content.html#core.generator.ui.contents.verse_content.VerseContent"><code class="docutils literal notranslate"><span class="pre">VerseContent</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="core.generator.ui.contents.verse_content.html#core.generator.ui.contents.verse_content.VerseContent.__init__"><code class="docutils literal notranslate"><span class="pre">VerseContent.__init__()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="core.generator.ui.contents.verse_content.html#core.generator.ui.contents.verse_content.VerseContent.build_ui"><code class="docutils literal notranslate"><span class="pre">VerseContent.build_ui()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="core.generator.ui.contents.verse_content.html#core.generator.ui.contents.verse_content.VerseContent.try_fetch_verse_output"><code class="docutils literal notranslate"><span class="pre">VerseContent.try_fetch_verse_output()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="core.generator.ui.contents.verse_content.html#core.generator.ui.contents.verse_content.VerseContent.build_verse_slide"><code class="docutils literal notranslate"><span class="pre">VerseContent.build_verse_slide()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="core.generator.ui.contents.verse_content.html#core.generator.ui.contents.verse_content.VerseContent.get_slide_data"><code class="docutils literal notranslate"><span class="pre">VerseContent.get_slide_data()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="core.generator.ui.contents.video_content.html">core.generator.ui.contents.video_content</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.contents.video_content.html#core.generator.ui.contents.video_content.VideoContent"><code class="docutils literal notranslate"><span class="pre">VideoContent</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="core.generator.ui.contents.video_content.html#core.generator.ui.contents.video_content.VideoContent.__init__"><code class="docutils literal notranslate"><span class="pre">VideoContent.__init__()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="core.generator.ui.contents.video_content.html#core.generator.ui.contents.video_content.VideoContent.build_ui"><code class="docutils literal notranslate"><span class="pre">VideoContent.build_ui()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="core.generator.ui.contents.video_content.html#core.generator.ui.contents.video_content.VideoContent.select_video"><code class="docutils literal notranslate"><span class="pre">VideoContent.select_video()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="core.generator.ui.contents.video_content.html#core.generator.ui.contents.video_content.VideoContent.copy_to_img_folder"><code class="docutils literal notranslate"><span class="pre">VideoContent.copy_to_img_folder()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="core.generator.ui.contents.video_content.html#core.generator.ui.contents.video_content.VideoContent.play_preview"><code class="docutils literal notranslate"><span class="pre">VideoContent.play_preview()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="core.generator.ui.contents.video_content.html#core.generator.ui.contents.video_content.VideoContent.pause_preview"><code class="docutils literal notranslate"><span class="pre">VideoContent.pause_preview()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="core.generator.ui.contents.video_content.html#core.generator.ui.contents.video_content.VideoContent.stop_preview"><code class="docutils literal notranslate"><span class="pre">VideoContent.stop_preview()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="core.generator.ui.contents.video_content.html#core.generator.ui.contents.video_content.VideoContent.build_video_slide"><code class="docutils literal notranslate"><span class="pre">VideoContent.build_video_slide()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="core.generator.ui.contents.video_content.html#core.generator.ui.contents.video_content.VideoContent.get_slide_data"><code class="docutils literal notranslate"><span class="pre">VideoContent.get_slide_data()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="core.generator.ui.contents.video_content.html#core.generator.ui.contents.video_content.VideoContent.set_content"><code class="docutils literal notranslate"><span class="pre">VideoContent.set_content()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="core.generator.ui.settings_dialog.html">core.generator.ui.settings_dialog</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="core.generator.ui.settings_dialog.html#core.generator.ui.settings_dialog.SettingsDialog"><code class="docutils literal notranslate"><span class="pre">SettingsDialog</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.settings_dialog.html#core.generator.ui.settings_dialog.SettingsDialog.__init__"><code class="docutils literal notranslate"><span class="pre">SettingsDialog.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.settings_dialog.html#core.generator.ui.settings_dialog.SettingsDialog.browse_path"><code class="docutils literal notranslate"><span class="pre">SettingsDialog.browse_path()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.settings_dialog.html#core.generator.ui.settings_dialog.SettingsDialog.load_settings"><code class="docutils literal notranslate"><span class="pre">SettingsDialog.load_settings()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.settings_dialog.html#core.generator.ui.settings_dialog.SettingsDialog.save_settings"><code class="docutils literal notranslate"><span class="pre">SettingsDialog.save_settings()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="core.generator.ui.slide_generator.html">core.generator.ui.slide_generator</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="core.generator.ui.slide_generator.html#core.generator.ui.slide_generator.SlideGenerator"><code class="docutils literal notranslate"><span class="pre">SlideGenerator</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.slide_generator.html#core.generator.ui.slide_generator.SlideGenerator.__init__"><code class="docutils literal notranslate"><span class="pre">SlideGenerator.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.slide_generator.html#core.generator.ui.slide_generator.SlideGenerator.save_slides_to_file"><code class="docutils literal notranslate"><span class="pre">SlideGenerator.save_slides_to_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.slide_generator.html#core.generator.ui.slide_generator.SlideGenerator.handle_ctrl_s"><code class="docutils literal notranslate"><span class="pre">SlideGenerator.handle_ctrl_s()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.slide_generator.html#core.generator.ui.slide_generator.SlideGenerator.load_from_file"><code class="docutils literal notranslate"><span class="pre">SlideGenerator.load_from_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.slide_generator.html#core.generator.ui.slide_generator.SlideGenerator.save_as"><code class="docutils literal notranslate"><span class="pre">SlideGenerator.save_as()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.slide_generator.html#core.generator.ui.slide_generator.SlideGenerator.save_to_file"><code class="docutils literal notranslate"><span class="pre">SlideGenerator.save_to_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.slide_generator.html#core.generator.ui.slide_generator.SlideGenerator.warn_if_controller_running"><code class="docutils literal notranslate"><span class="pre">SlideGenerator.warn_if_controller_running()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.slide_generator.html#core.generator.ui.slide_generator.SlideGenerator.export_slides_for_overlay"><code class="docutils literal notranslate"><span class="pre">SlideGenerator.export_slides_for_overlay()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.slide_generator.html#core.generator.ui.slide_generator.SlideGenerator.handle_table_double_click"><code class="docutils literal notranslate"><span class="pre">SlideGenerator.handle_table_double_click()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.slide_generator.html#core.generator.ui.slide_generator.SlideGenerator.open_settings_dialog"><code class="docutils literal notranslate"><span class="pre">SlideGenerator.open_settings_dialog()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.slide_generator.html#core.generator.ui.slide_generator.SlideGenerator.apply_generator_font_settings"><code class="docutils literal notranslate"><span class="pre">SlideGenerator.apply_generator_font_settings()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="core.generator.ui.slide_generator_dialog.html">core.generator.ui.slide_generator_dialog</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="core.generator.ui.slide_generator_dialog.html#core.generator.ui.slide_generator_dialog.SlideGeneratorDialog"><code class="docutils literal notranslate"><span class="pre">SlideGeneratorDialog</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.slide_generator_dialog.html#core.generator.ui.slide_generator_dialog.SlideGeneratorDialog.__init__"><code class="docutils literal notranslate"><span class="pre">SlideGeneratorDialog.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.slide_generator_dialog.html#core.generator.ui.slide_generator_dialog.SlideGeneratorDialog.get_result"><code class="docutils literal notranslate"><span class="pre">SlideGeneratorDialog.get_result()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="core.generator.ui.slide_generator_right_contents.html">core.generator.ui.slide_generator_right_contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="core.generator.ui.slide_generator_right_contents.html#core.generator.ui.slide_generator_right_contents.SlideGeneratorRightContents"><code class="docutils literal notranslate"><span class="pre">SlideGeneratorRightContents</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.slide_generator_right_contents.html#core.generator.ui.slide_generator_right_contents.SlideGeneratorRightContents.__init__"><code class="docutils literal notranslate"><span class="pre">SlideGeneratorRightContents.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.slide_generator_right_contents.html#core.generator.ui.slide_generator_right_contents.SlideGeneratorRightContents.get_slide_data"><code class="docutils literal notranslate"><span class="pre">SlideGeneratorRightContents.get_slide_data()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="core.generator.ui.slide_generator_ui_builder.html">core.generator.ui.slide_generator_ui_builder</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="core.generator.ui.slide_generator_ui_builder.html#core.generator.ui.slide_generator_ui_builder.SlideGeneratorUIBuilder"><code class="docutils literal notranslate"><span class="pre">SlideGeneratorUIBuilder</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.slide_generator_ui_builder.html#core.generator.ui.slide_generator_ui_builder.SlideGeneratorUIBuilder.__init__"><code class="docutils literal notranslate"><span class="pre">SlideGeneratorUIBuilder.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.slide_generator_ui_builder.html#core.generator.ui.slide_generator_ui_builder.SlideGeneratorUIBuilder.setup_ui"><code class="docutils literal notranslate"><span class="pre">SlideGeneratorUIBuilder.setup_ui()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.slide_generator_ui_builder.html#core.generator.ui.slide_generator_ui_builder.SlideGeneratorUIBuilder.set_worship_label"><code class="docutils literal notranslate"><span class="pre">SlideGeneratorUIBuilder.set_worship_label()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="core.generator.ui.slide_table_manager.html">core.generator.ui.slide_table_manager</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="core.generator.ui.slide_table_manager.html#core.generator.ui.slide_table_manager.SlideTableManager"><code class="docutils literal notranslate"><span class="pre">SlideTableManager</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.slide_table_manager.html#core.generator.ui.slide_table_manager.SlideTableManager.__init__"><code class="docutils literal notranslate"><span class="pre">SlideTableManager.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.slide_table_manager.html#core.generator.ui.slide_table_manager.SlideTableManager.add_row"><code class="docutils literal notranslate"><span class="pre">SlideTableManager.add_row()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.slide_table_manager.html#core.generator.ui.slide_table_manager.SlideTableManager.insert_row"><code class="docutils literal notranslate"><span class="pre">SlideTableManager.insert_row()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.slide_table_manager.html#core.generator.ui.slide_table_manager.SlideTableManager.handle_combo_change_by_row"><code class="docutils literal notranslate"><span class="pre">SlideTableManager.handle_combo_change_by_row()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.slide_table_manager.html#core.generator.ui.slide_table_manager.SlideTableManager.delete_selected_row"><code class="docutils literal notranslate"><span class="pre">SlideTableManager.delete_selected_row()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.slide_table_manager.html#core.generator.ui.slide_table_manager.SlideTableManager.move_row_up"><code class="docutils literal notranslate"><span class="pre">SlideTableManager.move_row_up()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.slide_table_manager.html#core.generator.ui.slide_table_manager.SlideTableManager.move_row_down"><code class="docutils literal notranslate"><span class="pre">SlideTableManager.move_row_down()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.generator.ui.slide_table_manager.html#core.generator.ui.slide_table_manager.SlideTableManager.swap_rows"><code class="docutils literal notranslate"><span class="pre">SlideTableManager.swap_rows()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="core.generator.utils.html">core.generator.utils</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="core.generator.utils.html#module-core.generator.utils.icon_helpers">Submodules</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="core.generator.utils.html#core.generator.utils.icon_helpers.set_svg_icon"><code class="docutils literal notranslate"><span class="pre">set_svg_icon()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="core.generator.utils.html#core.generator.utils.icon_helpers.get_icon_path"><code class="docutils literal notranslate"><span class="pre">get_icon_path()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="core.generator.utils.html#core.generator.utils.segment_utils.segment_lyrics_for_export"><code class="docutils literal notranslate"><span class="pre">segment_lyrics_for_export()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="core.generator.utils.html#core.generator.utils.slide_exporter.SlideExporter"><code class="docutils literal notranslate"><span class="pre">SlideExporter</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="core.generator.utils.html#core.generator.utils.slide_exporter.SlideExporter.__init__"><code class="docutils literal notranslate"><span class="pre">SlideExporter.__init__()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.generator.utils.html#core.generator.utils.slide_exporter.SlideExporter.export"><code class="docutils literal notranslate"><span class="pre">SlideExporter.export()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.generator.utils.icon_helpers.html">core.generator.utils.icon_helpers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="core.generator.utils.icon_helpers.html#core.generator.utils.icon_helpers.set_svg_icon"><code class="docutils literal notranslate"><span class="pre">set_svg_icon()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.generator.utils.icon_helpers.html#core.generator.utils.icon_helpers.get_icon_path"><code class="docutils literal notranslate"><span class="pre">get_icon_path()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="core.generator.utils.html#core.generator.utils.slide_generator_data_manager.SlideGeneratorDataManager"><code class="docutils literal notranslate"><span class="pre">SlideGeneratorDataManager</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="core.generator.utils.html#core.generator.utils.slide_generator_data_manager.SlideGeneratorDataManager.__init__"><code class="docutils literal notranslate"><span class="pre">SlideGeneratorDataManager.__init__()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.generator.utils.html#core.generator.utils.slide_generator_data_manager.SlideGeneratorDataManager.load_from_file"><code class="docutils literal notranslate"><span class="pre">SlideGeneratorDataManager.load_from_file()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.generator.utils.html#core.generator.utils.slide_generator_data_manager.SlideGeneratorDataManager.save_to_file"><code class="docutils literal notranslate"><span class="pre">SlideGeneratorDataManager.save_to_file()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.generator.utils.html#core.generator.utils.slide_generator_data_manager.SlideGeneratorDataManager.collect_slide_data"><code class="docutils literal notranslate"><span class="pre">SlideGeneratorDataManager.collect_slide_data()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.generator.utils.segment_utils.html">core.generator.utils.segment_utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="core.generator.utils.segment_utils.html#core.generator.utils.segment_utils.segment_lyrics_for_export"><code class="docutils literal notranslate"><span class="pre">segment_lyrics_for_export()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="core.generator.utils.html#core.generator.utils.slide_input_submitter.SlideInputSubmitter"><code class="docutils literal notranslate"><span class="pre">SlideInputSubmitter</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="core.generator.utils.html#core.generator.utils.slide_input_submitter.SlideInputSubmitter.__init__"><code class="docutils literal notranslate"><span class="pre">SlideInputSubmitter.__init__()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.generator.utils.html#core.generator.utils.slide_input_submitter.SlideInputSubmitter.eventFilter"><code class="docutils literal notranslate"><span class="pre">SlideInputSubmitter.eventFilter()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.generator.utils.html#core.generator.utils.slide_input_submitter.SlideInputSubmitter.try_submit_slide"><code class="docutils literal notranslate"><span class="pre">SlideInputSubmitter.try_submit_slide()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.generator.utils.slide_exporter.html">core.generator.utils.slide_exporter</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="core.generator.utils.slide_exporter.html#core.generator.utils.slide_exporter.SlideExporter"><code class="docutils literal notranslate"><span class="pre">SlideExporter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="core.generator.utils.slide_exporter.html#core.generator.utils.slide_exporter.SlideExporter.__init__"><code class="docutils literal notranslate"><span class="pre">SlideExporter.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.generator.utils.slide_exporter.html#core.generator.utils.slide_exporter.SlideExporter.export"><code class="docutils literal notranslate"><span class="pre">SlideExporter.export()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="core.generator.utils.html#core.generator.utils.text_splitter.split_by_length"><code class="docutils literal notranslate"><span class="pre">split_by_length()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="core.generator.utils.html#module-core.generator.utils">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.generator.utils.slide_generator_data_manager.html">core.generator.utils.slide_generator_data_manager</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="core.generator.utils.slide_generator_data_manager.html#core.generator.utils.slide_generator_data_manager.SlideGeneratorDataManager"><code class="docutils literal notranslate"><span class="pre">SlideGeneratorDataManager</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="core.generator.utils.slide_generator_data_manager.html#core.generator.utils.slide_generator_data_manager.SlideGeneratorDataManager.__init__"><code class="docutils literal notranslate"><span class="pre">SlideGeneratorDataManager.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.generator.utils.slide_generator_data_manager.html#core.generator.utils.slide_generator_data_manager.SlideGeneratorDataManager.load_from_file"><code class="docutils literal notranslate"><span class="pre">SlideGeneratorDataManager.load_from_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.generator.utils.slide_generator_data_manager.html#core.generator.utils.slide_generator_data_manager.SlideGeneratorDataManager.save_to_file"><code class="docutils literal notranslate"><span class="pre">SlideGeneratorDataManager.save_to_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.generator.utils.slide_generator_data_manager.html#core.generator.utils.slide_generator_data_manager.SlideGeneratorDataManager.collect_slide_data"><code class="docutils literal notranslate"><span class="pre">SlideGeneratorDataManager.collect_slide_data()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="core.generator.utils.slide_input_submitter.html">core.generator.utils.slide_input_submitter</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="core.generator.utils.slide_input_submitter.html#core.generator.utils.slide_input_submitter.SlideInputSubmitter"><code class="docutils literal notranslate"><span class="pre">SlideInputSubmitter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="core.generator.utils.slide_input_submitter.html#core.generator.utils.slide_input_submitter.SlideInputSubmitter.__init__"><code class="docutils literal notranslate"><span class="pre">SlideInputSubmitter.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.generator.utils.slide_input_submitter.html#core.generator.utils.slide_input_submitter.SlideInputSubmitter.eventFilter"><code class="docutils literal notranslate"><span class="pre">SlideInputSubmitter.eventFilter()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.generator.utils.slide_input_submitter.html#core.generator.utils.slide_input_submitter.SlideInputSubmitter.try_submit_slide"><code class="docutils literal notranslate"><span class="pre">SlideInputSubmitter.try_submit_slide()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="core.generator.utils.text_splitter.html">core.generator.utils.text_splitter</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="core.generator.utils.text_splitter.html#core.generator.utils.text_splitter.split_by_length"><code class="docutils literal notranslate"><span class="pre">split_by_length()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="core.generator.settings_generator.html">core.generator.settings_generator</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="core.generator.settings_generator.html#core.generator.settings_generator.load_generator_settings"><code class="docutils literal notranslate"><span class="pre">load_generator_settings()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.generator.settings_generator.html#core.generator.settings_generator.save_generator_settings"><code class="docutils literal notranslate"><span class="pre">save_generator_settings()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.generator.settings_generator.html#core.generator.settings_generator.get_font_from_settings"><code class="docutils literal notranslate"><span class="pre">get_font_from_settings()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="core.generator.settings_last_path.html">core.generator.settings_last_path</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="core.generator.settings_last_path.html#core.generator.settings_last_path.load_last_path"><code class="docutils literal notranslate"><span class="pre">load_last_path()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.generator.settings_last_path.html#core.generator.settings_last_path.save_last_path"><code class="docutils literal notranslate"><span class="pre">save_last_path()</span></code></a></li>
 </ul>
 </li>
 </ul>
 </div>
-</section>
-<section id="module-core.generator.settings_generator">
-<span id="submodules"></span><h2>Submodules<a class="headerlink" href="#module-core.generator.settings_generator" title="Link to this heading"></a></h2>
-<dl class="field-list simple">
-<dt class="field-odd">File<span class="colon">:</span></dt>
-<dd class="field-odd"><p>EuljiroWorship/core/generator/settings_generator.py</p>
-</dd>
-</dl>
-<p>Handles persistent generator settings for the Slide Generator/Controller.</p>
-<p>This module provides a small persistence layer for generator UI preferences,
-stored as a JSON file (<cite>paths.SETTING_FILE</cite>). It currently supports:</p>
-<ul class="simple">
-<li><p>Font family (e.g., “Malgun Gothic”)</p></li>
-<li><p>Font size (int)</p></li>
-<li><p>Font weight (string name matching <cite>QFont.Weight</cite>, e.g., “Normal”, “Bold”)</p></li>
-<li><p>(Optional) emergency caption output path (e.g., verse_output.txt path)</p></li>
-</ul>
-<p>The settings are used to build a <cite>QFont</cite> instance for UI widgets in the generator.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Author<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
-</dd>
-<dt class="field-even">Affiliated Church<span class="colon">:</span></dt>
-<dd class="field-even"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
-</dd>
-<dt class="field-odd">Address<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
-</dd>
-<dt class="field-even">Telephone<span class="colon">:</span></dt>
-<dd class="field-even"><p>+82-2-2266-3070</p>
-</dd>
-<dt class="field-odd">E-mail<span class="colon">:</span></dt>
-<dd class="field-odd"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
-</dd>
-<dt class="field-even">License<span class="colon">:</span></dt>
-<dd class="field-even"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
-</dd>
-</dl>
-<dl class="py function">
-<dt class="sig sig-object py" id="core.generator.settings_generator.load_generator_settings">
-<span class="sig-prename descclassname"><span class="pre">core.generator.settings_generator.</span></span><span class="sig-name descname"><span class="pre">load_generator_settings</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/settings_generator.html#load_generator_settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.settings_generator.load_generator_settings" title="Link to this definition"></a></dt>
-<dd><p>Load generator settings from the JSON settings file.</p>
-<p>If the settings file does not exist, an empty dictionary is returned.</p>
-<p>The returned dictionary may include keys such as:
-- “font_family”: str
-- “font_size”: int
-- “font_weight”: str (e.g., “Normal”, “Bold”)
-- “verse_output_path”: str (optional)</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Dictionary containing persisted generator settings.
-Returns an empty dict if no settings file exists.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>dict</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="core.generator.settings_generator.save_generator_settings">
-<span class="sig-prename descclassname"><span class="pre">core.generator.settings_generator.</span></span><span class="sig-name descname"><span class="pre">save_generator_settings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/settings_generator.html#save_generator_settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.settings_generator.save_generator_settings" title="Link to this definition"></a></dt>
-<dd><p>Save generator settings to the JSON settings file.</p>
-<p>This function writes the provided settings dictionary to
-<cite>paths.SETTING_FILE</cite>, creating parent directories if needed.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This function is currently unused but reserved for future
-persistence and configuration UI logic.</p>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>data</strong> (<em>dict</em>) – Dictionary containing generator settings to persist.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="core.generator.settings_generator.get_font_from_settings">
-<span class="sig-prename descclassname"><span class="pre">core.generator.settings_generator.</span></span><span class="sig-name descname"><span class="pre">get_font_from_settings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">limit_ui_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/settings_generator.html#get_font_from_settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.settings_generator.get_font_from_settings" title="Link to this definition"></a></dt>
-<dd><p>Create a QFont instance based on persisted generator settings.</p>
-<p>The font family, size, and weight are read from the settings file.
-When <cite>limit_ui_size</cite> is enabled, the font size is clamped to a safe
-UI range to prevent layout issues.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>limit_ui_size</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to clamp the font size to the range 8–14 pt.
-Defaults to True.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Configured QFont instance for use in generator UI widgets.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>QFont</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="field-list simple" id="module-core.generator.settings_last_path">
-<dt class="field-odd">File<span class="colon">:</span></dt>
-<dd class="field-odd"><p>EuljiroWorship/core/generator/settings_last_path.py</p>
-</dd>
-</dl>
-<p>Handles local UI state related to the last opened slide file path.</p>
-<p>This module provides a minimal persistence layer for remembering
-the most recently opened slide JSON file in the generator UI.
-The path is stored as a small JSON file under the generator settings directory.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Author<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
-</dd>
-<dt class="field-even">Affiliated Church<span class="colon">:</span></dt>
-<dd class="field-even"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
-</dd>
-<dt class="field-odd">Address<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
-</dd>
-<dt class="field-even">Telephone<span class="colon">:</span></dt>
-<dd class="field-even"><p>+82-2-2266-3070</p>
-</dd>
-<dt class="field-odd">E-mail<span class="colon">:</span></dt>
-<dd class="field-odd"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
-</dd>
-<dt class="field-even">License<span class="colon">:</span></dt>
-<dd class="field-even"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
-</dd>
-</dl>
-<dl class="py function">
-<dt class="sig sig-object py" id="core.generator.settings_last_path.load_last_path">
-<span class="sig-prename descclassname"><span class="pre">core.generator.settings_last_path.</span></span><span class="sig-name descname"><span class="pre">load_last_path</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/settings_last_path.html#load_last_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.settings_last_path.load_last_path" title="Link to this definition"></a></dt>
-<dd><p>Load the most recently opened slide file path.</p>
-<p>This function reads the JSON file defined by
-<cite>paths.SETTING_LAST_OPEN_FILE</cite> and extracts the stored
-<cite>“last_opened_file”</cite> value.</p>
-<p>If the settings file does not exist or the key is missing,
-the function safely returns None.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Absolute path of the last opened slide file,
-or None if no previous path is recorded.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>str | None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="core.generator.settings_last_path.save_last_path">
-<span class="sig-prename descclassname"><span class="pre">core.generator.settings_last_path.</span></span><span class="sig-name descname"><span class="pre">save_last_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/settings_last_path.html#save_last_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.settings_last_path.save_last_path" title="Link to this definition"></a></dt>
-<dd><p>Save the most recently opened slide file path.</p>
-<p>The given path is written to a small JSON file located at
-<cite>paths.SETTING_LAST_OPEN_FILE</cite>. The parent directory is
-created automatically if it does not already exist.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – Absolute path of the slide file to persist.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
-<section id="module-core.generator">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-core.generator" title="Link to this heading"></a></h2>
-</section>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="core.config.html" class="btn btn-neutral float-left" title="core.config" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="core.config.style_map.html" class="btn btn-neutral float-left" title="core.config.style_map" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="core.generator.ui.html" class="btn btn-neutral float-right" title="core.generator.ui" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

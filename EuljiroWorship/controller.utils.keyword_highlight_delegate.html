@@ -1,0 +1,251 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>controller.utils.keyword_highlight_delegate &mdash; EuljiroWorship 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=2709fde1"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="controller.utils.keyword_result_model_light" href="controller.utils.keyword_result_model_light.html" />
+    <link rel="prev" title="controller.utils.interruptor_watcher" href="controller.utils.interruptor_watcher.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            EuljiroWorship
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Modules</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="EuljiroWorship.html">EuljiroWorship</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="controller.html">controller</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="controller.helper.html">controller.helper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="controller.ui.html">controller.ui</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="controller.utils.html">controller.utils</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="controller.utils.emergency_caption_handler.html">controller.utils.emergency_caption_handler</a></li>
+<li class="toctree-l4"><a class="reference internal" href="controller.utils.emergency_slide_factory.html">controller.utils.emergency_slide_factory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="controller.utils.interruptor_watcher.html">controller.utils.interruptor_watcher</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">controller.utils.keyword_highlight_delegate</a></li>
+<li class="toctree-l4"><a class="reference internal" href="controller.utils.keyword_result_model_light.html">controller.utils.keyword_result_model_light</a></li>
+<li class="toctree-l4"><a class="reference internal" href="controller.utils.slide_controller_data_manager.html">controller.utils.slide_controller_data_manager</a></li>
+<li class="toctree-l4"><a class="reference internal" href="controller.utils.slide_file_watcher.html">controller.utils.slide_file_watcher</a></li>
+<li class="toctree-l4"><a class="reference internal" href="controller.utils.slide_websocket_manager.html">controller.utils.slide_websocket_manager</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="controller.slide_controller.html">controller.slide_controller</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="core.html">core</a></li>
+<li class="toctree-l2"><a class="reference internal" href="server.html">server</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">EuljiroWorship</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">Modules</a></li>
+          <li class="breadcrumb-item"><a href="controller.html">controller</a></li>
+          <li class="breadcrumb-item"><a href="controller.utils.html">controller.utils</a></li>
+      <li class="breadcrumb-item active">controller.utils.keyword_highlight_delegate</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/controller.utils.keyword_highlight_delegate.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-controller.utils.keyword_highlight_delegate">
+<span id="controller-utils-keyword-highlight-delegate"></span><h1>controller.utils.keyword_highlight_delegate<a class="headerlink" href="#module-controller.utils.keyword_highlight_delegate" title="Link to this heading"></a></h1>
+<dl class="field-list simple">
+<dt class="field-odd">File<span class="colon">:</span></dt>
+<dd class="field-odd"><p>EuljiroWorship/controller/utils/keyword_highlight_delegate.py</p>
+</dd>
+</dl>
+<p>QStyledItemDelegate implementation for keyword highlighting in Qt item views.</p>
+<p>This module defines a delegate that renders cell text using QTextDocument so that:
+- HTML tags (e.g., &lt;b&gt;) are supported.
+- Newlines are rendered as multi-line content (&lt;br&gt;).
+- Specified keywords are highlighted by wrapping them in red &lt;span&gt; tags.
+- Row height can be computed from the HTML-rendered content.</p>
+<dl class="simple">
+<dt>Typical usage:</dt><dd><p>view.setItemDelegate(KeywordHighlightDelegate(keywords=[“하나님”, “세상”]))</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
+</dd>
+<dt class="field-even">Affiliated Church<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
+</dd>
+<dt class="field-odd">Address<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
+</dd>
+<dt class="field-even">Telephone<span class="colon">:</span></dt>
+<dd class="field-even"><p>+82-2-2266-3070</p>
+</dd>
+<dt class="field-odd">E-mail<span class="colon">:</span></dt>
+<dd class="field-odd"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
+</dd>
+<dt class="field-even">License<span class="colon">:</span></dt>
+<dd class="field-even"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="controller.utils.keyword_highlight_delegate.KeywordHighlightDelegate">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">controller.utils.keyword_highlight_delegate.</span></span><span class="sig-name descname"><span class="pre">KeywordHighlightDelegate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/keyword_highlight_delegate.html#KeywordHighlightDelegate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.keyword_highlight_delegate.KeywordHighlightDelegate" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QStyledItemDelegate</span></code></p>
+<p>Custom item delegate that highlights keywords in model text using HTML rendering.</p>
+<p>This delegate converts the cell text into HTML and wraps each keyword occurrence
+with a red-colored &lt;span&gt;. Rendering is done via QTextDocument to support:
+- HTML formatting
+- Multi-line wrapping
+- Accurate sizeHint calculation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>keywords</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – Keywords to highlight. Empty strings are ignored.</p></li>
+<li><p><strong>parent</strong> (<em>QWidget</em><em> | </em><em>None</em>) – Optional parent widget.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.utils.keyword_highlight_delegate.KeywordHighlightDelegate.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keywords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/keyword_highlight_delegate.html#KeywordHighlightDelegate.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.keyword_highlight_delegate.KeywordHighlightDelegate.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize the delegate with keywords to highlight.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>keywords</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – Keywords to highlight. Empty strings are ignored.</p></li>
+<li><p><strong>parent</strong> (<em>QWidget</em><em> | </em><em>None</em>) – Optional parent widget.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.utils.keyword_highlight_delegate.KeywordHighlightDelegate.paint">
+<span class="sig-name descname"><span class="pre">paint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">painter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">option</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/keyword_highlight_delegate.html#KeywordHighlightDelegate.paint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.keyword_highlight_delegate.KeywordHighlightDelegate.paint" title="Link to this definition"></a></dt>
+<dd><p>Paint a single cell using HTML rendering, highlighting configured keywords.</p>
+<p>Behavior:
+- Fills the background depending on selection state.
+- Converts the cell text to HTML with keyword highlighting.
+- Uses QTextDocument to render the HTML with wrapping.
+- Draws the document contents with a small padding offset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>painter</strong> (<em>QPainter</em>) – Painter used for drawing.</p></li>
+<li><p><strong>option</strong> (<em>QStyleOptionViewItem</em>) – Style and geometry information for the item.</p></li>
+<li><p><strong>index</strong> (<em>QModelIndex</em>) – Model index for the cell being painted.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.utils.keyword_highlight_delegate.KeywordHighlightDelegate.sizeHint">
+<span class="sig-name descname"><span class="pre">sizeHint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">option</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/keyword_highlight_delegate.html#KeywordHighlightDelegate.sizeHint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.keyword_highlight_delegate.KeywordHighlightDelegate.sizeHint" title="Link to this definition"></a></dt>
+<dd><p>Return the preferred size for a cell based on HTML-rendered content.</p>
+<p>Computes the document size using QTextDocument with the same width constraints
+used during painting, then adds padding so the content does not touch borders.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>option</strong> (<em>QStyleOptionViewItem</em>) – Style and geometry information for the item.</p></li>
+<li><p><strong>index</strong> (<em>QModelIndex</em>) – Model index for the cell.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Preferred size for the rendered cell content.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QSize</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="controller.utils.interruptor_watcher.html" class="btn btn-neutral float-left" title="controller.utils.interruptor_watcher" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="controller.utils.keyword_result_model_light.html" class="btn btn-neutral float-right" title="controller.utils.keyword_result_model_light" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Benjamin J. Choi.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

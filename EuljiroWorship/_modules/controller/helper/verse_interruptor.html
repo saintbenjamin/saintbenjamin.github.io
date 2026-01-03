@@ -81,7 +81,7 @@
 <span class="sd">parses the content into one or more slide dictionaries.</span>
 
 <span class="sd">Key behaviors</span>
-<span class="sd">-------------</span>
+
 <span class="sd">- If the last line looks like a structured Bible reference header, it generates</span>
 <span class="sd">  per-verse slides with wrapped lines (`textwrap.wrap`) and style &quot;verse&quot;.</span>
 <span class="sd">- Otherwise, it treats the file as a free-form emergency message and generates</span>
@@ -117,7 +117,7 @@
 <span class="n">MAX_CHARS</span> <span class="o">=</span> <span class="mi">60</span>
 
 <div class="viewcode-block" id="parse_verse_output">
-<a class="viewcode-back" href="../../../controller.helper.html#controller.helper.verse_interruptor.parse_verse_output">[docs]</a>
+<a class="viewcode-back" href="../../../controller.helper.verse_interruptor.html#controller.helper.verse_interruptor.parse_verse_output">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">parse_verse_output</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">max_chars</span><span class="o">=</span><span class="mi">60</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Parse `verse_output.txt` into a list of slide dictionaries.</span>
@@ -226,7 +226,7 @@
 
 
 <div class="viewcode-block" id="backup_slide_if_not_emergency">
-<a class="viewcode-back" href="../../../controller.helper.html#controller.helper.verse_interruptor.backup_slide_if_not_emergency">[docs]</a>
+<a class="viewcode-back" href="../../../controller.helper.verse_interruptor.html#controller.helper.verse_interruptor.backup_slide_if_not_emergency">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">backup_slide_if_not_emergency</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Create a backup copy of the current slide JSON file if no backup exists yet.</span>
@@ -255,7 +255,7 @@
 
 
 <div class="viewcode-block" id="save_slides">
-<a class="viewcode-back" href="../../../controller.helper.html#controller.helper.verse_interruptor.save_slides">[docs]</a>
+<a class="viewcode-back" href="../../../controller.helper.verse_interruptor.html#controller.helper.verse_interruptor.save_slides">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">save_slides</span><span class="p">(</span><span class="n">slides</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Save a list of slide dictionaries to a JSON file.</span>
@@ -274,7 +274,7 @@
 
 
 <div class="viewcode-block" id="VerseFileHandler">
-<a class="viewcode-back" href="../../../controller.helper.html#controller.helper.verse_interruptor.VerseFileHandler">[docs]</a>
+<a class="viewcode-back" href="../../../controller.helper.verse_interruptor.html#controller.helper.verse_interruptor.VerseFileHandler">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">VerseFileHandler</span><span class="p">(</span><span class="n">FileSystemEventHandler</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Watchdog event handler for updates to verse_output.txt.</span>
@@ -286,7 +286,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="VerseFileHandler.on_modified">
-<a class="viewcode-back" href="../../../controller.helper.html#controller.helper.verse_interruptor.VerseFileHandler.on_modified">[docs]</a>
+<a class="viewcode-back" href="../../../controller.helper.verse_interruptor.html#controller.helper.verse_interruptor.VerseFileHandler.on_modified">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">on_modified</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Handle watchdog &quot;modified&quot; events for verse_output.txt.</span>
@@ -319,7 +319,7 @@
 
 
 <div class="viewcode-block" id="start_interruptor">
-<a class="viewcode-back" href="../../../controller.helper.html#controller.helper.verse_interruptor.start_interruptor">[docs]</a>
+<a class="viewcode-back" href="../../../controller.helper.verse_interruptor.html#controller.helper.verse_interruptor.start_interruptor">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">start_interruptor</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Start the watchdog observer loop for verse_output.txt.</span>

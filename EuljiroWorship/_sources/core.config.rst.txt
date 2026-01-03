@@ -1,17 +1,8 @@
 core.config
 ===========
 
-.. automodule:: core.config
-   :members:
-   :undoc-members:
-   :show-inheritance:
+.. toctree::
+   :maxdepth: 5
 
-.. automodule:: core.config.paths
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-.. automodule:: core.config.style_map
-   :members:
-   :undoc-members:
-   :show-inheritance:
+   core.config.paths
+   core.config.style_map

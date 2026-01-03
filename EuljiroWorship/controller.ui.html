@@ -19,8 +19,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="controller.utils" href="controller.utils.html" />
-    <link rel="prev" title="controller" href="controller.html" /> 
+    <link rel="next" title="controller.ui.emergency_caption_dialog" href="controller.ui.emergency_caption_dialog.html" />
+    <link rel="prev" title="controller.helper.verse_interruptor" href="controller.helper.verse_interruptor.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -47,13 +47,14 @@
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">Modules</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="EuljiroWorship.html">EuljiroWorship</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="controller.html">controller</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="controller.helper.html">controller.helper</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">controller.ui</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#controller.ui.slide_controller_ui_builder.SlideControllerUIBuilder"><code class="docutils literal notranslate"><span class="pre">SlideControllerUIBuilder</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#controller.ui.emergency_caption_dialog.EmergencyCaptionDialog"><code class="docutils literal notranslate"><span class="pre">EmergencyCaptionDialog</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="controller.ui.emergency_caption_dialog.html">controller.ui.emergency_caption_dialog</a></li>
+<li class="toctree-l4"><a class="reference internal" href="controller.ui.slide_controller_ui_builder.html">controller.ui.slide_controller_ui_builder</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="controller.utils.html">controller.utils</a></li>
-<li class="toctree-l3"><a class="reference internal" href="controller.helper.html">controller.helper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="controller.slide_controller.html">controller.slide_controller</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="core.html">core</a></li>
@@ -88,394 +89,48 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-controller.ui">
-<span id="controller-ui"></span><h1>controller.ui<a class="headerlink" href="#module-controller.ui" title="Link to this heading"></a></h1>
-<dl class="field-list simple" id="module-controller.ui.slide_controller_ui_builder">
-<dt class="field-odd">File<span class="colon">:</span></dt>
-<dd class="field-odd"><p>EuljiroWorship/controller/ui/slide_controller_ui_builder.py</p>
-</dd>
-</dl>
-<p>Builds the user interface for the slide controller window.</p>
-<p>This module defines a small UI builder class that constructs and wires the
-widgets used by the SlideController main window. The builder is responsible for
-creating the layout, initializing interactive controls, populating the preview
-table, and installing event filters for keyboard navigation.</p>
-<p>Key responsibilities:
-- Create top status label and apply elided text rendering
-- Create emergency caption ON/OFF buttons and connect controller callbacks
-- Create page navigation controls (first/prev/next/last + page input)
-- Create and populate the slide preview table
-- Install global event filters for keyboard-based slide navigation</p>
-<dl class="field-list simple">
-<dt class="field-odd">Author<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
-</dd>
-<dt class="field-even">Affiliated Church<span class="colon">:</span></dt>
-<dd class="field-even"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
-</dd>
-<dt class="field-odd">Address<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
-</dd>
-<dt class="field-even">Telephone<span class="colon">:</span></dt>
-<dd class="field-even"><p>+82-2-2266-3070</p>
-</dd>
-<dt class="field-odd">E-mail<span class="colon">:</span></dt>
-<dd class="field-odd"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
-</dd>
-<dt class="field-even">License<span class="colon">:</span></dt>
-<dd class="field-even"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
-</dd>
-</dl>
-<dl class="py class">
-<dt class="sig sig-object py" id="controller.ui.slide_controller_ui_builder.SlideControllerUIBuilder">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">controller.ui.slide_controller_ui_builder.</span></span><span class="sig-name descname"><span class="pre">SlideControllerUIBuilder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">controller</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/ui/slide_controller_ui_builder.html#SlideControllerUIBuilder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.ui.slide_controller_ui_builder.SlideControllerUIBuilder" title="Link to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>UI builder for the SlideController main window.</p>
-<p>This class encapsulates widget construction so that SlideController can keep
-its runtime logic separate from UI layout details. The builder creates and
-attaches widgets onto the controller instance (self.c), and wires up signals
-to the controller’s navigation and emergency-caption handlers.</p>
-<p class="rubric">Notes</p>
-<ul class="simple">
-<li><p>Widgets are attached onto the controller instance as attributes
-(e.g., controller.label, controller.table, controller.page_input).</p></li>
-<li><p>The builder assumes SlideController already loaded <cite>slides</cite> and <cite>index</cite>.</p></li>
+  <section id="controller-ui">
+<h1>controller.ui<a class="headerlink" href="#controller-ui" title="Link to this heading"></a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="controller.ui.emergency_caption_dialog.html">controller.ui.emergency_caption_dialog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="controller.ui.emergency_caption_dialog.html#controller.ui.emergency_caption_dialog.EmergencyCaptionDialog"><code class="docutils literal notranslate"><span class="pre">EmergencyCaptionDialog</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="controller.ui.emergency_caption_dialog.html#controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.finalized_slides"><code class="docutils literal notranslate"><span class="pre">EmergencyCaptionDialog.finalized_slides</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="controller.ui.emergency_caption_dialog.html#controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.previewed_once"><code class="docutils literal notranslate"><span class="pre">EmergencyCaptionDialog.previewed_once</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="controller.ui.emergency_caption_dialog.html#controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.versions"><code class="docutils literal notranslate"><span class="pre">EmergencyCaptionDialog.versions</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="controller.ui.emergency_caption_dialog.html#controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.__init__"><code class="docutils literal notranslate"><span class="pre">EmergencyCaptionDialog.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="controller.ui.emergency_caption_dialog.html#controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.get_inputs"><code class="docutils literal notranslate"><span class="pre">EmergencyCaptionDialog.get_inputs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="controller.ui.emergency_caption_dialog.html#controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.handle_verse_enter"><code class="docutils literal notranslate"><span class="pre">EmergencyCaptionDialog.handle_verse_enter()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="controller.ui.emergency_caption_dialog.html#controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.handle_keyword_search"><code class="docutils literal notranslate"><span class="pre">EmergencyCaptionDialog.handle_keyword_search()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="controller.ui.emergency_caption_dialog.html#controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.on_confirm_clicked"><code class="docutils literal notranslate"><span class="pre">EmergencyCaptionDialog.on_confirm_clicked()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="controller.ui.emergency_caption_dialog.html#controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.show_preview"><code class="docutils literal notranslate"><span class="pre">EmergencyCaptionDialog.show_preview()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="controller.ui.emergency_caption_dialog.html#controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.on_keyword_search"><code class="docutils literal notranslate"><span class="pre">EmergencyCaptionDialog.on_keyword_search()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="controller.ui.emergency_caption_dialog.html#controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.on_result_selected"><code class="docutils literal notranslate"><span class="pre">EmergencyCaptionDialog.on_result_selected()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="controller.ui.emergency_caption_dialog.html#controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.build_non_bible_slides"><code class="docutils literal notranslate"><span class="pre">EmergencyCaptionDialog.build_non_bible_slides()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="controller.ui.emergency_caption_dialog.html#controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.get_final_slides"><code class="docutils literal notranslate"><span class="pre">EmergencyCaptionDialog.get_final_slides()</span></code></a></li>
 </ul>
-<dl class="py method">
-<dt class="sig sig-object py" id="controller.ui.slide_controller_ui_builder.SlideControllerUIBuilder.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">controller</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/ui/slide_controller_ui_builder.html#SlideControllerUIBuilder.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.ui.slide_controller_ui_builder.SlideControllerUIBuilder.__init__" title="Link to this definition"></a></dt>
-<dd><p>Initialize the UI builder with a SlideController instance.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>controller</strong> (<em>QWidget</em>) – The main SlideController instance that owns the window and runtime
-logic. Widgets created by this builder are assigned as attributes
-on this object.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="controller.ui.slide_controller_ui_builder.SlideControllerUIBuilder.build_ui">
-<span class="sig-name descname"><span class="pre">build_ui</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/ui/slide_controller_ui_builder.html#SlideControllerUIBuilder.build_ui"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.ui.slide_controller_ui_builder.SlideControllerUIBuilder.build_ui" title="Link to this definition"></a></dt>
-<dd><p>Build and wire the full SlideController UI.</p>
-<p>This method constructs:
-- Top status label (with elided rendering)
-- Emergency caption ON/OFF buttons
-- Page navigation row (first/prev/page/next/last)
-- Slide preview table (row selection + click-to-jump)
-- Event filters for global keyboard navigation</p>
-<dl class="simple">
-<dt>Side Effects:</dt><dd><ul class="simple">
-<li><p>Creates widgets and assigns them onto the controller instance.</p></li>
-<li><p>Connects widget signals to controller slots/callbacks.</p></li>
-<li><p>Installs event filters on the controller and its table.</p></li>
-</ul>
-</dd>
-</dl>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="controller.ui.slide_controller_ui_builder.SlideControllerUIBuilder.set_elided_label_text">
-<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_elided_label_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/ui/slide_controller_ui_builder.html#SlideControllerUIBuilder.set_elided_label_text"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.ui.slide_controller_ui_builder.SlideControllerUIBuilder.set_elided_label_text" title="Link to this definition"></a></dt>
-<dd><p>Set right-elided text on a QLabel to fit the current label width.</p>
-<p>This helper computes an elided string (truncated with an ellipsis) so the
-label does not overflow horizontally. Truncation occurs on the right side.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>label</strong> (<em>QLabel</em>) – Target label widget whose text will be updated.</p></li>
-<li><p><strong>text</strong> (<em>str</em>) – Full text to render (may be truncated).</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="field-list simple" id="module-controller.ui.emergency_caption_dialog">
-<dt class="field-odd">File<span class="colon">:</span></dt>
-<dd class="field-odd"><p>EuljiroWorship/controller/ui/emergency_caption_dialog.py</p>
-</dd>
-</dl>
-<p>Emergency caption input dialog (PySide6).</p>
-<p>This module defines a dialog used by the slide controller to generate emergency
-slides on demand. It supports the following workflows:</p>
-<ol class="arabic simple">
-<li><dl class="simple">
-<dt>Bible reference lookup</dt><dd><ul class="simple">
-<li><p>User enters a reference string (e.g., “요 3:16”) and presses Enter.</p></li>
-<li><p>The dialog previews resolved verse text via <code class="docutils literal notranslate"><span class="pre">EmergencySlideFactory</span></code>.</p></li>
-<li><p>Pressing Enter again (or confirming) finalizes the generated slides.</p></li>
-</ul>
-</dd>
-</dl>
 </li>
-<li><dl class="simple">
-<dt>Keyword search</dt><dd><ul class="simple">
-<li><dl class="simple">
-<dt>User enters a keyword query and chooses a search mode:</dt><dd><ul>
-<li><p>AND mode: all tokens must appear</p></li>
-<li><p>Compact mode: whitespace-insensitive substring match</p></li>
 </ul>
-</dd>
-</dl>
 </li>
-<li><p>Results are shown in a table; double-clicking a result selects it.</p></li>
+<li class="toctree-l1"><a class="reference internal" href="controller.ui.slide_controller_ui_builder.html">controller.ui.slide_controller_ui_builder</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="controller.ui.slide_controller_ui_builder.html#controller.ui.slide_controller_ui_builder.SlideControllerUIBuilder"><code class="docutils literal notranslate"><span class="pre">SlideControllerUIBuilder</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="controller.ui.slide_controller_ui_builder.html#controller.ui.slide_controller_ui_builder.SlideControllerUIBuilder.__init__"><code class="docutils literal notranslate"><span class="pre">SlideControllerUIBuilder.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="controller.ui.slide_controller_ui_builder.html#controller.ui.slide_controller_ui_builder.SlideControllerUIBuilder.build_ui"><code class="docutils literal notranslate"><span class="pre">SlideControllerUIBuilder.build_ui()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="controller.ui.slide_controller_ui_builder.html#controller.ui.slide_controller_ui_builder.SlideControllerUIBuilder.set_elided_label_text"><code class="docutils literal notranslate"><span class="pre">SlideControllerUIBuilder.set_elided_label_text()</span></code></a></li>
 </ul>
-</dd>
-</dl>
 </li>
-</ol>
-<p>If the first input is not recognized as a Bible reference, the dialog can also
-build non-Bible emergency slides using a selected slide style (e.g., lyrics,
-hymn, respo) and optional preset numbers.</p>
-<p>The dialog returns a list of slide dictionaries via <code class="docutils literal notranslate"><span class="pre">get_final_slides()</span></code>,
-ready to be written to the slide output file and broadcast by the controller.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Author<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
-</dd>
-<dt class="field-even">Affiliated Church<span class="colon">:</span></dt>
-<dd class="field-even"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
-</dd>
-<dt class="field-odd">Address<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
-</dd>
-<dt class="field-even">Telephone<span class="colon">:</span></dt>
-<dd class="field-even"><p>+82-2-2266-3070</p>
-</dd>
-<dt class="field-odd">E-mail<span class="colon">:</span></dt>
-<dd class="field-odd"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
-</dd>
-<dt class="field-even">License<span class="colon">:</span></dt>
-<dd class="field-even"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
-</dd>
-</dl>
-<dl class="py class">
-<dt class="sig sig-object py" id="controller.ui.emergency_caption_dialog.EmergencyCaptionDialog">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">controller.ui.emergency_caption_dialog.</span></span><span class="sig-name descname"><span class="pre">EmergencyCaptionDialog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/ui/emergency_caption_dialog.html#EmergencyCaptionDialog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.ui.emergency_caption_dialog.EmergencyCaptionDialog" title="Link to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QDialog</span></code></p>
-<p>PySide6 dialog for building emergency slide payloads (Bible verses or custom messages).</p>
-<p>Supported features:</p>
-<ul class="simple">
-<li><p>Bible reference input (e.g., “요 3:16”)
-- First Enter shows a preview generated by <code class="docutils literal notranslate"><span class="pre">EmergencySlideFactory</span></code>.
-- Subsequent confirmation finalizes the previewed slides.</p></li>
-<li><p>Keyword search against the selected Bible version
-- AND mode: all tokens must appear in a verse.
-- Compact mode: whitespace-insensitive substring match.
-- Double-clicking a result fills inputs and finalizes slides.</p></li>
-<li><p>Non-Bible emergency slide generation
-- User chooses a slide style from <code class="docutils literal notranslate"><span class="pre">style_map.STYLE_ALIASES</span></code>.
-- For preset-based styles (e.g., respo/hymn), numeric inputs can load presets.
-- Otherwise, a manual slide is created from caption/headline inputs.</p></li>
 </ul>
-<p>Generated slides are stored in <code class="docutils literal notranslate"><span class="pre">self.finalized_slides</span></code> and can be retrieved
-via <code class="docutils literal notranslate"><span class="pre">get_final_slides()</span></code>.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.finalized_slides">
-<span class="sig-name descname"><span class="pre">finalized_slides</span></span><a class="headerlink" href="#controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.finalized_slides" title="Link to this definition"></a></dt>
-<dd><p>Slide dictionaries generated by the most recent preview or confirmation.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>list[dict]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.previewed_once">
-<span class="sig-name descname"><span class="pre">previewed_once</span></span><a class="headerlink" href="#controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.previewed_once" title="Link to this definition"></a></dt>
-<dd><p>Whether the Bible-reference preview has been shown at least once.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>bool</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.versions">
-<span class="sig-name descname"><span class="pre">versions</span></span><a class="headerlink" href="#controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.versions" title="Link to this definition"></a></dt>
-<dd><p>Available Bible versions discovered from <code class="docutils literal notranslate"><span class="pre">paths.BIBLE_DATA_DIR</span></code>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>list[str]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/ui/emergency_caption_dialog.html#EmergencyCaptionDialog.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.__init__" title="Link to this definition"></a></dt>
-<dd><p>Initialize the emergency caption dialog UI and internal state.</p>
-<p>This constructs all widgets used for:
-- Bible reference input and preview
-- Keyword-based Bible search and result selection
-- Manual emergency message and style-based slide generation</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>parent</strong> (<em>QDialog</em><em> | </em><em>None</em>) – Optional parent widget for the dialog.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.get_inputs">
-<span class="sig-name descname"><span class="pre">get_inputs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/ui/emergency_caption_dialog.html#EmergencyCaptionDialog.get_inputs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.get_inputs" title="Link to this definition"></a></dt>
-<dd><p>Retrieve the current user inputs from the dialog.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>A tuple containing:
-- The Bible reference or caption text from the first input field.
-- The emergency message or verse text from the message editor.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>tuple[str, str]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.handle_verse_enter">
-<span class="sig-name descname"><span class="pre">handle_verse_enter</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/ui/emergency_caption_dialog.html#EmergencyCaptionDialog.handle_verse_enter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.handle_verse_enter" title="Link to this definition"></a></dt>
-<dd><p>Handle Enter key events in the Bible reference input field.</p>
-<p>On the first Enter press, this generates and displays a preview
-of the resolved Bible verse or caption.
-On subsequent Enter presses, the dialog is accepted.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.handle_keyword_search">
-<span class="sig-name descname"><span class="pre">handle_keyword_search</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/ui/emergency_caption_dialog.html#EmergencyCaptionDialog.handle_keyword_search"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.handle_keyword_search" title="Link to this definition"></a></dt>
-<dd><p>Handle Enter key events in the keyword search input field.</p>
-<p>If the keyword input is non-empty, this triggers a keyword-based
-Bible search using the current search mode.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.on_confirm_clicked">
-<span class="sig-name descname"><span class="pre">on_confirm_clicked</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/ui/emergency_caption_dialog.html#EmergencyCaptionDialog.on_confirm_clicked"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.on_confirm_clicked" title="Link to this definition"></a></dt>
-<dd><p>Finalize emergency slide generation and close the dialog.</p>
-<p>If the primary input is recognized as a Bible reference,
-a preview is generated if not already shown.
-Otherwise, non-Bible emergency slides are built directly.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.show_preview">
-<span class="sig-name descname"><span class="pre">show_preview</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/ui/emergency_caption_dialog.html#EmergencyCaptionDialog.show_preview"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.show_preview" title="Link to this definition"></a></dt>
-<dd><p>Generate and display a preview of the emergency slides.</p>
-<p>This resolves the current inputs into slide data using
-EmergencySlideFactory and renders a text preview in the UI.
-Generated slides are stored internally for later retrieval.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.on_keyword_search">
-<span class="sig-name descname"><span class="pre">on_keyword_search</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/ui/emergency_caption_dialog.html#EmergencyCaptionDialog.on_keyword_search"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.on_keyword_search" title="Link to this definition"></a></dt>
-<dd><p>Execute a keyword-based Bible search.</p>
-<p>This searches the selected Bible version using the chosen
-search mode and populates the result table with matches.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.on_result_selected">
-<span class="sig-name descname"><span class="pre">on_result_selected</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/ui/emergency_caption_dialog.html#EmergencyCaptionDialog.on_result_selected"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.on_result_selected" title="Link to this definition"></a></dt>
-<dd><p>Handle selection of a Bible verse from the keyword search results.</p>
-<p>The selected verse reference and text are applied to the input fields,
-emergency slides are generated, and the dialog is accepted.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>index</strong> (<em>QModelIndex</em>) – Model index corresponding to the selected table row.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.build_non_bible_slides">
-<span class="sig-name descname"><span class="pre">build_non_bible_slides</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/ui/emergency_caption_dialog.html#EmergencyCaptionDialog.build_non_bible_slides"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.build_non_bible_slides" title="Link to this definition"></a></dt>
-<dd><p>Build emergency slides from manual inputs and selected style.</p>
-<p>Depending on the chosen style and caption input, this may:
-- Load a preset responsive reading or hymn slide.
-- Create a manual emergency slide with custom caption and text.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.get_final_slides">
-<span class="sig-name descname"><span class="pre">get_final_slides</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/ui/emergency_caption_dialog.html#EmergencyCaptionDialog.get_final_slides"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.get_final_slides" title="Link to this definition"></a></dt>
-<dd><p>Return the list of finalized slides generated from the last preview.</p>
-<p>This method provides access to the slide data created during the most recent
-call to <cite>show_preview()</cite> or <cite>build_non_bible_slides()</cite>. These slides reflect the
-selected Bible version and parsed reference or manual input.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>A list of slide dictionaries generated by the most recent
-preview, selection, or manual build operation.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>list[dict]</p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
+</li>
+</ul>
+</div>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="controller.html" class="btn btn-neutral float-left" title="controller" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="controller.utils.html" class="btn btn-neutral float-right" title="controller.utils" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="controller.helper.verse_interruptor.html" class="btn btn-neutral float-left" title="controller.helper.verse_interruptor" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="controller.ui.emergency_caption_dialog.html" class="btn btn-neutral float-right" title="controller.ui.emergency_caption_dialog" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

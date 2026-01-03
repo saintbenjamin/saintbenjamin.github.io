@@ -1,0 +1,384 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>controller.utils.emergency_slide_factory &mdash; EuljiroWorship 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=2709fde1"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="controller.utils.interruptor_watcher" href="controller.utils.interruptor_watcher.html" />
+    <link rel="prev" title="controller.utils.emergency_caption_handler" href="controller.utils.emergency_caption_handler.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            EuljiroWorship
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Modules</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="EuljiroWorship.html">EuljiroWorship</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="controller.html">controller</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="controller.helper.html">controller.helper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="controller.ui.html">controller.ui</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="controller.utils.html">controller.utils</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="controller.utils.emergency_caption_handler.html">controller.utils.emergency_caption_handler</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">controller.utils.emergency_slide_factory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="controller.utils.interruptor_watcher.html">controller.utils.interruptor_watcher</a></li>
+<li class="toctree-l4"><a class="reference internal" href="controller.utils.keyword_highlight_delegate.html">controller.utils.keyword_highlight_delegate</a></li>
+<li class="toctree-l4"><a class="reference internal" href="controller.utils.keyword_result_model_light.html">controller.utils.keyword_result_model_light</a></li>
+<li class="toctree-l4"><a class="reference internal" href="controller.utils.slide_controller_data_manager.html">controller.utils.slide_controller_data_manager</a></li>
+<li class="toctree-l4"><a class="reference internal" href="controller.utils.slide_file_watcher.html">controller.utils.slide_file_watcher</a></li>
+<li class="toctree-l4"><a class="reference internal" href="controller.utils.slide_websocket_manager.html">controller.utils.slide_websocket_manager</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="controller.slide_controller.html">controller.slide_controller</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="core.html">core</a></li>
+<li class="toctree-l2"><a class="reference internal" href="server.html">server</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">EuljiroWorship</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">Modules</a></li>
+          <li class="breadcrumb-item"><a href="controller.html">controller</a></li>
+          <li class="breadcrumb-item"><a href="controller.utils.html">controller.utils</a></li>
+      <li class="breadcrumb-item active">controller.utils.emergency_slide_factory</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/controller.utils.emergency_slide_factory.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-controller.utils.emergency_slide_factory">
+<span id="controller-utils-emergency-slide-factory"></span><h1>controller.utils.emergency_slide_factory<a class="headerlink" href="#module-controller.utils.emergency_slide_factory" title="Link to this heading"></a></h1>
+<dl class="field-list simple">
+<dt class="field-odd">File<span class="colon">:</span></dt>
+<dd class="field-odd"><p>EuljiroWorship/controller/utils/emergency_slide_factory.py</p>
+</dd>
+</dl>
+<p>Generates slide dictionaries for emergency captions.</p>
+<p>This module defines <code class="docutils literal notranslate"><span class="pre">EmergencySlideFactory</span></code>, a utility that builds slide payloads
+consumable by the slide controller / overlay pipeline.</p>
+<p>Supported inputs:</p>
+<ul class="simple">
+<li><p>Bible references (parsed by <code class="docutils literal notranslate"><span class="pre">core.utils.bible_parser.parse_reference</span></code>)</p></li>
+<li><p>Manual fallback captions and messages</p></li>
+<li><p>Preset responsive readings (교독문) loaded from JSON files</p></li>
+<li><p>Preset hymns loaded from JSON files</p></li>
+</ul>
+<p>Outputs:</p>
+<ul class="simple">
+<li><p>A list of slide dictionaries with keys: <code class="docutils literal notranslate"><span class="pre">style</span></code>, <code class="docutils literal notranslate"><span class="pre">caption</span></code>, <code class="docutils literal notranslate"><span class="pre">headline</span></code></p></li>
+</ul>
+<p>Notes:</p>
+<ul class="simple">
+<li><p>Bible verse text is wrapped into smaller chunks (currently <code class="docutils literal notranslate"><span class="pre">width=50</span></code>) to avoid
+overly long single-slide lines.</p></li>
+<li><p>Version display aliases are loaded from <code class="docutils literal notranslate"><span class="pre">paths.ALIASES_VERSION_FILE</span></code>.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
+</dd>
+<dt class="field-even">Affiliated Church<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
+</dd>
+<dt class="field-odd">Address<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
+</dd>
+<dt class="field-even">Telephone<span class="colon">:</span></dt>
+<dd class="field-even"><p>+82-2-2266-3070</p>
+</dd>
+<dt class="field-odd">E-mail<span class="colon">:</span></dt>
+<dd class="field-odd"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
+</dd>
+<dt class="field-even">License<span class="colon">:</span></dt>
+<dd class="field-even"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="controller.utils.emergency_slide_factory.EmergencySlideFactory">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">controller.utils.emergency_slide_factory.</span></span><span class="sig-name descname"><span class="pre">EmergencySlideFactory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bible_loader</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/emergency_slide_factory.html#EmergencySlideFactory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.emergency_slide_factory.EmergencySlideFactory" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Factory for constructing emergency slide blocks.</p>
+<p>This class converts user-facing emergency inputs into a list of slide dicts.</p>
+<p>Primary responsibilities:</p>
+<ul class="simple">
+<li><p>Detect whether the first line is a Bible reference via <code class="docutils literal notranslate"><span class="pre">parse_reference()</span></code></p></li>
+<li><p>If a reference is valid, retrieve verses using <code class="docutils literal notranslate"><span class="pre">BibleDataLoader</span></code></p></li>
+<li><p>Wrap long verse text into multiple slides using <code class="docutils literal notranslate"><span class="pre">textwrap.wrap</span></code></p></li>
+<li><p>If not a reference, build a fallback “manual” slide payload</p></li>
+<li><p>Load preset materials:</p></li>
+<li><p>Responsive readings (respo) from JSON</p></li>
+<li><p>Hymns from JSON</p></li>
+</ul>
+<p>Slide dict schema:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>     <span class="c1"># e.g., &quot;verse&quot;, &quot;lyrics&quot;, &quot;greet&quot;, ...</span>
+    <span class="s2">&quot;caption&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>   <span class="c1"># title / reference line</span>
+    <span class="s2">&quot;headline&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>  <span class="c1"># main body text shown on screen</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.utils.emergency_slide_factory.EmergencySlideFactory.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bible_loader</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/emergency_slide_factory.html#EmergencySlideFactory.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.emergency_slide_factory.EmergencySlideFactory.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize the factory.</p>
+<p>Loads Bible version display aliases from <cite>paths.ALIASES_VERSION_FILE</cite> and
+prepares a <cite>BibleDataLoader</cite> instance (either the provided one or a default).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>bible_loader</strong> (<a class="reference internal" href="core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader" title="core.utils.bible_data_loader.BibleDataLoader"><em>BibleDataLoader</em></a><em> | </em><em>None</em>) – Optional custom Bible loader. If None, a default <cite>BibleDataLoader()</cite>
+is created and used.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.utils.emergency_slide_factory.EmergencySlideFactory.create_from_input">
+<span class="sig-name descname"><span class="pre">create_from_input</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">line1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/emergency_slide_factory.html#EmergencySlideFactory.create_from_input"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.emergency_slide_factory.EmergencySlideFactory.create_from_input" title="Link to this definition"></a></dt>
+<dd><p>Create emergency slides from a pair of user input lines.</p>
+<p>Behavior:
+- If <cite>line1</cite> is parsed as a Bible reference (e.g., “요 3:16”, “요한복음 3:16”),
+this method retrieves the verse text and returns verse-style slides.
+- If the reference represents a full chapter request (verse_range like (1, -1)),
+it expands the range to the chapter’s maximum verse count when possible.
+- If <cite>line1</cite> is NOT a valid reference, it falls back to a single manual slide
+where <cite>line1</cite> becomes the caption and <cite>line2</cite> becomes the headline.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>line1</strong> (<em>str</em>) – First line of user input. Interpreted as either a Bible reference
+or a manual caption.</p></li>
+<li><p><strong>line2</strong> (<em>str</em>) – Second line of user input. Interpreted as either ignored (when the
+first line is a valid reference) or a manual headline/message.</p></li>
+<li><p><strong>version</strong> (<em>str</em><em> | </em><em>None</em>) – Preferred Bible version name to use when resolving verse text.
+If None, the loader’s default/available version list is used.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of slide dictionaries. Returns an empty list if no valid
+output can be produced (e.g., empty manual input or failed verse load).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[dict]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.utils.emergency_slide_factory.EmergencySlideFactory.build_bible_slides">
+<span class="sig-name descname"><span class="pre">build_bible_slides</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">book_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chapter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verses</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/emergency_slide_factory.html#EmergencySlideFactory.build_bible_slides"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.emergency_slide_factory.EmergencySlideFactory.build_bible_slides" title="Link to this definition"></a></dt>
+<dd><p>Build verse-style slides for the given Bible location and verse range.</p>
+<p>This method attempts to retrieve verse text using <cite>BibleDataLoader.get_verse()</cite>.
+If <cite>version</cite> is provided, it tries that version first; otherwise it iterates
+available versions and returns the first successful slide set.</p>
+<p>Each verse is wrapped using <cite>textwrap.wrap(…, width=60)</cite> to avoid overly long
+single lines, producing multiple slides per verse when needed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>book_id</strong> (<em>str</em>) – Internal Bible book identifier (e.g., “John”).</p></li>
+<li><p><strong>chapter</strong> (<em>int</em>) – Chapter number.</p></li>
+<li><p><strong>verses</strong> (<em>list</em><em>[</em><em>int</em><em>] </em><em>| </em><em>tuple</em><em>[</em><em>int</em><em>, </em><em>int</em><em>]</em>) – Verse numbers to include. The implementation currently uses
+<cite>min(verses)</cite> and <cite>max(verses)</cite> to define an inclusive range.</p></li>
+<li><p><strong>version</strong> (<em>str</em><em> | </em><em>None</em>) – Preferred Bible version name. If None, tries multiple versions.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of verse-style slide dictionaries. If verse retrieval fails
+for all attempted versions, returns an empty list.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[dict]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.utils.emergency_slide_factory.EmergencySlideFactory.create_from_respo">
+<span class="sig-name descname"><span class="pre">create_from_respo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">number</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/emergency_slide_factory.html#EmergencySlideFactory.create_from_respo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.emergency_slide_factory.EmergencySlideFactory.create_from_respo" title="Link to this definition"></a></dt>
+<dd><p>Load a responsive reading (교독문) JSON by number and generate slides.</p>
+<p>The expected JSON format contains:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">title</span></code>: str (optional)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">slides</span></code>: list of entries, each typically containing:</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">speaker</span></code>: str</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">headline</span></code>: str</p></li>
+</ul>
+<p>For each entry, one slide is created containing a single speaker-response
+line formatted in an HTML-like style (e.g., <code class="docutils literal notranslate"><span class="pre">&quot;&lt;b&gt;...&lt;/b&gt;&quot;</span></code>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>number</strong> (<em>int</em>) – Responsive reading number (e.g., 123).</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of slide dictionaries (style <code class="docutils literal notranslate"><span class="pre">&quot;verse&quot;</span></code>).
+If loading fails, returns a one-slide fallback with an error message.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[dict]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.utils.emergency_slide_factory.EmergencySlideFactory.format_responsive_text">
+<span class="sig-name descname"><span class="pre">format_responsive_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slides_raw</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/emergency_slide_factory.html#EmergencySlideFactory.format_responsive_text"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.emergency_slide_factory.EmergencySlideFactory.format_responsive_text" title="Link to this definition"></a></dt>
+<dd><p>Format responsive reading entries into a single joined string.</p>
+<p>Each entry is converted into one line using an HTML-like emphasis for the
+speaker name:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;&lt;b&gt;</span><span class="si">{speaker}</span><span class="s2">:&lt;/b&gt; </span><span class="si">{headline}</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>slides_raw</strong> (<em>list</em><em>[</em><em>dict</em><em>]</em>) – <p>Raw entry list, where each entry may include:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">speaker</span></code>: str</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">headline</span></code>: str</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A newline-joined formatted text block. Empty entries are skipped.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.utils.emergency_slide_factory.EmergencySlideFactory.create_from_hymn">
+<span class="sig-name descname"><span class="pre">create_from_hymn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">number</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/emergency_slide_factory.html#EmergencySlideFactory.create_from_hymn"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.emergency_slide_factory.EmergencySlideFactory.create_from_hymn" title="Link to this definition"></a></dt>
+<dd><p>Load a hymn JSON by number and split it into lyric slides.</p>
+<p>The expected JSON format contains:
+- “title”: str (optional)
+- “headline”: str (lyrics text, typically multi-line)</p>
+<p>Lyrics are split into chunks of two lines per slide.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>number</strong> (<em>int</em>) – Hymn number (e.g., 88).</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of slide dictionaries with style “lyrics”.
+If loading fails, returns a one-slide fallback with an error message.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[dict]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.utils.emergency_slide_factory.EmergencySlideFactory.create_manual_slide">
+<span class="sig-name descname"><span class="pre">create_manual_slide</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">style</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caption</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/emergency_slide_factory.html#EmergencySlideFactory.create_manual_slide"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.emergency_slide_factory.EmergencySlideFactory.create_manual_slide" title="Link to this definition"></a></dt>
+<dd><p>Generate slide(s) from manually provided content.</p>
+<p>Behavior:
+- If <cite>style</cite> is “lyrics”, the input text is split by lines and grouped
+into 2-line chunks per slide.
+- For all other styles, a single slide is produced as-is.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>style</strong> (<em>str</em>) – Internal slide style (e.g., “verse”, “greet”, “lyrics”).</p></li>
+<li><p><strong>caption</strong> (<em>str</em>) – Caption/title string shown above or alongside the main text.</p></li>
+<li><p><strong>text</strong> (<em>str</em>) – Main body text for the slide(s).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of slide dictionaries ready to be exported.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[dict]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="controller.utils.emergency_caption_handler.html" class="btn btn-neutral float-left" title="controller.utils.emergency_caption_handler" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="controller.utils.interruptor_watcher.html" class="btn btn-neutral float-right" title="controller.utils.interruptor_watcher" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Benjamin J. Choi.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,624 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>controller.slide_controller &mdash; EuljiroWorship 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=2709fde1"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="core" href="core.html" />
+    <link rel="prev" title="controller.utils.slide_websocket_manager" href="controller.utils.slide_websocket_manager.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            EuljiroWorship
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Modules</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="EuljiroWorship.html">EuljiroWorship</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="controller.html">controller</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="controller.helper.html">controller.helper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="controller.ui.html">controller.ui</a></li>
+<li class="toctree-l3"><a class="reference internal" href="controller.utils.html">controller.utils</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">controller.slide_controller</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#controller.slide_controller.launch_interruptor"><code class="docutils literal notranslate"><span class="pre">launch_interruptor()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#controller.slide_controller.SlideController"><code class="docutils literal notranslate"><span class="pre">SlideController</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="core.html">core</a></li>
+<li class="toctree-l2"><a class="reference internal" href="server.html">server</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">EuljiroWorship</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">Modules</a></li>
+          <li class="breadcrumb-item"><a href="controller.html">controller</a></li>
+      <li class="breadcrumb-item active">controller.slide_controller</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/controller.slide_controller.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-controller.slide_controller">
+<span id="controller-slide-controller"></span><h1>controller.slide_controller<a class="headerlink" href="#module-controller.slide_controller" title="Link to this heading"></a></h1>
+<dl class="field-list simple">
+<dt class="field-odd">File<span class="colon">:</span></dt>
+<dd class="field-odd"><p>EuljiroWorship/controller/slide_controller.py</p>
+</dd>
+</dl>
+<p>Main slide controller module for managing and broadcasting slides in real-time.</p>
+<p>This module provides the GUI entry point and the main controller widget
+used by the slide controller application. It wires together the PySide6 UI,
+file watchers, WebSocket broadcasting, and the emergency verse interruptor.</p>
+<p>Key responsibilities in this module:</p>
+<ul class="simple">
+<li><p>Ensure the project root is importable (sys.path injection for direct execution)</p></li>
+<li><p>Define <cite>launch_interruptor()</cite> to start the verse interruptor as a detached process</p></li>
+<li><dl class="simple">
+<dt>Define <cite>SlideController</cite>, the main QWidget that:</dt><dd><ul>
+<li><p>loads and displays slide data</p></li>
+<li><p>sends slides via WebSocket</p></li>
+<li><p>reacts to slide file changes / emergency interruptor clear events</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
+</dd>
+<dt class="field-even">Affiliated Church<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
+</dd>
+<dt class="field-odd">Address<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
+</dd>
+<dt class="field-even">Telephone<span class="colon">:</span></dt>
+<dd class="field-even"><p>+82-2-2266-3070</p>
+</dd>
+<dt class="field-odd">E-mail<span class="colon">:</span></dt>
+<dd class="field-odd"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
+</dd>
+<dt class="field-even">License<span class="colon">:</span></dt>
+<dd class="field-even"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
+</dd>
+</dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="controller.slide_controller.launch_interruptor">
+<span class="sig-prename descclassname"><span class="pre">controller.slide_controller.</span></span><span class="sig-name descname"><span class="pre">launch_interruptor</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/slide_controller.html#launch_interruptor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.slide_controller.launch_interruptor" title="Link to this definition"></a></dt>
+<dd><p>Launch the verse interruptor script as a detached background process.</p>
+<p>This starts <cite>launcher/verse_interruptor.py</cite> using the current Python
+interpreter (<cite>sys.executable</cite>) and suppresses stdin/stdout/stderr to
+avoid blocking or cluttering the controller GUI.</p>
+<p>The interruptor script is expected to watch the emergency verse output
+file (e.g., <cite>paths.VERSE_FILE</cite>) and handle its own logic independently.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="controller.slide_controller.SlideController">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">controller.slide_controller.</span></span><span class="sig-name descname"><span class="pre">SlideController</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/slide_controller.html#SlideController"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.slide_controller.SlideController" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
+<p>Main controller widget for managing and broadcasting worship slides.</p>
+<p>This controller loads slides from a JSON file, displays them in a table UI,
+and broadcasts the currently selected slide to the overlay via WebSocket.
+It also manages “emergency mode” slides and restores the previous slide set
+after the interruptor file is cleared.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="controller.slide_controller.SlideController.slide_file">
+<span class="sig-name descname"><span class="pre">slide_file</span></span><a class="headerlink" href="#controller.slide_controller.SlideController.slide_file" title="Link to this definition"></a></dt>
+<dd><p>Path to the slide JSON file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="controller.slide_controller.SlideController.ws_uri">
+<span class="sig-name descname"><span class="pre">ws_uri</span></span><a class="headerlink" href="#controller.slide_controller.SlideController.ws_uri" title="Link to this definition"></a></dt>
+<dd><p>WebSocket URI used to broadcast slide data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="controller.slide_controller.SlideController.data">
+<span class="sig-name descname"><span class="pre">data</span></span><a class="headerlink" href="#controller.slide_controller.SlideController.data" title="Link to this definition"></a></dt>
+<dd><p>Slide data manager instance responsible for loading/restoring slides.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="controller.utils.slide_controller_data_manager.html#controller.utils.slide_controller_data_manager.SlideControllerDataManager" title="controller.utils.slide_controller_data_manager.SlideControllerDataManager">SlideControllerDataManager</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="controller.slide_controller.SlideController.slides">
+<span class="sig-name descname"><span class="pre">slides</span></span><a class="headerlink" href="#controller.slide_controller.SlideController.slides" title="Link to this definition"></a></dt>
+<dd><p>Current list of slide dictionaries.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[dict]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="controller.slide_controller.SlideController.index">
+<span class="sig-name descname"><span class="pre">index</span></span><a class="headerlink" href="#controller.slide_controller.SlideController.index" title="Link to this definition"></a></dt>
+<dd><p>Current slide index.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="controller.slide_controller.SlideController.index_backup">
+<span class="sig-name descname"><span class="pre">index_backup</span></span><a class="headerlink" href="#controller.slide_controller.SlideController.index_backup" title="Link to this definition"></a></dt>
+<dd><p>Backup index saved before entering emergency mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="controller.slide_controller.SlideController.emergency_mode">
+<span class="sig-name descname"><span class="pre">emergency_mode</span></span><a class="headerlink" href="#controller.slide_controller.SlideController.emergency_mode" title="Link to this definition"></a></dt>
+<dd><p>Whether the controller is currently in emergency mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="controller.slide_controller.SlideController.slide_factory">
+<span class="sig-name descname"><span class="pre">slide_factory</span></span><a class="headerlink" href="#controller.slide_controller.SlideController.slide_factory" title="Link to this definition"></a></dt>
+<dd><p>Factory used to build emergency slides.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="controller.utils.emergency_slide_factory.html#controller.utils.emergency_slide_factory.EmergencySlideFactory" title="controller.utils.emergency_slide_factory.EmergencySlideFactory">EmergencySlideFactory</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="controller.slide_controller.SlideController.ws_manager">
+<span class="sig-name descname"><span class="pre">ws_manager</span></span><a class="headerlink" href="#controller.slide_controller.SlideController.ws_manager" title="Link to this definition"></a></dt>
+<dd><p>WebSocket manager for overlay communication.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="controller.utils.slide_websocket_manager.html#controller.utils.slide_websocket_manager.SlideWebSocketManager" title="controller.utils.slide_websocket_manager.SlideWebSocketManager">SlideWebSocketManager</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="controller.slide_controller.SlideController.caption_handler">
+<span class="sig-name descname"><span class="pre">caption_handler</span></span><a class="headerlink" href="#controller.slide_controller.SlideController.caption_handler" title="Link to this definition"></a></dt>
+<dd><p>Dialog/handler used to generate emergency slides from user input.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="controller.utils.emergency_caption_handler.html#controller.utils.emergency_caption_handler.EmergencyCaptionHandler" title="controller.utils.emergency_caption_handler.EmergencyCaptionHandler">EmergencyCaptionHandler</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.slide_controller.SlideController.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slide_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ws_uri</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/slide_controller.html#SlideController.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.slide_controller.SlideController.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize the SlideController UI and subsystems.</p>
+<p>This sets up the window, loads slides, connects to the WebSocket server,
+builds the UI, and starts background threads for:
+- Watching slide file changes
+- Watching interruptor (emergency verse) clear events</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>slide_file</strong> (<em>str</em>) – Path to the slide JSON file to load.</p></li>
+<li><p><strong>ws_uri</strong> (<em>str</em>) – WebSocket URI for broadcasting slide data
+(e.g., “ws://127.0.0.1:8765/ws”).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.slide_controller.SlideController.insert_blank_if_needed">
+<span class="sig-name descname"><span class="pre">insert_blank_if_needed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/slide_controller.html#SlideController.insert_blank_if_needed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.slide_controller.SlideController.insert_blank_if_needed" title="Link to this definition"></a></dt>
+<dd><p>Ensure the slide file begins with a blank slide.</p>
+<p>If the file exists and the first slide is not style “blank”, this inserts a
+blank slide at index 0 and writes the updated list back to disk.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.slide_controller.SlideController.load_slides">
+<span class="sig-name descname"><span class="pre">load_slides</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/slide_controller.html#SlideController.load_slides"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.slide_controller.SlideController.load_slides" title="Link to this definition"></a></dt>
+<dd><p>Load slide data from the controller’s slide JSON file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Parsed list of slide dictionaries loaded from disk.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.slide_controller.SlideController.keyPressEvent">
+<span class="sig-name descname"><span class="pre">keyPressEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/slide_controller.html#SlideController.keyPressEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.slide_controller.SlideController.keyPressEvent" title="Link to this definition"></a></dt>
+<dd><p>Handle keyboard navigation for slide movement.</p>
+<p>Right/Down/Space moves forward, Left/Up moves backward.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>event</strong> (<em>QKeyEvent</em>) – Key press event object.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.slide_controller.SlideController.update_label">
+<span class="sig-name descname"><span class="pre">update_label</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/slide_controller.html#SlideController.update_label"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.slide_controller.SlideController.update_label" title="Link to this definition"></a></dt>
+<dd><p>Update the UI label and table selection for the current slide.</p>
+<p>The label shows:
+- Current page (1-based)
+- Total pages
+- A short preview of the first line of the headline</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.slide_controller.SlideController.send_current_slide">
+<span class="sig-name descname"><span class="pre">send_current_slide</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/slide_controller.html#SlideController.send_current_slide"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.slide_controller.SlideController.send_current_slide" title="Link to this definition"></a></dt>
+<dd><p>Send the current slide to the overlay via WebSocket.</p>
+<p>If the WebSocket is connected, the slide dict at <cite>self.index</cite> is sent.
+If not connected, a warning is printed.</p>
+<p>When not in emergency mode, also updates <cite>self.data.index</cite> so the current
+position can be persisted by the data manager.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.slide_controller.SlideController.next_slide">
+<span class="sig-name descname"><span class="pre">next_slide</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/slide_controller.html#SlideController.next_slide"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.slide_controller.SlideController.next_slide" title="Link to this definition"></a></dt>
+<dd><p>Move to the next slide if one exists.</p>
+<p>Increments <cite>self.index</cite>, updates the UI label/table highlight,
+and broadcasts the slide.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.slide_controller.SlideController.prev_slide">
+<span class="sig-name descname"><span class="pre">prev_slide</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/slide_controller.html#SlideController.prev_slide"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.slide_controller.SlideController.prev_slide" title="Link to this definition"></a></dt>
+<dd><p>Move to the previous slide if available.</p>
+<p>Decrements <cite>self.index</cite>, updates the UI label/table highlight,
+and broadcasts the slide.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.slide_controller.SlideController.on_cell_clicked">
+<span class="sig-name descname"><span class="pre">on_cell_clicked</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_column</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/slide_controller.html#SlideController.on_cell_clicked"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.slide_controller.SlideController.on_cell_clicked" title="Link to this definition"></a></dt>
+<dd><p>Jump to a slide when a table row is clicked.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>row</strong> (<em>int</em>) – The clicked row index (0-based), used as the slide index.</p></li>
+<li><p><strong>_column</strong> (<em>int</em>) – Unused column index (Qt signal provides it).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.slide_controller.SlideController.on_slide_changed">
+<span class="sig-name descname"><span class="pre">on_slide_changed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slides</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#controller.slide_controller.SlideController.on_slide_changed" title="Link to this definition"></a></dt>
+<dd><p>Handle slide file modification events from SlideFileWatcher.</p>
+<p>Replaces the internal slide list and index with the new values,
+updates the UI, and broadcasts the current slide.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>slides</strong> (<em>list</em>) – Newly loaded slides from the watcher.</p></li>
+<li><p><strong>index</strong> (<em>int</em>) – Index to set as the current slide.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.slide_controller.SlideController.on_slide_cleared">
+<span class="sig-name descname"><span class="pre">on_slide_cleared</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#controller.slide_controller.SlideController.on_slide_cleared" title="Link to this definition"></a></dt>
+<dd><p>Handle slide file cleared events from SlideFileWatcher.</p>
+<p>Attempts to restore slides from backup via the data manager.
+If restoration fails, falls back to a single blank slide.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.slide_controller.SlideController.on_interruptor_cleared">
+<span class="sig-name descname"><span class="pre">on_interruptor_cleared</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#controller.slide_controller.SlideController.on_interruptor_cleared" title="Link to this definition"></a></dt>
+<dd><p>Handle interruptor-cleared events from InterruptorWatcher.</p>
+<p>When the emergency verse file is cleared, this restores the previous slides
+(via <cite>on_slide_cleared()</cite>) and exits emergency mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.slide_controller.SlideController.eventFilter">
+<span class="sig-name descname"><span class="pre">eventFilter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/slide_controller.html#SlideController.eventFilter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.slide_controller.SlideController.eventFilter" title="Link to this definition"></a></dt>
+<dd><p>Capture key events globally to allow slide navigation without focus.</p>
+<p>This enables arrow/space navigation even when focus is on other widgets.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>source</strong> (<em>QObject</em>) – Event source object.</p></li>
+<li><p><strong>event</strong> (<em>QEvent</em>) – Incoming event.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the event was handled here, otherwise delegates to parent.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.slide_controller.SlideController.launch_emergency_caption">
+<span class="sig-name descname"><span class="pre">launch_emergency_caption</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/slide_controller.html#SlideController.launch_emergency_caption"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.slide_controller.SlideController.launch_emergency_caption" title="Link to this definition"></a></dt>
+<dd><p>Enter emergency mode and generate emergency slides from user input.</p>
+<p>Saves the current index to <cite>index_backup</cite>, invokes the emergency caption
+handler, and if slides are returned, replaces the current slide list with
+the emergency slides starting from index 0.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.slide_controller.SlideController.jump_to_index">
+<span class="sig-name descname"><span class="pre">jump_to_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/slide_controller.html#SlideController.jump_to_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.slide_controller.SlideController.jump_to_index" title="Link to this definition"></a></dt>
+<dd><p>Jump directly to a given slide index.</p>
+<p>If the index is valid, sets <cite>self.index</cite>, broadcasts the slide,
+updates the table selection, scrolls it into view, and updates the label.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>idx</strong> (<em>int</em>) – Target slide index (0-based).</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.slide_controller.SlideController.jump_to_previous">
+<span class="sig-name descname"><span class="pre">jump_to_previous</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/slide_controller.html#SlideController.jump_to_previous"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.slide_controller.SlideController.jump_to_previous" title="Link to this definition"></a></dt>
+<dd><p>Jump to the previous slide and center it in the table view.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.slide_controller.SlideController.jump_to_next">
+<span class="sig-name descname"><span class="pre">jump_to_next</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/slide_controller.html#SlideController.jump_to_next"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.slide_controller.SlideController.jump_to_next" title="Link to this definition"></a></dt>
+<dd><p>Jump to the next slide and center it in the table view.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.slide_controller.SlideController.jump_to_page">
+<span class="sig-name descname"><span class="pre">jump_to_page</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/slide_controller.html#SlideController.jump_to_page"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.slide_controller.SlideController.jump_to_page" title="Link to this definition"></a></dt>
+<dd><p>Jump to a slide page based on the number typed in the page input box.</p>
+<p>The UI value is interpreted as 1-based; internally converted to 0-based.
+If invalid, prints an error message.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.slide_controller.SlideController.clear_emergency_caption">
+<span class="sig-name descname"><span class="pre">clear_emergency_caption</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/slide_controller.html#SlideController.clear_emergency_caption"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.slide_controller.SlideController.clear_emergency_caption" title="Link to this definition"></a></dt>
+<dd><p>Clear the emergency verse output file and restore normal slides.</p>
+<p>This writes an empty string to <cite>paths.VERSE_FILE</cite>, clears <cite>paths.SLIDE_FILE</cite>,
+then attempts restoration from backup via SlideControllerDataManager.</p>
+<p>After restoration, rebuilds the table, updates the label, and scrolls
+the restored index into view.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.slide_controller.SlideController.rebuild_table">
+<span class="sig-name descname"><span class="pre">rebuild_table</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/slide_controller.html#SlideController.rebuild_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.slide_controller.SlideController.rebuild_table" title="Link to this definition"></a></dt>
+<dd><p>Rebuild the slide table widget using the current <cite>self.slides</cite>.</p>
+<p>Each row displays:
+- Page number (1-based)
+- Caption
+- First line preview of headline (trimmed)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.slide_controller.SlideController.closeEvent">
+<span class="sig-name descname"><span class="pre">closeEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/slide_controller.html#SlideController.closeEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.slide_controller.SlideController.closeEvent" title="Link to this definition"></a></dt>
+<dd><p>Gracefully stop background threads and disconnect WebSocket before exit.</p>
+<p>Stops file watchers, quits threads, waits for them to finish, disconnects
+the WebSocket manager, then delegates to QWidget.closeEvent().</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>event</strong> (<em>QCloseEvent</em>) – Close event object.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="controller.utils.slide_websocket_manager.html" class="btn btn-neutral float-left" title="controller.utils.slide_websocket_manager" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="core.html" class="btn btn-neutral float-right" title="core" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Benjamin J. Choi.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

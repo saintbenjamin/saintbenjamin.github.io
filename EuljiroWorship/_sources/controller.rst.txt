@@ -2,8 +2,9 @@ controller
 ==========
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 5
 
+   controller.helper
    controller.ui
    controller.utils
-   controller.helper
+   controller.slide_controller

@@ -1,7 +1,7 @@
 core.plugin
 ===========
 
-.. automodule:: core.plugin.slide_controller_launcher
-   :members:
-   :undoc-members:
-   :show-inheritance:
+.. toctree::
+   :maxdepth: 5
+
+   core.plugin.slide_controller_launcher

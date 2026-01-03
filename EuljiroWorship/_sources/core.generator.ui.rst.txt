@@ -1,51 +1,13 @@
 core.generator.ui
 =================
 
-Subpackages
------------
-
 .. toctree::
-   :maxdepth: 4
+   :maxdepth: 5
 
    core.generator.ui.contents
-
-Submodules
-----------
-
-.. automodule:: core.generator.ui.settings_dialog
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-.. automodule:: core.generator.ui.slide_generator_dialog
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-.. automodule:: core.generator.ui.slide_generator_right_contents
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-.. automodule:: core.generator.ui.slide_generator_ui_builder
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-.. automodule:: core.generator.ui.slide_generator
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-.. automodule:: core.generator.ui.slide_table_manager
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Module contents
----------------
-
-.. automodule:: core.generator.ui
-   :members:
-   :undoc-members:
-   :show-inheritance:
+   core.generator.ui.settings_dialog
+   core.generator.ui.slide_generator
+   core.generator.ui.slide_generator_dialog
+   core.generator.ui.slide_generator_right_contents
+   core.generator.ui.slide_generator_ui_builder
+   core.generator.ui.slide_table_manager

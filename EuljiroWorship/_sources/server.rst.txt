@@ -14,6 +14,6 @@ Submodules
 ----------
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 5
 
    server.websocket_server

@@ -1,0 +1,264 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>core.generator.ui.contents.lyrics_content &mdash; EuljiroWorship 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=2709fde1"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="core.generator.ui.contents.prayer_content" href="core.generator.ui.contents.prayer_content.html" />
+    <link rel="prev" title="core.generator.ui.contents.image_content" href="core.generator.ui.contents.image_content.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            EuljiroWorship
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Modules</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="EuljiroWorship.html">EuljiroWorship</a></li>
+<li class="toctree-l2"><a class="reference internal" href="controller.html">controller</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="core.html">core</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="core.config.html">core.config</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="core.generator.html">core.generator</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="core.generator.ui.html">core.generator.ui</a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.generator.utils.html">core.generator.utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.generator.settings_generator.html">core.generator.settings_generator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.generator.settings_last_path.html">core.generator.settings_last_path</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="core.plugin.html">core.plugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.utils.html">core.utils</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="server.html">server</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">EuljiroWorship</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">Modules</a></li>
+          <li class="breadcrumb-item"><a href="core.html">core</a></li>
+          <li class="breadcrumb-item"><a href="core.generator.html">core.generator</a></li>
+          <li class="breadcrumb-item"><a href="core.generator.ui.html">core.generator.ui</a></li>
+          <li class="breadcrumb-item"><a href="core.generator.ui.contents.html">core.generator.ui.contents</a></li>
+      <li class="breadcrumb-item active">core.generator.ui.contents.lyrics_content</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/core.generator.ui.contents.lyrics_content.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-core.generator.ui.contents.lyrics_content">
+<span id="core-generator-ui-contents-lyrics-content"></span><h1>core.generator.ui.contents.lyrics_content<a class="headerlink" href="#module-core.generator.ui.contents.lyrics_content" title="Link to this heading"></a></h1>
+<dl class="field-list simple">
+<dt class="field-odd">File<span class="colon">:</span></dt>
+<dd class="field-odd"><p>EuljiroWorship/core/generator/ui/contents/lyrics_content.py</p>
+</dd>
+</dl>
+<p>UI content widget for editing ‘lyrics’ style slides.</p>
+<p>This module defines <cite>LyricsContent</cite>, a QWidget that provides input fields
+for entering a song or praise title and its lyrics. The lyrics are entered
+as multiline text and are later split into multiple slides according to
+the generator’s export rules (typically every two lines).</p>
+<p>The widget integrates with <cite>SlideInputSubmitter</cite> to support automatic
+submission and synchronization with the parent generator window.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
+</dd>
+<dt class="field-even">Affiliated Church<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
+</dd>
+<dt class="field-odd">Address<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
+</dd>
+<dt class="field-even">Telephone<span class="colon">:</span></dt>
+<dd class="field-even"><p>+82-2-2266-3070</p>
+</dd>
+<dt class="field-odd">E-mail<span class="colon">:</span></dt>
+<dd class="field-odd"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
+</dd>
+<dt class="field-even">License<span class="colon">:</span></dt>
+<dd class="field-even"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="core.generator.ui.contents.lyrics_content.LyricsContent">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.ui.contents.lyrics_content.</span></span><span class="sig-name descname"><span class="pre">LyricsContent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/lyrics_content.html#LyricsContent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.lyrics_content.LyricsContent" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
+<p>Content editor widget for ‘lyrics’ style slides.</p>
+<p>This widget allows users to enter:
+- A title for the song or praise
+- Multiline lyrics text</p>
+<p>The lyrics content is stored as raw text and later processed by the
+slide exporter, which splits the text into multiple slides according
+to predefined rules (e.g., two lines per slide).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>caption</strong> (<em>str</em>)</p></li>
+<li><p><strong>headline</strong> (<em>str</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.lyrics_content.LyricsContent.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generator_window</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caption</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/lyrics_content.html#LyricsContent.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.lyrics_content.LyricsContent.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize the lyrics content editor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parent</strong> (<em>QWidget</em>) – Parent widget container.</p></li>
+<li><p><strong>generator_window</strong> – Reference to the generator main window, used for submitting
+slide data and enabling auto-save behavior.</p></li>
+<li><p><strong>caption</strong> (<em>str</em>) – Initial title text for the lyrics slide.</p></li>
+<li><p><strong>headline</strong> (<em>str</em>) – Initial lyrics content.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.lyrics_content.LyricsContent.build_ui">
+<span class="sig-name descname"><span class="pre">build_ui</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/lyrics_content.html#LyricsContent.build_ui"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.lyrics_content.LyricsContent.build_ui" title="Link to this definition"></a></dt>
+<dd><p>Construct the UI elements for editing a lyrics-style slide.</p>
+<p>This method creates labeled input fields for the lyrics title and
+multiline lyrics content, arranges them vertically, and registers
+the title input with <cite>SlideInputSubmitter</cite> to enable automatic
+submission.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.lyrics_content.LyricsContent.build_lyrics_slide">
+<span class="sig-name descname"><span class="pre">build_lyrics_slide</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/lyrics_content.html#LyricsContent.build_lyrics_slide"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.lyrics_content.LyricsContent.build_lyrics_slide" title="Link to this definition"></a></dt>
+<dd><p>Conditionally generate lyrics slide data.</p>
+<p>If both the title and lyrics fields are empty, no slide data is
+generated. Otherwise, the current input values are returned as a
+slide data dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Slide data dictionary if at least one field is non-empty;
+otherwise, None.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.lyrics_content.LyricsContent.get_slide_data">
+<span class="sig-name descname"><span class="pre">get_slide_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/lyrics_content.html#LyricsContent.get_slide_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.lyrics_content.LyricsContent.get_slide_data" title="Link to this definition"></a></dt>
+<dd><p>Generate the slide data dictionary for a lyrics slide.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary representing the lyrics slide, including:
+- style
+- caption (song title)
+- headline (raw lyrics text)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="core.generator.ui.contents.image_content.html" class="btn btn-neutral float-left" title="core.generator.ui.contents.image_content" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="core.generator.ui.contents.prayer_content.html" class="btn btn-neutral float-right" title="core.generator.ui.contents.prayer_content" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Benjamin J. Choi.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

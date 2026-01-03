@@ -103,7 +103,7 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">core.generator.utils.slide_input_submitter</span><span class="w"> </span><span class="kn">import</span> <span class="n">SlideInputSubmitter</span>
 
 <div class="viewcode-block" id="ImageContent">
-<a class="viewcode-back" href="../../../../../core.generator.ui.contents.html#core.generator.ui.contents.image_content.ImageContent">[docs]</a>
+<a class="viewcode-back" href="../../../../../core.generator.ui.contents.image_content.html#core.generator.ui.contents.image_content.ImageContent">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">ImageContent</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Content editor widget for &#39;image&#39; style slides.</span>
@@ -120,7 +120,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="ImageContent.__init__">
-<a class="viewcode-back" href="../../../../../core.generator.ui.contents.html#core.generator.ui.contents.image_content.ImageContent.__init__">[docs]</a>
+<a class="viewcode-back" href="../../../../../core.generator.ui.contents.image_content.html#core.generator.ui.contents.image_content.ImageContent.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">generator_window</span><span class="p">,</span> <span class="n">caption</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">headline</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize the image content editor.</span>
@@ -147,7 +147,7 @@
 
 
 <div class="viewcode-block" id="ImageContent.build_ui">
-<a class="viewcode-back" href="../../../../../core.generator.ui.contents.html#core.generator.ui.contents.image_content.ImageContent.build_ui">[docs]</a>
+<a class="viewcode-back" href="../../../../../core.generator.ui.contents.image_content.html#core.generator.ui.contents.image_content.ImageContent.build_ui">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">build_ui</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Construct the UI elements for editing an image slide.</span>
@@ -202,7 +202,7 @@
 
 
 <div class="viewcode-block" id="ImageContent.select_image">
-<a class="viewcode-back" href="../../../../../core.generator.ui.contents.html#core.generator.ui.contents.image_content.ImageContent.select_image">[docs]</a>
+<a class="viewcode-back" href="../../../../../core.generator.ui.contents.image_content.html#core.generator.ui.contents.image_content.ImageContent.select_image">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">select_image</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Prompt the user to select an image file and register it for slide use.</span>
@@ -229,7 +229,7 @@
 
 
 <div class="viewcode-block" id="ImageContent.copy_to_img_folder">
-<a class="viewcode-back" href="../../../../../core.generator.ui.contents.html#core.generator.ui.contents.image_content.ImageContent.copy_to_img_folder">[docs]</a>
+<a class="viewcode-back" href="../../../../../core.generator.ui.contents.image_content.html#core.generator.ui.contents.image_content.ImageContent.copy_to_img_folder">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">copy_to_img_folder</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Copy the selected image file into the local image directory.</span>
@@ -265,7 +265,7 @@
 
 
 <div class="viewcode-block" id="ImageContent.build_image_slide">
-<a class="viewcode-back" href="../../../../../core.generator.ui.contents.html#core.generator.ui.contents.image_content.ImageContent.build_image_slide">[docs]</a>
+<a class="viewcode-back" href="../../../../../core.generator.ui.contents.image_content.html#core.generator.ui.contents.image_content.ImageContent.build_image_slide">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">build_image_slide</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Conditionally generate image slide data.</span>
@@ -287,7 +287,7 @@
 
 
 <div class="viewcode-block" id="ImageContent.get_slide_data">
-<a class="viewcode-back" href="../../../../../core.generator.ui.contents.html#core.generator.ui.contents.image_content.ImageContent.get_slide_data">[docs]</a>
+<a class="viewcode-back" href="../../../../../core.generator.ui.contents.image_content.html#core.generator.ui.contents.image_content.ImageContent.get_slide_data">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_slide_data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generate the slide data dictionary for an image slide.</span>
@@ -310,7 +310,7 @@
 
 
 <div class="viewcode-block" id="ImageContent.set_content">
-<a class="viewcode-back" href="../../../../../core.generator.ui.contents.html#core.generator.ui.contents.image_content.ImageContent.set_content">[docs]</a>
+<a class="viewcode-back" href="../../../../../core.generator.ui.contents.image_content.html#core.generator.ui.contents.image_content.ImageContent.set_content">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">set_content</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Restore saved image slide data into the editor UI.</span>
