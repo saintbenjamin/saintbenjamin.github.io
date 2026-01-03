@@ -1,5 +1,5 @@
 EuljiroBible Documentation
-=========================
+==========================
 
 EuljiroBible is a Bible search and rapid slide output application developed
 for worship services at The Eulji-ro Presbyterian Church (TongHap).
