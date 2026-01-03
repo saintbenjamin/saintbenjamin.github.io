@@ -1,5 +1,5 @@
-gui.utils.ui\_restore
-=====================
+gui.utils.ui_restore
+====================
 
 .. automodule:: gui.utils.ui_restore
    :members:

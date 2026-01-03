@@ -1,5 +1,5 @@
-gui.utils.verse\_output\_handler
-================================
+gui.utils.verse_output_handler
+==============================
 
 .. automodule:: gui.utils.verse_output_handler
    :members:

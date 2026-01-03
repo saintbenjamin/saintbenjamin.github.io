@@ -1,5 +1,5 @@
-gui.config.config\_manager
-==========================
+gui.config.config_manager
+=========================
 
 .. automodule:: gui.config.config_manager
    :members:

@@ -1,5 +1,5 @@
-gui.ui.locale.message\_loader
-=============================
+gui.ui.locale.message_loader
+============================
 
 .. automodule:: gui.ui.locale.message_loader
    :members:

@@ -1,5 +1,5 @@
-core.utils.utils\_version
-=========================
+core.utils.utils_version
+========================
 
 .. automodule:: core.utils.utils_version
    :members:

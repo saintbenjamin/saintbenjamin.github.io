@@ -1,5 +1,5 @@
-gui.ui.tab\_keyword\_logic
-==========================
+gui.ui.tab_keyword_logic
+========================
 
 .. automodule:: gui.ui.tab_keyword_logic
    :members:

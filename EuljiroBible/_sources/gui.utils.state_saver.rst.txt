@@ -1,5 +1,5 @@
-gui.utils.state\_saver
-======================
+gui.utils.state_saver
+=====================
 
 .. automodule:: gui.utils.state_saver
    :members:

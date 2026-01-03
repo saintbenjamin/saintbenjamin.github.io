@@ -1,5 +1,5 @@
-gui.ui.tab\_keyword\_ui
-=======================
+gui.ui.tab_keyword_ui
+=====================
 
 .. automodule:: gui.ui.tab_keyword_ui
    :members:

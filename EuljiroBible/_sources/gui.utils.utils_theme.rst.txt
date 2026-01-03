@@ -1,5 +1,5 @@
-gui.utils.utils\_theme
-======================
+gui.utils.utils_theme
+=====================
 
 .. automodule:: gui.utils.utils_theme
    :members:

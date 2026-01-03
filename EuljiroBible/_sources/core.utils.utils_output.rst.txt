@@ -1,5 +1,5 @@
-core.utils.utils\_output
-========================
+core.utils.utils_output
+=======================
 
 .. automodule:: core.utils.utils_output
    :members:

@@ -1,5 +1,5 @@
-gui.ui.monitor\_memory
-======================
+gui.ui.monitor_memory
+=====================
 
 .. automodule:: gui.ui.monitor_memory
    :members:

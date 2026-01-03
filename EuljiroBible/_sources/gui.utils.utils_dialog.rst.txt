@@ -1,5 +1,5 @@
-gui.utils.utils\_dialog
-=======================
+gui.utils.utils_dialog
+======================
 
 .. automodule:: gui.utils.utils_dialog
    :members:

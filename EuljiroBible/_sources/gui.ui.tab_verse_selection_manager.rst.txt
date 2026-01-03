@@ -1,5 +1,5 @@
-gui.ui.tab\_verse\_selection\_manager
-=====================================
+gui.ui.tab_verse_selection_manager
+==================================
 
 .. automodule:: gui.ui.tab_verse_selection_manager
    :members:

@@ -1,5 +1,5 @@
-gui.utils.keyword\_highlight\_delegate
-======================================
+gui.utils.keyword_highlight_delegate
+====================================
 
 .. automodule:: gui.utils.keyword_highlight_delegate
    :members:

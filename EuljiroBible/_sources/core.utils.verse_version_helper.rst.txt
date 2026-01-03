@@ -1,5 +1,5 @@
-core.utils.verse\_version\_helper
-=================================
+core.utils.verse_version_helper
+===============================
 
 .. automodule:: core.utils.verse_version_helper
    :members:

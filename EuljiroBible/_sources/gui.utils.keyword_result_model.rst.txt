@@ -1,5 +1,5 @@
-gui.utils.keyword\_result\_model
-================================
+gui.utils.keyword_result_model
+==============================
 
 .. automodule:: gui.utils.keyword_result_model
    :members:

@@ -1,5 +1,5 @@
-gui.ui.tab\_settings
-====================
+gui.ui.tab_settings
+===================
 
 .. automodule:: gui.ui.tab_settings
    :members:

@@ -1,5 +1,5 @@
-gui.ui.tab\_verse\_ui
-=====================
+gui.ui.tab_verse_ui
+===================
 
 .. automodule:: gui.ui.tab_verse_ui
    :members:

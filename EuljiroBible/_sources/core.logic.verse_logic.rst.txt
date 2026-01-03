@@ -1,5 +1,5 @@
-core.logic.verse\_logic
-=======================
+core.logic.verse_logic
+======================
 
 .. automodule:: core.logic.verse_logic
    :members:

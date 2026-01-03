@@ -1,5 +1,5 @@
-core.utils.input\_validators
-============================
+core.utils.input_validators
+===========================
 
 .. automodule:: core.utils.input_validators
    :members:

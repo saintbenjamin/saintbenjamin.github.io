@@ -1,5 +1,5 @@
-gui.utils.utils\_fonts
-======================
+gui.utils.utils_fonts
+=====================
 
 .. automodule:: gui.utils.utils_fonts
    :members:

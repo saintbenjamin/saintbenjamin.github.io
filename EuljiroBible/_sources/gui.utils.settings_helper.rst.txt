@@ -1,5 +1,5 @@
-gui.utils.settings\_helper
-==========================
+gui.utils.settings_helper
+=========================
 
 .. automodule:: gui.utils.settings_helper
    :members:

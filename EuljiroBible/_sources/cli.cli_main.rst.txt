@@ -1,7 +1,7 @@
-cli.commands
-------------
+cli.cli_main
+============
 
-.. automodule:: cli.commands
+.. automodule:: cli.cli_main
    :members:
    :show-inheritance:
    :undoc-members:

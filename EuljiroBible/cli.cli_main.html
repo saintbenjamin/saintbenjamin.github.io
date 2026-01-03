@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>cli.commands &mdash; EuljiroBible 1.5 documentation</title>
+  <title>cli.cli_main &mdash; EuljiroBible 1.5 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
@@ -19,7 +19,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="cli.cli_main" href="cli.commands.html" />
+    <link rel="next" title="cli.commands" href="cli.commands.html" />
     <link rel="prev" title="cli" href="cli.html" /> 
 </head>
 
@@ -47,25 +47,11 @@
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">Modules</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="EuljiroBible.html">EuljiroBible</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="cli.html">cli</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">cli.commands</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#cli.commands.handle_cli_metadata"><code class="docutils literal notranslate"><span class="pre">handle_cli_metadata()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#cli.commands.handle_search_metadata"><code class="docutils literal notranslate"><span class="pre">handle_search_metadata()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#cli.commands.show_usage_and_versions"><code class="docutils literal notranslate"><span class="pre">show_usage_and_versions()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#cli.commands.show_search_usage"><code class="docutils literal notranslate"><span class="pre">show_search_usage()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#cli.commands.load_cli_alias_map"><code class="docutils literal notranslate"><span class="pre">load_cli_alias_map()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#cli.commands.parse_versions_from_args"><code class="docutils literal notranslate"><span class="pre">parse_versions_from_args()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#cli.commands.resolve_search_version"><code class="docutils literal notranslate"><span class="pre">resolve_search_version()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#cli.commands.parse_and_validate_reference"><code class="docutils literal notranslate"><span class="pre">parse_and_validate_reference()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#cli.commands.detect_lang_code_from_aliases"><code class="docutils literal notranslate"><span class="pre">detect_lang_code_from_aliases()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#cli.commands.run_display_logic"><code class="docutils literal notranslate"><span class="pre">run_display_logic()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#cli.commands.run_keyword_search"><code class="docutils literal notranslate"><span class="pre">run_keyword_search()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#cli.commands.handle_version_only"><code class="docutils literal notranslate"><span class="pre">handle_version_only()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#cli.commands.handle_book_only"><code class="docutils literal notranslate"><span class="pre">handle_book_only()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#cli.commands.run_bible_command"><code class="docutils literal notranslate"><span class="pre">run_bible_command()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#cli.commands.run_search_command"><code class="docutils literal notranslate"><span class="pre">run_search_command()</span></code></a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">cli.cli_main</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#cli.cli_main.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="cli.commands.html">cli.cli_main</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cli.commands.html">cli.commands</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="core.html">core</a></li>
@@ -90,7 +76,7 @@
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="modules.html">Modules</a></li>
           <li class="breadcrumb-item"><a href="cli.html">cli</a></li>
-      <li class="breadcrumb-item active">cli.commands</li>
+      <li class="breadcrumb-item active">cli.cli_main</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/cli.cli_main.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -100,15 +86,16 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-cli.commands">
-<span id="cli-commands"></span><h1>cli.commands<a class="headerlink" href="#module-cli.commands" title="Link to this heading"></a></h1>
+  <section id="module-cli.cli_main">
+<span id="cli-cli-main"></span><h1>cli.cli_main<a class="headerlink" href="#module-cli.cli_main" title="Link to this heading"></a></h1>
 <dl class="field-list simple">
 <dt class="field-odd">File<span class="colon">:</span></dt>
-<dd class="field-odd"><p>EuljiroBible/cli/commands.py</p>
+<dd class="field-odd"><p>EuljiroBible/cli/cli_main.py</p>
 </dd>
 </dl>
-<p>CLI command handler for EuljiroBible.</p>
-<p>Parses command-line arguments and coordinates verse lookup and display.</p>
+<p>Command-line entry point for the EuljiroBible CLI interface.</p>
+<p>This module parses command-line arguments and delegates
+the logic to the CLI command engine.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Author<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
@@ -130,225 +117,10 @@
 </dd>
 </dl>
 <dl class="py function">
-<dt class="sig sig-object py" id="cli.commands.handle_cli_metadata">
-<span class="sig-prename descclassname"><span class="pre">cli.commands.</span></span><span class="sig-name descname"><span class="pre">handle_cli_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cli/commands.html#handle_cli_metadata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cli.commands.handle_cli_metadata" title="Link to this definition"></a></dt>
-<dd><p>Handle CLI metadata options like –help, –version, and –about.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>True if metadata was handled and command should exit.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>bool</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="cli.commands.handle_search_metadata">
-<span class="sig-prename descclassname"><span class="pre">cli.commands.</span></span><span class="sig-name descname"><span class="pre">handle_search_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cli/commands.html#handle_search_metadata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cli.commands.handle_search_metadata" title="Link to this definition"></a></dt>
-<dd><p>Handle CLI metadata options for keyword search command.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>args</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – CLI args</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>True if metadata handled and program should exit.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>bool</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="cli.commands.show_usage_and_versions">
-<span class="sig-prename descclassname"><span class="pre">cli.commands.</span></span><span class="sig-name descname"><span class="pre">show_usage_and_versions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cli_aliases</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cli/commands.html#show_usage_and_versions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cli.commands.show_usage_and_versions" title="Link to this definition"></a></dt>
-<dd><p>Print general CLI usage and list of available version aliases.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>cli_aliases</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – List of CLI aliases to display.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="cli.commands.show_search_usage">
-<span class="sig-prename descclassname"><span class="pre">cli.commands.</span></span><span class="sig-name descname"><span class="pre">show_search_usage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cli_aliases</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cli/commands.html#show_search_usage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cli.commands.show_search_usage" title="Link to this definition"></a></dt>
-<dd><p>Print usage information and available versions for keyword search command.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>cli_aliases</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – CLI version aliases</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="cli.commands.load_cli_alias_map">
-<span class="sig-prename descclassname"><span class="pre">cli.commands.</span></span><span class="sig-name descname"><span class="pre">load_cli_alias_map</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/cli/commands.html#load_cli_alias_map"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cli.commands.load_cli_alias_map" title="Link to this definition"></a></dt>
-<dd><p>Load CLI alias map from JSON file.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>(alias_map, cli_aliases)</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>tuple</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="cli.commands.parse_versions_from_args">
-<span class="sig-prename descclassname"><span class="pre">cli.commands.</span></span><span class="sig-name descname"><span class="pre">parse_versions_from_args</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alias_map</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cli/commands.html#parse_versions_from_args"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cli.commands.parse_versions_from_args" title="Link to this definition"></a></dt>
-<dd><p>Parse version aliases from CLI args.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>args</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – Raw CLI arguments.</p></li>
-<li><p><strong>alias_map</strong> (<em>dict</em>) – Full-to-short alias mapping.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>(versions, remaining_args)</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>tuple</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="cli.commands.resolve_search_version">
-<span class="sig-prename descclassname"><span class="pre">cli.commands.</span></span><span class="sig-name descname"><span class="pre">resolve_search_version</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version_alias</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alias_map</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keywords</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cli/commands.html#resolve_search_version"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cli.commands.resolve_search_version" title="Link to this definition"></a></dt>
-<dd><p>Resolve the full Bible version name for keyword search.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>version_alias</strong> (<em>str</em>) – CLI alias given by user</p></li>
-<li><p><strong>alias_map</strong> (<em>dict</em>) – Full-to-short alias map</p></li>
-<li><p><strong>keywords</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – User-specified search keywords</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Full version name if found; otherwise None</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>str or None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="cli.commands.parse_and_validate_reference">
-<span class="sig-prename descclassname"><span class="pre">cli.commands.</span></span><span class="sig-name descname"><span class="pre">parse_and_validate_reference</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">remaining</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cli/commands.html#parse_and_validate_reference"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cli.commands.parse_and_validate_reference" title="Link to this definition"></a></dt>
-<dd><p>Join and validate Bible reference tokens.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>remaining</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – List of tokens representing reference.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>(book, chapter, verse_range) if valid; otherwise None.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>tuple or None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="cli.commands.detect_lang_code_from_aliases">
-<span class="sig-prename descclassname"><span class="pre">cli.commands.</span></span><span class="sig-name descname"><span class="pre">detect_lang_code_from_aliases</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">versions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alias_map</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cli/commands.html#detect_lang_code_from_aliases"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cli.commands.detect_lang_code_from_aliases" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="cli.commands.run_display_logic">
-<span class="sig-prename descclassname"><span class="pre">cli.commands.</span></span><span class="sig-name descname"><span class="pre">run_display_logic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">versions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">book</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chapter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verse_range</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alias_map</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cli/commands.html#run_display_logic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cli.commands.run_display_logic" title="Link to this definition"></a></dt>
-<dd><p>Execute the main display logic for CLI output.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>versions</strong> (<em>list</em>) – Full version names.</p></li>
-<li><p><strong>book</strong> (<em>str</em>) – Resolved book name.</p></li>
-<li><p><strong>chapter</strong> (<em>int</em>) – Chapter number.</p></li>
-<li><p><strong>verse_range</strong> (<em>tuple</em>) – Start and optional end verse.</p></li>
-<li><p><strong>alias_map</strong> (<em>dict</em>) – CLI alias map.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="cli.commands.run_keyword_search">
-<span class="sig-prename descclassname"><span class="pre">cli.commands.</span></span><span class="sig-name descname"><span class="pre">run_keyword_search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">full_version</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keywords</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cli/commands.html#run_keyword_search"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cli.commands.run_keyword_search" title="Link to this definition"></a></dt>
-<dd><p>Run keyword search and print results.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>full_version</strong> (<em>str</em>) – Full Bible version name.</p></li>
-<li><p><strong>keywords</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – List of keywords to search.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="cli.commands.handle_version_only">
-<span class="sig-prename descclassname"><span class="pre">cli.commands.</span></span><span class="sig-name descname"><span class="pre">handle_version_only</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alias_map</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cli/commands.html#handle_version_only"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cli.commands.handle_version_only" title="Link to this definition"></a></dt>
-<dd><p>Handle the case where only the version is specified.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>version</strong> (<em>str</em>) – Full Bible version name.</p></li>
-<li><p><strong>alias_map</strong> (<em>dict</em>) – Full-to-short alias mapping.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="cli.commands.handle_book_only">
-<span class="sig-prename descclassname"><span class="pre">cli.commands.</span></span><span class="sig-name descname"><span class="pre">handle_book_only</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raw_book</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cli/commands.html#handle_book_only"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cli.commands.handle_book_only" title="Link to this definition"></a></dt>
-<dd><p>Handle the case where only a book name is given (show chapter count).</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>version</strong> (<em>str</em>) – Full Bible version name.</p></li>
-<li><p><strong>raw_book</strong> (<em>str</em>) – User input book name.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="cli.commands.run_bible_command">
-<span class="sig-prename descclassname"><span class="pre">cli.commands.</span></span><span class="sig-name descname"><span class="pre">run_bible_command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cli/commands.html#run_bible_command"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cli.commands.run_bible_command" title="Link to this definition"></a></dt>
-<dd><p>Main CLI handler for parsing and executing Bible verse search commands.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>args</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – Command-line arguments excluding the script name.</p>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<p>$ bible NKRV John 3:16
-$ bible NKRV NIV John 3
-$ bible NKRV</p>
-<dl class="simple">
-<dt>Behavior:</dt><dd><ul class="simple">
-<li><p>Prints usage/help if no args.</p></li>
-<li><p>Lists books if only version and book given.</p></li>
-<li><p>Shows verse(s) if full reference is given.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="cli.commands.run_search_command">
-<span class="sig-prename descclassname"><span class="pre">cli.commands.</span></span><span class="sig-name descname"><span class="pre">run_search_command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cli/commands.html#run_search_command"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cli.commands.run_search_command" title="Link to this definition"></a></dt>
-<dd><p>CLI keyword search command.</p>
-<dl class="simple">
-<dt>Usage:</dt><dd><p>bible search &lt;version&gt; &lt;keyword1&gt; [keyword2 …]</p>
-</dd>
-</dl>
+<dt class="sig sig-object py" id="cli.cli_main.main">
+<span class="sig-prename descclassname"><span class="pre">cli.cli_main.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/cli/cli_main.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cli.cli_main.main" title="Link to this definition"></a></dt>
+<dd><p>Main entry point for the CLI version of EuljiroBible.</p>
+<p>Parses arguments from the command line and executes the relevant logic.</p>
 </dd></dl>
 
 </section>
@@ -358,7 +130,7 @@ $ bible NKRV</p>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="cli.html" class="btn btn-neutral float-left" title="cli" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="cli.commands.html" class="btn btn-neutral float-right" title="cli.cli_main" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="cli.commands.html" class="btn btn-neutral float-right" title="cli.commands" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

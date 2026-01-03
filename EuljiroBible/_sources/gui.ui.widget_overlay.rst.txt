@@ -1,5 +1,5 @@
-gui.ui.widget\_overlay
-======================
+gui.ui.widget_overlay
+=====================
 
 .. automodule:: gui.ui.widget_overlay
    :members:

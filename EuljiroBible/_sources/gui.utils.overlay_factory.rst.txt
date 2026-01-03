@@ -1,5 +1,5 @@
-gui.utils.overlay\_factory
-==========================
+gui.utils.overlay_factory
+=========================
 
 .. automodule:: gui.utils.overlay_factory
    :members:

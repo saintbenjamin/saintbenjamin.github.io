@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EuljiroBible Document &mdash; EuljiroBible 1.5 documentation</title>
+  <title>EuljiroBible Documentation &mdash; EuljiroBible 1.5 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
@@ -60,7 +60,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">EuljiroBible Document</li>
+      <li class="breadcrumb-item active">EuljiroBible Documentation</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -70,34 +70,47 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="euljirobible-document">
-<h1>EuljiroBible Document<a class="headerlink" href="#euljirobible-document" title="Link to this heading"></a></h1>
+  <section id="euljirobible-documentation">
+<h1>EuljiroBible Documentation<a class="headerlink" href="#euljirobible-documentation" title="Link to this heading"></a></h1>
+<p>EuljiroBible is a Bible search and rapid slide output application developed
+for worship services at The Eulji-ro Presbyterian Church (TongHap).</p>
+<p>It supports both GUI and CLI workflows and is designed to provide fast,
+reliable Bible verse and keyword search in live worship environments.
+The system is optimized for Korean usage while maintaining a modular
+architecture that supports multiple languages and a wide range of
+Bible translations.</p>
+<p>This documentation provides developer-oriented references, including
+module and package documentation generated from source code docstrings,
+as well as internal design notes describing the responsibilities and
+interactions of each component.</p>
+<p>It is intended for developers and maintainers who want to understand,
+extend, or integrate EuljiroBible into their own workflows.</p>
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="modules.html">Modules</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="EuljiroBible.html">EuljiroBible</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cli.html">cli</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cli.cli_main.html">cli.commands</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cli.cli_main.html#cli.commands.handle_cli_metadata"><code class="docutils literal notranslate"><span class="pre">handle_cli_metadata()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="cli.cli_main.html#cli.commands.handle_search_metadata"><code class="docutils literal notranslate"><span class="pre">handle_search_metadata()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="cli.cli_main.html#cli.commands.show_usage_and_versions"><code class="docutils literal notranslate"><span class="pre">show_usage_and_versions()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="cli.cli_main.html#cli.commands.show_search_usage"><code class="docutils literal notranslate"><span class="pre">show_search_usage()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="cli.cli_main.html#cli.commands.load_cli_alias_map"><code class="docutils literal notranslate"><span class="pre">load_cli_alias_map()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="cli.cli_main.html#cli.commands.parse_versions_from_args"><code class="docutils literal notranslate"><span class="pre">parse_versions_from_args()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="cli.cli_main.html#cli.commands.resolve_search_version"><code class="docutils literal notranslate"><span class="pre">resolve_search_version()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="cli.cli_main.html#cli.commands.parse_and_validate_reference"><code class="docutils literal notranslate"><span class="pre">parse_and_validate_reference()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="cli.cli_main.html#cli.commands.detect_lang_code_from_aliases"><code class="docutils literal notranslate"><span class="pre">detect_lang_code_from_aliases()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="cli.cli_main.html#cli.commands.run_display_logic"><code class="docutils literal notranslate"><span class="pre">run_display_logic()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="cli.cli_main.html#cli.commands.run_keyword_search"><code class="docutils literal notranslate"><span class="pre">run_keyword_search()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="cli.cli_main.html#cli.commands.handle_version_only"><code class="docutils literal notranslate"><span class="pre">handle_version_only()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="cli.cli_main.html#cli.commands.handle_book_only"><code class="docutils literal notranslate"><span class="pre">handle_book_only()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="cli.cli_main.html#cli.commands.run_bible_command"><code class="docutils literal notranslate"><span class="pre">run_bible_command()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="cli.cli_main.html#cli.commands.run_search_command"><code class="docutils literal notranslate"><span class="pre">run_search_command()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="cli.cli_main.html">cli.cli_main</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cli.cli_main.html#cli.cli_main.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="cli.commands.html">cli.cli_main</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cli.commands.html#cli.cli_main.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="cli.commands.html">cli.commands</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cli.commands.html#cli.commands.handle_cli_metadata"><code class="docutils literal notranslate"><span class="pre">handle_cli_metadata()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cli.commands.html#cli.commands.handle_search_metadata"><code class="docutils literal notranslate"><span class="pre">handle_search_metadata()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cli.commands.html#cli.commands.show_usage_and_versions"><code class="docutils literal notranslate"><span class="pre">show_usage_and_versions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cli.commands.html#cli.commands.show_search_usage"><code class="docutils literal notranslate"><span class="pre">show_search_usage()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cli.commands.html#cli.commands.load_cli_alias_map"><code class="docutils literal notranslate"><span class="pre">load_cli_alias_map()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cli.commands.html#cli.commands.parse_versions_from_args"><code class="docutils literal notranslate"><span class="pre">parse_versions_from_args()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cli.commands.html#cli.commands.resolve_search_version"><code class="docutils literal notranslate"><span class="pre">resolve_search_version()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cli.commands.html#cli.commands.parse_and_validate_reference"><code class="docutils literal notranslate"><span class="pre">parse_and_validate_reference()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cli.commands.html#cli.commands.detect_lang_code_from_aliases"><code class="docutils literal notranslate"><span class="pre">detect_lang_code_from_aliases()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cli.commands.html#cli.commands.run_display_logic"><code class="docutils literal notranslate"><span class="pre">run_display_logic()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cli.commands.html#cli.commands.run_keyword_search"><code class="docutils literal notranslate"><span class="pre">run_keyword_search()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cli.commands.html#cli.commands.handle_version_only"><code class="docutils literal notranslate"><span class="pre">handle_version_only()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cli.commands.html#cli.commands.handle_book_only"><code class="docutils literal notranslate"><span class="pre">handle_book_only()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cli.commands.html#cli.commands.run_bible_command"><code class="docutils literal notranslate"><span class="pre">run_bible_command()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cli.commands.html#cli.commands.run_search_command"><code class="docutils literal notranslate"><span class="pre">run_search_command()</span></code></a></li>
 </ul>
 </li>
 </ul>

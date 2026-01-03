@@ -99,7 +99,7 @@
 <span class="n">data_path</span> <span class="o">=</span> <span class="n">paths</span><span class="o">.</span><span class="n">BIBLE_DATA_DIR</span>
 
 <div class="viewcode-block" id="handle_cli_metadata">
-<a class="viewcode-back" href="../../cli.cli_main.html#cli.commands.handle_cli_metadata">[docs]</a>
+<a class="viewcode-back" href="../../cli.commands.html#cli.commands.handle_cli_metadata">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">handle_cli_metadata</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Handle CLI metadata options like --help, --version, and --about.</span>
@@ -139,7 +139,7 @@
 
 
 <div class="viewcode-block" id="handle_search_metadata">
-<a class="viewcode-back" href="../../cli.cli_main.html#cli.commands.handle_search_metadata">[docs]</a>
+<a class="viewcode-back" href="../../cli.commands.html#cli.commands.handle_search_metadata">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">handle_search_metadata</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Handle CLI metadata options for keyword search command.</span>
@@ -182,7 +182,7 @@
 
 
 <div class="viewcode-block" id="show_usage_and_versions">
-<a class="viewcode-back" href="../../cli.cli_main.html#cli.commands.show_usage_and_versions">[docs]</a>
+<a class="viewcode-back" href="../../cli.commands.html#cli.commands.show_usage_and_versions">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">show_usage_and_versions</span><span class="p">(</span><span class="n">cli_aliases</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Print general CLI usage and list of available version aliases.</span>
@@ -198,7 +198,7 @@
 
 
 <div class="viewcode-block" id="show_search_usage">
-<a class="viewcode-back" href="../../cli.cli_main.html#cli.commands.show_search_usage">[docs]</a>
+<a class="viewcode-back" href="../../cli.commands.html#cli.commands.show_search_usage">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">show_search_usage</span><span class="p">(</span><span class="n">cli_aliases</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Print usage information and available versions for keyword search command.</span>
@@ -214,7 +214,7 @@
 
 
 <div class="viewcode-block" id="load_cli_alias_map">
-<a class="viewcode-back" href="../../cli.cli_main.html#cli.commands.load_cli_alias_map">[docs]</a>
+<a class="viewcode-back" href="../../cli.commands.html#cli.commands.load_cli_alias_map">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">load_cli_alias_map</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Load CLI alias map from JSON file.</span>
@@ -229,7 +229,7 @@
 
 
 <div class="viewcode-block" id="parse_versions_from_args">
-<a class="viewcode-back" href="../../cli.cli_main.html#cli.commands.parse_versions_from_args">[docs]</a>
+<a class="viewcode-back" href="../../cli.commands.html#cli.commands.parse_versions_from_args">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">parse_versions_from_args</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">alias_map</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Parse version aliases from CLI args.</span>
@@ -259,7 +259,7 @@
 
 
 <div class="viewcode-block" id="resolve_search_version">
-<a class="viewcode-back" href="../../cli.cli_main.html#cli.commands.resolve_search_version">[docs]</a>
+<a class="viewcode-back" href="../../cli.commands.html#cli.commands.resolve_search_version">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">resolve_search_version</span><span class="p">(</span><span class="n">version_alias</span><span class="p">,</span> <span class="n">alias_map</span><span class="p">,</span> <span class="n">keywords</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Resolve the full Bible version name for keyword search.</span>
@@ -287,7 +287,7 @@
 
 
 <div class="viewcode-block" id="parse_and_validate_reference">
-<a class="viewcode-back" href="../../cli.cli_main.html#cli.commands.parse_and_validate_reference">[docs]</a>
+<a class="viewcode-back" href="../../cli.commands.html#cli.commands.parse_and_validate_reference">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">parse_and_validate_reference</span><span class="p">(</span><span class="n">remaining</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Join and validate Bible reference tokens.</span>
@@ -314,7 +314,7 @@
 
 
 <div class="viewcode-block" id="detect_lang_code_from_aliases">
-<a class="viewcode-back" href="../../cli.cli_main.html#cli.commands.detect_lang_code_from_aliases">[docs]</a>
+<a class="viewcode-back" href="../../cli.commands.html#cli.commands.detect_lang_code_from_aliases">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">detect_lang_code_from_aliases</span><span class="p">(</span><span class="n">versions</span><span class="p">,</span> <span class="n">alias_map</span><span class="p">):</span>
     <span class="n">rtl_map</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s2">&quot;he&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;히브리어&quot;</span><span class="p">,</span> <span class="s2">&quot;hebrew&quot;</span><span class="p">,</span> <span class="s2">&quot;heb&quot;</span><span class="p">,</span> <span class="s2">&quot;wlc&quot;</span><span class="p">,</span> <span class="s2">&quot;mhb&quot;</span><span class="p">],</span>
@@ -333,7 +333,7 @@
 
 
 <div class="viewcode-block" id="run_display_logic">
-<a class="viewcode-back" href="../../cli.cli_main.html#cli.commands.run_display_logic">[docs]</a>
+<a class="viewcode-back" href="../../cli.commands.html#cli.commands.run_display_logic">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">run_display_logic</span><span class="p">(</span><span class="n">versions</span><span class="p">,</span> <span class="n">book</span><span class="p">,</span> <span class="n">chapter</span><span class="p">,</span> <span class="n">verse_range</span><span class="p">,</span> <span class="n">alias_map</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Execute the main display logic for CLI output.</span>
@@ -379,7 +379,7 @@
 
 
 <div class="viewcode-block" id="run_keyword_search">
-<a class="viewcode-back" href="../../cli.cli_main.html#cli.commands.run_keyword_search">[docs]</a>
+<a class="viewcode-back" href="../../cli.commands.html#cli.commands.run_keyword_search">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">run_keyword_search</span><span class="p">(</span><span class="n">full_version</span><span class="p">,</span> <span class="n">keywords</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Run keyword search and print results.</span>
@@ -412,7 +412,7 @@
 
 
 <div class="viewcode-block" id="handle_version_only">
-<a class="viewcode-back" href="../../cli.cli_main.html#cli.commands.handle_version_only">[docs]</a>
+<a class="viewcode-back" href="../../cli.commands.html#cli.commands.handle_version_only">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">handle_version_only</span><span class="p">(</span><span class="n">version</span><span class="p">,</span> <span class="n">alias_map</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Handle the case where only the version is specified.</span>
@@ -435,7 +435,7 @@
 
 
 <div class="viewcode-block" id="handle_book_only">
-<a class="viewcode-back" href="../../cli.cli_main.html#cli.commands.handle_book_only">[docs]</a>
+<a class="viewcode-back" href="../../cli.commands.html#cli.commands.handle_book_only">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">handle_book_only</span><span class="p">(</span><span class="n">version</span><span class="p">,</span> <span class="n">raw_book</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Handle the case where only a book name is given (show chapter count).</span>
@@ -458,7 +458,7 @@
 
 
 <div class="viewcode-block" id="run_bible_command">
-<a class="viewcode-back" href="../../cli.cli_main.html#cli.commands.run_bible_command">[docs]</a>
+<a class="viewcode-back" href="../../cli.commands.html#cli.commands.run_bible_command">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">run_bible_command</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Main CLI handler for parsing and executing Bible verse search commands.</span>
@@ -505,7 +505,7 @@
 
 
 <div class="viewcode-block" id="run_search_command">
-<a class="viewcode-back" href="../../cli.cli_main.html#cli.commands.run_search_command">[docs]</a>
+<a class="viewcode-back" href="../../cli.commands.html#cli.commands.run_search_command">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">run_search_command</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    CLI keyword search command.</span>

@@ -1,5 +1,5 @@
-core.utils.file\_helpers
-========================
+core.utils.file_helpers
+=======================
 
 .. automodule:: core.utils.file_helpers
    :members:

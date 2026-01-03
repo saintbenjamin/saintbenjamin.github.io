@@ -1,5 +1,5 @@
-gui.ui.tab\_settings\_logic
-===========================
+gui.ui.tab_settings_logic
+=========================
 
 .. automodule:: gui.ui.tab_settings_logic
    :members:

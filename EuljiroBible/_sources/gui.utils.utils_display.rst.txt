@@ -1,5 +1,5 @@
-gui.utils.utils\_display
-========================
+gui.utils.utils_display
+=======================
 
 .. automodule:: gui.utils.utils_display
    :members:
