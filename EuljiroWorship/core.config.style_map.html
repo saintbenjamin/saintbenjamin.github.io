@@ -120,11 +120,11 @@ their Korean display names used in the generator UI.</p>
 <p>This module serves as the single source of truth for slide style naming
 across the system. It provides:</p>
 <ul class="simple">
-<li><p><cite>STYLE_ALIASES</cite>: Mapping from internal style keys (used in JSON/export)
+<li><p><code class="docutils literal notranslate"><span class="pre">STYLE_ALIASES</span></code>: Mapping from internal style keys (used in JSON/export)
 to Korean labels displayed in the UI.</p></li>
-<li><p><cite>REVERSE_ALIASES</cite>: Reverse lookup mapping from Korean labels back to
+<li><p><code class="docutils literal notranslate"><span class="pre">REVERSE_ALIASES</span></code>: Reverse lookup mapping from Korean labels back to
 internal style keys.</p></li>
-<li><p><cite>STYLE_LIST</cite>: Ordered list of Korean display names, primarily used
+<li><p><code class="docutils literal notranslate"><span class="pre">STYLE_LIST</span></code>: Ordered list of Korean display names, primarily used
 to populate dropdown menus in the slide generator table.</p></li>
 </ul>
 <p>By centralizing these mappings, the generator UI, data manager,
