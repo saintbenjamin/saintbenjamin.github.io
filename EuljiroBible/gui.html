@@ -57,8 +57,15 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#gui-gui-main">gui.gui_main</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#gui-launch">gui.launch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-gui.gui_main">gui.gui_main</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gui.gui_main.run_gui"><code class="docutils literal notranslate"><span class="pre">run_gui()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gui.gui_main.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-gui.launch">gui.launch</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gui.launch.launch"><code class="docutils literal notranslate"><span class="pre">launch()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#module-gui">Module contents</a></li>
 </ul>
 </li>
@@ -150,7 +157,17 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="gui.ui.html#gui-ui-monitor-memory">gui.ui.monitor_memory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gui.ui.html#module-gui.ui.monitor_memory">gui.ui.monitor_memory</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gui.ui.html#gui.ui.monitor_memory.MonitorMemory"><code class="docutils literal notranslate"><span class="pre">MonitorMemory</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gui.ui.html#gui.ui.monitor_memory.MonitorMemory.__init__"><code class="docutils literal notranslate"><span class="pre">MonitorMemory.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.ui.html#gui.ui.monitor_memory.MonitorMemory.set_interval"><code class="docutils literal notranslate"><span class="pre">MonitorMemory.set_interval()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.ui.html#gui.ui.monitor_memory.MonitorMemory.save_interval"><code class="docutils literal notranslate"><span class="pre">MonitorMemory.save_interval()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.ui.html#gui.ui.monitor_memory.MonitorMemory.record_and_display_memory"><code class="docutils literal notranslate"><span class="pre">MonitorMemory.record_and_display_memory()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.ui.html#gui.ui.monitor_memory.MonitorMemory.close_monitor"><code class="docutils literal notranslate"><span class="pre">MonitorMemory.close_monitor()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="gui.ui.html#module-gui.ui.tab_keyword">gui.ui.tab_keyword</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="gui.ui.html#gui.ui.tab_keyword.TabKeyword"><code class="docutils literal notranslate"><span class="pre">TabKeyword</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="gui.ui.html#gui.ui.tab_keyword.TabKeyword.__init__"><code class="docutils literal notranslate"><span class="pre">TabKeyword.__init__()</span></code></a></li>
@@ -187,7 +204,28 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="gui.ui.html#gui-ui-tab-settings">gui.ui.tab_settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gui.ui.html#module-gui.ui.tab_settings">gui.ui.tab_settings</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gui.ui.html#gui.ui.tab_settings.TabSettings"><code class="docutils literal notranslate"><span class="pre">TabSettings</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gui.ui.html#gui.ui.tab_settings.TabSettings.__init__"><code class="docutils literal notranslate"><span class="pre">TabSettings.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.ui.html#gui.ui.tab_settings.TabSettings.change_language"><code class="docutils literal notranslate"><span class="pre">TabSettings.change_language()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.ui.html#gui.ui.tab_settings.TabSettings.apply_dynamic_settings"><code class="docutils literal notranslate"><span class="pre">TabSettings.apply_dynamic_settings()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.ui.html#gui.ui.tab_settings.TabSettings.apply_font_to_children"><code class="docutils literal notranslate"><span class="pre">TabSettings.apply_font_to_children()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.ui.html#gui.ui.tab_settings.TabSettings.select_text_color"><code class="docutils literal notranslate"><span class="pre">TabSettings.select_text_color()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.ui.html#gui.ui.tab_settings.TabSettings.select_bg_color"><code class="docutils literal notranslate"><span class="pre">TabSettings.select_bg_color()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.ui.html#gui.ui.tab_settings.TabSettings.select_output_path"><code class="docutils literal notranslate"><span class="pre">TabSettings.select_output_path()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.ui.html#gui.ui.tab_settings.TabSettings.apply_polling_settings"><code class="docutils literal notranslate"><span class="pre">TabSettings.apply_polling_settings()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.ui.html#gui.ui.tab_settings.TabSettings.save_poll_interval"><code class="docutils literal notranslate"><span class="pre">TabSettings.save_poll_interval()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.ui.html#gui.ui.tab_settings.TabSettings.toggle_theme"><code class="docutils literal notranslate"><span class="pre">TabSettings.toggle_theme()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.ui.html#gui.ui.tab_settings.TabSettings.toggle_overlay"><code class="docutils literal notranslate"><span class="pre">TabSettings.toggle_overlay()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.ui.html#gui.ui.tab_settings.TabSettings.get_main_geometry"><code class="docutils literal notranslate"><span class="pre">TabSettings.get_main_geometry()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.ui.html#gui.ui.tab_settings.TabSettings.populate_displays"><code class="docutils literal notranslate"><span class="pre">TabSettings.populate_displays()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.ui.html#gui.ui.tab_settings.TabSettings.ensure_overlay_on"><code class="docutils literal notranslate"><span class="pre">TabSettings.ensure_overlay_on()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.ui.html#gui.ui.tab_settings.TabSettings.poll_file"><code class="docutils literal notranslate"><span class="pre">TabSettings.poll_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.ui.html#gui.ui.tab_settings.TabSettings.update_presentation_visibility"><code class="docutils literal notranslate"><span class="pre">TabSettings.update_presentation_visibility()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="gui.ui.html#module-gui.ui.tab_settings_logic">gui.ui.tab_settings_logic</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="gui.ui.html#gui.ui.tab_settings_logic.TabSettingsLogic"><code class="docutils literal notranslate"><span class="pre">TabSettingsLogic</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="gui.ui.html#gui.ui.tab_settings_logic.TabSettingsLogic.__init__"><code class="docutils literal notranslate"><span class="pre">TabSettingsLogic.__init__()</span></code></a></li>
@@ -202,7 +240,13 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="gui.ui.html#gui-ui-tab-settings-ui">gui.ui.tab_settings_ui</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gui.ui.html#module-gui.ui.tab_settings_ui">gui.ui.tab_settings_ui</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gui.ui.html#gui.ui.tab_settings_ui.TabSettingsUI"><code class="docutils literal notranslate"><span class="pre">TabSettingsUI</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gui.ui.html#gui.ui.tab_settings_ui.TabSettingsUI.init_ui"><code class="docutils literal notranslate"><span class="pre">TabSettingsUI.init_ui()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="gui.ui.html#module-gui.ui.tab_verse">gui.ui.tab_verse</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="gui.ui.html#gui.ui.tab_verse.TabVerse"><code class="docutils literal notranslate"><span class="pre">TabVerse</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="gui.ui.html#gui.ui.tab_verse.TabVerse.__init__"><code class="docutils literal notranslate"><span class="pre">TabVerse.__init__()</span></code></a></li>
@@ -270,7 +314,23 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="gui.ui.html#gui-ui-window-main">gui.ui.window_main</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gui.ui.html#module-gui.ui.window_main">gui.ui.window_main</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gui.ui.html#gui.ui.window_main.WindowMain"><code class="docutils literal notranslate"><span class="pre">WindowMain</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gui.ui.html#gui.ui.window_main.WindowMain.__init__"><code class="docutils literal notranslate"><span class="pre">WindowMain.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.ui.html#gui.ui.window_main.WindowMain.tr"><code class="docutils literal notranslate"><span class="pre">WindowMain.tr()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.ui.html#gui.ui.window_main.WindowMain.change_language"><code class="docutils literal notranslate"><span class="pre">WindowMain.change_language()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.ui.html#gui.ui.window_main.WindowMain.refresh_settings_and_tabs"><code class="docutils literal notranslate"><span class="pre">WindowMain.refresh_settings_and_tabs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.ui.html#gui.ui.window_main.WindowMain.apply_tab_icons"><code class="docutils literal notranslate"><span class="pre">WindowMain.apply_tab_icons()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.ui.html#gui.ui.window_main.WindowMain.update_poll_button_text"><code class="docutils literal notranslate"><span class="pre">WindowMain.update_poll_button_text()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.ui.html#gui.ui.window_main.WindowMain.on_poll_toggle_clicked"><code class="docutils literal notranslate"><span class="pre">WindowMain.on_poll_toggle_clicked()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.ui.html#gui.ui.window_main.WindowMain.show_about"><code class="docutils literal notranslate"><span class="pre">WindowMain.show_about()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.ui.html#gui.ui.window_main.WindowMain.open_monitor_memory"><code class="docutils literal notranslate"><span class="pre">WindowMain.open_monitor_memory()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.ui.html#gui.ui.window_main.WindowMain.trigger_error"><code class="docutils literal notranslate"><span class="pre">WindowMain.trigger_error()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gui.ui.html#gui.ui.window_main.WindowMain.closeEvent"><code class="docutils literal notranslate"><span class="pre">WindowMain.closeEvent()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="gui.ui.html#module-gui.ui">Module contents</a></li>
 </ul>
 </li>
@@ -344,7 +404,10 @@
 <li class="toctree-l3"><a class="reference internal" href="gui.utils.html#gui.utils.utils_save.save_user_settings"><code class="docutils literal notranslate"><span class="pre">save_user_settings()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="gui.utils.html#gui-utils-utils-theme">gui.utils.utils_theme</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gui.utils.html#module-gui.utils.utils_theme">gui.utils.utils_theme</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gui.utils.html#gui.utils.utils_theme.set_dark_mode"><code class="docutils literal notranslate"><span class="pre">set_dark_mode()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="gui.utils.html#module-gui.utils.utils_validation">gui.utils.utils_validation</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="gui.utils.html#gui.utils.utils_validation.verify_bible_data"><code class="docutils literal notranslate"><span class="pre">verify_bible_data()</span></code></a></li>
 </ul>
@@ -367,11 +430,90 @@
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
 </section>
-<section id="gui-gui-main">
-<h2>gui.gui_main<a class="headerlink" href="#gui-gui-main" title="Link to this heading"></a></h2>
+<section id="module-gui.gui_main">
+<span id="gui-gui-main"></span><h2>gui.gui_main<a class="headerlink" href="#module-gui.gui_main" title="Link to this heading"></a></h2>
+<p>File: gui/gui_main.py
+GUI environment setup and main launcher logic for EuljiroBible.
+Initializes QApplication, verifies environment, loads settings, and launches the main window.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
+</dd>
+<dt class="field-even">Affiliated Church<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
+</dd>
+<dt class="field-odd">Address<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
+</dd>
+<dt class="field-even">Telephone<span class="colon">:</span></dt>
+<dd class="field-even"><p>+82-2-2266-3070</p>
+</dd>
+<dt class="field-odd">E-mail<span class="colon">:</span></dt>
+<dd class="field-odd"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
+</dd>
+<dt class="field-even">License<span class="colon">:</span></dt>
+<dd class="field-even"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
+</dd>
+</dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="gui.gui_main.run_gui">
+<span class="sig-prename descclassname"><span class="pre">gui.gui_main.</span></span><span class="sig-name descname"><span class="pre">run_gui</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/gui_main.html#run_gui"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.gui_main.run_gui" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="gui.gui_main.main">
+<span class="sig-prename descclassname"><span class="pre">gui.gui_main.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/gui_main.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.gui_main.main" title="Link to this definition"></a></dt>
+<dd><p>Public GUI entry point.</p>
+<p>This function is called when gui_main.py is executed as the main script.</p>
+</dd></dl>
+
 </section>
-<section id="gui-launch">
-<h2>gui.launch<a class="headerlink" href="#gui-launch" title="Link to this heading"></a></h2>
+<section id="module-gui.launch">
+<span id="gui-launch"></span><h2>gui.launch<a class="headerlink" href="#module-gui.launch" title="Link to this heading"></a></h2>
+<p>File: EuljiroBible/gui/launch.py
+Launches the EuljiroBible application by initializing settings and opening the main window.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
+</dd>
+<dt class="field-even">Affiliated Church<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
+</dd>
+<dt class="field-odd">Address<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
+</dd>
+<dt class="field-even">Telephone<span class="colon">:</span></dt>
+<dd class="field-even"><p>+82-2-2266-3070</p>
+</dd>
+<dt class="field-odd">E-mail<span class="colon">:</span></dt>
+<dd class="field-odd"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
+</dd>
+<dt class="field-even">License<span class="colon">:</span></dt>
+<dd class="field-even"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
+</dd>
+</dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="gui.launch.launch">
+<span class="sig-prename descclassname"><span class="pre">gui.launch.</span></span><span class="sig-name descname"><span class="pre">launch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">saved_versions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">settings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_version</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/launch.html#launch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.launch.launch" title="Link to this definition"></a></dt>
+<dd><p>Launches the EuljiroBible main window.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>app</strong> (<em>QApplication</em>) – Application instance.</p></li>
+<li><p><strong>saved_versions</strong> (<em>list</em>) – Previously selected Bible versions.</p></li>
+<li><p><strong>settings</strong> (<em>dict</em>) – Application settings.</p></li>
+<li><p><strong>app_version</strong> (<em>str</em>) – Current application version.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The main application window instance.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="gui.ui.html#gui.ui.window_main.WindowMain" title="gui.ui.window_main.WindowMain">WindowMain</a></p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="module-gui">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-gui" title="Link to this heading"></a></h2>

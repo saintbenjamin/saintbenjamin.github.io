@@ -1,0 +1,472 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>gui.ui.window_main &mdash; EuljiroBible 1.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=aaadad1f"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            EuljiroBible
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">Modules</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">EuljiroBible</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">gui.ui.window_main</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for gui.ui.window_main</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">File: EuljiroBible/gui/ui/window_main.py</span>
+<span class="sd">Description: Defines the main application window for EuljiroBible, managing tabs, settings, language switching, overlay handling, and polling controls.</span>
+
+<span class="sd">:Author: Benjamin Jaedon Choi - https://github.com/saintbenjamin</span>
+<span class="sd">:Affiliated Church: The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</span>
+<span class="sd">:Address: The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</span>
+<span class="sd">:Telephone: +82-2-2266-3070</span>
+<span class="sd">:E-mail: euljirochurch [at] G.M.A.I.L. (replace [at] with @ and G.M.A.I.L as you understood.)</span>
+<span class="sd">:License: MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">platform</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">QApplication</span><span class="p">,</span> <span class="n">QWidget</span><span class="p">,</span> <span class="n">QVBoxLayout</span><span class="p">,</span> 
+    <span class="n">QTabWidget</span><span class="p">,</span> <span class="n">QLabel</span><span class="p">,</span> <span class="n">QMessageBox</span><span class="p">,</span> 
+    <span class="n">QMenuBar</span><span class="p">,</span> <span class="n">QMainWindow</span><span class="p">,</span> <span class="n">QPushButton</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtCore</span><span class="w"> </span><span class="kn">import</span> <span class="n">QSize</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtGui</span><span class="w"> </span><span class="kn">import</span> <span class="n">QAction</span><span class="p">,</span> <span class="n">QIcon</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">gui.config.config_manager</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConfigManager</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">gui.ui.locale.message_loader</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_available_languages</span><span class="p">,</span> <span class="n">load_messages</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">gui.ui.monitor_memory</span><span class="w"> </span><span class="kn">import</span> <span class="n">MonitorMemory</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">gui.ui.tab_verse</span><span class="w"> </span><span class="kn">import</span> <span class="n">TabVerse</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">gui.ui.tab_keyword</span><span class="w"> </span><span class="kn">import</span> <span class="n">TabKeyword</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">gui.ui.tab_settings</span><span class="w"> </span><span class="kn">import</span> <span class="n">TabSettings</span>
+
+<div class="viewcode-block" id="WindowMain">
+<a class="viewcode-back" href="../../../gui.ui.html#gui.ui.window_main.WindowMain">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">WindowMain</span><span class="p">(</span><span class="n">QMainWindow</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Main application window class for EuljiroBible.</span>
+
+<span class="sd">    Manages the main interface, including tabs for verse search, keyword search, settings,</span>
+<span class="sd">    as well as language switching, overlay control, and polling behavior.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="WindowMain.__init__">
+<a class="viewcode-back" href="../../../gui.ui.html#gui.ui.window_main.WindowMain.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version_list</span><span class="p">,</span> <span class="n">settings</span><span class="p">,</span> <span class="n">icon_path</span><span class="p">,</span> <span class="n">app_version</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the WindowMain.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            version_list (list): List of available Bible versions.</span>
+<span class="sd">            settings (dict): Loaded user settings.</span>
+<span class="sd">            icon_path (str): Path to the application icon file.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">settings</span> <span class="o">=</span> <span class="n">settings</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app_version</span> <span class="o">=</span> <span class="n">app_version</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">current_language</span> <span class="o">=</span> <span class="s2">&quot;ko&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">messages</span> <span class="o">=</span> <span class="n">load_messages</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_language</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;program_title&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">app_version</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="mi">900</span><span class="p">,</span> <span class="mi">650</span><span class="p">)</span>
+
+        <span class="n">central_widget</span> <span class="o">=</span> <span class="n">QWidget</span><span class="p">()</span>
+        <span class="n">layout</span> <span class="o">=</span> <span class="n">QVBoxLayout</span><span class="p">(</span><span class="n">central_widget</span><span class="p">)</span>
+
+        <span class="n">menubar</span> <span class="o">=</span> <span class="n">QMenuBar</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">help_menu</span> <span class="o">=</span> <span class="n">menubar</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;menu_help&quot;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">about_action</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;menu_about&quot;</span><span class="p">),</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">about_action</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">show_about</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">help_menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">about_action</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">tools_menu</span> <span class="o">=</span> <span class="n">menubar</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;menu_tools&quot;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">memory_action</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;menu_memory&quot;</span><span class="p">),</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">memory_action</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">open_monitor_memory</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tools_menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">memory_action</span><span class="p">)</span>
+
+        <span class="n">available_languages</span> <span class="o">=</span> <span class="n">get_available_languages</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">available_languages</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">lang_messages</span> <span class="o">=</span> <span class="n">load_messages</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_language</span><span class="p">)</span>
+                <span class="n">menu_title</span> <span class="o">=</span> <span class="n">lang_messages</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;menu_lang&quot;</span><span class="p">,</span> <span class="s2">&quot;언어 / Language&quot;</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="n">menu_title</span> <span class="o">=</span> <span class="s2">&quot;언어 / Language&quot;</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">lang_menu</span> <span class="o">=</span> <span class="n">menubar</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="n">menu_title</span><span class="p">)</span>
+
+            <span class="c1"># Create a menu item for each available language</span>
+            <span class="c1"># The lambda ensures lang_code is correctly captured in closure</span>
+            <span class="k">for</span> <span class="n">lang_code</span> <span class="ow">in</span> <span class="n">available_languages</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">lang_messages</span> <span class="o">=</span> <span class="n">load_messages</span><span class="p">(</span><span class="n">lang_code</span><span class="p">)</span>
+                    <span class="n">display_name</span> <span class="o">=</span> <span class="n">lang_messages</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;language&quot;</span><span class="p">,</span> <span class="n">lang_code</span><span class="o">.</span><span class="n">upper</span><span class="p">())</span>
+                <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                    <span class="n">display_name</span> <span class="o">=</span> <span class="n">lang_code</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+
+                <span class="n">action</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="n">display_name</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+                <span class="n">action</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span> <span class="n">checked</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">lc</span><span class="o">=</span><span class="n">lang_code</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">change_language</span><span class="p">(</span><span class="n">lc</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">lang_menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">test_error_action</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;menu_test&quot;</span><span class="p">),</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">test_error_action</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">trigger_error</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">tools_menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">test_error_action</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">setMenuBar</span><span class="p">(</span><span class="n">menubar</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">current_language</span> <span class="o">=</span> <span class="s2">&quot;ko&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">poll_toggle_btn</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">poll_toggle_btn</span><span class="o">.</span><span class="n">setCheckable</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">poll_enabled</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;poll_enabled&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">poll_toggle_btn</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="n">poll_enabled</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_poll_button_text</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">poll_toggle_btn</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">on_poll_toggle_clicked</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">tabs</span> <span class="o">=</span> <span class="n">QTabWidget</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tab_verse</span> <span class="o">=</span> <span class="n">TabVerse</span><span class="p">(</span>
+            <span class="n">version_list</span><span class="p">,</span> 
+            <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="p">,</span> 
+            <span class="n">tr</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">,</span>
+            <span class="n">get_polling_status</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">poll_toggle_btn</span><span class="o">.</span><span class="n">isChecked</span><span class="p">(),</span>
+            <span class="n">get_always_show_setting</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;always_show_on_off_buttons&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tabs</span><span class="o">.</span><span class="n">addTab</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tab_verse</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;tab_verse&quot;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tab_keyword</span> <span class="o">=</span> <span class="n">TabKeyword</span><span class="p">(</span>
+            <span class="n">version_list</span><span class="p">,</span> 
+            <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="p">,</span> 
+            <span class="n">tr</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">,</span>
+            <span class="n">get_polling_status</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">poll_toggle_btn</span><span class="o">.</span><span class="n">isChecked</span><span class="p">(),</span>
+            <span class="n">get_always_show_setting</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;always_show_on_off_buttons&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tabs</span><span class="o">.</span><span class="n">addTab</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tab_keyword</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;tab_search&quot;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tab_settings</span> <span class="o">=</span> <span class="n">TabSettings</span><span class="p">(</span>
+            <span class="n">app</span><span class="o">=</span><span class="n">QApplication</span><span class="o">.</span><span class="n">instance</span><span class="p">(),</span> 
+            <span class="n">settings</span><span class="o">=</span><span class="n">settings</span><span class="p">,</span> 
+            <span class="n">tr</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">,</span> 
+            <span class="n">get_poll_enabled_callback</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">poll_toggle_btn</span><span class="o">.</span><span class="n">isChecked</span><span class="p">(),</span>
+            <span class="n">get_main_geometry</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">frameGeometry</span><span class="p">,</span>
+            <span class="n">refresh_settings_callback</span><span class="o">=</span><span class="kc">None</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tab_settings</span><span class="o">.</span><span class="n">refresh_settings_callback</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">refresh_settings_and_tabs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tab_settings</span><span class="o">.</span><span class="n">logic</span><span class="o">.</span><span class="n">refresh_settings_callback</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">refresh_settings_and_tabs</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">tabs</span><span class="o">.</span><span class="n">addTab</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tab_settings</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;tab_font&quot;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">apply_tab_icons</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">tab_settings</span><span class="o">.</span><span class="n">apply_dynamic_settings</span><span class="p">()</span>
+
+        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">poll_toggle_btn</span><span class="p">)</span>
+
+        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tabs</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">copyright_label</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;footer_copyright&quot;</span><span class="p">))</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">copyright_label</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">setCentralWidget</span><span class="p">(</span><span class="n">central_widget</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">tab_verse</span><span class="o">.</span><span class="n">update_button_layout</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tab_keyword</span><span class="o">.</span><span class="n">update_button_visibility</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tab_settings</span><span class="o">.</span><span class="n">update_presentation_visibility</span><span class="p">()</span>     
+        <span class="bp">self</span><span class="o">.</span><span class="n">poll_toggle_btn</span><span class="o">.</span><span class="n">toggled</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tabs</span><span class="o">.</span><span class="n">widget</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">update_presentation_visibility</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="WindowMain.tr">
+<a class="viewcode-back" href="../../../gui.ui.html#gui.ui.window_main.WindowMain.tr">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">tr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Translates a UI key into the current language.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            key (str): Translation key.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: Translated string.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">messages</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="WindowMain.change_language">
+<a class="viewcode-back" href="../../../gui.ui.html#gui.ui.window_main.WindowMain.change_language">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">change_language</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lang_code</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Changes the UI language dynamically.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            lang_code (str): Language code (e.g., &quot;ko&quot;, &quot;en&quot;).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">current_language</span> <span class="o">=</span> <span class="n">lang_code</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">messages</span> <span class="o">=</span> <span class="n">load_messages</span><span class="p">(</span><span class="n">lang_code</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;program_title&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">app_version</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;use_alias&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">use_alias</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;alias_toggle_btn&quot;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_alias</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">alias_toggle_btn</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;label_alias_short&quot;</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">alias_toggle_btn</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;label_alias_full&quot;</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;help_menu&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">help_menu</span><span class="o">.</span><span class="n">setTitle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;menu_help&quot;</span><span class="p">))</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;tools_menu&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tools_menu</span><span class="o">.</span><span class="n">setTitle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;menu_tools&quot;</span><span class="p">))</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;about_action&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">about_action</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;menu_about&quot;</span><span class="p">))</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;lang_menu&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lang_menu</span><span class="o">.</span><span class="n">setTitle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;menu_lang&quot;</span><span class="p">))</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;memory_action&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">memory_action</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;menu_memory&quot;</span><span class="p">))</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;test_error_action&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">test_error_action</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;menu_test&quot;</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;poll_toggle_btn&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">update_poll_button_text</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;tabs&quot;</span><span class="p">):</span>
+            <span class="c1">#icon = QIcon(&quot;resources/svg/tab_verse.svg&quot;)</span>
+            <span class="c1">#self.tabs.setTabIcon(0, icon)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tabs</span><span class="o">.</span><span class="n">setTabText</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;tab_verse&quot;</span><span class="p">))</span>
+            <span class="c1">#icon = QIcon(&quot;resources/svg/tab_search.svg&quot;)</span>
+            <span class="c1">#self.tabs.setTabIcon(1, icon)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tabs</span><span class="o">.</span><span class="n">setTabText</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;tab_search&quot;</span><span class="p">))</span>
+            <span class="c1">#icon = QIcon(&quot;resources/svg/tab_font.svg&quot;)</span>
+            <span class="c1">#self.tabs.setTabIcon(2, icon)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tabs</span><span class="o">.</span><span class="n">setTabText</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;tab_font&quot;</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tabs</span><span class="o">.</span><span class="n">tabBar</span><span class="p">()</span><span class="o">.</span><span class="n">setIconSize</span><span class="p">(</span><span class="n">QSize</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">))</span>
+
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tabs</span><span class="o">.</span><span class="n">count</span><span class="p">()):</span>
+                <span class="n">tab</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tabs</span><span class="o">.</span><span class="n">widget</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">tab</span><span class="p">,</span> <span class="s2">&quot;change_language&quot;</span><span class="p">):</span>
+                    <span class="n">tab</span><span class="o">.</span><span class="n">change_language</span><span class="p">(</span><span class="n">lang_code</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;copyright_label&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">copyright_label</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;footer_copyright&quot;</span><span class="p">))</span>
+        
+        <span class="n">ConfigManager</span><span class="o">.</span><span class="n">update_partial</span><span class="p">({</span><span class="s2">&quot;last_language&quot;</span><span class="p">:</span> <span class="n">lang_code</span><span class="p">})</span></div>
+
+
+<div class="viewcode-block" id="WindowMain.refresh_settings_and_tabs">
+<a class="viewcode-back" href="../../../gui.ui.html#gui.ui.window_main.WindowMain.refresh_settings_and_tabs">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">refresh_settings_and_tabs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">settings</span> <span class="o">=</span> <span class="n">ConfigManager</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tab_verse</span><span class="o">.</span><span class="n">update_button_layout</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tab_keyword</span><span class="o">.</span><span class="n">update_button_visibility</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tab_settings</span><span class="o">.</span><span class="n">update_presentation_visibility</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="WindowMain.apply_tab_icons">
+<a class="viewcode-back" href="../../../gui.ui.html#gui.ui.window_main.WindowMain.apply_tab_icons">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">apply_tab_icons</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Applies SVG icons to each tab in the tab widget, unless on macOS.</span>
+
+<span class="sd">        On macOS, tab icons are skipped due to style inconsistencies in Qt rendering.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;Darwin&quot;</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">tabs</span><span class="o">.</span><span class="n">setTabIcon</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">QIcon</span><span class="p">(</span><span class="s2">&quot;resources/svg/tab_verse.svg&quot;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tabs</span><span class="o">.</span><span class="n">setTabIcon</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">QIcon</span><span class="p">(</span><span class="s2">&quot;resources/svg/tab_search.svg&quot;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tabs</span><span class="o">.</span><span class="n">setTabIcon</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">QIcon</span><span class="p">(</span><span class="s2">&quot;resources/svg/tab_font.svg&quot;</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="WindowMain.update_poll_button_text">
+<a class="viewcode-back" href="../../../gui.ui.html#gui.ui.window_main.WindowMain.update_poll_button_text">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">update_poll_button_text</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Updates the polling toggle button text based on polling state.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">poll_toggle_btn</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">poll_toggle_btn</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;toggle_btn_poll_enabled&quot;</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">poll_toggle_btn</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QIcon</span><span class="p">(</span><span class="s2">&quot;resources/svg/toggle_btn_poll_enabled.svg&quot;</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">poll_toggle_btn</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;toggle_btn_poll_disabled&quot;</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">poll_toggle_btn</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QIcon</span><span class="p">(</span><span class="s2">&quot;resources/svg/toggle_btn_poll_disabled.svg&quot;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">poll_toggle_btn</span><span class="o">.</span><span class="n">setIconSize</span><span class="p">(</span><span class="n">QSize</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="WindowMain.on_poll_toggle_clicked">
+<a class="viewcode-back" href="../../../gui.ui.html#gui.ui.window_main.WindowMain.on_poll_toggle_clicked">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">on_poll_toggle_clicked</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handles the polling toggle button click event.</span>
+
+<span class="sd">        - Saves polling state to config.</span>
+<span class="sd">        - Updates tab_settings.</span>
+<span class="sd">        - Applies/restarts polling.</span>
+<span class="sd">        - Updates toggle button text and version tab button layout.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">poll_enabled</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">poll_toggle_btn</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span>
+        <span class="n">ConfigManager</span><span class="o">.</span><span class="n">update_partial</span><span class="p">({</span><span class="s2">&quot;poll_enabled&quot;</span><span class="p">:</span> <span class="n">poll_enabled</span><span class="p">})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tab_settings</span><span class="o">.</span><span class="n">settings</span><span class="p">[</span><span class="s2">&quot;poll_enabled&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">poll_enabled</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tab_settings</span><span class="o">.</span><span class="n">apply_polling_settings</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_poll_button_text</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tab_verse</span><span class="o">.</span><span class="n">update_button_layout</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tab_keyword</span><span class="o">.</span><span class="n">update_button_visibility</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="WindowMain.show_about">
+<a class="viewcode-back" href="../../../gui.ui.html#gui.ui.window_main.WindowMain.show_about">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">show_about</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Displays the About dialog.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">QMessageBox</span><span class="o">.</span><span class="n">about</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;about_title&quot;</span><span class="p">),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;about_message&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">app_version</span><span class="p">)</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="WindowMain.open_monitor_memory">
+<a class="viewcode-back" href="../../../gui.ui.html#gui.ui.window_main.WindowMain.open_monitor_memory">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">open_monitor_memory</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Opens the real-time memory monitor window.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">settings</span> <span class="o">=</span> <span class="n">ConfigManager</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+        <span class="n">interval</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;memory_interval_sec&quot;</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">monitor_window</span> <span class="o">=</span> <span class="n">MonitorMemory</span><span class="p">(</span><span class="n">interval_sec</span><span class="o">=</span><span class="n">interval</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">monitor_window</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="WindowMain.trigger_error">
+<a class="viewcode-back" href="../../../gui.ui.html#gui.ui.window_main.WindowMain.trigger_error">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">trigger_error</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Deliberately triggers a ZeroDivisionError for testing error handling.</span>
+<span class="sd">        Used to validate logging and critical error dialogs.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">0</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="kn">from</span><span class="w"> </span><span class="nn">gui.utils.logger</span><span class="w"> </span><span class="kn">import</span> <span class="n">handle_exception</span>
+            <span class="n">handle_exception</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="s2">&quot;Error Test&quot;</span><span class="p">,</span> <span class="s2">&quot;This is a drill.&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="WindowMain.closeEvent">
+<a class="viewcode-back" href="../../../gui.ui.html#gui.ui.window_main.WindowMain.closeEvent">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">closeEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handles cleanup and settings saving before application closes.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            event (QCloseEvent): The close event.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">tab_verse</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tabs</span><span class="o">.</span><span class="n">widget</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+            <span class="n">font_tab</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tabs</span><span class="o">.</span><span class="n">widget</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+            <span class="kn">from</span><span class="w"> </span><span class="nn">gui.ui.tab_settings</span><span class="w"> </span><span class="kn">import</span> <span class="n">TabSettings</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">font_tab</span><span class="p">,</span> <span class="n">TabSettings</span><span class="p">):</span>
+                <span class="n">font_tab</span><span class="o">.</span><span class="n">apply_dynamic_settings</span><span class="p">()</span>
+
+            <span class="kn">from</span><span class="w"> </span><span class="nn">gui.utils.state_saver</span><span class="w"> </span><span class="kn">import</span> <span class="n">save_settings_from_ui</span>
+            <span class="n">save_settings_from_ui</span><span class="p">(</span><span class="n">QApplication</span><span class="o">.</span><span class="n">instance</span><span class="p">(),</span> <span class="n">tab_verse</span><span class="p">)</span>
+
+            <span class="n">tab_settings</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tabs</span><span class="o">.</span><span class="n">widget</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+            <span class="kn">from</span><span class="w"> </span><span class="nn">gui.ui.tab_settings</span><span class="w"> </span><span class="kn">import</span> <span class="n">TabSettings</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tab_settings</span><span class="p">,</span> <span class="n">TabSettings</span><span class="p">)</span> <span class="ow">and</span> <span class="n">tab_settings</span><span class="o">.</span><span class="n">overlay</span><span class="p">:</span>
+                <span class="n">tab_settings</span><span class="o">.</span><span class="n">overlay</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">QMessageBox</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> 
+                <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;error_set_saving_title&quot;</span><span class="p">),</span> 
+                <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;error_set_saving_msg&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+        <span class="n">event</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Benjamin J. Choi.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

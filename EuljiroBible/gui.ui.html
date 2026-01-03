@@ -57,8 +57,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="gui.html#submodules">Submodules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="gui.html#gui-gui-main">gui.gui_main</a></li>
-<li class="toctree-l3"><a class="reference internal" href="gui.html#gui-launch">gui.launch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gui.html#module-gui.gui_main">gui.gui_main</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gui.html#module-gui.launch">gui.launch</a></li>
 <li class="toctree-l3"><a class="reference internal" href="gui.html#module-gui">Module contents</a></li>
 </ul>
 </li>
@@ -274,8 +274,84 @@ Can be shown during background loading operations.</p>
 </dd></dl>
 
 </section>
-<section id="gui-ui-monitor-memory">
-<h2>gui.ui.monitor_memory<a class="headerlink" href="#gui-ui-monitor-memory" title="Link to this heading"></a></h2>
+<section id="module-gui.ui.monitor_memory">
+<span id="gui-ui-monitor-memory"></span><h2>gui.ui.monitor_memory<a class="headerlink" href="#module-gui.ui.monitor_memory" title="Link to this heading"></a></h2>
+<p>File: EuljiroBible/gui/ui/monitor_memory.py
+Popup window to monitor current memory usage periodically.
+Logs to file and provides GUI interface for checking memory in real time.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
+</dd>
+<dt class="field-even">Affiliated Church<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
+</dd>
+<dt class="field-odd">Address<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
+</dd>
+<dt class="field-even">Telephone<span class="colon">:</span></dt>
+<dd class="field-even"><p>+82-2-2266-3070</p>
+</dd>
+<dt class="field-odd">E-mail<span class="colon">:</span></dt>
+<dd class="field-odd"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
+</dd>
+<dt class="field-even">License<span class="colon">:</span></dt>
+<dd class="field-even"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="gui.ui.monitor_memory.MonitorMemory">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gui.ui.monitor_memory.</span></span><span class="sig-name descname"><span class="pre">MonitorMemory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/monitor_memory.html#MonitorMemory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.monitor_memory.MonitorMemory" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
+<p>Popup QWidget that monitors and displays Python process memory usage.
+Automatically logs to memory_log.txt and shows warnings when exceeding threshold.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.monitor_memory.MonitorMemory.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interval_sec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/monitor_memory.html#MonitorMemory.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.monitor_memory.MonitorMemory.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initializes the memory monitor widget and UI layout.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>interval_sec</strong> (<em>int</em>) – Monitoring interval in seconds.</p></li>
+<li><p><strong>parent</strong> (<em>QWidget</em><em>, </em><em>optional</em>) – Parent window.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.monitor_memory.MonitorMemory.set_interval">
+<span class="sig-name descname"><span class="pre">set_interval</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interval_sec</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/monitor_memory.html#MonitorMemory.set_interval"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.monitor_memory.MonitorMemory.set_interval" title="Link to this definition"></a></dt>
+<dd><p>Sets the interval between memory checks.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>interval_sec</strong> (<em>int</em>) – Interval in seconds.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.monitor_memory.MonitorMemory.save_interval">
+<span class="sig-name descname"><span class="pre">save_interval</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/monitor_memory.html#MonitorMemory.save_interval"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.monitor_memory.MonitorMemory.save_interval" title="Link to this definition"></a></dt>
+<dd><p>Saves the user-entered interval to the settings file and updates the timer.
+Displays confirmation or error in the log area.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.monitor_memory.MonitorMemory.record_and_display_memory">
+<span class="sig-name descname"><span class="pre">record_and_display_memory</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/monitor_memory.html#MonitorMemory.record_and_display_memory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.monitor_memory.MonitorMemory.record_and_display_memory" title="Link to this definition"></a></dt>
+<dd><p>Measures current memory usage, logs to file, and displays in UI.
+Highlights warnings when memory exceeds 400MB.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.monitor_memory.MonitorMemory.close_monitor">
+<span class="sig-name descname"><span class="pre">close_monitor</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/monitor_memory.html#MonitorMemory.close_monitor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.monitor_memory.MonitorMemory.close_monitor" title="Link to this definition"></a></dt>
+<dd><p>Stops the timer and closes the widget.</p>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 <section id="module-gui.ui.tab_keyword">
 <span id="gui-ui-tab-keyword"></span><h2>gui.ui.tab_keyword<a class="headerlink" href="#module-gui.ui.tab_keyword" title="Link to this heading"></a></h2>
@@ -587,8 +663,149 @@ result display, and slide show output.</p>
 </dd></dl>
 
 </section>
-<section id="gui-ui-tab-settings">
-<h2>gui.ui.tab_settings<a class="headerlink" href="#gui-ui-tab-settings" title="Link to this heading"></a></h2>
+<section id="module-gui.ui.tab_settings">
+<span id="gui-ui-tab-settings"></span><h2>gui.ui.tab_settings<a class="headerlink" href="#module-gui.ui.tab_settings" title="Link to this heading"></a></h2>
+<p>File: EuljiroBible/gui/ui/tab_settings.py
+Implements the TabSettings class for managing application fonts, overlay behavior, polling, and output path configuration.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
+</dd>
+<dt class="field-even">Affiliated Church<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
+</dd>
+<dt class="field-odd">Address<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
+</dd>
+<dt class="field-even">Telephone<span class="colon">:</span></dt>
+<dd class="field-even"><p>+82-2-2266-3070</p>
+</dd>
+<dt class="field-odd">E-mail<span class="colon">:</span></dt>
+<dd class="field-odd"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
+</dd>
+<dt class="field-even">License<span class="colon">:</span></dt>
+<dd class="field-even"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="gui.ui.tab_settings.TabSettings">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gui.ui.tab_settings.</span></span><span class="sig-name descname"><span class="pre">TabSettings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_settings.html#TabSettings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_settings.TabSettings" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code>, <a class="reference internal" href="#gui.ui.tab_settings_ui.TabSettingsUI" title="gui.ui.tab_settings_ui.TabSettingsUI"><code class="xref py py-class docutils literal notranslate"><span class="pre">TabSettingsUI</span></code></a></p>
+<p>Provides the UI and logic for application settings including fonts, themes,
+overlay display configuration, file output path, and polling mechanism.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.tab_settings.TabSettings.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">settings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">get_poll_enabled_callback</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">get_main_geometry</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refresh_settings_callback</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_settings.html#TabSettings.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_settings.TabSettings.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initializes the settings tab with provided context.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>app</strong> (<em>QApplication</em>) – QApplication instance</p></li>
+<li><p><strong>settings</strong> (<em>dict</em>) – Shared settings dictionary</p></li>
+<li><p><strong>tr</strong> (<em>Callable</em><em>[</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>]</em>) – Translation function</p></li>
+<li><p><strong>get_poll_enabled_callback</strong> (<em>Callable</em><em> or </em><em>None</em>) – Optional polling state checker</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.tab_settings.TabSettings.change_language">
+<span class="sig-name descname"><span class="pre">change_language</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lang_code</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_settings.html#TabSettings.change_language"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_settings.TabSettings.change_language" title="Link to this definition"></a></dt>
+<dd><p>Updates all labels and buttons to reflect a new language setting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>lang_code</strong> (<em>str</em>) – Language code (e.g. ‘ko’, ‘en’)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.tab_settings.TabSettings.apply_dynamic_settings">
+<span class="sig-name descname"><span class="pre">apply_dynamic_settings</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_settings.html#TabSettings.apply_dynamic_settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_settings.TabSettings.apply_dynamic_settings" title="Link to this definition"></a></dt>
+<dd><p>Applies all dynamic settings through logic module.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.tab_settings.TabSettings.apply_font_to_children">
+<span class="sig-name descname"><span class="pre">apply_font_to_children</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">widget</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_settings.html#TabSettings.apply_font_to_children"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_settings.TabSettings.apply_font_to_children" title="Link to this definition"></a></dt>
+<dd><p>Applies font to all child widgets recursively.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.tab_settings.TabSettings.select_text_color">
+<span class="sig-name descname"><span class="pre">select_text_color</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_settings.html#TabSettings.select_text_color"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_settings.TabSettings.select_text_color" title="Link to this definition"></a></dt>
+<dd><p>Opens color dialog to select text color.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.tab_settings.TabSettings.select_bg_color">
+<span class="sig-name descname"><span class="pre">select_bg_color</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_settings.html#TabSettings.select_bg_color"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_settings.TabSettings.select_bg_color" title="Link to this definition"></a></dt>
+<dd><p>Opens color dialog to select background color.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.tab_settings.TabSettings.select_output_path">
+<span class="sig-name descname"><span class="pre">select_output_path</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_settings.html#TabSettings.select_output_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_settings.TabSettings.select_output_path" title="Link to this definition"></a></dt>
+<dd><p>Opens file browser to select output path.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.tab_settings.TabSettings.apply_polling_settings">
+<span class="sig-name descname"><span class="pre">apply_polling_settings</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_settings.html#TabSettings.apply_polling_settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_settings.TabSettings.apply_polling_settings" title="Link to this definition"></a></dt>
+<dd><p>Applies polling settings and restarts polling if enabled.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.tab_settings.TabSettings.save_poll_interval">
+<span class="sig-name descname"><span class="pre">save_poll_interval</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_settings.html#TabSettings.save_poll_interval"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_settings.TabSettings.save_poll_interval" title="Link to this definition"></a></dt>
+<dd><p>Saves polling interval value from UI.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.tab_settings.TabSettings.toggle_theme">
+<span class="sig-name descname"><span class="pre">toggle_theme</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_settings.html#TabSettings.toggle_theme"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_settings.TabSettings.toggle_theme" title="Link to this definition"></a></dt>
+<dd><p>Toggles between dark and light application themes.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.tab_settings.TabSettings.toggle_overlay">
+<span class="sig-name descname"><span class="pre">toggle_overlay</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_settings.html#TabSettings.toggle_overlay"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_settings.TabSettings.toggle_overlay" title="Link to this definition"></a></dt>
+<dd><p>Turns the overlay display on or off based on its current state.
+Uses screen geometry logic to determine placement.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.tab_settings.TabSettings.get_main_geometry">
+<span class="sig-name descname"><span class="pre">get_main_geometry</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_settings.html#TabSettings.get_main_geometry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_settings.TabSettings.get_main_geometry" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.tab_settings.TabSettings.populate_displays">
+<span class="sig-name descname"><span class="pre">populate_displays</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_settings.html#TabSettings.populate_displays"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_settings.TabSettings.populate_displays" title="Link to this definition"></a></dt>
+<dd><p>Fills the display dropdown with screen descriptions.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.tab_settings.TabSettings.ensure_overlay_on">
+<span class="sig-name descname"><span class="pre">ensure_overlay_on</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_settings.html#TabSettings.ensure_overlay_on"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_settings.TabSettings.ensure_overlay_on" title="Link to this definition"></a></dt>
+<dd><p>Ensures the overlay is visible, enabling it if necessary.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.tab_settings.TabSettings.poll_file">
+<span class="sig-name descname"><span class="pre">poll_file</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_settings.html#TabSettings.poll_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_settings.TabSettings.poll_file" title="Link to this definition"></a></dt>
+<dd><p>Periodically checks the verse output file and controls overlay visibility.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.tab_settings.TabSettings.update_presentation_visibility">
+<span class="sig-name descname"><span class="pre">update_presentation_visibility</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_settings.html#TabSettings.update_presentation_visibility"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_settings.TabSettings.update_presentation_visibility" title="Link to this definition"></a></dt>
+<dd><p>Shows or hides the overlay configuration group based on polling or always-show setting.</p>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 <section id="module-gui.ui.tab_settings_logic">
 <span id="gui-ui-tab-settings-logic"></span><h2>gui.ui.tab_settings_logic<a class="headerlink" href="#module-gui.ui.tab_settings_logic" title="Link to this heading"></a></h2>
@@ -731,8 +948,46 @@ Handles backend logic for the settings tab: dynamic UI updates, file paths, colo
 </dd></dl>
 
 </section>
-<section id="gui-ui-tab-settings-ui">
-<h2>gui.ui.tab_settings_ui<a class="headerlink" href="#gui-ui-tab-settings-ui" title="Link to this heading"></a></h2>
+<section id="module-gui.ui.tab_settings_ui">
+<span id="gui-ui-tab-settings-ui"></span><h2>gui.ui.tab_settings_ui<a class="headerlink" href="#module-gui.ui.tab_settings_ui" title="Link to this heading"></a></h2>
+<p>File: EuljiroBible/gui/ui/tab_settings_ui.py
+Initializes the Settings tab UI for configuring fonts, themes, display output, and overlay behavior.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
+</dd>
+<dt class="field-even">Affiliated Church<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
+</dd>
+<dt class="field-odd">Address<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
+</dd>
+<dt class="field-even">Telephone<span class="colon">:</span></dt>
+<dd class="field-even"><p>+82-2-2266-3070</p>
+</dd>
+<dt class="field-odd">E-mail<span class="colon">:</span></dt>
+<dd class="field-odd"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
+</dd>
+<dt class="field-even">License<span class="colon">:</span></dt>
+<dd class="field-even"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="gui.ui.tab_settings_ui.TabSettingsUI">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gui.ui.tab_settings_ui.</span></span><span class="sig-name descname"><span class="pre">TabSettingsUI</span></span><a class="reference internal" href="_modules/gui/ui/tab_settings_ui.html#TabSettingsUI"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_settings_ui.TabSettingsUI" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Builds and applies the layout for the settings tab.
+Includes configuration for UI font, overlay font, display mode, and polling interval.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.tab_settings_ui.TabSettingsUI.init_ui">
+<span class="sig-name descname"><span class="pre">init_ui</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_settings_ui.html#TabSettingsUI.init_ui"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_settings_ui.TabSettingsUI.init_ui" title="Link to this definition"></a></dt>
+<dd><p>Initialize the full settings UI.</p>
+<p>This method constructs all font-related configuration widgets, theme toggles,
+overlay settings, output paths, and polling controls.</p>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 <section id="module-gui.ui.tab_verse">
 <span id="gui-ui-tab-verse"></span><h2>gui.ui.tab_verse<a class="headerlink" href="#module-gui.ui.tab_verse" title="Link to this heading"></a></h2>
@@ -1354,8 +1609,142 @@ Used when QFileSystemWatcher triggers a change event.</p>
 </dd></dl>
 
 </section>
-<section id="gui-ui-window-main">
-<h2>gui.ui.window_main<a class="headerlink" href="#gui-ui-window-main" title="Link to this heading"></a></h2>
+<section id="module-gui.ui.window_main">
+<span id="gui-ui-window-main"></span><h2>gui.ui.window_main<a class="headerlink" href="#module-gui.ui.window_main" title="Link to this heading"></a></h2>
+<p>File: EuljiroBible/gui/ui/window_main.py
+Description: Defines the main application window for EuljiroBible, managing tabs, settings, language switching, overlay handling, and polling controls.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
+</dd>
+<dt class="field-even">Affiliated Church<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
+</dd>
+<dt class="field-odd">Address<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
+</dd>
+<dt class="field-even">Telephone<span class="colon">:</span></dt>
+<dd class="field-even"><p>+82-2-2266-3070</p>
+</dd>
+<dt class="field-odd">E-mail<span class="colon">:</span></dt>
+<dd class="field-odd"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
+</dd>
+<dt class="field-even">License<span class="colon">:</span></dt>
+<dd class="field-even"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="gui.ui.window_main.WindowMain">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gui.ui.window_main.</span></span><span class="sig-name descname"><span class="pre">WindowMain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/window_main.html#WindowMain"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.window_main.WindowMain" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QMainWindow</span></code></p>
+<p>Main application window class for EuljiroBible.</p>
+<p>Manages the main interface, including tabs for verse search, keyword search, settings,
+as well as language switching, overlay control, and polling behavior.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.window_main.WindowMain.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">settings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">icon_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_version</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/window_main.html#WindowMain.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.window_main.WindowMain.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initializes the WindowMain.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>version_list</strong> (<em>list</em>) – List of available Bible versions.</p></li>
+<li><p><strong>settings</strong> (<em>dict</em>) – Loaded user settings.</p></li>
+<li><p><strong>icon_path</strong> (<em>str</em>) – Path to the application icon file.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.window_main.WindowMain.tr">
+<span class="sig-name descname"><span class="pre">tr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/window_main.html#WindowMain.tr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.window_main.WindowMain.tr" title="Link to this definition"></a></dt>
+<dd><p>Translates a UI key into the current language.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – Translation key.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Translated string.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.window_main.WindowMain.change_language">
+<span class="sig-name descname"><span class="pre">change_language</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lang_code</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/window_main.html#WindowMain.change_language"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.window_main.WindowMain.change_language" title="Link to this definition"></a></dt>
+<dd><p>Changes the UI language dynamically.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>lang_code</strong> (<em>str</em>) – Language code (e.g., “ko”, “en”).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.window_main.WindowMain.refresh_settings_and_tabs">
+<span class="sig-name descname"><span class="pre">refresh_settings_and_tabs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/window_main.html#WindowMain.refresh_settings_and_tabs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.window_main.WindowMain.refresh_settings_and_tabs" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.window_main.WindowMain.apply_tab_icons">
+<span class="sig-name descname"><span class="pre">apply_tab_icons</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/window_main.html#WindowMain.apply_tab_icons"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.window_main.WindowMain.apply_tab_icons" title="Link to this definition"></a></dt>
+<dd><p>Applies SVG icons to each tab in the tab widget, unless on macOS.</p>
+<p>On macOS, tab icons are skipped due to style inconsistencies in Qt rendering.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.window_main.WindowMain.update_poll_button_text">
+<span class="sig-name descname"><span class="pre">update_poll_button_text</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/window_main.html#WindowMain.update_poll_button_text"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.window_main.WindowMain.update_poll_button_text" title="Link to this definition"></a></dt>
+<dd><p>Updates the polling toggle button text based on polling state.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.window_main.WindowMain.on_poll_toggle_clicked">
+<span class="sig-name descname"><span class="pre">on_poll_toggle_clicked</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/window_main.html#WindowMain.on_poll_toggle_clicked"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.window_main.WindowMain.on_poll_toggle_clicked" title="Link to this definition"></a></dt>
+<dd><p>Handles the polling toggle button click event.</p>
+<ul class="simple">
+<li><p>Saves polling state to config.</p></li>
+<li><p>Updates tab_settings.</p></li>
+<li><p>Applies/restarts polling.</p></li>
+<li><p>Updates toggle button text and version tab button layout.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.window_main.WindowMain.show_about">
+<span class="sig-name descname"><span class="pre">show_about</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/window_main.html#WindowMain.show_about"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.window_main.WindowMain.show_about" title="Link to this definition"></a></dt>
+<dd><p>Displays the About dialog.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.window_main.WindowMain.open_monitor_memory">
+<span class="sig-name descname"><span class="pre">open_monitor_memory</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/window_main.html#WindowMain.open_monitor_memory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.window_main.WindowMain.open_monitor_memory" title="Link to this definition"></a></dt>
+<dd><p>Opens the real-time memory monitor window.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.window_main.WindowMain.trigger_error">
+<span class="sig-name descname"><span class="pre">trigger_error</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/window_main.html#WindowMain.trigger_error"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.window_main.WindowMain.trigger_error" title="Link to this definition"></a></dt>
+<dd><p>Deliberately triggers a ZeroDivisionError for testing error handling.
+Used to validate logging and critical error dialogs.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.window_main.WindowMain.closeEvent">
+<span class="sig-name descname"><span class="pre">closeEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/window_main.html#WindowMain.closeEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.window_main.WindowMain.closeEvent" title="Link to this definition"></a></dt>
+<dd><p>Handles cleanup and settings saving before application closes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>event</strong> (<em>QCloseEvent</em>) – The close event.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 <section id="module-gui.ui">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-gui.ui" title="Link to this heading"></a></h2>
