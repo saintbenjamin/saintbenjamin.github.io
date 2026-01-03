@@ -1,5 +1,5 @@
-core.generator.ui.contents.respo\_content
-==========================================
+core.generator.ui.contents.respo_content
+========================================
 
 .. automodule:: core.generator.ui.contents.respo_content
    :members:

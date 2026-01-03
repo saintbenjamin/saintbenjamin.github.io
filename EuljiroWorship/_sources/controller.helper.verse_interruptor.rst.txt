@@ -1,5 +1,5 @@
-controller.helper.verse\_interruptor
-====================================
+controller.helper.verse_interruptor
+===================================
 
 .. automodule:: controller.helper.verse_interruptor
    :members:

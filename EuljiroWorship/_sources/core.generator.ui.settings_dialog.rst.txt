@@ -1,5 +1,5 @@
-core.generator.ui.settings\_dialog
-==================================
+core.generator.ui.settings_dialog
+=================================
 
 .. automodule:: core.generator.ui.settings_dialog
    :members:

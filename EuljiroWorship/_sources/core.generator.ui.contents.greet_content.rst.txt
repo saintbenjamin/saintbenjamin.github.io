@@ -1,5 +1,5 @@
-core.generator.ui.contents.greet\_content
-==========================================
+core.generator.ui.contents.greet_content
+========================================
 
 .. automodule:: core.generator.ui.contents.greet_content
    :members:

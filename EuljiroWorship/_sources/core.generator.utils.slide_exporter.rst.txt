@@ -1,5 +1,5 @@
-core.generator.utils.slide\_exporter
-====================================
+core.generator.utils.slide_exporter
+===================================
 
 .. automodule:: core.generator.utils.slide_exporter
    :members:

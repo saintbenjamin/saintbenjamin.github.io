@@ -1,5 +1,5 @@
-controller.utils.interruptor\_watcher
-=====================================
+controller.utils.interruptor_watcher
+====================================
 
 .. automodule:: controller.utils.interruptor_watcher
    :members:

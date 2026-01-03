@@ -1,5 +1,5 @@
-controller.utils.keyword\_highlight\_delegate
-=============================================
+controller.utils.keyword_highlight_delegate
+===========================================
 
 .. automodule:: controller.utils.keyword_highlight_delegate
    :members:

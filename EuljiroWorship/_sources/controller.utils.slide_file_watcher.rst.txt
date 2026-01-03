@@ -1,5 +1,5 @@
-controller.utils.slide\_file\_watcher
-=====================================
+controller.utils.slide_file_watcher
+===================================
 
 .. automodule:: controller.utils.slide_file_watcher
    :members:

@@ -1,5 +1,5 @@
-core.generator.ui.slide\_generator\_dialog
-==========================================
+core.generator.ui.slide_generator_dialog
+========================================
 
 .. automodule:: core.generator.ui.slide_generator_dialog
    :members:

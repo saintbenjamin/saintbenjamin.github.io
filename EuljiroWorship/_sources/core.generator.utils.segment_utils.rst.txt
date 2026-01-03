@@ -1,5 +1,5 @@
-core.generator.utils.segment\_utils
-===================================
+core.generator.utils.segment_utils
+==================================
 
 .. automodule:: core.generator.utils.segment_utils
    :members:

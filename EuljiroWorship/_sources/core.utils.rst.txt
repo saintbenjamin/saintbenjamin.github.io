@@ -2,7 +2,7 @@ core.utils
 ==========
 
 .. toctree::
-   :maxdepth: 5
+   :maxdepth: 7
 
    core.utils.bible_data_loader
    core.utils.bible_keyword_searcher

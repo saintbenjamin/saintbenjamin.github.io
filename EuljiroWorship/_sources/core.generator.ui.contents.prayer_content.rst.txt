@@ -1,5 +1,5 @@
-core.generator.ui.contents.prayer\_content
-==========================================
+core.generator.ui.contents.prayer_content
+=========================================
 
 .. automodule:: core.generator.ui.contents.prayer_content
    :members:

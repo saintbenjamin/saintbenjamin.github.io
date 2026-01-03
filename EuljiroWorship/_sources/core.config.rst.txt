@@ -2,7 +2,7 @@ core.config
 ===========
 
 .. toctree::
-   :maxdepth: 5
+   :maxdepth: 7
 
    core.config.paths
    core.config.style_map

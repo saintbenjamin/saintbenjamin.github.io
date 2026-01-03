@@ -2,7 +2,7 @@ controller.utils
 ================
 
 .. toctree::
-   :maxdepth: 5
+   :maxdepth: 7
 
    controller.utils.emergency_caption_handler
    controller.utils.emergency_slide_factory

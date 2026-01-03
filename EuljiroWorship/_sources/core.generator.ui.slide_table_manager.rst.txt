@@ -1,5 +1,5 @@
-core.generator.ui.slide\_table\_manager
-=======================================
+core.generator.ui.slide_table_manager
+=====================================
 
 .. automodule:: core.generator.ui.slide_table_manager
    :members:

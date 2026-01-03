@@ -1,5 +1,5 @@
-core.generator.ui.contents.anthem\_content
-==========================================
+core.generator.ui.contents.anthem_content
+=========================================
 
 .. automodule:: core.generator.ui.contents.anthem_content
    :members:

@@ -1,5 +1,5 @@
-core.generator.settings\_generator
-==================================
+core.generator.settings_generator
+=================================
 
 .. automodule:: core.generator.settings_generator
    :members:

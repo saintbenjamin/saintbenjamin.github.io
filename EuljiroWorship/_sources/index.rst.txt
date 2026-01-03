@@ -6,7 +6,7 @@ for Korean church worship environments. The UI is currently Korean-first,
 with a future plan to support internationalization for wider usage.
 
 .. toctree::
-   :maxdepth: 5
+   :maxdepth: 7
    :caption: Contents
 
    modules

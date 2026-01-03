@@ -1,5 +1,5 @@
-controller.ui.emergency\_caption\_dialog
-========================================
+controller.ui.emergency_caption_dialog
+======================================
 
 .. automodule:: controller.ui.emergency_caption_dialog
    :members:

@@ -2,6 +2,6 @@ core.plugin
 ===========
 
 .. toctree::
-   :maxdepth: 5
+   :maxdepth: 7
 
    core.plugin.slide_controller_launcher

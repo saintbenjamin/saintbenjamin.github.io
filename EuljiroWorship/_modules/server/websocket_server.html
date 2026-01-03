@@ -73,16 +73,24 @@
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">:File: EuljiroWorship/server/websocket_server.py</span>
 
-<span class="sd">WebSocket server for broadcasting slide data using aiohttp with resilient error handling.</span>
+<span class="sd">WebSocket server for real-time slide broadcasting in EuljiroWorship.</span>
 
-<span class="sd">This module runs an aiohttp-based WebSocket server that listens for slide JSON messages and broadcasts them to all connected clients in real time.</span>
+<span class="sd">This implements an aiohttp-based WebSocket server responsible for</span>
+<span class="sd">real-time communication with overlay clients during worship services.</span>
+<span class="sd">It receives slide data as JSON messages and broadcasts them to all</span>
+<span class="sd">connected clients.</span>
 
-<span class="sd">Features:</span>
+<span class="sd">The server is designed to be robust in live worship environments and provides:</span>
 
-<span class="sd">- Real-time broadcast to multiple connected clients</span>
-<span class="sd">- Ping/pong heartbeat handling</span>
+<span class="sd">- Real-time broadcast fan-out to multiple connected clients</span>
+<span class="sd">- Ping/pong heartbeat handling to detect dead connections</span>
 <span class="sd">- Error isolation per client connection</span>
-<span class="sd">- Automatic cleanup of disconnected (&quot;zombie&quot;) clients</span>
+<span class="sd">- Automatic cleanup of disconnected or faulty (&quot;zombie&quot;) clients</span>
+<span class="sd">- Graceful shutdown with proper socket closure</span>
+
+<span class="sd">The WebSocket endpoint listens on ``/ws`` and expects incoming messages</span>
+<span class="sd">to be JSON representations of slide data, which are then forwarded to</span>
+<span class="sd">all connected overlay clients.</span>
 
 <span class="sd">:Author: Benjamin Jaedon Choi - https://github.com/saintbenjamin</span>
 <span class="sd">:Affiliated Church: The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</span>

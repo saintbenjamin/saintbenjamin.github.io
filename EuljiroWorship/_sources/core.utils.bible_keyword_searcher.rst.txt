@@ -1,5 +1,5 @@
-core.utils.bible\_keyword\_searcher
-===================================
+core.utils.bible_keyword_searcher
+=================================
 
 .. automodule:: core.utils.bible_keyword_searcher
    :members:

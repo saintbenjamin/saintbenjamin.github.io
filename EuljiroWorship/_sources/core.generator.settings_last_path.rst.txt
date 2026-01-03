@@ -1,5 +1,5 @@
-core.generator.settings\_last\_path
-===================================
+core.generator.settings_last_path
+=================================
 
 .. automodule:: core.generator.settings_last_path
    :members:

@@ -1,5 +1,5 @@
-core.generator.ui.contents.lyrics\_content
-==========================================
+core.generator.ui.contents.lyrics_content
+=========================================
 
 .. automodule:: core.generator.ui.contents.lyrics_content
    :members:

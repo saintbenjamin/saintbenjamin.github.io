@@ -1,5 +1,5 @@
-controller.slide\_controller
-====================================
+controller.slide_controller
+===========================
 
 .. automodule:: controller.slide_controller
    :members:

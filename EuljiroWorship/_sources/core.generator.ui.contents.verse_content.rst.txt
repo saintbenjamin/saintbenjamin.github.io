@@ -1,5 +1,5 @@
-core.generator.ui.contents.verse\_content
-==========================================
+core.generator.ui.contents.verse_content
+========================================
 
 .. automodule:: core.generator.ui.contents.verse_content
    :members:

@@ -48,9 +48,10 @@
 <li class="toctree-l2"><a class="reference internal" href="controller.html">controller</a></li>
 <li class="toctree-l2"><a class="reference internal" href="core.html">core</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="server.html">server</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="server.html#server-components">Server Components</a></li>
-<li class="toctree-l3 current"><a class="reference internal" href="server.html#submodules">Submodules</a><ul class="current">
-<li class="toctree-l4 current"><a class="current reference internal" href="#">server.websocket_server</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">server.websocket_server</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#server.websocket_server.websocket_handler"><code class="docutils literal notranslate"><span class="pre">websocket_handler()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#server.websocket_server.broadcast"><code class="docutils literal notranslate"><span class="pre">broadcast()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#server.websocket_server.on_shutdown"><code class="docutils literal notranslate"><span class="pre">on_shutdown()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -85,39 +86,29 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="server-websocket-server">
-<h1>server.websocket_server<a class="headerlink" href="#server-websocket-server" title="Link to this heading"></a></h1>
-<section id="websocket-server">
-<h2>WebSocket Server<a class="headerlink" href="#websocket-server" title="Link to this heading"></a></h2>
-<p>This module implements an aiohttp-based WebSocket server for real-time
-broadcasting of slide data to overlay clients.</p>
-<p>It is designed to be robust in live worship environments and includes:</p>
-<ul class="simple">
-<li><p>Heartbeat handling (ping / pong)</p></li>
-<li><p>Broadcast fan-out to multiple clients</p></li>
-<li><p>Automatic cleanup of disconnected or faulty (“zombie”) clients</p></li>
-<li><p>Graceful shutdown with proper socket closure</p></li>
-</ul>
-<p>The server listens on <code class="docutils literal notranslate"><span class="pre">/ws</span></code> and expects incoming messages to be JSON
-representations of slide data, which are then forwarded to all connected
-clients.</p>
-</section>
-<section id="module-server.websocket_server">
-<span id="module-reference"></span><h2>Module Reference<a class="headerlink" href="#module-server.websocket_server" title="Link to this heading"></a></h2>
+  <section id="module-server.websocket_server">
+<span id="server-websocket-server"></span><h1>server.websocket_server<a class="headerlink" href="#module-server.websocket_server" title="Link to this heading"></a></h1>
 <dl class="field-list simple">
 <dt class="field-odd">File<span class="colon">:</span></dt>
 <dd class="field-odd"><p>EuljiroWorship/server/websocket_server.py</p>
 </dd>
 </dl>
-<p>WebSocket server for broadcasting slide data using aiohttp with resilient error handling.</p>
-<p>This module runs an aiohttp-based WebSocket server that listens for slide JSON messages and broadcasts them to all connected clients in real time.</p>
-<p>Features:</p>
+<p>WebSocket server for real-time slide broadcasting in EuljiroWorship.</p>
+<p>This implements an aiohttp-based WebSocket server responsible for
+real-time communication with overlay clients during worship services.
+It receives slide data as JSON messages and broadcasts them to all
+connected clients.</p>
+<p>The server is designed to be robust in live worship environments and provides:</p>
 <ul class="simple">
-<li><p>Real-time broadcast to multiple connected clients</p></li>
-<li><p>Ping/pong heartbeat handling</p></li>
+<li><p>Real-time broadcast fan-out to multiple connected clients</p></li>
+<li><p>Ping/pong heartbeat handling to detect dead connections</p></li>
 <li><p>Error isolation per client connection</p></li>
-<li><p>Automatic cleanup of disconnected (“zombie”) clients</p></li>
+<li><p>Automatic cleanup of disconnected or faulty (“zombie”) clients</p></li>
+<li><p>Graceful shutdown with proper socket closure</p></li>
 </ul>
+<p>The WebSocket endpoint listens on <code class="docutils literal notranslate"><span class="pre">/ws</span></code> and expects incoming messages
+to be JSON representations of slide data, which are then forwarded to
+all connected overlay clients.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Author<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
@@ -204,7 +195,6 @@ sockets with a normal “going away” code.</p>
 </dl>
 </dd></dl>
 
-</section>
 </section>
 
 

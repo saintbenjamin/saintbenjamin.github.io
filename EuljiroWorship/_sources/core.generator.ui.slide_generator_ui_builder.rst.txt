@@ -1,5 +1,5 @@
-core.generator.ui.slide\_generator\_ui\_builder
-===============================================
+core.generator.ui.slide_generator_ui_builder
+============================================
 
 .. automodule:: core.generator.ui.slide_generator_ui_builder
    :members:

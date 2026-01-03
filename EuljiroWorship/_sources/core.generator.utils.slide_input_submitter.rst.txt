@@ -1,5 +1,5 @@
-core.generator.utils.slide\_input\_submitter
-============================================
+core.generator.utils.slide_input_submitter
+==========================================
 
 .. automodule:: core.generator.utils.slide_input_submitter
    :members:

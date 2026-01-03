@@ -1,5 +1,5 @@
-core.config.style\_map
-======================
+core.config.style_map
+=====================
 
 .. automodule:: core.config.style_map
    :members:

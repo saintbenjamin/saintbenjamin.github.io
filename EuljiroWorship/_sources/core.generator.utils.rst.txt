@@ -2,7 +2,7 @@ core.generator.utils
 ====================
 
 .. toctree::
-   :maxdepth: 5
+   :maxdepth: 7
 
    core.generator.utils.icon_helpers
    core.generator.utils.segment_utils

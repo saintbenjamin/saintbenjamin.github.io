@@ -1,5 +1,5 @@
-core.generator.ui.contents.image\_content
-==========================================
+core.generator.ui.contents.image_content
+========================================
 
 .. automodule:: core.generator.ui.contents.image_content
    :members:

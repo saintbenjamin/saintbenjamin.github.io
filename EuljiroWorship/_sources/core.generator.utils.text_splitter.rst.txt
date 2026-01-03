@@ -1,5 +1,5 @@
-core.generator.utils.text\_splitter
-===================================
+core.generator.utils.text_splitter
+==================================
 
 .. automodule:: core.generator.utils.text_splitter
    :members:

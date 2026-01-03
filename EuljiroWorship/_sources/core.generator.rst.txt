@@ -2,7 +2,7 @@ core.generator
 ==============
 
 .. toctree::
-   :maxdepth: 5
+   :maxdepth: 7
 
    core.generator.ui
    core.generator.utils

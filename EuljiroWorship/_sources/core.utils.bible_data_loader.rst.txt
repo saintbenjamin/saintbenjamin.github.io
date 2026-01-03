@@ -1,5 +1,5 @@
-core.utils.bible\_data\_loader
-==============================
+core.utils.bible_data_loader
+============================
 
 .. automodule:: core.utils.bible_data_loader
    :members:

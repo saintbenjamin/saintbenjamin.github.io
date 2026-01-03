@@ -2,7 +2,7 @@ core.generator.ui
 =================
 
 .. toctree::
-   :maxdepth: 5
+   :maxdepth: 7
 
    core.generator.ui.contents
    core.generator.ui.settings_dialog

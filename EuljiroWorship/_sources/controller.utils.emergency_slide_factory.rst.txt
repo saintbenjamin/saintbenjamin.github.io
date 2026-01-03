@@ -1,5 +1,5 @@
-controller.utils.emergency\_slide\_factory
-==========================================
+controller.utils.emergency_slide_factory
+========================================
 
 .. automodule:: controller.utils.emergency_slide_factory
    :members:

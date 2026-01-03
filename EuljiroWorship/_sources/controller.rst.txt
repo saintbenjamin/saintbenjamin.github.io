@@ -2,7 +2,7 @@ controller
 ==========
 
 .. toctree::
-   :maxdepth: 5
+   :maxdepth: 7
 
    controller.helper
    controller.ui

@@ -1,5 +1,5 @@
-controller.ui.slide\_controller\_ui\_builder
-============================================
+controller.ui.slide_controller_ui_builder
+=========================================
 
 .. automodule:: controller.ui.slide_controller_ui_builder
    :members:

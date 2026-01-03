@@ -1,5 +1,5 @@
-core.generator.utils.icon\_helpers
-==================================
+core.generator.utils.icon_helpers
+=================================
 
 .. automodule:: core.generator.utils.icon_helpers
    :members:

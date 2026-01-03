@@ -1,5 +1,5 @@
-controller.utils.slide\_websocket\_manager
-==========================================
+controller.utils.slide_websocket_manager
+========================================
 
 .. automodule:: controller.utils.slide_websocket_manager
    :members:
