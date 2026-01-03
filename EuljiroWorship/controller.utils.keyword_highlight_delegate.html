@@ -122,15 +122,17 @@
 </dd>
 </dl>
 <p>QStyledItemDelegate implementation for keyword highlighting in Qt item views.</p>
-<p>This module defines a delegate that renders cell text using QTextDocument so that:
-- HTML tags (e.g., &lt;b&gt;) are supported.
-- Newlines are rendered as multi-line content (&lt;br&gt;).
-- Specified keywords are highlighted by wrapping them in red &lt;span&gt; tags.
-- Row height can be computed from the HTML-rendered content.</p>
-<dl class="simple">
-<dt>Typical usage:</dt><dd><p>view.setItemDelegate(KeywordHighlightDelegate(keywords=[“하나님”, “세상”]))</p>
-</dd>
-</dl>
+<p>This module defines a delegate that renders cell text using QTextDocument so that:</p>
+<ul class="simple">
+<li><p>HTML tags (e.g., &lt;b&gt;) are supported.</p></li>
+<li><p>Newlines are rendered as multi-line content (&lt;br&gt;).</p></li>
+<li><p>Specified keywords are highlighted by wrapping them in red &lt;span&gt; tags.</p></li>
+<li><p>Row height can be computed from the HTML-rendered content.</p></li>
+</ul>
+<p>Typical usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">view</span><span class="o">.</span><span class="n">setItemDelegate</span><span class="p">(</span><span class="n">KeywordHighlightDelegate</span><span class="p">(</span><span class="n">keywords</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;하나님&quot;</span><span class="p">,</span> <span class="s2">&quot;세상&quot;</span><span class="p">]))</span>
+</pre></div>
+</div>
 <dl class="py class">
 <dt class="sig sig-object py" id="controller.utils.keyword_highlight_delegate.KeywordHighlightDelegate">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">controller.utils.keyword_highlight_delegate.</span></span><span class="sig-name descname"><span class="pre">KeywordHighlightDelegate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/keyword_highlight_delegate.html#KeywordHighlightDelegate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.keyword_highlight_delegate.KeywordHighlightDelegate" title="Link to this definition"></a></dt>

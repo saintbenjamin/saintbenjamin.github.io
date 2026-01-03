@@ -122,11 +122,13 @@
 </dd>
 </dl>
 <p>Persistent data manager for the slide controller.</p>
-<p>This module manages the persistent state used by the slide controller:
-- Loading slide data from the active slide JSON file
-- Tracking the current slide index
-- Backing up slide data before emergency interruption
-- Restoring slides after emergency mode is cleared</p>
+<p>This module manages the persistent state used by the slide controller:</p>
+<ul class="simple">
+<li><p>Loading slide data from the active slide JSON file</p></li>
+<li><p>Tracking the current slide index</p></li>
+<li><p>Backing up slide data before emergency interruption</p></li>
+<li><p>Restoring slides after emergency mode is cleared</p></li>
+</ul>
 <p>It intentionally contains no UI logic and serves as a thin I/O and state
 coordination layer for SlideController.</p>
 <dl class="py class">
