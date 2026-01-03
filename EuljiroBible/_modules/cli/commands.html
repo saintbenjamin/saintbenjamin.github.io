@@ -1,0 +1,572 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>cli.commands &mdash; EuljiroBible 1.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=aaadad1f"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            EuljiroBible
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">module tree</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../EuljiroBible.html">EuljiroBible</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cli.html">cli</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../core.config.html">core.config module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../core.logic.html">core.logic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../core.utils.html">core.utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gui.config.html">gui.config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gui.ui.html">gui.ui</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gui.ui.locale.html">gui.ui.locale</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gui.utils.html">gui.utils</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">EuljiroBible</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">cli.commands</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for cli.commands</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">File: EuljiroBible/cli/commands.py</span>
+
+<span class="sd">CLI command handler for EuljiroBible.</span>
+
+<span class="sd">Parses command-line arguments and coordinates verse lookup and display.</span>
+
+<span class="sd">:Author: Benjamin Jaedon Choi - https://github.com/saintbenjamin</span>
+<span class="sd">:Affiliated Church: The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</span>
+<span class="sd">:Address: The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</span>
+<span class="sd">:Telephone: +82-2-2266-3070</span>
+<span class="sd">:E-mail: euljirochurch [at] G.M.A.I.L. (replace [at] with @ and G.M.A.I.L as you understood.)</span>
+<span class="sd">:License: MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">core.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">paths</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">core.version</span><span class="w"> </span><span class="kn">import</span> <span class="n">APP_VERSION</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">core.logic.verse_logic</span><span class="w"> </span><span class="kn">import</span> <span class="n">display_verse_logic</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">core.utils.bible_data_loader</span><span class="w"> </span><span class="kn">import</span> <span class="n">BibleDataLoader</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">core.utils.bible_parser</span><span class="w"> </span><span class="kn">import</span> <span class="n">resolve_book_name</span><span class="p">,</span> <span class="n">parse_reference</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">core.utils.bible_keyword_searcher</span><span class="w"> </span><span class="kn">import</span> <span class="n">BibleKeywordSearcher</span>
+
+<span class="c1"># Paths to alias and data files</span>
+<span class="n">alias_file</span> <span class="o">=</span> <span class="n">paths</span><span class="o">.</span><span class="n">ALIASES_VERSION_CLI_FILE</span>
+<span class="n">name_path</span> <span class="o">=</span> <span class="n">paths</span><span class="o">.</span><span class="n">BIBLE_NAME_DIR</span>
+<span class="n">data_path</span> <span class="o">=</span> <span class="n">paths</span><span class="o">.</span><span class="n">BIBLE_DATA_DIR</span>
+
+<div class="viewcode-block" id="handle_cli_metadata">
+<a class="viewcode-back" href="../../cli.html#cli.commands.handle_cli_metadata">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">handle_cli_metadata</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Handle CLI metadata options like --help, --version, and --about.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        bool: True if metadata was handled and command should exit.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">if</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;--help&quot;</span><span class="p">,</span> <span class="s2">&quot;-h&quot;</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;EuljiroBible v</span><span class="si">{</span><span class="n">APP_VERSION</span><span class="si">}</span><span class="s2"> (CLI interface) - Bible Verse Lookup Tool</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Usage:&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  bible &lt;version1&gt; [version2 ...] &lt;book&gt; &lt;chapter[:verse[-verse]]&gt;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Examples:&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  bible NKRV John 3:16&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  bible KJV NIV Genesis 1:1-3</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Options:&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  --help       Show this help message and exit&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  --version    Show CLI version and exit&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  --about      Show author and license information</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="k">if</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;--version&quot;</span><span class="p">,</span> <span class="s2">&quot;-v&quot;</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;EuljiroBible v</span><span class="si">{</span><span class="n">APP_VERSION</span><span class="si">}</span><span class="s2"> (CLI interface)&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="k">if</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;--about&quot;</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;EuljiroBible v</span><span class="si">{</span><span class="n">APP_VERSION</span><span class="si">}</span><span class="s2"> (CLI interface)&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Based on: The Eulji-ro Presbyterian Church Bible App Project&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Author: Benjamin Jaedon Choi - https://github.com/saintbenjamin&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Affiliated Church: The Eulji-ro Presbyterian Church&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;License: MIT License with Attribution Requirement (See LICENSE for more detail.)&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="handle_search_metadata">
+<a class="viewcode-back" href="../../cli.html#cli.commands.handle_search_metadata">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">handle_search_metadata</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Handle CLI metadata options for keyword search command.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        args (list[str]): CLI args</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        bool: True if metadata handled and program should exit.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">if</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;--help&quot;</span><span class="p">,</span> <span class="s2">&quot;-h&quot;</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;EuljiroBible v</span><span class="si">{</span><span class="n">APP_VERSION</span><span class="si">}</span><span class="s2"> (CLI interface) - Bible Keyword Search</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Usage:&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  bible search &lt;version&gt; &lt;keyword1&gt; [keyword2 ...]</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Examples:&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  bible search NKRV 믿음&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  bible search KJV faith grace</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Options:&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  --help       Show this help message and exit&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  --version    Show CLI version and exit&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  --about      Show author and license information</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="k">if</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;--version&quot;</span><span class="p">,</span> <span class="s2">&quot;-v&quot;</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;EuljiroBible v</span><span class="si">{</span><span class="n">APP_VERSION</span><span class="si">}</span><span class="s2"> (CLI interface)&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="k">if</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;--about&quot;</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;EuljiroBible v</span><span class="si">{</span><span class="n">APP_VERSION</span><span class="si">}</span><span class="s2"> (CLI interface)&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Based on: The Eulji-ro Presbyterian Church Bible App Project&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Author: Benjamin Jaedon Choi - https://github.com/saintbenjamin&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Affiliated Church: The Eulji-ro Presbyterian Church&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;License: MIT License with Attribution Requirement (See LICENSE for more detail.)&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="show_usage_and_versions">
+<a class="viewcode-back" href="../../cli.html#cli.commands.show_usage_and_versions">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">show_usage_and_versions</span><span class="p">(</span><span class="n">cli_aliases</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Print general CLI usage and list of available version aliases.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        cli_aliases (list[str]): List of CLI aliases to display.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;EuljiroBible v</span><span class="si">{</span><span class="n">APP_VERSION</span><span class="si">}</span><span class="s2"> (CLI interface) - Bible Verse Lookup Tool&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;For more information, use: --about or --help</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Usage: bible &lt;version1&gt; [version2 ...] &lt;book&gt; &lt;chapter[:verse[-verse]]&gt;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Available versions:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cli_aliases</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="show_search_usage">
+<a class="viewcode-back" href="../../cli.html#cli.commands.show_search_usage">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">show_search_usage</span><span class="p">(</span><span class="n">cli_aliases</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Print usage information and available versions for keyword search command.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        cli_aliases (list[str]): CLI version aliases</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;EuljiroBible v</span><span class="si">{</span><span class="n">APP_VERSION</span><span class="si">}</span><span class="s2"> (CLI interface) - Bible Keyword Search&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;For more information, use: --about or --help</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Usage: bible search &lt;version&gt; &lt;keyword1&gt; [keyword2 ...]</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Available versions:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cli_aliases</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="load_cli_alias_map">
+<a class="viewcode-back" href="../../cli.html#cli.commands.load_cli_alias_map">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_cli_alias_map</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Load CLI alias map from JSON file.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tuple: (alias_map, cli_aliases)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">alias_file</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">alias_map</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    <span class="n">cli_aliases</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">alias_map</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+    <span class="k">return</span> <span class="n">alias_map</span><span class="p">,</span> <span class="n">cli_aliases</span></div>
+
+
+<div class="viewcode-block" id="parse_versions_from_args">
+<a class="viewcode-back" href="../../cli.html#cli.commands.parse_versions_from_args">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">parse_versions_from_args</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">alias_map</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Parse version aliases from CLI args.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        args (list[str]): Raw CLI arguments.</span>
+<span class="sd">        alias_map (dict): Full-to-short alias mapping.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tuple: (versions, remaining_args)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Parse versions from args</span>
+    <span class="n">versions</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
+        <span class="n">found</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">for</span> <span class="n">full</span><span class="p">,</span> <span class="n">short</span> <span class="ow">in</span> <span class="n">alias_map</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">token</span> <span class="o">==</span> <span class="n">short</span><span class="p">:</span>
+                <span class="n">versions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">full</span><span class="p">)</span>
+                <span class="n">found</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">break</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">found</span><span class="p">:</span>
+            <span class="k">break</span>
+
+    <span class="c1"># Remaining tokens are book and chapter/verse</span>
+    <span class="n">remaining_args</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">versions</span><span class="p">):]</span>
+    <span class="k">return</span> <span class="n">versions</span><span class="p">,</span> <span class="n">remaining_args</span></div>
+
+
+<div class="viewcode-block" id="resolve_search_version">
+<a class="viewcode-back" href="../../cli.html#cli.commands.resolve_search_version">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">resolve_search_version</span><span class="p">(</span><span class="n">version_alias</span><span class="p">,</span> <span class="n">alias_map</span><span class="p">,</span> <span class="n">keywords</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Resolve the full Bible version name for keyword search.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        version_alias (str): CLI alias given by user</span>
+<span class="sd">        alias_map (dict): Full-to-short alias map</span>
+<span class="sd">        keywords (list[str]): User-specified search keywords</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        str or None: Full version name if found; otherwise None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cli_aliases</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">alias_map</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+
+    <span class="k">if</span> <span class="n">version_alias</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cli_aliases</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[ERROR] Unknown version: &#39;</span><span class="si">{</span><span class="n">version_alias</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">k</span> <span class="ow">in</span> <span class="n">cli_aliases</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">keywords</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[ERROR] Please specify only one version for keyword search.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="n">matches</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">alias_map</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">v</span> <span class="o">==</span> <span class="n">version_alias</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">matches</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">matches</span> <span class="k">else</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="parse_and_validate_reference">
+<a class="viewcode-back" href="../../cli.html#cli.commands.parse_and_validate_reference">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">parse_and_validate_reference</span><span class="p">(</span><span class="n">remaining</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Join and validate Bible reference tokens.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        remaining (list[str]): List of tokens representing reference.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tuple or None: (book, chapter, verse_range) if valid; otherwise None.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Expecting: &lt;book&gt; &lt;chapter[:verse[-verse]]&gt;</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">remaining</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[ERROR] Invalid input. Usage: bible &lt;version1&gt; [version2 ...] &lt;book&gt; &lt;chapter[:verse[-verse]]&gt;&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+     <span class="c1"># Parse Bible reference using shared parser</span>
+    <span class="n">raw_ref</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">remaining</span><span class="p">)</span>
+    <span class="n">parsed</span> <span class="o">=</span> <span class="n">parse_reference</span><span class="p">(</span><span class="n">raw_ref</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">parsed</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[ERROR] Invalid Bible reference format.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">return</span> <span class="n">parsed</span></div>
+
+
+<div class="viewcode-block" id="detect_lang_code_from_aliases">
+<a class="viewcode-back" href="../../cli.html#cli.commands.detect_lang_code_from_aliases">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">detect_lang_code_from_aliases</span><span class="p">(</span><span class="n">versions</span><span class="p">,</span> <span class="n">alias_map</span><span class="p">):</span>
+    <span class="n">rtl_map</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;he&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;히브리어&quot;</span><span class="p">,</span> <span class="s2">&quot;hebrew&quot;</span><span class="p">,</span> <span class="s2">&quot;heb&quot;</span><span class="p">,</span> <span class="s2">&quot;wlc&quot;</span><span class="p">,</span> <span class="s2">&quot;mhb&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;ar&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;아랍어&quot;</span><span class="p">,</span> <span class="s2">&quot;arabic&quot;</span><span class="p">,</span> <span class="s2">&quot;ar&quot;</span><span class="p">,</span> <span class="s2">&quot;svd&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;fa&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;페르시아어&quot;</span><span class="p">,</span> <span class="s2">&quot;persian&quot;</span><span class="p">,</span> <span class="s2">&quot;fa&quot;</span><span class="p">,</span> <span class="s2">&quot;farsi&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;ur&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;우르두어&quot;</span><span class="p">,</span> <span class="s2">&quot;urdu&quot;</span><span class="p">,</span> <span class="s2">&quot;ur&quot;</span><span class="p">]</span>
+    <span class="p">}</span>
+
+    <span class="k">for</span> <span class="n">version</span> <span class="ow">in</span> <span class="n">versions</span><span class="p">:</span>
+        <span class="n">alias</span> <span class="o">=</span> <span class="n">version</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">code</span><span class="p">,</span> <span class="n">keywords</span> <span class="ow">in</span> <span class="n">rtl_map</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">keyword</span> <span class="ow">in</span> <span class="n">alias</span> <span class="k">for</span> <span class="n">keyword</span> <span class="ow">in</span> <span class="n">keywords</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">code</span>
+
+    <span class="k">return</span> <span class="s2">&quot;ko&quot;</span></div>
+
+
+<div class="viewcode-block" id="run_display_logic">
+<a class="viewcode-back" href="../../cli.html#cli.commands.run_display_logic">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">run_display_logic</span><span class="p">(</span><span class="n">versions</span><span class="p">,</span> <span class="n">book</span><span class="p">,</span> <span class="n">chapter</span><span class="p">,</span> <span class="n">verse_range</span><span class="p">,</span> <span class="n">alias_map</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Execute the main display logic for CLI output.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        versions (list): Full version names.</span>
+<span class="sd">        book (str): Resolved book name.</span>
+<span class="sd">        chapter (int): Chapter number.</span>
+<span class="sd">        verse_range (tuple): Start and optional end verse.</span>
+<span class="sd">        alias_map (dict): CLI alias map.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">bible_data</span> <span class="o">=</span> <span class="n">BibleDataLoader</span><span class="p">(</span><span class="n">json_dir</span><span class="o">=</span><span class="n">name_path</span><span class="p">,</span> <span class="n">text_dir</span><span class="o">=</span><span class="n">data_path</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">versions</span><span class="p">:</span>
+        <span class="n">bible_data</span><span class="o">.</span><span class="n">load_version</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">book</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">bible_data</span><span class="o">.</span><span class="n">get_verses</span><span class="p">(</span><span class="n">versions</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[ERROR] Unknown book name: &#39;</span><span class="si">{</span><span class="n">book</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="n">ref_func</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span> <span class="p">(</span><span class="n">versions</span><span class="p">,</span> <span class="n">book</span><span class="p">,</span> <span class="n">chapter</span><span class="p">,</span> <span class="n">verse_range</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">settings</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">print_output</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+
+    <span class="n">display_verse_logic</span><span class="p">(</span>
+        <span class="n">ref_func</span><span class="p">,</span>
+        <span class="kc">None</span><span class="p">,</span>
+        <span class="n">bible_data</span><span class="p">,</span>
+        <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span>
+        <span class="n">settings</span><span class="p">,</span>
+        <span class="n">lang_code</span><span class="o">=</span><span class="s2">&quot;ko&quot;</span><span class="p">,</span>
+        <span class="n">output_func</span><span class="o">=</span><span class="n">print_output</span><span class="p">,</span>
+        <span class="n">version_alias</span><span class="o">=</span><span class="n">alias_map</span><span class="p">,</span>
+        <span class="n">book_alias</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">is_cli</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span>
+
+    <span class="n">lang_code</span> <span class="o">=</span> <span class="n">detect_lang_code_from_aliases</span><span class="p">(</span><span class="n">versions</span><span class="p">,</span> <span class="n">alias_map</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">lang_code</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;he&quot;</span><span class="p">,</span> <span class="s2">&quot;ar&quot;</span><span class="p">,</span> <span class="s2">&quot;fa&quot;</span><span class="p">,</span> <span class="s2">&quot;ur&quot;</span><span class="p">}:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[Note] This is a Right-to-Left (RTL) language. CLI display may not be ideal.&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="run_keyword_search">
+<a class="viewcode-back" href="../../cli.html#cli.commands.run_keyword_search">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">run_keyword_search</span><span class="p">(</span><span class="n">full_version</span><span class="p">,</span> <span class="n">keywords</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Run keyword search and print results.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        full_version (str): Full Bible version name.</span>
+<span class="sd">        keywords (list[str]): List of keywords to search.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">searcher</span> <span class="o">=</span> <span class="n">BibleKeywordSearcher</span><span class="p">(</span><span class="n">version</span><span class="o">=</span><span class="n">full_version</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">FileNotFoundError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[ERROR] </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="n">results</span> <span class="o">=</span> <span class="n">searcher</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">keywords</span><span class="p">))</span>
+    <span class="n">counts</span> <span class="o">=</span> <span class="n">searcher</span><span class="o">.</span><span class="n">count_keywords</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">keywords</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">results</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[INFO] No verses found.&quot;</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="k">for</span> <span class="n">res</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">res</span><span class="p">[</span><span class="s1">&#39;book&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">res</span><span class="p">[</span><span class="s1">&#39;chapter&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">res</span><span class="p">[</span><span class="s1">&#39;verse&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">res</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Keyword Frequencies:&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">counts</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Results: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span><span class="si">}</span><span class="s2"> verses found.&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="handle_version_only">
+<a class="viewcode-back" href="../../cli.html#cli.commands.handle_version_only">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">handle_version_only</span><span class="p">(</span><span class="n">version</span><span class="p">,</span> <span class="n">alias_map</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Handle the case where only the version is specified.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        version (str): Full Bible version name.</span>
+<span class="sd">        alias_map (dict): Full-to-short alias mapping.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">bible_data</span> <span class="o">=</span> <span class="n">BibleDataLoader</span><span class="p">(</span><span class="n">json_dir</span><span class="o">=</span><span class="n">name_path</span><span class="p">,</span> <span class="n">text_dir</span><span class="o">=</span><span class="n">data_path</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">bible_data</span><span class="o">.</span><span class="n">load_version</span><span class="p">(</span><span class="n">version</span><span class="p">)</span>
+        <span class="n">books</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">bible_data</span><span class="o">.</span><span class="n">get_verses</span><span class="p">(</span><span class="n">version</span><span class="p">)</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;EuljiroBible v</span><span class="si">{</span><span class="n">APP_VERSION</span><span class="si">}</span><span class="s2"> (CLI interface) - Bible Verse Lookup Tool</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Usage:&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  bible &lt;version1&gt; [version2 ...] &lt;book&gt; &lt;chapter[:verse[-verse]]&gt;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[INFO] Available books in </span><span class="si">{</span><span class="n">alias_map</span><span class="p">[</span><span class="n">version</span><span class="p">]</span><span class="si">}</span><span class="s2">:&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">books</span><span class="p">))</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[ERROR] Failed to load version </span><span class="si">{</span><span class="n">alias_map</span><span class="p">[</span><span class="n">version</span><span class="p">]</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="handle_book_only">
+<a class="viewcode-back" href="../../cli.html#cli.commands.handle_book_only">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">handle_book_only</span><span class="p">(</span><span class="n">version</span><span class="p">,</span> <span class="n">raw_book</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Handle the case where only a book name is given (show chapter count).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        version (str): Full Bible version name.</span>
+<span class="sd">        raw_book (str): User input book name.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">bible_data</span> <span class="o">=</span> <span class="n">BibleDataLoader</span><span class="p">(</span><span class="n">json_dir</span><span class="o">=</span><span class="n">name_path</span><span class="p">,</span> <span class="n">text_dir</span><span class="o">=</span><span class="n">data_path</span><span class="p">)</span>
+    <span class="n">bible_data</span><span class="o">.</span><span class="n">load_version</span><span class="p">(</span><span class="n">version</span><span class="p">)</span>
+    <span class="n">book</span> <span class="o">=</span> <span class="n">resolve_book_name</span><span class="p">(</span><span class="n">raw_book</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">book</span> <span class="ow">or</span> <span class="n">book</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">bible_data</span><span class="o">.</span><span class="n">get_verses</span><span class="p">(</span><span class="n">version</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[ERROR] Unknown book name: &#39;</span><span class="si">{</span><span class="n">raw_book</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+        <span class="k">return</span>
+    <span class="n">chapter_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">bible_data</span><span class="o">.</span><span class="n">get_verses</span><span class="p">(</span><span class="n">version</span><span class="p">)[</span><span class="n">book</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;EuljiroBible v</span><span class="si">{</span><span class="n">APP_VERSION</span><span class="si">}</span><span class="s2"> (CLI interface) - Bible Verse Lookup Tool</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Usage:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  bible &lt;version1&gt; [version2 ...] &lt;book&gt; &lt;chapter[:verse[-verse]]&gt;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[INFO] The Book of </span><span class="si">{</span><span class="n">raw_book</span><span class="si">}</span><span class="s2"> has </span><span class="si">{</span><span class="n">chapter_count</span><span class="si">}</span><span class="s2"> chapters.&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="run_bible_command">
+<a class="viewcode-back" href="../../cli.html#cli.commands.run_bible_command">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">run_bible_command</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Main CLI handler for parsing and executing Bible verse search commands.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        args (list[str]): Command-line arguments excluding the script name.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        $ bible NKRV John 3:16</span>
+<span class="sd">        $ bible NKRV NIV John 3</span>
+<span class="sd">        $ bible NKRV</span>
+
+<span class="sd">    Behavior:</span>
+<span class="sd">        - Prints usage/help if no args.</span>
+<span class="sd">        - Lists books if only version and book given.</span>
+<span class="sd">        - Shows verse(s) if full reference is given.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">handle_cli_metadata</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+        <span class="k">return</span>
+
+    <span class="n">alias_map</span><span class="p">,</span> <span class="n">cli_aliases</span> <span class="o">=</span> <span class="n">load_cli_alias_map</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">show_usage_and_versions</span><span class="p">(</span><span class="n">cli_aliases</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="n">versions</span><span class="p">,</span> <span class="n">remaining</span> <span class="o">=</span> <span class="n">parse_versions_from_args</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">alias_map</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">remaining</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">handle_version_only</span><span class="p">(</span><span class="n">versions</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">alias_map</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">remaining</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">handle_book_only</span><span class="p">(</span><span class="n">versions</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">remaining</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">return</span>
+
+    <span class="n">parsed</span> <span class="o">=</span> <span class="n">parse_and_validate_reference</span><span class="p">(</span><span class="n">remaining</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">parsed</span><span class="p">:</span>
+        <span class="k">return</span>
+
+    <span class="n">book</span><span class="p">,</span> <span class="n">chapter</span><span class="p">,</span> <span class="n">verse_range</span> <span class="o">=</span> <span class="n">parsed</span>
+
+    <span class="n">run_display_logic</span><span class="p">(</span><span class="n">versions</span><span class="p">,</span> <span class="n">book</span><span class="p">,</span> <span class="n">chapter</span><span class="p">,</span> <span class="n">verse_range</span><span class="p">,</span> <span class="n">alias_map</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="run_search_command">
+<a class="viewcode-back" href="../../cli.html#cli.commands.run_search_command">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">run_search_command</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    CLI keyword search command.</span>
+
+<span class="sd">    Usage:</span>
+<span class="sd">        bible search &lt;version&gt; &lt;keyword1&gt; [keyword2 ...]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">handle_search_metadata</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+        <span class="k">return</span>
+
+    <span class="n">alias_map</span><span class="p">,</span> <span class="n">cli_aliases</span> <span class="o">=</span> <span class="n">load_cli_alias_map</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">show_search_usage</span><span class="p">(</span><span class="n">cli_aliases</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="n">version_alias</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">keywords</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+
+    <span class="n">full_version</span> <span class="o">=</span> <span class="n">resolve_search_version</span><span class="p">(</span><span class="n">version_alias</span><span class="p">,</span> <span class="n">alias_map</span><span class="p">,</span> <span class="n">keywords</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">full_version</span><span class="p">:</span>
+        <span class="k">return</span>
+
+    <span class="n">run_keyword_search</span><span class="p">(</span><span class="n">full_version</span><span class="p">,</span> <span class="n">keywords</span><span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Benjamin J. Choi.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,334 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>gui.ui.tab_settings_logic &mdash; EuljiroBible 1.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=aaadad1f"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            EuljiroBible
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">module tree</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../EuljiroBible.html">EuljiroBible</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cli.html">cli</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../core.config.html">core.config module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../core.logic.html">core.logic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../core.utils.html">core.utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gui.config.html">gui.config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gui.ui.html">gui.ui</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gui.ui.locale.html">gui.ui.locale</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gui.utils.html">gui.utils</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">EuljiroBible</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">gui.ui.tab_settings_logic</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for gui.ui.tab_settings_logic</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">File: EuljiroBible/gui/ui/tab_settings_logic.py</span>
+<span class="sd">Handles backend logic for the settings tab: dynamic UI updates, file paths, colors, and polling behavior.</span>
+
+<span class="sd">:Author: Benjamin Jaedon Choi - https://github.com/saintbenjamin</span>
+<span class="sd">:Affiliated Church: The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</span>
+<span class="sd">:Address: The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</span>
+<span class="sd">:Telephone: +82-2-2266-3070</span>
+<span class="sd">:E-mail: euljirochurch [at] G.M.A.I.L. (replace [at] with @ and G.M.A.I.L as you understood.)</span>
+<span class="sd">:License: MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">QWidget</span><span class="p">,</span> <span class="n">QMessageBox</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">core.utils.input_validators</span><span class="w"> </span><span class="kn">import</span> <span class="n">validate_int</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">core.utils.logger</span><span class="w"> </span><span class="kn">import</span> <span class="n">log_debug</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">gui.config.config_manager</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConfigManager</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">gui.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">messages</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">gui.utils.settings_helper</span><span class="w"> </span><span class="kn">import</span> <span class="n">update_overlay_settings</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">gui.utils.utils_fonts</span><span class="w"> </span><span class="kn">import</span> <span class="n">apply_main_font_to_app</span><span class="p">,</span> <span class="n">apply_overlay_font</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">gui.utils.utils_dialog</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_save_path</span><span class="p">,</span> <span class="n">set_color_from_dialog</span>
+
+<div class="viewcode-block" id="TabSettingsLogic">
+<a class="viewcode-back" href="../../../gui.ui.html#gui.ui.tab_settings_logic.TabSettingsLogic">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TabSettingsLogic</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Provides logic operations for the settings tab UI.</span>
+
+<span class="sd">    Handles font application, theme updates, polling intervals, path selections, and color pickers.</span>
+
+<span class="sd">    :param settings: Shared application settings dictionary</span>
+<span class="sd">    :type settings: dict</span>
+<span class="sd">    :param app: QApplication instance</span>
+<span class="sd">    :type app: QApplication</span>
+<span class="sd">    :param tr_func: Translation function for localized messages</span>
+<span class="sd">    :type tr_func: Callable[[str], str]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="TabSettingsLogic.__init__">
+<a class="viewcode-back" href="../../../gui.ui.html#gui.ui.tab_settings_logic.TabSettingsLogic.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">settings</span><span class="p">,</span> <span class="n">app</span><span class="p">,</span> <span class="n">tr_func</span><span class="p">,</span> <span class="n">refresh_settings_callback</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize settings logic handler.</span>
+
+<span class="sd">        :param settings: Settings dictionary</span>
+<span class="sd">        :param app: QApplication instance</span>
+<span class="sd">        :param tr_func: Translation function</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">settings</span> <span class="o">=</span> <span class="n">settings</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span> <span class="o">=</span> <span class="n">app</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tr</span> <span class="o">=</span> <span class="n">tr_func</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">refresh_settings_callback</span> <span class="o">=</span> <span class="n">refresh_settings_callback</span></div>
+
+
+<div class="viewcode-block" id="TabSettingsLogic.apply_dynamic_settings">
+<a class="viewcode-back" href="../../../gui.ui.html#gui.ui.tab_settings_logic.TabSettingsLogic.apply_dynamic_settings">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">apply_dynamic_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Apply font, overlay, and display settings to the application.</span>
+
+<span class="sd">        :param parent: Reference to the TabSettings instance (contains UI state)</span>
+<span class="sd">        :type parent: QWidget</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="s2">&quot;display_font_size_combo&quot;</span><span class="p">):</span>
+            <span class="k">return</span>
+
+        <span class="c1"># Apply font to all widgets in the app</span>
+        <span class="n">apply_main_font_to_app</span><span class="p">(</span>
+            <span class="n">parent</span><span class="o">.</span><span class="n">font_family_combo</span><span class="o">.</span><span class="n">currentText</span><span class="p">(),</span>
+            <span class="nb">int</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">font_size_combo</span><span class="o">.</span><span class="n">currentText</span><span class="p">()),</span>
+            <span class="n">parent</span><span class="o">.</span><span class="n">font_weight_combo</span><span class="o">.</span><span class="n">currentData</span><span class="p">(),</span>
+            <span class="n">parent</span><span class="o">.</span><span class="n">window</span><span class="p">()</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Collect current overlay settings from UI and update</span>
+        <span class="n">updated_overlay</span> <span class="o">=</span> <span class="n">update_overlay_settings</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">settings</span><span class="p">,</span> <span class="p">{</span>
+            <span class="s2">&quot;font_family_combo&quot;</span><span class="p">:</span> <span class="n">parent</span><span class="o">.</span><span class="n">display_font_family_combo</span><span class="p">,</span>
+            <span class="s2">&quot;font_size_combo&quot;</span><span class="p">:</span> <span class="n">parent</span><span class="o">.</span><span class="n">display_font_size_combo</span><span class="p">,</span>
+            <span class="s2">&quot;font_weight_combo&quot;</span><span class="p">:</span> <span class="n">parent</span><span class="o">.</span><span class="n">display_font_weight_combo</span><span class="p">,</span>
+            <span class="s2">&quot;alpha_slider&quot;</span><span class="p">:</span> <span class="n">parent</span><span class="o">.</span><span class="n">alpha_slider</span><span class="p">,</span>
+            <span class="s2">&quot;text_color_btn&quot;</span><span class="p">:</span> <span class="n">parent</span><span class="o">.</span><span class="n">text_color_btn</span><span class="p">,</span>
+            <span class="s2">&quot;bg_color_btn&quot;</span><span class="p">:</span> <span class="n">parent</span><span class="o">.</span><span class="n">bg_color_btn</span><span class="p">,</span>
+            <span class="s2">&quot;mode_combo&quot;</span><span class="p">:</span> <span class="n">parent</span><span class="o">.</span><span class="n">overlay_mode_combo</span>
+        <span class="p">})</span>
+        <span class="n">ConfigManager</span><span class="o">.</span><span class="n">update_partial</span><span class="p">(</span><span class="n">updated_overlay</span><span class="p">)</span>
+
+        <span class="c1"># Save on/off visibility setting</span>
+        <span class="n">always_show_on_off</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">always_on_off_checkbox</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span>
+        <span class="n">ConfigManager</span><span class="o">.</span><span class="n">update_partial</span><span class="p">({</span><span class="s2">&quot;always_show_on_off_buttons&quot;</span><span class="p">:</span> <span class="n">always_show_on_off</span><span class="p">})</span>
+        <span class="n">parent</span><span class="o">.</span><span class="n">settings</span><span class="p">[</span><span class="s2">&quot;always_show_on_off_buttons&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">always_show_on_off</span>
+
+        <span class="c1"># Apply overlay font if overlay is active</span>
+        <span class="k">if</span> <span class="n">parent</span><span class="o">.</span><span class="n">overlay</span><span class="p">:</span>
+            <span class="n">apply_overlay_font</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">overlay</span><span class="p">,</span> <span class="n">parent</span><span class="o">.</span><span class="n">settings</span><span class="p">)</span>
+
+        <span class="c1"># Reload all tabs with new settings</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">refresh_settings_callback</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">refresh_settings_callback</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="TabSettingsLogic.apply_font_to_children">
+<a class="viewcode-back" href="../../../gui.ui.html#gui.ui.tab_settings_logic.TabSettingsLogic.apply_font_to_children">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">apply_font_to_children</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">widget</span><span class="p">,</span> <span class="n">font</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Recursively apply a font to a widget and its children.</span>
+
+<span class="sd">        :param parent: Root window</span>
+<span class="sd">        :type parent: QWidget</span>
+<span class="sd">        :param widget: Target widget to apply font to</span>
+<span class="sd">        :type widget: QWidget</span>
+<span class="sd">        :param font: QFont instance</span>
+<span class="sd">        :type font: QFont</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">widget</span><span class="o">.</span><span class="n">setFont</span><span class="p">(</span><span class="n">font</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">widget</span><span class="o">.</span><span class="n">findChildren</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
+            <span class="n">child</span><span class="o">.</span><span class="n">setFont</span><span class="p">(</span><span class="n">font</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TabSettingsLogic.select_output_path">
+<a class="viewcode-back" href="../../../gui.ui.html#gui.ui.tab_settings_logic.TabSettingsLogic.select_output_path">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">select_output_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Open a file dialog to set the verse output file path.</span>
+
+<span class="sd">        :param parent: TabSettings instance with path input field</span>
+<span class="sd">        :type parent: QWidget</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">current_path</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">output_edit</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">get_save_path</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">current_path</span><span class="p">,</span> <span class="n">parent</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;dialog_path&quot;</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">path</span><span class="p">:</span>
+            <span class="n">parent</span><span class="o">.</span><span class="n">output_edit</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+            <span class="n">parent</span><span class="o">.</span><span class="n">settings</span><span class="p">[</span><span class="s2">&quot;output_path&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">path</span>
+            <span class="n">ConfigManager</span><span class="o">.</span><span class="n">update_partial</span><span class="p">({</span><span class="s2">&quot;output_path&quot;</span><span class="p">:</span> <span class="n">path</span><span class="p">})</span></div>
+
+
+<div class="viewcode-block" id="TabSettingsLogic.select_text_color">
+<a class="viewcode-back" href="../../../gui.ui.html#gui.ui.tab_settings_logic.TabSettingsLogic.select_text_color">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">select_text_color</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Open a color picker dialog to select the overlay text color.</span>
+
+<span class="sd">        Updates button color, saves to settings, and reapplies dynamic settings.</span>
+
+<span class="sd">        :param parent: TabSettings instance</span>
+<span class="sd">        :type parent: QWidget</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">set_color_from_dialog</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">text_color_btn</span><span class="p">,</span> <span class="s2">&quot;display_text_color&quot;</span><span class="p">,</span> <span class="n">parent</span><span class="o">.</span><span class="n">apply_dynamic_settings</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TabSettingsLogic.select_bg_color">
+<a class="viewcode-back" href="../../../gui.ui.html#gui.ui.tab_settings_logic.TabSettingsLogic.select_bg_color">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">select_bg_color</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Open a color picker dialog to select the overlay background color.</span>
+
+<span class="sd">        Updates button color, saves to settings, and reapplies dynamic settings.</span>
+
+<span class="sd">        :param parent: TabSettings instance</span>
+<span class="sd">        :type parent: QWidget</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">set_color_from_dialog</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">bg_color_btn</span><span class="p">,</span> <span class="s2">&quot;display_bg_color&quot;</span><span class="p">,</span> <span class="n">parent</span><span class="o">.</span><span class="n">apply_dynamic_settings</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TabSettingsLogic.save_poll_interval">
+<a class="viewcode-back" href="../../../gui.ui.html#gui.ui.tab_settings_logic.TabSettingsLogic.save_poll_interval">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">save_poll_interval</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Save the polling interval from the input box.</span>
+
+<span class="sd">        If the value is not a valid integer, show a warning dialog.</span>
+
+<span class="sd">        :param parent: TabSettings instance</span>
+<span class="sd">        :type parent: QWidget</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">poll_input</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+
+        <span class="c1"># Check validity of interval value</span>
+        <span class="n">valid</span><span class="p">,</span> <span class="n">interval</span> <span class="o">=</span> <span class="n">validate_int</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">valid</span><span class="p">:</span>
+            <span class="n">QMessageBox</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="n">parent</span><span class="p">,</span>
+                <span class="n">messages</span><span class="o">.</span><span class="n">ERROR_MESSAGES</span><span class="p">[</span><span class="s2">&quot;POLL_INTERVAL_INVALID_TITLE&quot;</span><span class="p">],</span>
+                <span class="n">messages</span><span class="o">.</span><span class="n">ERROR_MESSAGES</span><span class="p">[</span><span class="s2">&quot;POLL_INTERVAL_INVALID_MSG&quot;</span><span class="p">]</span>
+            <span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="c1"># Save the valid interval to disk and memory</span>
+        <span class="n">parent</span><span class="o">.</span><span class="n">settings</span><span class="p">[</span><span class="s2">&quot;poll_interval&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">interval</span>
+        <span class="n">ConfigManager</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="p">)</span>
+        <span class="n">log_debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Saved poll interval: </span><span class="si">{</span><span class="n">interval</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TabSettingsLogic.apply_polling_settings">
+<a class="viewcode-back" href="../../../gui.ui.html#gui.ui.tab_settings_logic.TabSettingsLogic.apply_polling_settings">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">apply_polling_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Apply polling logic: start or stop polling based on toggle.</span>
+
+<span class="sd">        :param parent: TabSettings instance</span>
+<span class="sd">        :type parent: QWidget</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">poll_enabled</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;poll_enabled&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="n">poll_interval</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;poll_interval&quot;</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">poll_enabled</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">parent</span><span class="o">.</span><span class="n">poll_timer</span><span class="o">.</span><span class="n">isActive</span><span class="p">():</span>
+                <span class="n">parent</span><span class="o">.</span><span class="n">poll_timer</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+            <span class="n">parent</span><span class="o">.</span><span class="n">poll_timer</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="n">poll_interval</span><span class="p">)</span>
+            <span class="n">log_debug</span><span class="p">(</span><span class="s2">&quot;[TabSettings] polling restarted&quot;</span><span class="p">)</span>
+            <span class="n">parent</span><span class="o">.</span><span class="n">poll_file</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">parent</span><span class="o">.</span><span class="n">poll_timer</span><span class="o">.</span><span class="n">isActive</span><span class="p">():</span>
+                <span class="n">parent</span><span class="o">.</span><span class="n">poll_timer</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+            <span class="n">log_debug</span><span class="p">(</span><span class="s2">&quot;[TabSettings] polling stopped&quot;</span><span class="p">)</span>
+
+            <span class="c1"># If overlay is active, close it when polling is turned off</span>
+            <span class="k">if</span> <span class="n">parent</span><span class="o">.</span><span class="n">overlay</span> <span class="ow">and</span> <span class="n">parent</span><span class="o">.</span><span class="n">overlay</span><span class="o">.</span><span class="n">isVisible</span><span class="p">():</span>
+                <span class="n">parent</span><span class="o">.</span><span class="n">overlay</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                <span class="n">parent</span><span class="o">.</span><span class="n">overlay</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="n">log_debug</span><span class="p">(</span><span class="s2">&quot;[TabSettings] overlay turned OFF due to polling OFF&quot;</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Benjamin J. Choi.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

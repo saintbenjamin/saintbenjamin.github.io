@@ -1,0 +1,410 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>gui.ui.tab_verse &mdash; EuljiroBible 1.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=aaadad1f"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            EuljiroBible
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">module tree</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../EuljiroBible.html">EuljiroBible</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cli.html">cli</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../core.config.html">core.config module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../core.logic.html">core.logic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../core.utils.html">core.utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gui.config.html">gui.config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gui.ui.html">gui.ui</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gui.ui.locale.html">gui.ui.locale</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gui.utils.html">gui.utils</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">EuljiroBible</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">gui.ui.tab_verse</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for gui.ui.tab_verse</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">File: EuljiroBible/gui/ui/tab_verse.py</span>
+<span class="sd">Implements the TabVerse class for verse lookup, navigation, display, and output.</span>
+
+<span class="sd">:Author: Benjamin Jaedon Choi - https://github.com/saintbenjamin</span>
+<span class="sd">:Affiliated Church: The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</span>
+<span class="sd">:Address: The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</span>
+<span class="sd">:Telephone: +82-2-2266-3070</span>
+<span class="sd">:E-mail: euljirochurch [at] G.M.A.I.L. (replace [at] with @ and G.M.A.I.L as you understood.)</span>
+<span class="sd">:License: MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">traceback</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">QWidget</span><span class="p">,</span> <span class="n">QMessageBox</span><span class="p">,</span> <span class="n">QGridLayout</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">core.utils.bible_data_loader</span><span class="w"> </span><span class="kn">import</span> <span class="n">BibleDataLoader</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">core.utils.utils_output</span><span class="w"> </span><span class="kn">import</span> <span class="n">save_to_files</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">core.utils.verse_version_helper</span><span class="w"> </span><span class="kn">import</span> <span class="n">VerseVersionHelper</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">gui.ui.locale.message_loader</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_messages</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">gui.ui.tab_verse_logic</span><span class="w"> </span><span class="kn">import</span> <span class="n">TabVerseLogic</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">gui.ui.tab_verse_selection_manager</span><span class="w"> </span><span class="kn">import</span> <span class="n">TabVerseSelectionManager</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">gui.ui.tab_verse_ui</span><span class="w"> </span><span class="kn">import</span> <span class="n">TabVerseUI</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">gui.utils.verse_output_handler</span><span class="w"> </span><span class="kn">import</span> <span class="n">VerseOutputHandler</span>
+
+
+<div class="viewcode-block" id="TabVerse">
+<a class="viewcode-back" href="../../../gui.ui.html#gui.ui.tab_verse.TabVerse">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TabVerse</span><span class="p">(</span><span class="n">QWidget</span><span class="p">,</span> <span class="n">TabVerseUI</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Main UI class for the Bible verse tab.</span>
+<span class="sd">    Provides display, navigation, and save functionality for selected verses.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="TabVerse.__init__">
+<a class="viewcode-back" href="../../../gui.ui.html#gui.ui.tab_verse.TabVerse.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version_list</span><span class="p">,</span> <span class="n">settings</span><span class="p">,</span> <span class="n">tr</span><span class="p">,</span> <span class="n">get_polling_status</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">get_always_show_setting</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the TabVerse.</span>
+
+<span class="sd">        :param version_list: Available Bible versions</span>
+<span class="sd">        :type version_list: list[str]</span>
+<span class="sd">        :param settings: Loaded application settings</span>
+<span class="sd">        :type settings: dict</span>
+<span class="sd">        :param tr: Translation function</span>
+<span class="sd">        :type tr: Callable[[str], str]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tr</span> <span class="o">=</span> <span class="n">tr</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">initializing</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">settings</span> <span class="o">=</span> <span class="n">settings</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">formatted_verse_text</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_polling_status</span> <span class="o">=</span> <span class="n">get_polling_status</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_polling_status</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_always_show_setting</span> <span class="o">=</span> <span class="n">get_always_show_setting</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_always_show_setting</span>
+
+        <span class="c1"># Load Bible data and UI components</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bible_data</span> <span class="o">=</span> <span class="n">BibleDataLoader</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">version_layout</span> <span class="o">=</span> <span class="n">QGridLayout</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">version_helper</span> <span class="o">=</span> <span class="n">VerseVersionHelper</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bible_data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">version_layout</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">selection_manager</span> <span class="o">=</span> <span class="n">TabVerseSelectionManager</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bible_data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">version_helper</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">version_list</span> <span class="o">=</span> <span class="n">version_list</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">init_ui</span><span class="p">(</span><span class="n">version_list</span><span class="p">)</span>
+
+        <span class="c1"># Re-assign layout after UI build</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">version_helper</span><span class="o">.</span><span class="n">version_layout</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">version_layout</span>
+
+        <span class="c1"># Sort versions and assign logic handlers</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">version_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">version_helper</span><span class="o">.</span><span class="n">sort_versions</span><span class="p">(</span><span class="n">version_list</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output_handler</span> <span class="o">=</span> <span class="n">VerseOutputHandler</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">display_box</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">current_language</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;last_language&quot;</span><span class="p">,</span> <span class="s2">&quot;ko&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logic</span> <span class="o">=</span> <span class="n">TabVerseLogic</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bible_data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_language</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">book_combo</span><span class="o">.</span><span class="n">currentTextChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span> <span class="n">_</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">reset_enter_state</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chapter_input</span><span class="o">.</span><span class="n">currentIndexChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span> <span class="n">_</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">reset_enter_state</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">verse_input</span><span class="o">.</span><span class="n">textChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span> <span class="n">_</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">reset_enter_state</span><span class="p">())</span></div>
+
+
+<div class="viewcode-block" id="TabVerse.change_language">
+<a class="viewcode-back" href="../../../gui.ui.html#gui.ui.tab_verse.TabVerse.change_language">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">change_language</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lang_code</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Dynamically updates UI labels when the language changes.</span>
+
+<span class="sd">        :param lang_code: Language code (&#39;ko&#39; or &#39;en&#39;)</span>
+<span class="sd">        :type lang_code: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">current_language</span> <span class="o">=</span> <span class="n">lang_code</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">messages</span> <span class="o">=</span> <span class="n">load_messages</span><span class="p">(</span><span class="n">lang_code</span><span class="p">)</span>
+
+        <span class="n">selected_versions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">version_helper</span><span class="o">.</span><span class="n">get_selected_versions</span><span class="p">()</span>
+        <span class="n">summary</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">bible_data</span><span class="o">.</span><span class="n">aliases_version</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">selected_versions</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">selected_versions</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_alias</span> <span class="k">else</span>
+            <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">selected_versions</span><span class="p">)</span> <span class="k">if</span> <span class="n">selected_versions</span> <span class="k">else</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;msg_nothing&quot;</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">version_summary_label</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">summary</span><span class="p">)</span>
+
+        <span class="c1"># Update labels and placeholders</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">book_label</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;label_book&quot;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chapter_label</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;label_chapter&quot;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">verse_label</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;label_verse&quot;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">verse_input</span><span class="o">.</span><span class="n">setPlaceholderText</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;verse_input_hint&quot;</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">selection_manager</span><span class="o">.</span><span class="n">populate_book_dropdown</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;alias_toggle_btn&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">alias_toggle_btn</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;label_alias_short&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_alias</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;label_alias_full&quot;</span><span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">selection_manager</span><span class="o">.</span><span class="n">update_book_dropdown</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_language</span><span class="p">)</span>
+
+        <span class="c1"># Update button texts</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">prev_verse_btn</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;btn_prev&quot;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">search_btn</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;btn_search&quot;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_btn</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;btn_output&quot;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">next_verse_btn</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;btn_next&quot;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clear_display_btn</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;btn_clear&quot;</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="TabVerse.resizeEvent">
+<a class="viewcode-back" href="../../../gui.ui.html#gui.ui.tab_verse.TabVerse.resizeEvent">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">resizeEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Responds to window resize events and updates the version layout.</span>
+
+<span class="sd">        :param event: Resize event object</span>
+<span class="sd">        :type event: QResizeEvent</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">resizeEvent</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">selection_manager</span><span class="o">.</span><span class="n">update_grid_layout</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TabVerse.update_button_layout">
+<a class="viewcode-back" href="../../../gui.ui.html#gui.ui.tab_verse.TabVerse.update_button_layout">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">update_button_layout</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Updates the layout of the action buttons depending on polling mode.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">poll_enabled</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_polling_status</span><span class="p">()</span>
+        <span class="n">always_show</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_always_show_setting</span><span class="p">()</span>
+        <span class="n">effective_polling</span> <span class="o">=</span> <span class="n">poll_enabled</span> <span class="ow">or</span> <span class="n">always_show</span>
+
+        <span class="c1"># Clear all existing buttons</span>
+        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">button_layout</span><span class="o">.</span><span class="n">count</span><span class="p">():</span>
+            <span class="n">item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">button_layout</span><span class="o">.</span><span class="n">takeAt</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">widget</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">widget</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">widget</span><span class="p">:</span>
+                <span class="n">widget</span><span class="o">.</span><span class="n">setParent</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+
+        <span class="c1"># Re-add buttons based on conditions</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">button_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">prev_verse_btn</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">button_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">search_btn</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">effective_polling</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">button_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">save_btn</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">button_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">next_verse_btn</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">effective_polling</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">button_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">clear_display_btn</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TabVerse.get_polling_status">
+<a class="viewcode-back" href="../../../gui.ui.html#gui.ui.tab_verse.TabVerse.get_polling_status">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_polling_status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the current polling toggle state.</span>
+<span class="sd">        This method should be overridden or injected externally.</span>
+
+<span class="sd">        :return: True if polling is enabled, False otherwise.</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="kc">False</span>  <span class="c1"># Default fallback, should be replaced by actual callback</span></div>
+
+
+<div class="viewcode-block" id="TabVerse.get_always_show_setting">
+<a class="viewcode-back" href="../../../gui.ui.html#gui.ui.tab_verse.TabVerse.get_always_show_setting">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_always_show_setting</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the current &#39;always show buttons&#39; setting.</span>
+<span class="sd">        This method should be overridden or injected externally.</span>
+
+<span class="sd">        :return: True if always show is enabled, False otherwise.</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="kc">False</span>  <span class="c1"># Default fallback, should be replaced by actual callback</span></div>
+
+
+<div class="viewcode-block" id="TabVerse.toggle_alias_mode">
+<a class="viewcode-back" href="../../../gui.ui.html#gui.ui.tab_verse.TabVerse.toggle_alias_mode">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">toggle_alias_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Toggles between alias name and full name for Bible versions.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">use_alias</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">alias_toggle_btn</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">alias_toggle_btn</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;label_alias_short&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_alias</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;label_alias_full&quot;</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_version_summary</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TabVerse.handle_enter">
+<a class="viewcode-back" href="../../../gui.ui.html#gui.ui.tab_verse.TabVerse.handle_enter">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">handle_enter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handles Enter key logic for alternating between search and save.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">formatted_verse_text</span><span class="p">:</span>
+            <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logic</span><span class="o">.</span><span class="n">display_verse</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_reference</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">verse_input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">apply_output_text</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">output</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">formatted_verse_text</span> <span class="o">=</span> <span class="n">output</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">enter_state</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logic</span><span class="o">.</span><span class="n">save_verse</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">formatted_verse_text</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
+                <span class="n">QMessageBox</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;error_output_title&quot;</span><span class="p">),</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;error_output_msg&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+                <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">enter_state</span> <span class="o">=</span> <span class="mi">0</span></div>
+
+
+<div class="viewcode-block" id="TabVerse.get_reference">
+<a class="viewcode-back" href="../../../gui.ui.html#gui.ui.tab_verse.TabVerse.get_reference">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_reference</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns parsed reference from the input fields.</span>
+
+<span class="sd">        :return: (versions, book, chapter, (start_verse, end_verse))</span>
+<span class="sd">        :rtype: tuple</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">core.logic.verse_logic</span><span class="w"> </span><span class="kn">import</span> <span class="n">resolve_reference</span>
+
+        <span class="n">version_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">version_helper</span><span class="o">.</span><span class="n">get_selected_versions</span><span class="p">()</span>
+        <span class="n">book_str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">book_combo</span><span class="o">.</span><span class="n">currentText</span><span class="p">()</span>
+        <span class="n">chapter_str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">chapter_input</span><span class="o">.</span><span class="n">currentText</span><span class="p">()</span>
+        <span class="n">verse_str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">verse_input</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">resolve_reference</span><span class="p">(</span><span class="n">version_list</span><span class="p">,</span> <span class="n">book_str</span><span class="p">,</span> <span class="n">chapter_str</span><span class="p">,</span> <span class="n">verse_str</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bible_data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_language</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TabVerse.apply_output_text">
+<a class="viewcode-back" href="../../../gui.ui.html#gui.ui.tab_verse.TabVerse.apply_output_text">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">apply_output_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Displays formatted verse text in the main display box.</span>
+
+<span class="sd">        :param text: Formatted text to show</span>
+<span class="sd">        :type text: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">text</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">formatted_verse_text</span> <span class="o">=</span> <span class="n">text</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">output_handler</span><span class="o">.</span><span class="n">apply_output_text</span><span class="p">(</span><span class="n">text</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TabVerse.shift_verse">
+<a class="viewcode-back" href="../../../gui.ui.html#gui.ui.tab_verse.TabVerse.shift_verse">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">shift_verse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delta</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Changes the current verse number up/down and displays the result.</span>
+
+<span class="sd">        :param delta: +1 for next, -1 for previous</span>
+<span class="sd">        :type delta: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logic</span><span class="o">.</span><span class="n">delta</span> <span class="o">=</span> <span class="n">delta</span>
+            <span class="n">new_val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logic</span><span class="o">.</span><span class="n">shift_verse</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_reference</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">verse_input</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">new_val</span><span class="p">:</span>
+                <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logic</span><span class="o">.</span><span class="n">display_verse</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_reference</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">verse_input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">apply_output_text</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">output</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">formatted_verse_text</span> <span class="o">=</span> <span class="n">output</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="n">QMessageBox</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="bp">self</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;warn_jump_title&quot;</span><span class="p">),</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;warn_jump_msg&quot;</span><span class="p">)</span>
+            <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TabVerse.reset_enter_state">
+<a class="viewcode-back" href="../../../gui.ui.html#gui.ui.tab_verse.TabVerse.reset_enter_state">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">reset_enter_state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Resets enter state to default: ready to display verse.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">enter_state</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">formatted_verse_text</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="TabVerse.clear_outputs">
+<a class="viewcode-back" href="../../../gui.ui.html#gui.ui.tab_verse.TabVerse.clear_outputs">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">clear_outputs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Clears the displayed verse and the output file.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">display_box</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="n">save_to_files</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Benjamin J. Choi.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

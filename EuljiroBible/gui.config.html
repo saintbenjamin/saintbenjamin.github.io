@@ -1,0 +1,279 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>gui.config &mdash; EuljiroBible 1.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=aaadad1f"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="gui.ui" href="gui.ui.html" />
+    <link rel="prev" title="core.utils" href="core.utils.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            EuljiroBible
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">module tree</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="EuljiroBible.html">EuljiroBible</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">cli</a></li>
+<li class="toctree-l1"><a class="reference internal" href="core.config.html">core.config module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="core.logic.html">core.logic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="core.utils.html">core.utils</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">gui.config</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-gui.config.config_manager">gui.config.config_manager</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#gui.config.config_manager.ConfigManager"><code class="docutils literal notranslate"><span class="pre">ConfigManager</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gui.config.config_manager.ConfigManager.BASE_DIR"><code class="docutils literal notranslate"><span class="pre">ConfigManager.BASE_DIR</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gui.config.config_manager.ConfigManager.DEFAULT_OUTPUT_PATH"><code class="docutils literal notranslate"><span class="pre">ConfigManager.DEFAULT_OUTPUT_PATH</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gui.config.config_manager.ConfigManager.get_icon_dir"><code class="docutils literal notranslate"><span class="pre">ConfigManager.get_icon_dir()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gui.config.config_manager.ConfigManager.get_bible_data_dir"><code class="docutils literal notranslate"><span class="pre">ConfigManager.get_bible_data_dir()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gui.config.config_manager.ConfigManager.load"><code class="docutils literal notranslate"><span class="pre">ConfigManager.load()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gui.config.config_manager.ConfigManager.save"><code class="docutils literal notranslate"><span class="pre">ConfigManager.save()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gui.config.config_manager.ConfigManager.update_partial"><code class="docutils literal notranslate"><span class="pre">ConfigManager.update_partial()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gui.config.config_manager.ConfigManager.get_default_font"><code class="docutils literal notranslate"><span class="pre">ConfigManager.get_default_font()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gui.config.config_manager.ConfigManager.save_font"><code class="docutils literal notranslate"><span class="pre">ConfigManager.save_font()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-gui.config">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gui.ui.html">gui.ui</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gui.ui.locale.html">gui.ui.locale</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gui.utils.html">gui.utils</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">EuljiroBible</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">gui.config</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/gui.config.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="gui-config">
+<h1>gui.config<a class="headerlink" href="#gui-config" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-gui.config.config_manager">
+<span id="gui-config-config-manager"></span><h2>gui.config.config_manager<a class="headerlink" href="#module-gui.config.config_manager" title="Link to this heading"></a></h2>
+<p>File: EuljiroBible/gui/config/config_manager.py
+Handles loading, saving, and updating user settings for EuljiroBible GUI.
+Includes utility for font selection and safe default fallback for corrupted or missing settings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
+</dd>
+<dt class="field-even">Affiliated Church<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
+</dd>
+<dt class="field-odd">Address<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
+</dd>
+<dt class="field-even">Telephone<span class="colon">:</span></dt>
+<dd class="field-even"><p>+82-2-2266-3070</p>
+</dd>
+<dt class="field-odd">E-mail<span class="colon">:</span></dt>
+<dd class="field-odd"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
+</dd>
+<dt class="field-even">License<span class="colon">:</span></dt>
+<dd class="field-even"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="gui.config.config_manager.ConfigManager">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gui.config.config_manager.</span></span><span class="sig-name descname"><span class="pre">ConfigManager</span></span><a class="reference internal" href="_modules/gui/config/config_manager.html#ConfigManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.config.config_manager.ConfigManager" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Manages loading, saving, and modifying user settings for the application.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.config.config_manager.ConfigManager.BASE_DIR">
+<span class="sig-name descname"><span class="pre">BASE_DIR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'/Users/benjamin/work/EuljiroBible'</span></em><a class="headerlink" href="#gui.config.config_manager.ConfigManager.BASE_DIR" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.config.config_manager.ConfigManager.DEFAULT_OUTPUT_PATH">
+<span class="sig-name descname"><span class="pre">DEFAULT_OUTPUT_PATH</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'/Users/benjamin/work/EuljiroBible/verse_output.txt'</span></em><a class="headerlink" href="#gui.config.config_manager.ConfigManager.DEFAULT_OUTPUT_PATH" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.config.config_manager.ConfigManager.get_icon_dir">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_icon_dir</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/config/config_manager.html#ConfigManager.get_icon_dir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.config.config_manager.ConfigManager.get_icon_dir" title="Link to this definition"></a></dt>
+<dd><p>Returns the path to the application’s icon directory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Absolute path to the icon directory.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.config.config_manager.ConfigManager.get_bible_data_dir">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_bible_data_dir</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/config/config_manager.html#ConfigManager.get_bible_data_dir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.config.config_manager.ConfigManager.get_bible_data_dir" title="Link to this definition"></a></dt>
+<dd><p>Returns the directory path where Bible JSON files are stored.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Path to Bible text data directory.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.config.config_manager.ConfigManager.load">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/config/config_manager.html#ConfigManager.load"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.config.config_manager.ConfigManager.load" title="Link to this definition"></a></dt>
+<dd><p>Loads the user settings from disk. If missing or invalid, falls back to default.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Loaded settings or default settings on failure.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.config.config_manager.ConfigManager.save">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/config/config_manager.html#ConfigManager.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.config.config_manager.ConfigManager.save" title="Link to this definition"></a></dt>
+<dd><p>Saves the given settings dictionary to the <cite>settings.json</cite> file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>dict</em>) – The settings to save.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.config.config_manager.ConfigManager.update_partial">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">update_partial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/config/config_manager.html#ConfigManager.update_partial"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.config.config_manager.ConfigManager.update_partial" title="Link to this definition"></a></dt>
+<dd><p>Updates part of the settings dictionary and saves the result.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>dict</em>) – Partial key-value pairs to update.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.config.config_manager.ConfigManager.get_default_font">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_default_font</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/config/config_manager.html#ConfigManager.get_default_font"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.config.config_manager.ConfigManager.get_default_font" title="Link to this definition"></a></dt>
+<dd><p>Returns a default font based on the operating system.
+Checks several commonly available fonts in system preference order.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Best available font family for the platform.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.config.config_manager.ConfigManager.save_font">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">save_font</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">family</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/config/config_manager.html#ConfigManager.save_font"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.config.config_manager.ConfigManager.save_font" title="Link to this definition"></a></dt>
+<dd><p>Updates and persists the UI font preferences.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>family</strong> (<em>str</em>) – Font family name.</p></li>
+<li><p><strong>size</strong> (<em>int</em>) – Font size.</p></li>
+<li><p><strong>weight</strong> (<em>int</em>) – Font weight value.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-gui.config">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-gui.config" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="core.utils.html" class="btn btn-neutral float-left" title="core.utils" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="gui.ui.html" class="btn btn-neutral float-right" title="gui.ui" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Benjamin J. Choi.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
