@@ -95,7 +95,11 @@
              
   <section id="module-controller.utils">
 <span id="controller-utils"></span><h1>controller.utils<a class="headerlink" href="#module-controller.utils" title="Link to this heading"></a></h1>
-<p id="module-controller.utils.slide_controller_data_manager">File: EuljiroWorship/controller/utils/slide_controller_data_manager.py</p>
+<dl class="field-list simple" id="module-controller.utils.slide_controller_data_manager">
+<dt class="field-odd">File<span class="colon">:</span></dt>
+<dd class="field-odd"><p>EuljiroWorship/controller/utils/slide_controller_data_manager.py</p>
+</dd>
+</dl>
 <p>Persistent data manager for the slide controller.</p>
 <p>This module manages the persistent state used by the slide controller:
 - Loading slide data from the active slide JSON file
@@ -248,7 +252,11 @@ False if no backup exists or restoration failed.</p>
 
 </dd></dl>
 
-<p id="module-controller.utils.slide_file_watcher">File: EuljiroWorship/controller/utils/slide_file_watcher.py</p>
+<dl class="field-list simple" id="module-controller.utils.slide_file_watcher">
+<dt class="field-odd">File<span class="colon">:</span></dt>
+<dd class="field-odd"><p>EuljiroWorship/controller/utils/slide_file_watcher.py</p>
+</dd>
+</dl>
 <p>Slide file watcher for the slide controller.</p>
 <p>This module continuously monitors the slide output JSON file used by the
 slide controller. It detects file modification events via polling and emits
@@ -353,7 +361,11 @@ When a file modification is detected:</p>
 
 </dd></dl>
 
-<p id="module-controller.utils.slide_websocket_manager">File: EuljiroWorship/controller/utils/slide_websocket_manager.py</p>
+<dl class="field-list simple" id="module-controller.utils.slide_websocket_manager">
+<dt class="field-odd">File<span class="colon">:</span></dt>
+<dd class="field-odd"><p>EuljiroWorship/controller/utils/slide_websocket_manager.py</p>
+</dd>
+</dl>
 <p>WebSocket manager for broadcasting slide data to overlay clients.</p>
 <p>This module provides a thin wrapper around the <cite>websocket-client</cite> library
 to manage a single outbound WebSocket connection used by the slide controller.
@@ -474,7 +486,11 @@ connection state is cleared.</p>
 
 </dd></dl>
 
-<p>File: EuljiroWorship/controller/utils/interruptor_watcher.py</p>
+<dl class="field-list simple">
+<dt class="field-odd">File<span class="colon">:</span></dt>
+<dd class="field-odd"><p>EuljiroWorship/controller/utils/interruptor_watcher.py</p>
+</dd>
+</dl>
 <p>Watches <cite>verse_output.txt</cite> and emits a Qt signal when the emergency text is cleared.</p>
 <p>This module defines a lightweight polling watcher used by the slide controller.
 It monitors the emergency verse file (<cite>paths.VERSE_FILE</cite>) and detects the state
@@ -596,7 +612,11 @@ It is not used directly by the watcher loop unless called externally.</p>
 
 </dd></dl>
 
-<p id="module-controller.utils.emergency_caption_handler">File: EuljiroWorship/controller/utils/emergency_caption_handler.py</p>
+<dl class="field-list simple" id="module-controller.utils.emergency_caption_handler">
+<dt class="field-odd">File<span class="colon">:</span></dt>
+<dd class="field-odd"><p>EuljiroWorship/controller/utils/emergency_caption_handler.py</p>
+</dd>
+</dl>
 <p>Handles the emergency caption workflow triggered from the slide controller.</p>
 <p>This module coordinates the emergency caption process by:
 - Launching the emergency caption dialog
@@ -673,7 +693,11 @@ or None if the dialog was cancelled.</p>
 
 </dd></dl>
 
-<p id="module-controller.utils.emergency_slide_factory">File: EuljiroWorship/controller/utils/emergency_slide_factory.py</p>
+<dl class="field-list simple" id="module-controller.utils.emergency_slide_factory">
+<dt class="field-odd">File<span class="colon">:</span></dt>
+<dd class="field-odd"><p>EuljiroWorship/controller/utils/emergency_slide_factory.py</p>
+</dd>
+</dl>
 <p>Generates slide dictionaries for emergency captions.</p>
 <p>This module defines <code class="docutils literal notranslate"><span class="pre">EmergencySlideFactory</span></code>, a utility that builds slide payloads
 consumable by the slide controller / overlay pipeline.</p>
@@ -919,7 +943,11 @@ into 2-line chunks per slide.
 
 </dd></dl>
 
-<p id="module-controller.utils.keyword_highlight_delegate">File: EuljiroWorship/controller/utils/keyword_highlight_delegate.py</p>
+<dl class="field-list simple" id="module-controller.utils.keyword_highlight_delegate">
+<dt class="field-odd">File<span class="colon">:</span></dt>
+<dd class="field-odd"><p>EuljiroWorship/controller/utils/keyword_highlight_delegate.py</p>
+</dd>
+</dl>
 <p>QStyledItemDelegate implementation for keyword highlighting in Qt item views.</p>
 <p>This module defines a delegate that renders cell text using QTextDocument so that:
 - HTML tags (e.g., &lt;b&gt;) are supported.
@@ -1032,7 +1060,11 @@ used during painting, then adds padding so the content does not touch borders.</
 
 </dd></dl>
 
-<p id="module-controller.utils.keyword_result_model_light">File: EuljiroWorship/controller/utils/keyword_result_model_light.py</p>
+<dl class="field-list simple" id="module-controller.utils.keyword_result_model_light">
+<dt class="field-odd">File<span class="colon">:</span></dt>
+<dd class="field-odd"><p>EuljiroWorship/controller/utils/keyword_result_model_light.py</p>
+</dd>
+</dl>
 <p>Lightweight QAbstractTableModel for displaying Bible keyword search results.</p>
 <p>This module defines a minimal table model optimized for keyword search output:
 - Two-column layout: Bible reference and verse text
