@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <title>Benjamin J. Choi's Education</title>
+    <title>Benjamin J. Choi's Link</title>
     <updated>2024-12-09T00:00:00-05:00</updated>
-    <id>benji_education</id>
+    <id>benji_link</id>
+    <entry>
+        <title>Christian</title>
+        <item_s>
+            <item>
+                <title link="https://saintbenjamin.github.io/EuljiroBible" target="_blank">EuljiroBible Documentation</title>
+            </item>
+             <item>
+                <title link="https://saintbenjamin.github.io/EuljiroWorship" target="_blank">EuljiroWorship Documentation</title>
+            </item>
+       </item_s>
+    </entry>
     <entry>
         <title>Academia</title>
         <item_s>
