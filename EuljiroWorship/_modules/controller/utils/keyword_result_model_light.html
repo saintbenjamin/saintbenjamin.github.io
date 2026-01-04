@@ -79,12 +79,12 @@
 <span class="sd">:E-mail: euljirochurch [at] G.M.A.I.L. (replace [at] with @ and G.M.A.I.L as you understood.)</span>
 <span class="sd">:License: MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</span>
 
-<span class="sd">Lightweight QAbstractTableModel for displaying Bible keyword search results.</span>
+<span class="sd">Lightweight `QAbstractTableModel` for displaying Bible keyword search results.</span>
 
 <span class="sd">This module defines a minimal table model optimized for keyword search output:</span>
 
 <span class="sd">- Two-column layout: Bible reference and verse text</span>
-<span class="sd">- Designed for read-only display in QTableView</span>
+<span class="sd">- Designed for read-only display in `QTableView`</span>
 <span class="sd">- Supports tooltip display of highlighted (HTML-formatted) verse text</span>
 <span class="sd">- Uses standard book name mapping for localized display</span>
 
@@ -116,19 +116,19 @@
 
 <span class="sd">    Attributes:</span>
 
-<span class="sd">    results (list[dict]):</span>
-<span class="sd">        List of search result dictionaries.</span>
+<span class="sd">        results (list[dict]):</span>
+<span class="sd">            List of search result dictionaries.</span>
 
-<span class="sd">        Each entry is expected to contain:</span>
+<span class="sd">            Each entry is expected to contain:</span>
 
-<span class="sd">        - ``book``</span>
-<span class="sd">        - ``chapter``</span>
-<span class="sd">        - ``verse``</span>
-<span class="sd">        - ``text``</span>
-<span class="sd">        - optional ``highlighted``</span>
+<span class="sd">            - ``book``</span>
+<span class="sd">            - ``chapter``</span>
+<span class="sd">            - ``verse``</span>
+<span class="sd">            - ``text``</span>
+<span class="sd">            - ``highlighted`` (optional)</span>
 
-<span class="sd">    book_names (dict[str, str]):</span>
-<span class="sd">        Mapping from internal book IDs to localized (Korean) book names.</span>
+<span class="sd">        book_names (dict[str, str]):</span>
+<span class="sd">            Mapping from internal book IDs to localized (Korean) book names.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="KeywordResultTableModelLight.__init__">
@@ -164,7 +164,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Load localized Bible book names from the standard book definition file.</span>
 
-<span class="sd">        Reads the JSON file defined by paths.STANDARD_BOOK_FILE and extracts</span>
+<span class="sd">        Reads the JSON file defined by :data:`core.config.paths.STANDARD_BOOK_FILE` and extracts</span>
 <span class="sd">        Korean book names for display in the reference column.</span>
 
 <span class="sd">        Returns:</span>
@@ -205,6 +205,7 @@
 <span class="sd">        Return the number of columns in the model.</span>
 
 <span class="sd">        This model always exposes exactly two columns:</span>
+
 <span class="sd">        - Reference</span>
 <span class="sd">        - Verse text</span>
 
@@ -228,12 +229,13 @@
 <span class="sd">        Supported roles are:</span>
 
 <span class="sd">        Qt.DisplayRole</span>
-<span class="sd">            Column 0 returns the formatted Bible reference (book chapter:verse).</span>
-<span class="sd">            Column 1 returns the verse text.</span>
+<span class="sd">        </span>
+<span class="sd">        - Column 0 returns the formatted Bible reference (book_chapter:verse).</span>
+<span class="sd">        - Column 1 returns the verse text.</span>
 
 <span class="sd">        Qt.ToolTipRole</span>
-<span class="sd">            Column 1 returns highlighted HTML text if available;</span>
-<span class="sd">            otherwise, the plain verse text is returned.</span>
+
+<span class="sd">        - Column 1 returns highlighted HTML text if available; otherwise, the plain verse text is returned.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            index (QModelIndex):</span>

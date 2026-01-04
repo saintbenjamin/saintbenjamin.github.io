@@ -121,12 +121,12 @@
 <dd class="field-odd"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
 </dd>
 </dl>
-<p>QStyledItemDelegate implementation for keyword highlighting in Qt item views.</p>
-<p>This module defines a delegate that renders cell text using QTextDocument so that:</p>
+<p><cite>QStyledItemDelegate</cite> implementation for keyword highlighting in Qt item views.</p>
+<p>This module defines a delegate that renders cell text using <cite>QTextDocument</cite> so that:</p>
 <ul class="simple">
-<li><p>HTML tags (e.g., &lt;b&gt;) are supported.</p></li>
-<li><p>Newlines are rendered as multi-line content (&lt;br&gt;).</p></li>
-<li><p>Specified keywords are highlighted by wrapping them in red &lt;span&gt; tags.</p></li>
+<li><p>HTML tags (e.g., <code class="docutils literal notranslate"><span class="pre">&lt;b&gt;</span></code>) are supported.</p></li>
+<li><p>Newlines are rendered as multi-line content (<code class="docutils literal notranslate"><span class="pre">&lt;br&gt;</span></code>).</p></li>
+<li><p>Specified keywords are highlighted by wrapping them in red <code class="docutils literal notranslate"><span class="pre">&lt;span&gt;</span></code> tags.</p></li>
 <li><p>Row height can be computed from the HTML-rendered content.</p></li>
 </ul>
 <p>Typical usage:</p>
@@ -139,10 +139,12 @@
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QStyledItemDelegate</span></code></p>
 <p>Custom item delegate that highlights keywords in model text using HTML rendering.</p>
 <p>This delegate converts the cell text into HTML and wraps each keyword occurrence
-with a red-colored &lt;span&gt;. Rendering is done via QTextDocument to support:
-- HTML formatting
-- Multi-line wrapping
-- Accurate sizeHint calculation</p>
+with a red-colored <code class="docutils literal notranslate"><span class="pre">&lt;span&gt;</span></code> . Rendering is done via <cite>QTextDocument</cite> to support:</p>
+<ul class="simple">
+<li><p>HTML formatting</p></li>
+<li><p>Multi-line wrapping</p></li>
+<li><p>Accurate sizeHint calculation</p></li>
+</ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -172,11 +174,13 @@ with a red-colored &lt;span&gt;. Rendering is done via QTextDocument to support:
 <dt class="sig sig-object py" id="controller.utils.keyword_highlight_delegate.KeywordHighlightDelegate.paint">
 <span class="sig-name descname"><span class="pre">paint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">painter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">option</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/keyword_highlight_delegate.html#KeywordHighlightDelegate.paint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.keyword_highlight_delegate.KeywordHighlightDelegate.paint" title="Link to this definition"></a></dt>
 <dd><p>Paint a single cell using HTML rendering, highlighting configured keywords.</p>
-<p>Behavior:
-- Fills the background depending on selection state.
-- Converts the cell text to HTML with keyword highlighting.
-- Uses QTextDocument to render the HTML with wrapping.
-- Draws the document contents with a small padding offset.</p>
+<p>Behavior:</p>
+<ul class="simple">
+<li><p>Fills the background depending on selection state.</p></li>
+<li><p>Converts the cell text to HTML with keyword highlighting.</p></li>
+<li><p>Uses <cite>QTextDocument</cite> to render the HTML with wrapping.</p></li>
+<li><p>Draws the document contents with a small padding offset.</p></li>
+</ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -192,10 +196,41 @@ with a red-colored &lt;span&gt;. Rendering is done via QTextDocument to support:
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="controller.utils.keyword_highlight_delegate.KeywordHighlightDelegate._highlight_keywords">
+<span class="sig-name descname"><span class="pre">_highlight_keywords</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/keyword_highlight_delegate.html#KeywordHighlightDelegate._highlight_keywords"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.keyword_highlight_delegate.KeywordHighlightDelegate._highlight_keywords" title="Link to this definition"></a></dt>
+<dd><p>Convert raw text into HTML with keyword highlighting.</p>
+<p>This method:</p>
+<ul>
+<li><p>Escapes HTML special characters (<code class="docutils literal notranslate"><span class="pre">&amp;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&gt;</span></code>).</p></li>
+<li><p>Converts newline characters to &lt;br&gt;.</p></li>
+<li><p>Wraps each keyword occurrence with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">span</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;color:red&#39;</span><span class="o">&gt;...&lt;/</span><span class="n">span</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This implementation performs simple string replacement and does not use regex or word-boundary matching.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>text</strong> (<em>str</em>) – Original cell text.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>HTML-formatted string with highlighted keywords.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="controller.utils.keyword_highlight_delegate.KeywordHighlightDelegate.sizeHint">
 <span class="sig-name descname"><span class="pre">sizeHint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">option</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/keyword_highlight_delegate.html#KeywordHighlightDelegate.sizeHint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.keyword_highlight_delegate.KeywordHighlightDelegate.sizeHint" title="Link to this definition"></a></dt>
 <dd><p>Return the preferred size for a cell based on HTML-rendered content.</p>
-<p>Computes the document size using QTextDocument with the same width constraints
+<p>Computes the document size using <cite>QTextDocument</cite> with the same width constraints
 used during painting, then adds padding so the content does not touch borders.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>

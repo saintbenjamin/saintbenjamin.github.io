@@ -89,8 +89,8 @@
 <span class="sd">- Slide content is cleared (empty JSON), typically indicating the end of</span>
 <span class="sd">  emergency caption mode</span>
 
-<span class="sd">The watcher is designed to run inside a QThread and communicate with the</span>
-<span class="sd">SlideController via Qt signals only.</span>
+<span class="sd">The watcher is designed to run inside a `QThread` and communicate with the</span>
+<span class="sd">:class:`controller.slide_controller.SlideController` via Qt signals only.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
@@ -109,10 +109,10 @@
 <span class="sd">    changes using the file&#39;s modified timestamp.</span>
 
 <span class="sd">    Signals:</span>
-<span class="sd">        slide_changed(list, int):</span>
+<span class="sd">        ``slide_changed(list, int)``:</span>
 <span class="sd">            Emitted when the slide file is updated with non-empty content.</span>
 <span class="sd">            The second argument represents the initial slide index.</span>
-<span class="sd">        slide_cleared():</span>
+<span class="sd">        ``slide_cleared()``:</span>
 <span class="sd">            Emitted when the slide file becomes empty, typically signaling</span>
 <span class="sd">            the end of emergency caption mode.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -165,10 +165,10 @@
 <span class="sd">        This method runs an infinite polling loop while the watcher is active.</span>
 <span class="sd">        When a file modification is detected:</span>
 
-<span class="sd">        - Emits `slide_changed` if the file contains slide data</span>
-<span class="sd">        - Emits `slide_cleared` if the file is empty</span>
+<span class="sd">        - Emits ``slide_changed`` if the file contains slide data</span>
+<span class="sd">        - Emits ``slide_cleared`` if the file is empty</span>
 
-<span class="sd">        This method is intended to be executed inside a QThread.</span>
+<span class="sd">        This method is intended to be executed inside a `QThread`.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            None</span>

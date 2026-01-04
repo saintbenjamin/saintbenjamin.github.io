@@ -82,14 +82,15 @@
 <span class="sd">Main slide controller module for managing and broadcasting slides in real-time.</span>
 
 <span class="sd">This module provides the GUI entry point and the main controller widget</span>
-<span class="sd">used by the slide controller application. It wires together the PySide6 UI,</span>
+<span class="sd">used by the slide controller application. It wires together the `PySide6 &lt;https://pypi.org/project/PySide6/&gt;`_ UI,</span>
 <span class="sd">file watchers, WebSocket broadcasting, and the emergency verse interruptor.</span>
 
 <span class="sd">Key responsibilities in this module:</span>
 
 <span class="sd">- Ensure the project root is importable (sys.path injection for direct execution)</span>
-<span class="sd">- Define `launch_interruptor()` to start the verse interruptor as a detached process</span>
-<span class="sd">- Define `SlideController`, the main QWidget that:</span>
+<span class="sd">- Define :func:`controller.slide_controller.launch_interruptor` to start the verse interruptor as a detached process</span>
+<span class="sd">- Define :class:`controller.slide_controller.SlideController`, the main `QWidget` that:</span>
+
 <span class="sd">    - loads and displays slide data</span>
 <span class="sd">    - sends slides via WebSocket</span>
 <span class="sd">    - reacts to slide file changes / emergency interruptor clear events</span>
@@ -129,12 +130,12 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Launch the verse interruptor script as a detached background process.</span>
 
-<span class="sd">    This starts `launcher/verse_interruptor.py` using the current Python</span>
-<span class="sd">    interpreter (`sys.executable`) and suppresses stdin/stdout/stderr to</span>
+<span class="sd">    This starts :mod:`controller.helper.verse_interruptor` using the current Python</span>
+<span class="sd">    interpreter (``sys.executable``) and suppresses ``stdin``/``stdout``/``stderr`` to</span>
 <span class="sd">    avoid blocking or cluttering the controller GUI.</span>
 
 <span class="sd">    The interruptor script is expected to watch the emergency verse output</span>
-<span class="sd">    file (e.g., `paths.VERSE_FILE`) and handle its own logic independently.</span>
+<span class="sd">    file (e.g., :data:`core.config.paths.VERSE_FILE`) and handle its own logic independently.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        None</span>
@@ -194,10 +195,11 @@
 <a class="viewcode-back" href="../../controller.slide_controller.html#controller.slide_controller.SlideController.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">slide_file</span><span class="p">,</span> <span class="n">ws_uri</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Initialize the SlideController UI and subsystems.</span>
+<span class="sd">        Initialize the :class:`controller.slide_controller.SlideController` UI and subsystems.</span>
 
 <span class="sd">        This sets up the window, loads slides, connects to the WebSocket server,</span>
 <span class="sd">        builds the UI, and starts background threads for:</span>
+
 <span class="sd">        - Watching slide file changes</span>
 <span class="sd">        - Watching interruptor (emergency verse) clear events</span>
 
@@ -206,7 +208,7 @@
 <span class="sd">                Path to the slide JSON file to load.</span>
 <span class="sd">            ws_uri (str):</span>
 <span class="sd">                WebSocket URI for broadcasting slide data</span>
-<span class="sd">                (e.g., &quot;ws://127.0.0.1:8765/ws&quot;).</span>
+<span class="sd">                (e.g., ``ws://127.0.0.1:8765/ws``).</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            None</span>
@@ -331,6 +333,7 @@
 <span class="sd">        Update the UI label and table selection for the current slide.</span>
 
 <span class="sd">        The label shows:</span>
+
 <span class="sd">        - Current page (1-based)</span>
 <span class="sd">        - Total pages</span>
 <span class="sd">        - A short preview of the first line of the headline</span>
@@ -350,10 +353,10 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Send the current slide to the overlay via WebSocket.</span>
 
-<span class="sd">        If the WebSocket is connected, the slide dict at `self.index` is sent.</span>
+<span class="sd">        If the WebSocket is connected, the slide dict at ``self.index`` is sent.</span>
 <span class="sd">        If not connected, a warning is printed.</span>
 
-<span class="sd">        When not in emergency mode, also updates `self.data.index` so the current</span>
+<span class="sd">        When not in emergency mode, also updates ``self.data.index`` so the current</span>
 <span class="sd">        position can be persisted by the data manager.</span>
 
 <span class="sd">        Returns:</span>
@@ -377,7 +380,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Move to the next slide if one exists.</span>
 
-<span class="sd">        Increments `self.index`, updates the UI label/table highlight,</span>
+<span class="sd">        Increments ``self.index``, updates the UI label/table highlight,</span>
 <span class="sd">        and broadcasts the slide.</span>
 
 <span class="sd">        Returns:</span>
@@ -395,7 +398,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Move to the previous slide if available.</span>
 
-<span class="sd">        Decrements `self.index`, updates the UI label/table highlight,</span>
+<span class="sd">        Decrements ``self.index``, updates the UI label/table highlight,</span>
 <span class="sd">        and broadcasts the slide.</span>
 
 <span class="sd">        Returns:</span>
@@ -430,7 +433,7 @@
     <span class="nd">@Slot</span><span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">on_slide_changed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">slides</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Handle slide file modification events from SlideFileWatcher.</span>
+<span class="sd">        Handle slide file modification events from :class:`controller.utils.slide_file_watcher.SlideFileWatcher`.</span>
 
 <span class="sd">        Replaces the internal slide list and index with the new values,</span>
 <span class="sd">        updates the UI, and broadcasts the current slide.</span>
@@ -452,7 +455,7 @@
     <span class="nd">@Slot</span><span class="p">()</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">on_slide_cleared</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Handle slide file cleared events from SlideFileWatcher.</span>
+<span class="sd">        Handle slide file cleared events from :class:`controller.utils.slide_file_watcher.SlideFileWatcher`.</span>
 
 <span class="sd">        Attempts to restore slides from backup via the data manager.</span>
 <span class="sd">        If restoration fails, falls back to a single blank slide.</span>
@@ -473,10 +476,10 @@
     <span class="nd">@Slot</span><span class="p">()</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">on_interruptor_cleared</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Handle interruptor-cleared events from InterruptorWatcher.</span>
+<span class="sd">        Handle interruptor-cleared events from :class:`controller.utils.interruptor_watcher.InterruptorWatcher`.</span>
 
 <span class="sd">        When the emergency verse file is cleared, this restores the previous slides</span>
-<span class="sd">        (via `on_slide_cleared()`) and exits emergency mode.</span>
+<span class="sd">        (via :meth:`on_slide_cleared`) and exits emergency mode.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            None</span>
@@ -519,7 +522,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Enter emergency mode and generate emergency slides from user input.</span>
 
-<span class="sd">        Saves the current index to `index_backup`, invokes the emergency caption</span>
+<span class="sd">        Saves the current index to ``index_backup``, invokes the emergency caption</span>
 <span class="sd">        handler, and if slides are returned, replaces the current slide list with</span>
 <span class="sd">        the emergency slides starting from index 0.</span>
 
@@ -542,7 +545,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Jump directly to a given slide index.</span>
 
-<span class="sd">        If the index is valid, sets `self.index`, broadcasts the slide,</span>
+<span class="sd">        If the index is valid, sets ``self.index``, broadcasts the slide,</span>
 <span class="sd">        updates the table selection, scrolls it into view, and updates the label.</span>
 
 <span class="sd">        Args:</span>
@@ -626,8 +629,8 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Clear the emergency verse output file and restore normal slides.</span>
 
-<span class="sd">        This writes an empty string to `paths.VERSE_FILE`, clears `paths.SLIDE_FILE`,</span>
-<span class="sd">        then attempts restoration from backup via SlideControllerDataManager.</span>
+<span class="sd">        This writes an empty string to :data:`core.config.paths.VERSE_FILE`, clears :data:`core.config.paths.SLIDE_FILE`,</span>
+<span class="sd">        then attempts restoration from backup via :class:`controller.utils.slide_controller_data_manager.SlideControllerDataManager`.</span>
 
 <span class="sd">        After restoration, rebuilds the table, updates the label, and scrolls</span>
 <span class="sd">        the restored index into view.</span>
@@ -655,9 +658,10 @@
 <a class="viewcode-back" href="../../controller.slide_controller.html#controller.slide_controller.SlideController.rebuild_table">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">rebuild_table</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Rebuild the slide table widget using the current `self.slides`.</span>
+<span class="sd">        Rebuild the slide table widget using the current ``self.slides``.</span>
 
 <span class="sd">        Each row displays:</span>
+
 <span class="sd">        - Page number (1-based)</span>
 <span class="sd">        - Caption</span>
 <span class="sd">        - First line preview of headline (trimmed)</span>
@@ -681,7 +685,7 @@
 <span class="sd">        Gracefully stop background threads and disconnect WebSocket before exit.</span>
 
 <span class="sd">        Stops file watchers, quits threads, waits for them to finish, disconnects</span>
-<span class="sd">        the WebSocket manager, then delegates to QWidget.closeEvent().</span>
+<span class="sd">        the WebSocket manager, then delegates to ``QWidget.closeEvent()``.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            event (QCloseEvent):</span>

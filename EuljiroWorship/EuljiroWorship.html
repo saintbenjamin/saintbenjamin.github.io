@@ -45,7 +45,14 @@
               <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">Modules</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">EuljiroWorship</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">EuljiroWorship</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#EuljiroWorship._project_root"><code class="docutils literal notranslate"><span class="pre">_project_root()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#EuljiroWorship._start_http_server"><code class="docutils literal notranslate"><span class="pre">_start_http_server()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#EuljiroWorship._start_ws_server"><code class="docutils literal notranslate"><span class="pre">_start_ws_server()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#EuljiroWorship._terminate_process"><code class="docutils literal notranslate"><span class="pre">_terminate_process()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#EuljiroWorship._ensure_alive"><code class="docutils literal notranslate"><span class="pre">_ensure_alive()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="controller.html">controller</a></li>
 <li class="toctree-l2"><a class="reference internal" href="core.html">core</a></li>
 <li class="toctree-l2"><a class="reference internal" href="server.html">server</a></li>
@@ -120,6 +127,191 @@ servers required for the browser-based overlay:</p>
 <li><p>Both servers are started as subprocesses. They are terminated on normal Qt exit and also via <code class="docutils literal notranslate"><span class="pre">atexit</span></code> as a fallback.</p></li>
 <li><p>If the server subprocess exits immediately (e.g., port already in use), the launcher raises a <code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code>.</p></li>
 </ul>
+<dl class="py function">
+<dt class="sig sig-object py" id="EuljiroWorship._project_root">
+<span class="sig-prename descclassname"><span class="pre">EuljiroWorship.</span></span><span class="sig-name descname"><span class="pre">_project_root</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/EuljiroWorship.html#_project_root"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EuljiroWorship._project_root" title="Link to this definition"></a></dt>
+<dd><p>Return the project root directory.</p>
+<p>This function assumes that <code class="docutils literal notranslate"><span class="pre">EuljiroWorship.py</span></code> is located at the repository
+root (i.e., the root directory of the project).</p>
+<section id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>pathlib.Path</dt><dd><p>Absolute path to the project root directory.</p>
+</dd>
+</dl>
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>Path</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="EuljiroWorship._start_http_server">
+<span class="sig-prename descclassname"><span class="pre">EuljiroWorship.</span></span><span class="sig-name descname"><span class="pre">_start_http_server</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cwd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8080</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EuljiroWorship.html#_start_http_server"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EuljiroWorship._start_http_server" title="Link to this definition"></a></dt>
+<dd><p>Start a static-file HTTP server as a subprocess.</p>
+<p>Internally, this runs Python’s built-in module:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">http</span><span class="o">.</span><span class="n">server</span> <span class="o">&lt;</span><span class="n">port</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>cwd<span class="classifier">pathlib.Path</span></dt><dd><p>The directory to serve as the HTTP document root (process working directory).</p>
+</dd>
+<dt>port<span class="classifier">int, optional</span></dt><dd><p>TCP port to bind the HTTP server to. Default is <code class="docutils literal notranslate"><span class="pre">8080</span></code>.</p>
+</dd>
+</dl>
+</section>
+<section id="id1">
+<h2>Returns<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>subprocess.Popen</dt><dd><p>A handle to the spawned HTTP server process.</p>
+</dd>
+</dl>
+</section>
+<section id="notes">
+<h2>Notes<a class="headerlink" href="#notes" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">start_new_session=True</span></code> is used to improve shutdown reliability across
+platforms by detaching the child process session.</p></li>
+<li><p>Standard output/error are inherited by default (<code class="docutils literal notranslate"><span class="pre">stdout=None</span></code>, <code class="docutils literal notranslate"><span class="pre">stderr=None</span></code>).</p></li>
+</ul>
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cwd</strong> (<em>Path</em>)</p></li>
+<li><p><strong>port</strong> (<em>int</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>Popen</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="EuljiroWorship._start_ws_server">
+<span class="sig-prename descclassname"><span class="pre">EuljiroWorship.</span></span><span class="sig-name descname"><span class="pre">_start_ws_server</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EuljiroWorship.html#_start_ws_server"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EuljiroWorship._start_ws_server" title="Link to this definition"></a></dt>
+<dd><p>Start the WebSocket server as a subprocess.</p>
+<p>This launches:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">project_root</span><span class="o">&gt;/</span><span class="n">server</span><span class="o">/</span><span class="n">websocket_server</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<section id="id2">
+<h2>Parameters<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>root<span class="classifier">pathlib.Path</span></dt><dd><p>Absolute path to the project root directory.</p>
+</dd>
+</dl>
+</section>
+<section id="id3">
+<h2>Returns<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>subprocess.Popen</dt><dd><p>A handle to the spawned WebSocket server process.</p>
+</dd>
+</dl>
+</section>
+<section id="raises">
+<h2>Raises<a class="headerlink" href="#raises" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>FileNotFoundError</dt><dd><p>If <code class="docutils literal notranslate"><span class="pre">server/websocket_server.py</span></code> does not exist under <code class="docutils literal notranslate"><span class="pre">root</span></code>.</p>
+</dd>
+</dl>
+</section>
+<section id="id4">
+<h2>Notes<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>The process is spawned with its working directory set to the project root.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">start_new_session=True</span></code> is used to improve shutdown reliability across
+platforms.</p></li>
+</ul>
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>root</strong> (<em>Path</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>Popen</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="EuljiroWorship._terminate_process">
+<span class="sig-prename descclassname"><span class="pre">EuljiroWorship.</span></span><span class="sig-name descname"><span class="pre">_terminate_process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EuljiroWorship.html#_terminate_process"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EuljiroWorship._terminate_process" title="Link to this definition"></a></dt>
+<dd><p>Terminate a subprocess gracefully, with a forced kill as fallback.</p>
+<p>This function attempts a soft shutdown first using <code class="docutils literal notranslate"><span class="pre">terminate()</span></code>, then
+waits briefly. If the process does not exit within the timeout, it escalates
+to <code class="docutils literal notranslate"><span class="pre">kill()</span></code>. Any exceptions during shutdown are suppressed intentionally
+(shutdown paths should not crash the main application).</p>
+<section id="id5">
+<h2>Parameters<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>p<span class="classifier">subprocess.Popen</span></dt><dd><p>Subprocess handle to terminate. If the process is already exited, this
+function does nothing.</p>
+</dd>
+</dl>
+</section>
+<section id="id6">
+<h2>Returns<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
+<p>None</p>
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>p</strong> (<em>Popen</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="EuljiroWorship._ensure_alive">
+<span class="sig-prename descclassname"><span class="pre">EuljiroWorship.</span></span><span class="sig-name descname"><span class="pre">_ensure_alive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EuljiroWorship.html#_ensure_alive"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EuljiroWorship._ensure_alive" title="Link to this definition"></a></dt>
+<dd><p>Verify that a freshly spawned subprocess is still running.</p>
+<p>This is a small safety check to catch immediate failures such as:
+- address/port already in use
+- missing dependencies
+- import/runtime errors causing instant exit</p>
+<p>The function waits briefly and then checks the return code via <code class="docutils literal notranslate"><span class="pre">poll()</span></code>.
+If the process has already exited, a <code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code> is raised.</p>
+<section id="id7">
+<h2>Parameters<a class="headerlink" href="#id7" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>p<span class="classifier">subprocess.Popen</span></dt><dd><p>Subprocess handle to validate.</p>
+</dd>
+<dt>name<span class="classifier">str</span></dt><dd><p>Human-readable process name used in the error message.</p>
+</dd>
+</dl>
+</section>
+<section id="id8">
+<h2>Raises<a class="headerlink" href="#id8" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>RuntimeError</dt><dd><p>If the subprocess has already exited.</p>
+</dd>
+</dl>
+</section>
+<section id="id9">
+<h2>Returns<a class="headerlink" href="#id9" title="Link to this heading"></a></h2>
+<p>None</p>
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>p</strong> (<em>Popen</em>)</p></li>
+<li><p><strong>name</strong> (<em>str</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 
 

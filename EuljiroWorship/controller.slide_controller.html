@@ -116,31 +116,31 @@
 </dl>
 <p>Main slide controller module for managing and broadcasting slides in real-time.</p>
 <p>This module provides the GUI entry point and the main controller widget
-used by the slide controller application. It wires together the PySide6 UI,
+used by the slide controller application. It wires together the <a class="reference external" href="https://pypi.org/project/PySide6/">PySide6</a> UI,
 file watchers, WebSocket broadcasting, and the emergency verse interruptor.</p>
 <p>Key responsibilities in this module:</p>
-<ul class="simple">
+<ul>
 <li><p>Ensure the project root is importable (sys.path injection for direct execution)</p></li>
-<li><p>Define <cite>launch_interruptor()</cite> to start the verse interruptor as a detached process</p></li>
-<li><dl class="simple">
-<dt>Define <cite>SlideController</cite>, the main QWidget that:</dt><dd><ul>
+<li><p>Define <a class="reference internal" href="#controller.slide_controller.launch_interruptor" title="controller.slide_controller.launch_interruptor"><code class="xref py py-func docutils literal notranslate"><span class="pre">controller.slide_controller.launch_interruptor()</span></code></a> to start the verse interruptor as a detached process</p></li>
+<li><p>Define <a class="reference internal" href="#controller.slide_controller.SlideController" title="controller.slide_controller.SlideController"><code class="xref py py-class docutils literal notranslate"><span class="pre">controller.slide_controller.SlideController</span></code></a>, the main <cite>QWidget</cite> that:</p>
+<blockquote>
+<div><ul class="simple">
 <li><p>loads and displays slide data</p></li>
 <li><p>sends slides via WebSocket</p></li>
 <li><p>reacts to slide file changes / emergency interruptor clear events</p></li>
 </ul>
-</dd>
-</dl>
+</div></blockquote>
 </li>
 </ul>
 <dl class="py function">
 <dt class="sig sig-object py" id="controller.slide_controller.launch_interruptor">
 <span class="sig-prename descclassname"><span class="pre">controller.slide_controller.</span></span><span class="sig-name descname"><span class="pre">launch_interruptor</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/slide_controller.html#launch_interruptor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.slide_controller.launch_interruptor" title="Link to this definition"></a></dt>
 <dd><p>Launch the verse interruptor script as a detached background process.</p>
-<p>This starts <cite>launcher/verse_interruptor.py</cite> using the current Python
-interpreter (<cite>sys.executable</cite>) and suppresses stdin/stdout/stderr to
+<p>This starts <a class="reference internal" href="controller.helper.verse_interruptor.html#module-controller.helper.verse_interruptor" title="controller.helper.verse_interruptor"><code class="xref py py-mod docutils literal notranslate"><span class="pre">controller.helper.verse_interruptor</span></code></a> using the current Python
+interpreter (<code class="docutils literal notranslate"><span class="pre">sys.executable</span></code>) and suppresses <code class="docutils literal notranslate"><span class="pre">stdin</span></code>/<code class="docutils literal notranslate"><span class="pre">stdout</span></code>/<code class="docutils literal notranslate"><span class="pre">stderr</span></code> to
 avoid blocking or cluttering the controller GUI.</p>
 <p>The interruptor script is expected to watch the emergency verse output
-file (e.g., <cite>paths.VERSE_FILE</cite>) and handle its own logic independently.</p>
+file (e.g., <code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.VERSE_FILE</span></code>) and handle its own logic independently.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>None</strong></p>
@@ -273,17 +273,19 @@ after the interruptor file is cleared.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="controller.slide_controller.SlideController.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slide_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ws_uri</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/slide_controller.html#SlideController.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.slide_controller.SlideController.__init__" title="Link to this definition"></a></dt>
-<dd><p>Initialize the SlideController UI and subsystems.</p>
+<dd><p>Initialize the <a class="reference internal" href="#controller.slide_controller.SlideController" title="controller.slide_controller.SlideController"><code class="xref py py-class docutils literal notranslate"><span class="pre">controller.slide_controller.SlideController</span></code></a> UI and subsystems.</p>
 <p>This sets up the window, loads slides, connects to the WebSocket server,
-builds the UI, and starts background threads for:
-- Watching slide file changes
-- Watching interruptor (emergency verse) clear events</p>
+builds the UI, and starts background threads for:</p>
+<ul class="simple">
+<li><p>Watching slide file changes</p></li>
+<li><p>Watching interruptor (emergency verse) clear events</p></li>
+</ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>slide_file</strong> (<em>str</em>) – Path to the slide JSON file to load.</p></li>
 <li><p><strong>ws_uri</strong> (<em>str</em>) – WebSocket URI for broadcasting slide data
-(e.g., “ws://127.0.0.1:8765/ws”).</p></li>
+(e.g., <code class="docutils literal notranslate"><span class="pre">ws://127.0.0.1:8765/ws</span></code>).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -338,10 +340,12 @@ blank slide at index 0 and writes the updated list back to disk.</p>
 <dt class="sig sig-object py" id="controller.slide_controller.SlideController.update_label">
 <span class="sig-name descname"><span class="pre">update_label</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/slide_controller.html#SlideController.update_label"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.slide_controller.SlideController.update_label" title="Link to this definition"></a></dt>
 <dd><p>Update the UI label and table selection for the current slide.</p>
-<p>The label shows:
-- Current page (1-based)
-- Total pages
-- A short preview of the first line of the headline</p>
+<p>The label shows:</p>
+<ul class="simple">
+<li><p>Current page (1-based)</p></li>
+<li><p>Total pages</p></li>
+<li><p>A short preview of the first line of the headline</p></li>
+</ul>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>None</p>
@@ -353,9 +357,9 @@ blank slide at index 0 and writes the updated list back to disk.</p>
 <dt class="sig sig-object py" id="controller.slide_controller.SlideController.send_current_slide">
 <span class="sig-name descname"><span class="pre">send_current_slide</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/slide_controller.html#SlideController.send_current_slide"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.slide_controller.SlideController.send_current_slide" title="Link to this definition"></a></dt>
 <dd><p>Send the current slide to the overlay via WebSocket.</p>
-<p>If the WebSocket is connected, the slide dict at <cite>self.index</cite> is sent.
+<p>If the WebSocket is connected, the slide dict at <code class="docutils literal notranslate"><span class="pre">self.index</span></code> is sent.
 If not connected, a warning is printed.</p>
-<p>When not in emergency mode, also updates <cite>self.data.index</cite> so the current
+<p>When not in emergency mode, also updates <code class="docutils literal notranslate"><span class="pre">self.data.index</span></code> so the current
 position can be persisted by the data manager.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -368,7 +372,7 @@ position can be persisted by the data manager.</p>
 <dt class="sig sig-object py" id="controller.slide_controller.SlideController.next_slide">
 <span class="sig-name descname"><span class="pre">next_slide</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/slide_controller.html#SlideController.next_slide"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.slide_controller.SlideController.next_slide" title="Link to this definition"></a></dt>
 <dd><p>Move to the next slide if one exists.</p>
-<p>Increments <cite>self.index</cite>, updates the UI label/table highlight,
+<p>Increments <code class="docutils literal notranslate"><span class="pre">self.index</span></code>, updates the UI label/table highlight,
 and broadcasts the slide.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -381,7 +385,7 @@ and broadcasts the slide.</p>
 <dt class="sig sig-object py" id="controller.slide_controller.SlideController.prev_slide">
 <span class="sig-name descname"><span class="pre">prev_slide</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/slide_controller.html#SlideController.prev_slide"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.slide_controller.SlideController.prev_slide" title="Link to this definition"></a></dt>
 <dd><p>Move to the previous slide if available.</p>
-<p>Decrements <cite>self.index</cite>, updates the UI label/table highlight,
+<p>Decrements <code class="docutils literal notranslate"><span class="pre">self.index</span></code>, updates the UI label/table highlight,
 and broadcasts the slide.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -410,7 +414,7 @@ and broadcasts the slide.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="controller.slide_controller.SlideController.on_slide_changed">
 <span class="sig-name descname"><span class="pre">on_slide_changed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slides</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#controller.slide_controller.SlideController.on_slide_changed" title="Link to this definition"></a></dt>
-<dd><p>Handle slide file modification events from SlideFileWatcher.</p>
+<dd><p>Handle slide file modification events from <a class="reference internal" href="controller.utils.slide_file_watcher.html#controller.utils.slide_file_watcher.SlideFileWatcher" title="controller.utils.slide_file_watcher.SlideFileWatcher"><code class="xref py py-class docutils literal notranslate"><span class="pre">controller.utils.slide_file_watcher.SlideFileWatcher</span></code></a>.</p>
 <p>Replaces the internal slide list and index with the new values,
 updates the UI, and broadcasts the current slide.</p>
 <dl class="field-list simple">
@@ -429,7 +433,7 @@ updates the UI, and broadcasts the current slide.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="controller.slide_controller.SlideController.on_slide_cleared">
 <span class="sig-name descname"><span class="pre">on_slide_cleared</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#controller.slide_controller.SlideController.on_slide_cleared" title="Link to this definition"></a></dt>
-<dd><p>Handle slide file cleared events from SlideFileWatcher.</p>
+<dd><p>Handle slide file cleared events from <a class="reference internal" href="controller.utils.slide_file_watcher.html#controller.utils.slide_file_watcher.SlideFileWatcher" title="controller.utils.slide_file_watcher.SlideFileWatcher"><code class="xref py py-class docutils literal notranslate"><span class="pre">controller.utils.slide_file_watcher.SlideFileWatcher</span></code></a>.</p>
 <p>Attempts to restore slides from backup via the data manager.
 If restoration fails, falls back to a single blank slide.</p>
 <dl class="field-list simple">
@@ -442,9 +446,9 @@ If restoration fails, falls back to a single blank slide.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="controller.slide_controller.SlideController.on_interruptor_cleared">
 <span class="sig-name descname"><span class="pre">on_interruptor_cleared</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#controller.slide_controller.SlideController.on_interruptor_cleared" title="Link to this definition"></a></dt>
-<dd><p>Handle interruptor-cleared events from InterruptorWatcher.</p>
+<dd><p>Handle interruptor-cleared events from <a class="reference internal" href="controller.utils.interruptor_watcher.html#controller.utils.interruptor_watcher.InterruptorWatcher" title="controller.utils.interruptor_watcher.InterruptorWatcher"><code class="xref py py-class docutils literal notranslate"><span class="pre">controller.utils.interruptor_watcher.InterruptorWatcher</span></code></a>.</p>
 <p>When the emergency verse file is cleared, this restores the previous slides
-(via <cite>on_slide_cleared()</cite>) and exits emergency mode.</p>
+(via <a class="reference internal" href="#controller.slide_controller.SlideController.on_slide_cleared" title="controller.slide_controller.SlideController.on_slide_cleared"><code class="xref py py-meth docutils literal notranslate"><span class="pre">on_slide_cleared()</span></code></a>) and exits emergency mode.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>None</p>
@@ -477,7 +481,7 @@ If restoration fails, falls back to a single blank slide.</p>
 <dt class="sig sig-object py" id="controller.slide_controller.SlideController.launch_emergency_caption">
 <span class="sig-name descname"><span class="pre">launch_emergency_caption</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/slide_controller.html#SlideController.launch_emergency_caption"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.slide_controller.SlideController.launch_emergency_caption" title="Link to this definition"></a></dt>
 <dd><p>Enter emergency mode and generate emergency slides from user input.</p>
-<p>Saves the current index to <cite>index_backup</cite>, invokes the emergency caption
+<p>Saves the current index to <code class="docutils literal notranslate"><span class="pre">index_backup</span></code>, invokes the emergency caption
 handler, and if slides are returned, replaces the current slide list with
 the emergency slides starting from index 0.</p>
 <dl class="field-list simple">
@@ -491,7 +495,7 @@ the emergency slides starting from index 0.</p>
 <dt class="sig sig-object py" id="controller.slide_controller.SlideController.jump_to_index">
 <span class="sig-name descname"><span class="pre">jump_to_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/slide_controller.html#SlideController.jump_to_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.slide_controller.SlideController.jump_to_index" title="Link to this definition"></a></dt>
 <dd><p>Jump directly to a given slide index.</p>
-<p>If the index is valid, sets <cite>self.index</cite>, broadcasts the slide,
+<p>If the index is valid, sets <code class="docutils literal notranslate"><span class="pre">self.index</span></code>, broadcasts the slide,
 updates the table selection, scrolls it into view, and updates the label.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -542,8 +546,8 @@ If invalid, prints an error message.</p>
 <dt class="sig sig-object py" id="controller.slide_controller.SlideController.clear_emergency_caption">
 <span class="sig-name descname"><span class="pre">clear_emergency_caption</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/slide_controller.html#SlideController.clear_emergency_caption"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.slide_controller.SlideController.clear_emergency_caption" title="Link to this definition"></a></dt>
 <dd><p>Clear the emergency verse output file and restore normal slides.</p>
-<p>This writes an empty string to <cite>paths.VERSE_FILE</cite>, clears <cite>paths.SLIDE_FILE</cite>,
-then attempts restoration from backup via SlideControllerDataManager.</p>
+<p>This writes an empty string to <code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.VERSE_FILE</span></code>, clears <code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.SLIDE_FILE</span></code>,
+then attempts restoration from backup via <a class="reference internal" href="controller.utils.slide_controller_data_manager.html#controller.utils.slide_controller_data_manager.SlideControllerDataManager" title="controller.utils.slide_controller_data_manager.SlideControllerDataManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">controller.utils.slide_controller_data_manager.SlideControllerDataManager</span></code></a>.</p>
 <p>After restoration, rebuilds the table, updates the label, and scrolls
 the restored index into view.</p>
 <dl class="field-list simple">
@@ -556,11 +560,13 @@ the restored index into view.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="controller.slide_controller.SlideController.rebuild_table">
 <span class="sig-name descname"><span class="pre">rebuild_table</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/slide_controller.html#SlideController.rebuild_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.slide_controller.SlideController.rebuild_table" title="Link to this definition"></a></dt>
-<dd><p>Rebuild the slide table widget using the current <cite>self.slides</cite>.</p>
-<p>Each row displays:
-- Page number (1-based)
-- Caption
-- First line preview of headline (trimmed)</p>
+<dd><p>Rebuild the slide table widget using the current <code class="docutils literal notranslate"><span class="pre">self.slides</span></code>.</p>
+<p>Each row displays:</p>
+<ul class="simple">
+<li><p>Page number (1-based)</p></li>
+<li><p>Caption</p></li>
+<li><p>First line preview of headline (trimmed)</p></li>
+</ul>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>None</p>
@@ -573,7 +579,7 @@ the restored index into view.</p>
 <span class="sig-name descname"><span class="pre">closeEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/slide_controller.html#SlideController.closeEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.slide_controller.SlideController.closeEvent" title="Link to this definition"></a></dt>
 <dd><p>Gracefully stop background threads and disconnect WebSocket before exit.</p>
 <p>Stops file watchers, quits threads, waits for them to finish, disconnects
-the WebSocket manager, then delegates to QWidget.closeEvent().</p>
+the WebSocket manager, then delegates to <code class="docutils literal notranslate"><span class="pre">QWidget.closeEvent()</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>event</strong> (<em>QCloseEvent</em>) – Close event object.</p>

@@ -89,7 +89,7 @@
 <span class="sd">- Restoring slides after emergency mode is cleared</span>
 
 <span class="sd">It intentionally contains no UI logic and serves as a thin I/O and state</span>
-<span class="sd">coordination layer for SlideController.</span>
+<span class="sd">coordination layer for :class:`controller.slide_controller.SlideController`.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
@@ -105,6 +105,7 @@
 <span class="sd">    Manages persistent slide data and controller state.</span>
 
 <span class="sd">    This class is responsible for:</span>
+
 <span class="sd">    - Loading slide data from disk</span>
 <span class="sd">    - Keeping track of the current slide index</span>
 <span class="sd">    - Backing up slide data before emergency interruption</span>
@@ -146,8 +147,8 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Load slides from the active slide file into memory.</span>
 
-<span class="sd">        On success, populates `self.slides` with parsed slide dictionaries.</span>
-<span class="sd">        On failure, resets the slide list to an empty list and prints an error.</span>
+<span class="sd">        - On success, populates ``self.slides`` with parsed slide dictionaries.</span>
+<span class="sd">        - On failure, resets the slide list to an empty list and prints an error.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            None</span>
@@ -167,7 +168,8 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a backup copy of the active slide file.</span>
 
-<span class="sd">        Copies `paths.SLIDE_FILE` to `paths.SLIDE_BACKUP_FILE`.</span>
+<span class="sd">        Copies :data:`core.config.paths.SLIDE_FILE` to :data:`core.config.paths.SLIDE_BACKUP_FILE`.</span>
+
 <span class="sd">        This backup is used to restore slides after emergency caption mode.</span>
 
 <span class="sd">        Returns:</span>
@@ -185,12 +187,12 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Restore slide data from the backup file if available.</span>
 
-<span class="sd">        Loads slides from `paths.SLIDE_BACKUP_FILE` into memory.</span>
+<span class="sd">        Loads slides from :data:`core.config.paths.SLIDE_BACKUP_FILE` into memory.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            bool:</span>
-<span class="sd">                True if backup restoration succeeded.</span>
-<span class="sd">                False if no backup exists or restoration failed.</span>
+<span class="sd">                - True if backup restoration succeeded.</span>
+<span class="sd">                - False if no backup exists or restoration failed.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">restored</span> <span class="o">=</span> <span class="kc">False</span>
 
@@ -213,7 +215,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Remove the slide backup file if it exists.</span>
 
-<span class="sd">        Deletes `paths.SLIDE_BACKUP_FILE` from disk to clear stale backup state.</span>
+<span class="sd">        Deletes :data:`core.config.paths.SLIDE_BACKUP_FILE` from disk to clear stale backup state.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            None</span>

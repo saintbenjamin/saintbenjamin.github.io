@@ -121,16 +121,16 @@
 <dd class="field-odd"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
 </dd>
 </dl>
-<p>Watches <cite>verse_output.txt</cite> and emits a Qt signal when the emergency text is cleared.</p>
+<p>Watches <code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.VERSE_FILE</span></code> and emits a Qt signal when the emergency text is cleared.</p>
 <p>This module defines a lightweight polling watcher used by the slide controller.
-It monitors the emergency verse file (<cite>paths.VERSE_FILE</cite>) and detects the state
+It monitors the emergency verse file (<code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.VERSE_FILE</span></code>) and detects the state
 transition from <strong>non-empty</strong> to <strong>empty</strong>. When that transition occurs, it emits
-<cite>InterruptorWatcher.interruptor_cleared</cite>, allowing the controller to restore the
+<code class="docutils literal notranslate"><span class="pre">InterruptorWatcher.interruptor_cleared</span></code>, allowing the controller to restore the
 previous slide session and exit emergency mode.</p>
 <p>Key behavior:</p>
 <ul class="simple">
-<li><p>Polls the verse file at a configurable interval (<cite>poll_interval</cite>)</p></li>
-<li><p>Emits a signal only on the transition: non-empty → empty</p></li>
+<li><p>Polls the verse file at a configurable interval (<code class="docutils literal notranslate"><span class="pre">poll_interval</span></code>)</p></li>
+<li><p>Emits a signal only on the transition: non-empty -&gt; empty</p></li>
 <li><p>Provides a stop mechanism for clean thread shutdown</p></li>
 </ul>
 <dl class="py class">
@@ -139,9 +139,9 @@ previous slide session and exit emergency mode.</p>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QObject</span></code></p>
 <p>Monitors the emergency verse output file and emits a signal when it is cleared.</p>
 <p>This watcher is designed to run inside a <cite>QThread</cite> loop (polling-based).
-It reads <cite>paths.VERSE_FILE</cite> periodically and tracks the last observed content.
+It reads <code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.VERSE_FILE</span></code> periodically and tracks the last observed content.
 When the file transitions from non-empty content to an empty string, it emits
-<cite>interruptor_cleared</cite>.</p>
+<code class="docutils literal notranslate"><span class="pre">interruptor_cleared</span></code>.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="controller.utils.interruptor_watcher.InterruptorWatcher.interruptor_cleared">
 <span class="sig-name descname"><span class="pre">interruptor_cleared</span></span><a class="headerlink" href="#controller.utils.interruptor_watcher.InterruptorWatcher.interruptor_cleared" title="Link to this definition"></a></dt>
@@ -187,10 +187,12 @@ It is intended to be called during controller shutdown.</p>
 <dt class="sig sig-object py" id="controller.utils.interruptor_watcher.InterruptorWatcher.run">
 <span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/interruptor_watcher.html#InterruptorWatcher.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.interruptor_watcher.InterruptorWatcher.run" title="Link to this definition"></a></dt>
 <dd><p>Start monitoring the verse output file.</p>
-<p>This method runs a polling loop while <cite>_running</cite> is True:
-- If the verse file exists, read and strip its content.
-- If the content transitions from non-empty to empty, emit <cite>interruptor_cleared</cite>.
-- Sleep for <cite>poll_interval</cite> seconds between polls.</p>
+<p>This method runs a polling loop while <code class="docutils literal notranslate"><span class="pre">_running</span></code> is True:</p>
+<ul class="simple">
+<li><p>If the verse file exists, read and strip its content.</p></li>
+<li><p>If the content transitions from non-empty to empty, emit <code class="docutils literal notranslate"><span class="pre">interruptor_cleared</span></code>.</p></li>
+<li><p>Sleep for <code class="docutils literal notranslate"><span class="pre">poll_interval</span></code> seconds between polls.</p></li>
+</ul>
 <p class="rubric">Notes</p>
 <ul class="simple">
 <li><p>This is a polling-based watcher (not filesystem event-based).</p></li>
@@ -210,7 +212,7 @@ It is intended to be called during controller shutdown.</p>
 <dt class="sig sig-object py" id="controller.utils.interruptor_watcher.InterruptorWatcher.restore_last_slide">
 <span class="sig-name descname"><span class="pre">restore_last_slide</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/interruptor_watcher.html#InterruptorWatcher.restore_last_slide"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.interruptor_watcher.InterruptorWatcher.restore_last_slide" title="Link to this definition"></a></dt>
 <dd><p>Restore the previous slide state after emergency caption is cleared.</p>
-<p>This is a thin helper that delegates restoration to <cite>SlideControllerDataManager</cite>.
+<p>This is a thin helper that delegates restoration to <a class="reference internal" href="controller.utils.slide_controller_data_manager.html#controller.utils.slide_controller_data_manager.SlideControllerDataManager" title="controller.utils.slide_controller_data_manager.SlideControllerDataManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">controller.utils.slide_controller_data_manager.SlideControllerDataManager</span></code></a>.
 It is not used directly by the watcher loop unless called externally.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>

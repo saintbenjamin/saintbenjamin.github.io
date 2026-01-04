@@ -122,7 +122,7 @@
 </dd>
 </dl>
 <p>WebSocket manager for broadcasting slide data to overlay clients.</p>
-<p>This module provides a thin wrapper around the <cite>websocket-client</cite> library
+<p>This module provides a thin wrapper around the <a class="reference external" href="https://pypi.org/project/websocket-client/">websocket-client</a> library
 to manage a single outbound WebSocket connection used by the slide controller.
 It is responsible for:</p>
 <ul class="simple">
@@ -139,7 +139,7 @@ from the GUI thread with short-lived send operations.</p>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Manages a WebSocket connection for sending slide data to overlay systems.</p>
 <p>This class wraps a single WebSocket connection created via the
-<cite>websocket-client</cite> library and provides simple methods for:</p>
+<a class="reference external" href="https://pypi.org/project/websocket-client/">websocket-client</a> library and provides simple methods for:</p>
 <ul class="simple">
 <li><p>Connecting to a WebSocket server</p></li>
 <li><p>Sending slide dictionaries as JSON</p></li>
@@ -155,7 +155,7 @@ higher-level components are expected to handle retry behavior if needed.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>uri</strong> (<em>str</em>) – WebSocket server URI
-(e.g., “ws://127.0.0.1:8765/ws”).</p>
+(e.g., <code class="docutils literal notranslate"><span class="pre">ws://127.0.0.1:8765/ws</span></code>).</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>None</p>
@@ -181,7 +181,7 @@ On failure, the internal connection state is cleared.</p>
 <span class="sig-name descname"><span class="pre">send</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slide_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/slide_websocket_manager.html#SlideWebSocketManager.send"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.slide_websocket_manager.SlideWebSocketManager.send" title="Link to this definition"></a></dt>
 <dd><p>Send a slide dictionary to the WebSocket server.</p>
 <p>The slide data is serialized to JSON using UTF-8 encoding
-(ensure_ascii=False) before transmission.</p>
+(<code class="docutils literal notranslate"><span class="pre">ensure_ascii=False</span></code>) before transmission.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>slide_dict</strong> (<em>dict</em>) – Dictionary containing slide data to send.</p>

@@ -194,6 +194,8 @@
         <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">verses</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="k">if</span> <span class="n">verses</span> <span class="k">else</span> <span class="p">[]</span></div>
 
 
+<div class="viewcode-block" id="BibleDataLoader._load_json">
+<a class="viewcode-back" href="../../../core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader._load_json">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">_load_json</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Safely load a JSON file and return its contents.</span>
@@ -214,7 +216,8 @@
                 <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[Warning] Failed to load </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="p">{}</span>
+            <span class="k">return</span> <span class="p">{}</span></div>
+
 
 <div class="viewcode-block" id="BibleDataLoader.get_standard_book">
 <a class="viewcode-back" href="../../../core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader.get_standard_book">[docs]</a>

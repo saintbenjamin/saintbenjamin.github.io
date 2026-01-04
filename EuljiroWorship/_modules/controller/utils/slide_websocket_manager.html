@@ -81,7 +81,7 @@
 
 <span class="sd">WebSocket manager for broadcasting slide data to overlay clients.</span>
 
-<span class="sd">This module provides a thin wrapper around the `websocket-client` library</span>
+<span class="sd">This module provides a thin wrapper around the `websocket-client &lt;https://pypi.org/project/websocket-client/&gt;`_ library</span>
 <span class="sd">to manage a single outbound WebSocket connection used by the slide controller.</span>
 <span class="sd">It is responsible for:</span>
 
@@ -103,7 +103,7 @@
 <span class="sd">    Manages a WebSocket connection for sending slide data to overlay systems.</span>
 
 <span class="sd">    This class wraps a single WebSocket connection created via the</span>
-<span class="sd">    `websocket-client` library and provides simple methods for:</span>
+<span class="sd">    `websocket-client &lt;https://pypi.org/project/websocket-client/&gt;`_ library and provides simple methods for:</span>
 
 <span class="sd">    - Connecting to a WebSocket server</span>
 <span class="sd">    - Sending slide dictionaries as JSON</span>
@@ -123,7 +123,7 @@
 <span class="sd">        Args:</span>
 <span class="sd">            uri (str):</span>
 <span class="sd">                WebSocket server URI</span>
-<span class="sd">                (e.g., &quot;ws://127.0.0.1:8765/ws&quot;).</span>
+<span class="sd">                (e.g., ``ws://127.0.0.1:8765/ws``).</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            None</span>
@@ -160,7 +160,7 @@
 <span class="sd">        Send a slide dictionary to the WebSocket server.</span>
 
 <span class="sd">        The slide data is serialized to JSON using UTF-8 encoding</span>
-<span class="sd">        (ensure_ascii=False) before transmission.</span>
+<span class="sd">        (``ensure_ascii=False``) before transmission.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            slide_dict (dict):</span>

@@ -1,0 +1,362 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EuljiroWorship &mdash; EuljiroWorship 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=2709fde1"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            EuljiroWorship
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">Modules</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">EuljiroWorship</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Module code</a></li>
+      <li class="breadcrumb-item active">EuljiroWorship</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for EuljiroWorship</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">:File: EuljiroWorship/EuljiroWorship.py</span>
+<span class="sd">:Author: Benjamin Jaedon Choi - https://github.com/saintbenjamin</span>
+<span class="sd">:Affiliated Church: The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</span>
+<span class="sd">:Address: The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</span>
+<span class="sd">:Telephone: +82-2-2266-3070</span>
+<span class="sd">:E-mail: euljirochurch [at] G.M.A.I.L. (replace [at] with @ and G.M.A.I.L as you understood.)</span>
+<span class="sd">:License: MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</span>
+
+<span class="sd">Main entry point for the EuljiroWorship application.</span>
+
+<span class="sd">This module launches the Qt-based Slide Generator UI and starts the background</span>
+<span class="sd">servers required for the browser-based overlay:</span>
+
+<span class="sd">- An HTTP server (static file hosting; default: ``python -m http.server 8080``)</span>
+<span class="sd">- A WebSocket server (real-time slide updates; launched via ``server/websocket_server.py``)</span>
+
+<span class="sd">Typical usage::</span>
+
+<span class="sd">    python EuljiroWorship.py</span>
+
+<span class="sd">Notes:</span>
+
+<span class="sd">- The HTTP document root is currently set to the project root directory. If your overlay/static files live under a specific subdirectory (e.g. ``web/``), update ``http_cwd`` accordingly.</span>
+<span class="sd">- Both servers are started as subprocesses. They are terminated on normal Qt exit and also via ``atexit`` as a fallback.</span>
+<span class="sd">- If the server subprocess exits immediately (e.g., port already in use), the launcher raises a ``RuntimeError``.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">atexit</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">subprocess</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">QApplication</span>
+
+<span class="c1"># Load font settings from persistent configuration</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">core.generator.settings_generator</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_font_from_settings</span>
+
+<span class="c1"># Import the main Slide Generator UI</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">core.generator.ui.slide_generator</span><span class="w"> </span><span class="kn">import</span> <span class="n">SlideGenerator</span>
+
+<div class="viewcode-block" id="_project_root">
+<a class="viewcode-back" href="../EuljiroWorship.html#EuljiroWorship._project_root">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">_project_root</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return the project root directory.</span>
+
+<span class="sd">    This function assumes that ``EuljiroWorship.py`` is located at the repository</span>
+<span class="sd">    root (i.e., the root directory of the project).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pathlib.Path</span>
+<span class="sd">        Absolute path to the project root directory.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span><span class="o">.</span><span class="n">parent</span></div>
+
+
+<div class="viewcode-block" id="_start_http_server">
+<a class="viewcode-back" href="../EuljiroWorship.html#EuljiroWorship._start_http_server">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">_start_http_server</span><span class="p">(</span><span class="n">cwd</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">port</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">8080</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Start a static-file HTTP server as a subprocess.</span>
+
+<span class="sd">    Internally, this runs Python&#39;s built-in module::</span>
+
+<span class="sd">        python -m http.server &lt;port&gt;</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    cwd : pathlib.Path</span>
+<span class="sd">        The directory to serve as the HTTP document root (process working directory).</span>
+<span class="sd">    port : int, optional</span>
+<span class="sd">        TCP port to bind the HTTP server to. Default is ``8080``.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    subprocess.Popen</span>
+<span class="sd">        A handle to the spawned HTTP server process.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - ``start_new_session=True`` is used to improve shutdown reliability across</span>
+<span class="sd">      platforms by detaching the child process session.</span>
+<span class="sd">    - Standard output/error are inherited by default (``stdout=None``, ``stderr=None``).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="s2">&quot;-m&quot;</span><span class="p">,</span> <span class="s2">&quot;http.server&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">port</span><span class="p">)]</span>
+    <span class="k">return</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span>
+        <span class="n">cmd</span><span class="p">,</span>
+        <span class="n">cwd</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">cwd</span><span class="p">),</span>
+        <span class="n">stdout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">stderr</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">start_new_session</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># Improves shutdown reliability across platforms</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="_start_ws_server">
+<a class="viewcode-back" href="../EuljiroWorship.html#EuljiroWorship._start_ws_server">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">_start_ws_server</span><span class="p">(</span><span class="n">root</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Start the WebSocket server as a subprocess.</span>
+
+<span class="sd">    This launches::</span>
+
+<span class="sd">        &lt;project_root&gt;/server/websocket_server.py</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    root : pathlib.Path</span>
+<span class="sd">        Absolute path to the project root directory.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    subprocess.Popen</span>
+<span class="sd">        A handle to the spawned WebSocket server process.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    FileNotFoundError</span>
+<span class="sd">        If ``server/websocket_server.py`` does not exist under ``root``.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - The process is spawned with its working directory set to the project root.</span>
+<span class="sd">    - ``start_new_session=True`` is used to improve shutdown reliability across</span>
+<span class="sd">      platforms.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ws_path</span> <span class="o">=</span> <span class="n">root</span> <span class="o">/</span> <span class="s2">&quot;server&quot;</span> <span class="o">/</span> <span class="s2">&quot;websocket_server.py&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">ws_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+        <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;WebSocket server not found: </span><span class="si">{</span><span class="n">ws_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">ws_path</span><span class="p">)]</span>
+    <span class="k">return</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span>
+        <span class="n">cmd</span><span class="p">,</span>
+        <span class="n">cwd</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">root</span><span class="p">),</span>
+        <span class="n">stdout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">stderr</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">start_new_session</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># Improves shutdown reliability across platforms</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="_terminate_process">
+<a class="viewcode-back" href="../EuljiroWorship.html#EuljiroWorship._terminate_process">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">_terminate_process</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Terminate a subprocess gracefully, with a forced kill as fallback.</span>
+
+<span class="sd">    This function attempts a soft shutdown first using ``terminate()``, then</span>
+<span class="sd">    waits briefly. If the process does not exit within the timeout, it escalates</span>
+<span class="sd">    to ``kill()``. Any exceptions during shutdown are suppressed intentionally</span>
+<span class="sd">    (shutdown paths should not crash the main application).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    p : subprocess.Popen</span>
+<span class="sd">        Subprocess handle to terminate. If the process is already exited, this</span>
+<span class="sd">        function does nothing.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">p</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">poll</span><span class="p">()</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">terminate</span><span class="p">()</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">p</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mf">2.0</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">TimeoutExpired</span><span class="p">:</span>
+                <span class="n">p</span><span class="o">.</span><span class="n">kill</span><span class="p">()</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="c1"># Intentionally suppress all exceptions during shutdown</span>
+        <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="_ensure_alive">
+<a class="viewcode-back" href="../EuljiroWorship.html#EuljiroWorship._ensure_alive">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">_ensure_alive</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Verify that a freshly spawned subprocess is still running.</span>
+
+<span class="sd">    This is a small safety check to catch immediate failures such as:</span>
+<span class="sd">    - address/port already in use</span>
+<span class="sd">    - missing dependencies</span>
+<span class="sd">    - import/runtime errors causing instant exit</span>
+
+<span class="sd">    The function waits briefly and then checks the return code via ``poll()``.</span>
+<span class="sd">    If the process has already exited, a ``RuntimeError`` is raised.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    p : subprocess.Popen</span>
+<span class="sd">        Subprocess handle to validate.</span>
+<span class="sd">    name : str</span>
+<span class="sd">        Human-readable process name used in the error message.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    RuntimeError</span>
+<span class="sd">        If the subprocess has already exited.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.25</span><span class="p">)</span>
+    <span class="n">rc</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">poll</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">rc</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> exited immediately (return code: </span><span class="si">{</span><span class="n">rc</span><span class="si">}</span><span class="s2">).&quot;</span><span class="p">)</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="n">_project_root</span><span class="p">()</span>
+
+    <span class="c1"># Adjust this if your overlay/static files live under a specific directory.</span>
+    <span class="c1"># For example: http_cwd = root / &quot;web&quot;</span>
+    <span class="n">http_cwd</span> <span class="o">=</span> <span class="n">root</span>
+
+    <span class="n">http_p</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">ws_p</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">http_p</span> <span class="o">=</span> <span class="n">_start_http_server</span><span class="p">(</span><span class="n">http_cwd</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">8080</span><span class="p">)</span>
+        <span class="n">_ensure_alive</span><span class="p">(</span><span class="n">http_p</span><span class="p">,</span> <span class="s2">&quot;http.server&quot;</span><span class="p">)</span>
+
+        <span class="n">ws_p</span> <span class="o">=</span> <span class="n">_start_ws_server</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+        <span class="n">_ensure_alive</span><span class="p">(</span><span class="n">ws_p</span><span class="p">,</span> <span class="s2">&quot;websocket_server&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="n">_terminate_process</span><span class="p">(</span><span class="n">http_p</span><span class="p">)</span>
+        <span class="n">_terminate_process</span><span class="p">(</span><span class="n">ws_p</span><span class="p">)</span>
+        <span class="k">raise</span>
+
+    <span class="c1"># Ensure background servers are terminated when the application exits</span>
+    <span class="n">atexit</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">_terminate_process</span><span class="p">,</span> <span class="n">http_p</span><span class="p">)</span>
+    <span class="n">atexit</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">_terminate_process</span><span class="p">,</span> <span class="n">ws_p</span><span class="p">)</span>
+
+    <span class="c1"># Create the Qt application object</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
+
+    <span class="c1"># Apply a consistent style across platforms</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">setStyle</span><span class="p">(</span><span class="s2">&quot;Fusion&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Apply user-configured font settings globally</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">setFont</span><span class="p">(</span><span class="n">get_font_from_settings</span><span class="p">())</span>
+
+    <span class="c1"># Also terminate servers on normal Qt shutdown</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">aboutToQuit</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">_terminate_process</span><span class="p">(</span><span class="n">http_p</span><span class="p">))</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">aboutToQuit</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">_terminate_process</span><span class="p">(</span><span class="n">ws_p</span><span class="p">))</span>
+
+    <span class="c1"># Instantiate and display the main Slide Generator window</span>
+    <span class="n">generator</span> <span class="o">=</span> <span class="n">SlideGenerator</span><span class="p">()</span>
+    <span class="n">generator</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+    <span class="c1"># Enter Qt event loop and run the application</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">exec</span><span class="p">())</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Benjamin J. Choi.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

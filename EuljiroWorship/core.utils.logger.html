@@ -129,6 +129,22 @@ standard <cite>logging</cite> module, with the following design goals:</p>
 <p>The logger is primarily intended for internal error reporting and
 optional debug tracing, not for verbose application logging.</p>
 <dl class="py function">
+<dt class="sig sig-object py" id="core.utils.logger._ensure_file_handler">
+<span class="sig-prename descclassname"><span class="pre">core.utils.logger.</span></span><span class="sig-name descname"><span class="pre">_ensure_file_handler</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/utils/logger.html#_ensure_file_handler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.utils.logger._ensure_file_handler" title="Link to this definition"></a></dt>
+<dd><p>Ensure that a file handler is attached to the global logger.</p>
+<p>This function lazily initializes a <cite>logging.FileHandler</cite> and
+attaches it to the module-level logger only once.</p>
+<p>The log file is created only when an error or debug message
+is actually emitted, avoiding unnecessary file I/O during
+normal execution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="core.utils.logger.log_error">
 <span class="sig-prename descclassname"><span class="pre">core.utils.logger.</span></span><span class="sig-name descname"><span class="pre">log_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/utils/logger.html#log_error"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.utils.logger.log_error" title="Link to this definition"></a></dt>
 <dd><p>Log an exception as an error with full traceback information.</p>

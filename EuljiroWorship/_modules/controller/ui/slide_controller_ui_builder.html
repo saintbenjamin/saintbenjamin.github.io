@@ -82,7 +82,7 @@
 <span class="sd">Builds the user interface for the slide controller window.</span>
 
 <span class="sd">This module defines a small UI builder class that constructs and wires the</span>
-<span class="sd">widgets used by the SlideController main window. The builder is responsible for</span>
+<span class="sd">widgets used by the :class:`controller.slide_controller.SlideController` main window. The builder is responsible for</span>
 <span class="sd">creating the layout, initializing interactive controls, populating the preview</span>
 <span class="sd">table, and installing event filters for keyboard navigation.</span>
 
@@ -110,28 +110,28 @@
 <a class="viewcode-back" href="../../../controller.ui.slide_controller_ui_builder.html#controller.ui.slide_controller_ui_builder.SlideControllerUIBuilder">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">SlideControllerUIBuilder</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    UI builder for the SlideController main window.</span>
+<span class="sd">    UI builder for the :class:`controller.slide_controller.SlideController` main window.</span>
 
-<span class="sd">    This class encapsulates widget construction so that SlideController can keep</span>
+<span class="sd">    This class encapsulates widget construction so that :class:`controller.slide_controller.SlideController` can keep</span>
 <span class="sd">    its runtime logic separate from UI layout details. The builder creates and</span>
-<span class="sd">    attaches widgets onto the controller instance (self.c), and wires up signals</span>
+<span class="sd">    attaches widgets onto the controller instance (``self.c``), and wires up signals</span>
 <span class="sd">    to the controller&#39;s navigation and emergency-caption handlers.</span>
 
 <span class="sd">    Notes:</span>
 <span class="sd">        - Widgets are attached onto the controller instance as attributes</span>
-<span class="sd">          (e.g., controller.label, controller.table, controller.page_input).</span>
-<span class="sd">        - The builder assumes SlideController already loaded `slides` and `index`.</span>
+<span class="sd">          (e.g., ``controller.label``, ``controller.table``, ``controller.page_input``).</span>
+<span class="sd">        - The builder assumes :class:`controller.slide_controller.SlideController` already loaded ``slides`` and ``index``.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="SlideControllerUIBuilder.__init__">
 <a class="viewcode-back" href="../../../controller.ui.slide_controller_ui_builder.html#controller.ui.slide_controller_ui_builder.SlideControllerUIBuilder.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">controller</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Initialize the UI builder with a SlideController instance.</span>
+<span class="sd">        Initialize the UI builder with a :class:`controller.slide_controller.SlideController` instance.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            controller (QWidget):</span>
-<span class="sd">                The main SlideController instance that owns the window and runtime</span>
+<span class="sd">                The main :class:`controller.slide_controller.SlideController` instance that owns the window and runtime</span>
 <span class="sd">                logic. Widgets created by this builder are assigned as attributes</span>
 <span class="sd">                on this object.</span>
 
@@ -145,9 +145,10 @@
 <a class="viewcode-back" href="../../../controller.ui.slide_controller_ui_builder.html#controller.ui.slide_controller_ui_builder.SlideControllerUIBuilder.build_ui">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">build_ui</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Build and wire the full SlideController UI.</span>
+<span class="sd">        Build and wire the full :class:`controller.slide_controller.SlideController` UI.</span>
 
 <span class="sd">        This method constructs:</span>
+
 <span class="sd">        - Top status label (with elided rendering)</span>
 <span class="sd">        - Emergency caption ON/OFF buttons</span>
 <span class="sd">        - Page navigation row (first/prev/page/next/last)</span>
@@ -155,9 +156,10 @@
 <span class="sd">        - Event filters for global keyboard navigation</span>
 
 <span class="sd">        Side Effects:</span>
-<span class="sd">            - Creates widgets and assigns them onto the controller instance.</span>
-<span class="sd">            - Connects widget signals to controller slots/callbacks.</span>
-<span class="sd">            - Installs event filters on the controller and its table.</span>
+
+<span class="sd">        - Creates widgets and assigns them onto the controller instance.</span>
+<span class="sd">        - Connects widget signals to controller slots/callbacks.</span>
+<span class="sd">        - Installs event filters on the controller and its table.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            None</span>
@@ -255,7 +257,7 @@
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">set_elided_label_text</span><span class="p">(</span><span class="n">label</span><span class="p">:</span> <span class="n">QLabel</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Set right-elided text on a QLabel to fit the current label width.</span>
+<span class="sd">        Set right-elided text on a `QLabel` to fit the current label width.</span>
 
 <span class="sd">        This helper computes an elided string (truncated with an ellipsis) so the</span>
 <span class="sd">        label does not overflow horizontally. Truncation occurs on the right side.</span>

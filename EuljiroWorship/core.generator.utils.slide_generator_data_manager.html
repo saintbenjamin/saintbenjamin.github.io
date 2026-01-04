@@ -220,6 +220,35 @@ is applied where necessary (e.g., anthem caption/choir separation).</p>
 </dl>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.utils.slide_generator_data_manager.SlideGeneratorDataManager._insert_empty_row">
+<span class="sig-name descname"><span class="pre">_insert_empty_row</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/utils/slide_generator_data_manager.html#SlideGeneratorDataManager._insert_empty_row"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.utils.slide_generator_data_manager.SlideGeneratorDataManager._insert_empty_row" title="Link to this definition"></a></dt>
+<dd><p>Insert a new empty slide row into the generator table.</p>
+<p>The row includes:
+- A style selection combo box
+- Empty caption and headline cells</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.utils.slide_generator_data_manager.SlideGeneratorDataManager._split_verse_headline">
+<span class="sig-name descname"><span class="pre">_split_verse_headline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/utils/slide_generator_data_manager.html#SlideGeneratorDataManager._split_verse_headline"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.utils.slide_generator_data_manager.SlideGeneratorDataManager._split_verse_headline" title="Link to this definition"></a></dt>
+<dd><p>Reformat concatenated Bible verse text into a readable multi-line form.</p>
+<p>If multiple verse references are detected, this method splits the text
+so that each reference and its verse body are separated by blank lines.
+Single-verse text is returned unchanged.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>text</strong> (<em>str</em>) – Raw verse headline string.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Reformatted verse text suitable for display in the table.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 </section>

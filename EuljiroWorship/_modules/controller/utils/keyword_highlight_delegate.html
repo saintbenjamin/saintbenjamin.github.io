@@ -79,13 +79,13 @@
 <span class="sd">:E-mail: euljirochurch [at] G.M.A.I.L. (replace [at] with @ and G.M.A.I.L as you understood.)</span>
 <span class="sd">:License: MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</span>
 
-<span class="sd">QStyledItemDelegate implementation for keyword highlighting in Qt item views.</span>
+<span class="sd">`QStyledItemDelegate` implementation for keyword highlighting in Qt item views.</span>
 
-<span class="sd">This module defines a delegate that renders cell text using QTextDocument so that:</span>
+<span class="sd">This module defines a delegate that renders cell text using `QTextDocument` so that:</span>
 
-<span class="sd">- HTML tags (e.g., &lt;b&gt;) are supported.</span>
-<span class="sd">- Newlines are rendered as multi-line content (&lt;br&gt;).</span>
-<span class="sd">- Specified keywords are highlighted by wrapping them in red &lt;span&gt; tags.</span>
+<span class="sd">- HTML tags (e.g., ``&lt;b&gt;``) are supported.</span>
+<span class="sd">- Newlines are rendered as multi-line content (``&lt;br&gt;``).</span>
+<span class="sd">- Specified keywords are highlighted by wrapping them in red ``&lt;span&gt;`` tags.</span>
 <span class="sd">- Row height can be computed from the HTML-rendered content.</span>
 
 <span class="sd">Typical usage::</span>
@@ -104,7 +104,8 @@
 <span class="sd">    Custom item delegate that highlights keywords in model text using HTML rendering.</span>
 
 <span class="sd">    This delegate converts the cell text into HTML and wraps each keyword occurrence</span>
-<span class="sd">    with a red-colored &lt;span&gt;. Rendering is done via QTextDocument to support:</span>
+<span class="sd">    with a red-colored ``&lt;span&gt;`` . Rendering is done via `QTextDocument` to support:</span>
+<span class="sd">    </span>
 <span class="sd">    - HTML formatting</span>
 <span class="sd">    - Multi-line wrapping</span>
 <span class="sd">    - Accurate sizeHint calculation</span>
@@ -142,9 +143,10 @@
 <span class="sd">        Paint a single cell using HTML rendering, highlighting configured keywords.</span>
 
 <span class="sd">        Behavior:</span>
+
 <span class="sd">        - Fills the background depending on selection state.</span>
 <span class="sd">        - Converts the cell text to HTML with keyword highlighting.</span>
-<span class="sd">        - Uses QTextDocument to render the HTML with wrapping.</span>
+<span class="sd">        - Uses `QTextDocument` to render the HTML with wrapping.</span>
 <span class="sd">        - Draws the document contents with a small padding offset.</span>
 
 <span class="sd">        Args:</span>
@@ -186,19 +188,22 @@
         <span class="n">painter</span><span class="o">.</span><span class="n">restore</span><span class="p">()</span></div>
 
 
+<div class="viewcode-block" id="KeywordHighlightDelegate._highlight_keywords">
+<a class="viewcode-back" href="../../../controller.utils.keyword_highlight_delegate.html#controller.utils.keyword_highlight_delegate.KeywordHighlightDelegate._highlight_keywords">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">_highlight_keywords</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Convert raw text into HTML with keyword highlighting.</span>
 
 <span class="sd">        This method:</span>
-<span class="sd">        - Escapes HTML special characters (&amp;, &lt;, &gt;).</span>
+
+<span class="sd">        - Escapes HTML special characters (``&amp;``, ``&lt;``, ``&gt;``).</span>
 <span class="sd">        - Converts newline characters to &lt;br&gt;.</span>
-<span class="sd">        - Wraps each keyword occurrence with:</span>
+<span class="sd">        - Wraps each keyword occurrence with::</span>
+
 <span class="sd">            &lt;span style=&#39;color:red&#39;&gt;...&lt;/span&gt;</span>
 
 <span class="sd">        Note:</span>
-<span class="sd">            This implementation performs simple string replacement and does not</span>
-<span class="sd">            use regex or word-boundary matching.</span>
+<span class="sd">            This implementation performs simple string replacement and does not use regex or word-boundary matching.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            text (str):</span>
@@ -223,7 +228,8 @@
                 <span class="n">escaped_kw</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;&lt;span style=&#39;color:red&#39;&gt;</span><span class="si">{</span><span class="n">escaped_kw</span><span class="si">}</span><span class="s2">&lt;/span&gt;&quot;</span>
             <span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">escaped_text</span>
+        <span class="k">return</span> <span class="n">escaped_text</span></div>
+
 
 <div class="viewcode-block" id="KeywordHighlightDelegate.sizeHint">
 <a class="viewcode-back" href="../../../controller.utils.keyword_highlight_delegate.html#controller.utils.keyword_highlight_delegate.KeywordHighlightDelegate.sizeHint">[docs]</a>
@@ -231,7 +237,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return the preferred size for a cell based on HTML-rendered content.</span>
 
-<span class="sd">        Computes the document size using QTextDocument with the same width constraints</span>
+<span class="sd">        Computes the document size using `QTextDocument` with the same width constraints</span>
 <span class="sd">        used during painting, then adds padding so the content does not touch borders.</span>
 
 <span class="sd">        Args:</span>

@@ -130,8 +130,8 @@ Qt signals when:</p>
 <li><p>Slide content is cleared (empty JSON), typically indicating the end of
 emergency caption mode</p></li>
 </ul>
-<p>The watcher is designed to run inside a QThread and communicate with the
-SlideController via Qt signals only.</p>
+<p>The watcher is designed to run inside a <cite>QThread</cite> and communicate with the
+<a class="reference internal" href="controller.slide_controller.html#controller.slide_controller.SlideController" title="controller.slide_controller.SlideController"><code class="xref py py-class docutils literal notranslate"><span class="pre">controller.slide_controller.SlideController</span></code></a> via Qt signals only.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="controller.utils.slide_file_watcher.SlideFileWatcher">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">controller.utils.slide_file_watcher.</span></span><span class="sig-name descname"><span class="pre">SlideFileWatcher</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/slide_file_watcher.html#SlideFileWatcher"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.slide_file_watcher.SlideFileWatcher" title="Link to this definition"></a></dt>
@@ -141,10 +141,10 @@ SlideController via Qt signals only.</p>
 changes using the file’s modified timestamp.</p>
 <dl class="simple">
 <dt>Signals:</dt><dd><dl class="simple">
-<dt>slide_changed(list, int):</dt><dd><p>Emitted when the slide file is updated with non-empty content.
+<dt><code class="docutils literal notranslate"><span class="pre">slide_changed(list,</span> <span class="pre">int)</span></code>:</dt><dd><p>Emitted when the slide file is updated with non-empty content.
 The second argument represents the initial slide index.</p>
 </dd>
-<dt>slide_cleared():</dt><dd><p>Emitted when the slide file becomes empty, typically signaling
+<dt><code class="docutils literal notranslate"><span class="pre">slide_cleared()</span></code>:</dt><dd><p>Emitted when the slide file becomes empty, typically signaling
 the end of emergency caption mode.</p>
 </dd>
 </dl>
@@ -192,10 +192,10 @@ the end of emergency caption mode.</p>
 <p>This method runs an infinite polling loop while the watcher is active.
 When a file modification is detected:</p>
 <ul class="simple">
-<li><p>Emits <cite>slide_changed</cite> if the file contains slide data</p></li>
-<li><p>Emits <cite>slide_cleared</cite> if the file is empty</p></li>
+<li><p>Emits <code class="docutils literal notranslate"><span class="pre">slide_changed</span></code> if the file contains slide data</p></li>
+<li><p>Emits <code class="docutils literal notranslate"><span class="pre">slide_cleared</span></code> if the file is empty</p></li>
 </ul>
-<p>This method is intended to be executed inside a QThread.</p>
+<p>This method is intended to be executed inside a <cite>QThread</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>None</p>

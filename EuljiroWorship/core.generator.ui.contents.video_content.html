@@ -185,6 +185,17 @@ a video file, and a video preview area. Registers the input fields with
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.video_content.VideoContent._init_player">
+<span class="sig-name descname"><span class="pre">_init_player</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/video_content.html#VideoContent._init_player"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.video_content.VideoContent._init_player" title="Link to this definition"></a></dt>
+<dd><p>Initialize QMediaPlayer for in-widget preview.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="core.generator.ui.contents.video_content.VideoContent.select_video">
 <span class="sig-name descname"><span class="pre">select_video</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/video_content.html#VideoContent.select_video"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.video_content.VideoContent.select_video" title="Link to this definition"></a></dt>
 <dd><p>Prompt the user to select a video file and register it for slide use.</p>
@@ -215,6 +226,35 @@ If the file already exists at the destination, it is not copied again.</p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>OSError</strong> – If the file cannot be copied or the destination directory cannot be created.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.video_content.VideoContent._load_preview_from_absolute_path">
+<span class="sig-name descname"><span class="pre">_load_preview_from_absolute_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">abs_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/video_content.html#VideoContent._load_preview_from_absolute_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.video_content.VideoContent._load_preview_from_absolute_path" title="Link to this definition"></a></dt>
+<dd><p>Load preview video into QMediaPlayer from an absolute file path.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>abs_path</strong> (<em>str</em>) – Absolute file path.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.contents.video_content.VideoContent._load_preview_from_relative_path">
+<span class="sig-name descname"><span class="pre">_load_preview_from_relative_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rel_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/video_content.html#VideoContent._load_preview_from_relative_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.video_content.VideoContent._load_preview_from_relative_path" title="Link to this definition"></a></dt>
+<dd><p>Load preview video into QMediaPlayer from a relative path like “img/foo.mp4”.</p>
+<p>This resolves it against “./html/” to match the copy destination.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>rel_path</strong> (<em>str</em>) – Relative path stored in slide data.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>

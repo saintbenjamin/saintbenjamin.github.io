@@ -121,11 +121,11 @@
 <dd class="field-odd"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
 </dd>
 </dl>
-<p>Lightweight QAbstractTableModel for displaying Bible keyword search results.</p>
+<p>Lightweight <cite>QAbstractTableModel</cite> for displaying Bible keyword search results.</p>
 <p>This module defines a minimal table model optimized for keyword search output:</p>
 <ul class="simple">
 <li><p>Two-column layout: Bible reference and verse text</p></li>
-<li><p>Designed for read-only display in QTableView</p></li>
+<li><p>Designed for read-only display in <cite>QTableView</cite></p></li>
 <li><p>Supports tooltip display of highlighted (HTML-formatted) verse text</p></li>
 <li><p>Uses standard book name mapping for localized display</p></li>
 </ul>
@@ -147,21 +147,36 @@ replacement when running new keyword searches.</p>
 <li><p>Optimized for rapid recreation on each search</p></li>
 <li><p>Tooltip role is used to expose highlighted (HTML) text for delegates</p></li>
 </ul>
-<p>Attributes:</p>
-<dl>
-<dt>results (list[dict]):</dt><dd><p>List of search result dictionaries.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="controller.utils.keyword_result_model_light.KeywordResultTableModelLight.results">
+<span class="sig-name descname"><span class="pre">results</span></span><a class="headerlink" href="#controller.utils.keyword_result_model_light.KeywordResultTableModelLight.results" title="Link to this definition"></a></dt>
+<dd><p>List of search result dictionaries.</p>
 <p>Each entry is expected to contain:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">book</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">chapter</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">verse</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">text</span></code></p></li>
-<li><p>optional <code class="docutils literal notranslate"><span class="pre">highlighted</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">highlighted</span></code> (optional)</p></li>
 </ul>
-</dd>
-<dt>book_names (dict[str, str]):</dt><dd><p>Mapping from internal book IDs to localized (Korean) book names.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[dict]</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="controller.utils.keyword_result_model_light.KeywordResultTableModelLight.book_names">
+<span class="sig-name descname"><span class="pre">book_names</span></span><a class="headerlink" href="#controller.utils.keyword_result_model_light.KeywordResultTableModelLight.book_names" title="Link to this definition"></a></dt>
+<dd><p>Mapping from internal book IDs to localized (Korean) book names.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict[str, str]</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="controller.utils.keyword_result_model_light.KeywordResultTableModelLight.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/keyword_result_model_light.html#KeywordResultTableModelLight.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.keyword_result_model_light.KeywordResultTableModelLight.__init__" title="Link to this definition"></a></dt>
@@ -190,7 +205,7 @@ display.</p>
 <dt class="sig sig-object py" id="controller.utils.keyword_result_model_light.KeywordResultTableModelLight.load_book_names">
 <span class="sig-name descname"><span class="pre">load_book_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/keyword_result_model_light.html#KeywordResultTableModelLight.load_book_names"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.keyword_result_model_light.KeywordResultTableModelLight.load_book_names" title="Link to this definition"></a></dt>
 <dd><p>Load localized Bible book names from the standard book definition file.</p>
-<p>Reads the JSON file defined by paths.STANDARD_BOOK_FILE and extracts
+<p>Reads the JSON file defined by <code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.STANDARD_BOOK_FILE</span></code> and extracts
 Korean book names for display in the reference column.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -224,9 +239,11 @@ Returns an empty dictionary if loading fails.</p>
 <dt class="sig sig-object py" id="controller.utils.keyword_result_model_light.KeywordResultTableModelLight.columnCount">
 <span class="sig-name descname"><span class="pre">columnCount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">PySide6.QtCore.QModelIndex</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/keyword_result_model_light.html#KeywordResultTableModelLight.columnCount"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.keyword_result_model_light.KeywordResultTableModelLight.columnCount" title="Link to this definition"></a></dt>
 <dd><p>Return the number of columns in the model.</p>
-<p>This model always exposes exactly two columns:
-- Reference
-- Verse text</p>
+<p>This model always exposes exactly two columns:</p>
+<ul class="simple">
+<li><p>Reference</p></li>
+<li><p>Verse text</p></li>
+</ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>parent</strong> (<em>QModelIndex</em>) – Unused parent index (required by Qt interface).</p>
@@ -245,14 +262,15 @@ Returns an empty dictionary if loading fails.</p>
 <span class="sig-name descname"><span class="pre">data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">role</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">PySide6.QtCore.Qt.DisplayRole</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/keyword_result_model_light.html#KeywordResultTableModelLight.data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.keyword_result_model_light.KeywordResultTableModelLight.data" title="Link to this definition"></a></dt>
 <dd><p>Return data for the given index and role.</p>
 <p>Supported roles are:</p>
-<dl class="simple">
-<dt>Qt.DisplayRole</dt><dd><p>Column 0 returns the formatted Bible reference (book chapter:verse).
-Column 1 returns the verse text.</p>
-</dd>
-<dt>Qt.ToolTipRole</dt><dd><p>Column 1 returns highlighted HTML text if available;
-otherwise, the plain verse text is returned.</p>
-</dd>
-</dl>
+<p>Qt.DisplayRole</p>
+<ul class="simple">
+<li><p>Column 0 returns the formatted Bible reference (book_chapter:verse).</p></li>
+<li><p>Column 1 returns the verse text.</p></li>
+</ul>
+<p>Qt.ToolTipRole</p>
+<ul class="simple">
+<li><p>Column 1 returns highlighted HTML text if available; otherwise, the plain verse text is returned.</p></li>
+</ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">

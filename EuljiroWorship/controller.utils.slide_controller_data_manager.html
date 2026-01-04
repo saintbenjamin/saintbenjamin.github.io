@@ -130,17 +130,19 @@
 <li><p>Restoring slides after emergency mode is cleared</p></li>
 </ul>
 <p>It intentionally contains no UI logic and serves as a thin I/O and state
-coordination layer for SlideController.</p>
+coordination layer for <a class="reference internal" href="controller.slide_controller.html#controller.slide_controller.SlideController" title="controller.slide_controller.SlideController"><code class="xref py py-class docutils literal notranslate"><span class="pre">controller.slide_controller.SlideController</span></code></a>.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="controller.utils.slide_controller_data_manager.SlideControllerDataManager">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">controller.utils.slide_controller_data_manager.</span></span><span class="sig-name descname"><span class="pre">SlideControllerDataManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slide_file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/slide_controller_data_manager.html#SlideControllerDataManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.slide_controller_data_manager.SlideControllerDataManager" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Manages persistent slide data and controller state.</p>
-<p>This class is responsible for:
-- Loading slide data from disk
-- Keeping track of the current slide index
-- Backing up slide data before emergency interruption
-- Restoring slide data after emergency mode exits</p>
+<p>This class is responsible for:</p>
+<ul class="simple">
+<li><p>Loading slide data from disk</p></li>
+<li><p>Keeping track of the current slide index</p></li>
+<li><p>Backing up slide data before emergency interruption</p></li>
+<li><p>Restoring slide data after emergency mode exits</p></li>
+</ul>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="controller.utils.slide_controller_data_manager.SlideControllerDataManager.slide_file">
 <span class="sig-name descname"><span class="pre">slide_file</span></span><a class="headerlink" href="#controller.utils.slide_controller_data_manager.SlideControllerDataManager.slide_file" title="Link to this definition"></a></dt>
@@ -203,8 +205,10 @@ coordination layer for SlideController.</p>
 <dt class="sig sig-object py" id="controller.utils.slide_controller_data_manager.SlideControllerDataManager.load_slides">
 <span class="sig-name descname"><span class="pre">load_slides</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/slide_controller_data_manager.html#SlideControllerDataManager.load_slides"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.slide_controller_data_manager.SlideControllerDataManager.load_slides" title="Link to this definition"></a></dt>
 <dd><p>Load slides from the active slide file into memory.</p>
-<p>On success, populates <cite>self.slides</cite> with parsed slide dictionaries.
-On failure, resets the slide list to an empty list and prints an error.</p>
+<ul class="simple">
+<li><p>On success, populates <code class="docutils literal notranslate"><span class="pre">self.slides</span></code> with parsed slide dictionaries.</p></li>
+<li><p>On failure, resets the slide list to an empty list and prints an error.</p></li>
+</ul>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>None</p>
@@ -216,8 +220,8 @@ On failure, resets the slide list to an empty list and prints an error.</p>
 <dt class="sig sig-object py" id="controller.utils.slide_controller_data_manager.SlideControllerDataManager.backup_slides">
 <span class="sig-name descname"><span class="pre">backup_slides</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/slide_controller_data_manager.html#SlideControllerDataManager.backup_slides"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.slide_controller_data_manager.SlideControllerDataManager.backup_slides" title="Link to this definition"></a></dt>
 <dd><p>Create a backup copy of the active slide file.</p>
-<p>Copies <cite>paths.SLIDE_FILE</cite> to <cite>paths.SLIDE_BACKUP_FILE</cite>.
-This backup is used to restore slides after emergency caption mode.</p>
+<p>Copies <code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.SLIDE_FILE</span></code> to <code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.SLIDE_BACKUP_FILE</span></code>.</p>
+<p>This backup is used to restore slides after emergency caption mode.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>None</p>
@@ -229,11 +233,14 @@ This backup is used to restore slides after emergency caption mode.</p>
 <dt class="sig sig-object py" id="controller.utils.slide_controller_data_manager.SlideControllerDataManager.restore_from_backup">
 <span class="sig-name descname"><span class="pre">restore_from_backup</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/slide_controller_data_manager.html#SlideControllerDataManager.restore_from_backup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.slide_controller_data_manager.SlideControllerDataManager.restore_from_backup" title="Link to this definition"></a></dt>
 <dd><p>Restore slide data from the backup file if available.</p>
-<p>Loads slides from <cite>paths.SLIDE_BACKUP_FILE</cite> into memory.</p>
+<p>Loads slides from <code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.SLIDE_BACKUP_FILE</span></code> into memory.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>True if backup restoration succeeded.
-False if no backup exists or restoration failed.</p>
+<dd class="field-odd"><p><ul class="simple">
+<li><p>True if backup restoration succeeded.</p></li>
+<li><p>False if no backup exists or restoration failed.</p></li>
+</ul>
+</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>bool</p>
@@ -245,7 +252,7 @@ False if no backup exists or restoration failed.</p>
 <dt class="sig sig-object py" id="controller.utils.slide_controller_data_manager.SlideControllerDataManager.clear_backups">
 <span class="sig-name descname"><span class="pre">clear_backups</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/slide_controller_data_manager.html#SlideControllerDataManager.clear_backups"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.slide_controller_data_manager.SlideControllerDataManager.clear_backups" title="Link to this definition"></a></dt>
 <dd><p>Remove the slide backup file if it exists.</p>
-<p>Deletes <cite>paths.SLIDE_BACKUP_FILE</cite> from disk to clear stale backup state.</p>
+<p>Deletes <code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.SLIDE_BACKUP_FILE</span></code> from disk to clear stale backup state.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>None</p>

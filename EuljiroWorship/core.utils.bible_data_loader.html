@@ -199,6 +199,25 @@ text for the specified version.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="core.utils.bible_data_loader.BibleDataLoader._load_json">
+<span class="sig-name descname"><span class="pre">_load_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/utils/bible_data_loader.html#BibleDataLoader._load_json"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.utils.bible_data_loader.BibleDataLoader._load_json" title="Link to this definition"></a></dt>
+<dd><p>Safely load a JSON file and return its contents.</p>
+<p>If loading fails, an empty dictionary is returned and a warning
+is printed to the console.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file_path</strong> (<em>str</em>) – Absolute path to the JSON file.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Parsed JSON content, or an empty dict on failure.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="core.utils.bible_data_loader.BibleDataLoader.get_standard_book">
 <span class="sig-name descname"><span class="pre">get_standard_book</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">book_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lang_code</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/utils/bible_data_loader.html#BibleDataLoader.get_standard_book"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.utils.bible_data_loader.BibleDataLoader.get_standard_book" title="Link to this definition"></a></dt>
 <dd><p>Return the localized canonical name of a Bible book.</p>

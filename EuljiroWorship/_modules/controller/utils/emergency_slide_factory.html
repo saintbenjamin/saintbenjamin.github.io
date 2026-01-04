@@ -81,12 +81,12 @@
 
 <span class="sd">Generates slide dictionaries for emergency captions.</span>
 
-<span class="sd">This module defines ``EmergencySlideFactory``, a utility that builds slide payloads</span>
+<span class="sd">This module defines :class:`controller.utils.emergency_slide_factory.EmergencySlideFactory`, a utility that builds slide payloads</span>
 <span class="sd">consumable by the slide controller / overlay pipeline.</span>
 
 <span class="sd">Supported inputs:</span>
 
-<span class="sd">- Bible references (parsed by ``core.utils.bible_parser.parse_reference``)</span>
+<span class="sd">- Bible references (parsed by :func:`core.utils.bible_parser.parse_reference`)</span>
 <span class="sd">- Manual fallback captions and messages</span>
 <span class="sd">- Preset responsive readings (교독문) loaded from JSON files</span>
 <span class="sd">- Preset hymns loaded from JSON files</span>
@@ -97,9 +97,9 @@
 
 <span class="sd">Notes:</span>
 
-<span class="sd">- Bible verse text is wrapped into smaller chunks (currently ``width=50``) to avoid</span>
+<span class="sd">- Bible verse text is wrapped into smaller chunks (currently ``width=60``) to avoid</span>
 <span class="sd">  overly long single-slide lines.</span>
-<span class="sd">- Version display aliases are loaded from ``paths.ALIASES_VERSION_FILE``.</span>
+<span class="sd">- Version display aliases are loaded from :data:`core.config.paths.ALIASES_VERSION_FILE`.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
@@ -120,14 +120,13 @@
 
 <span class="sd">    Primary responsibilities:</span>
 
-<span class="sd">    - Detect whether the first line is a Bible reference via ``parse_reference()``</span>
-<span class="sd">    - If a reference is valid, retrieve verses using ``BibleDataLoader``</span>
-<span class="sd">    - Wrap long verse text into multiple slides using ``textwrap.wrap``</span>
+<span class="sd">    - Detect whether the first line is a Bible reference via :func:`core.utils.bible_parser.parse_reference`</span>
+<span class="sd">    - If a reference is valid, retrieve verses using :class:`core.utils.bible_data_loader.BibleDataLoader`</span>
+<span class="sd">    - Wrap long verse text into multiple slides using `textwrap.wrap &lt;https://docs.python.org/3/library/textwrap.html#textwrap.wrap&gt;`_</span>
 <span class="sd">    - If not a reference, build a fallback &quot;manual&quot; slide payload</span>
 <span class="sd">    - Load preset materials:</span>
-
-<span class="sd">    - Responsive readings (respo) from JSON</span>
-<span class="sd">    - Hymns from JSON</span>
+<span class="sd">        - Responsive readings (&quot;respo&quot;) from JSON</span>
+<span class="sd">        - Hymns from JSON</span>
 
 <span class="sd">    Slide dict schema::</span>
 
@@ -144,12 +143,12 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize the factory.</span>
 
-<span class="sd">        Loads Bible version display aliases from `paths.ALIASES_VERSION_FILE` and</span>
-<span class="sd">        prepares a `BibleDataLoader` instance (either the provided one or a default).</span>
+<span class="sd">        Loads Bible version display aliases from :data:`core.config.paths.ALIASES_VERSION_FILE` and</span>
+<span class="sd">        prepares a :class:`core.utils.bible_data_loader.BibleDataLoader` instance (either the provided one or a default).</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            bible_loader (BibleDataLoader | None):</span>
-<span class="sd">                Optional custom Bible loader. If None, a default `BibleDataLoader()`</span>
+<span class="sd">                Optional custom Bible loader. If None, a default ``BibleDataLoader()``</span>
 <span class="sd">                is created and used.</span>
 
 <span class="sd">        Returns:</span>
@@ -167,12 +166,10 @@
 <span class="sd">        Create emergency slides from a pair of user input lines.</span>
 
 <span class="sd">        Behavior:</span>
-<span class="sd">        - If `line1` is parsed as a Bible reference (e.g., &quot;요 3:16&quot;, &quot;요한복음 3:16&quot;),</span>
-<span class="sd">        this method retrieves the verse text and returns verse-style slides.</span>
-<span class="sd">        - If the reference represents a full chapter request (verse_range like (1, -1)),</span>
-<span class="sd">        it expands the range to the chapter&#39;s maximum verse count when possible.</span>
-<span class="sd">        - If `line1` is NOT a valid reference, it falls back to a single manual slide</span>
-<span class="sd">        where `line1` becomes the caption and `line2` becomes the headline.</span>
+
+<span class="sd">        - If ``line1`` is parsed as a Bible reference (e.g., &quot;요 3:16&quot;, &quot;요한복음 3:16&quot;), this method retrieves the verse text and returns verse-style slides.</span>
+<span class="sd">        - If the reference represents a full chapter request (``verse_range`` like ``(1, -1)``), it expands the range to the chapter&#39;s maximum verse count when possible.</span>
+<span class="sd">        - If ``line1`` is NOT a valid reference, it falls back to a single manual slide where ``line1`` becomes the caption and ``line2`` becomes the headline.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            line1 (str):</span>
@@ -227,11 +224,11 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Build verse-style slides for the given Bible location and verse range.</span>
 
-<span class="sd">        This method attempts to retrieve verse text using `BibleDataLoader.get_verse()`.</span>
-<span class="sd">        If `version` is provided, it tries that version first; otherwise it iterates</span>
+<span class="sd">        This method attempts to retrieve verse text using :meth:`core.utils.bible_data_loader.BibleDataLoader.get_verse()`.</span>
+<span class="sd">        If ``version`` is provided, it tries that version first; otherwise it iterates</span>
 <span class="sd">        available versions and returns the first successful slide set.</span>
 
-<span class="sd">        Each verse is wrapped using `textwrap.wrap(..., width=60)` to avoid overly long</span>
+<span class="sd">        Each verse is wrapped using `textwrap.wrap(..., width=60) &lt;https://docs.python.org/3/library/textwrap.html#textwrap.wrap&gt;`_ to avoid overly long</span>
 <span class="sd">        single lines, producing multiple slides per verse when needed.</span>
 
 <span class="sd">        Args:</span>
@@ -241,7 +238,7 @@
 <span class="sd">                Chapter number.</span>
 <span class="sd">            verses (list[int] | tuple[int, int]):</span>
 <span class="sd">                Verse numbers to include. The implementation currently uses</span>
-<span class="sd">                `min(verses)` and `max(verses)` to define an inclusive range.</span>
+<span class="sd">                ``min(verses)`` and ``max(verses)`` to define an inclusive range.</span>
 <span class="sd">            version (str | None):</span>
 <span class="sd">                Preferred Bible version name. If None, tries multiple versions.</span>
 
@@ -299,7 +296,7 @@
 
 <span class="sd">        Returns:</span>
 <span class="sd">            list[dict]:</span>
-<span class="sd">                A list of slide dictionaries (style ``&quot;verse&quot;``).</span>
+<span class="sd">                A list of slide dictionaries (style &quot;verse&quot;).</span>
 <span class="sd">                If loading fails, returns a one-slide fallback with an error message.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;respo&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;responsive_</span><span class="si">{</span><span class="n">number</span><span class="si">:</span><span class="s2">03d</span><span class="si">}</span><span class="s2">.json&quot;</span><span class="p">)</span>
@@ -368,6 +365,7 @@
 <span class="sd">        Load a hymn JSON by number and split it into lyric slides.</span>
 
 <span class="sd">        The expected JSON format contains:</span>
+
 <span class="sd">        - &quot;title&quot;: str (optional)</span>
 <span class="sd">        - &quot;headline&quot;: str (lyrics text, typically multi-line)</span>
 
@@ -417,8 +415,8 @@
 <span class="sd">        Generate slide(s) from manually provided content.</span>
 
 <span class="sd">        Behavior:</span>
-<span class="sd">        - If `style` is &quot;lyrics&quot;, the input text is split by lines and grouped</span>
-<span class="sd">        into 2-line chunks per slide.</span>
+
+<span class="sd">        - If `style` is &quot;lyrics&quot;, the input text is split by lines and grouped into 2-line chunks per slide.</span>
 <span class="sd">        - For all other styles, a single slide is produced as-is.</span>
 
 <span class="sd">        Args:</span>

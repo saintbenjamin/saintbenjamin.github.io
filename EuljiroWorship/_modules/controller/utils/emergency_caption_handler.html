@@ -88,7 +88,7 @@
 <span class="sd">- Writing emergency slides to the slide output JSON file</span>
 
 <span class="sd">The handler acts as a thin orchestration layer between the UI dialog</span>
-<span class="sd">(EmergencyCaptionDialog), the slide factory, and the slide output file.</span>
+<span class="sd">(:class:`controller.ui.emergency_caption_dialog.EmergencyCaptionDialog`), the slide factory, and the slide output file.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
@@ -104,12 +104,13 @@
 <span class="sd">    Manages the emergency caption input and export workflow.</span>
 
 <span class="sd">    This class is responsible for:</span>
+
 <span class="sd">    - Opening the emergency caption dialog as a modal window</span>
 <span class="sd">    - Retrieving finalized slide data from the dialog</span>
 <span class="sd">    - Writing emergency slides to the slide output JSON file</span>
 
 <span class="sd">    The handler does not perform slide parsing itself; it delegates</span>
-<span class="sd">    slide creation to EmergencyCaptionDialog and EmergencySlideFactory.</span>
+<span class="sd">    slide creation to :class:`controller.ui.emergency_caption_dialog.EmergencyCaptionDialog` and :class:`controller.utils.emergency_slide_factory.EmergencySlideFactory`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="EmergencyCaptionHandler.__init__">
@@ -137,6 +138,7 @@
 <span class="sd">        Launch the emergency caption dialog and export generated slides.</span>
 
 <span class="sd">        This method:</span>
+<span class="sd">        </span>
 <span class="sd">        - Opens the emergency caption dialog</span>
 <span class="sd">        - Waits for user confirmation or cancellation</span>
 <span class="sd">        - Retrieves finalized slide data from the dialog</span>

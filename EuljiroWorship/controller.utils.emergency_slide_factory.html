@@ -122,11 +122,11 @@
 </dd>
 </dl>
 <p>Generates slide dictionaries for emergency captions.</p>
-<p>This module defines <code class="docutils literal notranslate"><span class="pre">EmergencySlideFactory</span></code>, a utility that builds slide payloads
+<p>This module defines <a class="reference internal" href="#controller.utils.emergency_slide_factory.EmergencySlideFactory" title="controller.utils.emergency_slide_factory.EmergencySlideFactory"><code class="xref py py-class docutils literal notranslate"><span class="pre">controller.utils.emergency_slide_factory.EmergencySlideFactory</span></code></a>, a utility that builds slide payloads
 consumable by the slide controller / overlay pipeline.</p>
 <p>Supported inputs:</p>
 <ul class="simple">
-<li><p>Bible references (parsed by <code class="docutils literal notranslate"><span class="pre">core.utils.bible_parser.parse_reference</span></code>)</p></li>
+<li><p>Bible references (parsed by <a class="reference internal" href="core.utils.bible_parser.html#core.utils.bible_parser.parse_reference" title="core.utils.bible_parser.parse_reference"><code class="xref py py-func docutils literal notranslate"><span class="pre">core.utils.bible_parser.parse_reference()</span></code></a>)</p></li>
 <li><p>Manual fallback captions and messages</p></li>
 <li><p>Preset responsive readings (교독문) loaded from JSON files</p></li>
 <li><p>Preset hymns loaded from JSON files</p></li>
@@ -137,9 +137,9 @@ consumable by the slide controller / overlay pipeline.</p>
 </ul>
 <p>Notes:</p>
 <ul class="simple">
-<li><p>Bible verse text is wrapped into smaller chunks (currently <code class="docutils literal notranslate"><span class="pre">width=50</span></code>) to avoid
+<li><p>Bible verse text is wrapped into smaller chunks (currently <code class="docutils literal notranslate"><span class="pre">width=60</span></code>) to avoid
 overly long single-slide lines.</p></li>
-<li><p>Version display aliases are loaded from <code class="docutils literal notranslate"><span class="pre">paths.ALIASES_VERSION_FILE</span></code>.</p></li>
+<li><p>Version display aliases are loaded from <code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.ALIASES_VERSION_FILE</span></code>.</p></li>
 </ul>
 <dl class="py class">
 <dt class="sig sig-object py" id="controller.utils.emergency_slide_factory.EmergencySlideFactory">
@@ -149,13 +149,18 @@ overly long single-slide lines.</p></li>
 <p>This class converts user-facing emergency inputs into a list of slide dicts.</p>
 <p>Primary responsibilities:</p>
 <ul class="simple">
-<li><p>Detect whether the first line is a Bible reference via <code class="docutils literal notranslate"><span class="pre">parse_reference()</span></code></p></li>
-<li><p>If a reference is valid, retrieve verses using <code class="docutils literal notranslate"><span class="pre">BibleDataLoader</span></code></p></li>
-<li><p>Wrap long verse text into multiple slides using <code class="docutils literal notranslate"><span class="pre">textwrap.wrap</span></code></p></li>
+<li><p>Detect whether the first line is a Bible reference via <a class="reference internal" href="core.utils.bible_parser.html#core.utils.bible_parser.parse_reference" title="core.utils.bible_parser.parse_reference"><code class="xref py py-func docutils literal notranslate"><span class="pre">core.utils.bible_parser.parse_reference()</span></code></a></p></li>
+<li><p>If a reference is valid, retrieve verses using <a class="reference internal" href="core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader" title="core.utils.bible_data_loader.BibleDataLoader"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.utils.bible_data_loader.BibleDataLoader</span></code></a></p></li>
+<li><p>Wrap long verse text into multiple slides using <a class="reference external" href="https://docs.python.org/3/library/textwrap.html#textwrap.wrap">textwrap.wrap</a></p></li>
 <li><p>If not a reference, build a fallback “manual” slide payload</p></li>
-<li><p>Load preset materials:</p></li>
-<li><p>Responsive readings (respo) from JSON</p></li>
+<li><dl class="simple">
+<dt>Load preset materials:</dt><dd><ul>
+<li><p>Responsive readings (“respo”) from JSON</p></li>
 <li><p>Hymns from JSON</p></li>
+</ul>
+</dd>
+</dl>
+</li>
 </ul>
 <p>Slide dict schema:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
@@ -169,11 +174,11 @@ overly long single-slide lines.</p></li>
 <dt class="sig sig-object py" id="controller.utils.emergency_slide_factory.EmergencySlideFactory.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bible_loader</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/emergency_slide_factory.html#EmergencySlideFactory.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.emergency_slide_factory.EmergencySlideFactory.__init__" title="Link to this definition"></a></dt>
 <dd><p>Initialize the factory.</p>
-<p>Loads Bible version display aliases from <cite>paths.ALIASES_VERSION_FILE</cite> and
-prepares a <cite>BibleDataLoader</cite> instance (either the provided one or a default).</p>
+<p>Loads Bible version display aliases from <code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.ALIASES_VERSION_FILE</span></code> and
+prepares a <a class="reference internal" href="core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader" title="core.utils.bible_data_loader.BibleDataLoader"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.utils.bible_data_loader.BibleDataLoader</span></code></a> instance (either the provided one or a default).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>bible_loader</strong> (<a class="reference internal" href="core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader" title="core.utils.bible_data_loader.BibleDataLoader"><em>BibleDataLoader</em></a><em> | </em><em>None</em>) – Optional custom Bible loader. If None, a default <cite>BibleDataLoader()</cite>
+<dd class="field-odd"><p><strong>bible_loader</strong> (<a class="reference internal" href="core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader" title="core.utils.bible_data_loader.BibleDataLoader"><em>BibleDataLoader</em></a><em> | </em><em>None</em>) – Optional custom Bible loader. If None, a default <code class="docutils literal notranslate"><span class="pre">BibleDataLoader()</span></code>
 is created and used.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -186,13 +191,12 @@ is created and used.</p>
 <dt class="sig sig-object py" id="controller.utils.emergency_slide_factory.EmergencySlideFactory.create_from_input">
 <span class="sig-name descname"><span class="pre">create_from_input</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">line1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/emergency_slide_factory.html#EmergencySlideFactory.create_from_input"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.emergency_slide_factory.EmergencySlideFactory.create_from_input" title="Link to this definition"></a></dt>
 <dd><p>Create emergency slides from a pair of user input lines.</p>
-<p>Behavior:
-- If <cite>line1</cite> is parsed as a Bible reference (e.g., “요 3:16”, “요한복음 3:16”),
-this method retrieves the verse text and returns verse-style slides.
-- If the reference represents a full chapter request (verse_range like (1, -1)),
-it expands the range to the chapter’s maximum verse count when possible.
-- If <cite>line1</cite> is NOT a valid reference, it falls back to a single manual slide
-where <cite>line1</cite> becomes the caption and <cite>line2</cite> becomes the headline.</p>
+<p>Behavior:</p>
+<ul class="simple">
+<li><p>If <code class="docutils literal notranslate"><span class="pre">line1</span></code> is parsed as a Bible reference (e.g., “요 3:16”, “요한복음 3:16”), this method retrieves the verse text and returns verse-style slides.</p></li>
+<li><p>If the reference represents a full chapter request (<code class="docutils literal notranslate"><span class="pre">verse_range</span></code> like <code class="docutils literal notranslate"><span class="pre">(1,</span> <span class="pre">-1)</span></code>), it expands the range to the chapter’s maximum verse count when possible.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">line1</span></code> is NOT a valid reference, it falls back to a single manual slide where <code class="docutils literal notranslate"><span class="pre">line1</span></code> becomes the caption and <code class="docutils literal notranslate"><span class="pre">line2</span></code> becomes the headline.</p></li>
+</ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -218,10 +222,10 @@ output can be produced (e.g., empty manual input or failed verse load).</p>
 <dt class="sig sig-object py" id="controller.utils.emergency_slide_factory.EmergencySlideFactory.build_bible_slides">
 <span class="sig-name descname"><span class="pre">build_bible_slides</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">book_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chapter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verses</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/emergency_slide_factory.html#EmergencySlideFactory.build_bible_slides"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.emergency_slide_factory.EmergencySlideFactory.build_bible_slides" title="Link to this definition"></a></dt>
 <dd><p>Build verse-style slides for the given Bible location and verse range.</p>
-<p>This method attempts to retrieve verse text using <cite>BibleDataLoader.get_verse()</cite>.
-If <cite>version</cite> is provided, it tries that version first; otherwise it iterates
+<p>This method attempts to retrieve verse text using <a class="reference internal" href="core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader.get_verse" title="core.utils.bible_data_loader.BibleDataLoader.get_verse"><code class="xref py py-meth docutils literal notranslate"><span class="pre">core.utils.bible_data_loader.BibleDataLoader.get_verse()</span></code></a>.
+If <code class="docutils literal notranslate"><span class="pre">version</span></code> is provided, it tries that version first; otherwise it iterates
 available versions and returns the first successful slide set.</p>
-<p>Each verse is wrapped using <cite>textwrap.wrap(…, width=60)</cite> to avoid overly long
+<p>Each verse is wrapped using <a class="reference external" href="https://docs.python.org/3/library/textwrap.html#textwrap.wrap">textwrap.wrap(…, width=60)</a> to avoid overly long
 single lines, producing multiple slides per verse when needed.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -229,7 +233,7 @@ single lines, producing multiple slides per verse when needed.</p>
 <li><p><strong>book_id</strong> (<em>str</em>) – Internal Bible book identifier (e.g., “John”).</p></li>
 <li><p><strong>chapter</strong> (<em>int</em>) – Chapter number.</p></li>
 <li><p><strong>verses</strong> (<em>list</em><em>[</em><em>int</em><em>] </em><em>| </em><em>tuple</em><em>[</em><em>int</em><em>, </em><em>int</em><em>]</em>) – Verse numbers to include. The implementation currently uses
-<cite>min(verses)</cite> and <cite>max(verses)</cite> to define an inclusive range.</p></li>
+<code class="docutils literal notranslate"><span class="pre">min(verses)</span></code> and <code class="docutils literal notranslate"><span class="pre">max(verses)</span></code> to define an inclusive range.</p></li>
 <li><p><strong>version</strong> (<em>str</em><em> | </em><em>None</em>) – Preferred Bible version name. If None, tries multiple versions.</p></li>
 </ul>
 </dd>
@@ -261,7 +265,7 @@ line formatted in an HTML-like style (e.g., <code class="docutils literal notran
 <dd class="field-odd"><p><strong>number</strong> (<em>int</em>) – Responsive reading number (e.g., 123).</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A list of slide dictionaries (style <code class="docutils literal notranslate"><span class="pre">&quot;verse&quot;</span></code>).
+<dd class="field-even"><p>A list of slide dictionaries (style “verse”).
 If loading fails, returns a one-slide fallback with an error message.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -301,9 +305,11 @@ speaker name:</p>
 <dt class="sig sig-object py" id="controller.utils.emergency_slide_factory.EmergencySlideFactory.create_from_hymn">
 <span class="sig-name descname"><span class="pre">create_from_hymn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">number</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/emergency_slide_factory.html#EmergencySlideFactory.create_from_hymn"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.emergency_slide_factory.EmergencySlideFactory.create_from_hymn" title="Link to this definition"></a></dt>
 <dd><p>Load a hymn JSON by number and split it into lyric slides.</p>
-<p>The expected JSON format contains:
-- “title”: str (optional)
-- “headline”: str (lyrics text, typically multi-line)</p>
+<p>The expected JSON format contains:</p>
+<ul class="simple">
+<li><p>“title”: str (optional)</p></li>
+<li><p>“headline”: str (lyrics text, typically multi-line)</p></li>
+</ul>
 <p>Lyrics are split into chunks of two lines per slide.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -323,10 +329,11 @@ If loading fails, returns a one-slide fallback with an error message.</p>
 <dt class="sig sig-object py" id="controller.utils.emergency_slide_factory.EmergencySlideFactory.create_manual_slide">
 <span class="sig-name descname"><span class="pre">create_manual_slide</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">style</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caption</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/emergency_slide_factory.html#EmergencySlideFactory.create_manual_slide"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.emergency_slide_factory.EmergencySlideFactory.create_manual_slide" title="Link to this definition"></a></dt>
 <dd><p>Generate slide(s) from manually provided content.</p>
-<p>Behavior:
-- If <cite>style</cite> is “lyrics”, the input text is split by lines and grouped
-into 2-line chunks per slide.
-- For all other styles, a single slide is produced as-is.</p>
+<p>Behavior:</p>
+<ul class="simple">
+<li><p>If <cite>style</cite> is “lyrics”, the input text is split by lines and grouped into 2-line chunks per slide.</p></li>
+<li><p>For all other styles, a single slide is produced as-is.</p></li>
+</ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">

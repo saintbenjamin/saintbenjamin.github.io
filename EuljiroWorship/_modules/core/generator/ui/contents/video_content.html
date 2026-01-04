@@ -236,6 +236,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">submitter</span> <span class="o">=</span> <span class="n">SlideInputSubmitter</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">generator_window</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">build_video_slide</span><span class="p">)</span></div>
 
 
+<div class="viewcode-block" id="VideoContent._init_player">
+<a class="viewcode-back" href="../../../../../core.generator.ui.contents.video_content.html#core.generator.ui.contents.video_content.VideoContent._init_player">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">_init_player</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize QMediaPlayer for in-widget preview.</span>
@@ -246,7 +248,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">player</span> <span class="o">=</span> <span class="n">QMediaPlayer</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">audio</span> <span class="o">=</span> <span class="n">QAudioOutput</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="o">.</span><span class="n">setAudioOutput</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">audio</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="o">.</span><span class="n">setVideoOutput</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">video_widget</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="o">.</span><span class="n">setVideoOutput</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">video_widget</span><span class="p">)</span></div>
+
 
 <div class="viewcode-block" id="VideoContent.select_video">
 <a class="viewcode-back" href="../../../../../core.generator.ui.contents.video_content.html#core.generator.ui.contents.video_content.VideoContent.select_video">[docs]</a>
@@ -315,6 +318,8 @@
         <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;img&quot;</span><span class="p">,</span> <span class="n">fname</span><span class="p">)</span></div>
 
 
+<div class="viewcode-block" id="VideoContent._load_preview_from_absolute_path">
+<a class="viewcode-back" href="../../../../../core.generator.ui.contents.video_content.html#core.generator.ui.contents.video_content.VideoContent._load_preview_from_absolute_path">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">_load_preview_from_absolute_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">abs_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Load preview video into QMediaPlayer from an absolute file path.</span>
@@ -329,8 +334,11 @@
             <span class="n">url</span> <span class="o">=</span> <span class="n">QUrl</span><span class="o">.</span><span class="n">fromLocalFile</span><span class="p">(</span><span class="n">abs_path</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="o">.</span><span class="n">setSource</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">preview_label</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;비디오 로딩 실패&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">preview_label</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;비디오 로딩 실패&quot;</span><span class="p">)</span></div>
 
+
+<div class="viewcode-block" id="VideoContent._load_preview_from_relative_path">
+<a class="viewcode-back" href="../../../../../core.generator.ui.contents.video_content.html#core.generator.ui.contents.video_content.VideoContent._load_preview_from_relative_path">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">_load_preview_from_relative_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rel_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Load preview video into QMediaPlayer from a relative path like &quot;img/foo.mp4&quot;.</span>
@@ -352,7 +360,8 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">preview_label</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;비디오 파일 없음&quot;</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">preview_label</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;비디오 로딩 실패&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">preview_label</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;비디오 로딩 실패&quot;</span><span class="p">)</span></div>
+
 
 <div class="viewcode-block" id="VideoContent.play_preview">
 <a class="viewcode-back" href="../../../../../core.generator.ui.contents.video_content.html#core.generator.ui.contents.video_content.VideoContent.play_preview">[docs]</a>

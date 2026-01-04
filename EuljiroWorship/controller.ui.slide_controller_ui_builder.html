@@ -117,7 +117,7 @@
 </dl>
 <p>Builds the user interface for the slide controller window.</p>
 <p>This module defines a small UI builder class that constructs and wires the
-widgets used by the SlideController main window. The builder is responsible for
+widgets used by the <a class="reference internal" href="controller.slide_controller.html#controller.slide_controller.SlideController" title="controller.slide_controller.SlideController"><code class="xref py py-class docutils literal notranslate"><span class="pre">controller.slide_controller.SlideController</span></code></a> main window. The builder is responsible for
 creating the layout, initializing interactive controls, populating the preview
 table, and installing event filters for keyboard navigation.</p>
 <p>Key responsibilities:</p>
@@ -132,24 +132,24 @@ table, and installing event filters for keyboard navigation.</p>
 <dt class="sig sig-object py" id="controller.ui.slide_controller_ui_builder.SlideControllerUIBuilder">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">controller.ui.slide_controller_ui_builder.</span></span><span class="sig-name descname"><span class="pre">SlideControllerUIBuilder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">controller</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/ui/slide_controller_ui_builder.html#SlideControllerUIBuilder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.ui.slide_controller_ui_builder.SlideControllerUIBuilder" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>UI builder for the SlideController main window.</p>
-<p>This class encapsulates widget construction so that SlideController can keep
+<p>UI builder for the <a class="reference internal" href="controller.slide_controller.html#controller.slide_controller.SlideController" title="controller.slide_controller.SlideController"><code class="xref py py-class docutils literal notranslate"><span class="pre">controller.slide_controller.SlideController</span></code></a> main window.</p>
+<p>This class encapsulates widget construction so that <a class="reference internal" href="controller.slide_controller.html#controller.slide_controller.SlideController" title="controller.slide_controller.SlideController"><code class="xref py py-class docutils literal notranslate"><span class="pre">controller.slide_controller.SlideController</span></code></a> can keep
 its runtime logic separate from UI layout details. The builder creates and
-attaches widgets onto the controller instance (self.c), and wires up signals
+attaches widgets onto the controller instance (<code class="docutils literal notranslate"><span class="pre">self.c</span></code>), and wires up signals
 to the controller’s navigation and emergency-caption handlers.</p>
 <p class="rubric">Notes</p>
 <ul class="simple">
 <li><p>Widgets are attached onto the controller instance as attributes
-(e.g., controller.label, controller.table, controller.page_input).</p></li>
-<li><p>The builder assumes SlideController already loaded <cite>slides</cite> and <cite>index</cite>.</p></li>
+(e.g., <code class="docutils literal notranslate"><span class="pre">controller.label</span></code>, <code class="docutils literal notranslate"><span class="pre">controller.table</span></code>, <code class="docutils literal notranslate"><span class="pre">controller.page_input</span></code>).</p></li>
+<li><p>The builder assumes <a class="reference internal" href="controller.slide_controller.html#controller.slide_controller.SlideController" title="controller.slide_controller.SlideController"><code class="xref py py-class docutils literal notranslate"><span class="pre">controller.slide_controller.SlideController</span></code></a> already loaded <code class="docutils literal notranslate"><span class="pre">slides</span></code> and <code class="docutils literal notranslate"><span class="pre">index</span></code>.</p></li>
 </ul>
 <dl class="py method">
 <dt class="sig sig-object py" id="controller.ui.slide_controller_ui_builder.SlideControllerUIBuilder.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">controller</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/ui/slide_controller_ui_builder.html#SlideControllerUIBuilder.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.ui.slide_controller_ui_builder.SlideControllerUIBuilder.__init__" title="Link to this definition"></a></dt>
-<dd><p>Initialize the UI builder with a SlideController instance.</p>
+<dd><p>Initialize the UI builder with a <a class="reference internal" href="controller.slide_controller.html#controller.slide_controller.SlideController" title="controller.slide_controller.SlideController"><code class="xref py py-class docutils literal notranslate"><span class="pre">controller.slide_controller.SlideController</span></code></a> instance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>controller</strong> (<em>QWidget</em>) – The main SlideController instance that owns the window and runtime
+<dd class="field-odd"><p><strong>controller</strong> (<em>QWidget</em>) – The main <a class="reference internal" href="controller.slide_controller.html#controller.slide_controller.SlideController" title="controller.slide_controller.SlideController"><code class="xref py py-class docutils literal notranslate"><span class="pre">controller.slide_controller.SlideController</span></code></a> instance that owns the window and runtime
 logic. Widgets created by this builder are assigned as attributes
 on this object.</p>
 </dd>
@@ -162,21 +162,21 @@ on this object.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="controller.ui.slide_controller_ui_builder.SlideControllerUIBuilder.build_ui">
 <span class="sig-name descname"><span class="pre">build_ui</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/ui/slide_controller_ui_builder.html#SlideControllerUIBuilder.build_ui"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.ui.slide_controller_ui_builder.SlideControllerUIBuilder.build_ui" title="Link to this definition"></a></dt>
-<dd><p>Build and wire the full SlideController UI.</p>
-<p>This method constructs:
-- Top status label (with elided rendering)
-- Emergency caption ON/OFF buttons
-- Page navigation row (first/prev/page/next/last)
-- Slide preview table (row selection + click-to-jump)
-- Event filters for global keyboard navigation</p>
-<dl class="simple">
-<dt>Side Effects:</dt><dd><ul class="simple">
+<dd><p>Build and wire the full <a class="reference internal" href="controller.slide_controller.html#controller.slide_controller.SlideController" title="controller.slide_controller.SlideController"><code class="xref py py-class docutils literal notranslate"><span class="pre">controller.slide_controller.SlideController</span></code></a> UI.</p>
+<p>This method constructs:</p>
+<ul class="simple">
+<li><p>Top status label (with elided rendering)</p></li>
+<li><p>Emergency caption ON/OFF buttons</p></li>
+<li><p>Page navigation row (first/prev/page/next/last)</p></li>
+<li><p>Slide preview table (row selection + click-to-jump)</p></li>
+<li><p>Event filters for global keyboard navigation</p></li>
+</ul>
+<p>Side Effects:</p>
+<ul class="simple">
 <li><p>Creates widgets and assigns them onto the controller instance.</p></li>
 <li><p>Connects widget signals to controller slots/callbacks.</p></li>
 <li><p>Installs event filters on the controller and its table.</p></li>
 </ul>
-</dd>
-</dl>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>None</p>
@@ -187,7 +187,7 @@ on this object.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="controller.ui.slide_controller_ui_builder.SlideControllerUIBuilder.set_elided_label_text">
 <em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_elided_label_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/ui/slide_controller_ui_builder.html#SlideControllerUIBuilder.set_elided_label_text"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.ui.slide_controller_ui_builder.SlideControllerUIBuilder.set_elided_label_text" title="Link to this definition"></a></dt>
-<dd><p>Set right-elided text on a QLabel to fit the current label width.</p>
+<dd><p>Set right-elided text on a <cite>QLabel</cite> to fit the current label width.</p>
 <p>This helper computes an elided string (truncated with an ellipsis) so the
 label does not overflow horizontally. Truncation occurs on the right side.</p>
 <dl class="field-list simple">
