@@ -114,19 +114,19 @@
 <dd class="field-odd"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
 </dd>
 </dl>
-<p>Watches <code class="docutils literal notranslate"><span class="pre">paths.VERSE_FILE</span></code> (verse_output.txt) and converts it into slide JSON
-written to <code class="docutils literal notranslate"><span class="pre">paths.SLIDE_FILE</span></code> for real-time display by the slide controller.</p>
-<p>This module runs as a small background helper process. It uses watchdog to
-monitor the project base directory for changes to the verse output file, then
+<p>Watches <code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.VERSE_FILE</span></code> and converts it into slide <code class="docutils literal notranslate"><span class="pre">JSON</span></code>
+written to <code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.SLIDE_FILE</span></code> for real-time display by the slide controller.</p>
+<p>This module runs as a small background helper process. It uses <a class="reference external" href="https://pypi.org/project/watchdog/">watchdog</a> to
+monitor the project base directory for changes to the <code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.VERSE_FILE</span></code>, then
 parses the content into one or more slide dictionaries.</p>
 <p>Key behaviors</p>
 <ul class="simple">
 <li><p>If the last line looks like a structured Bible reference header, it generates
-per-verse slides with wrapped lines (<code class="docutils literal notranslate"><span class="pre">textwrap.wrap</span></code>) and style “verse”.</p></li>
+per-verse slides with wrapped lines (<a class="reference external" href="https://docs.python.org/3/library/textwrap.html#textwrap.wrap">textwrap.wrap</a>) and style “verse”.</p></li>
 <li><p>Otherwise, it treats the file as a free-form emergency message and generates
 style “lyrics” slides grouped by up to 2 lines (or by character budget).</p></li>
 <li><p>Before overwriting the slide file, it may create a backup at
-<code class="docutils literal notranslate"><span class="pre">paths.SLIDE_BACKUP_FILE</span></code> (only if the backup file does not already exist).</p></li>
+<code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.SLIDE_BACKUP_FILE</span></code> (only if the backup file does not already exist).</p></li>
 </ul>
 <dl class="py function">
 <dt class="sig sig-object py" id="controller.helper.verse_interruptor.parse_verse_output">

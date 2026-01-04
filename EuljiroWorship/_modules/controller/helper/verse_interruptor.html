@@ -79,21 +79,21 @@
 <span class="sd">:E-mail: euljirochurch [at] G.M.A.I.L. (replace [at] with @ and G.M.A.I.L as you understood.)</span>
 <span class="sd">:License: MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</span>
 
-<span class="sd">Watches ``paths.VERSE_FILE`` (verse_output.txt) and converts it into slide JSON</span>
-<span class="sd">written to ``paths.SLIDE_FILE`` for real-time display by the slide controller.</span>
+<span class="sd">Watches :data:`core.config.paths.VERSE_FILE` and converts it into slide ``JSON``</span>
+<span class="sd">written to :data:`core.config.paths.SLIDE_FILE` for real-time display by the slide controller.</span>
 
-<span class="sd">This module runs as a small background helper process. It uses watchdog to</span>
-<span class="sd">monitor the project base directory for changes to the verse output file, then</span>
+<span class="sd">This module runs as a small background helper process. It uses `watchdog &lt;https://pypi.org/project/watchdog/&gt;`_ to</span>
+<span class="sd">monitor the project base directory for changes to the :data:`core.config.paths.VERSE_FILE`, then</span>
 <span class="sd">parses the content into one or more slide dictionaries.</span>
 
 <span class="sd">Key behaviors</span>
 
 <span class="sd">- If the last line looks like a structured Bible reference header, it generates</span>
-<span class="sd">  per-verse slides with wrapped lines (``textwrap.wrap``) and style &quot;verse&quot;.</span>
+<span class="sd">  per-verse slides with wrapped lines (`textwrap.wrap &lt;https://docs.python.org/3/library/textwrap.html#textwrap.wrap&gt;`_) and style &quot;verse&quot;.</span>
 <span class="sd">- Otherwise, it treats the file as a free-form emergency message and generates</span>
 <span class="sd">  style &quot;lyrics&quot; slides grouped by up to 2 lines (or by character budget).</span>
 <span class="sd">- Before overwriting the slide file, it may create a backup at</span>
-<span class="sd">  ``paths.SLIDE_BACKUP_FILE`` (only if the backup file does not already exist).</span>
+<span class="sd">  :data:`core.config.paths.SLIDE_BACKUP_FILE` (only if the backup file does not already exist).</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">sys</span><span class="o">,</span><span class="w"> </span><span class="nn">os</span>
