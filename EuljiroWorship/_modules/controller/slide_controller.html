@@ -135,7 +135,7 @@
 <span class="sd">    avoid blocking or cluttering the controller GUI.</span>
 
 <span class="sd">    The interruptor script is expected to watch the emergency verse output</span>
-<span class="sd">    file (e.g., :data:`core.config.paths.VERSE_FILE`) and handle its own logic independently.</span>
+<span class="sd">    file (e.g., :py:data:`core.config.paths.VERSE_FILE`) and handle its own logic independently.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        None</span>
@@ -629,7 +629,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Clear the emergency verse output file and restore normal slides.</span>
 
-<span class="sd">        This writes an empty string to :data:`core.config.paths.VERSE_FILE`, clears :data:`core.config.paths.SLIDE_FILE`,</span>
+<span class="sd">        This writes an empty string to :py:data:`core.config.paths.VERSE_FILE`, clears :py:data:`core.config.paths.SLIDE_FILE`,</span>
 <span class="sd">        then attempts restoration from backup via :class:`controller.utils.slide_controller_data_manager.SlideControllerDataManager`.</span>
 
 <span class="sd">        After restoration, rebuilds the table, updates the label, and scrolls</span>

@@ -130,6 +130,32 @@ to populate dropdown menus in the slide generator table.</p></li>
 <p>By centralizing these mappings, the generator UI, data manager,
 and exporter remain consistent and resilient to future style additions
 or renaming.</p>
+<section id="style-mappings">
+<h2>Style mappings<a class="headerlink" href="#style-mappings" title="Link to this heading"></a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="core.config.style_map.STYLE_ALIASES">
+<span class="sig-prename descclassname"><span class="pre">core.config.style_map.</span></span><span class="sig-name descname"><span class="pre">STYLE_ALIASES</span></span><a class="headerlink" href="#core.config.style_map.STYLE_ALIASES" title="Link to this definition"></a></dt>
+<dd><p>Mapping from internal style keys (used in JSON/export) to Korean display
+names shown in the generator UI.</p>
+<p>This is the primary source of truth for style naming across the system.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="core.config.style_map.REVERSE_ALIASES">
+<span class="sig-prename descclassname"><span class="pre">core.config.style_map.</span></span><span class="sig-name descname"><span class="pre">REVERSE_ALIASES</span></span><a class="headerlink" href="#core.config.style_map.REVERSE_ALIASES" title="Link to this definition"></a></dt>
+<dd><p>Reverse lookup mapping from Korean display names back to internal style keys.</p>
+<p>This is derived from <a class="reference internal" href="#core.config.style_map.STYLE_ALIASES" title="core.config.style_map.STYLE_ALIASES"><code class="xref py py-data docutils literal notranslate"><span class="pre">STYLE_ALIASES</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="core.config.style_map.STYLE_LIST">
+<span class="sig-prename descclassname"><span class="pre">core.config.style_map.</span></span><span class="sig-name descname"><span class="pre">STYLE_LIST</span></span><a class="headerlink" href="#core.config.style_map.STYLE_LIST" title="Link to this definition"></a></dt>
+<dd><p>Ordered list of Korean display names used to populate UI dropdown menus.</p>
+<p>This is derived from <a class="reference internal" href="#core.config.style_map.STYLE_ALIASES" title="core.config.style_map.STYLE_ALIASES"><code class="xref py py-data docutils literal notranslate"><span class="pre">STYLE_ALIASES</span></code></a> and preserves the insertion
+order of that dictionary.</p>
+</dd></dl>
+
+</section>
 </section>
 
 

@@ -140,7 +140,7 @@ file watchers, WebSocket broadcasting, and the emergency verse interruptor.</p>
 interpreter (<code class="docutils literal notranslate"><span class="pre">sys.executable</span></code>) and suppresses <code class="docutils literal notranslate"><span class="pre">stdin</span></code>/<code class="docutils literal notranslate"><span class="pre">stdout</span></code>/<code class="docutils literal notranslate"><span class="pre">stderr</span></code> to
 avoid blocking or cluttering the controller GUI.</p>
 <p>The interruptor script is expected to watch the emergency verse output
-file (e.g., <code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.VERSE_FILE</span></code>) and handle its own logic independently.</p>
+file (e.g., <a class="reference internal" href="core.config.paths.html#core.config.paths.VERSE_FILE" title="core.config.paths.VERSE_FILE"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.VERSE_FILE</span></code></a>) and handle its own logic independently.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>None</strong></p>
@@ -546,7 +546,7 @@ If invalid, prints an error message.</p>
 <dt class="sig sig-object py" id="controller.slide_controller.SlideController.clear_emergency_caption">
 <span class="sig-name descname"><span class="pre">clear_emergency_caption</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/slide_controller.html#SlideController.clear_emergency_caption"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.slide_controller.SlideController.clear_emergency_caption" title="Link to this definition"></a></dt>
 <dd><p>Clear the emergency verse output file and restore normal slides.</p>
-<p>This writes an empty string to <code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.VERSE_FILE</span></code>, clears <code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.SLIDE_FILE</span></code>,
+<p>This writes an empty string to <a class="reference internal" href="core.config.paths.html#core.config.paths.VERSE_FILE" title="core.config.paths.VERSE_FILE"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.VERSE_FILE</span></code></a>, clears <a class="reference internal" href="core.config.paths.html#core.config.paths.SLIDE_FILE" title="core.config.paths.SLIDE_FILE"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.SLIDE_FILE</span></code></a>,
 then attempts restoration from backup via <a class="reference internal" href="controller.utils.slide_controller_data_manager.html#controller.utils.slide_controller_data_manager.SlideControllerDataManager" title="controller.utils.slide_controller_data_manager.SlideControllerDataManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">controller.utils.slide_controller_data_manager.SlideControllerDataManager</span></code></a>.</p>
 <p>After restoration, rebuilds the table, updates the label, and scrolls
 the restored index into view.</p>

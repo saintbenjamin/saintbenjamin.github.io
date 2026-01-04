@@ -99,7 +99,7 @@
 
 <span class="sd">- Bible verse text is wrapped into smaller chunks (currently ``width=60``) to avoid</span>
 <span class="sd">  overly long single-slide lines.</span>
-<span class="sd">- Version display aliases are loaded from :data:`core.config.paths.ALIASES_VERSION_FILE`.</span>
+<span class="sd">- Version display aliases are loaded from :py:data:`core.config.paths.ALIASES_VERSION_FILE`.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
@@ -143,7 +143,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize the factory.</span>
 
-<span class="sd">        Loads Bible version display aliases from :data:`core.config.paths.ALIASES_VERSION_FILE` and</span>
+<span class="sd">        Loads Bible version display aliases from :py:data:`core.config.paths.ALIASES_VERSION_FILE` and</span>
 <span class="sd">        prepares a :class:`core.utils.bible_data_loader.BibleDataLoader` instance (either the provided one or a default).</span>
 
 <span class="sd">        Args:</span>

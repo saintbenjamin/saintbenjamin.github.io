@@ -128,6 +128,133 @@ including:</p>
 </ul>
 <p>All paths are resolved relative to the project root to ensure
 consistent behavior across platforms (Windows, macOS, Linux).</p>
+<section id="path-constants">
+<h2>Path constants<a class="headerlink" href="#path-constants" title="Link to this heading"></a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="core.config.paths.BASE_DIR">
+<span class="sig-prename descclassname"><span class="pre">core.config.paths.</span></span><span class="sig-name descname"><span class="pre">BASE_DIR</span></span><a class="headerlink" href="#core.config.paths.BASE_DIR" title="Link to this definition"></a></dt>
+<dd><p>Absolute path to the project root directory.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="core.config.paths.STORE_DIR">
+<span class="sig-prename descclassname"><span class="pre">core.config.paths.</span></span><span class="sig-name descname"><span class="pre">STORE_DIR</span></span><a class="headerlink" href="#core.config.paths.STORE_DIR" title="Link to this definition"></a></dt>
+<dd><p>Directory for slide output and backup files (under <code class="docutils literal notranslate"><span class="pre">BASE_DIR/store</span></code>).</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="core.config.paths.SETTING_DIR">
+<span class="sig-prename descclassname"><span class="pre">core.config.paths.</span></span><span class="sig-name descname"><span class="pre">SETTING_DIR</span></span><a class="headerlink" href="#core.config.paths.SETTING_DIR" title="Link to this definition"></a></dt>
+<dd><p>Directory for JSON configs and settings (under <code class="docutils literal notranslate"><span class="pre">BASE_DIR/json</span></code>).</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="core.config.paths.ICON_DIR">
+<span class="sig-prename descclassname"><span class="pre">core.config.paths.</span></span><span class="sig-name descname"><span class="pre">ICON_DIR</span></span><a class="headerlink" href="#core.config.paths.ICON_DIR" title="Link to this definition"></a></dt>
+<dd><p>Directory for SVG icon assets (under <code class="docutils literal notranslate"><span class="pre">BASE_DIR/assets/svg</span></code>).</p>
+</dd></dl>
+
+</section>
+<section id="emergency-overlay-path">
+<h2>Emergency overlay path<a class="headerlink" href="#emergency-overlay-path" title="Link to this heading"></a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="core.config.paths.VERSE_FILE">
+<span class="sig-prename descclassname"><span class="pre">core.config.paths.</span></span><span class="sig-name descname"><span class="pre">VERSE_FILE</span></span><a class="headerlink" href="#core.config.paths.VERSE_FILE" title="Link to this definition"></a></dt>
+<dd><p>Emergency verse output file path (typically <code class="docutils literal notranslate"><span class="pre">BASE_DIR/verse_output.txt</span></code>).
+Written by the emergency caption flow and monitored by helper processes.</p>
+</dd></dl>
+
+</section>
+<section id="settings-files">
+<h2>Settings files<a class="headerlink" href="#settings-files" title="Link to this heading"></a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="core.config.paths.SETTING_FILE">
+<span class="sig-prename descclassname"><span class="pre">core.config.paths.</span></span><span class="sig-name descname"><span class="pre">SETTING_FILE</span></span><a class="headerlink" href="#core.config.paths.SETTING_FILE" title="Link to this definition"></a></dt>
+<dd><p>Main application settings JSON file (typically <code class="docutils literal notranslate"><span class="pre">json/settings.json</span></code>).</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="core.config.paths.SETTING_LAST_OPEN_FILE">
+<span class="sig-prename descclassname"><span class="pre">core.config.paths.</span></span><span class="sig-name descname"><span class="pre">SETTING_LAST_OPEN_FILE</span></span><a class="headerlink" href="#core.config.paths.SETTING_LAST_OPEN_FILE" title="Link to this definition"></a></dt>
+<dd><p>JSON file storing the last opened path/session info
+(typically <code class="docutils literal notranslate"><span class="pre">json/settings_last_path.json</span></code>).</p>
+</dd></dl>
+
+</section>
+<section id="slide-output-and-backup">
+<h2>Slide output and backup<a class="headerlink" href="#slide-output-and-backup" title="Link to this heading"></a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="core.config.paths.SLIDE_FILE">
+<span class="sig-prename descclassname"><span class="pre">core.config.paths.</span></span><span class="sig-name descname"><span class="pre">SLIDE_FILE</span></span><a class="headerlink" href="#core.config.paths.SLIDE_FILE" title="Link to this definition"></a></dt>
+<dd><p>Main slide output JSON file written for overlay display
+(typically <code class="docutils literal notranslate"><span class="pre">store/slide_output.json</span></code>).</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="core.config.paths.SLIDE_BACKUP_FILE">
+<span class="sig-prename descclassname"><span class="pre">core.config.paths.</span></span><span class="sig-name descname"><span class="pre">SLIDE_BACKUP_FILE</span></span><a class="headerlink" href="#core.config.paths.SLIDE_BACKUP_FILE" title="Link to this definition"></a></dt>
+<dd><p>Backup of the previous slide output used for restoration after emergency mode
+(typically <code class="docutils literal notranslate"><span class="pre">store/slide_output_backup.json</span></code>).</p>
+</dd></dl>
+
+</section>
+<section id="bible-data-directories">
+<h2>Bible data directories<a class="headerlink" href="#bible-data-directories" title="Link to this heading"></a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="core.config.paths.BIBLE_DATA_DIR">
+<span class="sig-prename descclassname"><span class="pre">core.config.paths.</span></span><span class="sig-name descname"><span class="pre">BIBLE_DATA_DIR</span></span><a class="headerlink" href="#core.config.paths.BIBLE_DATA_DIR" title="Link to this definition"></a></dt>
+<dd><p>Directory containing Bible version JSON data files (typically <code class="docutils literal notranslate"><span class="pre">data/</span></code>).</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="core.config.paths.JSON_DIR">
+<span class="sig-prename descclassname"><span class="pre">core.config.paths.</span></span><span class="sig-name descname"><span class="pre">JSON_DIR</span></span><a class="headerlink" href="#core.config.paths.JSON_DIR" title="Link to this definition"></a></dt>
+<dd><p>Directory containing JSON configs
+(same physical location as <code class="docutils literal notranslate"><span class="pre">SETTING_DIR</span></code>).</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="core.config.paths.BIBLE_NAME_DIR">
+<span class="sig-prename descclassname"><span class="pre">core.config.paths.</span></span><span class="sig-name descname"><span class="pre">BIBLE_NAME_DIR</span></span><a class="headerlink" href="#core.config.paths.BIBLE_NAME_DIR" title="Link to this definition"></a></dt>
+<dd><p>Directory containing Bible name/version alias JSON files
+(typically <code class="docutils literal notranslate"><span class="pre">json/bible/</span></code>).</p>
+</dd></dl>
+
+</section>
+<section id="bible-alias-config-files">
+<h2>Bible alias/config files<a class="headerlink" href="#bible-alias-config-files" title="Link to this heading"></a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="core.config.paths.ALIASES_VERSION_FILE">
+<span class="sig-prename descclassname"><span class="pre">core.config.paths.</span></span><span class="sig-name descname"><span class="pre">ALIASES_VERSION_FILE</span></span><a class="headerlink" href="#core.config.paths.ALIASES_VERSION_FILE" title="Link to this definition"></a></dt>
+<dd><p>GUI Bible version alias mapping JSON file.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="core.config.paths.ALIASES_VERSION_CLI_FILE">
+<span class="sig-prename descclassname"><span class="pre">core.config.paths.</span></span><span class="sig-name descname"><span class="pre">ALIASES_VERSION_CLI_FILE</span></span><a class="headerlink" href="#core.config.paths.ALIASES_VERSION_CLI_FILE" title="Link to this definition"></a></dt>
+<dd><p>CLI Bible version alias mapping JSON file
+(simplified aliases for CLI parsing).</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="core.config.paths.ALIASES_BOOK_FILE">
+<span class="sig-prename descclassname"><span class="pre">core.config.paths.</span></span><span class="sig-name descname"><span class="pre">ALIASES_BOOK_FILE</span></span><a class="headerlink" href="#core.config.paths.ALIASES_BOOK_FILE" title="Link to this definition"></a></dt>
+<dd><p>Book name alias mapping JSON file.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="core.config.paths.STANDARD_BOOK_FILE">
+<span class="sig-prename descclassname"><span class="pre">core.config.paths.</span></span><span class="sig-name descname"><span class="pre">STANDARD_BOOK_FILE</span></span><a class="headerlink" href="#core.config.paths.STANDARD_BOOK_FILE" title="Link to this definition"></a></dt>
+<dd><p>Canonical book list JSON file used as the standard reference.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="core.config.paths.SORT_ORDER_FILE">
+<span class="sig-prename descclassname"><span class="pre">core.config.paths.</span></span><span class="sig-name descname"><span class="pre">SORT_ORDER_FILE</span></span><a class="headerlink" href="#core.config.paths.SORT_ORDER_FILE" title="Link to this definition"></a></dt>
+<dd><p>Custom book sort order JSON file.</p>
+</dd></dl>
+
+</section>
 </section>
 
 

@@ -114,10 +114,10 @@
 <dd class="field-odd"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
 </dd>
 </dl>
-<p>Watches <code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.VERSE_FILE</span></code> and converts it into slide JSON
-written to <code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.SLIDE_FILE</span></code> for real-time display by the slide controller.</p>
+<p>Watches <a class="reference internal" href="core.config.paths.html#core.config.paths.VERSE_FILE" title="core.config.paths.VERSE_FILE"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.VERSE_FILE</span></code></a> and converts it into slide JSON
+written to <a class="reference internal" href="core.config.paths.html#core.config.paths.SLIDE_FILE" title="core.config.paths.SLIDE_FILE"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.SLIDE_FILE</span></code></a> for real-time display by the slide controller.</p>
 <p>This module runs as a small background helper process. It uses <a class="reference external" href="https://pypi.org/project/watchdog/">watchdog</a> to
-monitor the project base directory for changes to the <code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.VERSE_FILE</span></code>, then
+monitor the project base directory for changes to the <a class="reference internal" href="core.config.paths.html#core.config.paths.VERSE_FILE" title="core.config.paths.VERSE_FILE"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.VERSE_FILE</span></code></a>, then
 parses the content into one or more slide dictionaries.</p>
 <p>Key behaviors</p>
 <ul class="simple">
@@ -126,7 +126,7 @@ per-verse slides with wrapped lines (<a class="reference external" href="https:/
 <li><p>Otherwise, it treats the file as a free-form emergency message and generates
 style “lyrics” slides grouped by up to 2 lines (or by character budget).</p></li>
 <li><p>Before overwriting the slide file, it may create a backup at
-<code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.SLIDE_BACKUP_FILE</span></code> (only if the backup file does not already exist).</p></li>
+<a class="reference internal" href="core.config.paths.html#core.config.paths.SLIDE_BACKUP_FILE" title="core.config.paths.SLIDE_BACKUP_FILE"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.SLIDE_BACKUP_FILE</span></code></a> (only if the backup file does not already exist).</p></li>
 </ul>
 <dl class="py function">
 <dt class="sig sig-object py" id="controller.helper.verse_interruptor.parse_verse_output">
@@ -168,8 +168,8 @@ grouping fallback message lines. Defaults to 60.</p></li>
 <dt class="sig sig-object py" id="controller.helper.verse_interruptor.backup_slide_if_not_emergency">
 <span class="sig-prename descclassname"><span class="pre">controller.helper.verse_interruptor.</span></span><span class="sig-name descname"><span class="pre">backup_slide_if_not_emergency</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/helper/verse_interruptor.html#backup_slide_if_not_emergency"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.helper.verse_interruptor.backup_slide_if_not_emergency" title="Link to this definition"></a></dt>
 <dd><p>Create a backup copy of the current slide JSON file if no backup exists yet.</p>
-<p>This function writes <code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.SLIDE_BACKUP_FILE</span></code> only when that file does not
-already exist. The source is <code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.SLIDE_FILE</span></code> if it exists and can be read.</p>
+<p>This function writes <a class="reference internal" href="core.config.paths.html#core.config.paths.SLIDE_BACKUP_FILE" title="core.config.paths.SLIDE_BACKUP_FILE"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.SLIDE_BACKUP_FILE</span></code></a> only when that file does not
+already exist. The source is <a class="reference internal" href="core.config.paths.html#core.config.paths.SLIDE_FILE" title="core.config.paths.SLIDE_FILE"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.SLIDE_FILE</span></code></a> if it exists and can be read.</p>
 <p>The backup is intended to support restoration after an emergency subtitle
 session ends. The current implementation skips backup if the loaded slides
 contain any slide whose “style” equals “verse_interrupt”.</p>
@@ -188,7 +188,7 @@ contain any slide whose “style” equals “verse_interrupt”.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>slides</strong> (<em>list</em><em>[</em><em>dict</em><em>]</em>) – Slide dictionaries to write.</p></li>
-<li><p><strong>path</strong> (<em>str</em>) – Destination JSON file path (typically <code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.SLIDE_FILE</span></code>).</p></li>
+<li><p><strong>path</strong> (<em>str</em>) – Destination JSON file path (typically <a class="reference internal" href="core.config.paths.html#core.config.paths.SLIDE_FILE" title="core.config.paths.SLIDE_FILE"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.SLIDE_FILE</span></code></a>).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -201,10 +201,10 @@ contain any slide whose “style” equals “verse_interrupt”.</p>
 <dt class="sig sig-object py" id="controller.helper.verse_interruptor.VerseFileHandler">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">controller.helper.verse_interruptor.</span></span><span class="sig-name descname"><span class="pre">VerseFileHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/helper/verse_interruptor.html#VerseFileHandler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.helper.verse_interruptor.VerseFileHandler" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">FileSystemEventHandler</span></code></p>
-<p>Watchdog event handler for updates to <code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.VERSE_FILE</span></code>.</p>
+<p>Watchdog event handler for updates to <a class="reference internal" href="core.config.paths.html#core.config.paths.VERSE_FILE" title="core.config.paths.VERSE_FILE"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.VERSE_FILE</span></code></a>.</p>
 <p>This handler listens for filesystem modification events and, when the target
 file is modified, parses it into slides and writes the resulting JSON to
-<code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.SLIDE_FILE</span></code>. If slides are generated, it attempts to create a backup
+<a class="reference internal" href="core.config.paths.html#core.config.paths.SLIDE_FILE" title="core.config.paths.SLIDE_FILE"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.SLIDE_FILE</span></code></a>. If slides are generated, it attempts to create a backup
 via <a class="reference internal" href="#controller.helper.verse_interruptor.backup_slide_if_not_emergency" title="controller.helper.verse_interruptor.backup_slide_if_not_emergency"><code class="xref py py-func docutils literal notranslate"><span class="pre">controller.helper.verse_interruptor.backup_slide_if_not_emergency()</span></code></a> before overwriting the slide file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -220,14 +220,14 @@ via <a class="reference internal" href="#controller.helper.verse_interruptor.bac
 <dl class="py method">
 <dt class="sig sig-object py" id="controller.helper.verse_interruptor.VerseFileHandler.on_modified">
 <span class="sig-name descname"><span class="pre">on_modified</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/helper/verse_interruptor.html#VerseFileHandler.on_modified"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.helper.verse_interruptor.VerseFileHandler.on_modified" title="Link to this definition"></a></dt>
-<dd><p>Handle <a class="reference external" href="https://pypi.org/project/watchdog/">watchdog</a> “modified” events for <code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.VERSE_FILE</span></code>.</p>
-<p>If the modified path matches the target <code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.VERSE_FILE</span></code>, this callback:</p>
+<dd><p>Handle <a class="reference external" href="https://pypi.org/project/watchdog/">watchdog</a> “modified” events for <a class="reference internal" href="core.config.paths.html#core.config.paths.VERSE_FILE" title="core.config.paths.VERSE_FILE"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.VERSE_FILE</span></code></a>.</p>
+<p>If the modified path matches the target <a class="reference internal" href="core.config.paths.html#core.config.paths.VERSE_FILE" title="core.config.paths.VERSE_FILE"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.VERSE_FILE</span></code></a>, this callback:</p>
 <ol class="arabic simple">
-<li><p>Parses <code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.VERSE_FILE</span></code> into slide dictionaries.</p></li>
+<li><p>Parses <a class="reference internal" href="core.config.paths.html#core.config.paths.VERSE_FILE" title="core.config.paths.VERSE_FILE"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.VERSE_FILE</span></code></a> into slide dictionaries.</p></li>
 <li><dl class="simple">
 <dt>If any slides were produced:</dt><dd><ul class="simple">
 <li><p>Creates a backup (if applicable)</p></li>
-<li><p>Writes slides to <code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.SLIDE_FILE</span></code></p></li>
+<li><p>Writes slides to <a class="reference internal" href="core.config.paths.html#core.config.paths.SLIDE_FILE" title="core.config.paths.SLIDE_FILE"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.SLIDE_FILE</span></code></a></p></li>
 </ul>
 </dd>
 </dl>
@@ -250,8 +250,8 @@ via <a class="reference internal" href="#controller.helper.verse_interruptor.bac
 <dl class="py function">
 <dt class="sig sig-object py" id="controller.helper.verse_interruptor.start_interruptor">
 <span class="sig-prename descclassname"><span class="pre">controller.helper.verse_interruptor.</span></span><span class="sig-name descname"><span class="pre">start_interruptor</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/helper/verse_interruptor.html#start_interruptor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.helper.verse_interruptor.start_interruptor" title="Link to this definition"></a></dt>
-<dd><p>Start the <a class="reference external" href="https://pypi.org/project/watchdog/">watchdog</a> observer loop for <code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.VERSE_FILE</span></code>.</p>
-<p>This sets up an Observer to watch <code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.BASE_DIR</span></code> (non-recursive) and uses
+<dd><p>Start the <a class="reference external" href="https://pypi.org/project/watchdog/">watchdog</a> observer loop for <a class="reference internal" href="core.config.paths.html#core.config.paths.VERSE_FILE" title="core.config.paths.VERSE_FILE"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.VERSE_FILE</span></code></a>.</p>
+<p>This sets up an Observer to watch <a class="reference internal" href="core.config.paths.html#core.config.paths.BASE_DIR" title="core.config.paths.BASE_DIR"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.BASE_DIR</span></code></a> (non-recursive) and uses
 <a class="reference internal" href="#controller.helper.verse_interruptor.VerseFileHandler" title="controller.helper.verse_interruptor.VerseFileHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">controller.helper.verse_interruptor.VerseFileHandler</span></code></a> to react to modifications. The function then blocks the
 main thread in a sleep loop until interrupted (Ctrl+C).</p>
 <dl class="field-list simple">
