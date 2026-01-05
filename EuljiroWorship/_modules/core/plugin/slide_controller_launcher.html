@@ -101,14 +101,28 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Manages the lifecycle of the slide controller subprocess.</span>
 
-<span class="sd">    This class encapsulates the logic for launching and tracking the</span>
-<span class="sd">    slide controller process. It prevents duplicate launches and</span>
-<span class="sd">    provides a simple interface for checking whether the controller</span>
-<span class="sd">    is currently running.</span>
+<span class="sd">    This class provides a minimal supervisory layer for launching and tracking</span>
+<span class="sd">    the slide controller process from the generator UI. Its responsibility is</span>
+<span class="sd">    limited to preventing duplicate launches and reporting basic runtime status;</span>
+<span class="sd">    it does not attempt to restart, monitor health, or forcibly terminate the</span>
+<span class="sd">    controller.</span>
 
-<span class="sd">    The class does not attempt to restart or forcibly terminate the</span>
-<span class="sd">    controller; it only performs minimal lifecycle supervision suitable</span>
-<span class="sd">    for a UI-driven workflow.</span>
+<span class="sd">    The launcher maintains an internal reference to the subprocess handle and</span>
+<span class="sd">    uses it to determine whether the controller is currently active. Launch</span>
+<span class="sd">    requests issued while the controller is already running are safely ignored.</span>
+
+<span class="sd">    Error handling is intentionally lightweight and UI-aware: if a Qt parent</span>
+<span class="sd">    widget is available, launch failures are reported via a warning dialog;</span>
+<span class="sd">    otherwise, errors are emitted to standard output.</span>
+
+<span class="sd">    This design is suited for a user-driven workflow where the controller is</span>
+<span class="sd">    started explicitly by the generator and stopped externally or by user action,</span>
+<span class="sd">    rather than by automatic process management.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        proc (subprocess.Popen | None):</span>
+<span class="sd">            Handle to the currently running slide controller subprocess, or None</span>
+<span class="sd">            if no controller has been launched.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="SlideControllerLauncher.__init__">

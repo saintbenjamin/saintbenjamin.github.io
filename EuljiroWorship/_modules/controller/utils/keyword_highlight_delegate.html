@@ -103,18 +103,16 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Custom item delegate that highlights keywords in model text using HTML rendering.</span>
 
-<span class="sd">    This delegate converts the cell text into HTML and wraps each keyword occurrence</span>
-<span class="sd">    with a red-colored ``&lt;span&gt;`` . Rendering is done via `QTextDocument` to support:</span>
-<span class="sd">    </span>
-<span class="sd">    - HTML formatting</span>
-<span class="sd">    - Multi-line wrapping</span>
-<span class="sd">    - Accurate sizeHint calculation</span>
+<span class="sd">    This delegate renders each cell via ``QTextDocument`` so it can support:</span>
 
-<span class="sd">    Args:</span>
+<span class="sd">    - HTML formatting (keyword highlighting)</span>
+<span class="sd">    - Multi-line wrapping</span>
+<span class="sd">    - Accurate ``sizeHint()`` based on rendered document height</span>
+
+<span class="sd">    Attributes:</span>
 <span class="sd">        keywords (list[str]):</span>
-<span class="sd">            Keywords to highlight. Empty strings are ignored.</span>
-<span class="sd">        parent (QWidget | None):</span>
-<span class="sd">            Optional parent widget.</span>
+<span class="sd">            Keywords to highlight. Empty strings are ignored. Matching is performed</span>
+<span class="sd">            via simple substring replacement after HTML-escaping the cell text.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="KeywordHighlightDelegate.__init__">

@@ -114,17 +114,19 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Factory for constructing emergency slide blocks.</span>
 
-<span class="sd">    This class converts user-facing emergency inputs into a list of slide dicts.</span>
+<span class="sd">    This class converts user-facing emergency inputs into a list of slide</span>
+<span class="sd">    dictionaries suitable for immediate export to the slide controller.</span>
 
-<span class="sd">    Primary responsibilities:</span>
+<span class="sd">    It supports multiple input modes, including:</span>
 
-<span class="sd">    - Detect whether the first line is a Bible reference via :func:`core.utils.bible_parser.parse_reference`</span>
-<span class="sd">    - If a reference is valid, retrieve verses using :class:`core.utils.bible_data_loader.BibleDataLoader`</span>
-<span class="sd">    - Wrap long verse text into multiple slides using `textwrap.wrap &lt;https://docs.python.org/3/library/textwrap.html#textwrap.wrap&gt;`_</span>
-<span class="sd">    - If not a reference, build a fallback &quot;manual&quot; slide payload</span>
-<span class="sd">    - Load preset materials:</span>
-<span class="sd">        - Responsive readings (&quot;respo&quot;) from JSON</span>
-<span class="sd">        - Hymns from JSON</span>
+<span class="sd">    - Bible references (single verse, range, or full chapter)</span>
+<span class="sd">    - Manual text fallback</span>
+<span class="sd">    - Responsive readings (교독문)</span>
+<span class="sd">    - Hymns (찬송가)</span>
+<span class="sd">    - Arbitrary manual slide content</span>
+
+<span class="sd">    Verse-based slides are retrieved via :class:`core.utils.bible_data_loader.BibleDataLoader`</span>
+<span class="sd">    and wrapped into screen-friendly chunks using `textwrap.wrap &lt;https://docs.python.org/3/library/textwrap.html#textwrap.wrap&gt;`_.</span>
 
 <span class="sd">    Slide dict schema::</span>
 
@@ -133,6 +135,17 @@
 <span class="sd">            &quot;caption&quot;: str,   # title / reference line</span>
 <span class="sd">            &quot;headline&quot;: str,  # main body text shown on screen</span>
 <span class="sd">        }</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        VERSION_ALIASES (dict):</span>
+<span class="sd">            Mapping of Bible version keys to human-readable aliases,</span>
+<span class="sd">            loaded from :py:data:`core.config.paths.ALIASES_VERSION_FILE`.</span>
+<span class="sd">            Used when rendering verse captions.</span>
+
+<span class="sd">        loader (BibleDataLoader):</span>
+<span class="sd">            Bible data loader instance used to retrieve verse text,</span>
+<span class="sd">            book names, and chapter metadata. Either provided externally</span>
+<span class="sd">            or created internally during initialization.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="EmergencySlideFactory.__init__">

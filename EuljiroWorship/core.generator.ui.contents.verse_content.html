@@ -135,11 +135,31 @@ the internal Bible data engine, and previewing the formatted output.</p>
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.ui.contents.verse_content.</span></span><span class="sig-name descname"><span class="pre">VerseContent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/verse_content.html#VerseContent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.verse_content.VerseContent" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
 <p>Content editor widget for “verse” (Bible verse) slides.</p>
-<p>This widget allows the user to input a Bible reference
-(e.g., “요한복음 3:16”), fetch the corresponding verse text from
-the selected Bible version, and preview the formatted output.</p>
-<p>The fetched verses are also written to <a class="reference internal" href="core.config.paths.html#core.config.paths.VERSE_FILE" title="core.config.paths.VERSE_FILE"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.VERSE_FILE</span></code></a> to support
-emergency subtitle overlays.</p>
+<p>This widget provides a verse-focused editor workflow:</p>
+<ul class="simple">
+<li><p>Select a Bible version (JSON file under <a class="reference internal" href="core.config.paths.html#core.config.paths.BIBLE_DATA_DIR" title="core.config.paths.BIBLE_DATA_DIR"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.BIBLE_DATA_DIR</span></code></a>)</p></li>
+<li><p>Enter a Bible reference string (e.g., “요한복음 3:16”)</p></li>
+<li><p>Press Enter to parse the reference, fetch verses, and preview the result</p></li>
+<li><p>Export the fetched/assembled text into the slide system and also write the
+same formatted output to <a class="reference internal" href="core.config.paths.html#core.config.paths.VERSE_FILE" title="core.config.paths.VERSE_FILE"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.VERSE_FILE</span></code></a> for
+emergency subtitle overlays.</p></li>
+</ul>
+<p>Verse resolution is performed by <a class="reference internal" href="core.utils.bible_parser.html#core.utils.bible_parser.parse_reference" title="core.utils.bible_parser.parse_reference"><code class="xref py py-func docutils literal notranslate"><span class="pre">core.utils.bible_parser.parse_reference()</span></code></a>
+and verse retrieval uses <a class="reference internal" href="core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader" title="core.utils.bible_data_loader.BibleDataLoader"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.utils.bible_data_loader.BibleDataLoader</span></code></a>.
+When the parsed reference indicates a full chapter request (<code class="docutils literal notranslate"><span class="pre">(1,</span> <span class="pre">-1)</span></code>),
+the widget expands the verse range using the chapter’s maximum verse count
+when available.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>The preview text shown in the editor is a joined block of
+<code class="docutils literal notranslate"><span class="pre">&quot;{caption}\n{headline}&quot;</span></code> entries separated by blank lines.</p></li>
+<li><p>The exported slide data returned by <a class="reference internal" href="#core.generator.ui.contents.verse_content.VerseContent.get_slide_data" title="core.generator.ui.contents.verse_content.VerseContent.get_slide_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_slide_data()</span></code></a> uses the
+raw user-entered reference as <code class="docutils literal notranslate"><span class="pre">caption</span></code> and the preview text block
+as <code class="docutils literal notranslate"><span class="pre">headline</span></code> (the detailed per-verse slide dicts are kept separately
+in <code class="docutils literal notranslate"><span class="pre">generated_slides</span></code> when generated).</p></li>
+</ul>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -148,6 +168,122 @@ emergency subtitle overlays.</p>
 </ul>
 </dd>
 </dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.verse_content.VerseContent.caption">
+<span class="sig-name descname"><span class="pre">caption</span></span><a class="headerlink" href="#core.generator.ui.contents.verse_content.VerseContent.caption" title="Link to this definition"></a></dt>
+<dd><p>Initial reference string provided at construction time.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.verse_content.VerseContent.headline">
+<span class="sig-name descname"><span class="pre">headline</span></span><a class="headerlink" href="#core.generator.ui.contents.verse_content.VerseContent.headline" title="Link to this definition"></a></dt>
+<dd><p>Initial preview/body text provided at construction time.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.verse_content.VerseContent.generator_window">
+<span class="sig-name descname"><span class="pre">generator_window</span></span><a class="headerlink" href="#core.generator.ui.contents.verse_content.VerseContent.generator_window" title="Link to this definition"></a></dt>
+<dd><p>Reference to the generator main window for submission and
+synchronization (auto-save/session updates via the submitter).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.verse_content.VerseContent.VERSION_ALIASES">
+<span class="sig-name descname"><span class="pre">VERSION_ALIASES</span></span><a class="headerlink" href="#core.generator.ui.contents.verse_content.VerseContent.VERSION_ALIASES" title="Link to this definition"></a></dt>
+<dd><p>Mapping of Bible version display names to shorter aliases, loaded
+from <a class="reference internal" href="core.config.paths.html#core.config.paths.ALIASES_VERSION_FILE" title="core.config.paths.ALIASES_VERSION_FILE"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.ALIASES_VERSION_FILE</span></code></a>. Used when
+composing per-verse caption strings (e.g., <code class="docutils literal notranslate"><span class="pre">&quot;(개역개정)&quot;</span></code>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.verse_content.VerseContent.versions">
+<span class="sig-name descname"><span class="pre">versions</span></span><a class="headerlink" href="#core.generator.ui.contents.verse_content.VerseContent.versions" title="Link to this definition"></a></dt>
+<dd><p>Available version keys discovered from JSON files in
+<a class="reference internal" href="core.config.paths.html#core.config.paths.BIBLE_DATA_DIR" title="core.config.paths.BIBLE_DATA_DIR"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.BIBLE_DATA_DIR</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.verse_content.VerseContent.version_dropdown">
+<span class="sig-name descname"><span class="pre">version_dropdown</span></span><a class="headerlink" href="#core.generator.ui.contents.verse_content.VerseContent.version_dropdown" title="Link to this definition"></a></dt>
+<dd><p>Version selector widget; current selection determines which JSON
+is loaded when fetching verses.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QComboBox</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.verse_content.VerseContent.caption_edit">
+<span class="sig-name descname"><span class="pre">caption_edit</span></span><a class="headerlink" href="#core.generator.ui.contents.verse_content.VerseContent.caption_edit" title="Link to this definition"></a></dt>
+<dd><p>Reference input widget. <code class="docutils literal notranslate"><span class="pre">returnPressed</span></code> triggers
+<a class="reference internal" href="#core.generator.ui.contents.verse_content.VerseContent.try_fetch_verse_output" title="core.generator.ui.contents.verse_content.VerseContent.try_fetch_verse_output"><code class="xref py py-meth docutils literal notranslate"><span class="pre">try_fetch_verse_output()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QLineEdit</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.verse_content.VerseContent.headline_edit">
+<span class="sig-name descname"><span class="pre">headline_edit</span></span><a class="headerlink" href="#core.generator.ui.contents.verse_content.VerseContent.headline_edit" title="Link to this definition"></a></dt>
+<dd><p>Multi-line preview area that displays the formatted verse output.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QTextEdit</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.verse_content.VerseContent.submitter">
+<span class="sig-name descname"><span class="pre">submitter</span></span><a class="headerlink" href="#core.generator.ui.contents.verse_content.VerseContent.submitter" title="Link to this definition"></a></dt>
+<dd><p>Auto-submit helper that observes the verse preview widget and
+provides export-ready slide data via <a class="reference internal" href="#core.generator.ui.contents.verse_content.VerseContent.build_verse_slide" title="core.generator.ui.contents.verse_content.VerseContent.build_verse_slide"><code class="xref py py-meth docutils literal notranslate"><span class="pre">build_verse_slide()</span></code></a>.
+The reference input is ignored for auto-submit in this widget.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="core.generator.utils.slide_input_submitter.html#core.generator.utils.slide_input_submitter.SlideInputSubmitter" title="core.generator.utils.slide_input_submitter.SlideInputSubmitter">SlideInputSubmitter</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.verse_content.VerseContent.generated_slides">
+<span class="sig-name descname"><span class="pre">generated_slides</span></span><a class="headerlink" href="#core.generator.ui.contents.verse_content.VerseContent.generated_slides" title="Link to this definition"></a></dt>
+<dd><p>List of per-verse slide dictionaries produced by the last successful
+fetch. Each entry follows the standard slide schema
+(<code class="docutils literal notranslate"><span class="pre">style</span></code>, <code class="docutils literal notranslate"><span class="pre">caption</span></code>, <code class="docutils literal notranslate"><span class="pre">headline</span></code>). Present only after a
+successful fetch.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[dict]</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="core.generator.ui.contents.verse_content.VerseContent.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generator_window</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caption</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/verse_content.html#VerseContent.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.verse_content.VerseContent.__init__" title="Link to this definition"></a></dt>

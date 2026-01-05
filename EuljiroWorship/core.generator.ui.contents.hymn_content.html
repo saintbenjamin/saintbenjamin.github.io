@@ -132,16 +132,17 @@ for that dataset within the slide generator.</p>
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.ui.contents.hymn_content.</span></span><span class="sig-name descname"><span class="pre">HymnContent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/hymn_content.html#HymnContent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.hymn_content.HymnContent" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
 <p>Content editor widget for “hymn” style slides.</p>
-<p>This widget provides input fields and controls for:</p>
+<p>This widget provides a small editor for hymn-based slides, including:</p>
 <ul class="simple">
 <li><p>Selecting a hymn by number</p></li>
-<li><p>Viewing and editing the hymn title</p></li>
-<li><p>Viewing and editing the hymn lyrics</p></li>
-<li><p>Loading hymn data from a local JSON database</p></li>
-<li><p>Saving edited hymn data back to the database</p></li>
+<li><p>Loading hymn JSON data from the local hymn database</p></li>
+<li><p>Viewing/editing the hymn title and lyrics</p></li>
+<li><p>Saving edits back to the JSON database</p></li>
+<li><p>Producing slide payloads for the generator/controller export flow</p></li>
 </ul>
-<p>The edited content can be exported as slide data for use in the
-slide generator and controller.</p>
+<p>The widget is designed to integrate with the generator window via
+<a class="reference internal" href="core.generator.utils.slide_input_submitter.html#core.generator.utils.slide_input_submitter.SlideInputSubmitter" title="core.generator.utils.slide_input_submitter.SlideInputSubmitter"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.generator.utils.slide_input_submitter.SlideInputSubmitter</span></code></a>,
+so edits can be reflected in the current slide state automatically.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -150,6 +151,116 @@ slide generator and controller.</p>
 </ul>
 </dd>
 </dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.hymn_content.HymnContent.caption">
+<span class="sig-name descname"><span class="pre">caption</span></span><a class="headerlink" href="#core.generator.ui.contents.hymn_content.HymnContent.caption" title="Link to this definition"></a></dt>
+<dd><p>Initial caption value passed at construction time. Often contains
+the hymn title or a string like “새찬송가 88장”.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.hymn_content.HymnContent.headline">
+<span class="sig-name descname"><span class="pre">headline</span></span><a class="headerlink" href="#core.generator.ui.contents.hymn_content.HymnContent.headline" title="Link to this definition"></a></dt>
+<dd><p>Initial lyrics text passed at construction time.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.hymn_content.HymnContent.hymn_data">
+<span class="sig-name descname"><span class="pre">hymn_data</span></span><a class="headerlink" href="#core.generator.ui.contents.hymn_content.HymnContent.hymn_data" title="Link to this definition"></a></dt>
+<dd><p>In-memory representation of the currently loaded hymn JSON file.
+This is updated when a hymn is loaded and then reused on save.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.hymn_content.HymnContent.generator_window">
+<span class="sig-name descname"><span class="pre">generator_window</span></span><a class="headerlink" href="#core.generator.ui.contents.hymn_content.HymnContent.generator_window" title="Link to this definition"></a></dt>
+<dd><p>Reference to the generator window that receives live slide updates
+and manages auto-save/session logic.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.hymn_content.HymnContent.number_input">
+<span class="sig-name descname"><span class="pre">number_input</span></span><a class="headerlink" href="#core.generator.ui.contents.hymn_content.HymnContent.number_input" title="Link to this definition"></a></dt>
+<dd><p>Input field for the hymn number. Pressing Enter triggers loading.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QLineEdit</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.hymn_content.HymnContent.title_edit">
+<span class="sig-name descname"><span class="pre">title_edit</span></span><a class="headerlink" href="#core.generator.ui.contents.hymn_content.HymnContent.title_edit" title="Link to this definition"></a></dt>
+<dd><p>Editor for the hymn title (used as the slide caption).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QLineEdit</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.hymn_content.HymnContent.headline_edit">
+<span class="sig-name descname"><span class="pre">headline_edit</span></span><a class="headerlink" href="#core.generator.ui.contents.hymn_content.HymnContent.headline_edit" title="Link to this definition"></a></dt>
+<dd><p>Editor for the hymn lyrics (used as the slide headline). Font is set
+via <code class="docutils literal notranslate"><span class="pre">get_font_from_settings()</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QTextEdit</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.hymn_content.HymnContent.load_button">
+<span class="sig-name descname"><span class="pre">load_button</span></span><a class="headerlink" href="#core.generator.ui.contents.hymn_content.HymnContent.load_button" title="Link to this definition"></a></dt>
+<dd><p>Button that triggers hymn loading for the number in <code class="docutils literal notranslate"><span class="pre">number_input</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QPushButton</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.hymn_content.HymnContent.save_button">
+<span class="sig-name descname"><span class="pre">save_button</span></span><a class="headerlink" href="#core.generator.ui.contents.hymn_content.HymnContent.save_button" title="Link to this definition"></a></dt>
+<dd><p>Button that writes the current <code class="docutils literal notranslate"><span class="pre">hymn_data</span></code> back to disk.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QPushButton</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.hymn_content.HymnContent.submitter">
+<span class="sig-name descname"><span class="pre">submitter</span></span><a class="headerlink" href="#core.generator.ui.contents.hymn_content.HymnContent.submitter" title="Link to this definition"></a></dt>
+<dd><p>Auto-submit helper that observes inputs and provides updated slide
+payloads via <code class="docutils literal notranslate"><span class="pre">build_hymn_slide()</span></code>. Created after a hymn is loaded.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="core.generator.utils.slide_input_submitter.html#core.generator.utils.slide_input_submitter.SlideInputSubmitter" title="core.generator.utils.slide_input_submitter.SlideInputSubmitter">SlideInputSubmitter</a></p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="core.generator.ui.contents.hymn_content.HymnContent.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generator_window</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caption</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/hymn_content.html#HymnContent.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.hymn_content.HymnContent.__init__" title="Link to this definition"></a></dt>

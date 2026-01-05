@@ -113,23 +113,57 @@
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">core.generator.utils.slide_input_submitter</span><span class="w"> </span><span class="kn">import</span> <span class="n">SlideInputSubmitter</span>
 
-
 <div class="viewcode-block" id="VideoContent">
 <a class="viewcode-back" href="../../../../../core.generator.ui.contents.video_content.html#core.generator.ui.contents.video_content.VideoContent">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">VideoContent</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Content editor widget for &quot;video&quot; style slides.</span>
 
-<span class="sd">    This widget allows users to:</span>
+<span class="sd">    This widget supports selecting a local video file, copying it into the</span>
+<span class="sd">    overlay asset directory (``./html/img``), previewing it using Qt Multimedia,</span>
+<span class="sd">    and exporting the selection as slide data.</span>
 
-<span class="sd">    - Select a video file from disk</span>
-<span class="sd">    - Copy the selected video into a local image directory for overlay use (``html/img``)</span>
-<span class="sd">    - Preview the selected video (play/pause)</span>
-<span class="sd">    - Enter optional caption text associated with the video</span>
+<span class="sd">    Slide-data mapping:</span>
 
-<span class="sd">    In this slide style, the video path is stored in the ``headline`` field</span>
-<span class="sd">    of the slide data dictionary, while the ``caption`` field contains</span>
-<span class="sd">    accompanying text.</span>
+<span class="sd">    - ``caption``: optional text shown alongside the media</span>
+<span class="sd">    - ``headline``: relative video path used by the overlay (e.g., ``&quot;img/foo.mp4&quot;``)</span>
+
+<span class="sd">    The preview player resolves stored relative paths against ``./html/`` so that</span>
+<span class="sd">    values produced by :meth:`copy_to_img_folder` can be previewed consistently.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        caption (str):</span>
+<span class="sd">            Initial caption text provided at construction time.</span>
+<span class="sd">        headline (str):</span>
+<span class="sd">            Relative video path stored in slide data (e.g., ``&quot;img/foo.mp4&quot;``).</span>
+<span class="sd">        generator_window:</span>
+<span class="sd">            Reference to the generator main window. Used by the input submitter</span>
+<span class="sd">            to synchronize and auto-save slide edits.</span>
+<span class="sd">        player (QMediaPlayer | None):</span>
+<span class="sd">            Qt Multimedia player used for in-widget preview playback.</span>
+<span class="sd">            Initialized in :meth:`_init_player`.</span>
+<span class="sd">        audio (QAudioOutput | None):</span>
+<span class="sd">            Audio output sink for preview playback. Attached to ``player``.</span>
+<span class="sd">        video_widget (QVideoWidget | None):</span>
+<span class="sd">            Video output widget used to render preview frames.</span>
+<span class="sd">        headline_edit (QLineEdit):</span>
+<span class="sd">            Input field holding the relative video path (stored in ``headline``).</span>
+<span class="sd">        caption_edit (QLineEdit):</span>
+<span class="sd">            Input field holding the caption text.</span>
+<span class="sd">        video_button (QPushButton):</span>
+<span class="sd">            Button that opens a file picker to select a video.</span>
+<span class="sd">        preview_label (QLabel):</span>
+<span class="sd">            Label showing the selected filename or status messages</span>
+<span class="sd">            (e.g., &quot;비디오 로딩 실패&quot;).</span>
+<span class="sd">        play_button (QPushButton):</span>
+<span class="sd">            Starts preview playback.</span>
+<span class="sd">        pause_button (QPushButton):</span>
+<span class="sd">            Pauses preview playback.</span>
+<span class="sd">        stop_button (QPushButton):</span>
+<span class="sd">            Stops preview playback and resets position.</span>
+<span class="sd">        submitter (SlideInputSubmitter):</span>
+<span class="sd">            Auto-submit helper that produces export-ready slide payloads using</span>
+<span class="sd">            :meth:`build_video_slide`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="VideoContent.__init__">

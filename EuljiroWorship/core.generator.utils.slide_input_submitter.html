@@ -127,15 +127,24 @@ to insert line breaks in multi-line fields.</p>
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.utils.slide_input_submitter.</span></span><span class="sig-name descname"><span class="pre">SlideInputSubmitter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/utils/slide_input_submitter.html#SlideInputSubmitter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.utils.slide_input_submitter.SlideInputSubmitter" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QObject</span></code></p>
 <p>Event-filter helper that submits slide edits when the user presses Enter.</p>
-<p>This object installs an event filter on a set of input widgets (e.g., QLineEdit,
-QTextEdit/QPlainTextEdit, custom widgets) and interprets the Enter/Return key as a
-“submit” trigger.</p>
-<p>Behavior rules:</p>
+<p>This class installs itself as an event filter on a set of input widgets and
+interprets the Enter/Return key as a submission trigger for slide data editing.
+It provides a uniform, keyboard-driven submission mechanism across different
+content editors without embedding submission logic into individual widgets.</p>
+<p>Key behaviors:</p>
 <ul class="simple">
-<li><p>Enter/Return triggers submission.</p></li>
-<li><p>Shift+Enter is treated as a literal newline (i.e., it does <em>not</em> submit).</p></li>
-<li><p>Widgets listed in <cite>ignore_widgets</cite> are excluded from Enter-submit handling.</p></li>
+<li><p>Enter / Return triggers slide submission.</p></li>
+<li><p>Shift + Enter is treated as a literal newline and does not submit.</p></li>
+<li><p>Widgets explicitly listed as ignored are excluded from Enter-submit handling.</p></li>
 </ul>
+<p>Submission is performed by invoking a caller-provided slide builder callback.
+If the callback returns no data, submission is aborted silently. If submission
+succeeds and the owning generator exposes a save routine, the current slide
+session is automatically persisted.</p>
+<p>This helper is intentionally UI-agnostic: it does not know slide styles,
+widget semantics, or table structure. Its sole responsibility is to translate
+keyboard events into submission intent and delegate the actual data construction
+to the caller.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Submission is performed by calling <code class="docutils literal notranslate"><span class="pre">build_slide_func()</span></code>. If it returns a falsy value
@@ -145,17 +154,58 @@ the submitter will save automatically after a successful build.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>inputs</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>QWidget</em><em>]</em>) – Mapping of logical input names to widget instances.
-All widgets in this mapping receive this object’s event filter.</p></li>
-<li><p><strong>generator</strong> (<em>QWidget</em>) – The generator window/controller instance. If it provides
-<a class="reference internal" href="core.generator.ui.slide_generator.html#core.generator.ui.slide_generator.SlideGenerator.save_slides_to_file" title="core.generator.ui.slide_generator.SlideGenerator.save_slides_to_file"><code class="xref py py-meth docutils literal notranslate"><span class="pre">core.generator.ui.slide_generator.SlideGenerator.save_slides_to_file()</span></code></a>, it will be called after submission.</p></li>
-<li><p><strong>build_slide_func</strong> (<em>Callable</em><em>[</em><em>[</em><em>]</em><em>, </em><em>dict</em><em> | </em><em>list</em><em> | </em><em>None</em><em>]</em>) – Callable that constructs
-slide data (single dict or list of dicts) from current widget state.</p></li>
-<li><p><strong>ignore_widgets</strong> (<em>list</em><em>[</em><em>QWidget</em><em>] </em><em>| </em><em>None</em>) – Optional list of widgets whose Enter key
-should be ignored by this submitter.</p></li>
+<li><p><strong>inputs</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>PySide6.QtWidgets.QWidget</em><em>]</em>)</p></li>
+<li><p><strong>generator</strong> (<em>PySide6.QtWidgets.QWidget</em>)</p></li>
+<li><p><strong>build_slide_func</strong> (<em>Callable</em><em>[</em><em>[</em><em>]</em><em>, </em><em>dict</em><em> | </em><em>list</em><em> | </em><em>None</em><em>]</em>)</p></li>
 </ul>
 </dd>
 </dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.utils.slide_input_submitter.SlideInputSubmitter.inputs">
+<span class="sig-name descname"><span class="pre">inputs</span></span><a class="headerlink" href="#core.generator.utils.slide_input_submitter.SlideInputSubmitter.inputs" title="Link to this definition"></a></dt>
+<dd><p>Mapping of logical input names to widget instances monitored for
+Enter/Return key submission.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict[str, QWidget]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.utils.slide_input_submitter.SlideInputSubmitter.generator">
+<span class="sig-name descname"><span class="pre">generator</span></span><a class="headerlink" href="#core.generator.utils.slide_input_submitter.SlideInputSubmitter.generator" title="Link to this definition"></a></dt>
+<dd><p>Owning generator/controller object. If it provides a save method,
+it will be invoked after successful submission.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QWidget</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.utils.slide_input_submitter.SlideInputSubmitter.build_slide_func">
+<span class="sig-name descname"><span class="pre">build_slide_func</span></span><a class="headerlink" href="#core.generator.utils.slide_input_submitter.SlideInputSubmitter.build_slide_func" title="Link to this definition"></a></dt>
+<dd><p>Callback that constructs slide data from current widget state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Callable[[], dict | list | None]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.utils.slide_input_submitter.SlideInputSubmitter.ignore_widgets">
+<span class="sig-name descname"><span class="pre">ignore_widgets</span></span><a class="headerlink" href="#core.generator.utils.slide_input_submitter.SlideInputSubmitter.ignore_widgets" title="Link to this definition"></a></dt>
+<dd><p>Widgets whose Enter key events should bypass submission handling.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[QWidget]</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="core.generator.utils.slide_input_submitter.SlideInputSubmitter.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">build_slide_func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_widgets</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/utils/slide_input_submitter.html#SlideInputSubmitter.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.utils.slide_input_submitter.SlideInputSubmitter.__init__" title="Link to this definition"></a></dt>

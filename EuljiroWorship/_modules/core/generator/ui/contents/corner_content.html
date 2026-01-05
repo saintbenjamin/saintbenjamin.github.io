@@ -100,13 +100,34 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Content editor widget for &quot;corner&quot; style slides.</span>
 
-<span class="sd">    This widget provides input fields for:</span>
+<span class="sd">    This widget provides a simple editor for corner-style slides, typically</span>
+<span class="sd">    used for sermon titles, section headers, or brief announcements. It allows</span>
+<span class="sd">    the user to edit:</span>
 
 <span class="sd">    - Headline text (main title)</span>
 <span class="sd">    - Caption text (subtitle or secondary label)</span>
 
-<span class="sd">    The collected input is converted into a slide data dictionary</span>
-<span class="sd">    containing ``style``, ``caption``, and ``headline`` fields.</span>
+<span class="sd">    The input is converted into a slide dictionary containing</span>
+<span class="sd">    ``style``, ``caption``, and ``headline`` fields, which are consumed by the</span>
+<span class="sd">    slide generator and controller.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        caption (str):</span>
+<span class="sd">            Initial caption text provided when the widget is created.</span>
+<span class="sd">            Typically represents a subtitle or secondary label.</span>
+<span class="sd">        headline (str):</span>
+<span class="sd">            Initial headline text provided when the widget is created.</span>
+<span class="sd">            Typically represents the main title.</span>
+<span class="sd">        generator_window:</span>
+<span class="sd">            Reference to the slide generator window. Used for automatic</span>
+<span class="sd">            submission, synchronization, and save/update behavior.</span>
+<span class="sd">        headline_edit (QLineEdit):</span>
+<span class="sd">            Input field for editing the headline text.</span>
+<span class="sd">        caption_edit (QLineEdit):</span>
+<span class="sd">            Input field for editing the caption text.</span>
+<span class="sd">        submitter (SlideInputSubmitter):</span>
+<span class="sd">            Helper object that monitors input fields and submits updated</span>
+<span class="sd">            slide data to the generator window when changes occur.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="CornerContent.__init__">

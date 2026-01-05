@@ -134,17 +134,50 @@ Bible verse formatting).</p>
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.utils.slide_generator_data_manager.</span></span><span class="sig-name descname"><span class="pre">SlideGeneratorDataManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table_widget</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/utils/slide_generator_data_manager.html#SlideGeneratorDataManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.utils.slide_generator_data_manager.SlideGeneratorDataManager" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Manage slide data exchange between JSON files and the generator table UI.</p>
-<p>This class provides a thin data-adapter layer between JSON-based slide
-definitions and the generator table widget. It loads slide JSON data into the
-<cite>QTableWidget</cite> and converts table rows back into structured slide
-dictionaries. It also performs style-specific preprocessing and normalization,
-such as handling anthem choir names and verse formatting.</p>
-<p>This class intentionally contains no UI logic beyond table population.</p>
+<p>This class acts as a thin data-adapter layer between JSON-based slide
+definitions and the slide generator’s <cite>QTableWidget</cite>. It is responsible for
+loading slide session data from disk into the table, and for collecting and
+normalizing table contents back into structured slide dictionaries suitable
+for saving or exporting.</p>
+<p>Responsibilities include:</p>
+<ul>
+<li><p>Populating the generator table from a slide JSON file</p></li>
+<li><p>Extracting slide data from table rows into normalized dictionaries</p></li>
+<li><p>Applying style alias mappings between display labels and internal keys</p></li>
+<li><p>Performing style-specific preprocessing and normalization, such as:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Merging and splitting anthem captions and choir names</p></li>
+<li><p>Reformatting multi-verse Bible slide text for readability</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>This class deliberately contains no UI control logic beyond direct table
+population and inspection, and does not handle dialogs, user interaction,
+or rendering concerns.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.utils.slide_generator_data_manager.SlideGeneratorDataManager.table">
+<span class="sig-name descname"><span class="pre">table</span></span><a class="headerlink" href="#core.generator.utils.slide_generator_data_manager.SlideGeneratorDataManager.table" title="Link to this definition"></a></dt>
+<dd><p>Reference to the generator’s slide table widget.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>table_widget</strong> (<em>QTableWidget</em>) – The table widget used in the slide generator UI.</p>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QTableWidget</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.utils.slide_generator_data_manager.SlideGeneratorDataManager.loader">
+<span class="sig-name descname"><span class="pre">loader</span></span><a class="headerlink" href="#core.generator.utils.slide_generator_data_manager.SlideGeneratorDataManager.loader" title="Link to this definition"></a></dt>
+<dd><p>Bible data loader instance used for verse-related preprocessing.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader" title="core.utils.bible_data_loader.BibleDataLoader">BibleDataLoader</a></p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="core.generator.utils.slide_generator_data_manager.SlideGeneratorDataManager.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table_widget</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/utils/slide_generator_data_manager.html#SlideGeneratorDataManager.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.utils.slide_generator_data_manager.SlideGeneratorDataManager.__init__" title="Link to this definition"></a></dt>

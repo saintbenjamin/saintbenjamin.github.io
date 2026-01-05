@@ -99,14 +99,34 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Content editor widget for &quot;anthem&quot; style slides.</span>
 
-<span class="sd">    This widget provides input fields for:</span>
+<span class="sd">    This widget provides input fields for composing anthem-style slides,</span>
+<span class="sd">    typically used for choir or special music presentations. It allows</span>
+<span class="sd">    the user to specify:</span>
 
 <span class="sd">    - Choir or group name</span>
 <span class="sd">    - Anthem title</span>
 
 <span class="sd">    The collected input is transformed into a slide dictionary containing</span>
-<span class="sd">    ``caption``, ``caption_choir``, and ``headline`` fields, which are later used</span>
-<span class="sd">    by the slide exporter and controller.</span>
+<span class="sd">    ``caption``, ``caption_choir``, and ``headline`` fields, which are later</span>
+<span class="sd">    consumed by the slide generator/exporter and controller.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        caption (str):</span>
+<span class="sd">            Initial caption text passed from existing slide data.</span>
+<span class="sd">            Typically represents the main group or choir name.</span>
+<span class="sd">        headline (str):</span>
+<span class="sd">            Initial headline text passed from existing slide data.</span>
+<span class="sd">            Typically represents the anthem title.</span>
+<span class="sd">        generator_window:</span>
+<span class="sd">            Reference to the slide generator window. Used for automatic</span>
+<span class="sd">            submission, synchronization, and triggering save/update logic.</span>
+<span class="sd">        name_input (QLineEdit):</span>
+<span class="sd">            Input field for choir or group name.</span>
+<span class="sd">        headline_input (QLineEdit):</span>
+<span class="sd">            Input field for the anthem title.</span>
+<span class="sd">        submitter (SlideInputSubmitter):</span>
+<span class="sd">            Helper object that watches input fields and submits slide data</span>
+<span class="sd">            back to the generator window when changes occur.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="AnthemContent.__init__">

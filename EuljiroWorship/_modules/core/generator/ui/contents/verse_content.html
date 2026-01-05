@@ -113,12 +113,61 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Content editor widget for &quot;verse&quot; (Bible verse) slides.</span>
 
-<span class="sd">    This widget allows the user to input a Bible reference</span>
-<span class="sd">    (e.g., &quot;요한복음 3:16&quot;), fetch the corresponding verse text from</span>
-<span class="sd">    the selected Bible version, and preview the formatted output.</span>
+<span class="sd">    This widget provides a verse-focused editor workflow:</span>
 
-<span class="sd">    The fetched verses are also written to :py:data:`core.config.paths.VERSE_FILE` to support</span>
-<span class="sd">    emergency subtitle overlays.</span>
+<span class="sd">    - Select a Bible version (JSON file under :py:data:`core.config.paths.BIBLE_DATA_DIR`)</span>
+<span class="sd">    - Enter a Bible reference string (e.g., &quot;요한복음 3:16&quot;)</span>
+<span class="sd">    - Press Enter to parse the reference, fetch verses, and preview the result</span>
+<span class="sd">    - Export the fetched/assembled text into the slide system and also write the</span>
+<span class="sd">      same formatted output to :py:data:`core.config.paths.VERSE_FILE` for</span>
+<span class="sd">      emergency subtitle overlays.</span>
+
+<span class="sd">    Verse resolution is performed by :func:`core.utils.bible_parser.parse_reference`</span>
+<span class="sd">    and verse retrieval uses :class:`core.utils.bible_data_loader.BibleDataLoader`.</span>
+<span class="sd">    When the parsed reference indicates a full chapter request (``(1, -1)``),</span>
+<span class="sd">    the widget expands the verse range using the chapter&#39;s maximum verse count</span>
+<span class="sd">    when available.</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        - The preview text shown in the editor is a joined block of</span>
+<span class="sd">          ``&quot;{caption}\\n{headline}&quot;`` entries separated by blank lines.</span>
+<span class="sd">        - The exported slide data returned by :meth:`get_slide_data` uses the</span>
+<span class="sd">          raw user-entered reference as ``caption`` and the preview text block</span>
+<span class="sd">          as ``headline`` (the detailed per-verse slide dicts are kept separately</span>
+<span class="sd">          in ``generated_slides`` when generated).</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        caption (str):</span>
+<span class="sd">            Initial reference string provided at construction time.</span>
+<span class="sd">        headline (str):</span>
+<span class="sd">            Initial preview/body text provided at construction time.</span>
+<span class="sd">        generator_window:</span>
+<span class="sd">            Reference to the generator main window for submission and</span>
+<span class="sd">            synchronization (auto-save/session updates via the submitter).</span>
+<span class="sd">        VERSION_ALIASES (dict):</span>
+<span class="sd">            Mapping of Bible version display names to shorter aliases, loaded</span>
+<span class="sd">            from :py:data:`core.config.paths.ALIASES_VERSION_FILE`. Used when</span>
+<span class="sd">            composing per-verse caption strings (e.g., ``&quot;(개역개정)&quot;``).</span>
+<span class="sd">        versions (list[str]):</span>
+<span class="sd">            Available version keys discovered from JSON files in</span>
+<span class="sd">            :py:data:`core.config.paths.BIBLE_DATA_DIR`.</span>
+<span class="sd">        version_dropdown (QComboBox):</span>
+<span class="sd">            Version selector widget; current selection determines which JSON</span>
+<span class="sd">            is loaded when fetching verses.</span>
+<span class="sd">        caption_edit (QLineEdit):</span>
+<span class="sd">            Reference input widget. ``returnPressed`` triggers</span>
+<span class="sd">            :meth:`try_fetch_verse_output`.</span>
+<span class="sd">        headline_edit (QTextEdit):</span>
+<span class="sd">            Multi-line preview area that displays the formatted verse output.</span>
+<span class="sd">        submitter (SlideInputSubmitter):</span>
+<span class="sd">            Auto-submit helper that observes the verse preview widget and</span>
+<span class="sd">            provides export-ready slide data via :meth:`build_verse_slide`.</span>
+<span class="sd">            The reference input is ignored for auto-submit in this widget.</span>
+<span class="sd">        generated_slides (list[dict]):</span>
+<span class="sd">            List of per-verse slide dictionaries produced by the last successful</span>
+<span class="sd">            fetch. Each entry follows the standard slide schema</span>
+<span class="sd">            (``style``, ``caption``, ``headline``). Present only after a</span>
+<span class="sd">            successful fetch.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="VerseContent.__init__">

@@ -131,14 +131,16 @@ submission and synchronization with the parent generator window.</p>
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.ui.contents.anthem_content.</span></span><span class="sig-name descname"><span class="pre">AnthemContent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/anthem_content.html#AnthemContent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.anthem_content.AnthemContent" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
 <p>Content editor widget for “anthem” style slides.</p>
-<p>This widget provides input fields for:</p>
+<p>This widget provides input fields for composing anthem-style slides,
+typically used for choir or special music presentations. It allows
+the user to specify:</p>
 <ul class="simple">
 <li><p>Choir or group name</p></li>
 <li><p>Anthem title</p></li>
 </ul>
 <p>The collected input is transformed into a slide dictionary containing
-<code class="docutils literal notranslate"><span class="pre">caption</span></code>, <code class="docutils literal notranslate"><span class="pre">caption_choir</span></code>, and <code class="docutils literal notranslate"><span class="pre">headline</span></code> fields, which are later used
-by the slide exporter and controller.</p>
+<code class="docutils literal notranslate"><span class="pre">caption</span></code>, <code class="docutils literal notranslate"><span class="pre">caption_choir</span></code>, and <code class="docutils literal notranslate"><span class="pre">headline</span></code> fields, which are later
+consumed by the slide generator/exporter and controller.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -147,6 +149,71 @@ by the slide exporter and controller.</p>
 </ul>
 </dd>
 </dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.anthem_content.AnthemContent.caption">
+<span class="sig-name descname"><span class="pre">caption</span></span><a class="headerlink" href="#core.generator.ui.contents.anthem_content.AnthemContent.caption" title="Link to this definition"></a></dt>
+<dd><p>Initial caption text passed from existing slide data.
+Typically represents the main group or choir name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.anthem_content.AnthemContent.headline">
+<span class="sig-name descname"><span class="pre">headline</span></span><a class="headerlink" href="#core.generator.ui.contents.anthem_content.AnthemContent.headline" title="Link to this definition"></a></dt>
+<dd><p>Initial headline text passed from existing slide data.
+Typically represents the anthem title.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.anthem_content.AnthemContent.generator_window">
+<span class="sig-name descname"><span class="pre">generator_window</span></span><a class="headerlink" href="#core.generator.ui.contents.anthem_content.AnthemContent.generator_window" title="Link to this definition"></a></dt>
+<dd><p>Reference to the slide generator window. Used for automatic
+submission, synchronization, and triggering save/update logic.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.anthem_content.AnthemContent.name_input">
+<span class="sig-name descname"><span class="pre">name_input</span></span><a class="headerlink" href="#core.generator.ui.contents.anthem_content.AnthemContent.name_input" title="Link to this definition"></a></dt>
+<dd><p>Input field for choir or group name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QLineEdit</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.anthem_content.AnthemContent.headline_input">
+<span class="sig-name descname"><span class="pre">headline_input</span></span><a class="headerlink" href="#core.generator.ui.contents.anthem_content.AnthemContent.headline_input" title="Link to this definition"></a></dt>
+<dd><p>Input field for the anthem title.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QLineEdit</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.anthem_content.AnthemContent.submitter">
+<span class="sig-name descname"><span class="pre">submitter</span></span><a class="headerlink" href="#core.generator.ui.contents.anthem_content.AnthemContent.submitter" title="Link to this definition"></a></dt>
+<dd><p>Helper object that watches input fields and submits slide data
+back to the generator window when changes occur.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="core.generator.utils.slide_input_submitter.html#core.generator.utils.slide_input_submitter.SlideInputSubmitter" title="core.generator.utils.slide_input_submitter.SlideInputSubmitter">SlideInputSubmitter</a></p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="core.generator.ui.contents.anthem_content.AnthemContent.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generator_window</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caption</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/anthem_content.html#AnthemContent.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.anthem_content.AnthemContent.__init__" title="Link to this definition"></a></dt>

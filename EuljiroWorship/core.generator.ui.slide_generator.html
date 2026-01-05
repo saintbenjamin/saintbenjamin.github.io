@@ -135,13 +135,13 @@ through exported JSON and the WebSocket-based overlay pipeline.</p>
 <dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.ui.slide_generator.</span></span><span class="sig-name descname"><span class="pre">SlideGenerator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QMainWindow</span></code></p>
-<p>Main window for the EuljiroWorship slide generator (<a class="reference external" href="https://pypi.org/project/PySide6/">PySide6</a> / Qt).</p>
+<p>Main window for the EuljiroWorship slide generator.</p>
 <p>The generator provides a table-based slide session editor and supports:</p>
 <ul class="simple">
-<li><p>Creating, inserting, deleting, and reordering slide rows in a table</p></li>
-<li><p>Editing each slide via a style-specific modal dialog (on double-click)</p></li>
-<li><p>Loading/saving slide sessions as JSON files</p></li>
-<li><p>Exporting an overlay-ready JSON (prepends a blank slide for clean initial state)</p></li>
+<li><p>Creating, inserting, deleting, and reordering slide rows</p></li>
+<li><p>Editing each slide via a style-specific modal dialog (double-click)</p></li>
+<li><p>Loading and saving slide sessions as JSON files</p></li>
+<li><p>Exporting overlay-ready JSON (prepends a blank slide for a clean initial state)</p></li>
 <li><p>Launching the slide controller for live output (if not already running)</p></li>
 </ul>
 <p>Core collaborators (high-level):</p>
@@ -157,12 +157,17 @@ through exported JSON and the WebSocket-based overlay pipeline.</p>
 </dl>
 </li>
 <li><dl class="simple">
+<dt><a class="reference internal" href="core.generator.ui.slide_generator_ui_builder.html#core.generator.ui.slide_generator_ui_builder.SlideGeneratorUIBuilder" title="core.generator.ui.slide_generator_ui_builder.SlideGeneratorUIBuilder"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.generator.ui.slide_generator_ui_builder.SlideGeneratorUIBuilder</span></code></a>:</dt><dd><p>Builds and wires the generator window UI chrome (menus, buttons, labels).</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
 <dt><a class="reference internal" href="core.generator.utils.slide_exporter.html#core.generator.utils.slide_exporter.SlideExporter" title="core.generator.utils.slide_exporter.SlideExporter"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.generator.utils.slide_exporter.SlideExporter</span></code></a>:</dt><dd><p>Converts the internal slide session into the overlay JSON format.</p>
 </dd>
 </dl>
 </li>
 <li><dl class="simple">
-<dt><a class="reference internal" href="core.plugin.slide_controller_launcher.html#core.plugin.slide_controller_launcher.SlideControllerLauncher" title="core.plugin.slide_controller_launcher.SlideControllerLauncher"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.plugin.slide_controller_launcher.SlideControllerLauncher</span></code></a>:</dt><dd><p>Launches the controller process/UI that pushes slides to the overlay target.</p>
+<dt><a class="reference internal" href="core.plugin.slide_controller_launcher.html#core.plugin.slide_controller_launcher.SlideControllerLauncher" title="core.plugin.slide_controller_launcher.SlideControllerLauncher"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.plugin.slide_controller_launcher.SlideControllerLauncher</span></code></a>:</dt><dd><p>Launches the controller UI/process that pushes slides to the overlay target.</p>
 </dd>
 </dl>
 </li>
@@ -170,9 +175,129 @@ through exported JSON and the WebSocket-based overlay pipeline.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul class="simple">
-<li><p>On startup, this window may show a file-open dialog to load an existing session. If the user cancels, a blank session is created.</p></li>
+<li><p>On startup, this window may show a file-open dialog to load an existing
+session. If the user cancels, a blank session is created.</p></li>
+<li><p>Table cells are intentionally non-editable; edits are performed via the
+modal per-style editor dialog.</p></li>
 </ul>
 </div>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator.first_save_done">
+<span class="sig-name descname"><span class="pre">first_save_done</span></span><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator.first_save_done" title="Link to this definition"></a></dt>
+<dd><p>Tracks whether the first save action has completed in the current
+session. Used to choose between “save as” vs. save-to-last-path on
+Ctrl+S.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator.reverse_style_aliases">
+<span class="sig-name descname"><span class="pre">reverse_style_aliases</span></span><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator.reverse_style_aliases" title="Link to this definition"></a></dt>
+<dd><p>Reverse mapping from the displayed style label (Korean UI text) to
+the internal style key (e.g., “가사” -&gt; “lyrics”). Derived from
+<code class="docutils literal notranslate"><span class="pre">style_map.REVERSE_ALIASES</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict[str, str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator.table">
+<span class="sig-name descname"><span class="pre">table</span></span><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator.table" title="Link to this definition"></a></dt>
+<dd><p>Main slide table with three columns: style, caption, headline.
+Rows represent slides in the current session.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QTableWidget</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator.detail_widget">
+<span class="sig-name descname"><span class="pre">detail_widget</span></span><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator.detail_widget" title="Link to this definition"></a></dt>
+<dd><p>Right-side placeholder panel (reserved for future detail views).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QWidget</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator.slide_controller_launcher">
+<span class="sig-name descname"><span class="pre">slide_controller_launcher</span></span><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator.slide_controller_launcher" title="Link to this definition"></a></dt>
+<dd><p>Helper that launches (or detects) the running slide controller.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="core.plugin.slide_controller_launcher.html#core.plugin.slide_controller_launcher.SlideControllerLauncher" title="core.plugin.slide_controller_launcher.SlideControllerLauncher">SlideControllerLauncher</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator.table_manager">
+<span class="sig-name descname"><span class="pre">table_manager</span></span><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator.table_manager" title="Link to this definition"></a></dt>
+<dd><p>Encapsulates row operations and table manipulation logic.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="core.generator.ui.slide_table_manager.html#core.generator.ui.slide_table_manager.SlideTableManager" title="core.generator.ui.slide_table_manager.SlideTableManager">SlideTableManager</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator.data_manager">
+<span class="sig-name descname"><span class="pre">data_manager</span></span><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator.data_manager" title="Link to this definition"></a></dt>
+<dd><p>Loads/saves session JSON and collects session data from the table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="core.generator.utils.slide_generator_data_manager.html#core.generator.utils.slide_generator_data_manager.SlideGeneratorDataManager" title="core.generator.utils.slide_generator_data_manager.SlideGeneratorDataManager">SlideGeneratorDataManager</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator.ui_builder">
+<span class="sig-name descname"><span class="pre">ui_builder</span></span><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator.ui_builder" title="Link to this definition"></a></dt>
+<dd><p>UI builder responsible for wiring menus, buttons, and header labels.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="core.generator.ui.slide_generator_ui_builder.html#core.generator.ui.slide_generator_ui_builder.SlideGeneratorUIBuilder" title="core.generator.ui.slide_generator_ui_builder.SlideGeneratorUIBuilder">SlideGeneratorUIBuilder</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator.worship_name">
+<span class="sig-name descname"><span class="pre">worship_name</span></span><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator.worship_name" title="Link to this definition"></a></dt>
+<dd><p>Session label derived from the loaded filename stem. None for a new
+unsaved session.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator.last_saved_path">
+<span class="sig-name descname"><span class="pre">last_saved_path</span></span><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator.last_saved_path" title="Link to this definition"></a></dt>
+<dd><p>Last known save path for the current session. When set, normal save
+operations write to this path without prompting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str | None</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator.__init__" title="Link to this definition"></a></dt>

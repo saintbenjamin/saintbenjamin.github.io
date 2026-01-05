@@ -142,12 +142,36 @@ from the GUI thread with short-lived send operations.</p>
 <a class="reference external" href="https://pypi.org/project/websocket-client/">websocket-client</a> library and provides simple methods for:</p>
 <ul class="simple">
 <li><p>Connecting to a WebSocket server</p></li>
-<li><p>Sending slide dictionaries as JSON</p></li>
+<li><p>Sending slide dictionaries as JSON payloads</p></li>
 <li><p>Querying connection state</p></li>
 <li><p>Closing the connection safely</p></li>
 </ul>
-<p>It does not implement reconnection logic or background threads by design;
-higher-level components are expected to handle retry behavior if needed.</p>
+<p>It intentionally does <strong>not</strong> implement reconnection logic, background threads,
+or retry loops. Higher-level controller components are expected to manage
+lifecycle and recovery behavior if needed.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="controller.utils.slide_websocket_manager.SlideWebSocketManager.uri">
+<span class="sig-name descname"><span class="pre">uri</span></span><a class="headerlink" href="#controller.utils.slide_websocket_manager.SlideWebSocketManager.uri" title="Link to this definition"></a></dt>
+<dd><p>WebSocket server URI (e.g., <code class="docutils literal notranslate"><span class="pre">ws://127.0.0.1:8765/ws</span></code>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="controller.utils.slide_websocket_manager.SlideWebSocketManager.ws">
+<span class="sig-name descname"><span class="pre">ws</span></span><a class="headerlink" href="#controller.utils.slide_websocket_manager.SlideWebSocketManager.ws" title="Link to this definition"></a></dt>
+<dd><p>Active WebSocket connection object created by <code class="docutils literal notranslate"><span class="pre">websocket.create_connection</span></code>.
+Set to <code class="docutils literal notranslate"><span class="pre">None</span></code> when disconnected or on connection failure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>websocket.WebSocket | None</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="controller.utils.slide_websocket_manager.SlideWebSocketManager.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uri</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/slide_websocket_manager.html#SlideWebSocketManager.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.slide_websocket_manager.SlideWebSocketManager.__init__" title="Link to this definition"></a></dt>

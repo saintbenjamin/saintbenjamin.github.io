@@ -96,31 +96,43 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Event-filter helper that submits slide edits when the user presses Enter.</span>
 
-<span class="sd">    This object installs an event filter on a set of input widgets (e.g., QLineEdit,</span>
-<span class="sd">    QTextEdit/QPlainTextEdit, custom widgets) and interprets the Enter/Return key as a</span>
-<span class="sd">    &quot;submit&quot; trigger.</span>
+<span class="sd">    This class installs itself as an event filter on a set of input widgets and</span>
+<span class="sd">    interprets the Enter/Return key as a submission trigger for slide data editing.</span>
+<span class="sd">    It provides a uniform, keyboard-driven submission mechanism across different</span>
+<span class="sd">    content editors without embedding submission logic into individual widgets.</span>
 
-<span class="sd">    Behavior rules:</span>
+<span class="sd">    Key behaviors:</span>
 
-<span class="sd">    - Enter/Return triggers submission.</span>
-<span class="sd">    - Shift+Enter is treated as a literal newline (i.e., it does *not* submit).</span>
-<span class="sd">    - Widgets listed in `ignore_widgets` are excluded from Enter-submit handling.</span>
+<span class="sd">    - Enter / Return triggers slide submission.</span>
+<span class="sd">    - Shift + Enter is treated as a literal newline and does not submit.</span>
+<span class="sd">    - Widgets explicitly listed as ignored are excluded from Enter-submit handling.</span>
+
+<span class="sd">    Submission is performed by invoking a caller-provided slide builder callback.</span>
+<span class="sd">    If the callback returns no data, submission is aborted silently. If submission</span>
+<span class="sd">    succeeds and the owning generator exposes a save routine, the current slide</span>
+<span class="sd">    session is automatically persisted.</span>
+
+<span class="sd">    This helper is intentionally UI-agnostic: it does not know slide styles,</span>
+<span class="sd">    widget semantics, or table structure. Its sole responsibility is to translate</span>
+<span class="sd">    keyboard events into submission intent and delegate the actual data construction</span>
+<span class="sd">    to the caller.</span>
 
 <span class="sd">    Note:</span>
-
 <span class="sd">        Submission is performed by calling ``build_slide_func()``. If it returns a falsy value</span>
 <span class="sd">        (None / empty), nothing happens. If the generator exposes :meth:`core.generator.ui.slide_generator.SlideGenerator.save_slides_to_file`,</span>
 <span class="sd">        the submitter will save automatically after a successful build.</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">        inputs (dict[str, QWidget]): Mapping of logical input names to widget instances.</span>
-<span class="sd">            All widgets in this mapping receive this object&#39;s event filter.</span>
-<span class="sd">        generator (QWidget): The generator window/controller instance. If it provides</span>
-<span class="sd">            :meth:`core.generator.ui.slide_generator.SlideGenerator.save_slides_to_file`, it will be called after submission.</span>
-<span class="sd">        build_slide_func (Callable[[], dict | list | None]): Callable that constructs</span>
-<span class="sd">            slide data (single dict or list of dicts) from current widget state.</span>
-<span class="sd">        ignore_widgets (list[QWidget] | None): Optional list of widgets whose Enter key</span>
-<span class="sd">            should be ignored by this submitter.</span>
+<span class="sd">    Attributes:</span>
+<span class="sd">        inputs (dict[str, QWidget]):</span>
+<span class="sd">            Mapping of logical input names to widget instances monitored for</span>
+<span class="sd">            Enter/Return key submission.</span>
+<span class="sd">        generator (QWidget):</span>
+<span class="sd">            Owning generator/controller object. If it provides a save method,</span>
+<span class="sd">            it will be invoked after successful submission.</span>
+<span class="sd">        build_slide_func (Callable[[], dict | list | None]):</span>
+<span class="sd">            Callback that constructs slide data from current widget state.</span>
+<span class="sd">        ignore_widgets (list[QWidget]):</span>
+<span class="sd">            Widgets whose Enter key events should bypass submission handling.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="SlideInputSubmitter.__init__">

@@ -127,13 +127,32 @@ child process rather than a standalone application.</p>
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.plugin.slide_controller_launcher.</span></span><span class="sig-name descname"><span class="pre">SlideControllerLauncher</span></span><a class="reference internal" href="_modules/core/plugin/slide_controller_launcher.html#SlideControllerLauncher"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.plugin.slide_controller_launcher.SlideControllerLauncher" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Manages the lifecycle of the slide controller subprocess.</p>
-<p>This class encapsulates the logic for launching and tracking the
-slide controller process. It prevents duplicate launches and
-provides a simple interface for checking whether the controller
-is currently running.</p>
-<p>The class does not attempt to restart or forcibly terminate the
-controller; it only performs minimal lifecycle supervision suitable
-for a UI-driven workflow.</p>
+<p>This class provides a minimal supervisory layer for launching and tracking
+the slide controller process from the generator UI. Its responsibility is
+limited to preventing duplicate launches and reporting basic runtime status;
+it does not attempt to restart, monitor health, or forcibly terminate the
+controller.</p>
+<p>The launcher maintains an internal reference to the subprocess handle and
+uses it to determine whether the controller is currently active. Launch
+requests issued while the controller is already running are safely ignored.</p>
+<p>Error handling is intentionally lightweight and UI-aware: if a Qt parent
+widget is available, launch failures are reported via a warning dialog;
+otherwise, errors are emitted to standard output.</p>
+<p>This design is suited for a user-driven workflow where the controller is
+started explicitly by the generator and stopped externally or by user action,
+rather than by automatic process management.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.plugin.slide_controller_launcher.SlideControllerLauncher.proc">
+<span class="sig-name descname"><span class="pre">proc</span></span><a class="headerlink" href="#core.plugin.slide_controller_launcher.SlideControllerLauncher.proc" title="Link to this definition"></a></dt>
+<dd><p>Handle to the currently running slide controller subprocess, or None
+if no controller has been launched.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>subprocess.Popen | None</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="core.plugin.slide_controller_launcher.SlideControllerLauncher.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/plugin/slide_controller_launcher.html#SlideControllerLauncher.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.plugin.slide_controller_launcher.SlideControllerLauncher.__init__" title="Link to this definition"></a></dt>

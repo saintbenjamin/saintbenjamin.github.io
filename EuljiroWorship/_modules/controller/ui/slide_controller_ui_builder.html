@@ -112,15 +112,37 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    UI builder for the :class:`controller.slide_controller.SlideController` main window.</span>
 
-<span class="sd">    This class encapsulates widget construction so that :class:`controller.slide_controller.SlideController` can keep</span>
-<span class="sd">    its runtime logic separate from UI layout details. The builder creates and</span>
-<span class="sd">    attaches widgets onto the controller instance (``self.c``), and wires up signals</span>
-<span class="sd">    to the controller&#39;s navigation and emergency-caption handlers.</span>
+<span class="sd">    This class encapsulates widget construction so that</span>
+<span class="sd">    :class:`controller.slide_controller.SlideController` can keep runtime logic</span>
+<span class="sd">    separate from UI layout details. The builder creates and attaches widgets</span>
+<span class="sd">    onto the controller instance (``self.c``), and wires up signals to the</span>
+<span class="sd">    controller&#39;s navigation and emergency-caption handlers.</span>
+
+<span class="sd">    The builder assumes the controller already has:</span>
+<span class="sd">    - ``slides``: list[dict] containing slide data for preview population</span>
+<span class="sd">    - ``index``: int current slide index to pre-select in the table</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        c (controller.slide_controller.SlideController):</span>
+<span class="sd">            The controller instance that owns the window and runtime logic.</span>
+<span class="sd">            Widgets created by this builder are attached onto this object.</span>
+
+<span class="sd">            This builder assigns (at minimum) the following attributes onto ``c``:</span>
+<span class="sd">            - label (QLabel): Top status label (elided text).</span>
+<span class="sd">            - btn_on (QPushButton): Emergency caption ON button.</span>
+<span class="sd">            - btn_off (QPushButton): Emergency caption OFF button.</span>
+<span class="sd">            - first_button (QPushButton): Jump to first slide button.</span>
+<span class="sd">            - prev_button (QPushButton): Jump to previous slide button.</span>
+<span class="sd">            - next_button (QPushButton): Jump to next slide button.</span>
+<span class="sd">            - last_button (QPushButton): Jump to last slide button.</span>
+<span class="sd">            - page_input (QLineEdit): Page number input used for direct jump.</span>
+<span class="sd">            - table (QTableWidget): Slide preview table (row selection + click-to-jump).</span>
 
 <span class="sd">    Note:</span>
 <span class="sd">        - Widgets are attached onto the controller instance as attributes</span>
 <span class="sd">          (e.g., ``controller.label``, ``controller.table``, ``controller.page_input``).</span>
-<span class="sd">        - The builder assumes :class:`controller.slide_controller.SlideController` already loaded ``slides`` and ``index``.</span>
+<span class="sd">        - The builder installs event filters on the controller and its table to</span>
+<span class="sd">          support keyboard navigation.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="SlideControllerUIBuilder.__init__">

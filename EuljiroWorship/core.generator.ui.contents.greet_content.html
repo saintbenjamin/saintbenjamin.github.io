@@ -132,13 +132,15 @@ with the parent generator window.</p>
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.ui.contents.greet_content.</span></span><span class="sig-name descname"><span class="pre">GreetContent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/greet_content.html#GreetContent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.greet_content.GreetContent" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
 <p>Content editor widget for “greet”-style slides.</p>
-<p>This widget provides input fields for:</p>
+<p>This widget is used to compose greeting or announcement slides, typically
+shown at the beginning or end of a service. It allows the user to enter:</p>
 <ul class="simple">
-<li><p>Caption: A short reference or subtitle (e.g., Bible reference)</p></li>
-<li><p>Headline: A multiline main message or greeting text</p></li>
+<li><p>A short caption (e.g., Bible reference or section label)</p></li>
+<li><p>A multi-line headline containing the main greeting or message</p></li>
 </ul>
-<p>The collected input is converted into a slide data dictionary
-containing <code class="docutils literal notranslate"><span class="pre">style</span></code>, <code class="docutils literal notranslate"><span class="pre">caption</span></code>, and <code class="docutils literal notranslate"><span class="pre">headline</span></code> fields.</p>
+<p>The entered content is converted into a slide data dictionary containing
+<code class="docutils literal notranslate"><span class="pre">style</span></code>, <code class="docutils literal notranslate"><span class="pre">caption</span></code>, and <code class="docutils literal notranslate"><span class="pre">headline</span></code> fields, which are then consumed by
+the slide generator and controller.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -147,6 +149,71 @@ containing <code class="docutils literal notranslate"><span class="pre">style</s
 </ul>
 </dd>
 </dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.greet_content.GreetContent.caption">
+<span class="sig-name descname"><span class="pre">caption</span></span><a class="headerlink" href="#core.generator.ui.contents.greet_content.GreetContent.caption" title="Link to this definition"></a></dt>
+<dd><p>Initial caption text provided when the widget is created.
+Usually a short reference or subtitle.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.greet_content.GreetContent.headline">
+<span class="sig-name descname"><span class="pre">headline</span></span><a class="headerlink" href="#core.generator.ui.contents.greet_content.GreetContent.headline" title="Link to this definition"></a></dt>
+<dd><p>Initial headline text provided when the widget is created.
+Usually a greeting or main message body.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.greet_content.GreetContent.generator_window">
+<span class="sig-name descname"><span class="pre">generator_window</span></span><a class="headerlink" href="#core.generator.ui.contents.greet_content.GreetContent.generator_window" title="Link to this definition"></a></dt>
+<dd><p>Reference to the slide generator window. Used to submit updated
+slide data and support automatic save/synchronization behavior.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.greet_content.GreetContent.caption_edit">
+<span class="sig-name descname"><span class="pre">caption_edit</span></span><a class="headerlink" href="#core.generator.ui.contents.greet_content.GreetContent.caption_edit" title="Link to this definition"></a></dt>
+<dd><p>Single-line input field for editing the caption text.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QLineEdit</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.greet_content.GreetContent.headline_edit">
+<span class="sig-name descname"><span class="pre">headline_edit</span></span><a class="headerlink" href="#core.generator.ui.contents.greet_content.GreetContent.headline_edit" title="Link to this definition"></a></dt>
+<dd><p>Multi-line text input field for editing the main greeting message.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QPlainTextEdit</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.greet_content.GreetContent.submitter">
+<span class="sig-name descname"><span class="pre">submitter</span></span><a class="headerlink" href="#core.generator.ui.contents.greet_content.GreetContent.submitter" title="Link to this definition"></a></dt>
+<dd><p>Helper object that monitors input widgets and submits updated
+slide data to the generator window whenever changes occur.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="core.generator.utils.slide_input_submitter.html#core.generator.utils.slide_input_submitter.SlideInputSubmitter" title="core.generator.utils.slide_input_submitter.SlideInputSubmitter">SlideInputSubmitter</a></p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="core.generator.ui.contents.greet_content.GreetContent.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generator_window</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caption</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/greet_content.html#GreetContent.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.greet_content.GreetContent.__init__" title="Link to this definition"></a></dt>

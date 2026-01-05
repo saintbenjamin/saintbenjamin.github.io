@@ -111,16 +111,44 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Content editor widget for &quot;hymn&quot; style slides.</span>
 
-<span class="sd">    This widget provides input fields and controls for:</span>
+<span class="sd">    This widget provides a small editor for hymn-based slides, including:</span>
 
 <span class="sd">    - Selecting a hymn by number</span>
-<span class="sd">    - Viewing and editing the hymn title</span>
-<span class="sd">    - Viewing and editing the hymn lyrics</span>
-<span class="sd">    - Loading hymn data from a local JSON database</span>
-<span class="sd">    - Saving edited hymn data back to the database</span>
+<span class="sd">    - Loading hymn JSON data from the local hymn database</span>
+<span class="sd">    - Viewing/editing the hymn title and lyrics</span>
+<span class="sd">    - Saving edits back to the JSON database</span>
+<span class="sd">    - Producing slide payloads for the generator/controller export flow</span>
 
-<span class="sd">    The edited content can be exported as slide data for use in the</span>
-<span class="sd">    slide generator and controller.</span>
+<span class="sd">    The widget is designed to integrate with the generator window via</span>
+<span class="sd">    :class:`core.generator.utils.slide_input_submitter.SlideInputSubmitter`,</span>
+<span class="sd">    so edits can be reflected in the current slide state automatically.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        caption (str):</span>
+<span class="sd">            Initial caption value passed at construction time. Often contains</span>
+<span class="sd">            the hymn title or a string like &quot;새찬송가 88장&quot;.</span>
+<span class="sd">        headline (str):</span>
+<span class="sd">            Initial lyrics text passed at construction time.</span>
+<span class="sd">        hymn_data (dict):</span>
+<span class="sd">            In-memory representation of the currently loaded hymn JSON file.</span>
+<span class="sd">            This is updated when a hymn is loaded and then reused on save.</span>
+<span class="sd">        generator_window:</span>
+<span class="sd">            Reference to the generator window that receives live slide updates</span>
+<span class="sd">            and manages auto-save/session logic.</span>
+<span class="sd">        number_input (QLineEdit):</span>
+<span class="sd">            Input field for the hymn number. Pressing Enter triggers loading.</span>
+<span class="sd">        title_edit (QLineEdit):</span>
+<span class="sd">            Editor for the hymn title (used as the slide caption).</span>
+<span class="sd">        headline_edit (QTextEdit):</span>
+<span class="sd">            Editor for the hymn lyrics (used as the slide headline). Font is set</span>
+<span class="sd">            via ``get_font_from_settings()``.</span>
+<span class="sd">        load_button (QPushButton):</span>
+<span class="sd">            Button that triggers hymn loading for the number in ``number_input``.</span>
+<span class="sd">        save_button (QPushButton):</span>
+<span class="sd">            Button that writes the current ``hymn_data`` back to disk.</span>
+<span class="sd">        submitter (SlideInputSubmitter):</span>
+<span class="sd">            Auto-submit helper that observes inputs and provides updated slide</span>
+<span class="sd">            payloads via ``build_hymn_slide()``. Created after a hymn is loaded.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="HymnContent.__init__">

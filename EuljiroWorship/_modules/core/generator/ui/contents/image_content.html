@@ -107,16 +107,43 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Content editor widget for &quot;image&quot; style slides.</span>
 
-<span class="sd">    This widget allows users to:</span>
+<span class="sd">    This widget supports selecting an image file, copying it into the local</span>
+<span class="sd">    overlay image directory, previewing it, and editing an optional caption.</span>
 
-<span class="sd">    - Select an image file from disk</span>
-<span class="sd">    - Copy the selected image into a local image directory for overlay use</span>
-<span class="sd">    - Preview the selected image</span>
-<span class="sd">    - Enter optional caption text associated with the image</span>
+<span class="sd">    In the slide schema used by this project:</span>
 
-<span class="sd">    In this slide style, the image path is stored in the ``headline`` field</span>
-<span class="sd">    of the slide data dictionary, while the ``caption`` field contains</span>
-<span class="sd">    accompanying text.</span>
+<span class="sd">    - ``style`` is fixed to ``&quot;image&quot;``.</span>
+<span class="sd">    - ``headline`` stores the (relative) image path used by the overlay.</span>
+<span class="sd">    - ``caption`` stores optional text associated with the image.</span>
+
+<span class="sd">    The widget integrates with the generator window via</span>
+<span class="sd">    :class:`core.generator.utils.slide_input_submitter.SlideInputSubmitter`</span>
+<span class="sd">    so that changes can be submitted automatically.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        caption (str):</span>
+<span class="sd">            Initial caption value passed at construction time.</span>
+<span class="sd">        headline (str):</span>
+<span class="sd">            Initial headline value passed at construction time. For this style,</span>
+<span class="sd">            it represents an image path (typically relative).</span>
+<span class="sd">        generator_window:</span>
+<span class="sd">            Reference to the generator window that receives live slide updates</span>
+<span class="sd">            and manages auto-save/session logic.</span>
+<span class="sd">        headline_label (QLabel):</span>
+<span class="sd">            Label describing the image-path input field.</span>
+<span class="sd">        headline_edit (QLineEdit):</span>
+<span class="sd">            Input field that stores the relative image path (slide ``headline``).</span>
+<span class="sd">        caption_label (QLabel):</span>
+<span class="sd">            Label describing the caption input field.</span>
+<span class="sd">        caption_edit (QLineEdit):</span>
+<span class="sd">            Input field that stores caption text (slide ``caption``).</span>
+<span class="sd">        image_button (QPushButton):</span>
+<span class="sd">            Button that opens the file picker to select an image file.</span>
+<span class="sd">        image_preview (QLabel):</span>
+<span class="sd">            Preview area that displays the selected image (scaled to fit).</span>
+<span class="sd">        submitter (SlideInputSubmitter):</span>
+<span class="sd">            Auto-submit helper that observes inputs and provides updated slide</span>
+<span class="sd">            payloads via ``build_image_slide()``.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="ImageContent.__init__">

@@ -121,14 +121,14 @@
 <a class="viewcode-back" href="../../../../core.generator.ui.slide_generator.html#core.generator.ui.slide_generator.SlideGenerator">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">SlideGenerator</span><span class="p">(</span><span class="n">QMainWindow</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Main window for the EuljiroWorship slide generator (`PySide6 &lt;https://pypi.org/project/PySide6/&gt;`_ / Qt).</span>
+<span class="sd">    Main window for the EuljiroWorship slide generator.</span>
 
 <span class="sd">    The generator provides a table-based slide session editor and supports:</span>
 
-<span class="sd">    - Creating, inserting, deleting, and reordering slide rows in a table</span>
-<span class="sd">    - Editing each slide via a style-specific modal dialog (on double-click)</span>
-<span class="sd">    - Loading/saving slide sessions as JSON files</span>
-<span class="sd">    - Exporting an overlay-ready JSON (prepends a blank slide for clean initial state)</span>
+<span class="sd">    - Creating, inserting, deleting, and reordering slide rows</span>
+<span class="sd">    - Editing each slide via a style-specific modal dialog (double-click)</span>
+<span class="sd">    - Loading and saving slide sessions as JSON files</span>
+<span class="sd">    - Exporting overlay-ready JSON (prepends a blank slide for a clean initial state)</span>
 <span class="sd">    - Launching the slide controller for live output (if not already running)</span>
 
 <span class="sd">    Core collaborators (high-level):</span>
@@ -137,13 +137,47 @@
 <span class="sd">        Owns table row operations (add/insert/delete/move) for the main table widget.</span>
 <span class="sd">    - :class:`core.generator.utils.slide_generator_data_manager.SlideGeneratorDataManager`:</span>
 <span class="sd">        Loads/saves and collects slide session data from the table.</span>
+<span class="sd">    - :class:`core.generator.ui.slide_generator_ui_builder.SlideGeneratorUIBuilder`:</span>
+<span class="sd">        Builds and wires the generator window UI chrome (menus, buttons, labels).</span>
 <span class="sd">    - :class:`core.generator.utils.slide_exporter.SlideExporter`:</span>
 <span class="sd">        Converts the internal slide session into the overlay JSON format.</span>
 <span class="sd">    - :class:`core.plugin.slide_controller_launcher.SlideControllerLauncher`:</span>
-<span class="sd">        Launches the controller process/UI that pushes slides to the overlay target.</span>
+<span class="sd">        Launches the controller UI/process that pushes slides to the overlay target.</span>
 
 <span class="sd">    Note:</span>
-<span class="sd">        - On startup, this window may show a file-open dialog to load an existing session. If the user cancels, a blank session is created.</span>
+<span class="sd">        - On startup, this window may show a file-open dialog to load an existing</span>
+<span class="sd">          session. If the user cancels, a blank session is created.</span>
+<span class="sd">        - Table cells are intentionally non-editable; edits are performed via the</span>
+<span class="sd">          modal per-style editor dialog.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        first_save_done (bool):</span>
+<span class="sd">            Tracks whether the first save action has completed in the current</span>
+<span class="sd">            session. Used to choose between &quot;save as&quot; vs. save-to-last-path on</span>
+<span class="sd">            Ctrl+S.</span>
+<span class="sd">        reverse_style_aliases (dict[str, str]):</span>
+<span class="sd">            Reverse mapping from the displayed style label (Korean UI text) to</span>
+<span class="sd">            the internal style key (e.g., &quot;가사&quot; -&gt; &quot;lyrics&quot;). Derived from</span>
+<span class="sd">            ``style_map.REVERSE_ALIASES``.</span>
+<span class="sd">        table (QTableWidget):</span>
+<span class="sd">            Main slide table with three columns: style, caption, headline.</span>
+<span class="sd">            Rows represent slides in the current session.</span>
+<span class="sd">        detail_widget (QWidget):</span>
+<span class="sd">            Right-side placeholder panel (reserved for future detail views).</span>
+<span class="sd">        slide_controller_launcher (SlideControllerLauncher):</span>
+<span class="sd">            Helper that launches (or detects) the running slide controller.</span>
+<span class="sd">        table_manager (SlideTableManager):</span>
+<span class="sd">            Encapsulates row operations and table manipulation logic.</span>
+<span class="sd">        data_manager (SlideGeneratorDataManager):</span>
+<span class="sd">            Loads/saves session JSON and collects session data from the table.</span>
+<span class="sd">        ui_builder (SlideGeneratorUIBuilder):</span>
+<span class="sd">            UI builder responsible for wiring menus, buttons, and header labels.</span>
+<span class="sd">        worship_name (str | None):</span>
+<span class="sd">            Session label derived from the loaded filename stem. None for a new</span>
+<span class="sd">            unsaved session.</span>
+<span class="sd">        last_saved_path (str | None):</span>
+<span class="sd">            Last known save path for the current session. When set, normal save</span>
+<span class="sd">            operations write to this path without prompting.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="SlideGenerator.__init__">

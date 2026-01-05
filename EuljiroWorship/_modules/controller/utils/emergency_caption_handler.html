@@ -103,14 +103,26 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Manages the emergency caption input and export workflow.</span>
 
-<span class="sd">    This class is responsible for:</span>
+<span class="sd">    This class coordinates the full emergency-caption lifecycle:</span>
 
 <span class="sd">    - Opening the emergency caption dialog as a modal window</span>
 <span class="sd">    - Retrieving finalized slide data from the dialog</span>
 <span class="sd">    - Writing emergency slides to the slide output JSON file</span>
 
-<span class="sd">    The handler does not perform slide parsing itself; it delegates</span>
-<span class="sd">    slide creation to :class:`controller.ui.emergency_caption_dialog.EmergencyCaptionDialog` and :class:`controller.utils.emergency_slide_factory.EmergencySlideFactory`.</span>
+<span class="sd">    The handler itself does **not** parse or format slide content.</span>
+<span class="sd">    Slide construction is delegated to:</span>
+
+<span class="sd">    - :class:`controller.ui.emergency_caption_dialog.EmergencyCaptionDialog`</span>
+<span class="sd">    - :class:`controller.utils.emergency_slide_factory.EmergencySlideFactory`</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        parent (QWidget):</span>
+<span class="sd">            Parent widget used to anchor the emergency caption dialog</span>
+<span class="sd">            as a modal window.</span>
+
+<span class="sd">        slide_factory (EmergencySlideFactory):</span>
+<span class="sd">            Factory instance responsible for constructing emergency</span>
+<span class="sd">            slide dictionaries from validated dialog input.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="EmergencyCaptionHandler.__init__">

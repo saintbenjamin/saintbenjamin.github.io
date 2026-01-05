@@ -111,31 +111,33 @@
 
 <span class="sd">    This widget selects and embeds a style-specific editor pane based on the</span>
 <span class="sd">    given slide style. Each supported style maps to a dedicated sub-widget</span>
-<span class="sd">    (e.g., `LyricsContent`, `VerseContent`) that defines its own input fields</span>
+<span class="sd">    (e.g., ``LyricsContent``, ``VerseContent``) that defines its own input fields</span>
 <span class="sd">    and data extraction logic.</span>
 
 <span class="sd">    Supported slide styles:</span>
 
-<span class="sd">    - &quot;anthem&quot;: Choir name, title, and lyrics</span>
-<span class="sd">    - &quot;corner&quot;: Short caption displayed at the corner</span>
-<span class="sd">    - &quot;greet&quot;: Freeform greeting or announcement text</span>
-<span class="sd">    - &quot;hymn&quot;: Hymn lyrics editor (exported as &quot;lyrics&quot;)</span>
-<span class="sd">    - &quot;lyrics&quot;: General lyrics editor with line splitting</span>
-<span class="sd">    - &quot;prayer&quot;: Representative name or prayer leader</span>
-<span class="sd">    - &quot;respo&quot;: Responsive reading editor</span>
-<span class="sd">    - &quot;verse&quot;: Bible verse reference and preview editor</span>
-<span class="sd">    - &quot;image&quot;: Image-based slide with ``caption``/``headline``</span>
-<span class="sd">    - &quot;video&quot;: Video-based slide with ``caption``/``headline``</span>
-<span class="sd">    - &quot;blank&quot;: Empty slide with no editable content</span>
+<span class="sd">    - ``&quot;anthem&quot;``: Choir name and anthem title editor</span>
+<span class="sd">    - ``&quot;corner&quot;`` / ``&quot;intro&quot;``: Corner-style caption and headline</span>
+<span class="sd">    - ``&quot;greet&quot;``: Greeting or announcement text</span>
+<span class="sd">    - ``&quot;hymn&quot;``: Hymn editor (exported as lyrics-style slides)</span>
+<span class="sd">    - ``&quot;lyrics&quot;``: General lyrics editor with deferred line splitting</span>
+<span class="sd">    - ``&quot;prayer&quot;``: Prayer title and leader name</span>
+<span class="sd">    - ``&quot;respo&quot;``: Responsive reading editor</span>
+<span class="sd">    - ``&quot;verse&quot;``: Bible verse reference and preview editor</span>
+<span class="sd">    - ``&quot;image&quot;``: Image-based slide editor (path stored in ``headline``)</span>
+<span class="sd">    - ``&quot;video&quot;``: Video-based slide editor (path stored in ``headline``)</span>
+<span class="sd">    - ``&quot;blank&quot;``: Empty slide with no editable content</span>
 
 <span class="sd">    Attributes:</span>
 <span class="sd">        style (str):</span>
 <span class="sd">            Internal slide style key that determines which sub-pane is created.</span>
-<span class="sd">        subpane (QWidget):</span>
-<span class="sd">            The embedded style-specific content widget.</span>
 <span class="sd">        generator_window (QWidget):</span>
-<span class="sd">            Reference to the parent generator window, used by sub-panes for</span>
-<span class="sd">            callbacks or shared context.</span>
+<span class="sd">            Reference to the parent generator window, passed through to</span>
+<span class="sd">            sub-panes so they can access shared context, settings, or callbacks.</span>
+<span class="sd">        subpane (QWidget):</span>
+<span class="sd">            The instantiated style-specific content widget responsible for</span>
+<span class="sd">            rendering input fields and producing slide data. For ``&quot;blank&quot;``</span>
+<span class="sd">            or unsupported styles, this is an empty ``QWidget``.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="SlideGeneratorRightContents.__init__">

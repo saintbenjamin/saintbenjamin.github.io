@@ -131,14 +131,18 @@ submission and synchronization with the parent generator window.</p>
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.ui.contents.lyrics_content.</span></span><span class="sig-name descname"><span class="pre">LyricsContent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/lyrics_content.html#LyricsContent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.lyrics_content.LyricsContent" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
 <p>Content editor widget for “lyrics” style slides.</p>
-<p>This widget allows users to enter:</p>
+<p>This widget collects:</p>
 <ul class="simple">
-<li><p>A title for the song or praise</p></li>
-<li><p>Multiline lyrics text</p></li>
+<li><p>Song/praise title (stored in <code class="docutils literal notranslate"><span class="pre">caption</span></code>)</p></li>
+<li><p>Multiline lyrics body (stored in <code class="docutils literal notranslate"><span class="pre">headline</span></code> as raw text)</p></li>
 </ul>
-<p>The “lyrics” content is stored as raw text and later processed by the
-slide exporter, which splits the text into multiple slides according
-to predefined rules (e.g., two lines per slide).</p>
+<p>The widget intentionally stores lyrics as raw, unsplit text. The slide
+export pipeline is responsible for splitting the lyrics into multiple
+slides (e.g., two lines per slide, special split markers like “(간주)”,
+etc.), so the editor remains focused on input and synchronization.</p>
+<p>This widget integrates with the generator window via
+<a class="reference internal" href="core.generator.utils.slide_input_submitter.html#core.generator.utils.slide_input_submitter.SlideInputSubmitter" title="core.generator.utils.slide_input_submitter.SlideInputSubmitter"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.generator.utils.slide_input_submitter.SlideInputSubmitter</span></code></a>
+so that edits can be submitted automatically.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -147,6 +151,91 @@ to predefined rules (e.g., two lines per slide).</p>
 </ul>
 </dd>
 </dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.lyrics_content.LyricsContent.caption">
+<span class="sig-name descname"><span class="pre">caption</span></span><a class="headerlink" href="#core.generator.ui.contents.lyrics_content.LyricsContent.caption" title="Link to this definition"></a></dt>
+<dd><p>Initial title value passed at construction time.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.lyrics_content.LyricsContent.headline">
+<span class="sig-name descname"><span class="pre">headline</span></span><a class="headerlink" href="#core.generator.ui.contents.lyrics_content.LyricsContent.headline" title="Link to this definition"></a></dt>
+<dd><p>Initial lyrics body passed at construction time (raw multiline text).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.lyrics_content.LyricsContent.generator_window">
+<span class="sig-name descname"><span class="pre">generator_window</span></span><a class="headerlink" href="#core.generator.ui.contents.lyrics_content.LyricsContent.generator_window" title="Link to this definition"></a></dt>
+<dd><p>Reference to the generator window that receives slide updates and
+manages auto-save/session behavior.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.lyrics_content.LyricsContent.caption_label">
+<span class="sig-name descname"><span class="pre">caption_label</span></span><a class="headerlink" href="#core.generator.ui.contents.lyrics_content.LyricsContent.caption_label" title="Link to this definition"></a></dt>
+<dd><p>Label describing the title input.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QLabel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.lyrics_content.LyricsContent.caption_edit">
+<span class="sig-name descname"><span class="pre">caption_edit</span></span><a class="headerlink" href="#core.generator.ui.contents.lyrics_content.LyricsContent.caption_edit" title="Link to this definition"></a></dt>
+<dd><p>Input field for the lyrics title (slide <code class="docutils literal notranslate"><span class="pre">caption</span></code>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QLineEdit</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.lyrics_content.LyricsContent.headline_label">
+<span class="sig-name descname"><span class="pre">headline_label</span></span><a class="headerlink" href="#core.generator.ui.contents.lyrics_content.LyricsContent.headline_label" title="Link to this definition"></a></dt>
+<dd><p>Label describing the lyrics body input.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QLabel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.lyrics_content.LyricsContent.headline_edit">
+<span class="sig-name descname"><span class="pre">headline_edit</span></span><a class="headerlink" href="#core.generator.ui.contents.lyrics_content.LyricsContent.headline_edit" title="Link to this definition"></a></dt>
+<dd><p>Multiline editor for raw lyrics text (slide <code class="docutils literal notranslate"><span class="pre">headline</span></code>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QPlainTextEdit</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.lyrics_content.LyricsContent.submitter">
+<span class="sig-name descname"><span class="pre">submitter</span></span><a class="headerlink" href="#core.generator.ui.contents.lyrics_content.LyricsContent.submitter" title="Link to this definition"></a></dt>
+<dd><p>Auto-submit helper that observes inputs and provides updated slide
+payloads via <code class="docutils literal notranslate"><span class="pre">build_lyrics_slide()</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="core.generator.utils.slide_input_submitter.html#core.generator.utils.slide_input_submitter.SlideInputSubmitter" title="core.generator.utils.slide_input_submitter.SlideInputSubmitter">SlideInputSubmitter</a></p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="core.generator.ui.contents.lyrics_content.LyricsContent.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generator_window</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caption</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/lyrics_content.html#LyricsContent.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.lyrics_content.LyricsContent.__init__" title="Link to this definition"></a></dt>

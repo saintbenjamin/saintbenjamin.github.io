@@ -135,14 +135,42 @@
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">controller.utils.emergency_caption_handler.</span></span><span class="sig-name descname"><span class="pre">EmergencyCaptionHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/emergency_caption_handler.html#EmergencyCaptionHandler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.emergency_caption_handler.EmergencyCaptionHandler" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Manages the emergency caption input and export workflow.</p>
-<p>This class is responsible for:</p>
+<p>This class coordinates the full emergency-caption lifecycle:</p>
 <ul class="simple">
 <li><p>Opening the emergency caption dialog as a modal window</p></li>
 <li><p>Retrieving finalized slide data from the dialog</p></li>
 <li><p>Writing emergency slides to the slide output JSON file</p></li>
 </ul>
-<p>The handler does not perform slide parsing itself; it delegates
-slide creation to <a class="reference internal" href="controller.ui.emergency_caption_dialog.html#controller.ui.emergency_caption_dialog.EmergencyCaptionDialog" title="controller.ui.emergency_caption_dialog.EmergencyCaptionDialog"><code class="xref py py-class docutils literal notranslate"><span class="pre">controller.ui.emergency_caption_dialog.EmergencyCaptionDialog</span></code></a> and <a class="reference internal" href="controller.utils.emergency_slide_factory.html#controller.utils.emergency_slide_factory.EmergencySlideFactory" title="controller.utils.emergency_slide_factory.EmergencySlideFactory"><code class="xref py py-class docutils literal notranslate"><span class="pre">controller.utils.emergency_slide_factory.EmergencySlideFactory</span></code></a>.</p>
+<p>The handler itself does <strong>not</strong> parse or format slide content.
+Slide construction is delegated to:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="controller.ui.emergency_caption_dialog.html#controller.ui.emergency_caption_dialog.EmergencyCaptionDialog" title="controller.ui.emergency_caption_dialog.EmergencyCaptionDialog"><code class="xref py py-class docutils literal notranslate"><span class="pre">controller.ui.emergency_caption_dialog.EmergencyCaptionDialog</span></code></a></p></li>
+<li><p><a class="reference internal" href="controller.utils.emergency_slide_factory.html#controller.utils.emergency_slide_factory.EmergencySlideFactory" title="controller.utils.emergency_slide_factory.EmergencySlideFactory"><code class="xref py py-class docutils literal notranslate"><span class="pre">controller.utils.emergency_slide_factory.EmergencySlideFactory</span></code></a></p></li>
+</ul>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="controller.utils.emergency_caption_handler.EmergencyCaptionHandler.parent">
+<span class="sig-name descname"><span class="pre">parent</span></span><a class="headerlink" href="#controller.utils.emergency_caption_handler.EmergencyCaptionHandler.parent" title="Link to this definition"></a></dt>
+<dd><p>Parent widget used to anchor the emergency caption dialog
+as a modal window.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QWidget</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="controller.utils.emergency_caption_handler.EmergencyCaptionHandler.slide_factory">
+<span class="sig-name descname"><span class="pre">slide_factory</span></span><a class="headerlink" href="#controller.utils.emergency_caption_handler.EmergencyCaptionHandler.slide_factory" title="Link to this definition"></a></dt>
+<dd><p>Factory instance responsible for constructing emergency
+slide dictionaries from validated dialog input.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="controller.utils.emergency_slide_factory.html#controller.utils.emergency_slide_factory.EmergencySlideFactory" title="controller.utils.emergency_slide_factory.EmergencySlideFactory">EmergencySlideFactory</a></p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="controller.utils.emergency_caption_handler.EmergencyCaptionHandler.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/emergency_caption_handler.html#EmergencyCaptionHandler.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.emergency_caption_handler.EmergencyCaptionHandler.__init__" title="Link to this definition"></a></dt>

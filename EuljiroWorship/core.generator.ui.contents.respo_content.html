@@ -132,14 +132,24 @@ automatic synchronization with the slide generator.</p>
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.ui.contents.respo_content.</span></span><span class="sig-name descname"><span class="pre">RespoContent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/respo_content.html#RespoContent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.respo_content.RespoContent" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
 <p>Content editor widget for “respo” (responsive reading) slides.</p>
-<p>This widget allows users to:</p>
+<p>This widget provides a small editor UI for creating and maintaining
+responsive reading (교독문) content backed by local JSON files under
+<code class="docutils literal notranslate"><span class="pre">data/respo/</span></code>.</p>
+<p>Users can:</p>
 <ul class="simple">
-<li><p>Select a responsive reading by number</p></li>
-<li><p>Edit the title of the reading</p></li>
-<li><p>Edit speaker-response pairs using a table interface</p></li>
+<li><p>Select a responsive reading by number and load its JSON data</p></li>
+<li><p>Edit the reading title (exported as slide <code class="docutils literal notranslate"><span class="pre">caption</span></code>)</p></li>
+<li><p>Edit speaker/response pairs in a 2-column table</p></li>
+<li><p>Save the edited content back to the JSON database</p></li>
+<li><p>Export the current state as a slide dictionary where table rows are
+converted into an HTML-like formatted string (exported as slide <code class="docutils literal notranslate"><span class="pre">headline</span></code>)</p></li>
 </ul>
-<p>The table contents are converted into formatted HTML and exported
-as slide data for rendering.</p>
+<p>The widget itself is responsible for <em>editing and formatting</em> the content.
+Actual slide splitting / rendering is handled downstream by the generator
+and overlay/controller pipelines.</p>
+<p>Integration with
+<a class="reference internal" href="core.generator.utils.slide_input_submitter.html#core.generator.utils.slide_input_submitter.SlideInputSubmitter" title="core.generator.utils.slide_input_submitter.SlideInputSubmitter"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.generator.utils.slide_input_submitter.SlideInputSubmitter</span></code></a>
+enables automatic submission/synchronization with the generator window.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -148,6 +158,118 @@ as slide data for rendering.</p>
 </ul>
 </dd>
 </dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.respo_content.RespoContent.caption">
+<span class="sig-name descname"><span class="pre">caption</span></span><a class="headerlink" href="#core.generator.ui.contents.respo_content.RespoContent.caption" title="Link to this definition"></a></dt>
+<dd><p>Initial caption provided at construction time. Often contains a
+numbered title such as <code class="docutils literal notranslate"><span class="pre">&quot;12.</span> <span class="pre">...&quot;</span></code> which may trigger auto-loading.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.respo_content.RespoContent.headline">
+<span class="sig-name descname"><span class="pre">headline</span></span><a class="headerlink" href="#core.generator.ui.contents.respo_content.RespoContent.headline" title="Link to this definition"></a></dt>
+<dd><p>Initial headline provided at construction time. This is not directly
+edited; exported headline is rebuilt from the table via
+<a class="reference internal" href="#core.generator.ui.contents.respo_content.RespoContent.format_responsive_text" title="core.generator.ui.contents.respo_content.RespoContent.format_responsive_text"><code class="xref py py-meth docutils literal notranslate"><span class="pre">format_responsive_text()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.respo_content.RespoContent.respo_data">
+<span class="sig-name descname"><span class="pre">respo_data</span></span><a class="headerlink" href="#core.generator.ui.contents.respo_content.RespoContent.respo_data" title="Link to this definition"></a></dt>
+<dd><p>In-memory JSON payload for the currently loaded responsive reading.
+Typically contains <code class="docutils literal notranslate"><span class="pre">title</span></code> and <code class="docutils literal notranslate"><span class="pre">slides</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.respo_content.RespoContent.generator_window">
+<span class="sig-name descname"><span class="pre">generator_window</span></span><a class="headerlink" href="#core.generator.ui.contents.respo_content.RespoContent.generator_window" title="Link to this definition"></a></dt>
+<dd><p>Reference to the generator main window that receives slide updates
+and manages auto-save/session state.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.respo_content.RespoContent.number_input">
+<span class="sig-name descname"><span class="pre">number_input</span></span><a class="headerlink" href="#core.generator.ui.contents.respo_content.RespoContent.number_input" title="Link to this definition"></a></dt>
+<dd><p>Input field for the responsive reading number.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QLineEdit</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.respo_content.RespoContent.load_button">
+<span class="sig-name descname"><span class="pre">load_button</span></span><a class="headerlink" href="#core.generator.ui.contents.respo_content.RespoContent.load_button" title="Link to this definition"></a></dt>
+<dd><p>Button that triggers <a class="reference internal" href="#core.generator.ui.contents.respo_content.RespoContent.load_respo_by_number" title="core.generator.ui.contents.respo_content.RespoContent.load_respo_by_number"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_respo_by_number()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QPushButton</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.respo_content.RespoContent.capt_edit">
+<span class="sig-name descname"><span class="pre">capt_edit</span></span><a class="headerlink" href="#core.generator.ui.contents.respo_content.RespoContent.capt_edit" title="Link to this definition"></a></dt>
+<dd><p>Title input field (exported as slide <code class="docutils literal notranslate"><span class="pre">caption</span></code>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QLineEdit</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.respo_content.RespoContent.table">
+<span class="sig-name descname"><span class="pre">table</span></span><a class="headerlink" href="#core.generator.ui.contents.respo_content.RespoContent.table" title="Link to this definition"></a></dt>
+<dd><p>Two-column table editor for speaker/response rows.
+Column 0 = speaker, column 1 = body text.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QTableWidget</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.respo_content.RespoContent.save_button">
+<span class="sig-name descname"><span class="pre">save_button</span></span><a class="headerlink" href="#core.generator.ui.contents.respo_content.RespoContent.save_button" title="Link to this definition"></a></dt>
+<dd><p>Button that triggers <a class="reference internal" href="#core.generator.ui.contents.respo_content.RespoContent.save_respo_json" title="core.generator.ui.contents.respo_content.RespoContent.save_respo_json"><code class="xref py py-meth docutils literal notranslate"><span class="pre">save_respo_json()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QPushButton</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.respo_content.RespoContent.submitter">
+<span class="sig-name descname"><span class="pre">submitter</span></span><a class="headerlink" href="#core.generator.ui.contents.respo_content.RespoContent.submitter" title="Link to this definition"></a></dt>
+<dd><p>Auto-submit helper that observes the title/table widgets and supplies
+updated slide data via <a class="reference internal" href="#core.generator.ui.contents.respo_content.RespoContent.build_respo_slide" title="core.generator.ui.contents.respo_content.RespoContent.build_respo_slide"><code class="xref py py-meth docutils literal notranslate"><span class="pre">build_respo_slide()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="core.generator.utils.slide_input_submitter.html#core.generator.utils.slide_input_submitter.SlideInputSubmitter" title="core.generator.utils.slide_input_submitter.SlideInputSubmitter">SlideInputSubmitter</a></p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="core.generator.ui.contents.respo_content.RespoContent.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generator_window</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caption</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/respo_content.html#RespoContent.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.respo_content.RespoContent.__init__" title="Link to this definition"></a></dt>

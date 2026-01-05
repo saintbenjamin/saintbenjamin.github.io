@@ -134,16 +134,16 @@ submission and synchronization with the parent generator window.</p>
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.ui.contents.video_content.</span></span><span class="sig-name descname"><span class="pre">VideoContent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/video_content.html#VideoContent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.video_content.VideoContent" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
 <p>Content editor widget for “video” style slides.</p>
-<p>This widget allows users to:</p>
+<p>This widget supports selecting a local video file, copying it into the
+overlay asset directory (<code class="docutils literal notranslate"><span class="pre">./html/img</span></code>), previewing it using Qt Multimedia,
+and exporting the selection as slide data.</p>
+<p>Slide-data mapping:</p>
 <ul class="simple">
-<li><p>Select a video file from disk</p></li>
-<li><p>Copy the selected video into a local image directory for overlay use (<code class="docutils literal notranslate"><span class="pre">html/img</span></code>)</p></li>
-<li><p>Preview the selected video (play/pause)</p></li>
-<li><p>Enter optional caption text associated with the video</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">caption</span></code>: optional text shown alongside the media</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">headline</span></code>: relative video path used by the overlay (e.g., <code class="docutils literal notranslate"><span class="pre">&quot;img/foo.mp4&quot;</span></code>)</p></li>
 </ul>
-<p>In this slide style, the video path is stored in the <code class="docutils literal notranslate"><span class="pre">headline</span></code> field
-of the slide data dictionary, while the <code class="docutils literal notranslate"><span class="pre">caption</span></code> field contains
-accompanying text.</p>
+<p>The preview player resolves stored relative paths against <code class="docutils literal notranslate"><span class="pre">./html/</span></code> so that
+values produced by <a class="reference internal" href="#core.generator.ui.contents.video_content.VideoContent.copy_to_img_folder" title="core.generator.ui.contents.video_content.VideoContent.copy_to_img_folder"><code class="xref py py-meth docutils literal notranslate"><span class="pre">copy_to_img_folder()</span></code></a> can be previewed consistently.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -152,6 +152,159 @@ accompanying text.</p>
 </ul>
 </dd>
 </dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.video_content.VideoContent.caption">
+<span class="sig-name descname"><span class="pre">caption</span></span><a class="headerlink" href="#core.generator.ui.contents.video_content.VideoContent.caption" title="Link to this definition"></a></dt>
+<dd><p>Initial caption text provided at construction time.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.video_content.VideoContent.headline">
+<span class="sig-name descname"><span class="pre">headline</span></span><a class="headerlink" href="#core.generator.ui.contents.video_content.VideoContent.headline" title="Link to this definition"></a></dt>
+<dd><p>Relative video path stored in slide data (e.g., <code class="docutils literal notranslate"><span class="pre">&quot;img/foo.mp4&quot;</span></code>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.video_content.VideoContent.generator_window">
+<span class="sig-name descname"><span class="pre">generator_window</span></span><a class="headerlink" href="#core.generator.ui.contents.video_content.VideoContent.generator_window" title="Link to this definition"></a></dt>
+<dd><p>Reference to the generator main window. Used by the input submitter
+to synchronize and auto-save slide edits.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.video_content.VideoContent.player">
+<span class="sig-name descname"><span class="pre">player</span></span><a class="headerlink" href="#core.generator.ui.contents.video_content.VideoContent.player" title="Link to this definition"></a></dt>
+<dd><p>Qt Multimedia player used for in-widget preview playback.
+Initialized in <a class="reference internal" href="#core.generator.ui.contents.video_content.VideoContent._init_player" title="core.generator.ui.contents.video_content.VideoContent._init_player"><code class="xref py py-meth docutils literal notranslate"><span class="pre">_init_player()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QMediaPlayer | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.video_content.VideoContent.audio">
+<span class="sig-name descname"><span class="pre">audio</span></span><a class="headerlink" href="#core.generator.ui.contents.video_content.VideoContent.audio" title="Link to this definition"></a></dt>
+<dd><p>Audio output sink for preview playback. Attached to <code class="docutils literal notranslate"><span class="pre">player</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QAudioOutput | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.video_content.VideoContent.video_widget">
+<span class="sig-name descname"><span class="pre">video_widget</span></span><a class="headerlink" href="#core.generator.ui.contents.video_content.VideoContent.video_widget" title="Link to this definition"></a></dt>
+<dd><p>Video output widget used to render preview frames.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QVideoWidget | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.video_content.VideoContent.headline_edit">
+<span class="sig-name descname"><span class="pre">headline_edit</span></span><a class="headerlink" href="#core.generator.ui.contents.video_content.VideoContent.headline_edit" title="Link to this definition"></a></dt>
+<dd><p>Input field holding the relative video path (stored in <code class="docutils literal notranslate"><span class="pre">headline</span></code>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QLineEdit</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.video_content.VideoContent.caption_edit">
+<span class="sig-name descname"><span class="pre">caption_edit</span></span><a class="headerlink" href="#core.generator.ui.contents.video_content.VideoContent.caption_edit" title="Link to this definition"></a></dt>
+<dd><p>Input field holding the caption text.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QLineEdit</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.video_content.VideoContent.video_button">
+<span class="sig-name descname"><span class="pre">video_button</span></span><a class="headerlink" href="#core.generator.ui.contents.video_content.VideoContent.video_button" title="Link to this definition"></a></dt>
+<dd><p>Button that opens a file picker to select a video.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QPushButton</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.video_content.VideoContent.preview_label">
+<span class="sig-name descname"><span class="pre">preview_label</span></span><a class="headerlink" href="#core.generator.ui.contents.video_content.VideoContent.preview_label" title="Link to this definition"></a></dt>
+<dd><p>Label showing the selected filename or status messages
+(e.g., “비디오 로딩 실패”).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QLabel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.video_content.VideoContent.play_button">
+<span class="sig-name descname"><span class="pre">play_button</span></span><a class="headerlink" href="#core.generator.ui.contents.video_content.VideoContent.play_button" title="Link to this definition"></a></dt>
+<dd><p>Starts preview playback.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QPushButton</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.video_content.VideoContent.pause_button">
+<span class="sig-name descname"><span class="pre">pause_button</span></span><a class="headerlink" href="#core.generator.ui.contents.video_content.VideoContent.pause_button" title="Link to this definition"></a></dt>
+<dd><p>Pauses preview playback.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QPushButton</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.video_content.VideoContent.stop_button">
+<span class="sig-name descname"><span class="pre">stop_button</span></span><a class="headerlink" href="#core.generator.ui.contents.video_content.VideoContent.stop_button" title="Link to this definition"></a></dt>
+<dd><p>Stops preview playback and resets position.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QPushButton</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.video_content.VideoContent.submitter">
+<span class="sig-name descname"><span class="pre">submitter</span></span><a class="headerlink" href="#core.generator.ui.contents.video_content.VideoContent.submitter" title="Link to this definition"></a></dt>
+<dd><p>Auto-submit helper that produces export-ready slide payloads using
+<a class="reference internal" href="#core.generator.ui.contents.video_content.VideoContent.build_video_slide" title="core.generator.ui.contents.video_content.VideoContent.build_video_slide"><code class="xref py py-meth docutils literal notranslate"><span class="pre">build_video_slide()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="core.generator.utils.slide_input_submitter.html#core.generator.utils.slide_input_submitter.SlideInputSubmitter" title="core.generator.utils.slide_input_submitter.SlideInputSubmitter">SlideInputSubmitter</a></p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="core.generator.ui.contents.video_content.VideoContent.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generator_window</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caption</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/video_content.html#VideoContent.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.video_content.VideoContent.__init__" title="Link to this definition"></a></dt>

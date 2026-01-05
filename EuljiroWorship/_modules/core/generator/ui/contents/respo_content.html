@@ -110,14 +110,57 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Content editor widget for &quot;respo&quot; (responsive reading) slides.</span>
 
-<span class="sd">    This widget allows users to:</span>
+<span class="sd">    This widget provides a small editor UI for creating and maintaining</span>
+<span class="sd">    responsive reading (교독문) content backed by local JSON files under</span>
+<span class="sd">    ``data/respo/``.</span>
 
-<span class="sd">    - Select a responsive reading by number</span>
-<span class="sd">    - Edit the title of the reading</span>
-<span class="sd">    - Edit speaker-response pairs using a table interface</span>
+<span class="sd">    Users can:</span>
 
-<span class="sd">    The table contents are converted into formatted HTML and exported</span>
-<span class="sd">    as slide data for rendering.</span>
+<span class="sd">    - Select a responsive reading by number and load its JSON data</span>
+<span class="sd">    - Edit the reading title (exported as slide ``caption``)</span>
+<span class="sd">    - Edit speaker/response pairs in a 2-column table</span>
+<span class="sd">    - Save the edited content back to the JSON database</span>
+<span class="sd">    - Export the current state as a slide dictionary where table rows are</span>
+<span class="sd">      converted into an HTML-like formatted string (exported as slide ``headline``)</span>
+
+<span class="sd">    The widget itself is responsible for *editing and formatting* the content.</span>
+<span class="sd">    Actual slide splitting / rendering is handled downstream by the generator</span>
+<span class="sd">    and overlay/controller pipelines.</span>
+
+<span class="sd">    Integration with</span>
+<span class="sd">    :class:`core.generator.utils.slide_input_submitter.SlideInputSubmitter`</span>
+<span class="sd">    enables automatic submission/synchronization with the generator window.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        caption (str):</span>
+<span class="sd">            Initial caption provided at construction time. Often contains a</span>
+<span class="sd">            numbered title such as ``&quot;12. ...&quot;`` which may trigger auto-loading.</span>
+<span class="sd">        headline (str):</span>
+<span class="sd">            Initial headline provided at construction time. This is not directly</span>
+<span class="sd">            edited; exported headline is rebuilt from the table via</span>
+<span class="sd">            :meth:`format_responsive_text`.</span>
+<span class="sd">        respo_data (dict):</span>
+<span class="sd">            In-memory JSON payload for the currently loaded responsive reading.</span>
+<span class="sd">            Typically contains ``title`` and ``slides``.</span>
+<span class="sd">        generator_window:</span>
+<span class="sd">            Reference to the generator main window that receives slide updates</span>
+<span class="sd">            and manages auto-save/session state.</span>
+
+<span class="sd">        number_input (QLineEdit):</span>
+<span class="sd">            Input field for the responsive reading number.</span>
+<span class="sd">        load_button (QPushButton):</span>
+<span class="sd">            Button that triggers :meth:`load_respo_by_number`.</span>
+<span class="sd">        capt_edit (QLineEdit):</span>
+<span class="sd">            Title input field (exported as slide ``caption``).</span>
+<span class="sd">        table (QTableWidget):</span>
+<span class="sd">            Two-column table editor for speaker/response rows.</span>
+<span class="sd">            Column 0 = speaker, column 1 = body text.</span>
+<span class="sd">        save_button (QPushButton):</span>
+<span class="sd">            Button that triggers :meth:`save_respo_json`.</span>
+
+<span class="sd">        submitter (SlideInputSubmitter):</span>
+<span class="sd">            Auto-submit helper that observes the title/table widgets and supplies</span>
+<span class="sd">            updated slide data via :meth:`build_respo_slide`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="RespoContent.__init__">

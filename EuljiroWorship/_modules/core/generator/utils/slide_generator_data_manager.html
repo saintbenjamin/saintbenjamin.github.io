@@ -105,16 +105,31 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Manage slide data exchange between JSON files and the generator table UI.</span>
 
-<span class="sd">    This class provides a thin data-adapter layer between JSON-based slide</span>
-<span class="sd">    definitions and the generator table widget. It loads slide JSON data into the</span>
-<span class="sd">    `QTableWidget` and converts table rows back into structured slide</span>
-<span class="sd">    dictionaries. It also performs style-specific preprocessing and normalization,</span>
-<span class="sd">    such as handling anthem choir names and verse formatting.</span>
+<span class="sd">    This class acts as a thin data-adapter layer between JSON-based slide</span>
+<span class="sd">    definitions and the slide generator&#39;s `QTableWidget`. It is responsible for</span>
+<span class="sd">    loading slide session data from disk into the table, and for collecting and</span>
+<span class="sd">    normalizing table contents back into structured slide dictionaries suitable</span>
+<span class="sd">    for saving or exporting.</span>
 
-<span class="sd">    This class intentionally contains no UI logic beyond table population.</span>
+<span class="sd">    Responsibilities include:</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">        table_widget (QTableWidget): The table widget used in the slide generator UI.</span>
+<span class="sd">    - Populating the generator table from a slide JSON file</span>
+<span class="sd">    - Extracting slide data from table rows into normalized dictionaries</span>
+<span class="sd">    - Applying style alias mappings between display labels and internal keys</span>
+<span class="sd">    - Performing style-specific preprocessing and normalization, such as:</span>
+
+<span class="sd">        * Merging and splitting anthem captions and choir names</span>
+<span class="sd">        * Reformatting multi-verse Bible slide text for readability</span>
+
+<span class="sd">    This class deliberately contains no UI control logic beyond direct table</span>
+<span class="sd">    population and inspection, and does not handle dialogs, user interaction,</span>
+<span class="sd">    or rendering concerns.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        table (QTableWidget):</span>
+<span class="sd">            Reference to the generator&#39;s slide table widget.</span>
+<span class="sd">        loader (BibleDataLoader):</span>
+<span class="sd">            Bible data loader instance used for verse-related preprocessing.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="SlideGeneratorDataManager.__init__">

@@ -130,13 +130,19 @@ submission and synchronization with the parent slide generator.</p>
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.ui.contents.prayer_content.</span></span><span class="sig-name descname"><span class="pre">PrayerContent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/prayer_content.html#PrayerContent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.prayer_content.PrayerContent" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
 <p>Content editor widget for “prayer”-style slides.</p>
-<p>This widget allows users to specify:</p>
+<p>This widget collects minimal structured information required for a
+prayer slide:</p>
 <ul class="simple">
-<li><p>A short prayer title (usually “기도”)</p></li>
-<li><p>The name of the prayer leader</p></li>
+<li><p>A short prayer title (e.g., “기도”)</p></li>
+<li><p>The name of the prayer leader (e.g., “이승철 장로”)</p></li>
 </ul>
-<p>The entered values are exported as a simple slide dictionary and
-rendered using the “prayer”-slide style.</p>
+<p>The widget focuses purely on data entry and synchronization. It does
+not perform any rendering logic itself; instead, it produces a simple
+slide dictionary consumed later by the slide generator and controller.</p>
+<p>Integration with
+<a class="reference internal" href="core.generator.utils.slide_input_submitter.html#core.generator.utils.slide_input_submitter.SlideInputSubmitter" title="core.generator.utils.slide_input_submitter.SlideInputSubmitter"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.generator.utils.slide_input_submitter.SlideInputSubmitter</span></code></a>
+allows the prayer slide to be automatically regenerated and persisted
+whenever input fields change.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -145,6 +151,91 @@ rendered using the “prayer”-slide style.</p>
 </ul>
 </dd>
 </dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.prayer_content.PrayerContent.caption">
+<span class="sig-name descname"><span class="pre">caption</span></span><a class="headerlink" href="#core.generator.ui.contents.prayer_content.PrayerContent.caption" title="Link to this definition"></a></dt>
+<dd><p>Initial prayer title value provided at construction time.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.prayer_content.PrayerContent.headline">
+<span class="sig-name descname"><span class="pre">headline</span></span><a class="headerlink" href="#core.generator.ui.contents.prayer_content.PrayerContent.headline" title="Link to this definition"></a></dt>
+<dd><p>Initial prayer leader name provided at construction time.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.prayer_content.PrayerContent.generator_window">
+<span class="sig-name descname"><span class="pre">generator_window</span></span><a class="headerlink" href="#core.generator.ui.contents.prayer_content.PrayerContent.generator_window" title="Link to this definition"></a></dt>
+<dd><p>Reference to the generator main window that receives slide updates
+and manages auto-save/session state.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.prayer_content.PrayerContent.caption_label">
+<span class="sig-name descname"><span class="pre">caption_label</span></span><a class="headerlink" href="#core.generator.ui.contents.prayer_content.PrayerContent.caption_label" title="Link to this definition"></a></dt>
+<dd><p>Label describing the prayer title input field.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QLabel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.prayer_content.PrayerContent.caption_edit">
+<span class="sig-name descname"><span class="pre">caption_edit</span></span><a class="headerlink" href="#core.generator.ui.contents.prayer_content.PrayerContent.caption_edit" title="Link to this definition"></a></dt>
+<dd><p>Input field for the prayer title (slide <code class="docutils literal notranslate"><span class="pre">caption</span></code>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QLineEdit</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.prayer_content.PrayerContent.headline_label">
+<span class="sig-name descname"><span class="pre">headline_label</span></span><a class="headerlink" href="#core.generator.ui.contents.prayer_content.PrayerContent.headline_label" title="Link to this definition"></a></dt>
+<dd><p>Label describing the prayer leader input field.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QLabel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.prayer_content.PrayerContent.headline_edit">
+<span class="sig-name descname"><span class="pre">headline_edit</span></span><a class="headerlink" href="#core.generator.ui.contents.prayer_content.PrayerContent.headline_edit" title="Link to this definition"></a></dt>
+<dd><p>Input field for the prayer leader name (slide <code class="docutils literal notranslate"><span class="pre">headline</span></code>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QLineEdit</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.contents.prayer_content.PrayerContent.submitter">
+<span class="sig-name descname"><span class="pre">submitter</span></span><a class="headerlink" href="#core.generator.ui.contents.prayer_content.PrayerContent.submitter" title="Link to this definition"></a></dt>
+<dd><p>Auto-submit helper that observes input widgets and supplies updated
+slide data via <code class="docutils literal notranslate"><span class="pre">build_prayer_slide()</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="core.generator.utils.slide_input_submitter.html#core.generator.utils.slide_input_submitter.SlideInputSubmitter" title="core.generator.utils.slide_input_submitter.SlideInputSubmitter">SlideInputSubmitter</a></p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="core.generator.ui.contents.prayer_content.PrayerContent.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generator_window</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caption</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'기도'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/prayer_content.html#PrayerContent.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.prayer_content.PrayerContent.__init__" title="Link to this definition"></a></dt>

@@ -100,13 +100,33 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Content editor widget for &quot;greet&quot;-style slides.</span>
 
-<span class="sd">    This widget provides input fields for:</span>
+<span class="sd">    This widget is used to compose greeting or announcement slides, typically</span>
+<span class="sd">    shown at the beginning or end of a service. It allows the user to enter:</span>
 
-<span class="sd">    - Caption: A short reference or subtitle (e.g., Bible reference)</span>
-<span class="sd">    - Headline: A multiline main message or greeting text</span>
+<span class="sd">    - A short caption (e.g., Bible reference or section label)</span>
+<span class="sd">    - A multi-line headline containing the main greeting or message</span>
 
-<span class="sd">    The collected input is converted into a slide data dictionary</span>
-<span class="sd">    containing ``style``, ``caption``, and ``headline`` fields.</span>
+<span class="sd">    The entered content is converted into a slide data dictionary containing</span>
+<span class="sd">    ``style``, ``caption``, and ``headline`` fields, which are then consumed by</span>
+<span class="sd">    the slide generator and controller.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        caption (str):</span>
+<span class="sd">            Initial caption text provided when the widget is created.</span>
+<span class="sd">            Usually a short reference or subtitle.</span>
+<span class="sd">        headline (str):</span>
+<span class="sd">            Initial headline text provided when the widget is created.</span>
+<span class="sd">            Usually a greeting or main message body.</span>
+<span class="sd">        generator_window:</span>
+<span class="sd">            Reference to the slide generator window. Used to submit updated</span>
+<span class="sd">            slide data and support automatic save/synchronization behavior.</span>
+<span class="sd">        caption_edit (QLineEdit):</span>
+<span class="sd">            Single-line input field for editing the caption text.</span>
+<span class="sd">        headline_edit (QPlainTextEdit):</span>
+<span class="sd">            Multi-line text input field for editing the main greeting message.</span>
+<span class="sd">        submitter (SlideInputSubmitter):</span>
+<span class="sd">            Helper object that monitors input widgets and submits updated</span>
+<span class="sd">            slide data to the generator window whenever changes occur.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="GreetContent.__init__">

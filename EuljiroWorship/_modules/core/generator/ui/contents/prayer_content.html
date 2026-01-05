@@ -99,13 +99,40 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Content editor widget for &quot;prayer&quot;-style slides.</span>
 
-<span class="sd">    This widget allows users to specify:</span>
+<span class="sd">    This widget collects minimal structured information required for a</span>
+<span class="sd">    prayer slide:</span>
 
-<span class="sd">    - A short prayer title (usually &quot;기도&quot;)</span>
-<span class="sd">    - The name of the prayer leader</span>
+<span class="sd">    - A short prayer title (e.g., &quot;기도&quot;)</span>
+<span class="sd">    - The name of the prayer leader (e.g., &quot;이승철 장로&quot;)</span>
 
-<span class="sd">    The entered values are exported as a simple slide dictionary and</span>
-<span class="sd">    rendered using the &quot;prayer&quot;-slide style.</span>
+<span class="sd">    The widget focuses purely on data entry and synchronization. It does</span>
+<span class="sd">    not perform any rendering logic itself; instead, it produces a simple</span>
+<span class="sd">    slide dictionary consumed later by the slide generator and controller.</span>
+
+<span class="sd">    Integration with</span>
+<span class="sd">    :class:`core.generator.utils.slide_input_submitter.SlideInputSubmitter`</span>
+<span class="sd">    allows the prayer slide to be automatically regenerated and persisted</span>
+<span class="sd">    whenever input fields change.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        caption (str):</span>
+<span class="sd">            Initial prayer title value provided at construction time.</span>
+<span class="sd">        headline (str):</span>
+<span class="sd">            Initial prayer leader name provided at construction time.</span>
+<span class="sd">        generator_window:</span>
+<span class="sd">            Reference to the generator main window that receives slide updates</span>
+<span class="sd">            and manages auto-save/session state.</span>
+<span class="sd">        caption_label (QLabel):</span>
+<span class="sd">            Label describing the prayer title input field.</span>
+<span class="sd">        caption_edit (QLineEdit):</span>
+<span class="sd">            Input field for the prayer title (slide ``caption``).</span>
+<span class="sd">        headline_label (QLabel):</span>
+<span class="sd">            Label describing the prayer leader input field.</span>
+<span class="sd">        headline_edit (QLineEdit):</span>
+<span class="sd">            Input field for the prayer leader name (slide ``headline``).</span>
+<span class="sd">        submitter (SlideInputSubmitter):</span>
+<span class="sd">            Auto-submit helper that observes input widgets and supplies updated</span>
+<span class="sd">            slide data via ``build_prayer_slide()``.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="PrayerContent.__init__">

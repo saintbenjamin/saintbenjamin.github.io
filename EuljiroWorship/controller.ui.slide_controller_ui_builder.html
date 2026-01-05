@@ -133,16 +133,43 @@ table, and installing event filters for keyboard navigation.</p>
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">controller.ui.slide_controller_ui_builder.</span></span><span class="sig-name descname"><span class="pre">SlideControllerUIBuilder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">controller</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/ui/slide_controller_ui_builder.html#SlideControllerUIBuilder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.ui.slide_controller_ui_builder.SlideControllerUIBuilder" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>UI builder for the <a class="reference internal" href="controller.slide_controller.html#controller.slide_controller.SlideController" title="controller.slide_controller.SlideController"><code class="xref py py-class docutils literal notranslate"><span class="pre">controller.slide_controller.SlideController</span></code></a> main window.</p>
-<p>This class encapsulates widget construction so that <a class="reference internal" href="controller.slide_controller.html#controller.slide_controller.SlideController" title="controller.slide_controller.SlideController"><code class="xref py py-class docutils literal notranslate"><span class="pre">controller.slide_controller.SlideController</span></code></a> can keep
-its runtime logic separate from UI layout details. The builder creates and
-attaches widgets onto the controller instance (<code class="docutils literal notranslate"><span class="pre">self.c</span></code>), and wires up signals
-to the controller’s navigation and emergency-caption handlers.</p>
+<p>This class encapsulates widget construction so that
+<a class="reference internal" href="controller.slide_controller.html#controller.slide_controller.SlideController" title="controller.slide_controller.SlideController"><code class="xref py py-class docutils literal notranslate"><span class="pre">controller.slide_controller.SlideController</span></code></a> can keep runtime logic
+separate from UI layout details. The builder creates and attaches widgets
+onto the controller instance (<code class="docutils literal notranslate"><span class="pre">self.c</span></code>), and wires up signals to the
+controller’s navigation and emergency-caption handlers.</p>
+<p>The builder assumes the controller already has:
+- <code class="docutils literal notranslate"><span class="pre">slides</span></code>: list[dict] containing slide data for preview population
+- <code class="docutils literal notranslate"><span class="pre">index</span></code>: int current slide index to pre-select in the table</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="controller.ui.slide_controller_ui_builder.SlideControllerUIBuilder.c">
+<span class="sig-name descname"><span class="pre">c</span></span><a class="headerlink" href="#controller.ui.slide_controller_ui_builder.SlideControllerUIBuilder.c" title="Link to this definition"></a></dt>
+<dd><p>The controller instance that owns the window and runtime logic.
+Widgets created by this builder are attached onto this object.</p>
+<p>This builder assigns (at minimum) the following attributes onto <code class="docutils literal notranslate"><span class="pre">c</span></code>:
+- label (QLabel): Top status label (elided text).
+- btn_on (QPushButton): Emergency caption ON button.
+- btn_off (QPushButton): Emergency caption OFF button.
+- first_button (QPushButton): Jump to first slide button.
+- prev_button (QPushButton): Jump to previous slide button.
+- next_button (QPushButton): Jump to next slide button.
+- last_button (QPushButton): Jump to last slide button.
+- page_input (QLineEdit): Page number input used for direct jump.
+- table (QTableWidget): Slide preview table (row selection + click-to-jump).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="controller.slide_controller.html#controller.slide_controller.SlideController" title="controller.slide_controller.SlideController">controller.slide_controller.SlideController</a></p>
+</dd>
+</dl>
+</dd></dl>
+
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul class="simple">
 <li><p>Widgets are attached onto the controller instance as attributes
 (e.g., <code class="docutils literal notranslate"><span class="pre">controller.label</span></code>, <code class="docutils literal notranslate"><span class="pre">controller.table</span></code>, <code class="docutils literal notranslate"><span class="pre">controller.page_input</span></code>).</p></li>
-<li><p>The builder assumes <a class="reference internal" href="controller.slide_controller.html#controller.slide_controller.SlideController" title="controller.slide_controller.SlideController"><code class="xref py py-class docutils literal notranslate"><span class="pre">controller.slide_controller.SlideController</span></code></a> already loaded <code class="docutils literal notranslate"><span class="pre">slides</span></code> and <code class="docutils literal notranslate"><span class="pre">index</span></code>.</p></li>
+<li><p>The builder installs event filters on the controller and its table to
+support keyboard navigation.</p></li>
 </ul>
 </div>
 <dl class="py method">

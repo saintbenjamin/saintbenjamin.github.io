@@ -138,21 +138,24 @@
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">controller.utils.keyword_highlight_delegate.</span></span><span class="sig-name descname"><span class="pre">KeywordHighlightDelegate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/keyword_highlight_delegate.html#KeywordHighlightDelegate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.keyword_highlight_delegate.KeywordHighlightDelegate" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QStyledItemDelegate</span></code></p>
 <p>Custom item delegate that highlights keywords in model text using HTML rendering.</p>
-<p>This delegate converts the cell text into HTML and wraps each keyword occurrence
-with a red-colored <code class="docutils literal notranslate"><span class="pre">&lt;span&gt;</span></code> . Rendering is done via <cite>QTextDocument</cite> to support:</p>
+<p>This delegate renders each cell via <code class="docutils literal notranslate"><span class="pre">QTextDocument</span></code> so it can support:</p>
 <ul class="simple">
-<li><p>HTML formatting</p></li>
+<li><p>HTML formatting (keyword highlighting)</p></li>
 <li><p>Multi-line wrapping</p></li>
-<li><p>Accurate sizeHint calculation</p></li>
+<li><p>Accurate <code class="docutils literal notranslate"><span class="pre">sizeHint()</span></code> based on rendered document height</p></li>
 </ul>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="controller.utils.keyword_highlight_delegate.KeywordHighlightDelegate.keywords">
+<span class="sig-name descname"><span class="pre">keywords</span></span><a class="headerlink" href="#controller.utils.keyword_highlight_delegate.KeywordHighlightDelegate.keywords" title="Link to this definition"></a></dt>
+<dd><p>Keywords to highlight. Empty strings are ignored. Matching is performed
+via simple substring replacement after HTML-escaping the cell text.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>keywords</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – Keywords to highlight. Empty strings are ignored.</p></li>
-<li><p><strong>parent</strong> (<em>QWidget</em><em> | </em><em>None</em>) – Optional parent widget.</p></li>
-</ul>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[str]</p>
 </dd>
 </dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="controller.utils.keyword_highlight_delegate.KeywordHighlightDelegate.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keywords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/keyword_highlight_delegate.html#KeywordHighlightDelegate.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.keyword_highlight_delegate.KeywordHighlightDelegate.__init__" title="Link to this definition"></a></dt>

@@ -147,22 +147,18 @@ consumable by the slide controller / overlay pipeline.</p>
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">controller.utils.emergency_slide_factory.</span></span><span class="sig-name descname"><span class="pre">EmergencySlideFactory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bible_loader</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/emergency_slide_factory.html#EmergencySlideFactory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.emergency_slide_factory.EmergencySlideFactory" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Factory for constructing emergency slide blocks.</p>
-<p>This class converts user-facing emergency inputs into a list of slide dicts.</p>
-<p>Primary responsibilities:</p>
+<p>This class converts user-facing emergency inputs into a list of slide
+dictionaries suitable for immediate export to the slide controller.</p>
+<p>It supports multiple input modes, including:</p>
 <ul class="simple">
-<li><p>Detect whether the first line is a Bible reference via <a class="reference internal" href="core.utils.bible_parser.html#core.utils.bible_parser.parse_reference" title="core.utils.bible_parser.parse_reference"><code class="xref py py-func docutils literal notranslate"><span class="pre">core.utils.bible_parser.parse_reference()</span></code></a></p></li>
-<li><p>If a reference is valid, retrieve verses using <a class="reference internal" href="core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader" title="core.utils.bible_data_loader.BibleDataLoader"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.utils.bible_data_loader.BibleDataLoader</span></code></a></p></li>
-<li><p>Wrap long verse text into multiple slides using <a class="reference external" href="https://docs.python.org/3/library/textwrap.html#textwrap.wrap">textwrap.wrap</a></p></li>
-<li><p>If not a reference, build a fallback “manual” slide payload</p></li>
-<li><dl class="simple">
-<dt>Load preset materials:</dt><dd><ul>
-<li><p>Responsive readings (“respo”) from JSON</p></li>
-<li><p>Hymns from JSON</p></li>
+<li><p>Bible references (single verse, range, or full chapter)</p></li>
+<li><p>Manual text fallback</p></li>
+<li><p>Responsive readings (교독문)</p></li>
+<li><p>Hymns (찬송가)</p></li>
+<li><p>Arbitrary manual slide content</p></li>
 </ul>
-</dd>
-</dl>
-</li>
-</ul>
+<p>Verse-based slides are retrieved via <a class="reference internal" href="core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader" title="core.utils.bible_data_loader.BibleDataLoader"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.utils.bible_data_loader.BibleDataLoader</span></code></a>
+and wrapped into screen-friendly chunks using <a class="reference external" href="https://docs.python.org/3/library/textwrap.html#textwrap.wrap">textwrap.wrap</a>.</p>
 <p>Slide dict schema:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>     <span class="c1"># e.g., &quot;verse&quot;, &quot;lyrics&quot;, &quot;greet&quot;, ...</span>
@@ -171,6 +167,32 @@ consumable by the slide controller / overlay pipeline.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="controller.utils.emergency_slide_factory.EmergencySlideFactory.VERSION_ALIASES">
+<span class="sig-name descname"><span class="pre">VERSION_ALIASES</span></span><a class="headerlink" href="#controller.utils.emergency_slide_factory.EmergencySlideFactory.VERSION_ALIASES" title="Link to this definition"></a></dt>
+<dd><p>Mapping of Bible version keys to human-readable aliases,
+loaded from <a class="reference internal" href="core.config.paths.html#core.config.paths.ALIASES_VERSION_FILE" title="core.config.paths.ALIASES_VERSION_FILE"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.ALIASES_VERSION_FILE</span></code></a>.
+Used when rendering verse captions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="controller.utils.emergency_slide_factory.EmergencySlideFactory.loader">
+<span class="sig-name descname"><span class="pre">loader</span></span><a class="headerlink" href="#controller.utils.emergency_slide_factory.EmergencySlideFactory.loader" title="Link to this definition"></a></dt>
+<dd><p>Bible data loader instance used to retrieve verse text,
+book names, and chapter metadata. Either provided externally
+or created internally during initialization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader" title="core.utils.bible_data_loader.BibleDataLoader">BibleDataLoader</a></p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="controller.utils.emergency_slide_factory.EmergencySlideFactory.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bible_loader</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/emergency_slide_factory.html#EmergencySlideFactory.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.emergency_slide_factory.EmergencySlideFactory.__init__" title="Link to this definition"></a></dt>

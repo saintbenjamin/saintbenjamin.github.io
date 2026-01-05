@@ -103,14 +103,39 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Content editor widget for &quot;lyrics&quot; style slides.</span>
 
-<span class="sd">    This widget allows users to enter:</span>
+<span class="sd">    This widget collects:</span>
 
-<span class="sd">    - A title for the song or praise</span>
-<span class="sd">    - Multiline lyrics text</span>
+<span class="sd">    - Song/praise title (stored in ``caption``)</span>
+<span class="sd">    - Multiline lyrics body (stored in ``headline`` as raw text)</span>
 
-<span class="sd">    The &quot;lyrics&quot; content is stored as raw text and later processed by the</span>
-<span class="sd">    slide exporter, which splits the text into multiple slides according</span>
-<span class="sd">    to predefined rules (e.g., two lines per slide).</span>
+<span class="sd">    The widget intentionally stores lyrics as raw, unsplit text. The slide</span>
+<span class="sd">    export pipeline is responsible for splitting the lyrics into multiple</span>
+<span class="sd">    slides (e.g., two lines per slide, special split markers like &quot;(간주)&quot;,</span>
+<span class="sd">    etc.), so the editor remains focused on input and synchronization.</span>
+
+<span class="sd">    This widget integrates with the generator window via</span>
+<span class="sd">    :class:`core.generator.utils.slide_input_submitter.SlideInputSubmitter`</span>
+<span class="sd">    so that edits can be submitted automatically.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        caption (str):</span>
+<span class="sd">            Initial title value passed at construction time.</span>
+<span class="sd">        headline (str):</span>
+<span class="sd">            Initial lyrics body passed at construction time (raw multiline text).</span>
+<span class="sd">        generator_window:</span>
+<span class="sd">            Reference to the generator window that receives slide updates and</span>
+<span class="sd">            manages auto-save/session behavior.</span>
+<span class="sd">        caption_label (QLabel):</span>
+<span class="sd">            Label describing the title input.</span>
+<span class="sd">        caption_edit (QLineEdit):</span>
+<span class="sd">            Input field for the lyrics title (slide ``caption``).</span>
+<span class="sd">        headline_label (QLabel):</span>
+<span class="sd">            Label describing the lyrics body input.</span>
+<span class="sd">        headline_edit (QPlainTextEdit):</span>
+<span class="sd">            Multiline editor for raw lyrics text (slide ``headline``).</span>
+<span class="sd">        submitter (SlideInputSubmitter):</span>
+<span class="sd">            Auto-submit helper that observes inputs and provides updated slide</span>
+<span class="sd">            payloads via ``build_lyrics_slide()``.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="LyricsContent.__init__">

@@ -100,15 +100,16 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Modal dialog for editing a single slide.</span>
 
-<span class="sd">    This dialog embeds :class:`core.generator.ui.slide_generator_right_contents.SlideGeneratorRightContents` to provide the same</span>
-<span class="sd">    style-specific editing UI used elsewhere in the generator, but presents</span>
-<span class="sd">    it in a blocking modal dialog with explicit OK and Cancel buttons.</span>
+<span class="sd">    This dialog embeds :class:`core.generator.ui.slide_generator_right_contents.SlideGeneratorRightContents`</span>
+<span class="sd">    to provide the same style-specific editing UI used in the generator, but</span>
+<span class="sd">    presents it in a blocking modal dialog with explicit OK/Cancel buttons.</span>
 
-<span class="sd">    The dialog is intended to be used as follows:</span>
-
-<span class="sd">    - Construct with the slide style and initial caption/headline.</span>
-<span class="sd">    - Call ``exec()`` to display the dialog modally.</span>
-<span class="sd">    - If the dialog is accepted, call :meth:`get_result` to retrieve edited data.</span>
+<span class="sd">    Attributes:</span>
+<span class="sd">        content_widget (SlideGeneratorRightContents):</span>
+<span class="sd">            The embedded style-specific editor widget that owns the input fields</span>
+<span class="sd">            and produces the final slide data dict.</span>
+<span class="sd">        button_box (QDialogButtonBox):</span>
+<span class="sd">            Standard OK/Cancel button box wired to :meth:`accept` and :meth:`reject`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="SlideGeneratorDialog.__init__">

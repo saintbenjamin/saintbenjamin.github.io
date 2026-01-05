@@ -106,12 +106,20 @@
 <span class="sd">    `websocket-client &lt;https://pypi.org/project/websocket-client/&gt;`_ library and provides simple methods for:</span>
 
 <span class="sd">    - Connecting to a WebSocket server</span>
-<span class="sd">    - Sending slide dictionaries as JSON</span>
+<span class="sd">    - Sending slide dictionaries as JSON payloads</span>
 <span class="sd">    - Querying connection state</span>
 <span class="sd">    - Closing the connection safely</span>
 
-<span class="sd">    It does not implement reconnection logic or background threads by design;</span>
-<span class="sd">    higher-level components are expected to handle retry behavior if needed.</span>
+<span class="sd">    It intentionally does **not** implement reconnection logic, background threads,</span>
+<span class="sd">    or retry loops. Higher-level controller components are expected to manage</span>
+<span class="sd">    lifecycle and recovery behavior if needed.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        uri (str):</span>
+<span class="sd">            WebSocket server URI (e.g., ``ws://127.0.0.1:8765/ws``).</span>
+<span class="sd">        ws (websocket.WebSocket | None):</span>
+<span class="sd">            Active WebSocket connection object created by ``websocket.create_connection``.</span>
+<span class="sd">            Set to ``None`` when disconnected or on connection failure.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="SlideWebSocketManager.__init__">
