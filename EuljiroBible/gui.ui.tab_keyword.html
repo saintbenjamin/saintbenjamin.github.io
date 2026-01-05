@@ -195,6 +195,15 @@ and exporting the selected verse for overlay usage.</p>
 </dl>
 </dd></dl>
 
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The following callables are intentionally <em>not</em> listed under <code class="docutils literal notranslate"><span class="pre">Attributes</span></code> to
+avoid duplicate autodoc entries, as they are already documented as class methods:</p>
+<ul class="simple">
+<li><p>get_polling_status (Callable[[], bool]): Callback returning the current polling state.</p></li>
+<li><p>get_always_show_setting (Callable[[], bool]): Callback returning the current “always show buttons” toggle state.</p></li>
+</ul>
+</div>
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.tab_keyword.TabKeyword.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">settings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">get_polling_status</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">get_always_show_setting</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_keyword.html#TabKeyword.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_keyword.TabKeyword.__init__" title="Link to this definition"></a></dt>

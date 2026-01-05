@@ -120,8 +120,12 @@
 <span class="sd">        overlay (QWidget | None): Active overlay window instance when enabled; otherwise None.</span>
 <span class="sd">        overlay_denied (bool): Flag indicating the user denied overlay usage on single-display setups.</span>
 <span class="sd">        logic (TabSettingsLogic): Backend logic handler for applying UI-driven settings changes.</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        The following callable is intentionally omitted from ``Attributes`` to avoid duplicate autodoc entries, as it is already documented as a class method:</span>
+
+<span class="sd">        - get_main_geometry (Callable[[], QRect]): Callback returning the main window geometry used to determine which screen is treated as the &quot;main&quot; display.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-        <span class="c1"># get_main_geometry (Callable[[], QRect]): Callback returning the main window geometry used to determine which screen is the &quot;main&quot; display.</span>
 
 <div class="viewcode-block" id="TabSettings.__init__">
 <a class="viewcode-back" href="../../../gui.ui.tab_settings.html#gui.ui.tab_settings.TabSettings.__init__">[docs]</a>
