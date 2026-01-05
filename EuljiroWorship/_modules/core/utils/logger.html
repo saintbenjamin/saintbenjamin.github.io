@@ -82,7 +82,7 @@
 <span class="sd">Provides error and debug logging utilities for EuljiroBible.</span>
 
 <span class="sd">This module defines a lightweight logging wrapper around Python&#39;s</span>
-<span class="sd">standard `logging` module, with the following design goals:</span>
+<span class="sd">standard `logging &lt;https://docs.python.org/3/library/logging.html&gt;`_ module, with the following design goals:</span>
 
 <span class="sd">- Logs are written to disk only when actually needed</span>
 <span class="sd">- A single central log file is used across the application</span>
@@ -115,7 +115,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Ensure that a file handler is attached to the global logger.</span>
 
-<span class="sd">        This function lazily initializes a `logging.FileHandler` and</span>
+<span class="sd">        This function lazily initializes a `logging.FileHandler &lt;https://docs.python.org/3/library/logging.handlers.html#logging.FileHandler&gt;`_ and</span>
 <span class="sd">        attaches it to the module-level logger only once.</span>
 
 <span class="sd">        The log file is created only when an error or debug message</span>
@@ -166,7 +166,7 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Log a debug message if DEBUG mode is enabled.</span>
 
-<span class="sd">    Debug mode is determined by the environment variable `DEBUG=1`</span>
+<span class="sd">    Debug mode is determined by the environment variable ``DEBUG=1``</span>
 <span class="sd">    at application startup. If DEBUG mode is disabled, this</span>
 <span class="sd">    function performs no action.</span>
 

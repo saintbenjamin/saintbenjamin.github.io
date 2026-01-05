@@ -79,13 +79,13 @@
 <span class="sd">:E-mail: euljirochurch [at] G.M.A.I.L. (replace [at] with @ and G.M.A.I.L as you understood.)</span>
 <span class="sd">:License: MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</span>
 
-<span class="sd">UI content widget for editing &#39;prayer&#39; style slides.</span>
+<span class="sd">UI content widget for editing &quot;prayer&quot;-style slides.</span>
 
-<span class="sd">This module defines `PrayerContent`, a QWidget that provides input fields</span>
+<span class="sd">This module defines :class:`core.generator.ui.contents.prayer_content.PrayerContent`, a `QWidget` that provides input fields</span>
 <span class="sd">for creating prayer slides. A prayer slide typically consists of a short</span>
 <span class="sd">title (e.g., &quot;기도&quot;) and the name of the person leading the prayer.</span>
 
-<span class="sd">The widget integrates with `SlideInputSubmitter` to support automatic</span>
+<span class="sd">The widget integrates with :class:`core.generator.utils.slide_input_submitter.SlideInputSubmitter` to support automatic</span>
 <span class="sd">submission and synchronization with the parent slide generator.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
@@ -97,14 +97,15 @@
 <a class="viewcode-back" href="../../../../../core.generator.ui.contents.prayer_content.html#core.generator.ui.contents.prayer_content.PrayerContent">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">PrayerContent</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Content editor widget for &#39;prayer&#39; style slides.</span>
+<span class="sd">    Content editor widget for &quot;prayer&quot;-style slides.</span>
 
 <span class="sd">    This widget allows users to specify:</span>
+
 <span class="sd">    - A short prayer title (usually &quot;기도&quot;)</span>
 <span class="sd">    - The name of the prayer leader</span>
 
 <span class="sd">    The entered values are exported as a simple slide dictionary and</span>
-<span class="sd">    rendered using the &#39;prayer&#39; slide style.</span>
+<span class="sd">    rendered using the &quot;prayer&quot;-slide style.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="PrayerContent.__init__">
@@ -142,7 +143,7 @@
 
 <span class="sd">        This method creates labeled input fields for the prayer title and</span>
 <span class="sd">        the prayer leader&#39;s name, arranges them vertically, and registers</span>
-<span class="sd">        the inputs with `SlideInputSubmitter` to enable automatic submission.</span>
+<span class="sd">        the inputs with :class:`core.generator.utils.slide_input_submitter.SlideInputSubmitter` to enable automatic submission.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            None</span>
@@ -209,6 +210,7 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            dict:</span>
 <span class="sd">                Dictionary representing the prayer slide, including:</span>
+
 <span class="sd">                - style</span>
 <span class="sd">                - caption (prayer title)</span>
 <span class="sd">                - headline (prayer leader name)</span>

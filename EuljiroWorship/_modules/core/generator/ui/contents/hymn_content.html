@@ -79,15 +79,15 @@
 <span class="sd">:E-mail: euljirochurch [at] G.M.A.I.L. (replace [at] with @ and G.M.A.I.L as you understood.)</span>
 <span class="sd">:License: MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</span>
 
-<span class="sd">UI content widget for editing &#39;hymn&#39; style slides.</span>
+<span class="sd">UI content widget for editing &quot;hymn&quot; style slides.</span>
 
-<span class="sd">This module defines `HymnContent`, a QWidget that provides an interface for</span>
-<span class="sd">editing hymn-based slides. It supports selecting a hymn by number, loading</span>
+<span class="sd">This module defines :class:`core.generator.ui.contents.hymn_content.HymnContent`, a `QWidget` that provides an interface for</span>
+<span class="sd">editing &quot;hymn&quot;-based slides. It supports selecting a hymn by number, loading</span>
 <span class="sd">its title and lyrics from local JSON files, editing the content, and saving</span>
 <span class="sd">updates back to the hymn database.</span>
 
 <span class="sd">Hymn data is stored as JSON files under a predefined directory (e.g.,</span>
-<span class="sd">`data/hymns/`), and this widget serves as a lightweight editor and viewer</span>
+<span class="sd">``data/hymns/``), and this widget serves as a lightweight editor and viewer</span>
 <span class="sd">for that dataset within the slide generator.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
@@ -109,9 +109,10 @@
 <a class="viewcode-back" href="../../../../../core.generator.ui.contents.hymn_content.html#core.generator.ui.contents.hymn_content.HymnContent">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">HymnContent</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Content editor widget for &#39;hymn&#39; style slides.</span>
+<span class="sd">    Content editor widget for &quot;hymn&quot; style slides.</span>
 
 <span class="sd">    This widget provides input fields and controls for:</span>
+
 <span class="sd">    - Selecting a hymn by number</span>
 <span class="sd">    - Viewing and editing the hymn title</span>
 <span class="sd">    - Viewing and editing the hymn lyrics</span>
@@ -318,6 +319,7 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            dict:</span>
 <span class="sd">                Dictionary representing the hymn slide, including:</span>
+
 <span class="sd">                - style</span>
 <span class="sd">                - caption (hymn title)</span>
 <span class="sd">                - headline (lyrics)</span>

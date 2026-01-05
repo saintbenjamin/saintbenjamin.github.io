@@ -79,15 +79,15 @@
 <span class="sd">:E-mail: euljirochurch [at] G.M.A.I.L. (replace [at] with @ and G.M.A.I.L as you understood.)</span>
 <span class="sd">:License: MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</span>
 
-<span class="sd">UI content widget for editing &#39;respo&#39; (responsive reading) style slides.</span>
+<span class="sd">UI content widget for editing &quot;respo&quot; (responsive reading) style slides.</span>
 
-<span class="sd">This module defines `RespoContent`, a QWidget that provides a table-based</span>
+<span class="sd">This module defines :class:`core.generator.ui.contents.respo_content.RespoContent`, a `QWidget` that provides a table-based</span>
 <span class="sd">editor for responsive readings (교독문). Each slide consists of a title</span>
-<span class="sd">and a sequence of speaker–response pairs, which are rendered as formatted</span>
+<span class="sd">and a sequence of speaker-response pairs, which are rendered as formatted</span>
 <span class="sd">HTML for slide output.</span>
 
 <span class="sd">The widget supports loading and saving responsive readings from JSON files</span>
-<span class="sd">stored under `data/respo/`, and integrates with `SlideInputSubmitter` for</span>
+<span class="sd">stored under ``data/respo/``, and integrates with :class:`core.generator.utils.slide_input_submitter.SlideInputSubmitter` for</span>
 <span class="sd">automatic synchronization with the slide generator.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
@@ -108,12 +108,13 @@
 <a class="viewcode-back" href="../../../../../core.generator.ui.contents.respo_content.html#core.generator.ui.contents.respo_content.RespoContent">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">RespoContent</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Content editor widget for &#39;respo&#39; (responsive reading) slides.</span>
+<span class="sd">    Content editor widget for &quot;respo&quot; (responsive reading) slides.</span>
 
 <span class="sd">    This widget allows users to:</span>
+
 <span class="sd">    - Select a responsive reading by number</span>
 <span class="sd">    - Edit the title of the reading</span>
-<span class="sd">    - Edit speaker–response pairs using a table interface</span>
+<span class="sd">    - Edit speaker-response pairs using a table interface</span>
 
 <span class="sd">    The table contents are converted into formatted HTML and exported</span>
 <span class="sd">    as slide data for rendering.</span>
@@ -155,6 +156,7 @@
 <span class="sd">        Construct the UI layout for responsive reading editing.</span>
 
 <span class="sd">        The layout includes:</span>
+
 <span class="sd">        - A number input field with load button</span>
 <span class="sd">        - A title input field</span>
 <span class="sd">        - A two-column table for speaker and response text</span>
@@ -223,8 +225,8 @@
 <span class="sd">        Load responsive reading data from a JSON file.</span>
 
 <span class="sd">        The JSON file is selected based on the number entered by the user</span>
-<span class="sd">        and must exist under the `data/respo/` directory. The loaded data</span>
-<span class="sd">        populates the title field and the speaker–response table.</span>
+<span class="sd">        and must exist under the ``data/respo/`` directory. The loaded data</span>
+<span class="sd">        populates the title field and the speaker-response table.</span>
 
 <span class="sd">        Displays a warning dialog if the input is invalid or out of range.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -287,7 +289,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Determine the valid range of responsive reading numbers.</span>
 
-<span class="sd">        Scans the `data/respo/` directory for available JSON files and</span>
+<span class="sd">        Scans the ``data/respo/`` directory for available JSON files and</span>
 <span class="sd">        extracts their numeric identifiers.</span>
 
 <span class="sd">        Returns:</span>
@@ -311,7 +313,8 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            dict:</span>
 <span class="sd">                Dictionary containing:</span>
-<span class="sd">                - style: &#39;respo&#39;</span>
+
+<span class="sd">                - style: &quot;respo&quot;</span>
 <span class="sd">                - caption: title of the responsive reading</span>
 <span class="sd">                - headline: formatted HTML body</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -353,7 +356,7 @@
 <span class="sd">        Save the current responsive reading data to a JSON file.</span>
 
 <span class="sd">        The data is written back to the file corresponding to the selected</span>
-<span class="sd">        responsive reading number under `data/respo/`. A warning is shown</span>
+<span class="sd">        responsive reading number under ``data/respo/``. A warning is shown</span>
 <span class="sd">        if no valid number is provided.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">num</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">number_input</span><span class="o">.</span><span class="n">text</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>

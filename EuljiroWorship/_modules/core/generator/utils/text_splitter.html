@@ -94,17 +94,19 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Split a text string into multiple chunks constrained by a maximum character length.</span>
 
-<span class="sd">    This helper uses Python&#39;s `textwrap.wrap()` to break a long string into</span>
+<span class="sd">    This helper uses Python&#39;s `textwrap.wrap &lt;https://docs.python.org/3/library/textwrap.html#textwrap.wrap&gt;`_ to break a long string into</span>
 <span class="sd">    word-aware segments. Line breaks are inserted at appropriate word boundaries</span>
 <span class="sd">    whenever possible, ensuring that each resulting chunk does not exceed</span>
-<span class="sd">    `max_chars` characters.</span>
+<span class="sd">    ``max_chars`` characters.</span>
 
 <span class="sd">    This function is intentionally simple and presentation-oriented:</span>
+
 <span class="sd">    - It does not preserve original newlines.</span>
 <span class="sd">    - It does not apply hyphenation.</span>
 <span class="sd">    - It assumes the input text is a single logical paragraph.</span>
 
 <span class="sd">    Typical use cases include:</span>
+
 <span class="sd">    - Splitting long Bible verses for overlay display.</span>
 <span class="sd">    - Breaking lyrics or responsive readings into readable slide units.</span>
 

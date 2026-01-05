@@ -121,10 +121,9 @@
 <span class="sd">    This function assumes that ``EuljiroWorship.py`` is located at the repository</span>
 <span class="sd">    root (i.e., the root directory of the project).</span>
 
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    pathlib.Path</span>
-<span class="sd">        Absolute path to the project root directory.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        pathlib.Path:</span>
+<span class="sd">            Absolute path to the project root directory.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span><span class="o">.</span><span class="n">parent</span></div>
 
@@ -139,23 +138,20 @@
 
 <span class="sd">        python -m http.server &lt;port&gt;</span>
 
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    cwd : pathlib.Path</span>
-<span class="sd">        The directory to serve as the HTTP document root (process working directory).</span>
-<span class="sd">    port : int, optional</span>
-<span class="sd">        TCP port to bind the HTTP server to. Default is ``8080``.</span>
+<span class="sd">    Args:</span>
+<span class="sd">        cwd (pathlib.Path):</span>
+<span class="sd">            The directory to serve as the HTTP document root (process working directory).</span>
+<span class="sd">        port (int, optional):</span>
+<span class="sd">            TCP port to bind the HTTP server to. Default is ``8080``.</span>
 
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    subprocess.Popen</span>
-<span class="sd">        A handle to the spawned HTTP server process.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        subprocess.Popen:</span>
+<span class="sd">            A handle to the spawned HTTP server process.</span>
 
-<span class="sd">    Notes</span>
-<span class="sd">    -----</span>
-<span class="sd">    - ``start_new_session=True`` is used to improve shutdown reliability across</span>
-<span class="sd">      platforms by detaching the child process session.</span>
-<span class="sd">    - Standard output/error are inherited by default (``stdout=None``, ``stderr=None``).</span>
+<span class="sd">    Note:</span>
+<span class="sd">        - ``start_new_session=True`` is used to improve shutdown reliability across platforms by detaching the child process session.</span>
+<span class="sd">        - Standard output/error are inherited by default (``stdout=None``, ``stderr=None``).</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="s2">&quot;-m&quot;</span><span class="p">,</span> <span class="s2">&quot;http.server&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">port</span><span class="p">)]</span>
     <span class="k">return</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span>
@@ -178,26 +174,21 @@
 
 <span class="sd">        &lt;project_root&gt;/server/websocket_server.py</span>
 
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    root : pathlib.Path</span>
-<span class="sd">        Absolute path to the project root directory.</span>
+<span class="sd">    Args:</span>
+<span class="sd">        root (pathlib.Path):</span>
+<span class="sd">            Absolute path to the project root directory.</span>
 
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    subprocess.Popen</span>
-<span class="sd">        A handle to the spawned WebSocket server process.</span>
+<span class="sd">    Raises:</span>
+<span class="sd">        FileNotFoundError</span>
+<span class="sd">            If ``server/websocket_server.py`` does not exist under ``root``.</span>
 
-<span class="sd">    Raises</span>
-<span class="sd">    ------</span>
-<span class="sd">    FileNotFoundError</span>
-<span class="sd">        If ``server/websocket_server.py`` does not exist under ``root``.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        subprocess.Popen:</span>
+<span class="sd">            A handle to the spawned WebSocket server process.</span>
 
-<span class="sd">    Notes</span>
-<span class="sd">    -----</span>
-<span class="sd">    - The process is spawned with its working directory set to the project root.</span>
-<span class="sd">    - ``start_new_session=True`` is used to improve shutdown reliability across</span>
-<span class="sd">      platforms.</span>
+<span class="sd">    Note:</span>
+<span class="sd">        - The process is spawned with its working directory set to the project root.</span>
+<span class="sd">        - ``start_new_session=True`` is used to improve shutdown reliability across platforms.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">ws_path</span> <span class="o">=</span> <span class="n">root</span> <span class="o">/</span> <span class="s2">&quot;server&quot;</span> <span class="o">/</span> <span class="s2">&quot;websocket_server.py&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">ws_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
@@ -225,15 +216,12 @@
 <span class="sd">    to ``kill()``. Any exceptions during shutdown are suppressed intentionally</span>
 <span class="sd">    (shutdown paths should not crash the main application).</span>
 
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    p : subprocess.Popen</span>
-<span class="sd">        Subprocess handle to terminate. If the process is already exited, this</span>
-<span class="sd">        function does nothing.</span>
+<span class="sd">    Args:</span>
+<span class="sd">        p (subprocess.Popen):</span>
+<span class="sd">            Subprocess handle to terminate. If the process is already exited, this function does nothing.</span>
 
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    None</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        None</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">p</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span>
@@ -257,6 +245,7 @@
 <span class="sd">    Verify that a freshly spawned subprocess is still running.</span>
 
 <span class="sd">    This is a small safety check to catch immediate failures such as:</span>
+
 <span class="sd">    - address/port already in use</span>
 <span class="sd">    - missing dependencies</span>
 <span class="sd">    - import/runtime errors causing instant exit</span>
@@ -264,21 +253,18 @@
 <span class="sd">    The function waits briefly and then checks the return code via ``poll()``.</span>
 <span class="sd">    If the process has already exited, a ``RuntimeError`` is raised.</span>
 
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    p : subprocess.Popen</span>
-<span class="sd">        Subprocess handle to validate.</span>
-<span class="sd">    name : str</span>
-<span class="sd">        Human-readable process name used in the error message.</span>
+<span class="sd">    Args:</span>
+<span class="sd">        p (subprocess.Popen):</span>
+<span class="sd">            Subprocess handle to validate.</span>
+<span class="sd">        name (str):</span>
+<span class="sd">            Human-readable process name used in the error message.</span>
 
-<span class="sd">    Raises</span>
-<span class="sd">    ------</span>
-<span class="sd">    RuntimeError</span>
-<span class="sd">        If the subprocess has already exited.</span>
+<span class="sd">    Raises:</span>
+<span class="sd">        RuntimeError:</span>
+<span class="sd">            If the subprocess has already exited.</span>
 
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    None</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        None</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.25</span><span class="p">)</span>
     <span class="n">rc</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">poll</span><span class="p">()</span>

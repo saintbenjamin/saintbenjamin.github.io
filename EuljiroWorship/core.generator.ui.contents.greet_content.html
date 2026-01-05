@@ -119,24 +119,26 @@
 <dd class="field-odd"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
 </dd>
 </dl>
-<p>UI content widget for editing ‘greet’ style slides.</p>
-<p>This module defines <cite>GreetContent</cite>, a QWidget that provides input fields
+<p>UI content widget for editing “greet” style slides.</p>
+<p>This module defines <a class="reference internal" href="#core.generator.ui.contents.greet_content.GreetContent" title="core.generator.ui.contents.greet_content.GreetContent"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.generator.ui.contents.greet_content.GreetContent</span></code></a>, a <cite>QWidget</cite> that provides input fields
 for greeting or message-style slides. These slides are typically used for
 welcome messages, sermon titles with extended descriptions, or other
 freeform announcements.</p>
 <p>The widget supports a short caption and a multiline headline, and integrates
-with <cite>SlideInputSubmitter</cite> to enable automatic submission and synchronization
+with <a class="reference internal" href="core.generator.utils.slide_input_submitter.html#core.generator.utils.slide_input_submitter.SlideInputSubmitter" title="core.generator.utils.slide_input_submitter.SlideInputSubmitter"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.generator.utils.slide_input_submitter.SlideInputSubmitter</span></code></a> to enable automatic submission and synchronization
 with the parent generator window.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="core.generator.ui.contents.greet_content.GreetContent">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.ui.contents.greet_content.</span></span><span class="sig-name descname"><span class="pre">GreetContent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/greet_content.html#GreetContent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.greet_content.GreetContent" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
-<p>Content editor widget for ‘greet’ style slides.</p>
-<p>This widget provides input fields for:
-- Caption: A short reference or subtitle (e.g., Bible reference)
-- Headline: A multiline main message or greeting text</p>
+<p>Content editor widget for “greet”-style slides.</p>
+<p>This widget provides input fields for:</p>
+<ul class="simple">
+<li><p>Caption: A short reference or subtitle (e.g., Bible reference)</p></li>
+<li><p>Headline: A multiline main message or greeting text</p></li>
+</ul>
 <p>The collected input is converted into a slide data dictionary
-containing <cite>style</cite>, <cite>caption</cite>, and <cite>headline</cite> fields.</p>
+containing <code class="docutils literal notranslate"><span class="pre">style</span></code>, <code class="docutils literal notranslate"><span class="pre">caption</span></code>, and <code class="docutils literal notranslate"><span class="pre">headline</span></code> fields.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -168,10 +170,10 @@ and enabling auto-save behavior.</p></li>
 <dl class="py method">
 <dt class="sig sig-object py" id="core.generator.ui.contents.greet_content.GreetContent.build_ui">
 <span class="sig-name descname"><span class="pre">build_ui</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/greet_content.html#GreetContent.build_ui"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.greet_content.GreetContent.build_ui" title="Link to this definition"></a></dt>
-<dd><p>Construct the UI elements for editing a greet-style slide.</p>
+<dd><p>Construct the UI elements for editing a “greet”-style slide.</p>
 <p>This method creates labeled input fields for caption and multiline
 headline content, arranges them vertically, and registers the inputs
-with <cite>SlideInputSubmitter</cite> to enable automatic submission.</p>
+with <a class="reference internal" href="core.generator.utils.slide_input_submitter.html#core.generator.utils.slide_input_submitter.SlideInputSubmitter" title="core.generator.utils.slide_input_submitter.SlideInputSubmitter"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.generator.utils.slide_input_submitter.SlideInputSubmitter</span></code></a> to enable automatic submission.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>None</strong></p>
@@ -212,10 +214,13 @@ otherwise, None.</p>
 <dd class="field-odd"><p><strong>None</strong></p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Dictionary representing the greet slide, including:
-- style
-- caption
-- headline</p>
+<dd class="field-even"><p><p>Dictionary representing the greet slide, including:</p>
+<ul class="simple">
+<li><p>style</p></li>
+<li><p>caption</p></li>
+<li><p>headline</p></li>
+</ul>
+</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>dict</p>

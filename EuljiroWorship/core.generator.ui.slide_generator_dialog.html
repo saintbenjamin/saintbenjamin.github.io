@@ -119,8 +119,8 @@
 </dd>
 </dl>
 <p>Modal dialog for editing a single slide.</p>
-<p>This module defines <cite>SlideGeneratorDialog</cite>, a QDialog wrapper that reuses the
-existing right-hand content panel (<cite>SlideGeneratorRightContents</cite>) inside a
+<p>This module defines <a class="reference internal" href="#core.generator.ui.slide_generator_dialog.SlideGeneratorDialog" title="core.generator.ui.slide_generator_dialog.SlideGeneratorDialog"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.generator.ui.slide_generator_dialog.SlideGeneratorDialog</span></code></a>, a <cite>QDialog</cite> wrapper that reuses the
+existing right-hand content panel (<a class="reference internal" href="core.generator.ui.slide_generator_right_contents.html#core.generator.ui.slide_generator_right_contents.SlideGeneratorRightContents" title="core.generator.ui.slide_generator_right_contents.SlideGeneratorRightContents"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.generator.ui.slide_generator_right_contents.SlideGeneratorRightContents</span></code></a>) inside a
 modal dialog context. It allows slide editing via the same style-specific UI
 used in the main generator, but with explicit OK/Cancel semantics.</p>
 <p>The dialog itself contains no slide-specific logic; it delegates all content
@@ -131,13 +131,15 @@ result when accepted.</p>
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.ui.slide_generator_dialog.</span></span><span class="sig-name descname"><span class="pre">SlideGeneratorDialog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator_dialog.html#SlideGeneratorDialog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator_dialog.SlideGeneratorDialog" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QDialog</span></code></p>
 <p>Modal dialog for editing a single slide.</p>
-<p>This dialog embeds <cite>SlideGeneratorRightContents</cite> to provide the same
+<p>This dialog embeds <a class="reference internal" href="core.generator.ui.slide_generator_right_contents.html#core.generator.ui.slide_generator_right_contents.SlideGeneratorRightContents" title="core.generator.ui.slide_generator_right_contents.SlideGeneratorRightContents"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.generator.ui.slide_generator_right_contents.SlideGeneratorRightContents</span></code></a> to provide the same
 style-specific editing UI used elsewhere in the generator, but presents
 it in a blocking modal dialog with explicit OK and Cancel buttons.</p>
-<p>The dialog is intended to be used as follows:
-- Construct with the slide style and initial caption/headline.
-- Call <cite>exec()</cite> to display the dialog modally.
-- If the dialog is accepted, call <cite>get_result()</cite> to retrieve edited data.</p>
+<p>The dialog is intended to be used as follows:</p>
+<ul class="simple">
+<li><p>Construct with the slide style and initial caption/headline.</p></li>
+<li><p>Call <code class="docutils literal notranslate"><span class="pre">exec()</span></code> to display the dialog modally.</p></li>
+<li><p>If the dialog is accepted, call <a class="reference internal" href="#core.generator.ui.slide_generator_dialog.SlideGeneratorDialog.get_result" title="core.generator.ui.slide_generator_dialog.SlideGeneratorDialog.get_result"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_result()</span></code></a> to retrieve edited data.</p></li>
+</ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -152,7 +154,7 @@ it in a blocking modal dialog with explicit OK and Cancel buttons.</p>
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">style</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caption</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headline</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator_dialog.html#SlideGeneratorDialog.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator_dialog.SlideGeneratorDialog.__init__" title="Link to this definition"></a></dt>
 <dd><p>Initialize the slide editor dialog.</p>
 <p>This constructor creates a modal dialog window, embeds a
-<cite>SlideGeneratorRightContents</cite> widget configured for the given slide style,
+<a class="reference internal" href="core.generator.ui.slide_generator_right_contents.html#core.generator.ui.slide_generator_right_contents.SlideGeneratorRightContents" title="core.generator.ui.slide_generator_right_contents.SlideGeneratorRightContents"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.generator.ui.slide_generator_right_contents.SlideGeneratorRightContents</span></code></a> widget configured for the given slide style,
 and adds a standard OK/Cancel button box.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -174,7 +176,7 @@ and adds a standard OK/Cancel button box.</p>
 <span class="sig-name descname"><span class="pre">get_result</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator_dialog.html#SlideGeneratorDialog.get_result"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator_dialog.SlideGeneratorDialog.get_result" title="Link to this definition"></a></dt>
 <dd><p>Return the edited slide data from the dialog.</p>
 <p>This method should only be called after the dialog has been accepted
-(i.e., <cite>exec()</cite> returned <cite>QDialog.Accepted</cite>). The returned dictionary
+(i.e., <code class="docutils literal notranslate"><span class="pre">exec()</span></code> returned <cite>QDialog.Accepted</cite>). The returned dictionary
 is produced by the embedded content widget and represents the fully
 edited slide data.</p>
 <dl class="field-list simple">

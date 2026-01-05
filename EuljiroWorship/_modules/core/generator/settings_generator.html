@@ -82,12 +82,12 @@
 <span class="sd">Handles persistent generator settings for the Slide Generator/Controller.</span>
 
 <span class="sd">This module provides a small persistence layer for generator UI preferences,</span>
-<span class="sd">stored as a JSON file (`paths.SETTING_FILE`). It currently supports:</span>
+<span class="sd">stored as a JSON file (:py:data:`core.config.paths.SETTING_FILE`). It currently supports:</span>
 
 <span class="sd">- Font family (e.g., &quot;Malgun Gothic&quot;)</span>
 <span class="sd">- Font size (int)</span>
 <span class="sd">- Font weight (string name matching `QFont.Weight`, e.g., &quot;Normal&quot;, &quot;Bold&quot;)</span>
-<span class="sd">- (Optional) emergency caption output path (e.g., verse_output.txt path)</span>
+<span class="sd">- (Optional) emergency caption output path (e.g., ``verse_output.txt`` path)</span>
 
 <span class="sd">The settings are used to build a `QFont` instance for UI widgets in the generator.</span>
 <span class="sd">&quot;&quot;&quot;</span>
@@ -110,6 +110,7 @@
 <span class="sd">    If the settings file does not exist, an empty dictionary is returned.</span>
 
 <span class="sd">    The returned dictionary may include keys such as:</span>
+
 <span class="sd">    - &quot;font_family&quot;: str</span>
 <span class="sd">    - &quot;font_size&quot;: int</span>
 <span class="sd">    - &quot;font_weight&quot;: str (e.g., &quot;Normal&quot;, &quot;Bold&quot;)</span>
@@ -132,8 +133,7 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Save generator settings to the JSON settings file.</span>
 
-<span class="sd">    This function writes the provided settings dictionary to</span>
-<span class="sd">    `paths.SETTING_FILE`, creating parent directories if needed.</span>
+<span class="sd">    This function writes the provided settings dictionary to, :py:data:`core.config.paths.SETTING_FILE` creating parent directories if needed.</span>
 
 <span class="sd">    Note:</span>
 <span class="sd">        This function is currently unused but reserved for future</span>
@@ -158,17 +158,17 @@
 <span class="sd">    Create a QFont instance based on persisted generator settings.</span>
 
 <span class="sd">    The font family, size, and weight are read from the settings file.</span>
-<span class="sd">    When `limit_ui_size` is enabled, the font size is clamped to a safe</span>
+<span class="sd">    When ``limit_ui_size`` is enabled, the font size is clamped to a safe</span>
 <span class="sd">    UI range to prevent layout issues.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        limit_ui_size (bool, optional):</span>
-<span class="sd">            Whether to clamp the font size to the range 8–14 pt.</span>
-<span class="sd">            Defaults to True.</span>
+<span class="sd">            Whether to clamp the font size to the range 8-14 pt.</span>
+<span class="sd">            Defaults to ``True``.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        QFont:</span>
-<span class="sd">            Configured QFont instance for use in generator UI widgets.</span>
+<span class="sd">        `QFont`:</span>
+<span class="sd">            Configured `QFont` instance for use in generator UI widgets.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">settings</span> <span class="o">=</span> <span class="n">load_generator_settings</span><span class="p">()</span>
 

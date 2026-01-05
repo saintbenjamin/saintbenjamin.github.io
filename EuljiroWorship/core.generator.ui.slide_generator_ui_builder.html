@@ -119,10 +119,10 @@
 </dd>
 </dl>
 <p>UI builder for the Slide Generator main window.</p>
-<p>This module defines <cite>SlideGeneratorUIBuilder</cite>, a helper class responsible for
+<p>This module defines <a class="reference internal" href="#core.generator.ui.slide_generator_ui_builder.SlideGeneratorUIBuilder" title="core.generator.ui.slide_generator_ui_builder.SlideGeneratorUIBuilder"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.generator.ui.slide_generator_ui_builder.SlideGeneratorUIBuilder</span></code></a>, a helper class responsible for
 constructing and wiring the full Qt UI layout of the slide generator window.
 It separates UI composition from application logic to keep the main window
-class (<cite>SlideGenerator</cite>) focused on workflow and state management.</p>
+class (<a class="reference internal" href="core.generator.ui.slide_generator.html#core.generator.ui.slide_generator.SlideGenerator" title="core.generator.ui.slide_generator.SlideGenerator"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.generator.ui.slide_generator.SlideGenerator</span></code></a>) focused on workflow and state management.</p>
 <p>The builder assembles:</p>
 <ul class="simple">
 <li><p>A top row of action buttons with icons (load, save, add, insert, delete, move, export)</p></li>
@@ -140,8 +140,7 @@ class (<cite>SlideGenerator</cite>) focused on workflow and state management.</p
 UI controls to the corresponding handlers exposed by the parent window.
 It does not own application state; instead, it assumes that the parent
 provides the necessary widgets and methods.</p>
-<section id="constructed-ui-elements">
-<h2>Constructed UI elements<a class="headerlink" href="#constructed-ui-elements" title="Link to this heading"></a></h2>
+<p>Constructed UI elements:</p>
 <ul class="simple">
 <li><p>A horizontal toolbar of action buttons (with SVG icons)</p></li>
 <li><p>A label displaying the current worship/session name</p></li>
@@ -149,30 +148,64 @@ provides the necessary widgets and methods.</p>
 <li><p>A ‘Tools &gt; Settings’ menu entry</p></li>
 <li><p>Keyboard shortcuts and signal-slot connections</p></li>
 </ul>
-</section>
-<section id="required-parent-interface">
-<h2>Required parent interface<a class="headerlink" href="#required-parent-interface" title="Link to this heading"></a></h2>
-<p>The parent object is expected to provide at least:
-- <cite>table</cite> (QTableWidget): main slide table widget
-- <cite>menuBar()</cite> -&gt; QMenuBar
-- <cite>table_manager</cite>: row manipulation logic
-- <cite>load_from_file()</cite>: load slide session
-- <cite>save_as()</cite>: save slide session
-- <cite>export_slides_for_overlay()</cite>: export overlay JSON
-- <cite>open_settings_dialog()</cite>: open settings dialog
-- <cite>handle_table_double_click(row, column)</cite>: edit slide dialog
-- <cite>apply_generator_font_settings()</cite>: apply font preferences</p>
+<p>Required parent interface:</p>
+<blockquote>
+<div><p>The parent object is expected to provide at least:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">table</span></code> (<cite>QTableWidget</cite>):</dt><dd><p>main slide table widget</p>
+</dd>
+</dl>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">menuBar()</span></code> -&gt; <cite>QMenuBar</cite></p></li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">table_manager</span></code> = <a class="reference internal" href="core.generator.ui.slide_table_manager.html#core.generator.ui.slide_table_manager.SlideTableManager" title="core.generator.ui.slide_table_manager.SlideTableManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.generator.ui.slide_table_manager.SlideTableManager</span></code></a>:</dt><dd><p>row manipulation logic</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><a class="reference internal" href="core.generator.ui.slide_generator.html#core.generator.ui.slide_generator.SlideGenerator.load_from_file" title="core.generator.ui.slide_generator.SlideGenerator.load_from_file"><code class="xref py py-meth docutils literal notranslate"><span class="pre">core.generator.ui.slide_generator.SlideGenerator.load_from_file()</span></code></a>:</dt><dd><p>load slide session</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><a class="reference internal" href="core.generator.ui.slide_generator.html#core.generator.ui.slide_generator.SlideGenerator.save_as" title="core.generator.ui.slide_generator.SlideGenerator.save_as"><code class="xref py py-meth docutils literal notranslate"><span class="pre">core.generator.ui.slide_generator.SlideGenerator.save_as()</span></code></a>:</dt><dd><p>save slide session</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><a class="reference internal" href="core.generator.ui.slide_generator.html#core.generator.ui.slide_generator.SlideGenerator.export_slides_for_overlay" title="core.generator.ui.slide_generator.SlideGenerator.export_slides_for_overlay"><code class="xref py py-meth docutils literal notranslate"><span class="pre">core.generator.ui.slide_generator.SlideGenerator.export_slides_for_overlay()</span></code></a>:</dt><dd><p>export overlay JSON</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><a class="reference internal" href="core.generator.ui.slide_generator.html#core.generator.ui.slide_generator.SlideGenerator.open_settings_dialog" title="core.generator.ui.slide_generator.SlideGenerator.open_settings_dialog"><code class="xref py py-meth docutils literal notranslate"><span class="pre">core.generator.ui.slide_generator.SlideGenerator.open_settings_dialog()</span></code></a>:</dt><dd><p>open settings dialog</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><a class="reference internal" href="core.generator.ui.slide_generator.html#core.generator.ui.slide_generator.SlideGenerator.handle_table_double_click" title="core.generator.ui.slide_generator.SlideGenerator.handle_table_double_click"><code class="xref py py-meth docutils literal notranslate"><span class="pre">core.generator.ui.slide_generator.SlideGenerator.handle_table_double_click()</span></code></a>:</dt><dd><p>edit slide dialog</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><a class="reference internal" href="core.generator.ui.slide_generator.html#core.generator.ui.slide_generator.SlideGenerator.apply_generator_font_settings" title="core.generator.ui.slide_generator.SlideGenerator.apply_generator_font_settings"><code class="xref py py-meth docutils literal notranslate"><span class="pre">core.generator.ui.slide_generator.SlideGenerator.apply_generator_font_settings()</span></code></a>:</dt><dd><p>apply font preferences</p>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
 <dl class="py method">
 <dt class="sig sig-object py" id="core.generator.ui.slide_generator_ui_builder.SlideGeneratorUIBuilder.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">worship_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator_ui_builder.html#SlideGeneratorUIBuilder.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator_ui_builder.SlideGeneratorUIBuilder.__init__" title="Link to this definition"></a></dt>
 <dd><p>Initialize the UI builder and immediately construct the UI layout.</p>
 <p>This constructor stores references to the parent window and the initial
-worship/session name, then calls <cite>setup_ui()</cite> to build and connect all
+worship/session name, then calls <a class="reference internal" href="#core.generator.ui.slide_generator_ui_builder.SlideGeneratorUIBuilder.setup_ui" title="core.generator.ui.slide_generator_ui_builder.SlideGeneratorUIBuilder.setup_ui"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setup_ui()</span></code></a> to build and connect all
 UI components.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>parent</strong> (<em>QMainWindow</em><em> or </em><em>QWidget</em>) – The main SlideGenerator window that owns the UI and application logic.
+<li><p><strong>parent</strong> (<em>QMainWindow</em><em> or </em><em>QWidget</em>) – The main <a class="reference internal" href="core.generator.ui.slide_generator.html#core.generator.ui.slide_generator.SlideGenerator" title="core.generator.ui.slide_generator.SlideGenerator"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.generator.ui.slide_generator.SlideGenerator</span></code></a> window that owns the UI and application logic.
 It must expose the methods and attributes required by this builder.</p></li>
 <li><p><strong>worship_name</strong> (<em>str</em>) – Initial worship/session name to display above the slide table.</p></li>
 </ul>
@@ -187,14 +220,16 @@ It must expose the methods and attributes required by this builder.</p></li>
 <dt class="sig sig-object py" id="core.generator.ui.slide_generator_ui_builder.SlideGeneratorUIBuilder.setup_ui">
 <span class="sig-name descname"><span class="pre">setup_ui</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator_ui_builder.html#SlideGeneratorUIBuilder.setup_ui"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator_ui_builder.SlideGeneratorUIBuilder.setup_ui" title="Link to this definition"></a></dt>
 <dd><p>Construct and wire the complete slide generator UI.</p>
-<p>This method performs the following:
-- Registers keyboard shortcuts (e.g., Ctrl+S for saving)
-- Creates action buttons with SVG icons and connects them to parent handlers
-- Assembles the button toolbar, label, and slide table into a vertical layout
-- Adds a ‘Tools &gt; Settings’ menu entry to the menu bar
-- Applies persisted font settings to the UI
-- Connects table double-click events to the slide editor dialog
-- Installs the composed layout as the parent’s central widget</p>
+<p>This method performs the following:</p>
+<ul class="simple">
+<li><p>Registers keyboard shortcuts (e.g., Ctrl+S for saving)</p></li>
+<li><p>Creates action buttons with SVG icons and connects them to parent handlers</p></li>
+<li><p>Assembles the button toolbar, label, and slide table into a vertical layout</p></li>
+<li><p>Adds a ‘Tools &gt; Settings’ menu entry to the menu bar</p></li>
+<li><p>Applies persisted font settings to the UI</p></li>
+<li><p>Connects table double-click events to the slide editor dialog</p></li>
+<li><p>Installs the composed layout as the parent’s central widget</p></li>
+</ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>None</strong></p>
@@ -221,7 +256,6 @@ session name changes, and simply updates the text of the label if it exists.</p>
 </dl>
 </dd></dl>
 
-</section>
 </dd></dl>
 
 </section>

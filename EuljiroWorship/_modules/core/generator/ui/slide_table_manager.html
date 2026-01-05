@@ -81,7 +81,7 @@
 
 <span class="sd">Row-level table operations for the slide generator.</span>
 
-<span class="sd">This module defines `SlideTableManager`, a helper class responsible for</span>
+<span class="sd">This module defines :class:`core.generator.ui.slide_table_manager.SlideTableManager`, a helper class responsible for</span>
 <span class="sd">manipulating rows in the slide table widget used by the generator UI.</span>
 <span class="sd">It encapsulates all row operations (insert, delete, move, swap) and</span>
 <span class="sd">coordinates with the parent generator to enforce edit restrictions</span>
@@ -102,13 +102,12 @@
 <span class="sd">    style selection handling. It delegates edit-safety checks to the</span>
 <span class="sd">    parent generator to ensure consistency with the controller state.</span>
 
-<span class="sd">    Attributes</span>
-<span class="sd">    ----------</span>
-<span class="sd">    table : QTableWidget</span>
-<span class="sd">        The table widget that lists slide rows.</span>
-<span class="sd">    generator :</span>
-<span class="sd">        Reference to the main slide generator window, used for edit</span>
-<span class="sd">        permission checks and coordination.</span>
+<span class="sd">    Attributes:</span>
+<span class="sd">        table (QTableWidget):</span>
+<span class="sd">            The table widget that lists slide rows.</span>
+<span class="sd">        generator :</span>
+<span class="sd">            Reference to the main slide generator window, used for edit</span>
+<span class="sd">            permission checks and coordination.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="SlideTableManager.__init__">
@@ -121,7 +120,7 @@
 <span class="sd">            table (QTableWidget):</span>
 <span class="sd">                The table widget used to display and edit slide rows.</span>
 <span class="sd">            generator:</span>
-<span class="sd">                The main SlideGenerator window. This object is queried to</span>
+<span class="sd">                The main :class:`core.generator.ui.slide_generator.SlideGenerator` window. This object is queried to</span>
 <span class="sd">                determine whether edits are currently allowed.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">table</span> <span class="o">=</span> <span class="n">table</span>
@@ -156,7 +155,7 @@
 
 <span class="sd">        If no explicit row index is provided, the insertion position is</span>
 <span class="sd">        determined from the current table selection. A style selection</span>
-<span class="sd">        combo box and empty caption/headline cells are created for the row.</span>
+<span class="sd">        combo box and empty `caption`/`headline` cells are created for the row.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            row (int | None):</span>
@@ -293,8 +292,9 @@
 <span class="sd">        Swap the contents of two rows in the slide table.</span>
 
 <span class="sd">        This includes swapping:</span>
+<span class="sd">    </span>
 <span class="sd">        - The selected values of the style combo boxes</span>
-<span class="sd">        - The text contents of the caption and headline cells</span>
+<span class="sd">        - The text contents of the ``caption`` and ``headline`` cells</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            row1 (int):</span>

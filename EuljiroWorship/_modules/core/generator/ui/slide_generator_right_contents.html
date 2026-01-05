@@ -81,10 +81,10 @@
 
 <span class="sd">Dynamic right-hand content panel for the slide generator UI.</span>
 
-<span class="sd">This module defines `SlideGeneratorRightContents`, a QWidget responsible for</span>
+<span class="sd">This module defines :class:`core.generator.ui.slide_generator_right_contents.SlideGeneratorRightContents`, a `QWidget` responsible for</span>
 <span class="sd">hosting the style-specific input panes used to edit slide content. The widget</span>
 <span class="sd">acts as a dispatcher that selects and embeds the appropriate sub-pane based on</span>
-<span class="sd">the slide style (e.g., lyrics, verse, anthem).</span>
+<span class="sd">the slide style (e.g., &quot;lyrics&quot;, &quot;verse&quot;, &quot;anthem&quot;).</span>
 
 <span class="sd">Each sub-pane encapsulates its own UI logic and data extraction method, allowing</span>
 <span class="sd">the generator to remain modular and extensible as new slide styles are added.</span>
@@ -114,28 +114,28 @@
 <span class="sd">    (e.g., `LyricsContent`, `VerseContent`) that defines its own input fields</span>
 <span class="sd">    and data extraction logic.</span>
 
-<span class="sd">    Supported slide styles</span>
-<span class="sd">    ----------------------</span>
+<span class="sd">    Supported slide styles:</span>
+
 <span class="sd">    - &quot;anthem&quot;: Choir name, title, and lyrics</span>
 <span class="sd">    - &quot;corner&quot;: Short caption displayed at the corner</span>
 <span class="sd">    - &quot;greet&quot;: Freeform greeting or announcement text</span>
-<span class="sd">    - &quot;hymn&quot;: Hymn lyrics editor (exported as lyrics)</span>
+<span class="sd">    - &quot;hymn&quot;: Hymn lyrics editor (exported as &quot;lyrics&quot;)</span>
 <span class="sd">    - &quot;lyrics&quot;: General lyrics editor with line splitting</span>
 <span class="sd">    - &quot;prayer&quot;: Representative name or prayer leader</span>
 <span class="sd">    - &quot;respo&quot;: Responsive reading editor</span>
 <span class="sd">    - &quot;verse&quot;: Bible verse reference and preview editor</span>
-<span class="sd">    - &quot;image&quot;: Image-based slide with caption/headline</span>
+<span class="sd">    - &quot;image&quot;: Image-based slide with ``caption``/``headline``</span>
+<span class="sd">    - &quot;video&quot;: Video-based slide with ``caption``/``headline``</span>
 <span class="sd">    - &quot;blank&quot;: Empty slide with no editable content</span>
 
-<span class="sd">    Attributes</span>
-<span class="sd">    ----------</span>
-<span class="sd">    style : str</span>
-<span class="sd">        Internal slide style key that determines which sub-pane is created.</span>
-<span class="sd">    subpane : QWidget</span>
-<span class="sd">        The embedded style-specific content widget.</span>
-<span class="sd">    generator_window : QWidget</span>
-<span class="sd">        Reference to the parent generator window, used by sub-panes for</span>
-<span class="sd">        callbacks or shared context.</span>
+<span class="sd">    Attributes:</span>
+<span class="sd">        style (str):</span>
+<span class="sd">            Internal slide style key that determines which sub-pane is created.</span>
+<span class="sd">        subpane (QWidget):</span>
+<span class="sd">            The embedded style-specific content widget.</span>
+<span class="sd">        generator_window (QWidget):</span>
+<span class="sd">            Reference to the parent generator window, used by sub-panes for</span>
+<span class="sd">            callbacks or shared context.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="SlideGeneratorRightContents.__init__">
@@ -145,7 +145,7 @@
 <span class="sd">        Initialize the right-hand content panel for a specific slide style.</span>
 
 <span class="sd">        This constructor selects the appropriate style-specific sub-pane and</span>
-<span class="sd">        embeds it into the panel layout. Initial caption and headline values</span>
+<span class="sd">        embeds it into the panel layout. Initial ``caption`` and ``headline`` values</span>
 <span class="sd">        are passed through to the sub-pane to pre-fill the editor when editing</span>
 <span class="sd">        an existing slide.</span>
 
@@ -205,9 +205,9 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Retrieve the slide data from the active content sub-pane.</span>
 
-<span class="sd">        This method delegates to the embedded sub-pane&#39;s `get_slide_data()` method</span>
+<span class="sd">        This method delegates to the embedded sub-pane&#39;s :meth:`get_slide_data` method</span>
 <span class="sd">        if it exists. If the current sub-pane does not implement data extraction</span>
-<span class="sd">        (e.g., blank slides), an empty dictionary is returned.</span>
+<span class="sd">        (e.g., &quot;blank&quot; slides), an empty dictionary is returned.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            None</span>

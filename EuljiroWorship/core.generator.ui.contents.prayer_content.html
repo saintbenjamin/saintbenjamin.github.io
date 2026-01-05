@@ -119,22 +119,24 @@
 <dd class="field-odd"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
 </dd>
 </dl>
-<p>UI content widget for editing ‘prayer’ style slides.</p>
-<p>This module defines <cite>PrayerContent</cite>, a QWidget that provides input fields
+<p>UI content widget for editing “prayer”-style slides.</p>
+<p>This module defines <a class="reference internal" href="#core.generator.ui.contents.prayer_content.PrayerContent" title="core.generator.ui.contents.prayer_content.PrayerContent"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.generator.ui.contents.prayer_content.PrayerContent</span></code></a>, a <cite>QWidget</cite> that provides input fields
 for creating prayer slides. A prayer slide typically consists of a short
 title (e.g., “기도”) and the name of the person leading the prayer.</p>
-<p>The widget integrates with <cite>SlideInputSubmitter</cite> to support automatic
+<p>The widget integrates with <a class="reference internal" href="core.generator.utils.slide_input_submitter.html#core.generator.utils.slide_input_submitter.SlideInputSubmitter" title="core.generator.utils.slide_input_submitter.SlideInputSubmitter"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.generator.utils.slide_input_submitter.SlideInputSubmitter</span></code></a> to support automatic
 submission and synchronization with the parent slide generator.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="core.generator.ui.contents.prayer_content.PrayerContent">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.ui.contents.prayer_content.</span></span><span class="sig-name descname"><span class="pre">PrayerContent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/prayer_content.html#PrayerContent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.prayer_content.PrayerContent" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
-<p>Content editor widget for ‘prayer’ style slides.</p>
-<p>This widget allows users to specify:
-- A short prayer title (usually “기도”)
-- The name of the prayer leader</p>
+<p>Content editor widget for “prayer”-style slides.</p>
+<p>This widget allows users to specify:</p>
+<ul class="simple">
+<li><p>A short prayer title (usually “기도”)</p></li>
+<li><p>The name of the prayer leader</p></li>
+</ul>
 <p>The entered values are exported as a simple slide dictionary and
-rendered using the ‘prayer’ slide style.</p>
+rendered using the “prayer”-slide style.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -169,7 +171,7 @@ and auto-save behavior.</p></li>
 <dd><p>Construct the UI elements for editing a prayer slide.</p>
 <p>This method creates labeled input fields for the prayer title and
 the prayer leader’s name, arranges them vertically, and registers
-the inputs with <cite>SlideInputSubmitter</cite> to enable automatic submission.</p>
+the inputs with <a class="reference internal" href="core.generator.utils.slide_input_submitter.html#core.generator.utils.slide_input_submitter.SlideInputSubmitter" title="core.generator.utils.slide_input_submitter.SlideInputSubmitter"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.generator.utils.slide_input_submitter.SlideInputSubmitter</span></code></a> to enable automatic submission.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>None</strong></p>
@@ -210,10 +212,13 @@ otherwise, None.</p>
 <dd class="field-odd"><p><strong>None</strong></p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Dictionary representing the prayer slide, including:
-- style
-- caption (prayer title)
-- headline (prayer leader name)</p>
+<dd class="field-even"><p><p>Dictionary representing the prayer slide, including:</p>
+<ul class="simple">
+<li><p>style</p></li>
+<li><p>caption (prayer title)</p></li>
+<li><p>headline (prayer leader name)</p></li>
+</ul>
+</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>dict</p>

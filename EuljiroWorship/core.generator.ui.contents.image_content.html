@@ -119,28 +119,30 @@
 <dd class="field-odd"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
 </dd>
 </dl>
-<p>UI content widget for editing ‘image’ style slides.</p>
-<p>This module defines <cite>ImageContent</cite>, a QWidget that allows users to select
+<p>UI content widget for editing “image”-style slides.</p>
+<p>This module defines <a class="reference internal" href="#core.generator.ui.contents.image_content.ImageContent" title="core.generator.ui.contents.image_content.ImageContent"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.generator.ui.contents.image_content.ImageContent</span></code></a>, a <cite>QWidget</cite> that allows users to select
 an image file, preview it, and associate it with caption text for use
-in image-based slides. Selected images are copied into a local <cite>img/</cite>
+in image-based slides. Selected images are copied into a local <code class="docutils literal notranslate"><span class="pre">img/</span></code>
 directory for reliable access by overlay HTML files.</p>
-<p>In this slide style, the <cite>headline</cite> field is repurposed to store the
-relative image path, while the <cite>caption</cite> field is used as accompanying
+<p>In this slide style, the <code class="docutils literal notranslate"><span class="pre">headline</span></code> field is repurposed to store the
+relative image path, while the <code class="docutils literal notranslate"><span class="pre">caption</span></code> field is used as accompanying
 text displayed alongside the image.</p>
-<p>The widget integrates with <cite>SlideInputSubmitter</cite> to support automatic
+<p>The widget integrates with <a class="reference internal" href="core.generator.utils.slide_input_submitter.html#core.generator.utils.slide_input_submitter.SlideInputSubmitter" title="core.generator.utils.slide_input_submitter.SlideInputSubmitter"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.generator.utils.slide_input_submitter.SlideInputSubmitter</span></code></a> to support automatic
 submission and synchronization with the parent generator window.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="core.generator.ui.contents.image_content.ImageContent">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.ui.contents.image_content.</span></span><span class="sig-name descname"><span class="pre">ImageContent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/image_content.html#ImageContent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.image_content.ImageContent" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
-<p>Content editor widget for ‘image’ style slides.</p>
-<p>This widget allows users to:
-- Select an image file from disk
-- Copy the selected image into a local image directory for overlay use
-- Preview the selected image
-- Enter optional caption text associated with the image</p>
-<p>In this slide style, the image path is stored in the <cite>headline</cite> field
-of the slide data dictionary, while the <cite>caption</cite> field contains
+<p>Content editor widget for “image” style slides.</p>
+<p>This widget allows users to:</p>
+<ul class="simple">
+<li><p>Select an image file from disk</p></li>
+<li><p>Copy the selected image into a local image directory for overlay use</p></li>
+<li><p>Preview the selected image</p></li>
+<li><p>Enter optional caption text associated with the image</p></li>
+</ul>
+<p>In this slide style, the image path is stored in the <code class="docutils literal notranslate"><span class="pre">headline</span></code> field
+of the slide data dictionary, while the <code class="docutils literal notranslate"><span class="pre">caption</span></code> field contains
 accompanying text.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -176,7 +178,7 @@ and enabling auto-save behavior.</p></li>
 <dd><p>Construct the UI elements for editing an image slide.</p>
 <p>This method builds input fields for caption and image path, a button
 for selecting an image file, and an image preview area. It also
-registers the input fields with <cite>SlideInputSubmitter</cite> to enable
+registers the input fields with <a class="reference internal" href="core.generator.utils.slide_input_submitter.html#core.generator.utils.slide_input_submitter.SlideInputSubmitter" title="core.generator.utils.slide_input_submitter.SlideInputSubmitter"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.generator.utils.slide_input_submitter.SlideInputSubmitter</span></code></a> to enable
 automatic submission.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -217,7 +219,7 @@ image already exists at the destination, it is not copied again.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Relative image path suitable for use in overlay HTML
-(e.g., “img/example.png”).</p>
+(e.g., <code class="docutils literal notranslate"><span class="pre">img/example.png</span></code>).</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
@@ -257,10 +259,13 @@ Otherwise, the current inputs are returned as a slide data dictionary.</p>
 <dd class="field-odd"><p><strong>None</strong></p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Dictionary representing the image slide, including:
-- style
-- caption
-- headline (relative image path)</p>
+<dd class="field-even"><p><p>Dictionary representing the image slide, including:</p>
+<ul class="simple">
+<li><p>style</p></li>
+<li><p>caption</p></li>
+<li><p>headline (relative image path)</p></li>
+</ul>
+</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>dict</p>

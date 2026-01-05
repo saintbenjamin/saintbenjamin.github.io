@@ -119,7 +119,7 @@
 </dl>
 <p>Provides error and debug logging utilities for EuljiroBible.</p>
 <p>This module defines a lightweight logging wrapper around Python’s
-standard <cite>logging</cite> module, with the following design goals:</p>
+standard <a class="reference external" href="https://docs.python.org/3/library/logging.html">logging</a> module, with the following design goals:</p>
 <ul class="simple">
 <li><p>Logs are written to disk only when actually needed</p></li>
 <li><p>A single central log file is used across the application</p></li>
@@ -132,7 +132,7 @@ optional debug tracing, not for verbose application logging.</p>
 <dt class="sig sig-object py" id="core.utils.logger._ensure_file_handler">
 <span class="sig-prename descclassname"><span class="pre">core.utils.logger.</span></span><span class="sig-name descname"><span class="pre">_ensure_file_handler</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/utils/logger.html#_ensure_file_handler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.utils.logger._ensure_file_handler" title="Link to this definition"></a></dt>
 <dd><p>Ensure that a file handler is attached to the global logger.</p>
-<p>This function lazily initializes a <cite>logging.FileHandler</cite> and
+<p>This function lazily initializes a <a class="reference external" href="https://docs.python.org/3/library/logging.handlers.html#logging.FileHandler">logging.FileHandler</a> and
 attaches it to the module-level logger only once.</p>
 <p>The log file is created only when an error or debug message
 is actually emitted, avoiding unnecessary file I/O during
@@ -166,7 +166,7 @@ using ERROR log level.</p>
 <dt class="sig sig-object py" id="core.utils.logger.log_debug">
 <span class="sig-prename descclassname"><span class="pre">core.utils.logger.</span></span><span class="sig-name descname"><span class="pre">log_debug</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/utils/logger.html#log_debug"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.utils.logger.log_debug" title="Link to this definition"></a></dt>
 <dd><p>Log a debug message if DEBUG mode is enabled.</p>
-<p>Debug mode is determined by the environment variable <cite>DEBUG=1</cite>
+<p>Debug mode is determined by the environment variable <code class="docutils literal notranslate"><span class="pre">DEBUG=1</span></code>
 at application startup. If DEBUG mode is disabled, this
 function performs no action.</p>
 <dl class="field-list simple">

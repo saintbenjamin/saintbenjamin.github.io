@@ -79,18 +79,18 @@
 <span class="sd">:E-mail: euljirochurch [at] G.M.A.I.L. (replace [at] with @ and G.M.A.I.L as you understood.)</span>
 <span class="sd">:License: MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</span>
 
-<span class="sd">UI content widget for editing &#39;video&#39; style slides.</span>
+<span class="sd">UI content widget for editing &quot;video&quot;-style slides.</span>
 
-<span class="sd">This module defines `VideoContent`, a QWidget that allows users to select</span>
+<span class="sd">This module defines :class:`core.generator.ui.contents.video_content.VideoContent`, a `QWidget` that allows users to select</span>
 <span class="sd">a video file, preview it, and associate it with caption text for use</span>
-<span class="sd">in video-based slides. Selected videos are copied into a local `html/img/`</span>
+<span class="sd">in video-based slides. Selected videos are copied into a local ``html/img/``</span>
 <span class="sd">directory for reliable access by overlay HTML files.</span>
 
-<span class="sd">In this slide style, the `headline` field is repurposed to store the</span>
-<span class="sd">relative video path, while the `caption` field is used as accompanying</span>
+<span class="sd">In this slide style, the ``headline`` field is repurposed to store the</span>
+<span class="sd">relative video path, while the ``caption`` field is used as accompanying</span>
 <span class="sd">text displayed alongside the video.</span>
 
-<span class="sd">The widget integrates with `SlideInputSubmitter` to support automatic</span>
+<span class="sd">The widget integrates with :class:`core.generator.utils.slide_input_submitter.SlideInputSubmitter` to support automatic</span>
 <span class="sd">submission and synchronization with the parent generator window.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
@@ -118,16 +118,17 @@
 <a class="viewcode-back" href="../../../../../core.generator.ui.contents.video_content.html#core.generator.ui.contents.video_content.VideoContent">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">VideoContent</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Content editor widget for &#39;video&#39; style slides.</span>
+<span class="sd">    Content editor widget for &quot;video&quot; style slides.</span>
 
 <span class="sd">    This widget allows users to:</span>
+
 <span class="sd">    - Select a video file from disk</span>
-<span class="sd">    - Copy the selected video into a local image directory for overlay use (html/img)</span>
+<span class="sd">    - Copy the selected video into a local image directory for overlay use (``html/img``)</span>
 <span class="sd">    - Preview the selected video (play/pause)</span>
 <span class="sd">    - Enter optional caption text associated with the video</span>
 
-<span class="sd">    In this slide style, the video path is stored in the `headline` field</span>
-<span class="sd">    of the slide data dictionary, while the `caption` field contains</span>
+<span class="sd">    In this slide style, the video path is stored in the ``headline`` field</span>
+<span class="sd">    of the slide data dictionary, while the ``caption`` field contains</span>
 <span class="sd">    accompanying text.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -146,7 +147,7 @@
 <span class="sd">            caption (str):</span>
 <span class="sd">                Initial caption text associated with the video.</span>
 <span class="sd">            headline (str):</span>
-<span class="sd">                Initial video path (stored in the headline field).</span>
+<span class="sd">                Initial video path (stored in the ``headline`` field).</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            None</span>
@@ -176,7 +177,7 @@
 
 <span class="sd">        Builds input fields for caption and video path, a button for selecting</span>
 <span class="sd">        a video file, and a video preview area. Registers the input fields with</span>
-<span class="sd">        `SlideInputSubmitter` to enable automatic submission.</span>
+<span class="sd">        :class:`core.generator.utils.slide_input_submitter.SlideInputSubmitter` to enable automatic submission.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            None</span>
@@ -240,7 +241,7 @@
 <a class="viewcode-back" href="../../../../../core.generator.ui.contents.video_content.html#core.generator.ui.contents.video_content.VideoContent._init_player">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">_init_player</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Initialize QMediaPlayer for in-widget preview.</span>
+<span class="sd">        Initialize `QMediaPlayer` for in-widget preview.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            None</span>
@@ -257,7 +258,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Prompt the user to select a video file and register it for slide use.</span>
 
-<span class="sd">        The selected video is copied into the local `html/img` directory and its</span>
+<span class="sd">        The selected video is copied into the local ``html/img`` directory and its</span>
 <span class="sd">        relative path is stored in the headline field.</span>
 
 <span class="sd">        Returns:</span>
@@ -288,7 +289,7 @@
 <a class="viewcode-back" href="../../../../../core.generator.ui.contents.video_content.html#core.generator.ui.contents.video_content.VideoContent.copy_to_img_folder">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">copy_to_img_folder</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Copy the selected video file into the local image directory (html/img).</span>
+<span class="sd">        Copy the selected video file into the local image directory (``html/img``).</span>
 
 <span class="sd">        If the destination directory does not exist, it is created.</span>
 <span class="sd">        If the file already exists at the destination, it is not copied again.</span>
@@ -299,7 +300,7 @@
 
 <span class="sd">        Returns:</span>
 <span class="sd">            str:</span>
-<span class="sd">                Relative path for overlay HTML usage, e.g. &quot;img/example.mp4&quot;.</span>
+<span class="sd">                Relative path for overlay HTML usage, e.g. ``img/example.mp4``.</span>
 
 <span class="sd">        Raises:</span>
 <span class="sd">            OSError:</span>
@@ -322,7 +323,7 @@
 <a class="viewcode-back" href="../../../../../core.generator.ui.contents.video_content.html#core.generator.ui.contents.video_content.VideoContent._load_preview_from_absolute_path">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">_load_preview_from_absolute_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">abs_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Load preview video into QMediaPlayer from an absolute file path.</span>
+<span class="sd">        Load preview video into `QMediaPlayer` from an absolute file path.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            abs_path (str): Absolute file path.</span>
@@ -341,9 +342,9 @@
 <a class="viewcode-back" href="../../../../../core.generator.ui.contents.video_content.html#core.generator.ui.contents.video_content.VideoContent._load_preview_from_relative_path">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">_load_preview_from_relative_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rel_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Load preview video into QMediaPlayer from a relative path like &quot;img/foo.mp4&quot;.</span>
+<span class="sd">        Load preview video into `QMediaPlayer` from a relative path like ``img/foo.mp4``.</span>
 
-<span class="sd">        This resolves it against &quot;./html/&quot; to match the copy destination.</span>
+<span class="sd">        This resolves it against ``./html/`` to match the copy destination.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            rel_path (str): Relative path stored in slide data.</span>
@@ -429,9 +430,10 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            dict:</span>
 <span class="sd">                Dictionary representing the video slide:</span>
+
 <span class="sd">                - style</span>
 <span class="sd">                - caption</span>
-<span class="sd">                - headline (relative video path, e.g., &quot;img/foo.mp4&quot;)</span>
+<span class="sd">                - headline (relative video path, e.g., ``img/foo.mp4``)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">{</span>
             <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;video&quot;</span><span class="p">,</span>

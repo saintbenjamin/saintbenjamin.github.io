@@ -116,7 +116,7 @@
 </dl>
 <p>Launches and manages the slide controller subprocess for integrated slide output control.</p>
 <p>This module provides a small utility class responsible for starting the
-slide controller (<cite>controller/slide_controller.py</cite>) as a subprocess.
+slide controller (<a class="reference internal" href="controller.slide_controller.html#module-controller.slide_controller" title="controller.slide_controller"><code class="xref py py-mod docutils literal notranslate"><span class="pre">controller.slide_controller</span></code></a>) as a subprocess.
 It ensures that the controller is launched only once and keeps track
 of the running process for basic status checks.</p>
 <p>The launcher is intended to be used by the slide generator or main
@@ -171,9 +171,11 @@ False otherwise.</p>
 <dd><p>Launch the slide controller subprocess if it is not already running.</p>
 <p>If the controller process is already active, this method exits
 without performing any action.</p>
-<p>If the launch fails, an error message is reported as follows:
-- If a Qt parent widget is provided, a warning dialog is shown.
-- Otherwise, the error is printed to standard output.</p>
+<p>If the launch fails, an error message is reported as follows:</p>
+<ul class="simple">
+<li><p>If a Qt parent widget is provided, a warning dialog is shown.</p></li>
+<li><p>Otherwise, the error is printed to standard output.</p></li>
+</ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>parent_widget</strong> (<em>QWidget</em><em> | </em><em>None</em>) – Optional parent widget used for displaying error dialogs.</p>

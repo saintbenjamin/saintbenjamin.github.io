@@ -81,10 +81,10 @@
 
 <span class="sd">UI builder for the Slide Generator main window.</span>
 
-<span class="sd">This module defines `SlideGeneratorUIBuilder`, a helper class responsible for</span>
+<span class="sd">This module defines :class:`core.generator.ui.slide_generator_ui_builder.SlideGeneratorUIBuilder`, a helper class responsible for</span>
 <span class="sd">constructing and wiring the full Qt UI layout of the slide generator window.</span>
 <span class="sd">It separates UI composition from application logic to keep the main window</span>
-<span class="sd">class (`SlideGenerator`) focused on workflow and state management.</span>
+<span class="sd">class (:class:`core.generator.ui.slide_generator.SlideGenerator`) focused on workflow and state management.</span>
 
 <span class="sd">The builder assembles:</span>
 
@@ -114,26 +114,35 @@
 <span class="sd">    It does not own application state; instead, it assumes that the parent</span>
 <span class="sd">    provides the necessary widgets and methods.</span>
 
-<span class="sd">    Constructed UI elements</span>
-<span class="sd">    -----------------------</span>
+<span class="sd">    Constructed UI elements:</span>
+
 <span class="sd">    - A horizontal toolbar of action buttons (with SVG icons)</span>
 <span class="sd">    - A label displaying the current worship/session name</span>
 <span class="sd">    - The central slide table widget</span>
 <span class="sd">    - A &#39;Tools &gt; Settings&#39; menu entry</span>
 <span class="sd">    - Keyboard shortcuts and signal-slot connections</span>
 
-<span class="sd">    Required parent interface</span>
-<span class="sd">    -------------------------</span>
-<span class="sd">    The parent object is expected to provide at least:</span>
-<span class="sd">    - `table` (QTableWidget): main slide table widget</span>
-<span class="sd">    - `menuBar()` -&gt; QMenuBar</span>
-<span class="sd">    - `table_manager`: row manipulation logic</span>
-<span class="sd">    - `load_from_file()`: load slide session</span>
-<span class="sd">    - `save_as()`: save slide session</span>
-<span class="sd">    - `export_slides_for_overlay()`: export overlay JSON</span>
-<span class="sd">    - `open_settings_dialog()`: open settings dialog</span>
-<span class="sd">    - `handle_table_double_click(row, column)`: edit slide dialog</span>
-<span class="sd">    - `apply_generator_font_settings()`: apply font preferences</span>
+<span class="sd">    Required parent interface:</span>
+
+<span class="sd">        The parent object is expected to provide at least:</span>
+<span class="sd">        </span>
+<span class="sd">        - ``table`` (`QTableWidget`): </span>
+<span class="sd">            main slide table widget</span>
+<span class="sd">        - ``menuBar()`` -&gt; `QMenuBar`</span>
+<span class="sd">        - ``table_manager`` = :class:`core.generator.ui.slide_table_manager.SlideTableManager`: </span>
+<span class="sd">            row manipulation logic</span>
+<span class="sd">        - :meth:`core.generator.ui.slide_generator.SlideGenerator.load_from_file`: </span>
+<span class="sd">            load slide session</span>
+<span class="sd">        - :meth:`core.generator.ui.slide_generator.SlideGenerator.save_as`: </span>
+<span class="sd">            save slide session</span>
+<span class="sd">        - :meth:`core.generator.ui.slide_generator.SlideGenerator.export_slides_for_overlay`: </span>
+<span class="sd">            export overlay JSON</span>
+<span class="sd">        - :meth:`core.generator.ui.slide_generator.SlideGenerator.open_settings_dialog`: </span>
+<span class="sd">            open settings dialog</span>
+<span class="sd">        - :meth:`core.generator.ui.slide_generator.SlideGenerator.handle_table_double_click`: </span>
+<span class="sd">            edit slide dialog</span>
+<span class="sd">        - :meth:`core.generator.ui.slide_generator.SlideGenerator.apply_generator_font_settings`: </span>
+<span class="sd">            apply font preferences</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 <div class="viewcode-block" id="SlideGeneratorUIBuilder.__init__">
 <a class="viewcode-back" href="../../../../core.generator.ui.slide_generator_ui_builder.html#core.generator.ui.slide_generator_ui_builder.SlideGeneratorUIBuilder.__init__">[docs]</a>
@@ -142,12 +151,12 @@
 <span class="sd">        Initialize the UI builder and immediately construct the UI layout.</span>
 
 <span class="sd">        This constructor stores references to the parent window and the initial</span>
-<span class="sd">        worship/session name, then calls `setup_ui()` to build and connect all</span>
+<span class="sd">        worship/session name, then calls :meth:`setup_ui` to build and connect all</span>
 <span class="sd">        UI components.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            parent (QMainWindow or QWidget):</span>
-<span class="sd">                The main SlideGenerator window that owns the UI and application logic.</span>
+<span class="sd">                The main :class:`core.generator.ui.slide_generator.SlideGenerator` window that owns the UI and application logic.</span>
 <span class="sd">                It must expose the methods and attributes required by this builder.</span>
 <span class="sd">            worship_name (str):</span>
 <span class="sd">                Initial worship/session name to display above the slide table.</span>
@@ -167,6 +176,7 @@
 <span class="sd">        Construct and wire the complete slide generator UI.</span>
 
 <span class="sd">        This method performs the following:</span>
+<span class="sd">    </span>
 <span class="sd">        - Registers keyboard shortcuts (e.g., Ctrl+S for saving)</span>
 <span class="sd">        - Creates action buttons with SVG icons and connects them to parent handlers</span>
 <span class="sd">        - Assembles the button toolbar, label, and slide table into a vertical layout</span>

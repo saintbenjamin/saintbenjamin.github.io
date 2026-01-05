@@ -119,24 +119,26 @@
 <dd class="field-odd"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
 </dd>
 </dl>
-<p>UI content widget for editing ‘corner’ style slides.</p>
-<p>This module defines <cite>CornerContent</cite>, a QWidget that provides simple text
-inputs for creating corner-style slides. A corner slide typically displays
+<p>UI content widget for editing “corner” style slides.</p>
+<p>This module defines <a class="reference internal" href="#core.generator.ui.contents.corner_content.CornerContent" title="core.generator.ui.contents.corner_content.CornerContent"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.generator.ui.contents.corner_content.CornerContent</span></code></a>, a <cite>QWidget</cite> that provides simple text
+inputs for creating “corner”-style slides. A “corner” slide typically displays
 a short headline and a caption in a fixed corner position on the screen,
 and is commonly used for sermon titles, worship order sections, or brief
 section headers.</p>
-<p>The widget integrates with <cite>SlideInputSubmitter</cite> to support automatic
+<p>The widget integrates with <a class="reference internal" href="core.generator.utils.slide_input_submitter.html#core.generator.utils.slide_input_submitter.SlideInputSubmitter" title="core.generator.utils.slide_input_submitter.SlideInputSubmitter"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.generator.utils.slide_input_submitter.SlideInputSubmitter</span></code></a> to support automatic
 submission and synchronization with the parent generator window.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="core.generator.ui.contents.corner_content.CornerContent">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.ui.contents.corner_content.</span></span><span class="sig-name descname"><span class="pre">CornerContent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/corner_content.html#CornerContent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.corner_content.CornerContent" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
-<p>Content editor widget for ‘corner’ style slides.</p>
-<p>This widget provides input fields for:
-- Headline text (main title)
-- Caption text (subtitle or secondary label)</p>
+<p>Content editor widget for “corner” style slides.</p>
+<p>This widget provides input fields for:</p>
+<ul class="simple">
+<li><p>Headline text (main title)</p></li>
+<li><p>Caption text (subtitle or secondary label)</p></li>
+</ul>
 <p>The collected input is converted into a slide data dictionary
-containing <cite>style</cite>, <cite>caption</cite>, and <cite>headline</cite> fields.</p>
+containing <code class="docutils literal notranslate"><span class="pre">style</span></code>, <code class="docutils literal notranslate"><span class="pre">caption</span></code>, and <code class="docutils literal notranslate"><span class="pre">headline</span></code> fields.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -168,10 +170,10 @@ and enabling auto-save behavior.</p></li>
 <dl class="py method">
 <dt class="sig sig-object py" id="core.generator.ui.contents.corner_content.CornerContent.build_ui">
 <span class="sig-name descname"><span class="pre">build_ui</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/corner_content.html#CornerContent.build_ui"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.corner_content.CornerContent.build_ui" title="Link to this definition"></a></dt>
-<dd><p>Construct the UI elements for editing a corner-style slide.</p>
+<dd><p>Construct the UI elements for editing a “corner”-style slide.</p>
 <p>This method creates labeled input fields for headline and caption,
 arranges them vertically, and registers the inputs with
-<cite>SlideInputSubmitter</cite> to enable automatic submission.</p>
+<a class="reference internal" href="core.generator.utils.slide_input_submitter.html#core.generator.utils.slide_input_submitter.SlideInputSubmitter" title="core.generator.utils.slide_input_submitter.SlideInputSubmitter"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.generator.utils.slide_input_submitter.SlideInputSubmitter</span></code></a> to enable automatic submission.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>None</strong></p>
@@ -212,10 +214,13 @@ otherwise, None.</p>
 <dd class="field-odd"><p><strong>None</strong></p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Dictionary representing the corner slide, including:
-- style
-- caption
-- headline</p>
+<dd class="field-even"><p><p>Dictionary representing the corner slide, including:</p>
+<ul class="simple">
+<li><p>style</p></li>
+<li><p>caption</p></li>
+<li><p>headline</p></li>
+</ul>
+</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>dict</p>

@@ -119,28 +119,30 @@
 <dd class="field-odd"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
 </dd>
 </dl>
-<p>UI content widget for editing ‘video’ style slides.</p>
-<p>This module defines <cite>VideoContent</cite>, a QWidget that allows users to select
+<p>UI content widget for editing “video”-style slides.</p>
+<p>This module defines <a class="reference internal" href="#core.generator.ui.contents.video_content.VideoContent" title="core.generator.ui.contents.video_content.VideoContent"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.generator.ui.contents.video_content.VideoContent</span></code></a>, a <cite>QWidget</cite> that allows users to select
 a video file, preview it, and associate it with caption text for use
-in video-based slides. Selected videos are copied into a local <cite>html/img/</cite>
+in video-based slides. Selected videos are copied into a local <code class="docutils literal notranslate"><span class="pre">html/img/</span></code>
 directory for reliable access by overlay HTML files.</p>
-<p>In this slide style, the <cite>headline</cite> field is repurposed to store the
-relative video path, while the <cite>caption</cite> field is used as accompanying
+<p>In this slide style, the <code class="docutils literal notranslate"><span class="pre">headline</span></code> field is repurposed to store the
+relative video path, while the <code class="docutils literal notranslate"><span class="pre">caption</span></code> field is used as accompanying
 text displayed alongside the video.</p>
-<p>The widget integrates with <cite>SlideInputSubmitter</cite> to support automatic
+<p>The widget integrates with <a class="reference internal" href="core.generator.utils.slide_input_submitter.html#core.generator.utils.slide_input_submitter.SlideInputSubmitter" title="core.generator.utils.slide_input_submitter.SlideInputSubmitter"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.generator.utils.slide_input_submitter.SlideInputSubmitter</span></code></a> to support automatic
 submission and synchronization with the parent generator window.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="core.generator.ui.contents.video_content.VideoContent">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.ui.contents.video_content.</span></span><span class="sig-name descname"><span class="pre">VideoContent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/video_content.html#VideoContent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.video_content.VideoContent" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
-<p>Content editor widget for ‘video’ style slides.</p>
-<p>This widget allows users to:
-- Select a video file from disk
-- Copy the selected video into a local image directory for overlay use (html/img)
-- Preview the selected video (play/pause)
-- Enter optional caption text associated with the video</p>
-<p>In this slide style, the video path is stored in the <cite>headline</cite> field
-of the slide data dictionary, while the <cite>caption</cite> field contains
+<p>Content editor widget for “video” style slides.</p>
+<p>This widget allows users to:</p>
+<ul class="simple">
+<li><p>Select a video file from disk</p></li>
+<li><p>Copy the selected video into a local image directory for overlay use (<code class="docutils literal notranslate"><span class="pre">html/img</span></code>)</p></li>
+<li><p>Preview the selected video (play/pause)</p></li>
+<li><p>Enter optional caption text associated with the video</p></li>
+</ul>
+<p>In this slide style, the video path is stored in the <code class="docutils literal notranslate"><span class="pre">headline</span></code> field
+of the slide data dictionary, while the <code class="docutils literal notranslate"><span class="pre">caption</span></code> field contains
 accompanying text.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -161,7 +163,7 @@ accompanying text.</p>
 <li><p><strong>generator_window</strong> – Reference to the generator window, used for submitting slide data
 and enabling auto-save behavior.</p></li>
 <li><p><strong>caption</strong> (<em>str</em>) – Initial caption text associated with the video.</p></li>
-<li><p><strong>headline</strong> (<em>str</em>) – Initial video path (stored in the headline field).</p></li>
+<li><p><strong>headline</strong> (<em>str</em>) – Initial video path (stored in the <code class="docutils literal notranslate"><span class="pre">headline</span></code> field).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -176,7 +178,7 @@ and enabling auto-save behavior.</p></li>
 <dd><p>Construct the UI elements for editing a video slide.</p>
 <p>Builds input fields for caption and video path, a button for selecting
 a video file, and a video preview area. Registers the input fields with
-<cite>SlideInputSubmitter</cite> to enable automatic submission.</p>
+<a class="reference internal" href="core.generator.utils.slide_input_submitter.html#core.generator.utils.slide_input_submitter.SlideInputSubmitter" title="core.generator.utils.slide_input_submitter.SlideInputSubmitter"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.generator.utils.slide_input_submitter.SlideInputSubmitter</span></code></a> to enable automatic submission.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>None</p>
@@ -187,7 +189,7 @@ a video file, and a video preview area. Registers the input fields with
 <dl class="py method">
 <dt class="sig sig-object py" id="core.generator.ui.contents.video_content.VideoContent._init_player">
 <span class="sig-name descname"><span class="pre">_init_player</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/video_content.html#VideoContent._init_player"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.video_content.VideoContent._init_player" title="Link to this definition"></a></dt>
-<dd><p>Initialize QMediaPlayer for in-widget preview.</p>
+<dd><p>Initialize <cite>QMediaPlayer</cite> for in-widget preview.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>None</p>
@@ -199,7 +201,7 @@ a video file, and a video preview area. Registers the input fields with
 <dt class="sig sig-object py" id="core.generator.ui.contents.video_content.VideoContent.select_video">
 <span class="sig-name descname"><span class="pre">select_video</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/video_content.html#VideoContent.select_video"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.video_content.VideoContent.select_video" title="Link to this definition"></a></dt>
 <dd><p>Prompt the user to select a video file and register it for slide use.</p>
-<p>The selected video is copied into the local <cite>html/img</cite> directory and its
+<p>The selected video is copied into the local <code class="docutils literal notranslate"><span class="pre">html/img</span></code> directory and its
 relative path is stored in the headline field.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -211,7 +213,7 @@ relative path is stored in the headline field.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="core.generator.ui.contents.video_content.VideoContent.copy_to_img_folder">
 <span class="sig-name descname"><span class="pre">copy_to_img_folder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/video_content.html#VideoContent.copy_to_img_folder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.video_content.VideoContent.copy_to_img_folder" title="Link to this definition"></a></dt>
-<dd><p>Copy the selected video file into the local image directory (html/img).</p>
+<dd><p>Copy the selected video file into the local image directory (<code class="docutils literal notranslate"><span class="pre">html/img</span></code>).</p>
 <p>If the destination directory does not exist, it is created.
 If the file already exists at the destination, it is not copied again.</p>
 <dl class="field-list simple">
@@ -219,7 +221,7 @@ If the file already exists at the destination, it is not copied again.</p>
 <dd class="field-odd"><p><strong>source_path</strong> (<em>str</em>) – Absolute path to the source video file.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Relative path for overlay HTML usage, e.g. “img/example.mp4”.</p>
+<dd class="field-even"><p>Relative path for overlay HTML usage, e.g. <code class="docutils literal notranslate"><span class="pre">img/example.mp4</span></code>.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
@@ -233,7 +235,7 @@ If the file already exists at the destination, it is not copied again.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="core.generator.ui.contents.video_content.VideoContent._load_preview_from_absolute_path">
 <span class="sig-name descname"><span class="pre">_load_preview_from_absolute_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">abs_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/video_content.html#VideoContent._load_preview_from_absolute_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.video_content.VideoContent._load_preview_from_absolute_path" title="Link to this definition"></a></dt>
-<dd><p>Load preview video into QMediaPlayer from an absolute file path.</p>
+<dd><p>Load preview video into <cite>QMediaPlayer</cite> from an absolute file path.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>abs_path</strong> (<em>str</em>) – Absolute file path.</p>
@@ -247,8 +249,8 @@ If the file already exists at the destination, it is not copied again.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="core.generator.ui.contents.video_content.VideoContent._load_preview_from_relative_path">
 <span class="sig-name descname"><span class="pre">_load_preview_from_relative_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rel_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/video_content.html#VideoContent._load_preview_from_relative_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.video_content.VideoContent._load_preview_from_relative_path" title="Link to this definition"></a></dt>
-<dd><p>Load preview video into QMediaPlayer from a relative path like “img/foo.mp4”.</p>
-<p>This resolves it against “./html/” to match the copy destination.</p>
+<dd><p>Load preview video into <cite>QMediaPlayer</cite> from a relative path like <code class="docutils literal notranslate"><span class="pre">img/foo.mp4</span></code>.</p>
+<p>This resolves it against <code class="docutils literal notranslate"><span class="pre">./html/</span></code> to match the copy destination.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>rel_path</strong> (<em>str</em>) – Relative path stored in slide data.</p>
@@ -313,10 +315,13 @@ If the file already exists at the destination, it is not copied again.</p>
 <dd><p>Generate the slide data dictionary for a video slide.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Dictionary representing the video slide:
-- style
-- caption
-- headline (relative video path, e.g., “img/foo.mp4”)</p>
+<dd class="field-odd"><p><p>Dictionary representing the video slide:</p>
+<ul class="simple">
+<li><p>style</p></li>
+<li><p>caption</p></li>
+<li><p>headline (relative video path, e.g., <code class="docutils literal notranslate"><span class="pre">img/foo.mp4</span></code>)</p></li>
+</ul>
+</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>dict</p>

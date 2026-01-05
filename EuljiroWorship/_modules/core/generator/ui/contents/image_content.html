@@ -79,18 +79,18 @@
 <span class="sd">:E-mail: euljirochurch [at] G.M.A.I.L. (replace [at] with @ and G.M.A.I.L as you understood.)</span>
 <span class="sd">:License: MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</span>
 
-<span class="sd">UI content widget for editing &#39;image&#39; style slides.</span>
+<span class="sd">UI content widget for editing &quot;image&quot;-style slides.</span>
 
-<span class="sd">This module defines `ImageContent`, a QWidget that allows users to select</span>
+<span class="sd">This module defines :class:`core.generator.ui.contents.image_content.ImageContent`, a `QWidget` that allows users to select</span>
 <span class="sd">an image file, preview it, and associate it with caption text for use</span>
-<span class="sd">in image-based slides. Selected images are copied into a local `img/`</span>
+<span class="sd">in image-based slides. Selected images are copied into a local ``img/``</span>
 <span class="sd">directory for reliable access by overlay HTML files.</span>
 
-<span class="sd">In this slide style, the `headline` field is repurposed to store the</span>
-<span class="sd">relative image path, while the `caption` field is used as accompanying</span>
+<span class="sd">In this slide style, the ``headline`` field is repurposed to store the</span>
+<span class="sd">relative image path, while the ``caption`` field is used as accompanying</span>
 <span class="sd">text displayed alongside the image.</span>
 
-<span class="sd">The widget integrates with `SlideInputSubmitter` to support automatic</span>
+<span class="sd">The widget integrates with :class:`core.generator.utils.slide_input_submitter.SlideInputSubmitter` to support automatic</span>
 <span class="sd">submission and synchronization with the parent generator window.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
@@ -105,16 +105,17 @@
 <a class="viewcode-back" href="../../../../../core.generator.ui.contents.image_content.html#core.generator.ui.contents.image_content.ImageContent">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">ImageContent</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Content editor widget for &#39;image&#39; style slides.</span>
+<span class="sd">    Content editor widget for &quot;image&quot; style slides.</span>
 
 <span class="sd">    This widget allows users to:</span>
+
 <span class="sd">    - Select an image file from disk</span>
 <span class="sd">    - Copy the selected image into a local image directory for overlay use</span>
 <span class="sd">    - Preview the selected image</span>
 <span class="sd">    - Enter optional caption text associated with the image</span>
 
-<span class="sd">    In this slide style, the image path is stored in the `headline` field</span>
-<span class="sd">    of the slide data dictionary, while the `caption` field contains</span>
+<span class="sd">    In this slide style, the image path is stored in the ``headline`` field</span>
+<span class="sd">    of the slide data dictionary, while the ``caption`` field contains</span>
 <span class="sd">    accompanying text.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -153,7 +154,7 @@
 
 <span class="sd">        This method builds input fields for caption and image path, a button</span>
 <span class="sd">        for selecting an image file, and an image preview area. It also</span>
-<span class="sd">        registers the input fields with `SlideInputSubmitter` to enable</span>
+<span class="sd">        registers the input fields with :class:`core.generator.utils.slide_input_submitter.SlideInputSubmitter` to enable</span>
 <span class="sd">        automatic submission.</span>
 
 <span class="sd">        Args:</span>
@@ -243,7 +244,7 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            str:</span>
 <span class="sd">                Relative image path suitable for use in overlay HTML</span>
-<span class="sd">                (e.g., &quot;img/example.png&quot;).</span>
+<span class="sd">                (e.g., ``img/example.png``).</span>
 
 <span class="sd">        Raises:</span>
 <span class="sd">            OSError:</span>
@@ -297,6 +298,7 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            dict:</span>
 <span class="sd">                Dictionary representing the image slide, including:</span>
+<span class="sd">                </span>
 <span class="sd">                - style</span>
 <span class="sd">                - caption</span>
 <span class="sd">                - headline (relative image path)</span>

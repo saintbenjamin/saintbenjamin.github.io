@@ -89,9 +89,11 @@
 
 <span class="sd">- Resolve book name aliases into canonical internal IDs</span>
 <span class="sd">- Parse flexible reference formats such as:</span>
-<span class="sd">  - &quot;요 3&quot;</span>
-<span class="sd">  - &quot;요한복음 3:16&quot;</span>
-<span class="sd">  - &quot;John 3:14-16&quot;</span>
+
+<span class="sd">    - &quot;요 3&quot;</span>
+<span class="sd">    - &quot;요한복음 3:16&quot;</span>
+<span class="sd">    - &quot;John 3:14-16&quot;</span>
+
 <span class="sd">- Support chapter-only references and full verse ranges</span>
 
 <span class="sd">The parser is intentionally permissive and designed for use in</span>
@@ -120,9 +122,10 @@
 <span class="sd">    Resolve a user-provided book name to a canonical internal book ID.</span>
 
 <span class="sd">    This function attempts resolution using multiple strategies:</span>
-<span class="sd">    1. Direct alias matching from `BOOK_ALIASES`</span>
+
+<span class="sd">    1. Direct alias matching from ``BOOK_ALIASES``</span>
 <span class="sd">    2. Reverse matching against canonical IDs</span>
-<span class="sd">    3. Optional fallback using localized names from `standard_book.json`</span>
+<span class="sd">    3. Optional fallback using localized names from :py:data:`core.config.paths.STANDARD_BOOK_FILE`</span>
 
 <span class="sd">    All comparisons are performed using normalized strings</span>
 <span class="sd">    (lowercased, whitespace and dot characters removed).</span>
@@ -178,14 +181,15 @@
 <span class="sd">    Parse a Bible reference string into structured components.</span>
 
 <span class="sd">    Supported input formats include:</span>
-<span class="sd">        &quot;&lt;book&gt; &lt;chapter&gt;&quot;</span>
-<span class="sd">        &quot;&lt;book&gt; &lt;chapter&gt;:&lt;verse&gt;&quot;</span>
-<span class="sd">        &quot;&lt;book&gt; &lt;chapter&gt;:&lt;start&gt;-&lt;end&gt;&quot;</span>
+<span class="sd">        - &quot;&lt;book&gt; &lt;chapter&gt;&quot;</span>
+<span class="sd">        - &quot;&lt;book&gt; &lt;chapter&gt;:&lt;verse&gt;&quot;</span>
+<span class="sd">        - &quot;&lt;book&gt; &lt;chapter&gt;:&lt;start&gt;-&lt;end&gt;&quot;</span>
 
 <span class="sd">    Examples:</span>
-<span class="sd">        &quot;요 3&quot;</span>
-<span class="sd">        &quot;요한복음 3:16&quot;</span>
-<span class="sd">        &quot;John 3:14-16&quot;</span>
+
+<span class="sd">        - &quot;요 3&quot;</span>
+<span class="sd">        - &quot;요한복음 3:16&quot;</span>
+<span class="sd">        - &quot;John 3:14-16&quot;</span>
 
 <span class="sd">    If only a chapter is provided, the verse range is interpreted</span>
 <span class="sd">    as the full chapter.</span>
@@ -196,8 +200,8 @@
 
 <span class="sd">    Returns:</span>
 <span class="sd">        tuple[str, int, tuple[int, int]] | None:</span>
-<span class="sd">            A tuple of (book_id, chapter_number, verse_range),</span>
-<span class="sd">            where verse_range is (start, end) and end == -1</span>
+<span class="sd">            A tuple of ``(book_id, chapter_number, verse_range)``,</span>
+<span class="sd">            where ``verse_range`` is ``(start, end)`` and ``end == -1``</span>
 <span class="sd">            indicates the full chapter.</span>
 
 <span class="sd">            Returns None if parsing or resolution fails.</span>

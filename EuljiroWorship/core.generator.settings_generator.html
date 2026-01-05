@@ -119,12 +119,12 @@
 </dl>
 <p>Handles persistent generator settings for the Slide Generator/Controller.</p>
 <p>This module provides a small persistence layer for generator UI preferences,
-stored as a JSON file (<cite>paths.SETTING_FILE</cite>). It currently supports:</p>
+stored as a JSON file (<a class="reference internal" href="core.config.paths.html#core.config.paths.SETTING_FILE" title="core.config.paths.SETTING_FILE"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.SETTING_FILE</span></code></a>). It currently supports:</p>
 <ul class="simple">
 <li><p>Font family (e.g., “Malgun Gothic”)</p></li>
 <li><p>Font size (int)</p></li>
 <li><p>Font weight (string name matching <cite>QFont.Weight</cite>, e.g., “Normal”, “Bold”)</p></li>
-<li><p>(Optional) emergency caption output path (e.g., verse_output.txt path)</p></li>
+<li><p>(Optional) emergency caption output path (e.g., <code class="docutils literal notranslate"><span class="pre">verse_output.txt</span></code> path)</p></li>
 </ul>
 <p>The settings are used to build a <cite>QFont</cite> instance for UI widgets in the generator.</p>
 <dl class="py function">
@@ -132,11 +132,13 @@ stored as a JSON file (<cite>paths.SETTING_FILE</cite>). It currently supports:<
 <span class="sig-prename descclassname"><span class="pre">core.generator.settings_generator.</span></span><span class="sig-name descname"><span class="pre">load_generator_settings</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/settings_generator.html#load_generator_settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.settings_generator.load_generator_settings" title="Link to this definition"></a></dt>
 <dd><p>Load generator settings from the JSON settings file.</p>
 <p>If the settings file does not exist, an empty dictionary is returned.</p>
-<p>The returned dictionary may include keys such as:
-- “font_family”: str
-- “font_size”: int
-- “font_weight”: str (e.g., “Normal”, “Bold”)
-- “verse_output_path”: str (optional)</p>
+<p>The returned dictionary may include keys such as:</p>
+<ul class="simple">
+<li><p>“font_family”: str</p></li>
+<li><p>“font_size”: int</p></li>
+<li><p>“font_weight”: str (e.g., “Normal”, “Bold”)</p></li>
+<li><p>“verse_output_path”: str (optional)</p></li>
+</ul>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Dictionary containing persisted generator settings.
@@ -152,8 +154,7 @@ Returns an empty dict if no settings file exists.</p>
 <dt class="sig sig-object py" id="core.generator.settings_generator.save_generator_settings">
 <span class="sig-prename descclassname"><span class="pre">core.generator.settings_generator.</span></span><span class="sig-name descname"><span class="pre">save_generator_settings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/settings_generator.html#save_generator_settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.settings_generator.save_generator_settings" title="Link to this definition"></a></dt>
 <dd><p>Save generator settings to the JSON settings file.</p>
-<p>This function writes the provided settings dictionary to
-<cite>paths.SETTING_FILE</cite>, creating parent directories if needed.</p>
+<p>This function writes the provided settings dictionary to, <a class="reference internal" href="core.config.paths.html#core.config.paths.SETTING_FILE" title="core.config.paths.SETTING_FILE"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.SETTING_FILE</span></code></a> creating parent directories if needed.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This function is currently unused but reserved for future
@@ -174,18 +175,18 @@ persistence and configuration UI logic.</p>
 <span class="sig-prename descclassname"><span class="pre">core.generator.settings_generator.</span></span><span class="sig-name descname"><span class="pre">get_font_from_settings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">limit_ui_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/settings_generator.html#get_font_from_settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.settings_generator.get_font_from_settings" title="Link to this definition"></a></dt>
 <dd><p>Create a QFont instance based on persisted generator settings.</p>
 <p>The font family, size, and weight are read from the settings file.
-When <cite>limit_ui_size</cite> is enabled, the font size is clamped to a safe
+When <code class="docutils literal notranslate"><span class="pre">limit_ui_size</span></code> is enabled, the font size is clamped to a safe
 UI range to prevent layout issues.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>limit_ui_size</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to clamp the font size to the range 8–14 pt.
-Defaults to True.</p>
+<dd class="field-odd"><p><strong>limit_ui_size</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to clamp the font size to the range 8-14 pt.
+Defaults to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Configured QFont instance for use in generator UI widgets.</p>
+<dd class="field-even"><p>Configured <cite>QFont</cite> instance for use in generator UI widgets.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>QFont</p>
+<dd class="field-odd"><p><cite>QFont</cite></p>
 </dd>
 </dl>
 </dd></dl>

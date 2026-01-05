@@ -79,15 +79,15 @@
 <span class="sd">:E-mail: euljirochurch [at] G.M.A.I.L. (replace [at] with @ and G.M.A.I.L as you understood.)</span>
 <span class="sd">:License: MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</span>
 
-<span class="sd">UI content widget for editing &#39;greet&#39; style slides.</span>
+<span class="sd">UI content widget for editing &quot;greet&quot; style slides.</span>
 
-<span class="sd">This module defines `GreetContent`, a QWidget that provides input fields</span>
+<span class="sd">This module defines :class:`core.generator.ui.contents.greet_content.GreetContent`, a `QWidget` that provides input fields</span>
 <span class="sd">for greeting or message-style slides. These slides are typically used for</span>
 <span class="sd">welcome messages, sermon titles with extended descriptions, or other</span>
 <span class="sd">freeform announcements.</span>
 
 <span class="sd">The widget supports a short caption and a multiline headline, and integrates</span>
-<span class="sd">with `SlideInputSubmitter` to enable automatic submission and synchronization</span>
+<span class="sd">with :class:`core.generator.utils.slide_input_submitter.SlideInputSubmitter` to enable automatic submission and synchronization</span>
 <span class="sd">with the parent generator window.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
@@ -98,14 +98,15 @@
 <a class="viewcode-back" href="../../../../../core.generator.ui.contents.greet_content.html#core.generator.ui.contents.greet_content.GreetContent">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">GreetContent</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Content editor widget for &#39;greet&#39; style slides.</span>
+<span class="sd">    Content editor widget for &quot;greet&quot;-style slides.</span>
 
 <span class="sd">    This widget provides input fields for:</span>
+
 <span class="sd">    - Caption: A short reference or subtitle (e.g., Bible reference)</span>
 <span class="sd">    - Headline: A multiline main message or greeting text</span>
 
 <span class="sd">    The collected input is converted into a slide data dictionary</span>
-<span class="sd">    containing `style`, `caption`, and `headline` fields.</span>
+<span class="sd">    containing ``style``, ``caption``, and ``headline`` fields.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="GreetContent.__init__">
@@ -139,11 +140,11 @@
 <a class="viewcode-back" href="../../../../../core.generator.ui.contents.greet_content.html#core.generator.ui.contents.greet_content.GreetContent.build_ui">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">build_ui</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Construct the UI elements for editing a greet-style slide.</span>
+<span class="sd">        Construct the UI elements for editing a &quot;greet&quot;-style slide.</span>
 
 <span class="sd">        This method creates labeled input fields for caption and multiline</span>
 <span class="sd">        headline content, arranges them vertically, and registers the inputs</span>
-<span class="sd">        with `SlideInputSubmitter` to enable automatic submission.</span>
+<span class="sd">        with :class:`core.generator.utils.slide_input_submitter.SlideInputSubmitter` to enable automatic submission.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            None</span>
@@ -213,6 +214,7 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            dict:</span>
 <span class="sd">                Dictionary representing the greet slide, including:</span>
+
 <span class="sd">                - style</span>
 <span class="sd">                - caption</span>
 <span class="sd">                - headline</span>

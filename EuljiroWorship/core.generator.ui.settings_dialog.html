@@ -119,14 +119,14 @@
 </dd>
 </dl>
 <p>Settings dialog for the slide generator and controller.</p>
-<p>This module defines <cite>SettingsDialog</cite>, a modal dialog that allows users to
+<p>This module defines <a class="reference internal" href="#core.generator.ui.settings_dialog.SettingsDialog" title="core.generator.ui.settings_dialog.SettingsDialog"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.generator.ui.settings_dialog.SettingsDialog</span></code></a>, a modal dialog that allows users to
 configure persistent UI-related settings shared by the slide generator
 (and controller), including:</p>
 <ul class="simple">
 <li><p>Font family</p></li>
 <li><p>Font size</p></li>
 <li><p>Font weight</p></li>
-<li><p>Output path for the emergency subtitle file (e.g., <cite>verse_output.txt</cite>)</p></li>
+<li><p>Output path for the emergency subtitle file (e.g., <code class="docutils literal notranslate"><span class="pre">verse_output.txt</span></code>)</p></li>
 </ul>
 <p>Settings are stored in a JSON file at a well-defined location and are
 loaded automatically when the dialog is opened.</p>
@@ -138,22 +138,56 @@ loaded automatically when the dialog is opened.</p>
 <p>This dialog provides controls for selecting font preferences used
 throughout the generator/controller UI and for specifying the file
 path of the emergency subtitle output file.</p>
-<p>The dialog follows a simple lifecycle:
-- Load persisted settings on construction.
-- Allow the user to modify values via UI controls.
-- Persist updated settings when accepted.</p>
-<section id="attributes">
-<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h2>
-<dl class="simple">
-<dt>font_combo<span class="classifier">QFontComboBox</span></dt><dd><p>Font family selector.</p>
-</dd>
-<dt>size_spin<span class="classifier">QSpinBox</span></dt><dd><p>Font size selector.</p>
-</dd>
-<dt>weight_combo<span class="classifier">QComboBox</span></dt><dd><p>Font weight selector.</p>
-</dd>
-<dt>path_line<span class="classifier">QLineEdit</span></dt><dd><p>Text field for the emergency subtitle file path.</p>
+<p>The dialog follows a simple lifecycle:</p>
+<ul class="simple">
+<li><p>Load persisted settings on construction.</p></li>
+<li><p>Allow the user to modify values via UI controls.</p></li>
+<li><p>Persist updated settings when accepted.</p></li>
+</ul>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.settings_dialog.SettingsDialog.font_combo">
+<span class="sig-name descname"><span class="pre">font_combo</span></span><a class="headerlink" href="#core.generator.ui.settings_dialog.SettingsDialog.font_combo" title="Link to this definition"></a></dt>
+<dd><p>Font family selector.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QFontComboBox</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.settings_dialog.SettingsDialog.size_spin">
+<span class="sig-name descname"><span class="pre">size_spin</span></span><a class="headerlink" href="#core.generator.ui.settings_dialog.SettingsDialog.size_spin" title="Link to this definition"></a></dt>
+<dd><p>Font size selector.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QSpinBox</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.settings_dialog.SettingsDialog.weight_combo">
+<span class="sig-name descname"><span class="pre">weight_combo</span></span><a class="headerlink" href="#core.generator.ui.settings_dialog.SettingsDialog.weight_combo" title="Link to this definition"></a></dt>
+<dd><p>Font weight selector.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QComboBox</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.generator.ui.settings_dialog.SettingsDialog.path_line">
+<span class="sig-name descname"><span class="pre">path_line</span></span><a class="headerlink" href="#core.generator.ui.settings_dialog.SettingsDialog.path_line" title="Link to this definition"></a></dt>
+<dd><p>Text field for the emergency subtitle file path.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QLineEdit</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="core.generator.ui.settings_dialog.SettingsDialog.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/settings_dialog.html#SettingsDialog.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.settings_dialog.SettingsDialog.__init__" title="Link to this definition"></a></dt>
@@ -234,7 +268,6 @@ preferences and the emergency subtitle file path.</p>
 </dl>
 </dd></dl>
 
-</section>
 </dd></dl>
 
 </section>

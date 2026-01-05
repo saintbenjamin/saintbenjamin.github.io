@@ -79,15 +79,15 @@
 <span class="sd">:E-mail: euljirochurch [at] G.M.A.I.L. (replace [at] with @ and G.M.A.I.L as you understood.)</span>
 <span class="sd">:License: MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</span>
 
-<span class="sd">UI content widget for editing &#39;corner&#39; style slides.</span>
+<span class="sd">UI content widget for editing &quot;corner&quot; style slides.</span>
 
-<span class="sd">This module defines `CornerContent`, a QWidget that provides simple text</span>
-<span class="sd">inputs for creating corner-style slides. A corner slide typically displays</span>
+<span class="sd">This module defines :class:`core.generator.ui.contents.corner_content.CornerContent`, a `QWidget` that provides simple text</span>
+<span class="sd">inputs for creating &quot;corner&quot;-style slides. A &quot;corner&quot; slide typically displays</span>
 <span class="sd">a short headline and a caption in a fixed corner position on the screen,</span>
 <span class="sd">and is commonly used for sermon titles, worship order sections, or brief</span>
 <span class="sd">section headers.</span>
 
-<span class="sd">The widget integrates with `SlideInputSubmitter` to support automatic</span>
+<span class="sd">The widget integrates with :class:`core.generator.utils.slide_input_submitter.SlideInputSubmitter` to support automatic</span>
 <span class="sd">submission and synchronization with the parent generator window.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
@@ -98,14 +98,15 @@
 <a class="viewcode-back" href="../../../../../core.generator.ui.contents.corner_content.html#core.generator.ui.contents.corner_content.CornerContent">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">CornerContent</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Content editor widget for &#39;corner&#39; style slides.</span>
+<span class="sd">    Content editor widget for &quot;corner&quot; style slides.</span>
 
 <span class="sd">    This widget provides input fields for:</span>
+
 <span class="sd">    - Headline text (main title)</span>
 <span class="sd">    - Caption text (subtitle or secondary label)</span>
 
 <span class="sd">    The collected input is converted into a slide data dictionary</span>
-<span class="sd">    containing `style`, `caption`, and `headline` fields.</span>
+<span class="sd">    containing ``style``, ``caption``, and ``headline`` fields.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="CornerContent.__init__">
@@ -139,11 +140,11 @@
 <a class="viewcode-back" href="../../../../../core.generator.ui.contents.corner_content.html#core.generator.ui.contents.corner_content.CornerContent.build_ui">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">build_ui</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Construct the UI elements for editing a corner-style slide.</span>
+<span class="sd">        Construct the UI elements for editing a &quot;corner&quot;-style slide.</span>
 
 <span class="sd">        This method creates labeled input fields for headline and caption,</span>
 <span class="sd">        arranges them vertically, and registers the inputs with</span>
-<span class="sd">        `SlideInputSubmitter` to enable automatic submission.</span>
+<span class="sd">        :class:`core.generator.utils.slide_input_submitter.SlideInputSubmitter` to enable automatic submission.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            None</span>
@@ -214,6 +215,7 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            dict:</span>
 <span class="sd">                Dictionary representing the corner slide, including:</span>
+
 <span class="sd">                - style</span>
 <span class="sd">                - caption</span>
 <span class="sd">                - headline</span>

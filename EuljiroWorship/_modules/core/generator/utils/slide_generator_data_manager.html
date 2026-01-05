@@ -81,7 +81,7 @@
 
 <span class="sd">Data management layer for the slide generator table UI.</span>
 
-<span class="sd">This module defines SlideGeneratorDataManager, which is responsible for</span>
+<span class="sd">This module defines :class:`core.generator.utils.slide_generator_data?manager.SlideGeneratorDataManager`, which is responsible for</span>
 <span class="sd">loading slide data from JSON files into the generator table, collecting</span>
 <span class="sd">edited table contents back into structured slide dictionaries, and</span>
 <span class="sd">handling style-specific normalization (e.g., anthem choir names,</span>
@@ -107,7 +107,7 @@
 
 <span class="sd">    This class provides a thin data-adapter layer between JSON-based slide</span>
 <span class="sd">    definitions and the generator table widget. It loads slide JSON data into the</span>
-<span class="sd">    ``QTableWidget`` and converts table rows back into structured slide</span>
+<span class="sd">    `QTableWidget` and converts table rows back into structured slide</span>
 <span class="sd">    dictionaries. It also performs style-specific preprocessing and normalization,</span>
 <span class="sd">    such as handling anthem choir names and verse formatting.</span>
 
@@ -138,12 +138,14 @@
 <span class="sd">        Load slide data from a JSON file and populate the generator table.</span>
 
 <span class="sd">        This method:</span>
-<span class="sd">            - Clears the existing table</span>
-<span class="sd">            - Inserts rows matching the number of slides</span>
-<span class="sd">            - Applies style aliases to the style combo box</span>
-<span class="sd">            - Performs style-specific preprocessing:</span>
-<span class="sd">                * Merges anthem caption and choir name</span>
-<span class="sd">                * Formats multi-verse Bible slides for readability</span>
+
+<span class="sd">        - Clears the existing table</span>
+<span class="sd">        - Inserts rows matching the number of slides</span>
+<span class="sd">        - Applies style aliases to the style combo box</span>
+<span class="sd">        - Performs style-specific preprocessing:</span>
+
+<span class="sd">            * Merges anthem caption and choir name</span>
+<span class="sd">            * Formats multi-verse Bible slides for readability</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            path (str):</span>
@@ -212,7 +214,7 @@
 
 <span class="sd">        This method reads each table row and converts it into a slide</span>
 <span class="sd">        dictionary using internal style keys. Style-specific handling</span>
-<span class="sd">        is applied where necessary (e.g., anthem caption/choir separation).</span>
+<span class="sd">        is applied where necessary (e.g., anthem ``caption``/``choir`` separation).</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            list[dict]:</span>
@@ -261,6 +263,7 @@
 <span class="sd">        Insert a new empty slide row into the generator table.</span>
 
 <span class="sd">        The row includes:</span>
+
 <span class="sd">        - A style selection combo box</span>
 <span class="sd">        - Empty caption and headline cells</span>
 <span class="sd">        &quot;&quot;&quot;</span>

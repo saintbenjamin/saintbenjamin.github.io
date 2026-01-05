@@ -248,14 +248,14 @@
 <span class="sd">        prefix order followed by lexicographical ordering.</span>
 
 <span class="sd">        This method is required by both GUI and CLI code paths.</span>
-<span class="sd">        DO NOT DELETE.</span>
+<span class="sd">        *DO NOT DELETE*.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            None</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            function:</span>
-<span class="sd">                Callable suitable for use as the `key` argument in sorted().</span>
+<span class="sd">                Callable suitable for use as the ``key`` argument in ``sorted()``.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">def</span><span class="w"> </span><span class="nf">sort_key</span><span class="p">(</span><span class="n">version_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
             <span class="n">prefix</span> <span class="o">=</span> <span class="n">version_name</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
@@ -431,7 +431,7 @@
 
 <span class="sd">        Returns:</span>
 <span class="sd">            dict:</span>
-<span class="sd">                Mapping of book_id -&gt; localized name.</span>
+<span class="sd">                Mapping of ``book_id`` -&gt; localized name.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">{</span>
             <span class="n">book_id</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">lang_code</span><span class="p">,</span> <span class="n">book_id</span><span class="p">)</span>
@@ -451,7 +451,7 @@
 
 <span class="sd">        Returns:</span>
 <span class="sd">            dict:</span>
-<span class="sd">                Mapping of version_key -&gt; alias string.</span>
+<span class="sd">                Mapping of ``version_key`` -&gt; alias string.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">alias_map</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">aliases_version</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>

@@ -126,8 +126,8 @@ The path is stored as a small JSON file under the generator settings directory.<
 <span class="sig-prename descclassname"><span class="pre">core.generator.settings_last_path.</span></span><span class="sig-name descname"><span class="pre">load_last_path</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/settings_last_path.html#load_last_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.settings_last_path.load_last_path" title="Link to this definition"></a></dt>
 <dd><p>Load the most recently opened slide file path.</p>
 <p>This function reads the JSON file defined by
-<cite>paths.SETTING_LAST_OPEN_FILE</cite> and extracts the stored
-<cite>“last_opened_file”</cite> value.</p>
+<a class="reference internal" href="core.config.paths.html#core.config.paths.SETTING_LAST_OPEN_FILE" title="core.config.paths.SETTING_LAST_OPEN_FILE"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.SETTING_LAST_OPEN_FILE</span></code></a> and extracts the stored
+<code class="docutils literal notranslate"><span class="pre">&quot;last_opened_file&quot;</span></code> value.</p>
 <p>If the settings file does not exist or the key is missing,
 the function safely returns None.</p>
 <dl class="field-list simple">
@@ -146,7 +146,8 @@ or None if no previous path is recorded.</p>
 <span class="sig-prename descclassname"><span class="pre">core.generator.settings_last_path.</span></span><span class="sig-name descname"><span class="pre">save_last_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/settings_last_path.html#save_last_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.settings_last_path.save_last_path" title="Link to this definition"></a></dt>
 <dd><p>Save the most recently opened slide file path.</p>
 <p>The given path is written to a small JSON file located at
-<cite>paths.SETTING_LAST_OPEN_FILE</cite>. The parent directory is
+<a class="reference internal" href="core.config.paths.html#core.config.paths.SETTING_LAST_OPEN_FILE" title="core.config.paths.SETTING_LAST_OPEN_FILE"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.SETTING_LAST_OPEN_FILE</span></code></a>.</p>
+<p>The parent directory is
 created automatically if it does not already exist.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>

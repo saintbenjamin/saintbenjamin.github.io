@@ -119,23 +119,25 @@
 <dd class="field-odd"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
 </dd>
 </dl>
-<p>UI content widget for editing ‘respo’ (responsive reading) style slides.</p>
-<p>This module defines <cite>RespoContent</cite>, a QWidget that provides a table-based
+<p>UI content widget for editing “respo” (responsive reading) style slides.</p>
+<p>This module defines <a class="reference internal" href="#core.generator.ui.contents.respo_content.RespoContent" title="core.generator.ui.contents.respo_content.RespoContent"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.generator.ui.contents.respo_content.RespoContent</span></code></a>, a <cite>QWidget</cite> that provides a table-based
 editor for responsive readings (교독문). Each slide consists of a title
-and a sequence of speaker–response pairs, which are rendered as formatted
+and a sequence of speaker-response pairs, which are rendered as formatted
 HTML for slide output.</p>
 <p>The widget supports loading and saving responsive readings from JSON files
-stored under <cite>data/respo/</cite>, and integrates with <cite>SlideInputSubmitter</cite> for
+stored under <code class="docutils literal notranslate"><span class="pre">data/respo/</span></code>, and integrates with <a class="reference internal" href="core.generator.utils.slide_input_submitter.html#core.generator.utils.slide_input_submitter.SlideInputSubmitter" title="core.generator.utils.slide_input_submitter.SlideInputSubmitter"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.generator.utils.slide_input_submitter.SlideInputSubmitter</span></code></a> for
 automatic synchronization with the slide generator.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="core.generator.ui.contents.respo_content.RespoContent">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.ui.contents.respo_content.</span></span><span class="sig-name descname"><span class="pre">RespoContent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/respo_content.html#RespoContent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.respo_content.RespoContent" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
-<p>Content editor widget for ‘respo’ (responsive reading) slides.</p>
-<p>This widget allows users to:
-- Select a responsive reading by number
-- Edit the title of the reading
-- Edit speaker–response pairs using a table interface</p>
+<p>Content editor widget for “respo” (responsive reading) slides.</p>
+<p>This widget allows users to:</p>
+<ul class="simple">
+<li><p>Select a responsive reading by number</p></li>
+<li><p>Edit the title of the reading</p></li>
+<li><p>Edit speaker-response pairs using a table interface</p></li>
+</ul>
 <p>The table contents are converted into formatted HTML and exported
 as slide data for rendering.</p>
 <dl class="field-list simple">
@@ -171,11 +173,13 @@ from table data).</p></li>
 <dt class="sig sig-object py" id="core.generator.ui.contents.respo_content.RespoContent.build_ui">
 <span class="sig-name descname"><span class="pre">build_ui</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/respo_content.html#RespoContent.build_ui"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.respo_content.RespoContent.build_ui" title="Link to this definition"></a></dt>
 <dd><p>Construct the UI layout for responsive reading editing.</p>
-<p>The layout includes:
-- A number input field with load button
-- A title input field
-- A two-column table for speaker and response text
-- A save button for writing data back to JSON</p>
+<p>The layout includes:</p>
+<ul class="simple">
+<li><p>A number input field with load button</p></li>
+<li><p>A title input field</p></li>
+<li><p>A two-column table for speaker and response text</p></li>
+<li><p>A save button for writing data back to JSON</p></li>
+</ul>
 <p>This method also initializes auto-loading when a numbered caption
 is detected.</p>
 </dd></dl>
@@ -185,8 +189,8 @@ is detected.</p>
 <span class="sig-name descname"><span class="pre">load_respo_by_number</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/respo_content.html#RespoContent.load_respo_by_number"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.respo_content.RespoContent.load_respo_by_number" title="Link to this definition"></a></dt>
 <dd><p>Load responsive reading data from a JSON file.</p>
 <p>The JSON file is selected based on the number entered by the user
-and must exist under the <cite>data/respo/</cite> directory. The loaded data
-populates the title field and the speaker–response table.</p>
+and must exist under the <code class="docutils literal notranslate"><span class="pre">data/respo/</span></code> directory. The loaded data
+populates the title field and the speaker-response table.</p>
 <p>Displays a warning dialog if the input is invalid or out of range.</p>
 </dd></dl>
 
@@ -211,7 +215,7 @@ returned as slide data.</p>
 <dt class="sig sig-object py" id="core.generator.ui.contents.respo_content.RespoContent.get_respo_number_range">
 <span class="sig-name descname"><span class="pre">get_respo_number_range</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/respo_content.html#RespoContent.get_respo_number_range"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.respo_content.RespoContent.get_respo_number_range" title="Link to this definition"></a></dt>
 <dd><p>Determine the valid range of responsive reading numbers.</p>
-<p>Scans the <cite>data/respo/</cite> directory for available JSON files and
+<p>Scans the <code class="docutils literal notranslate"><span class="pre">data/respo/</span></code> directory for available JSON files and
 extracts their numeric identifiers.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -229,10 +233,13 @@ extracts their numeric identifiers.</p>
 <dd><p>Generate the slide data dictionary for export.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Dictionary containing:
-- style: ‘respo’
-- caption: title of the responsive reading
-- headline: formatted HTML body</p>
+<dd class="field-odd"><p><p>Dictionary containing:</p>
+<ul class="simple">
+<li><p>style: “respo”</p></li>
+<li><p>caption: title of the responsive reading</p></li>
+<li><p>headline: formatted HTML body</p></li>
+</ul>
+</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>dict</p>
@@ -261,7 +268,7 @@ by the corresponding response text.</p>
 <span class="sig-name descname"><span class="pre">save_respo_json</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/respo_content.html#RespoContent.save_respo_json"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.respo_content.RespoContent.save_respo_json" title="Link to this definition"></a></dt>
 <dd><p>Save the current responsive reading data to a JSON file.</p>
 <p>The data is written back to the file corresponding to the selected
-responsive reading number under <cite>data/respo/</cite>. A warning is shown
+responsive reading number under <code class="docutils literal notranslate"><span class="pre">data/respo/</span></code>. A warning is shown
 if no valid number is provided.</p>
 </dd></dl>
 

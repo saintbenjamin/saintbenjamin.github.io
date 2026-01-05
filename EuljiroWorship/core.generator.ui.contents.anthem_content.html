@@ -119,23 +119,25 @@
 <dd class="field-odd"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
 </dd>
 </dl>
-<p>UI content widget for editing ‘anthem’ style slides.</p>
-<p>This module defines <cite>AnthemContent</cite>, a QWidget responsible for collecting
-input data required to generate an anthem-style slide. The widget provides
+<p>UI content widget for editing “anthem” style slides.</p>
+<p>This module defines <a class="reference internal" href="#core.generator.ui.contents.anthem_content.AnthemContent" title="core.generator.ui.contents.anthem_content.AnthemContent"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.generator.ui.contents.anthem_content.AnthemContent</span></code></a>, a <cite>QWidget</cite> responsible for collecting
+input data required to generate an “anthem”-style slide. The widget provides
 fields for specifying the choir name and the anthem title, and converts the
 input into a standardized slide dictionary used by the generator.</p>
-<p>The widget integrates with <cite>SlideInputSubmitter</cite> to support automatic
+<p>The widget integrates with <a class="reference internal" href="core.generator.utils.slide_input_submitter.html#core.generator.utils.slide_input_submitter.SlideInputSubmitter" title="core.generator.utils.slide_input_submitter.SlideInputSubmitter"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.generator.utils.slide_input_submitter.SlideInputSubmitter</span></code></a> to support automatic
 submission and synchronization with the parent generator window.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="core.generator.ui.contents.anthem_content.AnthemContent">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.ui.contents.anthem_content.</span></span><span class="sig-name descname"><span class="pre">AnthemContent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/anthem_content.html#AnthemContent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.anthem_content.AnthemContent" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
-<p>Content editor widget for ‘anthem’ style slides.</p>
-<p>This widget provides input fields for:
-- Choir or group name
-- Anthem title</p>
+<p>Content editor widget for “anthem” style slides.</p>
+<p>This widget provides input fields for:</p>
+<ul class="simple">
+<li><p>Choir or group name</p></li>
+<li><p>Anthem title</p></li>
+</ul>
 <p>The collected input is transformed into a slide dictionary containing
-<cite>caption</cite>, <cite>caption_choir</cite>, and <cite>headline</cite> fields, which are later used
+<code class="docutils literal notranslate"><span class="pre">caption</span></code>, <code class="docutils literal notranslate"><span class="pre">caption_choir</span></code>, and <code class="docutils literal notranslate"><span class="pre">headline</span></code> fields, which are later used
 by the slide exporter and controller.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -168,10 +170,10 @@ and triggering auto-save behavior.</p></li>
 <dl class="py method">
 <dt class="sig sig-object py" id="core.generator.ui.contents.anthem_content.AnthemContent.build_ui">
 <span class="sig-name descname"><span class="pre">build_ui</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/anthem_content.html#AnthemContent.build_ui"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.anthem_content.AnthemContent.build_ui" title="Link to this definition"></a></dt>
-<dd><p>Construct the UI elements for editing an anthem slide.</p>
+<dd><p>Construct the UI elements for editing an “anthem”-style slide.</p>
 <p>This method builds input fields for the choir name and anthem title,
 arranges them vertically, and registers the inputs with
-<cite>SlideInputSubmitter</cite> to enable automatic submission and synchronization
+<a class="reference internal" href="core.generator.utils.slide_input_submitter.html#core.generator.utils.slide_input_submitter.SlideInputSubmitter" title="core.generator.utils.slide_input_submitter.SlideInputSubmitter"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.generator.utils.slide_input_submitter.SlideInputSubmitter</span></code></a> to enable automatic submission and synchronization
 with the generator window.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -215,11 +217,14 @@ not match the expected format.</p>
 <dd class="field-odd"><p><strong>None</strong></p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Dictionary representing the anthem slide, including:
-- style
-- caption
-- caption_choir
-- headline</p>
+<dd class="field-even"><p><p>Dictionary representing the anthem slide, including:</p>
+<ul class="simple">
+<li><p>style</p></li>
+<li><p>caption</p></li>
+<li><p>caption_choir</p></li>
+<li><p>headline</p></li>
+</ul>
+</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>dict</p>

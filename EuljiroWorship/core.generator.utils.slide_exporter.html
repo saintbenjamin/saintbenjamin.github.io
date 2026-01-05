@@ -120,7 +120,7 @@
 </dl>
 <p>Slide export pipeline for converting generator slide data into
 overlay-ready slide blocks.</p>
-<p>This module defines the SlideExporter class, which takes structured
+<p>This module defines the <a class="reference internal" href="#core.generator.utils.slide_exporter.SlideExporter" title="core.generator.utils.slide_exporter.SlideExporter"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.generator.utils.slide_exporter.SlideExporter</span></code></a> class, which takes structured
 slide dictionaries produced by the generator UI and transforms them
 into a flattened sequence of slides suitable for real-time overlay
 display. The exporter applies style-specific rules such as line
@@ -195,7 +195,7 @@ line splitting, slide segmentation, and style normalization.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>settings</strong> (<em>dict</em><em> | </em><em>None</em>) – Optional configuration dictionary.
-If provided, “max_chars” controls the maximum number of
+If provided, <code class="docutils literal notranslate"><span class="pre">max_chars</span></code> controls the maximum number of
 characters allowed per exported text block.</p>
 </dd>
 </dl>
@@ -210,11 +210,14 @@ and applies style-dependent rules to produce a sequence of
 overlay-ready slides.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>raw_slides</strong> (<em>list</em><em>[</em><em>dict</em><em>]</em>) – List of slide dictionaries produced by the generator.
-Each dictionary is expected to include at least:
-- “style”
-- “caption”
-- “headline”</p>
+<dd class="field-odd"><p><strong>raw_slides</strong> (<em>list</em><em>[</em><em>dict</em><em>]</em>) – <p>List of slide dictionaries produced by the generator.
+Each dictionary is expected to include at least:</p>
+<ul class="simple">
+<li><p>”style”</p></li>
+<li><p>”caption”</p></li>
+<li><p>”headline”</p></li>
+</ul>
+</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A flattened list of slide dictionaries suitable for
@@ -230,7 +233,7 @@ overlay display.</p>
 <dt class="sig sig-object py" id="core.generator.utils.slide_exporter.SlideExporter._split_text">
 <span class="sig-name descname"><span class="pre">_split_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/utils/slide_exporter.html#SlideExporter._split_text"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.utils.slide_exporter.SlideExporter._split_text" title="Link to this definition"></a></dt>
 <dd><p>Split a text string into smaller chunks by character count.</p>
-<p>This helper delegates to <cite>split_by_length</cite>, using the configured
+<p>This helper delegates to <a class="reference internal" href="core.generator.utils.text_splitter.html#core.generator.utils.text_splitter.split_by_length" title="core.generator.utils.text_splitter.split_by_length"><code class="xref py py-func docutils literal notranslate"><span class="pre">core.generator.utils.text_splitter.split_by_length()</span></code></a>, using the configured
 maximum character length for exported slides.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>

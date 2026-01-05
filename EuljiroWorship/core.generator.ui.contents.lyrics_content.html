@@ -119,22 +119,24 @@
 <dd class="field-odd"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
 </dd>
 </dl>
-<p>UI content widget for editing ‘lyrics’ style slides.</p>
-<p>This module defines <cite>LyricsContent</cite>, a QWidget that provides input fields
+<p>UI content widget for editing “lyrics” style slides.</p>
+<p>This module defines <a class="reference internal" href="#core.generator.ui.contents.lyrics_content.LyricsContent" title="core.generator.ui.contents.lyrics_content.LyricsContent"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.generator.ui.contents.lyrics_content.LyricsContent</span></code></a>, a <cite>QWidget</cite> that provides input fields
 for entering a song or praise title and its lyrics. The lyrics are entered
 as multiline text and are later split into multiple slides according to
 the generator’s export rules (typically every two lines).</p>
-<p>The widget integrates with <cite>SlideInputSubmitter</cite> to support automatic
+<p>The widget integrates with <a class="reference internal" href="core.generator.utils.slide_input_submitter.html#core.generator.utils.slide_input_submitter.SlideInputSubmitter" title="core.generator.utils.slide_input_submitter.SlideInputSubmitter"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.generator.utils.slide_input_submitter.SlideInputSubmitter</span></code></a> to support automatic
 submission and synchronization with the parent generator window.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="core.generator.ui.contents.lyrics_content.LyricsContent">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.ui.contents.lyrics_content.</span></span><span class="sig-name descname"><span class="pre">LyricsContent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/lyrics_content.html#LyricsContent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.lyrics_content.LyricsContent" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
-<p>Content editor widget for ‘lyrics’ style slides.</p>
-<p>This widget allows users to enter:
-- A title for the song or praise
-- Multiline lyrics text</p>
-<p>The lyrics content is stored as raw text and later processed by the
+<p>Content editor widget for “lyrics” style slides.</p>
+<p>This widget allows users to enter:</p>
+<ul class="simple">
+<li><p>A title for the song or praise</p></li>
+<li><p>Multiline lyrics text</p></li>
+</ul>
+<p>The “lyrics” content is stored as raw text and later processed by the
 slide exporter, which splits the text into multiple slides according
 to predefined rules (e.g., two lines per slide).</p>
 <dl class="field-list simple">
@@ -148,7 +150,7 @@ to predefined rules (e.g., two lines per slide).</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="core.generator.ui.contents.lyrics_content.LyricsContent.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generator_window</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caption</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/lyrics_content.html#LyricsContent.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.lyrics_content.LyricsContent.__init__" title="Link to this definition"></a></dt>
-<dd><p>Initialize the lyrics content editor.</p>
+<dd><p>Initialize the “lyrics”-style content editor.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -168,10 +170,10 @@ slide data and enabling auto-save behavior.</p></li>
 <dl class="py method">
 <dt class="sig sig-object py" id="core.generator.ui.contents.lyrics_content.LyricsContent.build_ui">
 <span class="sig-name descname"><span class="pre">build_ui</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/lyrics_content.html#LyricsContent.build_ui"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.lyrics_content.LyricsContent.build_ui" title="Link to this definition"></a></dt>
-<dd><p>Construct the UI elements for editing a lyrics-style slide.</p>
+<dd><p>Construct the UI elements for editing a “lyrics”-style slide.</p>
 <p>This method creates labeled input fields for the lyrics title and
 multiline lyrics content, arranges them vertically, and registers
-the title input with <cite>SlideInputSubmitter</cite> to enable automatic
+the title input with <a class="reference internal" href="core.generator.utils.slide_input_submitter.html#core.generator.utils.slide_input_submitter.SlideInputSubmitter" title="core.generator.utils.slide_input_submitter.SlideInputSubmitter"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.generator.utils.slide_input_submitter.SlideInputSubmitter</span></code></a> to enable automatic
 submission.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -186,7 +188,7 @@ submission.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="core.generator.ui.contents.lyrics_content.LyricsContent.build_lyrics_slide">
 <span class="sig-name descname"><span class="pre">build_lyrics_slide</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/lyrics_content.html#LyricsContent.build_lyrics_slide"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.lyrics_content.LyricsContent.build_lyrics_slide" title="Link to this definition"></a></dt>
-<dd><p>Conditionally generate lyrics slide data.</p>
+<dd><p>Conditionally generate “lyrics”-style slide data.</p>
 <p>If both the title and lyrics fields are empty, no slide data is
 generated. Otherwise, the current input values are returned as a
 slide data dictionary.</p>
@@ -207,16 +209,19 @@ otherwise, None.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="core.generator.ui.contents.lyrics_content.LyricsContent.get_slide_data">
 <span class="sig-name descname"><span class="pre">get_slide_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/lyrics_content.html#LyricsContent.get_slide_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.lyrics_content.LyricsContent.get_slide_data" title="Link to this definition"></a></dt>
-<dd><p>Generate the slide data dictionary for a lyrics slide.</p>
+<dd><p>Generate the slide data dictionary for a “lyrics”-style slide.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>None</strong></p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Dictionary representing the lyrics slide, including:
-- style
-- caption (song title)
-- headline (raw lyrics text)</p>
+<dd class="field-even"><p><p>Dictionary representing the lyrics slide, including:</p>
+<ul class="simple">
+<li><p>style</p></li>
+<li><p>caption (song title)</p></li>
+<li><p>headline (raw lyrics text)</p></li>
+</ul>
+</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>dict</p>

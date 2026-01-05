@@ -98,8 +98,8 @@
 <span class="sd">    Load the most recently opened slide file path.</span>
 
 <span class="sd">    This function reads the JSON file defined by</span>
-<span class="sd">    `paths.SETTING_LAST_OPEN_FILE` and extracts the stored</span>
-<span class="sd">    `&quot;last_opened_file&quot;` value.</span>
+<span class="sd">    :py:data:`core.config.paths.SETTING_LAST_OPEN_FILE` and extracts the stored</span>
+<span class="sd">    ``&quot;last_opened_file&quot;`` value.</span>
 
 <span class="sd">    If the settings file does not exist or the key is missing,</span>
 <span class="sd">    the function safely returns None.</span>
@@ -122,7 +122,9 @@
 <span class="sd">    Save the most recently opened slide file path.</span>
 
 <span class="sd">    The given path is written to a small JSON file located at</span>
-<span class="sd">    `paths.SETTING_LAST_OPEN_FILE`. The parent directory is</span>
+<span class="sd">    :py:data:`core.config.paths.SETTING_LAST_OPEN_FILE`. </span>
+<span class="sd">    </span>
+<span class="sd">    The parent directory is</span>
 <span class="sd">    created automatically if it does not already exist.</span>
 
 <span class="sd">    Args:</span>

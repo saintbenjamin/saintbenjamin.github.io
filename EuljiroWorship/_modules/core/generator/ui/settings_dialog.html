@@ -81,14 +81,14 @@
 
 <span class="sd">Settings dialog for the slide generator and controller.</span>
 
-<span class="sd">This module defines `SettingsDialog`, a modal dialog that allows users to</span>
+<span class="sd">This module defines :class:`core.generator.ui.settings_dialog.SettingsDialog`, a modal dialog that allows users to</span>
 <span class="sd">configure persistent UI-related settings shared by the slide generator</span>
 <span class="sd">(and controller), including:</span>
 
 <span class="sd">- Font family</span>
 <span class="sd">- Font size</span>
 <span class="sd">- Font weight</span>
-<span class="sd">- Output path for the emergency subtitle file (e.g., `verse_output.txt`)</span>
+<span class="sd">- Output path for the emergency subtitle file (e.g., ``verse_output.txt``)</span>
 
 <span class="sd">Settings are stored in a JSON file at a well-defined location and are</span>
 <span class="sd">loaded automatically when the dialog is opened.</span>
@@ -119,20 +119,20 @@
 <span class="sd">    path of the emergency subtitle output file.</span>
 
 <span class="sd">    The dialog follows a simple lifecycle:</span>
+
 <span class="sd">    - Load persisted settings on construction.</span>
 <span class="sd">    - Allow the user to modify values via UI controls.</span>
 <span class="sd">    - Persist updated settings when accepted.</span>
 
-<span class="sd">    Attributes</span>
-<span class="sd">    ----------</span>
-<span class="sd">    font_combo : QFontComboBox</span>
-<span class="sd">        Font family selector.</span>
-<span class="sd">    size_spin : QSpinBox</span>
-<span class="sd">        Font size selector.</span>
-<span class="sd">    weight_combo : QComboBox</span>
-<span class="sd">        Font weight selector.</span>
-<span class="sd">    path_line : QLineEdit</span>
-<span class="sd">        Text field for the emergency subtitle file path.</span>
+<span class="sd">    Attributes:</span>
+<span class="sd">        font_combo (QFontComboBox):</span>
+<span class="sd">            Font family selector.</span>
+<span class="sd">        size_spin (QSpinBox):</span>
+<span class="sd">            Font size selector.</span>
+<span class="sd">        weight_combo (QComboBox):</span>
+<span class="sd">            Font weight selector.</span>
+<span class="sd">        path_line (QLineEdit):</span>
+<span class="sd">            Text field for the emergency subtitle file path.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="SettingsDialog.__init__">

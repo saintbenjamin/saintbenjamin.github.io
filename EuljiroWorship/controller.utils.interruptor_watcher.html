@@ -193,11 +193,13 @@ It is intended to be called during controller shutdown.</p>
 <li><p>If the content transitions from non-empty to empty, emit <code class="docutils literal notranslate"><span class="pre">interruptor_cleared</span></code>.</p></li>
 <li><p>Sleep for <code class="docutils literal notranslate"><span class="pre">poll_interval</span></code> seconds between polls.</p></li>
 </ul>
-<p class="rubric">Notes</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <ul class="simple">
 <li><p>This is a polling-based watcher (not filesystem event-based).</p></li>
 <li><p>Intended to be executed in a background <cite>QThread</cite>.</p></li>
 </ul>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>None</strong></p>

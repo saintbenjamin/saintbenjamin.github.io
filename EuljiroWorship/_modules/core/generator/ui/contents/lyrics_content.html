@@ -79,14 +79,14 @@
 <span class="sd">:E-mail: euljirochurch [at] G.M.A.I.L. (replace [at] with @ and G.M.A.I.L as you understood.)</span>
 <span class="sd">:License: MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</span>
 
-<span class="sd">UI content widget for editing &#39;lyrics&#39; style slides.</span>
+<span class="sd">UI content widget for editing &quot;lyrics&quot; style slides.</span>
 
-<span class="sd">This module defines `LyricsContent`, a QWidget that provides input fields</span>
+<span class="sd">This module defines :class:`core.generator.ui.contents.lyrics_content.LyricsContent`, a `QWidget` that provides input fields</span>
 <span class="sd">for entering a song or praise title and its lyrics. The lyrics are entered</span>
 <span class="sd">as multiline text and are later split into multiple slides according to</span>
 <span class="sd">the generator&#39;s export rules (typically every two lines).</span>
 
-<span class="sd">The widget integrates with `SlideInputSubmitter` to support automatic</span>
+<span class="sd">The widget integrates with :class:`core.generator.utils.slide_input_submitter.SlideInputSubmitter` to support automatic</span>
 <span class="sd">submission and synchronization with the parent generator window.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
@@ -101,13 +101,14 @@
 <a class="viewcode-back" href="../../../../../core.generator.ui.contents.lyrics_content.html#core.generator.ui.contents.lyrics_content.LyricsContent">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">LyricsContent</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Content editor widget for &#39;lyrics&#39; style slides.</span>
+<span class="sd">    Content editor widget for &quot;lyrics&quot; style slides.</span>
 
 <span class="sd">    This widget allows users to enter:</span>
+
 <span class="sd">    - A title for the song or praise</span>
 <span class="sd">    - Multiline lyrics text</span>
 
-<span class="sd">    The lyrics content is stored as raw text and later processed by the</span>
+<span class="sd">    The &quot;lyrics&quot; content is stored as raw text and later processed by the</span>
 <span class="sd">    slide exporter, which splits the text into multiple slides according</span>
 <span class="sd">    to predefined rules (e.g., two lines per slide).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -116,7 +117,7 @@
 <a class="viewcode-back" href="../../../../../core.generator.ui.contents.lyrics_content.html#core.generator.ui.contents.lyrics_content.LyricsContent.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">generator_window</span><span class="p">,</span> <span class="n">caption</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">headline</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Initialize the lyrics content editor.</span>
+<span class="sd">        Initialize the &quot;lyrics&quot;-style content editor.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            parent (QWidget):</span>
@@ -143,11 +144,11 @@
 <a class="viewcode-back" href="../../../../../core.generator.ui.contents.lyrics_content.html#core.generator.ui.contents.lyrics_content.LyricsContent.build_ui">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">build_ui</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Construct the UI elements for editing a lyrics-style slide.</span>
+<span class="sd">        Construct the UI elements for editing a &quot;lyrics&quot;-style slide.</span>
 
 <span class="sd">        This method creates labeled input fields for the lyrics title and</span>
 <span class="sd">        multiline lyrics content, arranges them vertically, and registers</span>
-<span class="sd">        the title input with `SlideInputSubmitter` to enable automatic</span>
+<span class="sd">        the title input with :class:`core.generator.utils.slide_input_submitter.SlideInputSubmitter` to enable automatic</span>
 <span class="sd">        submission.</span>
 
 <span class="sd">        Args:</span>
@@ -182,7 +183,7 @@
 <a class="viewcode-back" href="../../../../../core.generator.ui.contents.lyrics_content.html#core.generator.ui.contents.lyrics_content.LyricsContent.build_lyrics_slide">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">build_lyrics_slide</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Conditionally generate lyrics slide data.</span>
+<span class="sd">        Conditionally generate &quot;lyrics&quot;-style slide data.</span>
 
 <span class="sd">        If both the title and lyrics fields are empty, no slide data is</span>
 <span class="sd">        generated. Otherwise, the current input values are returned as a</span>
@@ -206,7 +207,7 @@
 <a class="viewcode-back" href="../../../../../core.generator.ui.contents.lyrics_content.html#core.generator.ui.contents.lyrics_content.LyricsContent.get_slide_data">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_slide_data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Generate the slide data dictionary for a lyrics slide.</span>
+<span class="sd">        Generate the slide data dictionary for a &quot;lyrics&quot;-style slide.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            None</span>
@@ -214,6 +215,7 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            dict:</span>
 <span class="sd">                Dictionary representing the lyrics slide, including:</span>
+
 <span class="sd">                - style</span>
 <span class="sd">                - caption (song title)</span>
 <span class="sd">                - headline (raw lyrics text)</span>

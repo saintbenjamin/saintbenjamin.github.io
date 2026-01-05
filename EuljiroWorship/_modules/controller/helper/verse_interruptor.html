@@ -86,7 +86,7 @@
 <span class="sd">monitor the project base directory for changes to the :py:data:`core.config.paths.VERSE_FILE`, then</span>
 <span class="sd">parses the content into one or more slide dictionaries.</span>
 
-<span class="sd">Key behaviors</span>
+<span class="sd">Key behaviors:</span>
 
 <span class="sd">- If the last line looks like a structured Bible reference header, it generates</span>
 <span class="sd">  per-verse slides with wrapped lines (`textwrap.wrap &lt;https://docs.python.org/3/library/textwrap.html#textwrap.wrap&gt;`_) and style &quot;verse&quot;.</span>
@@ -126,11 +126,11 @@
 <span class="sd">    - Structured mode: If the last line matches one of the expected header forms (e.g., &quot;(&lt;book&gt; &lt;chapter&gt;장 ...&quot;, &quot;(&lt;book&gt; &lt;chapter&gt;:&lt;verse&gt;, ...&quot;), the earlier lines are treated as verse body lines. Each verse line is wrapped to ``max_chars`` and converted into style &quot;verse&quot; slides.</span>
 <span class="sd">    - Fallback mode: If no header pattern matches, the entire file is treated as a free-form emergency message. Non-empty lines are grouped into slides (up to 2 lines per slide or until the approximate character budget is met) using style &quot;lyrics&quot; and a fixed church caption.</span>
 
-<span class="sd">    Notes:</span>
+<span class="sd">    Note:</span>
 <span class="sd">        - This function does not validate that the file is a real Bible reference.</span>
 <span class="sd">          It only checks header patterns and then formats accordingly.</span>
 <span class="sd">        - The caption format in structured mode follows the current implementation</span>
-<span class="sd">          (e.g., &quot;&lt;book&gt; &lt;chapter&gt;장 &lt;verse&gt;절&quot;).</span>
+<span class="sd">          (e.g., ``&lt;book&gt; &lt;chapter&gt;장 &lt;verse&gt;절``).</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        file_path (str):</span>

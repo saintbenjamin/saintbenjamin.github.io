@@ -126,17 +126,21 @@ rendered as a single overlay line by splitting text into display-friendly units.
 <dt class="sig sig-object py" id="core.generator.utils.text_splitter.split_by_length">
 <span class="sig-prename descclassname"><span class="pre">core.generator.utils.text_splitter.</span></span><span class="sig-name descname"><span class="pre">split_by_length</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_chars</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">60</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/utils/text_splitter.html#split_by_length"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.utils.text_splitter.split_by_length" title="Link to this definition"></a></dt>
 <dd><p>Split a text string into multiple chunks constrained by a maximum character length.</p>
-<p>This helper uses Python’s <cite>textwrap.wrap()</cite> to break a long string into
+<p>This helper uses Python’s <a class="reference external" href="https://docs.python.org/3/library/textwrap.html#textwrap.wrap">textwrap.wrap</a> to break a long string into
 word-aware segments. Line breaks are inserted at appropriate word boundaries
 whenever possible, ensuring that each resulting chunk does not exceed
-<cite>max_chars</cite> characters.</p>
-<p>This function is intentionally simple and presentation-oriented:
-- It does not preserve original newlines.
-- It does not apply hyphenation.
-- It assumes the input text is a single logical paragraph.</p>
-<p>Typical use cases include:
-- Splitting long Bible verses for overlay display.
-- Breaking lyrics or responsive readings into readable slide units.</p>
+<code class="docutils literal notranslate"><span class="pre">max_chars</span></code> characters.</p>
+<p>This function is intentionally simple and presentation-oriented:</p>
+<ul class="simple">
+<li><p>It does not preserve original newlines.</p></li>
+<li><p>It does not apply hyphenation.</p></li>
+<li><p>It assumes the input text is a single logical paragraph.</p></li>
+</ul>
+<p>Typical use cases include:</p>
+<ul class="simple">
+<li><p>Splitting long Bible verses for overlay display.</p></li>
+<li><p>Breaking lyrics or responsive readings into readable slide units.</p></li>
+</ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">

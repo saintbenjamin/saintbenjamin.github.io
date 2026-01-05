@@ -79,14 +79,14 @@
 <span class="sd">:E-mail: euljirochurch [at] G.M.A.I.L. (replace [at] with @ and G.M.A.I.L as you understood.)</span>
 <span class="sd">:License: MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</span>
 
-<span class="sd">UI content widget for editing &#39;anthem&#39; style slides.</span>
+<span class="sd">UI content widget for editing &quot;anthem&quot; style slides.</span>
 
-<span class="sd">This module defines `AnthemContent`, a QWidget responsible for collecting</span>
-<span class="sd">input data required to generate an anthem-style slide. The widget provides</span>
+<span class="sd">This module defines :class:`core.generator.ui.contents.anthem_content.AnthemContent`, a `QWidget` responsible for collecting</span>
+<span class="sd">input data required to generate an &quot;anthem&quot;-style slide. The widget provides</span>
 <span class="sd">fields for specifying the choir name and the anthem title, and converts the</span>
 <span class="sd">input into a standardized slide dictionary used by the generator.</span>
 
-<span class="sd">The widget integrates with `SlideInputSubmitter` to support automatic</span>
+<span class="sd">The widget integrates with :class:`core.generator.utils.slide_input_submitter.SlideInputSubmitter` to support automatic</span>
 <span class="sd">submission and synchronization with the parent generator window.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
@@ -97,14 +97,15 @@
 <a class="viewcode-back" href="../../../../../core.generator.ui.contents.anthem_content.html#core.generator.ui.contents.anthem_content.AnthemContent">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">AnthemContent</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Content editor widget for &#39;anthem&#39; style slides.</span>
+<span class="sd">    Content editor widget for &quot;anthem&quot; style slides.</span>
 
 <span class="sd">    This widget provides input fields for:</span>
+
 <span class="sd">    - Choir or group name</span>
 <span class="sd">    - Anthem title</span>
 
 <span class="sd">    The collected input is transformed into a slide dictionary containing</span>
-<span class="sd">    `caption`, `caption_choir`, and `headline` fields, which are later used</span>
+<span class="sd">    ``caption``, ``caption_choir``, and ``headline`` fields, which are later used</span>
 <span class="sd">    by the slide exporter and controller.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -139,11 +140,11 @@
 <a class="viewcode-back" href="../../../../../core.generator.ui.contents.anthem_content.html#core.generator.ui.contents.anthem_content.AnthemContent.build_ui">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">build_ui</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Construct the UI elements for editing an anthem slide.</span>
+<span class="sd">        Construct the UI elements for editing an &quot;anthem&quot;-style slide.</span>
 
 <span class="sd">        This method builds input fields for the choir name and anthem title,</span>
 <span class="sd">        arranges them vertically, and registers the inputs with</span>
-<span class="sd">        `SlideInputSubmitter` to enable automatic submission and synchronization</span>
+<span class="sd">        :class:`core.generator.utils.slide_input_submitter.SlideInputSubmitter` to enable automatic submission and synchronization</span>
 <span class="sd">        with the generator window.</span>
 
 <span class="sd">        Args:</span>
@@ -224,6 +225,7 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            dict:</span>
 <span class="sd">                Dictionary representing the anthem slide, including:</span>
+
 <span class="sd">                - style</span>
 <span class="sd">                - caption</span>
 <span class="sd">                - caption_choir</span>

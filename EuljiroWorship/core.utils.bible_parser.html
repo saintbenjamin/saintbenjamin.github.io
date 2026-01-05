@@ -122,12 +122,17 @@
 user-entered Bible reference strings into structured components
 (book ID, chapter, verse range).</p>
 <p>Key responsibilities:</p>
-<ul class="simple">
+<ul>
 <li><p>Resolve book name aliases into canonical internal IDs</p></li>
-<li><p>Parse flexible reference formats such as:
-- “요 3”
-- “요한복음 3:16”
-- “John 3:14-16”</p></li>
+<li><p>Parse flexible reference formats such as:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>“요 3”</p></li>
+<li><p>“요한복음 3:16”</p></li>
+<li><p>“John 3:14-16”</p></li>
+</ul>
+</div></blockquote>
+</li>
 <li><p>Support chapter-only references and full verse ranges</p></li>
 </ul>
 <p>The parser is intentionally permissive and designed for use in
@@ -136,10 +141,12 @@ both CLI and GUI contexts.</p>
 <dt class="sig sig-object py" id="core.utils.bible_parser.resolve_book_name">
 <span class="sig-prename descclassname"><span class="pre">core.utils.bible_parser.</span></span><span class="sig-name descname"><span class="pre">resolve_book_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lang_map</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lang_code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ko'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/utils/bible_parser.html#resolve_book_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.utils.bible_parser.resolve_book_name" title="Link to this definition"></a></dt>
 <dd><p>Resolve a user-provided book name to a canonical internal book ID.</p>
-<p>This function attempts resolution using multiple strategies:
-1. Direct alias matching from <cite>BOOK_ALIASES</cite>
-2. Reverse matching against canonical IDs
-3. Optional fallback using localized names from <cite>standard_book.json</cite></p>
+<p>This function attempts resolution using multiple strategies:</p>
+<ol class="arabic simple">
+<li><p>Direct alias matching from <code class="docutils literal notranslate"><span class="pre">BOOK_ALIASES</span></code></p></li>
+<li><p>Reverse matching against canonical IDs</p></li>
+<li><p>Optional fallback using localized names from <a class="reference internal" href="core.config.paths.html#core.config.paths.STANDARD_BOOK_FILE" title="core.config.paths.STANDARD_BOOK_FILE"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.STANDARD_BOOK_FILE</span></code></a></p></li>
+</ol>
 <p>All comparisons are performed using normalized strings
 (lowercased, whitespace and dot characters removed).</p>
 <dl class="field-list simple">
@@ -168,15 +175,19 @@ or None if no match is found.</p>
 <span class="sig-prename descclassname"><span class="pre">core.utils.bible_parser.</span></span><span class="sig-name descname"><span class="pre">parse_reference</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/utils/bible_parser.html#parse_reference"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.utils.bible_parser.parse_reference" title="Link to this definition"></a></dt>
 <dd><p>Parse a Bible reference string into structured components.</p>
 <dl class="simple">
-<dt>Supported input formats include:</dt><dd><p>“&lt;book&gt; &lt;chapter&gt;”
-“&lt;book&gt; &lt;chapter&gt;:&lt;verse&gt;”
-“&lt;book&gt; &lt;chapter&gt;:&lt;start&gt;-&lt;end&gt;”</p>
+<dt>Supported input formats include:</dt><dd><ul class="simple">
+<li><p>“&lt;book&gt; &lt;chapter&gt;”</p></li>
+<li><p>“&lt;book&gt; &lt;chapter&gt;:&lt;verse&gt;”</p></li>
+<li><p>“&lt;book&gt; &lt;chapter&gt;:&lt;start&gt;-&lt;end&gt;”</p></li>
+</ul>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<p>“요 3”
-“요한복음 3:16”
-“John 3:14-16”</p>
+<ul class="simple">
+<li><p>“요 3”</p></li>
+<li><p>“요한복음 3:16”</p></li>
+<li><p>“John 3:14-16”</p></li>
+</ul>
 <p>If only a chapter is provided, the verse range is interpreted
 as the full chapter.</p>
 <dl class="field-list simple">
@@ -184,8 +195,8 @@ as the full chapter.</p>
 <dd class="field-odd"><p><strong>text</strong> (<em>str</em>) – Raw reference string entered by the user.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><p>A tuple of (book_id, chapter_number, verse_range),
-where verse_range is (start, end) and end == -1
+<dd class="field-even"><p><p>A tuple of <code class="docutils literal notranslate"><span class="pre">(book_id,</span> <span class="pre">chapter_number,</span> <span class="pre">verse_range)</span></code>,
+where <code class="docutils literal notranslate"><span class="pre">verse_range</span></code> is <code class="docutils literal notranslate"><span class="pre">(start,</span> <span class="pre">end)</span></code> and <code class="docutils literal notranslate"><span class="pre">end</span> <span class="pre">==</span> <span class="pre">-1</span></code>
 indicates the full chapter.</p>
 <p>Returns None if parsing or resolution fails.</p>
 </p>

@@ -119,8 +119,8 @@
 <dd class="field-odd"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
 </dd>
 </dl>
-<p>UI content widget for editing ‘verse’ style slides.</p>
-<p>This module defines <cite>VerseContent</cite>, a QWidget that provides an interface
+<p>UI content widget for editing “verse”-style slides.</p>
+<p>This module defines <a class="reference internal" href="#core.generator.ui.contents.verse_content.VerseContent" title="core.generator.ui.contents.verse_content.VerseContent"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.generator.ui.contents.verse_content.VerseContent</span></code></a>, a <cite>QWidget</cite> that provides an interface
 for entering Bible references, fetching the corresponding verses from
 the internal Bible data engine, and previewing the formatted output.</p>
 <p>The widget supports:</p>
@@ -128,17 +128,17 @@ the internal Bible data engine, and previewing the formatted output.</p>
 <li><p>Selecting a Bible version</p></li>
 <li><p>Parsing and validating Scripture references</p></li>
 <li><p>Expanding verse ranges and full chapters</p></li>
-<li><p>Writing fetched verses to <cite>verse_output.txt</cite> for emergency overlay use</p></li>
+<li><p>Writing fetched verses to <a class="reference internal" href="core.config.paths.html#core.config.paths.VERSE_FILE" title="core.config.paths.VERSE_FILE"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.VERSE_FILE</span></code></a> for emergency overlay use</p></li>
 </ul>
 <dl class="py class">
 <dt class="sig sig-object py" id="core.generator.ui.contents.verse_content.VerseContent">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.ui.contents.verse_content.</span></span><span class="sig-name descname"><span class="pre">VerseContent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/verse_content.html#VerseContent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.verse_content.VerseContent" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
-<p>Content editor widget for ‘verse’ (Bible verse) slides.</p>
+<p>Content editor widget for “verse” (Bible verse) slides.</p>
 <p>This widget allows the user to input a Bible reference
 (e.g., “요한복음 3:16”), fetch the corresponding verse text from
 the selected Bible version, and preview the formatted output.</p>
-<p>The fetched verses are also written to <cite>verse_output.txt</cite> to support
+<p>The fetched verses are also written to <a class="reference internal" href="core.config.paths.html#core.config.paths.VERSE_FILE" title="core.config.paths.VERSE_FILE"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.VERSE_FILE</span></code></a> to support
 emergency subtitle overlays.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -172,10 +172,12 @@ and synchronization.</p></li>
 <dt class="sig sig-object py" id="core.generator.ui.contents.verse_content.VerseContent.build_ui">
 <span class="sig-name descname"><span class="pre">build_ui</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/verse_content.html#VerseContent.build_ui"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.verse_content.VerseContent.build_ui" title="Link to this definition"></a></dt>
 <dd><p>Construct the UI layout for verse editing.</p>
-<p>The layout includes:
-- A Bible version selector
-- A reference input field
-- A multi-line text preview for verse content</p>
+<p>The layout includes:</p>
+<ul class="simple">
+<li><p>A Bible version selector</p></li>
+<li><p>A reference input field</p></li>
+<li><p>A multi-line text preview for verse content</p></li>
+</ul>
 <p>The reference input is connected to dynamic verse fetching when
 the user presses Enter.</p>
 </dd></dl>
@@ -184,12 +186,14 @@ the user presses Enter.</p>
 <dt class="sig sig-object py" id="core.generator.ui.contents.verse_content.VerseContent.try_fetch_verse_output">
 <span class="sig-name descname"><span class="pre">try_fetch_verse_output</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/verse_content.html#VerseContent.try_fetch_verse_output"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.verse_content.VerseContent.try_fetch_verse_output" title="Link to this definition"></a></dt>
 <dd><p>Fetch and display Bible verses based on the entered reference.</p>
-<p>This method:
-- Parses the reference string
-- Loads the selected Bible version
-- Expands verse ranges or full chapters if needed
-- Formats and displays the verse text
-- Writes the output to <cite>verse_output.txt</cite></p>
+<p>This method:</p>
+<ul class="simple">
+<li><p>Parses the reference string</p></li>
+<li><p>Loads the selected Bible version</p></li>
+<li><p>Expands verse ranges or full chapters if needed</p></li>
+<li><p>Formats and displays the verse text</p></li>
+<li><p>Writes the output to <a class="reference internal" href="core.config.paths.html#core.config.paths.VERSE_FILE" title="core.config.paths.VERSE_FILE"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.VERSE_FILE</span></code></a></p></li>
+</ul>
 <p>Displays an error message in the preview area if parsing or loading fails.</p>
 </dd></dl>
 
@@ -215,10 +219,13 @@ is non-empty.</p>
 <dd><p>Return the current verse slide data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Dictionary containing:
-- style: ‘verse’
-- caption: Bible reference string
-- headline: Verse text content</p>
+<dd class="field-odd"><p><p>Dictionary containing:</p>
+<ul class="simple">
+<li><p>style: “verse”</p></li>
+<li><p>caption: Bible reference string</p></li>
+<li><p>headline: Verse text content</p></li>
+</ul>
+</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>dict</p>

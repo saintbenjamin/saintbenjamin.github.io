@@ -119,7 +119,7 @@ written to <a class="reference internal" href="core.config.paths.html#core.confi
 <p>This module runs as a small background helper process. It uses <a class="reference external" href="https://pypi.org/project/watchdog/">watchdog</a> to
 monitor the project base directory for changes to the <a class="reference internal" href="core.config.paths.html#core.config.paths.VERSE_FILE" title="core.config.paths.VERSE_FILE"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.VERSE_FILE</span></code></a>, then
 parses the content into one or more slide dictionaries.</p>
-<p>Key behaviors</p>
+<p>Key behaviors:</p>
 <ul class="simple">
 <li><p>If the last line looks like a structured Bible reference header, it generates
 per-verse slides with wrapped lines (<a class="reference external" href="https://docs.python.org/3/library/textwrap.html#textwrap.wrap">textwrap.wrap</a>) and style “verse”.</p></li>
@@ -137,13 +137,15 @@ style “lyrics” slides grouped by up to 2 lines (or by character budget).</p>
 <li><p>Structured mode: If the last line matches one of the expected header forms (e.g., “(&lt;book&gt; &lt;chapter&gt;장 …”, “(&lt;book&gt; &lt;chapter&gt;:&lt;verse&gt;, …”), the earlier lines are treated as verse body lines. Each verse line is wrapped to <code class="docutils literal notranslate"><span class="pre">max_chars</span></code> and converted into style “verse” slides.</p></li>
 <li><p>Fallback mode: If no header pattern matches, the entire file is treated as a free-form emergency message. Non-empty lines are grouped into slides (up to 2 lines per slide or until the approximate character budget is met) using style “lyrics” and a fixed church caption.</p></li>
 </ul>
-<p class="rubric">Notes</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <ul class="simple">
 <li><p>This function does not validate that the file is a real Bible reference.
 It only checks header patterns and then formats accordingly.</p></li>
 <li><p>The caption format in structured mode follows the current implementation
-(e.g., “&lt;book&gt; &lt;chapter&gt;장 &lt;verse&gt;절”).</p></li>
+(e.g., <code class="docutils literal notranslate"><span class="pre">&lt;book&gt;</span> <span class="pre">&lt;chapter&gt;장</span> <span class="pre">&lt;verse&gt;절</span></code>).</p></li>
 </ul>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">

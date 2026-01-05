@@ -119,7 +119,7 @@
 </dd>
 </dl>
 <p>Main window class for the EuljiroWorship slide generator GUI.</p>
-<p>This module defines the main Qt window (<cite>SlideGenerator</cite>) that drives the
+<p>This module defines the main Qt window (<a class="reference internal" href="#core.generator.ui.slide_generator.SlideGenerator" title="core.generator.ui.slide_generator.SlideGenerator"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.generator.ui.slide_generator.SlideGenerator</span></code></a>) that drives the
 slide authoring workflow:</p>
 <ul class="simple">
 <li><p>Manage a table of slides (add/insert/delete/reorder).</p></li>
@@ -129,59 +129,60 @@ slide authoring workflow:</p>
 <li><p>Open and apply persistent generator settings (fonts, paths, etc.).</p></li>
 </ul>
 <p>The generator is typically launched from the project entry point
-(<cite>EuljiroWorship.py</cite>) and interacts with a slide controller process
+(<code class="docutils literal notranslate"><span class="pre">EuljiroWorship.py</span></code>) and interacts with a slide controller process
 through exported JSON and the WebSocket-based overlay pipeline.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.ui.slide_generator.</span></span><span class="sig-name descname"><span class="pre">SlideGenerator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QMainWindow</span></code></p>
-<p>Main window for the EuljiroWorship slide generator (PySide6/Qt).</p>
-<p>The generator provides a table-based slide session editor and supports:
-- Creating, inserting, deleting, and reordering slide rows in a table
-- Editing each slide via a style-specific modal dialog (on double-click)
-- Loading/saving slide sessions as JSON files
-- Exporting an overlay-ready JSON (prepends a blank slide for clean initial state)
-- Launching the slide controller for live output (if not already running)</p>
-<section id="core-collaborators-high-level">
-<h2>Core collaborators (high-level)<a class="headerlink" href="#core-collaborators-high-level" title="Link to this heading"></a></h2>
+<p>Main window for the EuljiroWorship slide generator (<a class="reference external" href="https://pypi.org/project/PySide6/">PySide6</a> / Qt).</p>
+<p>The generator provides a table-based slide session editor and supports:</p>
+<ul class="simple">
+<li><p>Creating, inserting, deleting, and reordering slide rows in a table</p></li>
+<li><p>Editing each slide via a style-specific modal dialog (on double-click)</p></li>
+<li><p>Loading/saving slide sessions as JSON files</p></li>
+<li><p>Exporting an overlay-ready JSON (prepends a blank slide for clean initial state)</p></li>
+<li><p>Launching the slide controller for live output (if not already running)</p></li>
+</ul>
+<p>Core collaborators (high-level):</p>
 <ul class="simple">
 <li><dl class="simple">
-<dt>SlideTableManager:</dt><dd><p>Owns table row operations (add/insert/delete/move) for the main table widget.</p>
+<dt><a class="reference internal" href="core.generator.ui.slide_table_manager.html#core.generator.ui.slide_table_manager.SlideTableManager" title="core.generator.ui.slide_table_manager.SlideTableManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.generator.ui.slide_table_manager.SlideTableManager</span></code></a>:</dt><dd><p>Owns table row operations (add/insert/delete/move) for the main table widget.</p>
 </dd>
 </dl>
 </li>
 <li><dl class="simple">
-<dt>SlideGeneratorDataManager:</dt><dd><p>Loads/saves and collects slide session data from the table.</p>
+<dt><a class="reference internal" href="core.generator.utils.slide_generator_data_manager.html#core.generator.utils.slide_generator_data_manager.SlideGeneratorDataManager" title="core.generator.utils.slide_generator_data_manager.SlideGeneratorDataManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.generator.utils.slide_generator_data_manager.SlideGeneratorDataManager</span></code></a>:</dt><dd><p>Loads/saves and collects slide session data from the table.</p>
 </dd>
 </dl>
 </li>
 <li><dl class="simple">
-<dt>SlideExporter:</dt><dd><p>Converts the internal slide session into the overlay JSON format.</p>
+<dt><a class="reference internal" href="core.generator.utils.slide_exporter.html#core.generator.utils.slide_exporter.SlideExporter" title="core.generator.utils.slide_exporter.SlideExporter"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.generator.utils.slide_exporter.SlideExporter</span></code></a>:</dt><dd><p>Converts the internal slide session into the overlay JSON format.</p>
 </dd>
 </dl>
 </li>
 <li><dl class="simple">
-<dt>SlideControllerLauncher:</dt><dd><p>Launches the controller process/UI that pushes slides to the overlay target.</p>
+<dt><a class="reference internal" href="core.plugin.slide_controller_launcher.html#core.plugin.slide_controller_launcher.SlideControllerLauncher" title="core.plugin.slide_controller_launcher.SlideControllerLauncher"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.plugin.slide_controller_launcher.SlideControllerLauncher</span></code></a>:</dt><dd><p>Launches the controller process/UI that pushes slides to the overlay target.</p>
 </dd>
 </dl>
 </li>
 </ul>
-</section>
-<section id="notes">
-<h2>Notes<a class="headerlink" href="#notes" title="Link to this heading"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <ul class="simple">
-<li><p>On startup, this window may show a file-open dialog to load an existing session.
-If the user cancels, a blank session is created.</p></li>
+<li><p>On startup, this window may show a file-open dialog to load an existing session. If the user cancels, a blank session is created.</p></li>
 </ul>
+</div>
 <dl class="py method">
 <dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator.__init__" title="Link to this definition"></a></dt>
 <dd><p>Construct the main generator window and initialize the UI state.</p>
-<p>This initializer:
-- Creates and configures the main slide table widget
-- Initializes core helper components (table manager, data manager, UI builder, launcher)
-- Prompts the user to load an existing slide session via an OS file dialog
-(if canceled, starts with a blank session)</p>
+<p>This initializer:</p>
+<ul class="simple">
+<li><p>Creates and configures the main slide table widget</p></li>
+<li><p>Initializes core helper components (table manager, data manager, UI builder, launcher)</p></li>
+<li><p>Prompts the user to load an existing slide session via an OS file dialog (if canceled, starts with a blank session)</p></li>
+</ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>None</strong></p>
@@ -198,7 +199,7 @@ If the user cancels, a blank session is created.</p></li>
 <dd><p>Save the current slide session to the last saved path.</p>
 <p>If no previous save path exists, a timestamp-based filename is generated
 in the current working directory. The session data is collected from the
-table via <code class="docutils literal notranslate"><span class="pre">SlideGeneratorDataManager.collect_slide_data()</span></code> and written
+table via <a class="reference internal" href="core.generator.utils.slide_generator_data_manager.html#core.generator.utils.slide_generator_data_manager.SlideGeneratorDataManager.collect_slide_data" title="core.generator.utils.slide_generator_data_manager.SlideGeneratorDataManager.collect_slide_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">core.generator.utils.slide_generator_data_manager.SlideGeneratorDataManager.collect_slide_data()</span></code></a> and written
 as UTF-8 JSON.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -214,10 +215,11 @@ as UTF-8 JSON.</p>
 <dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator.handle_ctrl_s">
 <span class="sig-name descname"><span class="pre">handle_ctrl_s</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator.handle_ctrl_s"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator.handle_ctrl_s" title="Link to this definition"></a></dt>
 <dd><p>Handle the Ctrl+S shortcut for saving.</p>
-<p>Behavior:
-- If this is the first save in the current session (or no prior save path exists),
-triggers a “save as” flow that prompts the user for a path.
-- Otherwise, saves to the last known path and shows a confirmation dialog.</p>
+<p>Behavior:</p>
+<ul class="simple">
+<li><p>If this is the first save in the current session (or no prior save path exists), triggers a “save as” flow that prompts the user for a path.</p></li>
+<li><p>Otherwise, saves to the last known path and shows a confirmation dialog.</p></li>
+</ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>None</strong></p>
@@ -235,10 +237,12 @@ triggers a “save as” flow that prompts the user for a path.
 <p>If <code class="docutils literal notranslate"><span class="pre">path</span></code> is None, an OS file-open dialog is shown. The initial directory
 is derived from the last opened file record (if available); otherwise the
 current working directory is used.</p>
-<p>After loading:
-- The table is populated via the data manager
-- The worship/session name label is updated from the filename stem
-- <code class="docutils literal notranslate"><span class="pre">first_save_done</span></code> is reset so the next Ctrl+S follows the intended flow</p>
+<p>After loading:</p>
+<ul class="simple">
+<li><p>The table is populated via the data manager</p></li>
+<li><p>The worship/session name label is updated from the filename stem</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">first_save_done</span></code> is reset so the next Ctrl+S follows the intended flow</p></li>
+</ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>path</strong> (<em>str</em><em> | </em><em>None</em>) – Absolute or relative path to the JSON file. If None, a dialog is shown.</p>
@@ -273,12 +277,13 @@ save path exists.</p>
 <dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator.save_to_file">
 <span class="sig-name descname"><span class="pre">save_to_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_dialog</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator.save_to_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator.save_to_file" title="Link to this definition"></a></dt>
 <dd><p>Save the current slide session as a JSON file.</p>
-<p>Save destination selection rules:
-- If <code class="docutils literal notranslate"><span class="pre">path</span></code> is provided, saves directly to that path.
-- Else if <code class="docutils literal notranslate"><span class="pre">force_dialog</span></code> is False and <code class="docutils literal notranslate"><span class="pre">self.last_saved_path</span></code> exists,
-saves to <code class="docutils literal notranslate"><span class="pre">self.last_saved_path</span></code> without prompting.
-- Otherwise, opens an OS file-save dialog and saves to the chosen path.</p>
-<p>The slide session is collected via <code class="docutils literal notranslate"><span class="pre">SlideGeneratorDataManager.collect_slide_data()</span></code>
+<p>Save destination selection rules:</p>
+<ul class="simple">
+<li><p>If <code class="docutils literal notranslate"><span class="pre">path</span></code> is provided, saves directly to that path.</p></li>
+<li><p>Else if <code class="docutils literal notranslate"><span class="pre">force_dialog</span></code> is False and <code class="docutils literal notranslate"><span class="pre">self.last_saved_path</span></code> exists, saves to <code class="docutils literal notranslate"><span class="pre">self.last_saved_path</span></code> without prompting.</p></li>
+<li><p>Otherwise, opens an OS file-save dialog and saves to the chosen path.</p></li>
+</ul>
+<p>The slide session is collected via <a class="reference internal" href="core.generator.utils.slide_generator_data_manager.html#core.generator.utils.slide_generator_data_manager.SlideGeneratorDataManager.collect_slide_data" title="core.generator.utils.slide_generator_data_manager.SlideGeneratorDataManager.collect_slide_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">core.generator.utils.slide_generator_data_manager.SlideGeneratorDataManager.collect_slide_data()</span></code></a>
 and written as UTF-8 JSON.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -318,12 +323,14 @@ False otherwise.</p>
 <dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator.export_slides_for_overlay">
 <span class="sig-name descname"><span class="pre">export_slides_for_overlay</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator.export_slides_for_overlay"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator.export_slides_for_overlay" title="Link to this definition"></a></dt>
 <dd><p>Export the current session into overlay-ready JSON and launch the controller.</p>
-<p>Steps:
-1) Collect slide session data from the table.
-2) Prepend a blank slide to ensure a clean initial screen.
-3) Convert slides into overlay format via <code class="docutils literal notranslate"><span class="pre">SlideExporter</span></code>.
-4) Write the exported JSON to <code class="docutils literal notranslate"><span class="pre">paths.SLIDE_FILE</span></code> (UTF-8).
-5) Launch the slide controller if it is not already running.</p>
+<p>Steps:</p>
+<ol class="arabic simple">
+<li><p>Collect slide session data from the table.</p></li>
+<li><p>Prepend a blank slide to ensure a clean initial screen.</p></li>
+<li><p>Convert slides into overlay format via <a class="reference internal" href="core.generator.utils.slide_exporter.html#core.generator.utils.slide_exporter.SlideExporter" title="core.generator.utils.slide_exporter.SlideExporter"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.generator.utils.slide_exporter.SlideExporter</span></code></a>.</p></li>
+<li><p>Write the exported JSON to <a class="reference internal" href="core.config.paths.html#core.config.paths.SLIDE_FILE" title="core.config.paths.SLIDE_FILE"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.SLIDE_FILE</span></code></a> (UTF-8).</p></li>
+<li><p>Launch the slide controller if it is not already running.</p></li>
+</ol>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>None</strong></p>
@@ -338,12 +345,13 @@ False otherwise.</p>
 <dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator.handle_table_double_click">
 <span class="sig-name descname"><span class="pre">handle_table_double_click</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator.handle_table_double_click"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator.handle_table_double_click" title="Link to this definition"></a></dt>
 <dd><p>Open the style-specific slide editor dialog for the selected table row.</p>
-<p>This method:
-- Reads the current style/caption/headline values from the table row
-- Converts the displayed style label into an internal style key
-- Opens <code class="docutils literal notranslate"><span class="pre">SlideGeneratorDialog</span></code> as a modal editor
-- If the user accepts, writes the updated values back into the table
-and triggers a save flow</p>
+<p>This method:</p>
+<ul class="simple">
+<li><p>Reads the current style/caption/headline values from the table row</p></li>
+<li><p>Converts the displayed style label into an internal style key</p></li>
+<li><p>Opens <a class="reference internal" href="core.generator.ui.slide_generator_dialog.html#core.generator.ui.slide_generator_dialog.SlideGeneratorDialog" title="core.generator.ui.slide_generator_dialog.SlideGeneratorDialog"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.generator.ui.slide_generator_dialog.SlideGeneratorDialog</span></code></a> as a modal editor</p></li>
+<li><p>If the user accepts, writes the updated values back into the table and triggers a save flow</p></li>
+</ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -361,9 +369,11 @@ and triggers a save flow</p>
 <dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator.open_settings_dialog">
 <span class="sig-name descname"><span class="pre">open_settings_dialog</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator.open_settings_dialog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator.open_settings_dialog" title="Link to this definition"></a></dt>
 <dd><p>Open the generator settings dialog and apply changes if accepted.</p>
-<p>If the dialog is accepted:
-- Settings are persisted via the dialog’s save routine
-- Font settings are (intended to be) applied to the generator UI</p>
+<p>If the dialog is accepted:</p>
+<ul class="simple">
+<li><p>Settings are persisted via the dialog’s save routine</p></li>
+<li><p>Font settings are (intended to be) applied to the generator UI</p></li>
+</ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>None</strong></p>
@@ -378,10 +388,12 @@ and triggers a save flow</p>
 <dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator.apply_generator_font_settings">
 <span class="sig-name descname"><span class="pre">apply_generator_font_settings</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator.apply_generator_font_settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator.apply_generator_font_settings" title="Link to this definition"></a></dt>
 <dd><p>Apply the current persistent font settings to the generator UI.</p>
-<p>Reads the generator settings and constructs a <code class="docutils literal notranslate"><span class="pre">QFont</span></code> using:
-- <code class="docutils literal notranslate"><span class="pre">font_family</span></code> (default: “Malgun Gothic”)
-- <code class="docutils literal notranslate"><span class="pre">font_size</span></code>   (default: 24)
-- <code class="docutils literal notranslate"><span class="pre">font_weight</span></code> (default: “Normal”; “Bold” enables bold)</p>
+<p>Reads the generator settings and constructs a <cite>QFont</cite> using:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">font_family</span></code> (default: “Malgun Gothic”)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">font_size</span></code>   (default: 24)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">font_weight</span></code> (default: “Normal”; “Bold” enables bold)</p></li>
+</ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>None</strong></p>
@@ -392,7 +404,6 @@ and triggers a save flow</p>
 </dl>
 </dd></dl>
 
-</section>
 </dd></dl>
 
 </section>

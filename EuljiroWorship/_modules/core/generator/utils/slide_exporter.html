@@ -82,7 +82,7 @@
 <span class="sd">Slide export pipeline for converting generator slide data into</span>
 <span class="sd">overlay-ready slide blocks.</span>
 
-<span class="sd">This module defines the SlideExporter class, which takes structured</span>
+<span class="sd">This module defines the :class:`core.generator.utils.slide_exporter.SlideExporter` class, which takes structured</span>
 <span class="sd">slide dictionaries produced by the generator UI and transforms them</span>
 <span class="sd">into a flattened sequence of slides suitable for real-time overlay</span>
 <span class="sd">display. The exporter applies style-specific rules such as line</span>
@@ -144,7 +144,7 @@
 <span class="sd">        Args:</span>
 <span class="sd">            settings (dict | None):</span>
 <span class="sd">                Optional configuration dictionary.</span>
-<span class="sd">                If provided, &quot;max_chars&quot; controls the maximum number of</span>
+<span class="sd">                If provided, ``max_chars`` controls the maximum number of</span>
 <span class="sd">                characters allowed per exported text block.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">max_chars</span> <span class="o">=</span> <span class="p">(</span><span class="n">settings</span> <span class="ow">or</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;max_chars&quot;</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span></div>
@@ -164,6 +164,7 @@
 <span class="sd">            raw_slides (list[dict]):</span>
 <span class="sd">                List of slide dictionaries produced by the generator.</span>
 <span class="sd">                Each dictionary is expected to include at least:</span>
+
 <span class="sd">                - &quot;style&quot;</span>
 <span class="sd">                - &quot;caption&quot;</span>
 <span class="sd">                - &quot;headline&quot;</span>
@@ -274,7 +275,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Split a text string into smaller chunks by character count.</span>
 
-<span class="sd">        This helper delegates to `split_by_length`, using the configured</span>
+<span class="sd">        This helper delegates to :func:`core.generator.utils.text_splitter.split_by_length`, using the configured</span>
 <span class="sd">        maximum character length for exported slides.</span>
 
 <span class="sd">        Args:</span>

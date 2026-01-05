@@ -119,7 +119,7 @@
 </dd>
 </dl>
 <p>Data management layer for the slide generator table UI.</p>
-<p>This module defines SlideGeneratorDataManager, which is responsible for
+<p>This module defines <code class="xref py py-class docutils literal notranslate"><span class="pre">core.generator.utils.slide_generator_data?manager.SlideGeneratorDataManager</span></code>, which is responsible for
 loading slide data from JSON files into the generator table, collecting
 edited table contents back into structured slide dictionaries, and
 handling style-specific normalization (e.g., anthem choir names,
@@ -136,7 +136,7 @@ Bible verse formatting).</p>
 <p>Manage slide data exchange between JSON files and the generator table UI.</p>
 <p>This class provides a thin data-adapter layer between JSON-based slide
 definitions and the generator table widget. It loads slide JSON data into the
-<code class="docutils literal notranslate"><span class="pre">QTableWidget</span></code> and converts table rows back into structured slide
+<cite>QTableWidget</cite> and converts table rows back into structured slide
 dictionaries. It also performs style-specific preprocessing and normalization,
 such as handling anthem choir names and verse formatting.</p>
 <p>This class intentionally contains no UI logic beyond table population.</p>
@@ -160,22 +160,20 @@ such as handling anthem choir names and verse formatting.</p>
 <dt class="sig sig-object py" id="core.generator.utils.slide_generator_data_manager.SlideGeneratorDataManager.load_from_file">
 <span class="sig-name descname"><span class="pre">load_from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/utils/slide_generator_data_manager.html#SlideGeneratorDataManager.load_from_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.utils.slide_generator_data_manager.SlideGeneratorDataManager.load_from_file" title="Link to this definition"></a></dt>
 <dd><p>Load slide data from a JSON file and populate the generator table.</p>
-<dl class="simple">
-<dt>This method:</dt><dd><ul class="simple">
+<p>This method:</p>
+<ul>
 <li><p>Clears the existing table</p></li>
 <li><p>Inserts rows matching the number of slides</p></li>
 <li><p>Applies style aliases to the style combo box</p></li>
-<li><dl class="simple">
-<dt>Performs style-specific preprocessing:</dt><dd><ul>
+<li><p>Performs style-specific preprocessing:</p>
+<blockquote>
+<div><ul class="simple">
 <li><p>Merges anthem caption and choir name</p></li>
 <li><p>Formats multi-verse Bible slides for readability</p></li>
 </ul>
-</dd>
-</dl>
+</div></blockquote>
 </li>
 </ul>
-</dd>
-</dl>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – Path to the slide JSON file.</p>
@@ -209,7 +207,7 @@ such as handling anthem choir names and verse formatting.</p>
 <dd><p>Collect slide data from the generator table and normalize it.</p>
 <p>This method reads each table row and converts it into a slide
 dictionary using internal style keys. Style-specific handling
-is applied where necessary (e.g., anthem caption/choir separation).</p>
+is applied where necessary (e.g., anthem <code class="docutils literal notranslate"><span class="pre">caption</span></code>/<code class="docutils literal notranslate"><span class="pre">choir</span></code> separation).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>List of structured slide dictionaries.</p>
@@ -224,9 +222,11 @@ is applied where necessary (e.g., anthem caption/choir separation).</p>
 <dt class="sig sig-object py" id="core.generator.utils.slide_generator_data_manager.SlideGeneratorDataManager._insert_empty_row">
 <span class="sig-name descname"><span class="pre">_insert_empty_row</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/utils/slide_generator_data_manager.html#SlideGeneratorDataManager._insert_empty_row"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.utils.slide_generator_data_manager.SlideGeneratorDataManager._insert_empty_row" title="Link to this definition"></a></dt>
 <dd><p>Insert a new empty slide row into the generator table.</p>
-<p>The row includes:
-- A style selection combo box
-- Empty caption and headline cells</p>
+<p>The row includes:</p>
+<ul class="simple">
+<li><p>A style selection combo box</p></li>
+<li><p>Empty caption and headline cells</p></li>
+</ul>
 </dd></dl>
 
 <dl class="py method">

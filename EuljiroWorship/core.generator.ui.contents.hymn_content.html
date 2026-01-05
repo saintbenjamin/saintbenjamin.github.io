@@ -119,25 +119,27 @@
 <dd class="field-odd"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
 </dd>
 </dl>
-<p>UI content widget for editing ‘hymn’ style slides.</p>
-<p>This module defines <cite>HymnContent</cite>, a QWidget that provides an interface for
-editing hymn-based slides. It supports selecting a hymn by number, loading
+<p>UI content widget for editing “hymn” style slides.</p>
+<p>This module defines <a class="reference internal" href="#core.generator.ui.contents.hymn_content.HymnContent" title="core.generator.ui.contents.hymn_content.HymnContent"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.generator.ui.contents.hymn_content.HymnContent</span></code></a>, a <cite>QWidget</cite> that provides an interface for
+editing “hymn”-based slides. It supports selecting a hymn by number, loading
 its title and lyrics from local JSON files, editing the content, and saving
 updates back to the hymn database.</p>
 <p>Hymn data is stored as JSON files under a predefined directory (e.g.,
-<cite>data/hymns/</cite>), and this widget serves as a lightweight editor and viewer
+<code class="docutils literal notranslate"><span class="pre">data/hymns/</span></code>), and this widget serves as a lightweight editor and viewer
 for that dataset within the slide generator.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="core.generator.ui.contents.hymn_content.HymnContent">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.generator.ui.contents.hymn_content.</span></span><span class="sig-name descname"><span class="pre">HymnContent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/contents/hymn_content.html#HymnContent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.contents.hymn_content.HymnContent" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
-<p>Content editor widget for ‘hymn’ style slides.</p>
-<p>This widget provides input fields and controls for:
-- Selecting a hymn by number
-- Viewing and editing the hymn title
-- Viewing and editing the hymn lyrics
-- Loading hymn data from a local JSON database
-- Saving edited hymn data back to the database</p>
+<p>Content editor widget for “hymn” style slides.</p>
+<p>This widget provides input fields and controls for:</p>
+<ul class="simple">
+<li><p>Selecting a hymn by number</p></li>
+<li><p>Viewing and editing the hymn title</p></li>
+<li><p>Viewing and editing the hymn lyrics</p></li>
+<li><p>Loading hymn data from a local JSON database</p></li>
+<li><p>Saving edited hymn data back to the database</p></li>
+</ul>
 <p>The edited content can be exported as slide data for use in the
 slide generator and controller.</p>
 <dl class="field-list simple">
@@ -258,10 +260,13 @@ Returns (0, 0) if no valid hymn files are found.</p>
 <dd class="field-odd"><p><strong>None</strong></p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Dictionary representing the hymn slide, including:
-- style
-- caption (hymn title)
-- headline (lyrics)</p>
+<dd class="field-even"><p><p>Dictionary representing the hymn slide, including:</p>
+<ul class="simple">
+<li><p>style</p></li>
+<li><p>caption (hymn title)</p></li>
+<li><p>headline (lyrics)</p></li>
+</ul>
+</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>dict</p>

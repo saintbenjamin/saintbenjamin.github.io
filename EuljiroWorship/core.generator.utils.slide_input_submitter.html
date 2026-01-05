@@ -119,7 +119,7 @@
 </dd>
 </dl>
 <p>Handles submission logic for slide input forms in the slide generator UI.</p>
-<p>This module defines <cite>SlideInputSubmitter</cite>, which listens for Enter key presses
+<p>This module defines <code class="xref py py-class docutils literal notranslate"><span class="pre">core.generator.utils.slice_input_submitter.SlideInputSubmitter</span></code>, which listens for Enter key presses
 on specified input widgets and triggers slide generation. It allows Shift+Enter
 to insert line breaks in multi-line fields.</p>
 <dl class="py class">
@@ -130,43 +130,30 @@ to insert line breaks in multi-line fields.</p>
 <p>This object installs an event filter on a set of input widgets (e.g., QLineEdit,
 QTextEdit/QPlainTextEdit, custom widgets) and interprets the Enter/Return key as a
 “submit” trigger.</p>
-<p>Behavior rules:
-- Enter/Return triggers submission.
-- Shift+Enter is treated as a literal newline (i.e., it does <em>not</em> submit).
-- Widgets listed in <cite>ignore_widgets</cite> are excluded from Enter-submit handling.</p>
-<section id="notes">
-<h2>Notes<a class="headerlink" href="#notes" title="Link to this heading"></a></h2>
-<p>Submission is performed by calling <cite>build_slide_func()</cite>. If it returns a falsy value
-(None / empty), nothing happens. If the generator exposes <cite>save_slides_to_file</cite>,
+<p>Behavior rules:</p>
+<ul class="simple">
+<li><p>Enter/Return triggers submission.</p></li>
+<li><p>Shift+Enter is treated as a literal newline (i.e., it does <em>not</em> submit).</p></li>
+<li><p>Widgets listed in <cite>ignore_widgets</cite> are excluded from Enter-submit handling.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Submission is performed by calling <code class="docutils literal notranslate"><span class="pre">build_slide_func()</span></code>. If it returns a falsy value
+(None / empty), nothing happens. If the generator exposes <a class="reference internal" href="core.generator.ui.slide_generator.html#core.generator.ui.slide_generator.SlideGenerator.save_slides_to_file" title="core.generator.ui.slide_generator.SlideGenerator.save_slides_to_file"><code class="xref py py-meth docutils literal notranslate"><span class="pre">core.generator.ui.slide_generator.SlideGenerator.save_slides_to_file()</span></code></a>,
 the submitter will save automatically after a successful build.</p>
+</div>
 <dl class="field-list simple">
-<dt class="field-odd">param inputs<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Mapping of logical input names to widget instances.
-All widgets in this mapping receive this object’s event filter.</p>
-</dd>
-<dt class="field-even">type inputs<span class="colon">:</span></dt>
-<dd class="field-even"><p>dict[str, QWidget]</p>
-</dd>
-<dt class="field-odd">param generator<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The generator window/controller instance. If it provides
-<cite>save_slides_to_file(show_message: bool)</cite>, it will be called after submission.</p>
-</dd>
-<dt class="field-even">type generator<span class="colon">:</span></dt>
-<dd class="field-even"><p>QWidget</p>
-</dd>
-<dt class="field-odd">param build_slide_func<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Callable that constructs
-slide data (single dict or list of dicts) from current widget state.</p>
-</dd>
-<dt class="field-even">type build_slide_func<span class="colon">:</span></dt>
-<dd class="field-even"><p>Callable[[], dict | list | None]</p>
-</dd>
-<dt class="field-odd">param ignore_widgets<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Optional list of widgets whose Enter key
-should be ignored by this submitter.</p>
-</dd>
-<dt class="field-even">type ignore_widgets<span class="colon">:</span></dt>
-<dd class="field-even"><p>list[QWidget] | None</p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>inputs</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>QWidget</em><em>]</em>) – Mapping of logical input names to widget instances.
+All widgets in this mapping receive this object’s event filter.</p></li>
+<li><p><strong>generator</strong> (<em>QWidget</em>) – The generator window/controller instance. If it provides
+<a class="reference internal" href="core.generator.ui.slide_generator.html#core.generator.ui.slide_generator.SlideGenerator.save_slides_to_file" title="core.generator.ui.slide_generator.SlideGenerator.save_slides_to_file"><code class="xref py py-meth docutils literal notranslate"><span class="pre">core.generator.ui.slide_generator.SlideGenerator.save_slides_to_file()</span></code></a>, it will be called after submission.</p></li>
+<li><p><strong>build_slide_func</strong> (<em>Callable</em><em>[</em><em>[</em><em>]</em><em>, </em><em>dict</em><em> | </em><em>list</em><em> | </em><em>None</em><em>]</em>) – Callable that constructs
+slide data (single dict or list of dicts) from current widget state.</p></li>
+<li><p><strong>ignore_widgets</strong> (<em>list</em><em>[</em><em>QWidget</em><em>] </em><em>| </em><em>None</em>) – Optional list of widgets whose Enter key
+should be ignored by this submitter.</p></li>
+</ul>
 </dd>
 </dl>
 <dl class="py method">
@@ -190,7 +177,7 @@ should be ignored by this submitter.</p>
 <span class="sig-name descname"><span class="pre">eventFilter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/utils/slide_input_submitter.html#SlideInputSubmitter.eventFilter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.utils.slide_input_submitter.SlideInputSubmitter.eventFilter" title="Link to this definition"></a></dt>
 <dd><p>Intercept keypress events to detect Enter-submit.</p>
 <ul class="simple">
-<li><p>If <cite>obj</cite> is in <cite>ignore_widgets</cite>, this filter does nothing.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">obj</span></code> is in <code class="docutils literal notranslate"><span class="pre">ignore_widgets</span></code>, this filter does nothing.</p></li>
 <li><dl class="simple">
 <dt>If the key is Enter/Return:</dt><dd><ul>
 <li><p>Shift+Enter passes through (newline behavior).</p></li>
@@ -220,23 +207,15 @@ should be ignored by this submitter.</p>
 <dt class="sig sig-object py" id="core.generator.utils.slide_input_submitter.SlideInputSubmitter.try_submit_slide">
 <span class="sig-name descname"><span class="pre">try_submit_slide</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/utils/slide_input_submitter.html#SlideInputSubmitter.try_submit_slide"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.utils.slide_input_submitter.SlideInputSubmitter.try_submit_slide" title="Link to this definition"></a></dt>
 <dd><p>Build and persist slide data using the registered callback.</p>
-<p>Workflow:
-1) Call <cite>build_slide_func()</cite> to obtain slide data.
-2) If slide data is falsy, do nothing.
-3) If the generator provides <cite>save_slides_to_file</cite>, save silently.
-4) Restore focus to the first registered input widget for fast iteration.</p>
+<p>Workflow:</p>
+<ol class="arabic simple">
+<li><p>Call <code class="docutils literal notranslate"><span class="pre">build_slide_func()</span></code> to obtain slide data.</p></li>
+<li><p>If slide data is falsy, do nothing.</p></li>
+<li><p>If the generator provides <a class="reference internal" href="core.generator.ui.slide_generator.html#core.generator.ui.slide_generator.SlideGenerator.save_slides_to_file" title="core.generator.ui.slide_generator.SlideGenerator.save_slides_to_file"><code class="xref py py-meth docutils literal notranslate"><span class="pre">core.generator.ui.slide_generator.SlideGenerator.save_slides_to_file()</span></code></a>, save silently.</p></li>
+<li><p>Restore focus to the first registered input widget for fast iteration.</p></li>
+</ol>
 </dd></dl>
 
-</section>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>inputs</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>PySide6.QtWidgets.QWidget</em><em>]</em>)</p></li>
-<li><p><strong>generator</strong> (<em>PySide6.QtWidgets.QWidget</em>)</p></li>
-<li><p><strong>build_slide_func</strong> (<em>Callable</em><em>[</em><em>[</em><em>]</em><em>, </em><em>dict</em><em> | </em><em>list</em><em> | </em><em>None</em><em>]</em>)</p></li>
-</ul>
-</dd>
-</dl>
 </dd></dl>
 
 </section>

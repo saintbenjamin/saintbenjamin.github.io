@@ -126,7 +126,7 @@ using blank-line boundaries and fixed two-line grouping rules.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="core.generator.utils.segment_utils.segment_lyrics_for_export">
 <span class="sig-prename descclassname"><span class="pre">core.generator.utils.segment_utils.</span></span><span class="sig-name descname"><span class="pre">segment_lyrics_for_export</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/utils/segment_utils.html#segment_lyrics_for_export"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.utils.segment_utils.segment_lyrics_for_export" title="Link to this definition"></a></dt>
-<dd><p>Split a single ‘lyrics’ slide into multiple export-ready slides.</p>
+<dd><p>Split a single “lyrics” slide into multiple export-ready slides.</p>
 <p>This function takes a lyrics-style slide dictionary and divides its
 multiline headline text into smaller slides according to the following
 rules:</p>
@@ -137,16 +137,22 @@ rules:</p>
 </ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>data</strong> (<em>dict</em>) – Slide dictionary with at least the keys:
-- “style”: expected to be “lyrics”
-- “caption”: title of the song
-- “headline”: multiline lyrics text</p>
+<dd class="field-odd"><p><strong>data</strong> (<em>dict</em>) – <p>Slide dictionary with at least the keys:</p>
+<ul class="simple">
+<li><p>”style”: expected to be “lyrics”</p></li>
+<li><p>”caption”: title of the song</p></li>
+<li><p>”headline”: multiline lyrics text</p></li>
+</ul>
+</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A list of slide dictionaries, each containing:
-- “style”
-- “caption”
-- “headline” (two lines or fewer)</p>
+<dd class="field-even"><p><p>A list of slide dictionaries, each containing:</p>
+<ul class="simple">
+<li><p>”style”</p></li>
+<li><p>”caption”</p></li>
+<li><p>”headline” (two lines or fewer)</p></li>
+</ul>
+</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>list[dict]</p>

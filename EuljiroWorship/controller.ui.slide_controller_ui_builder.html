@@ -137,12 +137,14 @@ table, and installing event filters for keyboard navigation.</p>
 its runtime logic separate from UI layout details. The builder creates and
 attaches widgets onto the controller instance (<code class="docutils literal notranslate"><span class="pre">self.c</span></code>), and wires up signals
 to the controller’s navigation and emergency-caption handlers.</p>
-<p class="rubric">Notes</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <ul class="simple">
 <li><p>Widgets are attached onto the controller instance as attributes
 (e.g., <code class="docutils literal notranslate"><span class="pre">controller.label</span></code>, <code class="docutils literal notranslate"><span class="pre">controller.table</span></code>, <code class="docutils literal notranslate"><span class="pre">controller.page_input</span></code>).</p></li>
 <li><p>The builder assumes <a class="reference internal" href="controller.slide_controller.html#controller.slide_controller.SlideController" title="controller.slide_controller.SlideController"><code class="xref py py-class docutils literal notranslate"><span class="pre">controller.slide_controller.SlideController</span></code></a> already loaded <code class="docutils literal notranslate"><span class="pre">slides</span></code> and <code class="docutils literal notranslate"><span class="pre">index</span></code>.</p></li>
 </ul>
+</div>
 <dl class="py method">
 <dt class="sig sig-object py" id="controller.ui.slide_controller_ui_builder.SlideControllerUIBuilder.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">controller</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/ui/slide_controller_ui_builder.html#SlideControllerUIBuilder.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.ui.slide_controller_ui_builder.SlideControllerUIBuilder.__init__" title="Link to this definition"></a></dt>
