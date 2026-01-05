@@ -105,86 +105,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-gui.ui.monitor_memory">
-<span id="gui-ui-monitor-memory"></span><h1>gui.ui.monitor_memory<a class="headerlink" href="#module-gui.ui.monitor_memory" title="Link to this heading"></a></h1>
-<dl class="field-list simple">
-<dt class="field-odd">File<span class="colon">:</span></dt>
-<dd class="field-odd"><p>EuljiroBible/gui/ui/monitor_memory.py</p>
-</dd>
-<dt class="field-even">Author<span class="colon">:</span></dt>
-<dd class="field-even"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
-</dd>
-<dt class="field-odd">Affiliated Church<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
-</dd>
-<dt class="field-even">Address<span class="colon">:</span></dt>
-<dd class="field-even"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
-</dd>
-<dt class="field-odd">Telephone<span class="colon">:</span></dt>
-<dd class="field-odd"><p>+82-2-2266-3070</p>
-</dd>
-<dt class="field-even">E-mail<span class="colon">:</span></dt>
-<dd class="field-even"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
-</dd>
-<dt class="field-odd">License<span class="colon">:</span></dt>
-<dd class="field-odd"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
-</dd>
-</dl>
-<p>Popup window to monitor current memory usage periodically.
-Logs to file and provides GUI interface for checking memory in real time.</p>
-<dl class="py class">
-<dt class="sig sig-object py" id="gui.ui.monitor_memory.MonitorMemory">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gui.ui.monitor_memory.</span></span><span class="sig-name descname"><span class="pre">MonitorMemory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/monitor_memory.html#MonitorMemory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.monitor_memory.MonitorMemory" title="Link to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
-<p>Popup QWidget that monitors and displays Python process memory usage.
-Automatically logs to memory_log.txt and shows warnings when exceeding threshold.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="gui.ui.monitor_memory.MonitorMemory.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interval_sec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/monitor_memory.html#MonitorMemory.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.monitor_memory.MonitorMemory.__init__" title="Link to this definition"></a></dt>
-<dd><p>Initializes the memory monitor widget and UI layout.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>interval_sec</strong> (<em>int</em>) – Monitoring interval in seconds.</p></li>
-<li><p><strong>parent</strong> (<em>QWidget</em><em>, </em><em>optional</em>) – Parent window.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="gui.ui.monitor_memory.MonitorMemory.set_interval">
-<span class="sig-name descname"><span class="pre">set_interval</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interval_sec</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/monitor_memory.html#MonitorMemory.set_interval"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.monitor_memory.MonitorMemory.set_interval" title="Link to this definition"></a></dt>
-<dd><p>Sets the interval between memory checks.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>interval_sec</strong> (<em>int</em>) – Interval in seconds.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="gui.ui.monitor_memory.MonitorMemory.save_interval">
-<span class="sig-name descname"><span class="pre">save_interval</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/monitor_memory.html#MonitorMemory.save_interval"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.monitor_memory.MonitorMemory.save_interval" title="Link to this definition"></a></dt>
-<dd><p>Saves the user-entered interval to the settings file and updates the timer.
-Displays confirmation or error in the log area.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="gui.ui.monitor_memory.MonitorMemory.record_and_display_memory">
-<span class="sig-name descname"><span class="pre">record_and_display_memory</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/monitor_memory.html#MonitorMemory.record_and_display_memory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.monitor_memory.MonitorMemory.record_and_display_memory" title="Link to this definition"></a></dt>
-<dd><p>Measures current memory usage, logs to file, and displays in UI.
-Highlights warnings when memory exceeds 400MB.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="gui.ui.monitor_memory.MonitorMemory.close_monitor">
-<span class="sig-name descname"><span class="pre">close_monitor</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/monitor_memory.html#MonitorMemory.close_monitor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.monitor_memory.MonitorMemory.close_monitor" title="Link to this definition"></a></dt>
-<dd><p>Stops the timer and closes the widget.</p>
-</dd></dl>
-
-</dd></dl>
-
+  <section id="gui-ui-monitor-memory">
+<h1>gui.ui.monitor_memory<a class="headerlink" href="#gui-ui-monitor-memory" title="Link to this heading"></a></h1>
 </section>
 
 
