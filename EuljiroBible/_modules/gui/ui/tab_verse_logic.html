@@ -1,0 +1,243 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>gui.ui.tab_verse_logic &mdash; EuljiroBible 1.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=aaadad1f"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            EuljiroBible
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">Modules</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">EuljiroBible</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">gui.ui.tab_verse_logic</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for gui.ui.tab_verse_logic</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">:File: EuljiroBible/gui/ui/tab_verse_logic.py</span>
+<span class="sd">:Author: Benjamin Jaedon Choi - https://github.com/saintbenjamin</span>
+<span class="sd">:Affiliated Church: The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</span>
+<span class="sd">:Address: The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</span>
+<span class="sd">:Telephone: +82-2-2266-3070</span>
+<span class="sd">:E-mail: euljirochurch [at] G.M.A.I.L. (replace [at] with @ and G.M.A.I.L as you understood.)</span>
+<span class="sd">:License: MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</span>
+
+<span class="sd">Provides logic for verse display, saving, and verse shifting for the TabVerse UI.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="TabVerseLogic">
+<a class="viewcode-back" href="../../../gui.ui.tab_verse_logic.html#gui.ui.tab_verse_logic.TabVerseLogic">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TabVerseLogic</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Contains logic to handle displaying, saving, and navigating Bible verses in the UI.</span>
+
+<span class="sd">    :param bible_data: Instance of BibleDataLoader containing Bible content</span>
+<span class="sd">    :type bible_data: BibleDataLoader</span>
+<span class="sd">    :param tr_func: Translation function used for localized UI messages</span>
+<span class="sd">    :type tr_func: Callable[[str], str]</span>
+<span class="sd">    :param settings: Configuration settings for verse output</span>
+<span class="sd">    :type settings: dict</span>
+<span class="sd">    :param current_language: Active language code (e.g., &#39;en&#39;, &#39;ko&#39;)</span>
+<span class="sd">    :type current_language: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="TabVerseLogic.__init__">
+<a class="viewcode-back" href="../../../gui.ui.tab_verse_logic.html#gui.ui.tab_verse_logic.TabVerseLogic.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bible_data</span><span class="p">,</span> <span class="n">tr_func</span><span class="p">,</span> <span class="n">settings</span><span class="p">,</span> <span class="n">current_language</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the logic handler with dependencies.</span>
+
+<span class="sd">        :param bible_data: Bible data instance</span>
+<span class="sd">        :param tr_func: Translation function</span>
+<span class="sd">        :param settings: Application settings dictionary</span>
+<span class="sd">        :param current_language: Current UI language code</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bible_data</span> <span class="o">=</span> <span class="n">bible_data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tr</span> <span class="o">=</span> <span class="n">tr_func</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">settings</span> <span class="o">=</span> <span class="n">settings</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">current_language</span> <span class="o">=</span> <span class="n">current_language</span></div>
+
+
+<div class="viewcode-block" id="TabVerseLogic.display_verse">
+<a class="viewcode-back" href="../../../gui.ui.tab_verse_logic.html#gui.ui.tab_verse_logic.TabVerseLogic.display_verse">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">display_verse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref_func</span><span class="p">,</span> <span class="n">verse_input</span><span class="p">,</span> <span class="n">apply_output_text</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Renders and returns a formatted Bible verse using internal display logic.</span>
+
+<span class="sd">        :param ref_func: Function returning (versions, book, chapter, verse_range, warning)</span>
+<span class="sd">        :type ref_func: Callable</span>
+<span class="sd">        :param verse_input: Input box containing the verse reference</span>
+<span class="sd">        :type verse_input: QLineEdit</span>
+<span class="sd">        :param apply_output_text: Callback to apply rendered text to the UI</span>
+<span class="sd">        :type apply_output_text: Callable</span>
+<span class="sd">        :return: Final rendered verse text, or None if failed</span>
+<span class="sd">        :rtype: str | tuple | None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">core.logic.verse_logic</span><span class="w"> </span><span class="kn">import</span> <span class="n">display_verse_logic</span>
+
+        <span class="c1"># Invoke display logic with injected dependencies</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="n">display_verse_logic</span><span class="p">(</span>
+            <span class="n">ref_func</span><span class="p">,</span>
+            <span class="n">verse_input</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bible_data</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">current_language</span><span class="p">,</span>
+            <span class="n">apply_output_text</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">output</span></div>
+
+
+<div class="viewcode-block" id="TabVerseLogic.save_verse">
+<a class="viewcode-back" href="../../../gui.ui.tab_verse_logic.html#gui.ui.tab_verse_logic.TabVerseLogic.save_verse">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">save_verse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">formatted_verse_text</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Saves the formatted verse to the configured output file.</span>
+
+<span class="sd">        :param formatted_verse_text: Verse text to save</span>
+<span class="sd">        :type formatted_verse_text: str</span>
+<span class="sd">        :raises Exception: If saving fails</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">core.utils.utils_output</span><span class="w"> </span><span class="kn">import</span> <span class="n">save_to_files</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="n">formatted_verse_text</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span>
+            <span class="n">save_to_files</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to save verse: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TabVerseLogic.shift_verse">
+<a class="viewcode-back" href="../../../gui.ui.tab_verse_logic.html#gui.ui.tab_verse_logic.TabVerseLogic.shift_verse">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">shift_verse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref_func</span><span class="p">,</span> <span class="n">verse_input_widget</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Shifts to the previous or next verse depending on `self.delta`.</span>
+
+<span class="sd">        :param ref_func: Function returning (versions, book, chapter, verse_range, warning)</span>
+<span class="sd">        :type ref_func: Callable</span>
+<span class="sd">        :param verse_input_widget: The input widget to update with new verse</span>
+<span class="sd">        :type verse_input_widget: QLineEdit</span>
+<span class="sd">        :return: New verse number or None if shifting is not possible</span>
+<span class="sd">        :rtype: int | None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">core.logic.verse_logic</span><span class="w"> </span><span class="kn">import</span> <span class="n">shift_verse_value</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">core.utils.bible_parser</span><span class="w"> </span><span class="kn">import</span> <span class="n">resolve_book_name</span>
+
+        <span class="c1"># Extract reference info from ref_func</span>
+        <span class="n">versions</span><span class="p">,</span> <span class="n">book</span><span class="p">,</span> <span class="n">chapter</span><span class="p">,</span> <span class="n">verse_range</span><span class="p">,</span> <span class="n">warning</span> <span class="o">=</span> <span class="n">ref_func</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">versions</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="n">version</span> <span class="o">=</span> <span class="n">versions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="c1"># Normalize book name using internal parser</span>
+        <span class="n">book</span> <span class="o">=</span> <span class="n">resolve_book_name</span><span class="p">(</span><span class="n">book</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bible_data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_language</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">book</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">bible_data</span><span class="o">.</span><span class="n">get_verses</span><span class="p">(</span><span class="n">version</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Book &#39;</span><span class="si">{</span><span class="n">book</span><span class="si">}</span><span class="s2">&#39; not found in version &#39;</span><span class="si">{</span><span class="n">version</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">verse_range</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;verse_range is not a tuple&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">verse_range</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">verse_range</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Cannot shift a verse range&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Extract and validate current verse number</span>
+        <span class="n">current</span> <span class="o">=</span> <span class="n">verse_range</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">max_verse</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bible_data</span><span class="o">.</span><span class="n">get_max_verse</span><span class="p">(</span><span class="n">version</span><span class="p">,</span> <span class="n">book</span><span class="p">,</span> <span class="n">chapter</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">max_verse</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No verses found for </span><span class="si">{</span><span class="n">book</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">chapter</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Calculate and apply new verse number</span>
+        <span class="n">new_val</span> <span class="o">=</span> <span class="n">shift_verse_value</span><span class="p">(</span><span class="n">current</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">delta</span><span class="p">,</span> <span class="n">max_verse</span><span class="p">)</span>
+        <span class="n">verse_input_widget</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">new_val</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">new_val</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Benjamin J. Choi.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

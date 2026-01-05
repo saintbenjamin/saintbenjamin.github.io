@@ -1,0 +1,310 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>gui.ui.tab_keyword_logic &mdash; EuljiroBible 1.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=aaadad1f"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            EuljiroBible
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">Modules</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">EuljiroBible</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">gui.ui.tab_keyword_logic</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for gui.ui.tab_keyword_logic</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">:File: EuljiroBible/gui/ui/tab_keyword_logic.py</span>
+<span class="sd">:Author: Benjamin Jaedon Choi - https://github.com/saintbenjamin</span>
+<span class="sd">:Affiliated Church: The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</span>
+<span class="sd">:Address: The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</span>
+<span class="sd">:Telephone: +82-2-2266-3070</span>
+<span class="sd">:E-mail: euljirochurch [at] G.M.A.I.L. (replace [at] with @ and G.M.A.I.L as you understood.)</span>
+<span class="sd">:License: MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</span>
+
+<span class="sd">Handles the keyword search, result display, and verse saving logic for the TabKeyword UI.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtCore</span><span class="w"> </span><span class="kn">import</span> <span class="n">Qt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">QMessageBox</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">core.utils.bible_keyword_searcher</span><span class="w"> </span><span class="kn">import</span> <span class="n">BibleKeywordSearcher</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">core.utils.bible_parser</span><span class="w"> </span><span class="kn">import</span> <span class="n">resolve_book_name</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">core.utils.logger</span><span class="w"> </span><span class="kn">import</span> <span class="n">log_debug</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">core.utils.utils_output</span><span class="w"> </span><span class="kn">import</span> <span class="n">format_output</span><span class="p">,</span> <span class="n">save_to_files</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">gui.utils.keyword_result_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">KeywordResultTableModel</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">gui.utils.keyword_highlight_delegate</span><span class="w"> </span><span class="kn">import</span> <span class="n">KeywordHighlightDelegate</span>
+
+
+<div class="viewcode-block" id="TabKeywordLogic">
+<a class="viewcode-back" href="../../../gui.ui.tab_keyword_logic.html#gui.ui.tab_keyword_logic.TabKeywordLogic">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TabKeywordLogic</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Provides backend logic for keyword-based search, result formatting,</span>
+<span class="sd">    and verse saving for the TabKeyword UI.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="TabKeywordLogic.__init__">
+<a class="viewcode-back" href="../../../gui.ui.tab_keyword_logic.html#gui.ui.tab_keyword_logic.TabKeywordLogic.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">settings</span><span class="p">,</span> <span class="n">tr_func</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the logic handler with settings and translation function.</span>
+
+<span class="sd">        :param settings: Global application settings</span>
+<span class="sd">        :type settings: dict</span>
+<span class="sd">        :param tr_func: Translation function for localized strings</span>
+<span class="sd">        :type tr_func: Callable[[str], str]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">settings</span> <span class="o">=</span> <span class="n">settings</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tr</span> <span class="o">=</span> <span class="n">tr_func</span></div>
+
+
+<div class="viewcode-block" id="TabKeywordLogic.run_search">
+<a class="viewcode-back" href="../../../gui.ui.tab_keyword_logic.html#gui.ui.tab_keyword_logic.TabKeywordLogic.run_search">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run_search</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Performs a keyword search and updates the result table and summary.</span>
+
+<span class="sd">        :param parent: The TabKeyword instance (UI context)</span>
+<span class="sd">        :type parent: QWidget</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">log_debug</span><span class="p">(</span><span class="s2">&quot;[TabKeyword] run_search started&quot;</span><span class="p">)</span>
+        <span class="n">version</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">version_box</span><span class="o">.</span><span class="n">currentText</span><span class="p">()</span>
+        <span class="n">keywords</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">keyword_input</span><span class="o">.</span><span class="n">text</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">keywords</span> <span class="ow">or</span> <span class="nb">all</span><span class="p">(</span><span class="n">k</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">keywords</span><span class="p">):</span>
+            <span class="n">QMessageBox</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;warn_input_title&quot;</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;warn_input_msg&quot;</span><span class="p">))</span>
+            <span class="k">return</span>
+
+        <span class="c1"># Determine search mode from radio buttons</span>
+        <span class="n">mode</span> <span class="o">=</span> <span class="s2">&quot;compact&quot;</span> <span class="k">if</span> <span class="n">parent</span><span class="o">.</span><span class="n">radio_compact</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;and&quot;</span>
+
+        <span class="c1"># Execute search</span>
+        <span class="n">searcher</span> <span class="o">=</span> <span class="n">BibleKeywordSearcher</span><span class="p">(</span><span class="n">version</span><span class="p">)</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="n">searcher</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">keywords</span><span class="p">),</span> <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">)</span>
+        <span class="n">counts</span> <span class="o">=</span> <span class="n">searcher</span><span class="o">.</span><span class="n">count_keywords</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">keywords</span><span class="p">)</span>
+
+        <span class="n">parent</span><span class="o">.</span><span class="n">update_table</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+        <span class="n">parent</span><span class="o">.</span><span class="n">update_summary</span><span class="p">(</span><span class="n">counts</span><span class="p">)</span>
+
+        <span class="n">log_debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[TabKeyword] search results: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span><span class="si">}</span><span class="s2"> found&quot;</span><span class="p">)</span>
+
+        <span class="n">parent</span><span class="o">.</span><span class="n">summary_box</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>  <span class="c1"># add spacing line</span>
+        <span class="n">parent</span><span class="o">.</span><span class="n">summary_box</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s1">&#39;total_results_label&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">results</span><span class="p">:</span>
+            <span class="n">QMessageBox</span><span class="o">.</span><span class="n">information</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;info_no_results_title&quot;</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;info_no_results_msg&quot;</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="TabKeywordLogic.save_selected_verse">
+<a class="viewcode-back" href="../../../gui.ui.tab_keyword_logic.html#gui.ui.tab_keyword_logic.TabKeywordLogic.save_selected_verse">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">save_selected_verse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Saves the currently selected verse in the result table to verse_output.txt.</span>
+
+<span class="sd">        :param parent: The TabKeyword instance</span>
+<span class="sd">        :type parent: QWidget</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">log_debug</span><span class="p">(</span><span class="s2">&quot;[TabKeyword] save_selected_verse called&quot;</span><span class="p">)</span>
+
+        <span class="n">index</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">currentIndex</span><span class="p">()</span>
+        <span class="n">row</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="n">row</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">row</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">QMessageBox</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;warn_selection_title&quot;</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;warn_selection_msg&quot;</span><span class="p">))</span>
+            <span class="k">return</span>
+
+        <span class="n">model</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">model</span><span class="p">()</span>
+        <span class="n">ref</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>  <span class="c1"># Get reference string like &quot;John 3:16&quot;</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">book_str</span><span class="p">,</span> <span class="n">chap_verse</span> <span class="o">=</span> <span class="n">ref</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">book</span> <span class="o">=</span> <span class="n">resolve_book_name</span><span class="p">(</span><span class="n">book_str</span><span class="p">)</span> <span class="ow">or</span> <span class="n">book_str</span>
+            <span class="n">chapter</span><span class="p">,</span> <span class="n">verse</span> <span class="o">=</span> <span class="n">chap_verse</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+            <span class="n">chapter</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">chapter</span><span class="p">)</span>
+            <span class="n">verse</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">verse</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">log_debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[TabKeyword] Failed to parse reference: </span><span class="si">{</span><span class="n">ref</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">QMessageBox</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;warn_selection_title&quot;</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;warn_selection_msg&quot;</span><span class="p">))</span>
+            <span class="k">return</span>
+
+        <span class="n">normalized</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="n">version</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">version_box</span><span class="o">.</span><span class="n">currentText</span><span class="p">()</span>
+        <span class="n">verses</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">bible_data</span><span class="o">.</span><span class="n">get_verses</span><span class="p">(</span><span class="n">version</span><span class="p">)</span>
+
+        <span class="c1"># Normalize book name if needed</span>
+        <span class="k">if</span> <span class="n">normalized</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">verses</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">verses</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">key</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="n">normalized</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+                    <span class="n">normalized</span> <span class="o">=</span> <span class="n">key</span>
+                    <span class="k">break</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">log_debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[TabKeyword] Book &#39;</span><span class="si">{</span><span class="n">book</span><span class="si">}</span><span class="s2">&#39; not found in version </span><span class="si">{</span><span class="n">version</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">QMessageBox</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                    <span class="n">parent</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;warn_no_chapter_title&quot;</span><span class="p">),</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;warn_no_chapter_msg&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">normalized</span><span class="p">,</span> <span class="n">chapter</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="k">return</span>
+
+        <span class="n">verse_range</span> <span class="o">=</span> <span class="p">(</span><span class="n">verse</span><span class="p">,</span> <span class="n">verse</span><span class="p">)</span>
+        <span class="n">book_alias</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">bible_data</span><span class="o">.</span><span class="n">get_book_alias</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">current_language</span><span class="p">)</span>
+        <span class="n">version_alias</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">bible_data</span><span class="o">.</span><span class="n">get_version_alias</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">current_language</span><span class="p">)</span>
+
+        <span class="n">merged</span> <span class="o">=</span> <span class="n">format_output</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">version</span><span class="p">],</span>
+            <span class="n">normalized</span><span class="p">,</span>
+            <span class="nb">str</span><span class="p">(</span><span class="n">chapter</span><span class="p">),</span>
+            <span class="n">verse_range</span><span class="p">,</span>
+            <span class="p">{</span><span class="n">version</span><span class="p">:</span> <span class="n">verses</span><span class="p">},</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">,</span>
+            <span class="n">for_whitebox</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">lang_code</span><span class="o">=</span><span class="n">parent</span><span class="o">.</span><span class="n">current_language</span><span class="p">,</span>
+            <span class="n">bible_data</span><span class="o">=</span><span class="n">parent</span><span class="o">.</span><span class="n">bible_data</span><span class="p">,</span>
+            <span class="n">book_alias</span><span class="o">=</span><span class="n">book_alias</span><span class="p">,</span>
+            <span class="n">version_alias</span><span class="o">=</span><span class="n">version_alias</span>
+        <span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">save_to_files</span><span class="p">(</span><span class="n">merged</span><span class="p">,</span> <span class="n">parent</span><span class="o">.</span><span class="n">settings</span><span class="p">)</span>
+            <span class="n">log_debug</span><span class="p">(</span><span class="s2">&quot;[TabKeyword] selected verse saved successfully&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">QMessageBox</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;error_saving_title&quot;</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;error_saving_msg&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="TabKeywordLogic.clear_outputs">
+<a class="viewcode-back" href="../../../gui.ui.tab_keyword_logic.html#gui.ui.tab_keyword_logic.TabKeywordLogic.clear_outputs">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">clear_outputs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Clears the verse output file by writing an empty string.</span>
+
+<span class="sd">        :param parent: TabKeyword instance</span>
+<span class="sd">        :type parent: QWidget</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">save_to_files</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">parent</span><span class="o">.</span><span class="n">settings</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TabKeywordLogic.update_table">
+<a class="viewcode-back" href="../../../gui.ui.tab_keyword_logic.html#gui.ui.tab_keyword_logic.TabKeywordLogic.update_table">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">update_table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">results</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the result table model and installs a keyword highlight delegate.</span>
+
+<span class="sd">        :param parent: TabKeyword instance</span>
+<span class="sd">        :type parent: QWidget</span>
+<span class="sd">        :param results: List of verse entry dictionaries</span>
+<span class="sd">        :type results: list[dict]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">KeywordResultTableModel</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">parent</span><span class="o">.</span><span class="n">bible_data</span><span class="p">,</span> <span class="n">parent</span><span class="o">.</span><span class="n">current_language</span><span class="p">,</span> <span class="n">parent</span><span class="o">.</span><span class="n">tr</span><span class="p">)</span>
+        <span class="n">parent</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setModel</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+
+        <span class="n">keywords</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">keyword_input</span><span class="o">.</span><span class="n">text</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+        <span class="n">delegate</span> <span class="o">=</span> <span class="n">KeywordHighlightDelegate</span><span class="p">(</span><span class="n">keywords</span><span class="p">)</span>
+        <span class="n">parent</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setItemDelegateForColumn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">delegate</span><span class="p">)</span>
+
+        <span class="n">parent</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">resizeColumnsToContents</span><span class="p">()</span>
+        <span class="n">parent</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">resizeRowsToContents</span><span class="p">()</span>
+        <span class="n">parent</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s2">&quot;QTableView::item { padding: 6px; }&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TabKeywordLogic.update_summary">
+<a class="viewcode-back" href="../../../gui.ui.tab_keyword_logic.html#gui.ui.tab_keyword_logic.TabKeywordLogic.update_summary">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">update_summary</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">counts</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Updates the summary box with the count of each keyword found.</span>
+
+<span class="sd">        :param parent: TabKeyword instance</span>
+<span class="sd">        :type parent: QWidget</span>
+<span class="sd">        :param counts: Dictionary mapping keyword → count</span>
+<span class="sd">        :type counts: dict[str, int]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">parent</span><span class="o">.</span><span class="n">summary_box</span><span class="o">.</span><span class="n">setPlainText</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">counts</span><span class="o">.</span><span class="n">items</span><span class="p">()))</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Benjamin J. Choi.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

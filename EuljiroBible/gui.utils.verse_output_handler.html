@@ -104,8 +104,84 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="gui-utils-verse-output-handler">
-<h1>gui.utils.verse_output_handler<a class="headerlink" href="#gui-utils-verse-output-handler" title="Link to this heading"></a></h1>
+  <section id="module-gui.utils.verse_output_handler">
+<span id="gui-utils-verse-output-handler"></span><h1>gui.utils.verse_output_handler<a class="headerlink" href="#module-gui.utils.verse_output_handler" title="Link to this heading"></a></h1>
+<dl class="field-list simple">
+<dt class="field-odd">File<span class="colon">:</span></dt>
+<dd class="field-odd"><p>EuljiroBible/gui/utils/verse_output_handler.py</p>
+</dd>
+<dt class="field-even">Author<span class="colon">:</span></dt>
+<dd class="field-even"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
+</dd>
+<dt class="field-odd">Affiliated Church<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
+</dd>
+<dt class="field-even">Address<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
+</dd>
+<dt class="field-odd">Telephone<span class="colon">:</span></dt>
+<dd class="field-odd"><p>+82-2-2266-3070</p>
+</dd>
+<dt class="field-even">E-mail<span class="colon">:</span></dt>
+<dd class="field-even"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
+</dd>
+<dt class="field-odd">License<span class="colon">:</span></dt>
+<dd class="field-odd"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
+</dd>
+</dl>
+<p>Handles text display and file saving for formatted Bible verses in the GUI.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="gui.utils.verse_output_handler.VerseOutputHandler">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gui.utils.verse_output_handler.</span></span><span class="sig-name descname"><span class="pre">VerseOutputHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">display_box</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">settings</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/verse_output_handler.html#VerseOutputHandler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.verse_output_handler.VerseOutputHandler" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Manages displaying and saving Bible verse text in the GUI.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>display_box</strong> (<em>QTextEdit</em>) – QTextEdit widget where verses will be shown</p></li>
+<li><p><strong>settings</strong> (<em>dict</em>) – Application settings dictionary</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.utils.verse_output_handler.VerseOutputHandler.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">display_box</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">settings</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/verse_output_handler.html#VerseOutputHandler.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.verse_output_handler.VerseOutputHandler.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize the handler with the display box and configuration.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>display_box</strong> (<em>QTextEdit</em>) – The QTextEdit area for displaying verse output</p></li>
+<li><p><strong>settings</strong> (<em>dict</em>) – Dictionary containing application settings (e.g. output path)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.utils.verse_output_handler.VerseOutputHandler.apply_output_text">
+<span class="sig-name descname"><span class="pre">apply_output_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/verse_output_handler.html#VerseOutputHandler.apply_output_text"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.verse_output_handler.VerseOutputHandler.apply_output_text" title="Link to this definition"></a></dt>
+<dd><p>Display the given verse text in the output box with proper formatting.</p>
+<p>Applies a block format with approximately 150% line spacing.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>text</strong> (<em>str</em>) – The verse string to render</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.utils.verse_output_handler.VerseOutputHandler.save_verse">
+<span class="sig-name descname"><span class="pre">save_verse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">formatted_text</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/verse_output_handler.html#VerseOutputHandler.save_verse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.verse_output_handler.VerseOutputHandler.save_verse" title="Link to this definition"></a></dt>
+<dd><p>Save the formatted verse text to the file(s) specified in settings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>formatted_text</strong> (<em>str</em>) – The string of formatted verses</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 
 

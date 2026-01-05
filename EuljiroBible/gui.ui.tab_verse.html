@@ -105,8 +105,173 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="gui-ui-tab-verse">
-<h1>gui.ui.tab_verse<a class="headerlink" href="#gui-ui-tab-verse" title="Link to this heading"></a></h1>
+  <section id="module-gui.ui.tab_verse">
+<span id="gui-ui-tab-verse"></span><h1>gui.ui.tab_verse<a class="headerlink" href="#module-gui.ui.tab_verse" title="Link to this heading"></a></h1>
+<dl class="field-list simple">
+<dt class="field-odd">File<span class="colon">:</span></dt>
+<dd class="field-odd"><p>EuljiroBible/gui/ui/tab_verse.py</p>
+</dd>
+<dt class="field-even">Author<span class="colon">:</span></dt>
+<dd class="field-even"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
+</dd>
+<dt class="field-odd">Affiliated Church<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
+</dd>
+<dt class="field-even">Address<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
+</dd>
+<dt class="field-odd">Telephone<span class="colon">:</span></dt>
+<dd class="field-odd"><p>+82-2-2266-3070</p>
+</dd>
+<dt class="field-even">E-mail<span class="colon">:</span></dt>
+<dd class="field-even"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
+</dd>
+<dt class="field-odd">License<span class="colon">:</span></dt>
+<dd class="field-odd"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
+</dd>
+</dl>
+<p>Implements the TabVerse class for verse lookup, navigation, display, and output.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="gui.ui.tab_verse.TabVerse">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gui.ui.tab_verse.</span></span><span class="sig-name descname"><span class="pre">TabVerse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_verse.html#TabVerse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_verse.TabVerse" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code>, <a class="reference internal" href="gui.ui.tab_verse_ui.html#gui.ui.tab_verse_ui.TabVerseUI" title="gui.ui.tab_verse_ui.TabVerseUI"><code class="xref py py-class docutils literal notranslate"><span class="pre">TabVerseUI</span></code></a></p>
+<p>Main UI class for the Bible verse tab.
+Provides display, navigation, and save functionality for selected verses.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.tab_verse.TabVerse.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">settings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">get_polling_status</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">get_always_show_setting</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_verse.html#TabVerse.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_verse.TabVerse.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize the TabVerse.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>version_list</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – Available Bible versions</p></li>
+<li><p><strong>settings</strong> (<em>dict</em>) – Loaded application settings</p></li>
+<li><p><strong>tr</strong> (<em>Callable</em><em>[</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>]</em>) – Translation function</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.tab_verse.TabVerse.change_language">
+<span class="sig-name descname"><span class="pre">change_language</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lang_code</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_verse.html#TabVerse.change_language"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_verse.TabVerse.change_language" title="Link to this definition"></a></dt>
+<dd><p>Dynamically updates UI labels when the language changes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>lang_code</strong> (<em>str</em>) – Language code (‘ko’ or ‘en’)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.tab_verse.TabVerse.resizeEvent">
+<span class="sig-name descname"><span class="pre">resizeEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_verse.html#TabVerse.resizeEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_verse.TabVerse.resizeEvent" title="Link to this definition"></a></dt>
+<dd><p>Responds to window resize events and updates the version layout.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>event</strong> (<em>QResizeEvent</em>) – Resize event object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.tab_verse.TabVerse.update_button_layout">
+<span class="sig-name descname"><span class="pre">update_button_layout</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_verse.html#TabVerse.update_button_layout"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_verse.TabVerse.update_button_layout" title="Link to this definition"></a></dt>
+<dd><p>Updates the layout of the action buttons depending on polling mode.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.tab_verse.TabVerse.get_polling_status">
+<span class="sig-name descname"><span class="pre">get_polling_status</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_verse.html#TabVerse.get_polling_status"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_verse.TabVerse.get_polling_status" title="Link to this definition"></a></dt>
+<dd><p>Returns the current polling toggle state.
+This method should be overridden or injected externally.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if polling is enabled, False otherwise.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.tab_verse.TabVerse.get_always_show_setting">
+<span class="sig-name descname"><span class="pre">get_always_show_setting</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_verse.html#TabVerse.get_always_show_setting"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_verse.TabVerse.get_always_show_setting" title="Link to this definition"></a></dt>
+<dd><p>Returns the current ‘always show buttons’ setting.
+This method should be overridden or injected externally.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if always show is enabled, False otherwise.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.tab_verse.TabVerse.toggle_alias_mode">
+<span class="sig-name descname"><span class="pre">toggle_alias_mode</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_verse.html#TabVerse.toggle_alias_mode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_verse.TabVerse.toggle_alias_mode" title="Link to this definition"></a></dt>
+<dd><p>Toggles between alias name and full name for Bible versions.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.tab_verse.TabVerse.handle_enter">
+<span class="sig-name descname"><span class="pre">handle_enter</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_verse.html#TabVerse.handle_enter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_verse.TabVerse.handle_enter" title="Link to this definition"></a></dt>
+<dd><p>Handles Enter key logic for alternating between search and save.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.tab_verse.TabVerse.get_reference">
+<span class="sig-name descname"><span class="pre">get_reference</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_verse.html#TabVerse.get_reference"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_verse.TabVerse.get_reference" title="Link to this definition"></a></dt>
+<dd><p>Returns parsed reference from the input fields.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>(versions, book, chapter, (start_verse, end_verse))</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.tab_verse.TabVerse.apply_output_text">
+<span class="sig-name descname"><span class="pre">apply_output_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_verse.html#TabVerse.apply_output_text"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_verse.TabVerse.apply_output_text" title="Link to this definition"></a></dt>
+<dd><p>Displays formatted verse text in the main display box.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>text</strong> (<em>str</em>) – Formatted text to show</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.tab_verse.TabVerse.shift_verse">
+<span class="sig-name descname"><span class="pre">shift_verse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delta</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_verse.html#TabVerse.shift_verse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_verse.TabVerse.shift_verse" title="Link to this definition"></a></dt>
+<dd><p>Changes the current verse number up/down and displays the result.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>delta</strong> (<em>int</em>) – +1 for next, -1 for previous</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.tab_verse.TabVerse.reset_enter_state">
+<span class="sig-name descname"><span class="pre">reset_enter_state</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_verse.html#TabVerse.reset_enter_state"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_verse.TabVerse.reset_enter_state" title="Link to this definition"></a></dt>
+<dd><p>Resets enter state to default: ready to display verse.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.tab_verse.TabVerse.clear_outputs">
+<span class="sig-name descname"><span class="pre">clear_outputs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_verse.html#TabVerse.clear_outputs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_verse.TabVerse.clear_outputs" title="Link to this definition"></a></dt>
+<dd><p>Clears the displayed verse and the output file.</p>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 
 

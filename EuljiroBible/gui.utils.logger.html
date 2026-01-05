@@ -105,8 +105,77 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="gui-utils-logger">
-<h1>gui.utils.logger<a class="headerlink" href="#gui-utils-logger" title="Link to this heading"></a></h1>
+  <section id="module-gui.utils.logger">
+<span id="gui-utils-logger"></span><h1>gui.utils.logger<a class="headerlink" href="#module-gui.utils.logger" title="Link to this heading"></a></h1>
+<dl class="field-list simple">
+<dt class="field-odd">File<span class="colon">:</span></dt>
+<dd class="field-odd"><p>gui/utils/gui_logger.py</p>
+</dd>
+<dt class="field-even">Author<span class="colon">:</span></dt>
+<dd class="field-even"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
+</dd>
+<dt class="field-odd">Affiliated Church<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
+</dd>
+<dt class="field-even">Address<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
+</dd>
+<dt class="field-odd">Telephone<span class="colon">:</span></dt>
+<dd class="field-odd"><p>+82-2-2266-3070</p>
+</dd>
+<dt class="field-even">E-mail<span class="colon">:</span></dt>
+<dd class="field-even"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
+</dd>
+<dt class="field-odd">License<span class="colon">:</span></dt>
+<dd class="field-odd"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
+</dd>
+</dl>
+<p>Provides GUI-specific logging helpers for EuljiroBible, including error dialog and log viewer.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="gui.utils.logger.log_error_with_dialog">
+<span class="sig-prename descclassname"><span class="pre">gui.utils.logger.</span></span><span class="sig-name descname"><span class="pre">log_error_with_dialog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exception</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Error'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra_message</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/logger.html#log_error_with_dialog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.logger.log_error_with_dialog" title="Link to this definition"></a></dt>
+<dd><p>Logs an error and shows a GUI message box to the user with an option to view the error log.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parent</strong> (<em>QWidget</em>) – The parent widget for the QMessageBox.</p></li>
+<li><p><strong>exception</strong> (<em>Exception</em>) – The exception object to log and display.</p></li>
+<li><p><strong>title</strong> (<em>str</em>) – The title of the message box.</p></li>
+<li><p><strong>extra_message</strong> (<em>str</em><em>, </em><em>optional</em>) – Additional context to show in the message box.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="gui.utils.logger.handle_exception">
+<span class="sig-prename descclassname"><span class="pre">gui.utils.logger.</span></span><span class="sig-name descname"><span class="pre">handle_exception</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exception</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Error'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_message</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/logger.html#handle_exception"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.logger.handle_exception" title="Link to this definition"></a></dt>
+<dd><p>Shortcut to log and show exception with dialog. Can be used globally in GUI.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>exception</strong> (<em>Exception</em>) – The exception to handle.</p></li>
+<li><p><strong>title</strong> (<em>str</em>) – Dialog title.</p></li>
+<li><p><strong>user_message</strong> (<em>str</em>) – Optional message for user context.</p></li>
+<li><p><strong>parent</strong> (<em>QWidget</em><em>, </em><em>optional</em>) – Parent widget.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gui.utils.logger.MonitorErrorLog">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gui.utils.logger.</span></span><span class="sig-name descname"><span class="pre">MonitorErrorLog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/logger.html#MonitorErrorLog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.logger.MonitorErrorLog" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
+<p>A window that displays the contents of the application error log file.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.utils.logger.MonitorErrorLog.load_log">
+<span class="sig-name descname"><span class="pre">load_log</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/logger.html#MonitorErrorLog.load_log"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.logger.MonitorErrorLog.load_log" title="Link to this definition"></a></dt>
+<dd><p>Loads and displays the error log content in the text edit field.</p>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 
 

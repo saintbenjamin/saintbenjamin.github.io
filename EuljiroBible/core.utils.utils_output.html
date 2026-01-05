@@ -96,8 +96,121 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="core-utils-utils-output">
-<h1>core.utils.utils_output<a class="headerlink" href="#core-utils-utils-output" title="Link to this heading"></a></h1>
+  <section id="module-core.utils.utils_output">
+<span id="core-utils-utils-output"></span><h1>core.utils.utils_output<a class="headerlink" href="#module-core.utils.utils_output" title="Link to this heading"></a></h1>
+<dl class="field-list simple">
+<dt class="field-odd">File<span class="colon">:</span></dt>
+<dd class="field-odd"><p>EuljiroBible/core/utils/utils_output.py</p>
+</dd>
+<dt class="field-even">Author<span class="colon">:</span></dt>
+<dd class="field-even"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
+</dd>
+<dt class="field-odd">Affiliated Church<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
+</dd>
+<dt class="field-even">Address<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
+</dd>
+<dt class="field-odd">Telephone<span class="colon">:</span></dt>
+<dd class="field-odd"><p>+82-2-2266-3070</p>
+</dd>
+<dt class="field-even">E-mail<span class="colon">:</span></dt>
+<dd class="field-even"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
+</dd>
+<dt class="field-odd">License<span class="colon">:</span></dt>
+<dd class="field-odd"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
+</dd>
+</dl>
+<p>Provides functions for formatting Bible verses and saving them atomically
+to output files for EuljiroBible. Handles both GUI and CLI output logic.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="core.utils.utils_output.format_output">
+<span class="sig-prename descclassname"><span class="pre">core.utils.utils_output.</span></span><span class="sig-name descname"><span class="pre">format_output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">versions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">book</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chapter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verse_range</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verses_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">for_whitebox</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lang_code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ko'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bible_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version_alias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">book_alias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/utils/utils_output.html#format_output"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.utils.utils_output.format_output" title="Link to this definition"></a></dt>
+<dd><p>Formats Bible verses into a string for display or file output.
+Handles single/multiple versions, single verse or range, and appends metadata footer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>versions</strong> (<em>list</em>) – Selected Bible versions.</p></li>
+<li><p><strong>book</strong> (<em>str</em>) – Canonical book key (e.g., “Genesis”).</p></li>
+<li><p><strong>chapter</strong> (<em>int</em>) – Chapter number.</p></li>
+<li><p><strong>verse_range</strong> (<em>tuple</em>) – (start_verse, end_verse), (-1 for full chapter).</p></li>
+<li><p><strong>verses_dict</strong> (<em>dict</em>) – Nested verse dictionary structure.</p></li>
+<li><p><strong>tr</strong> (<em>function</em>) – Translation function (GUI: Qt tr, CLI: identity).</p></li>
+<li><p><strong>for_whitebox</strong> (<em>bool</em>) – Whether formatting is for overlay whitebox.</p></li>
+<li><p><strong>lang_code</strong> (<em>str</em>) – Language code (e.g., “ko”, “en”).</p></li>
+<li><p><strong>bible_data</strong> (<a class="reference internal" href="core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader" title="core.utils.bible_data_loader.BibleDataLoader"><em>BibleDataLoader</em></a><em>, </em><em>optional</em>) – Optional Bible data access.</p></li>
+<li><p><strong>version_alias</strong> (<em>dict</em><em>, </em><em>optional</em>) – Version aliases mapping.</p></li>
+<li><p><strong>book_alias</strong> (<em>dict</em><em>, </em><em>optional</em>) – Book name alias mapping.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Final formatted multi-line text.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="core.utils.utils_output.atomic_write">
+<span class="sig-prename descclassname"><span class="pre">core.utils.utils_output.</span></span><span class="sig-name descname"><span class="pre">atomic_write</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">content</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">retries</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/utils/utils_output.html#atomic_write"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.utils.utils_output.atomic_write" title="Link to this definition"></a></dt>
+<dd><p>Atomically writes content to file using .tmp replacement pattern.
+Prevents data corruption and handles permission issues gracefully.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) – Output file path.</p></li>
+<li><p><strong>content</strong> (<em>str</em>) – Text content to write.</p></li>
+<li><p><strong>retries</strong> (<em>int</em>) – Retry attempts on failure (default 5).</p></li>
+<li><p><strong>delay</strong> (<em>float</em>) – Seconds between retries.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Exception</strong> – Re-raised if final write attempt fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="core.utils.utils_output.resolve_output_path">
+<span class="sig-prename descclassname"><span class="pre">core.utils.utils_output.</span></span><span class="sig-name descname"><span class="pre">resolve_output_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'output_path'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/utils/utils_output.html#resolve_output_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.utils.utils_output.resolve_output_path" title="Link to this definition"></a></dt>
+<dd><p>Resolves and validates output path from user settings.
+Ensures directory exists and avoids invalid platform-specific paths.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>settings</strong> (<em>dict</em>) – User/application settings.</p></li>
+<li><p><strong>key</strong> (<em>str</em>) – Settings key to read path from.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Absolute, safe output path.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="core.utils.utils_output.save_to_files">
+<span class="sig-prename descclassname"><span class="pre">core.utils.utils_output.</span></span><span class="sig-name descname"><span class="pre">save_to_files</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">merged</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">settings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/utils/utils_output.html#save_to_files"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.utils.utils_output.save_to_files" title="Link to this definition"></a></dt>
+<dd><p>Saves the final merged text to disk using an atomic write strategy.
+Ensures the file’s modified timestamp is updated so that external
+listeners (e.g., slide interruptor) can detect the change.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>merged</strong> (<em>str</em>) – Final display text to save.</p></li>
+<li><p><strong>settings</strong> (<em>dict</em>) – Configuration containing output path.</p></li>
+<li><p><strong>parent</strong> (<em>QWidget</em><em>, </em><em>optional</em>) – For GUI error dialogs. Defaults to None.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 
 

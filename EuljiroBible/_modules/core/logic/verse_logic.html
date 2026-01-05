@@ -1,0 +1,411 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>core.logic.verse_logic &mdash; EuljiroBible 1.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=aaadad1f"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            EuljiroBible
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">Modules</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">EuljiroBible</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">core.logic.verse_logic</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for core.logic.verse_logic</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">:File: EuljiroBible/core/logic/verse_logic.py</span>
+<span class="sd">:Author: Benjamin Jaedon Choi - https://github.com/saintbenjamin</span>
+<span class="sd">:Affiliated Church: The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</span>
+<span class="sd">:Address: The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</span>
+<span class="sd">:Telephone: +82-2-2266-3070</span>
+<span class="sd">:E-mail: euljirochurch [at] G.M.A.I.L. (replace [at] with @ and G.M.A.I.L as you understood.)</span>
+<span class="sd">:License: MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</span>
+
+<span class="sd">Provides core logic for verse reference parsing, formatting, and display.</span>
+
+<span class="sd">This module is shared across GUI and CLI contexts. It encapsulates how verse ranges,</span>
+<span class="sd">version compatibility, and formatting rules are handled throughout EuljiroBible.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">core.utils.bible_parser</span><span class="w"> </span><span class="kn">import</span> <span class="n">resolve_book_name</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">core.utils.utils_output</span><span class="w"> </span><span class="kn">import</span> <span class="n">format_output</span>
+
+<div class="viewcode-block" id="parse_verse_range">
+<a class="viewcode-back" href="../../../core.logic.verse_logic.html#core.logic.verse_logic.parse_verse_range">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">parse_verse_range</span><span class="p">(</span><span class="n">verse_text</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">book</span><span class="p">,</span> <span class="n">chapter</span><span class="p">,</span> <span class="n">bible_data</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Parses a verse input string and returns a (start, end) tuple.</span>
+
+<span class="sd">    Supports formats like &quot;1&quot;, &quot;3-5&quot;, or blank input (interpreted as full chapter).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        verse_text (str): Raw input like &quot;1&quot;, &quot;4-6&quot;, or &quot;&quot;.</span>
+<span class="sd">        version (str): Bible version key.</span>
+<span class="sd">        book (str): Internal book name key.</span>
+<span class="sd">        chapter (int): Chapter number.</span>
+<span class="sd">        bible_data (BibleDataLoader): Loader instance to resolve verse limits.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tuple[int, int]: (start_verse, end_verse)</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If the format is invalid or range is reversed.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">verse_text</span> <span class="o">=</span> <span class="n">verse_text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">verse_text</span><span class="p">:</span>
+        <span class="c1"># Empty input means: show entire chapter</span>
+        <span class="n">max_verse</span> <span class="o">=</span> <span class="n">bible_data</span><span class="o">.</span><span class="n">get_max_verse</span><span class="p">(</span><span class="n">version</span><span class="p">,</span> <span class="n">book</span><span class="p">,</span> <span class="n">chapter</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_verse</span><span class="p">),</span> <span class="kc">None</span>
+
+    <span class="k">if</span> <span class="s2">&quot;-&quot;</span> <span class="ow">in</span> <span class="n">verse_text</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="n">verse_text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">start</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+            <span class="n">end</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">end</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+            <span class="k">if</span> <span class="n">start</span> <span class="o">&gt;</span> <span class="n">end</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;invalid_verse_range&quot;</span><span class="p">)</span>
+
+            <span class="n">max_verse</span> <span class="o">=</span> <span class="n">bible_data</span><span class="o">.</span><span class="n">get_max_verse</span><span class="p">(</span><span class="n">version</span><span class="p">,</span> <span class="n">book</span><span class="p">,</span> <span class="n">chapter</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">end</span> <span class="o">&gt;</span> <span class="n">max_verse</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">max_verse</span><span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">book</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">chapter</span><span class="si">}</span><span class="s2">장은 </span><span class="si">{</span><span class="n">max_verse</span><span class="si">}</span><span class="s2">절까지만 존재합니다. 입력된 범위를 조정했습니다.&quot;</span>
+
+            <span class="k">return</span> <span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">),</span> <span class="kc">None</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;invalid_verse_format&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">verse</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">verse_text</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">verse</span><span class="p">,</span> <span class="n">verse</span><span class="p">),</span> <span class="kc">None</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;invalid_verse_format&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="shift_verse_value">
+<a class="viewcode-back" href="../../../core.logic.verse_logic.html#core.logic.verse_logic.shift_verse_value">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">shift_verse_value</span><span class="p">(</span><span class="n">current_verse</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">delta</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">max_verse</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes a new verse number by applying delta with bounds.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        current_verse (int): Current verse number.</span>
+<span class="sd">        delta (int): +1, -1, etc.</span>
+<span class="sd">        max_verse (int): Maximum valid verse in chapter.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        int: Adjusted verse number within valid range.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">current_verse</span> <span class="o">+</span> <span class="n">delta</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">1</span>
+    <span class="k">elif</span> <span class="n">current_verse</span> <span class="o">+</span> <span class="n">delta</span> <span class="o">&gt;</span> <span class="n">max_verse</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">max_verse</span>
+    <span class="k">return</span> <span class="n">current_verse</span> <span class="o">+</span> <span class="n">delta</span></div>
+
+
+
+<div class="viewcode-block" id="resolve_reference">
+<a class="viewcode-back" href="../../../core.logic.verse_logic.html#core.logic.verse_logic.resolve_reference">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">resolve_reference</span><span class="p">(</span><span class="n">version_list</span><span class="p">,</span> <span class="n">book_str</span><span class="p">,</span> <span class="n">chapter_str</span><span class="p">,</span> <span class="n">verse_str</span><span class="p">,</span> <span class="n">bible_data</span><span class="p">,</span> <span class="n">lang_code</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Resolves raw user input strings into normalized reference values.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        version_list (list): List of Bible version keys.</span>
+<span class="sd">        book_str (str): Raw book name (e.g., &quot;요한복음&quot;).</span>
+<span class="sd">        chapter_str (str): Raw chapter string (e.g., &quot;3&quot;).</span>
+<span class="sd">        verse_str (str): Raw verse string (e.g., &quot;16-18&quot;).</span>
+<span class="sd">        bible_data (BibleDataLoader): Data loader instance.</span>
+<span class="sd">        lang_code (str): Language for book normalization.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tuple: (versions, book_key, chapter:int, verse_range:(int,int))</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If input is invalid.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">versions</span> <span class="o">=</span> <span class="n">version_list</span>
+    <span class="n">book_key</span> <span class="o">=</span> <span class="n">resolve_book_name</span><span class="p">(</span><span class="n">book_str</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span> <span class="n">bible_data</span><span class="p">,</span> <span class="n">lang_code</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">book_key</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;invalid_book&quot;</span><span class="p">)</span>
+
+    <span class="n">chapter</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">chapter_str</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span> <span class="k">if</span> <span class="n">chapter_str</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()</span> <span class="k">else</span> <span class="mi">1</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="n">versions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">verse_range</span><span class="p">,</span> <span class="n">warning</span> <span class="o">=</span> <span class="n">parse_verse_range</span><span class="p">(</span><span class="n">verse_str</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span> <span class="n">version</span><span class="p">,</span> <span class="n">book_key</span><span class="p">,</span> <span class="n">chapter</span><span class="p">,</span> <span class="n">bible_data</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">e</span>
+
+    <span class="k">return</span> <span class="n">versions</span><span class="p">,</span> <span class="n">book_key</span><span class="p">,</span> <span class="n">chapter</span><span class="p">,</span> <span class="n">verse_range</span><span class="p">,</span> <span class="n">warning</span></div>
+
+
+
+<div class="viewcode-block" id="get_common_books_among_versions">
+<a class="viewcode-back" href="../../../core.logic.verse_logic.html#core.logic.verse_logic.get_common_books_among_versions">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_common_books_among_versions</span><span class="p">(</span><span class="n">versions</span><span class="p">,</span> <span class="n">get_verses_func</span><span class="p">,</span> <span class="n">bible_data</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns list of books that are common to all selected versions.</span>
+
+<span class="sd">    Canonical order is preserved if available.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        versions (list): List of Bible versions.</span>
+<span class="sd">        get_verses_func (function): Callable like bible_data.get_verses.</span>
+<span class="sd">        bible_data (BibleDataLoader): For canonical book order.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list[str]: List of book keys common to all versions.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">book_sets</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">version</span> <span class="ow">in</span> <span class="n">versions</span><span class="p">:</span>
+        <span class="n">books</span> <span class="o">=</span> <span class="n">bible_data</span><span class="o">.</span><span class="n">get_books_for_version</span><span class="p">(</span><span class="n">version</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">books</span><span class="p">:</span>
+            <span class="n">book_sets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">books</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">book_sets</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[]</span>
+
+    <span class="n">common_books</span> <span class="o">=</span> <span class="nb">set</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="o">*</span><span class="n">book_sets</span><span class="p">)</span>
+    <span class="n">canonical_order</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">bible_data</span><span class="o">.</span><span class="n">standard_book</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">b</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">canonical_order</span> <span class="k">if</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">common_books</span><span class="p">]</span></div>
+
+
+
+<div class="viewcode-block" id="validate_versions_and_books">
+<a class="viewcode-back" href="../../../core.logic.verse_logic.html#core.logic.verse_logic.validate_versions_and_books">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">validate_versions_and_books</span><span class="p">(</span><span class="n">versions</span><span class="p">,</span> <span class="n">bible_data</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Checks whether the versions are valid and share common books.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        versions (list): List of selected versions.</span>
+<span class="sd">        bible_data (BibleDataLoader): Data source.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tuple: (validated_versions, common_books) or (None, None)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">versions</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+
+    <span class="n">common_books</span> <span class="o">=</span> <span class="n">get_common_books_among_versions</span><span class="p">(</span><span class="n">versions</span><span class="p">,</span> <span class="n">bible_data</span><span class="o">.</span><span class="n">get_verses</span><span class="p">,</span> <span class="n">bible_data</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">common_books</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">versions</span><span class="p">,</span> <span class="kc">None</span>
+
+    <span class="k">return</span> <span class="n">versions</span><span class="p">,</span> <span class="n">common_books</span></div>
+
+
+
+<div class="viewcode-block" id="display_verse_logic">
+<a class="viewcode-back" href="../../../core.logic.verse_logic.html#core.logic.verse_logic.display_verse_logic">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">display_verse_logic</span><span class="p">(</span>
+    <span class="n">ref_func</span><span class="p">,</span>
+    <span class="n">output_target</span><span class="p">,</span>
+    <span class="n">bible_data</span><span class="p">,</span>
+    <span class="n">tr</span><span class="p">,</span>
+    <span class="n">settings</span><span class="p">,</span>
+    <span class="n">lang_code</span><span class="o">=</span><span class="s2">&quot;ko&quot;</span><span class="p">,</span>
+    <span class="n">output_func</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">version_alias</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">book_alias</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">is_cli</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Central function that handles fetching and displaying a verse block.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        ref_func (callable): Function returning (versions, book, chapter, verse_range).</span>
+<span class="sd">        output_target (QTextEdit or None): GUI output box (if applicable).</span>
+<span class="sd">        bible_data (BibleDataLoader): Loaded Bible data.</span>
+<span class="sd">        tr (function): Translation function.</span>
+<span class="sd">        settings (dict): User settings.</span>
+<span class="sd">        lang_code (str): Language code.</span>
+<span class="sd">        output_func (callable): Optional stdout printer for CLI.</span>
+<span class="sd">        version_alias (dict): Display-friendly version names.</span>
+<span class="sd">        book_alias (dict): Display-friendly book names.</span>
+<span class="sd">        is_cli (bool): True if running in CLI mode.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        str | None: Output string or error message printed.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">versions</span><span class="p">,</span> <span class="n">book</span><span class="p">,</span> <span class="n">chapter</span><span class="p">,</span> <span class="n">verse_range</span><span class="p">,</span> <span class="n">warning</span> <span class="o">=</span> <span class="n">ref_func</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">warning</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">output_func</span><span class="p">:</span>
+                <span class="n">output_func</span><span class="p">(</span><span class="s2">&quot;[경고] &quot;</span> <span class="o">+</span> <span class="n">warning</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">output_target</span><span class="p">,</span> <span class="s2">&quot;append&quot;</span><span class="p">):</span>
+                <span class="n">output_target</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;[경고] &quot;</span> <span class="o">+</span> <span class="n">warning</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">versions</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;error_no_version_selected&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">book</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;invalid_book&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">verse_range</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">)):</span>
+            <span class="n">verse_range</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">verse_range</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">verse_range</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">verse_range</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">max_verse</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">bible_data</span><span class="o">.</span><span class="n">get_verses</span><span class="p">(</span><span class="n">versions</span><span class="p">[</span><span class="mi">0</span><span class="p">])[</span><span class="n">book</span><span class="p">][</span><span class="nb">str</span><span class="p">(</span><span class="n">chapter</span><span class="p">)])</span>
+                <span class="n">verse_range</span> <span class="o">=</span> <span class="p">(</span><span class="n">verse_range</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">max_verse</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">output_func</span><span class="p">:</span>
+                    <span class="n">output_func</span><span class="p">(</span><span class="s2">&quot;[ERROR] Chapter not found.&quot;</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">output_target</span><span class="p">,</span> <span class="s2">&quot;setPlainText&quot;</span><span class="p">):</span>
+                    <span class="n">output_target</span><span class="o">.</span><span class="n">setPlainText</span><span class="p">(</span><span class="s2">&quot;[ERROR] Chapter not found.&quot;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[ERROR] Chapter not found.&quot;</span><span class="p">)</span>
+                <span class="k">return</span>
+
+        <span class="c1"># Load verses depending on mode</span>
+        <span class="k">if</span> <span class="n">is_cli</span><span class="p">:</span>
+            <span class="n">verses_dict</span> <span class="o">=</span> <span class="n">bible_data</span><span class="o">.</span><span class="n">get_verses_for_display</span><span class="p">(</span><span class="n">versions</span><span class="p">,</span> <span class="n">book</span><span class="p">,</span> <span class="n">chapter</span><span class="p">,</span> <span class="n">verse_range</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">verses_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">v</span><span class="p">:</span> <span class="n">bible_data</span><span class="o">.</span><span class="n">get_verses</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">versions</span><span class="p">}</span>
+
+        <span class="c1"># Resolve aliases if not provided</span>
+        <span class="n">book_alias</span> <span class="o">=</span> <span class="n">book_alias</span> <span class="ow">or</span> <span class="n">bible_data</span><span class="o">.</span><span class="n">get_book_alias</span><span class="p">(</span><span class="n">lang_code</span><span class="p">)</span>
+        <span class="n">version_alias</span> <span class="o">=</span> <span class="n">version_alias</span> <span class="ow">or</span> <span class="n">bible_data</span><span class="o">.</span><span class="n">get_version_alias</span><span class="p">(</span><span class="n">lang_code</span><span class="p">)</span>
+
+        <span class="n">formatted_output</span> <span class="o">=</span> <span class="n">format_output</span><span class="p">(</span>
+            <span class="n">versions</span><span class="p">,</span> <span class="n">book</span><span class="p">,</span> <span class="n">chapter</span><span class="p">,</span> <span class="n">verse_range</span><span class="p">,</span> <span class="n">verses_dict</span><span class="p">,</span>
+            <span class="n">tr</span><span class="p">,</span> <span class="n">lang_code</span><span class="o">=</span><span class="n">lang_code</span><span class="p">,</span>
+            <span class="n">version_alias</span><span class="o">=</span><span class="n">version_alias</span><span class="p">,</span>
+            <span class="n">book_alias</span><span class="o">=</span><span class="n">book_alias</span><span class="p">,</span>
+            <span class="n">for_whitebox</span><span class="o">=</span><span class="kc">False</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">output_func</span><span class="p">:</span>
+            <span class="n">output_func</span><span class="p">(</span><span class="n">formatted_output</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">output_target</span><span class="p">,</span> <span class="s2">&quot;setPlainText&quot;</span><span class="p">):</span>
+            <span class="n">output_target</span><span class="o">.</span><span class="n">setPlainText</span><span class="p">(</span><span class="n">formatted_output</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">formatted_output</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">formatted_output</span>
+
+    <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">msg_key</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;invalid_verse_range&quot;</span><span class="p">:</span> <span class="n">tr</span><span class="p">(</span><span class="s2">&quot;warn_range_invalid_order&quot;</span><span class="p">),</span>
+            <span class="s2">&quot;invalid_verse_input&quot;</span><span class="p">:</span> <span class="n">tr</span><span class="p">(</span><span class="s2">&quot;warn_verse_input_msg&quot;</span><span class="p">),</span>
+            <span class="s2">&quot;invalid_verse_format&quot;</span><span class="p">:</span> <span class="n">tr</span><span class="p">(</span><span class="s2">&quot;warn_verse_format_msg&quot;</span><span class="p">),</span>
+            <span class="s2">&quot;invalid_book&quot;</span><span class="p">:</span> <span class="n">tr</span><span class="p">(</span><span class="s2">&quot;warn_invalid_book&quot;</span><span class="p">),</span>
+            <span class="s2">&quot;error_no_version_selected&quot;</span><span class="p">:</span> <span class="n">tr</span><span class="p">(</span><span class="s2">&quot;error_no_version_selected&quot;</span><span class="p">),</span>
+        <span class="p">}</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">msg_key</span><span class="p">,</span> <span class="n">tr</span><span class="p">(</span><span class="s2">&quot;error_verse_input&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msg_key</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">output_func</span><span class="p">:</span>
+            <span class="n">output_func</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">output_target</span><span class="p">,</span> <span class="s2">&quot;setPlainText&quot;</span><span class="p">):</span>
+            <span class="n">output_target</span><span class="o">.</span><span class="n">setPlainText</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">traceback</span>
+        <span class="n">traceback</span><span class="o">.</span><span class="n">print_exc</span><span class="p">()</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">msg_template</span> <span class="o">=</span> <span class="n">tr</span><span class="p">(</span><span class="s2">&quot;error_verse_input&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="nb">callable</span><span class="p">(</span><span class="n">tr</span><span class="p">)</span> <span class="k">else</span> <span class="s2">&quot;error_verse_input&quot;</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="n">msg_template</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span> <span class="k">if</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">&#39;</span> <span class="ow">in</span> <span class="n">msg_template</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">msg_template</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;[ERROR] </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span>
+
+        <span class="k">if</span> <span class="n">output_func</span><span class="p">:</span>
+            <span class="n">output_func</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">output_target</span><span class="p">,</span> <span class="s2">&quot;setPlainText&quot;</span><span class="p">):</span>
+            <span class="n">output_target</span><span class="o">.</span><span class="n">setPlainText</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Benjamin J. Choi.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

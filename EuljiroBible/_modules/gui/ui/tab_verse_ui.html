@@ -1,0 +1,334 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>gui.ui.tab_verse_ui &mdash; EuljiroBible 1.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=aaadad1f"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            EuljiroBible
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">Modules</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">EuljiroBible</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">gui.ui.tab_verse_ui</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for gui.ui.tab_verse_ui</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">:File: EuljiroBible/gui/ui/tab_verse_ui.py</span>
+<span class="sd">:Author: Benjamin Jaedon Choi - https://github.com/saintbenjamin</span>
+<span class="sd">:Affiliated Church: The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</span>
+<span class="sd">:Address: The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</span>
+<span class="sd">:Telephone: +82-2-2266-3070</span>
+<span class="sd">:E-mail: euljirochurch [at] G.M.A.I.L. (replace [at] with @ and G.M.A.I.L as you understood.)</span>
+<span class="sd">:License: MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</span>
+
+<span class="sd">Builds the TabVerse UI layout and handles basic input/output interactions.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtCore</span><span class="w"> </span><span class="kn">import</span> <span class="n">Qt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">QWidget</span><span class="p">,</span> <span class="n">QVBoxLayout</span><span class="p">,</span> <span class="n">QHBoxLayout</span><span class="p">,</span>
+    <span class="n">QLabel</span><span class="p">,</span> <span class="n">QLineEdit</span><span class="p">,</span> <span class="n">QPushButton</span><span class="p">,</span>
+    <span class="n">QComboBox</span><span class="p">,</span> <span class="n">QTextEdit</span><span class="p">,</span> <span class="n">QScrollArea</span><span class="p">,</span>
+    <span class="n">QGridLayout</span><span class="p">,</span> <span class="n">QSplitter</span><span class="p">,</span> <span class="n">QMessageBox</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtGui</span><span class="w"> </span><span class="kn">import</span> <span class="n">QStandardItemModel</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">gui.ui.common</span><span class="w"> </span><span class="kn">import</span> <span class="n">create_svg_text_button</span><span class="p">,</span> <span class="n">LoadingIndicator</span>
+
+
+<div class="viewcode-block" id="TabVerseUI">
+<a class="viewcode-back" href="../../../gui.ui.tab_verse_ui.html#gui.ui.tab_verse_ui.TabVerseUI">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TabVerseUI</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Provides the full layout for the TabVerse interface.</span>
+
+<span class="sd">    Contains UI components for version selection, book/chapter/verse input,</span>
+<span class="sd">    and buttons to display, save, or clear verse text.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="TabVerseUI.init_ui">
+<a class="viewcode-back" href="../../../gui.ui.tab_verse_ui.html#gui.ui.tab_verse_ui.TabVerseUI.init_ui">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">init_ui</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version_list</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the full verse tab interface layout.</span>
+
+<span class="sd">        :param version_list: List of Bible versions to populate as checkboxes</span>
+<span class="sd">        :type version_list: list[str]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Scrollable checkbox grid for Bible versions</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">version_scroll</span> <span class="o">=</span> <span class="n">QScrollArea</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">version_scroll</span><span class="o">.</span><span class="n">setWidgetResizable</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">version_widget</span> <span class="o">=</span> <span class="n">QWidget</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">version_layout</span> <span class="o">=</span> <span class="n">QGridLayout</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">version_widget</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">version_scroll</span><span class="o">.</span><span class="n">setWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">version_widget</span><span class="p">)</span>
+
+        <span class="c1"># Add version checkboxes dynamically</span>
+        <span class="k">for</span> <span class="n">version</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">version_list</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">version</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+                <span class="n">_</span><span class="p">,</span> <span class="n">version_name</span> <span class="o">=</span> <span class="n">version</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">version_name</span> <span class="o">=</span> <span class="n">version</span>
+            <span class="n">checkbox</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">selection_manager</span><span class="o">.</span><span class="n">create_version_checkbox</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version_name</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">version_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">checkbox</span><span class="p">)</span>
+
+        <span class="c1"># Adjust grid layout</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">selection_manager</span><span class="o">.</span><span class="n">update_grid_layout</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="c1"># Internal UI state</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">enter_state</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">use_alias</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1"># Toggle button for alias/full version names</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">alias_toggle_btn</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;label_alias_full&quot;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">alias_toggle_btn</span><span class="o">.</span><span class="n">setCheckable</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">alias_toggle_btn</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">alias_toggle_btn</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">toggle_alias_mode</span><span class="p">)</span>
+
+        <span class="c1"># Label summarizing selected versions</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">version_summary_label</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;msg_nothing&quot;</span><span class="p">))</span>
+        <span class="n">version_label_layout</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">()</span>
+        <span class="n">version_label_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">alias_toggle_btn</span><span class="p">)</span>
+        <span class="n">version_label_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">version_summary_label</span><span class="p">)</span>
+        <span class="n">version_label_layout</span><span class="o">.</span><span class="n">addStretch</span><span class="p">()</span>
+
+        <span class="c1"># Labels for input fields</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">book_label</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;label_book&quot;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chapter_label</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;label_chapter&quot;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">verse_label</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;label_verse&quot;</span><span class="p">))</span>
+
+        <span class="c1"># Book dropdown with inline editing</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">book_combo</span> <span class="o">=</span> <span class="n">QComboBox</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">book_combo</span><span class="o">.</span><span class="n">setModel</span><span class="p">(</span><span class="n">QStandardItemModel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">book_combo</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">book_combo</span><span class="o">.</span><span class="n">setEditable</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">book_combo</span><span class="o">.</span><span class="n">setInsertPolicy</span><span class="p">(</span><span class="n">QComboBox</span><span class="o">.</span><span class="n">NoInsert</span><span class="p">)</span>
+
+        <span class="c1"># Chapter and verse inputs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chapter_input</span> <span class="o">=</span> <span class="n">QComboBox</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chapter_input</span><span class="o">.</span><span class="n">setEditable</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chapter_input</span><span class="o">.</span><span class="n">lineEdit</span><span class="p">()</span><span class="o">.</span><span class="n">returnPressed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">handle_enter</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">verse_input</span> <span class="o">=</span> <span class="n">QLineEdit</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">verse_input</span><span class="o">.</span><span class="n">setPlaceholderText</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;verse_input_hint&quot;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">verse_input</span><span class="o">.</span><span class="n">returnPressed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">handle_enter</span><span class="p">)</span>
+
+        <span class="c1"># Action buttons</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">search_btn</span> <span class="o">=</span> <span class="n">create_svg_text_button</span><span class="p">(</span>
+            <span class="s2">&quot;resources/svg/btn_search.svg&quot;</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;btn_search&quot;</span><span class="p">),</span>
+            <span class="mi">30</span><span class="p">,</span>
+            <span class="s2">&quot;Search&quot;</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_on_display_verse</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_btn</span> <span class="o">=</span> <span class="n">create_svg_text_button</span><span class="p">(</span>
+            <span class="s2">&quot;resources/svg/btn_output.svg&quot;</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;btn_output&quot;</span><span class="p">),</span>
+            <span class="mi">30</span><span class="p">,</span>
+            <span class="s2">&quot;Start slide show&quot;</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_on_save_verse</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clear_display_btn</span> <span class="o">=</span> <span class="n">create_svg_text_button</span><span class="p">(</span>
+            <span class="s2">&quot;resources/svg/btn_clear.svg&quot;</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;btn_clear&quot;</span><span class="p">),</span>
+            <span class="mi">30</span><span class="p">,</span>
+            <span class="s2">&quot;Stop slide show&quot;</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">clear_outputs</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">prev_verse_btn</span> <span class="o">=</span> <span class="n">create_svg_text_button</span><span class="p">(</span>
+            <span class="s2">&quot;resources/svg/btn_prev.svg&quot;</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;btn_prev&quot;</span><span class="p">),</span>
+            <span class="mi">30</span><span class="p">,</span>
+            <span class="s2">&quot;Go to previous verse&quot;</span><span class="p">,</span>
+            <span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">shift_verse</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">next_verse_btn</span> <span class="o">=</span> <span class="n">create_svg_text_button</span><span class="p">(</span>
+            <span class="s2">&quot;resources/svg/btn_next.svg&quot;</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;btn_next&quot;</span><span class="p">),</span>
+            <span class="mi">30</span><span class="p">,</span>
+            <span class="s2">&quot;Go to next verse&quot;</span><span class="p">,</span>
+            <span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">shift_verse</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Layout for book/chapter/verse input</span>
+        <span class="n">input_layout</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_layout</span> <span class="o">=</span> <span class="n">input_layout</span>
+        <span class="n">input_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">book_label</span><span class="p">)</span>
+        <span class="n">input_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">book_combo</span><span class="p">)</span>
+        <span class="n">input_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">chapter_label</span><span class="p">)</span>
+        <span class="n">input_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">chapter_input</span><span class="p">)</span>
+        <span class="n">input_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">verse_label</span><span class="p">)</span>
+        <span class="n">input_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">verse_input</span><span class="p">)</span>
+
+        <span class="c1"># Adjust input field stretch ratios</span>
+        <span class="n">input_layout</span><span class="o">.</span><span class="n">setStretch</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">input_layout</span><span class="o">.</span><span class="n">setStretch</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">input_layout</span><span class="o">.</span><span class="n">setStretch</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1"># Button row layout</span>
+        <span class="n">button_layout</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">button_layout</span> <span class="o">=</span> <span class="n">button_layout</span>
+        <span class="n">button_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">prev_verse_btn</span><span class="p">)</span>
+        <span class="n">button_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">search_btn</span><span class="p">)</span>
+        <span class="n">poll_enabled</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;poll_enabled&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">poll_enabled</span><span class="p">:</span>
+            <span class="n">button_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">save_btn</span><span class="p">)</span>
+        <span class="n">button_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">next_verse_btn</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">poll_enabled</span><span class="p">:</span>
+            <span class="n">button_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">clear_display_btn</span><span class="p">)</span>
+
+        <span class="c1"># Add button row to the input layout</span>
+        <span class="n">input_layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">button_layout</span><span class="p">)</span>
+
+        <span class="c1"># Display box for output</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">display_box</span> <span class="o">=</span> <span class="n">QTextEdit</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">display_box</span><span class="o">.</span><span class="n">setReadOnly</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># Loading indicator overlay</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">loading_indicator</span> <span class="o">=</span> <span class="n">LoadingIndicator</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">display_box</span><span class="o">.</span><span class="n">viewport</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">loading_indicator</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+
+        <span class="c1"># Lower panel combining input and display</span>
+        <span class="n">bottom_widget</span> <span class="o">=</span> <span class="n">QWidget</span><span class="p">()</span>
+        <span class="n">bottom_layout</span> <span class="o">=</span> <span class="n">QVBoxLayout</span><span class="p">(</span><span class="n">bottom_widget</span><span class="p">)</span>
+        <span class="n">bottom_layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">input_layout</span><span class="p">)</span>
+        <span class="n">bottom_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">display_box</span><span class="p">)</span>
+
+        <span class="c1"># Splitter between version list and display panel</span>
+        <span class="n">splitter</span> <span class="o">=</span> <span class="n">QSplitter</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">Vertical</span><span class="p">)</span>
+        <span class="n">splitter</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">version_scroll</span><span class="p">)</span>
+        <span class="n">splitter</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">bottom_widget</span><span class="p">)</span>
+        <span class="n">splitter</span><span class="o">.</span><span class="n">setSizes</span><span class="p">([</span><span class="mi">150</span><span class="p">,</span> <span class="mi">400</span><span class="p">])</span>
+
+        <span class="c1"># Final layout</span>
+        <span class="n">layout</span> <span class="o">=</span> <span class="n">QVBoxLayout</span><span class="p">()</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">version_label_layout</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">splitter</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">layout</span><span class="p">)</span>
+
+        <span class="c1"># Add loading animation widget last</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">loading_indicator</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TabVerseUI._on_display_verse">
+<a class="viewcode-back" href="../../../gui.ui.tab_verse_ui.html#gui.ui.tab_verse_ui.TabVerseUI._on_display_verse">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_on_display_verse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Trigger display of Bible verse when Search button is clicked.</span>
+
+<span class="sd">        Uses `self.get_reference`, `self.verse_input`, and `self.apply_output_text`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logic</span><span class="o">.</span><span class="n">display_verse</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_reference</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">verse_input</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">apply_output_text</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">output</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">formatted_verse_text</span> <span class="o">=</span> <span class="n">output</span></div>
+
+
+<div class="viewcode-block" id="TabVerseUI._on_save_verse">
+<a class="viewcode-back" href="../../../gui.ui.tab_verse_ui.html#gui.ui.tab_verse_ui.TabVerseUI._on_save_verse">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_on_save_verse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Saves the currently displayed verse.</span>
+
+<span class="sd">        Invoked by the Save button; shows critical dialog on error.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logic</span><span class="o">.</span><span class="n">save_verse</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">formatted_verse_text</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">QMessageBox</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span>
+                <span class="bp">self</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;error_output_title&quot;</span><span class="p">),</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;error_output_msg&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+            <span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Benjamin J. Choi.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

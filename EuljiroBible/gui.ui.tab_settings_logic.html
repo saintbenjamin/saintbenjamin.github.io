@@ -105,8 +105,148 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="gui-ui-tab-settings-logic">
-<h1>gui.ui.tab_settings_logic<a class="headerlink" href="#gui-ui-tab-settings-logic" title="Link to this heading"></a></h1>
+  <section id="module-gui.ui.tab_settings_logic">
+<span id="gui-ui-tab-settings-logic"></span><h1>gui.ui.tab_settings_logic<a class="headerlink" href="#module-gui.ui.tab_settings_logic" title="Link to this heading"></a></h1>
+<dl class="field-list simple">
+<dt class="field-odd">File<span class="colon">:</span></dt>
+<dd class="field-odd"><p>EuljiroBible/gui/ui/tab_settings_logic.py</p>
+</dd>
+<dt class="field-even">Author<span class="colon">:</span></dt>
+<dd class="field-even"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
+</dd>
+<dt class="field-odd">Affiliated Church<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
+</dd>
+<dt class="field-even">Address<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
+</dd>
+<dt class="field-odd">Telephone<span class="colon">:</span></dt>
+<dd class="field-odd"><p>+82-2-2266-3070</p>
+</dd>
+<dt class="field-even">E-mail<span class="colon">:</span></dt>
+<dd class="field-even"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
+</dd>
+<dt class="field-odd">License<span class="colon">:</span></dt>
+<dd class="field-odd"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
+</dd>
+</dl>
+<p>Handles backend logic for the settings tab: dynamic UI updates, file paths, colors, and polling behavior.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="gui.ui.tab_settings_logic.TabSettingsLogic">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gui.ui.tab_settings_logic.</span></span><span class="sig-name descname"><span class="pre">TabSettingsLogic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tr_func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refresh_settings_callback</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_settings_logic.html#TabSettingsLogic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_settings_logic.TabSettingsLogic" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Provides logic operations for the settings tab UI.</p>
+<p>Handles font application, theme updates, polling intervals, path selections, and color pickers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>settings</strong> (<em>dict</em>) – Shared application settings dictionary</p></li>
+<li><p><strong>app</strong> (<em>QApplication</em>) – QApplication instance</p></li>
+<li><p><strong>tr_func</strong> (<em>Callable</em><em>[</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>]</em>) – Translation function for localized messages</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.tab_settings_logic.TabSettingsLogic.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tr_func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refresh_settings_callback</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_settings_logic.html#TabSettingsLogic.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_settings_logic.TabSettingsLogic.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize settings logic handler.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>settings</strong> – Settings dictionary</p></li>
+<li><p><strong>app</strong> – QApplication instance</p></li>
+<li><p><strong>tr_func</strong> – Translation function</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.tab_settings_logic.TabSettingsLogic.apply_dynamic_settings">
+<span class="sig-name descname"><span class="pre">apply_dynamic_settings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_settings_logic.html#TabSettingsLogic.apply_dynamic_settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_settings_logic.TabSettingsLogic.apply_dynamic_settings" title="Link to this definition"></a></dt>
+<dd><p>Apply font, overlay, and display settings to the application.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>parent</strong> (<em>QWidget</em>) – Reference to the TabSettings instance (contains UI state)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.tab_settings_logic.TabSettingsLogic.apply_font_to_children">
+<span class="sig-name descname"><span class="pre">apply_font_to_children</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">widget</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_settings_logic.html#TabSettingsLogic.apply_font_to_children"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_settings_logic.TabSettingsLogic.apply_font_to_children" title="Link to this definition"></a></dt>
+<dd><p>Recursively apply a font to a widget and its children.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parent</strong> (<em>QWidget</em>) – Root window</p></li>
+<li><p><strong>widget</strong> (<em>QWidget</em>) – Target widget to apply font to</p></li>
+<li><p><strong>font</strong> (<em>QFont</em>) – QFont instance</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.tab_settings_logic.TabSettingsLogic.select_output_path">
+<span class="sig-name descname"><span class="pre">select_output_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_settings_logic.html#TabSettingsLogic.select_output_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_settings_logic.TabSettingsLogic.select_output_path" title="Link to this definition"></a></dt>
+<dd><p>Open a file dialog to set the verse output file path.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>parent</strong> (<em>QWidget</em>) – TabSettings instance with path input field</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.tab_settings_logic.TabSettingsLogic.select_text_color">
+<span class="sig-name descname"><span class="pre">select_text_color</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_settings_logic.html#TabSettingsLogic.select_text_color"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_settings_logic.TabSettingsLogic.select_text_color" title="Link to this definition"></a></dt>
+<dd><p>Open a color picker dialog to select the overlay text color.</p>
+<p>Updates button color, saves to settings, and reapplies dynamic settings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>parent</strong> (<em>QWidget</em>) – TabSettings instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.tab_settings_logic.TabSettingsLogic.select_bg_color">
+<span class="sig-name descname"><span class="pre">select_bg_color</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_settings_logic.html#TabSettingsLogic.select_bg_color"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_settings_logic.TabSettingsLogic.select_bg_color" title="Link to this definition"></a></dt>
+<dd><p>Open a color picker dialog to select the overlay background color.</p>
+<p>Updates button color, saves to settings, and reapplies dynamic settings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>parent</strong> (<em>QWidget</em>) – TabSettings instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.tab_settings_logic.TabSettingsLogic.save_poll_interval">
+<span class="sig-name descname"><span class="pre">save_poll_interval</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_settings_logic.html#TabSettingsLogic.save_poll_interval"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_settings_logic.TabSettingsLogic.save_poll_interval" title="Link to this definition"></a></dt>
+<dd><p>Save the polling interval from the input box.</p>
+<p>If the value is not a valid integer, show a warning dialog.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>parent</strong> (<em>QWidget</em>) – TabSettings instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.tab_settings_logic.TabSettingsLogic.apply_polling_settings">
+<span class="sig-name descname"><span class="pre">apply_polling_settings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_settings_logic.html#TabSettingsLogic.apply_polling_settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_settings_logic.TabSettingsLogic.apply_polling_settings" title="Link to this definition"></a></dt>
+<dd><p>Apply polling logic: start or stop polling based on toggle.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>parent</strong> (<em>QWidget</em>) – TabSettings instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 
 

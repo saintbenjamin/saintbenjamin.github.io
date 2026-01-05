@@ -96,8 +96,68 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="core-utils-input-validators">
-<h1>core.utils.input_validators<a class="headerlink" href="#core-utils-input-validators" title="Link to this heading"></a></h1>
+  <section id="module-core.utils.input_validators">
+<span id="core-utils-input-validators"></span><h1>core.utils.input_validators<a class="headerlink" href="#module-core.utils.input_validators" title="Link to this heading"></a></h1>
+<dl class="field-list simple">
+<dt class="field-odd">File<span class="colon">:</span></dt>
+<dd class="field-odd"><p>EuljiroBible/core/utils/input_validators.py</p>
+</dd>
+<dt class="field-even">Author<span class="colon">:</span></dt>
+<dd class="field-even"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
+</dd>
+<dt class="field-odd">Affiliated Church<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
+</dd>
+<dt class="field-even">Address<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
+</dd>
+<dt class="field-odd">Telephone<span class="colon">:</span></dt>
+<dd class="field-odd"><p>+82-2-2266-3070</p>
+</dd>
+<dt class="field-even">E-mail<span class="colon">:</span></dt>
+<dd class="field-even"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
+</dd>
+<dt class="field-odd">License<span class="colon">:</span></dt>
+<dd class="field-odd"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
+</dd>
+</dl>
+<p>Provides input validation utilities for form fields and user input processing.
+Used to check integer values with optional range constraints.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="core.utils.input_validators.validate_int">
+<span class="sig-prename descclassname"><span class="pre">core.utils.input_validators.</span></span><span class="sig-name descname"><span class="pre">validate_int</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/utils/input_validators.html#validate_int"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.utils.input_validators.validate_int" title="Link to this definition"></a></dt>
+<dd><p>Validates whether the given input text is a valid integer,
+optionally enforcing minimum and/or maximum bounds.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>text</strong> (<em>str</em>) – Input string to validate.</p></li>
+<li><p><strong>min_value</strong> (<em>int</em><em>, </em><em>optional</em>) – Lower bound (inclusive). Defaults to None.</p></li>
+<li><p><strong>max_value</strong> (<em>int</em><em>, </em><em>optional</em>) – Upper bound (inclusive). Defaults to None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>is_valid (bool): True if the input is a valid integer and within bounds.</p></li>
+<li><p>value (int or None): The parsed integer if valid; otherwise None.</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">validate_int</span><span class="p">(</span><span class="s2">&quot;42&quot;</span><span class="p">,</span> <span class="n">min_value</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">max_value</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="go">(True, 42)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">validate_int</span><span class="p">(</span><span class="s2">&quot;abc&quot;</span><span class="p">)</span>
+<span class="go">(False, None)</span>
+</pre></div>
+</div>
+</dd></dl>
+
 </section>
 
 

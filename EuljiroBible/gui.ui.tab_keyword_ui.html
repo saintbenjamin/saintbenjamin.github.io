@@ -105,8 +105,75 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="gui-ui-tab-keyword-ui">
-<h1>gui.ui.tab_keyword_ui<a class="headerlink" href="#gui-ui-tab-keyword-ui" title="Link to this heading"></a></h1>
+  <section id="module-gui.ui.tab_keyword_ui">
+<span id="gui-ui-tab-keyword-ui"></span><h1>gui.ui.tab_keyword_ui<a class="headerlink" href="#module-gui.ui.tab_keyword_ui" title="Link to this heading"></a></h1>
+<dl class="field-list simple">
+<dt class="field-odd">File<span class="colon">:</span></dt>
+<dd class="field-odd"><p>EuljiroBible/gui/ui/tab_keyword_ui.py</p>
+</dd>
+<dt class="field-even">Author<span class="colon">:</span></dt>
+<dd class="field-even"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
+</dd>
+<dt class="field-odd">Affiliated Church<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</p>
+</dd>
+<dt class="field-even">Address<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
+</dd>
+<dt class="field-odd">Telephone<span class="colon">:</span></dt>
+<dd class="field-odd"><p>+82-2-2266-3070</p>
+</dd>
+<dt class="field-even">E-mail<span class="colon">:</span></dt>
+<dd class="field-even"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
+</dd>
+<dt class="field-odd">License<span class="colon">:</span></dt>
+<dd class="field-odd"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
+</dd>
+</dl>
+<p>Defines the UI layout and interaction hooks for the keyword-based search tab in EuljiroBible.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="gui.ui.tab_keyword_ui.TabKeywordUI">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gui.ui.tab_keyword_ui.</span></span><span class="sig-name descname"><span class="pre">TabKeywordUI</span></span><a class="reference internal" href="_modules/gui/ui/tab_keyword_ui.html#TabKeywordUI"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_keyword_ui.TabKeywordUI" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Constructs the visual layout and widget structure for the keyword search tab.
+Provides controls for version selection, keyword input, search execution,
+result display, and slide show output.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.tab_keyword_ui.TabKeywordUI.init_ui">
+<span class="sig-name descname"><span class="pre">init_ui</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">get_polling_status</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">get_always_show_setting</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_keyword_ui.html#TabKeywordUI.init_ui"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_keyword_ui.TabKeywordUI.init_ui" title="Link to this definition"></a></dt>
+<dd><p>Initializes the UI layout and binds widget events.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>version_list</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – List of available Bible version strings</p></li>
+<li><p><strong>get_polling_status</strong> (<em>Callable</em><em>[</em><em>[</em><em>]</em><em>, </em><em>bool</em><em>]</em>) – Callback for checking polling toggle state</p></li>
+<li><p><strong>get_always_show_setting</strong> (<em>Callable</em><em>[</em><em>[</em><em>]</em><em>, </em><em>bool</em><em>]</em>) – Callback for checking ‘always show’ setting</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.tab_keyword_ui.TabKeywordUI.update_button_visibility">
+<span class="sig-name descname"><span class="pre">update_button_visibility</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_keyword_ui.html#TabKeywordUI.update_button_visibility"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_keyword_ui.TabKeywordUI.update_button_visibility" title="Link to this definition"></a></dt>
+<dd><p>Toggles the visibility of the Output and Clear buttons.</p>
+<p>Visibility is determined by polling status or the ‘always show’ setting.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.ui.tab_keyword_ui.TabKeywordUI.on_double_click_save">
+<span class="sig-name descname"><span class="pre">on_double_click_save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_keyword_ui.html#TabKeywordUI.on_double_click_save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_keyword_ui.TabKeywordUI.on_double_click_save" title="Link to this definition"></a></dt>
+<dd><p>Handles double-click event on the result table.</p>
+<p>Delegates the save logic to TabKeywordLogic.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>index</strong> (<em>QModelIndex</em>) – Clicked QModelIndex</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 
 

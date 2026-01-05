@@ -1,0 +1,296 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>gui.ui.locale.message_loader &mdash; EuljiroBible 1.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=aaadad1f"></script>
+      <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            EuljiroBible
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../modules.html">Modules</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">EuljiroBible</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">gui.ui.locale.message_loader</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for gui.ui.locale.message_loader</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">:File: EuljiroBible/gui/ui/locale/message_loader.py</span>
+<span class="sd">:Author: Benjamin Jaedon Choi - https://github.com/saintbenjamin</span>
+<span class="sd">:Affiliated Church: The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</span>
+<span class="sd">:Address: The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</span>
+<span class="sd">:Telephone: +82-2-2266-3070</span>
+<span class="sd">:E-mail: euljirochurch [at] G.M.A.I.L. (replace [at] with @ and G.M.A.I.L as you understood.)</span>
+<span class="sd">:License: MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</span>
+
+<span class="sd">Provides multi-language UI message dictionaries and a function to load messages by language code for EuljiroBible.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span><span class="o">,</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">core.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">paths</span>
+
+<span class="c1"># Multi-language message dictionary</span>
+<span class="n">HARDCODED_MESSAGES</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;ko&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;program_title&quot;</span><span class="p">:</span> <span class="s2">&quot;을지로교회 성경말씀 v</span><span class="si">{0}</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;footer_copyright&quot;</span><span class="p">:</span> <span class="s2">&quot;ⓒ 대한예수교장로회(통합) 을지로교회. All rights reserved.&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;about_title&quot;</span><span class="p">:</span> <span class="s2">&quot;을지로교회 성경말씀&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;about_message&quot;</span><span class="p">:</span> <span class="s2">&quot;을지로교회 성경말씀 v</span><span class="si">{0}</span><span class="se">\n</span><span class="s2">&quot;</span>
+                        <span class="s2">&quot;제작: Benjamin J. Choi</span><span class="se">\n</span><span class="s2">&quot;</span>
+                        <span class="s2">&quot;소속: 대한예수교장로회(통합) 을지로교회</span><span class="se">\n</span><span class="s2">&quot;</span>
+                        <span class="s2">&quot;본 프로그램의 저작권은 을지로교회에 있으며,</span><span class="se">\n</span><span class="s2">&quot;</span> 
+                        <span class="s2">&quot;무단 수정 및 배포를 금합니다.&quot;</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;en&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;program_title&quot;</span><span class="p">:</span> <span class="s2">&quot;Euljiro Bible v</span><span class="si">{0}</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;footer_copyright&quot;</span><span class="p">:</span> <span class="s2">&quot;ⓒ The Eulji-ro Presbyterian Church (TongHap). All rights reserved.&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;about_title&quot;</span><span class="p">:</span> <span class="s2">&quot;Euljiro Bible&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;about_message&quot;</span><span class="p">:</span> <span class="s2">&quot;Euljiro Bible v</span><span class="si">{0}</span><span class="se">\n</span><span class="s2">&quot;</span>
+                        <span class="s2">&quot;Developer: Benjamin J. Choi</span><span class="se">\n</span><span class="s2">&quot;</span>
+                        <span class="s2">&quot;Affiliation: Eulji-ro Presbyterian Church</span><span class="se">\n</span><span class="s2">&quot;</span>
+                        <span class="s2">&quot;This program is copyrighted by Eulji-ro Presbyterian Church.</span><span class="se">\n</span><span class="s2">&quot;</span>
+                        <span class="s2">&quot;Unauthorized modification or distribution is prohibited.&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">DEFAULT_MESSAGES</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;language_name&quot;</span><span class="p">:</span> <span class="s2">&quot;English&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;language&quot;</span><span class="p">:</span> <span class="s2">&quot;English&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;menu_help&quot;</span><span class="p">:</span> <span class="s2">&quot;Help&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;menu_lang&quot;</span><span class="p">:</span> <span class="s2">&quot;Language&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;menu_about&quot;</span><span class="p">:</span> <span class="s2">&quot;About&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;menu_tools&quot;</span><span class="p">:</span> <span class="s2">&quot;Tools&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;menu_memory&quot;</span><span class="p">:</span> <span class="s2">&quot;Memory monitor&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;menu_test&quot;</span><span class="p">:</span> <span class="s2">&quot;Error test&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;toggle_btn_poll_enabled&quot;</span><span class="p">:</span> <span class="s2">&quot;Worship mode&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;toggle_btn_poll_disabled&quot;</span><span class="p">:</span> <span class="s2">&quot;Meditation mode&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tab_verse&quot;</span><span class="p">:</span> <span class="s2">&quot;Search verse&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tab_search&quot;</span><span class="p">:</span> <span class="s2">&quot;Search keyword&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tab_font&quot;</span><span class="p">:</span> <span class="s2">&quot;Settings&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;label_alias_full&quot;</span><span class="p">:</span> <span class="s2">&quot;Version (full):&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;label_alias_short&quot;</span><span class="p">:</span> <span class="s2">&quot;Version (short):&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;label_book&quot;</span><span class="p">:</span> <span class="s2">&quot;Book&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;label_chapter&quot;</span><span class="p">:</span> <span class="s2">&quot;Chapter&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;label_verse&quot;</span><span class="p">:</span> <span class="s2">&quot;Verse&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;verse_input_hint&quot;</span><span class="p">:</span> <span class="s2">&quot;e.g., 1 or 1-3&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;btn_prev&quot;</span><span class="p">:</span> <span class="s2">&quot;Previous&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;btn_search&quot;</span><span class="p">:</span> <span class="s2">&quot;Search&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;btn_output&quot;</span><span class="p">:</span> <span class="s2">&quot;ON&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;btn_next&quot;</span><span class="p">:</span> <span class="s2">&quot;Next&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;btn_clear&quot;</span><span class="p">:</span> <span class="s2">&quot;OFF&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;msg_no_word&quot;</span><span class="p">:</span> <span class="s2">&quot;No verse&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;msg_nothing&quot;</span><span class="p">:</span> <span class="s2">&quot;(None)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;search_keyword_hint&quot;</span><span class="p">:</span> <span class="s2">&quot;e.g., God so loved&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;search_location&quot;</span><span class="p">:</span> <span class="s2">&quot;Reference&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;search_verse&quot;</span><span class="p">:</span> <span class="s2">&quot;Verse text&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;search_summary&quot;</span><span class="p">:</span> <span class="s2">&quot;Search summary&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;search_summary&quot;</span><span class="p">:</span> <span class="s2">&quot;Search summary&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;total_results_label&quot;</span><span class="p">:</span> <span class="s2">&quot;Total verses found:&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;setting_main&quot;</span><span class="p">:</span> <span class="s2">&quot;Main settings&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;label_font_family&quot;</span><span class="p">:</span> <span class="s2">&quot;Font&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;label_font_size&quot;</span><span class="p">:</span> <span class="s2">&quot;Size&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;label_font_weight&quot;</span><span class="p">:</span> <span class="s2">&quot;Weight&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;btn_theme_toggle&quot;</span><span class="p">:</span> <span class="s2">&quot;Toggle theme&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;checkbox_show_on_off&quot;</span><span class="p">:</span> <span class="s2">&quot;Always show presentation options&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;setting_overlay&quot;</span><span class="p">:</span> <span class="s2">&quot;Presentation settings&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;label_display_select&quot;</span><span class="p">:</span> <span class="s2">&quot;Display&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;label_display_font_color&quot;</span><span class="p">:</span> <span class="s2">&quot;Font color&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;label_display_bg_color&quot;</span><span class="p">:</span> <span class="s2">&quot;Background color&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;label_display_bg_alpha&quot;</span><span class="p">:</span> <span class="s2">&quot;Background opacity&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;fullscreen&quot;</span><span class="p">:</span> <span class="s2">&quot;Fullscreen&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;resizable&quot;</span><span class="p">:</span> <span class="s2">&quot;Windowed&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;label_poll_interval&quot;</span><span class="p">:</span> <span class="s2">&quot;Polling interval (ms)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;btn_poll_interval_save&quot;</span><span class="p">:</span> <span class="s2">&quot;Save interval&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;label_path&quot;</span><span class="p">:</span> <span class="s2">&quot;Save location&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;btn_browse&quot;</span><span class="p">:</span> <span class="s2">&quot;Browse&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dialog_path&quot;</span><span class="p">:</span> <span class="s2">&quot;Choose where to save&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;info_no_results_title&quot;</span><span class="p">:</span> <span class="s2">&quot;No Results&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;info_no_results_msg&quot;</span><span class="p">:</span> <span class="s2">&quot;No matching verses found.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;warn_input_title&quot;</span><span class="p">:</span> <span class="s2">&quot;Input Error&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;warn_input_msg&quot;</span><span class="p">:</span> <span class="s2">&quot;Please enter a keyword/keywords.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;warn_jump_title&quot;</span><span class="p">:</span> <span class="s2">&quot;Jump Not Allowed&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;warn_jump_msg&quot;</span><span class="p">:</span> <span class="s2">&quot;Cannot jump while a verse range is entered.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;warn_verse_input_title&quot;</span><span class="p">:</span> <span class="s2">&quot;Verse Input Error&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;warn_verse_input_msg&quot;</span><span class="p">:</span> <span class="s2">&quot;Invalid verse input.</span><span class="se">\n</span><span class="s2">(e.g., 1 or 1-3)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;warn_no_chapter_title&quot;</span><span class="p">:</span> <span class="s2">&quot;No Chapter&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;warn_no_chapter_msg&quot;</span><span class="p">:</span> <span class="s2">&quot;No verses found in </span><span class="si">{0}</span><span class="s2"> chapter </span><span class="si">{1}</span><span class="s2">.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;warn_range_title&quot;</span><span class="p">:</span> <span class="s2">&quot;Range Error&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;warn_range_min&quot;</span><span class="p">:</span> <span class="s2">&quot;Verse must be at least 1.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;warn_range_max&quot;</span><span class="p">:</span> <span class="s2">&quot;Verse range: 1-</span><span class="si">{0}</span><span class="s2">.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;warn_verse_format_msg&quot;</span><span class="p">:</span> <span class="s2">&quot;Invalid verse format.</span><span class="se">\n</span><span class="s2">(e.g., 1 or 1-3)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;warn_selection_title&quot;</span><span class="p">:</span> <span class="s2">&quot;Selection Error&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;warn_selection_msg&quot;</span><span class="p">:</span> <span class="s2">&quot;Please select verses to save.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;warn_range_invalid_order&quot;</span><span class="p">:</span> <span class="s2">&quot;Start verse must be less than or equal to end verse.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;warn_version_title&quot;</span><span class="p">:</span> <span class="s2">&quot;Version Not Selected&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;warn_version_msg&quot;</span><span class="p">:</span> <span class="s2">&quot;Please select at least one Bible version.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;warn_common_book_title&quot;</span><span class="p">:</span> <span class="s2">&quot;No Common Books&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;warn_common_book_msg&quot;</span><span class="p">:</span> <span class="s2">&quot;Selected versions have no common books.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;warning_single_display_title&quot;</span><span class="p">:</span> <span class="s2">&quot;Single Display Detected&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;warning_single_display_msg&quot;</span><span class="p">:</span> <span class="s2">&quot;Only one display is detected. Do you still want to launch the overlay?&quot;</span><span class="p">,</span> 
+    <span class="s2">&quot;error_verse_not_found&quot;</span><span class="p">:</span> <span class="s2">&quot;Verse not found: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;error_verse_input&quot;</span><span class="p">:</span> <span class="s2">&quot;Verse input error: </span><span class="si">{0}</span><span class="se">\n</span><span class="s2">(e.g., 1 or 1-3)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;error_loading_title&quot;</span><span class="p">:</span> <span class="s2">&quot;Loading Error&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;error_loading_msg&quot;</span><span class="p">:</span> <span class="s2">&quot;Error loading </span><span class="si">{0}</span><span class="s2">:</span><span class="se">\n</span><span class="si">{1}</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;error_saving_title&quot;</span><span class="p">:</span> <span class="s2">&quot;Save Error&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;error_saving_msg&quot;</span><span class="p">:</span> <span class="s2">&quot;Error saving :File:</span><span class="se">\n</span><span class="si">{0}</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;error_saving_msg_path&quot;</span><span class="p">:</span> <span class="s2">&quot;Error saving file at </span><span class="si">{0}</span><span class="s2">:</span><span class="se">\n</span><span class="si">{1}</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;error_set_saving_title&quot;</span><span class="p">:</span> <span class="s2">&quot;Settings Save Error&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;error_set_saving_msg&quot;</span><span class="p">:</span> <span class="s2">&quot;Error saving settings:</span><span class="se">\n</span><span class="si">{0}</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;error_settings_title&quot;</span><span class="p">:</span> <span class="s2">&quot;Settings Error&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;error_settings_msg&quot;</span><span class="p">:</span> <span class="s2">&quot;Invalid settings format. Resetting to default.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;error_unknown&quot;</span><span class="p">:</span> <span class="s2">&quot;An unknown error occurred. Check logs.&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">_cached_messages</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">_available_languages</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># Cache to avoid re-reading directory repeatedly</span>
+
+<div class="viewcode-block" id="get_available_languages">
+<a class="viewcode-back" href="../../../../gui.ui.locale.message_loader.html#gui.ui.locale.message_loader.get_available_languages">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_available_languages</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns a dict like { &quot;ko&quot;: &quot;한국어&quot;, &quot;en&quot;: &quot;English&quot; } for all JSON files in translation folder.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">global</span> <span class="n">_available_languages</span>
+    <span class="k">if</span> <span class="n">_available_languages</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">_available_languages</span>
+
+    <span class="n">langs</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">TRANSLATION_DIR</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">langs</span>
+
+    <span class="k">for</span> <span class="n">fname</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">TRANSLATION_DIR</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">fname</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.json&quot;</span><span class="p">):</span>
+            <span class="n">lang_code</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">fname</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">TRANSLATION_DIR</span><span class="p">,</span> <span class="n">fname</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                    <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+                    <span class="n">lang_name</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;language_name&quot;</span><span class="p">,</span> <span class="n">lang_code</span><span class="p">)</span>
+                    <span class="n">langs</span><span class="p">[</span><span class="n">lang_code</span><span class="p">]</span> <span class="o">=</span> <span class="n">lang_name</span> <span class="c1"># e.g., &#39;en&#39;: &#39;English&#39;</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="k">continue</span> <span class="c1"># Skip malformed or unreadable files</span>
+
+    <span class="n">_available_languages</span> <span class="o">=</span> <span class="n">langs</span>
+    <span class="k">return</span> <span class="n">langs</span></div>
+
+
+<div class="viewcode-block" id="load_messages">
+<a class="viewcode-back" href="../../../../gui.ui.locale.message_loader.html#gui.ui.locale.message_loader.load_messages">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_messages</span><span class="p">(</span><span class="n">lang_code</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Loads UI messages based on the selected language.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        lang_code (str): Language code (e.g., &#39;ko&#39;, &#39;en&#39;).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        dict: Dictionary of translated UI messages.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">lang_code</span> <span class="ow">in</span> <span class="n">_cached_messages</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">_cached_messages</span><span class="p">[</span><span class="n">lang_code</span><span class="p">]</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">TRANSLATION_DIR</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">lang_code</span><span class="si">}</span><span class="s2">.json&quot;</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">messages</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="n">messages</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">messages</span><span class="p">:</span>
+        <span class="n">messages</span> <span class="o">=</span> <span class="n">DEFAULT_MESSAGES</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="n">lang_for_hardcode</span> <span class="o">=</span> <span class="s2">&quot;ko&quot;</span> <span class="k">if</span> <span class="n">lang_code</span> <span class="o">==</span> <span class="s2">&quot;ko&quot;</span> <span class="k">else</span> <span class="s2">&quot;en&quot;</span>
+    <span class="c1"># Overlay hardcoded keys like about/program title,</span>
+    <span class="c1"># even if translation JSON already has values</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">HARDCODED_MESSAGES</span><span class="p">[</span><span class="n">lang_for_hardcode</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">messages</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
+
+    <span class="n">_cached_messages</span><span class="p">[</span><span class="n">lang_code</span><span class="p">]</span> <span class="o">=</span> <span class="n">messages</span>
+    <span class="k">return</span> <span class="n">messages</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Benjamin J. Choi.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

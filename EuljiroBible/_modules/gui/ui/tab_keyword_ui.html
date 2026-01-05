@@ -1,0 +1,266 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>gui.ui.tab_keyword_ui &mdash; EuljiroBible 1.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=aaadad1f"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            EuljiroBible
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">Modules</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">EuljiroBible</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">gui.ui.tab_keyword_ui</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for gui.ui.tab_keyword_ui</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">:File: EuljiroBible/gui/ui/tab_keyword_ui.py</span>
+<span class="sd">:Author: Benjamin Jaedon Choi - https://github.com/saintbenjamin</span>
+<span class="sd">:Affiliated Church: The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</span>
+<span class="sd">:Address: The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</span>
+<span class="sd">:Telephone: +82-2-2266-3070</span>
+<span class="sd">:E-mail: euljirochurch [at] G.M.A.I.L. (replace [at] with @ and G.M.A.I.L as you understood.)</span>
+<span class="sd">:License: MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</span>
+
+<span class="sd">Defines the UI layout and interaction hooks for the keyword-based search tab in EuljiroBible.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtCore</span><span class="w"> </span><span class="kn">import</span> <span class="n">Qt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">QWidget</span><span class="p">,</span> <span class="n">QVBoxLayout</span><span class="p">,</span> <span class="n">QHBoxLayout</span><span class="p">,</span>
+    <span class="n">QLabel</span><span class="p">,</span> <span class="n">QLineEdit</span><span class="p">,</span> <span class="n">QComboBox</span><span class="p">,</span>
+    <span class="n">QTextEdit</span><span class="p">,</span> <span class="n">QSizePolicy</span><span class="p">,</span> <span class="n">QTableView</span><span class="p">,</span>
+    <span class="n">QSplitter</span><span class="p">,</span> <span class="n">QRadioButton</span><span class="p">,</span> <span class="n">QButtonGroup</span><span class="p">,</span>
+    <span class="n">QHeaderView</span>
+<span class="p">)</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">gui.ui.common</span><span class="w"> </span><span class="kn">import</span> <span class="n">create_svg_text_button</span>
+
+
+<div class="viewcode-block" id="TabKeywordUI">
+<a class="viewcode-back" href="../../../gui.ui.tab_keyword_ui.html#gui.ui.tab_keyword_ui.TabKeywordUI">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TabKeywordUI</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Constructs the visual layout and widget structure for the keyword search tab.</span>
+<span class="sd">    Provides controls for version selection, keyword input, search execution,</span>
+<span class="sd">    result display, and slide show output.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="TabKeywordUI.init_ui">
+<a class="viewcode-back" href="../../../gui.ui.tab_keyword_ui.html#gui.ui.tab_keyword_ui.TabKeywordUI.init_ui">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">init_ui</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version_list</span><span class="p">,</span> <span class="n">get_polling_status</span><span class="p">,</span> <span class="n">get_always_show_setting</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the UI layout and binds widget events.</span>
+
+<span class="sd">        :param version_list: List of available Bible version strings</span>
+<span class="sd">        :type version_list: list[str]</span>
+<span class="sd">        :param get_polling_status: Callback for checking polling toggle state</span>
+<span class="sd">        :type get_polling_status: Callable[[], bool]</span>
+<span class="sd">        :param get_always_show_setting: Callback for checking &#39;always show&#39; setting</span>
+<span class="sd">        :type get_always_show_setting: Callable[[], bool]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_polling_status</span> <span class="o">=</span> <span class="n">get_polling_status</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_always_show_setting</span> <span class="o">=</span> <span class="n">get_always_show_setting</span>
+
+        <span class="n">layout</span> <span class="o">=</span> <span class="n">QVBoxLayout</span><span class="p">()</span>
+
+        <span class="c1"># 1. Version dropdown</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">version_box</span> <span class="o">=</span> <span class="n">QComboBox</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">version_box</span><span class="o">.</span><span class="n">addItems</span><span class="p">(</span><span class="n">version_list</span><span class="p">)</span>
+        <span class="n">version_row</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">()</span>
+        <span class="n">version_row</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">version_box</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">version_row</span><span class="p">)</span>
+
+        <span class="c1"># 2. Keyword input with search mode selection and button</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">keyword_input</span> <span class="o">=</span> <span class="n">QLineEdit</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">keyword_input</span><span class="o">.</span><span class="n">returnPressed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">run_search</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">radio_and</span> <span class="o">=</span> <span class="n">QRadioButton</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;search_mode_all&quot;</span><span class="p">))</span>  <span class="c1"># &quot;All words&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">radio_compact</span> <span class="o">=</span> <span class="n">QRadioButton</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;search_mode_compact&quot;</span><span class="p">))</span>  <span class="c1"># &quot;Exact phrase&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">radio_and</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">radio_group</span> <span class="o">=</span> <span class="n">QButtonGroup</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">radio_group</span><span class="o">.</span><span class="n">addButton</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">radio_and</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">radio_group</span><span class="o">.</span><span class="n">addButton</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">radio_compact</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">search_button</span> <span class="o">=</span> <span class="n">create_svg_text_button</span><span class="p">(</span>
+            <span class="s2">&quot;resources/svg/btn_search.svg&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;btn_search&quot;</span><span class="p">),</span>
+            <span class="mi">30</span><span class="p">,</span> <span class="s2">&quot;Search&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">run_search</span>
+        <span class="p">)</span>
+
+        <span class="n">search_row</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">()</span>
+        <span class="n">search_row</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">radio_and</span><span class="p">)</span>
+        <span class="n">search_row</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">radio_compact</span><span class="p">)</span>
+        <span class="n">search_row</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">keyword_input</span><span class="p">)</span>
+        <span class="n">search_row</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">search_button</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">search_row</span><span class="p">)</span>
+
+        <span class="c1"># 3. Output &amp; Clear buttons</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">select_button</span> <span class="o">=</span> <span class="n">create_svg_text_button</span><span class="p">(</span>
+            <span class="s2">&quot;resources/svg/btn_output.svg&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;btn_output&quot;</span><span class="p">),</span>
+            <span class="mi">30</span><span class="p">,</span> <span class="s2">&quot;Start slide show&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_selected_verse</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clear_button</span> <span class="o">=</span> <span class="n">create_svg_text_button</span><span class="p">(</span>
+            <span class="s2">&quot;resources/svg/btn_clear.svg&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;btn_clear&quot;</span><span class="p">),</span>
+            <span class="mi">30</span><span class="p">,</span> <span class="s2">&quot;Stop slide show&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">clear_outputs</span>
+        <span class="p">)</span>
+
+        <span class="n">btns</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btns</span> <span class="o">=</span> <span class="n">btns</span>
+        <span class="n">btns</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">select_button</span><span class="p">)</span>
+        <span class="n">btns</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">clear_button</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">btns</span><span class="p">)</span>
+
+        <span class="c1"># 4. Table and summary section</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">table</span> <span class="o">=</span> <span class="n">QTableView</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setAlternatingRowColors</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setWordWrap</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setSelectionBehavior</span><span class="p">(</span><span class="n">QTableView</span><span class="o">.</span><span class="n">SelectionBehavior</span><span class="o">.</span><span class="n">SelectRows</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setEditTriggers</span><span class="p">(</span><span class="n">QTableView</span><span class="o">.</span><span class="n">EditTrigger</span><span class="o">.</span><span class="n">NoEditTriggers</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">horizontalHeader</span><span class="p">()</span><span class="o">.</span><span class="n">setStretchLastSection</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">verticalHeader</span><span class="p">()</span><span class="o">.</span><span class="n">setSectionResizeMode</span><span class="p">(</span><span class="n">QHeaderView</span><span class="o">.</span><span class="n">ResizeToContents</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s2">&quot;QTableView::item { padding: 6px; }&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">doubleClicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">on_double_click_save</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">summary_title_label</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;search_summary&quot;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">summary_box</span> <span class="o">=</span> <span class="n">QTextEdit</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">summary_box</span><span class="o">.</span><span class="n">setReadOnly</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">summary_box</span><span class="o">.</span><span class="n">setSizePolicy</span><span class="p">(</span><span class="n">QSizePolicy</span><span class="o">.</span><span class="n">Policy</span><span class="o">.</span><span class="n">Preferred</span><span class="p">,</span> <span class="n">QSizePolicy</span><span class="o">.</span><span class="n">Policy</span><span class="o">.</span><span class="n">Expanding</span><span class="p">)</span>
+
+        <span class="n">bottom_container</span> <span class="o">=</span> <span class="n">QWidget</span><span class="p">()</span>
+        <span class="n">bottom_layout</span> <span class="o">=</span> <span class="n">QVBoxLayout</span><span class="p">()</span>
+        <span class="n">bottom_layout</span><span class="o">.</span><span class="n">setContentsMargins</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">bottom_layout</span><span class="o">.</span><span class="n">setSpacing</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+        <span class="n">bottom_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">summary_title_label</span><span class="p">)</span>
+        <span class="n">bottom_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">summary_box</span><span class="p">)</span>
+        <span class="n">bottom_container</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">bottom_layout</span><span class="p">)</span>
+
+        <span class="n">splitter</span> <span class="o">=</span> <span class="n">QSplitter</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">Vertical</span><span class="p">)</span>
+        <span class="n">splitter</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="p">)</span>
+        <span class="n">splitter</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">bottom_container</span><span class="p">)</span>
+        <span class="n">splitter</span><span class="o">.</span><span class="n">setStretchFactor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="n">splitter</span><span class="o">.</span><span class="n">setStretchFactor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">splitter</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">layout</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TabKeywordUI.update_button_visibility">
+<a class="viewcode-back" href="../../../gui.ui.tab_keyword_ui.html#gui.ui.tab_keyword_ui.TabKeywordUI.update_button_visibility">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">update_button_visibility</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Toggles the visibility of the Output and Clear buttons.</span>
+
+<span class="sd">        Visibility is determined by polling status or the &#39;always show&#39; setting.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">poll_enabled</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_polling_status</span><span class="p">()</span>
+        <span class="n">always_show</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_always_show_setting</span><span class="p">()</span>
+        <span class="n">effective_polling</span> <span class="o">=</span> <span class="n">poll_enabled</span> <span class="ow">or</span> <span class="n">always_show</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">select_button</span><span class="o">.</span><span class="n">setVisible</span><span class="p">(</span><span class="n">effective_polling</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clear_button</span><span class="o">.</span><span class="n">setVisible</span><span class="p">(</span><span class="n">effective_polling</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TabKeywordUI.on_double_click_save">
+<a class="viewcode-back" href="../../../gui.ui.tab_keyword_ui.html#gui.ui.tab_keyword_ui.TabKeywordUI.on_double_click_save">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">on_double_click_save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handles double-click event on the result table.</span>
+
+<span class="sd">        Delegates the save logic to TabKeywordLogic.</span>
+
+<span class="sd">        :param index: Clicked QModelIndex</span>
+<span class="sd">        :type index: QModelIndex</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">index</span><span class="o">.</span><span class="n">column</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logic</span><span class="o">.</span><span class="n">save_selected_verse</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Benjamin J. Choi.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
