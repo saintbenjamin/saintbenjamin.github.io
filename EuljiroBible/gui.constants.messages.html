@@ -118,11 +118,9 @@
 </dl>
 <p>Centralized error message constants for user-facing dialogs in EuljiroBible.
 Intended for reuse across GUI modules to maintain consistency and easy localization.</p>
-<section id="error-message-constants">
-<h2>Error message constants<a class="headerlink" href="#error-message-constants" title="Link to this heading"></a></h2>
 <dl class="py data">
 <dt class="sig sig-object py" id="gui.constants.messages.ERROR_MESSAGES">
-<span class="sig-prename descclassname"><span class="pre">gui.constants.messages.</span></span><span class="sig-name descname"><span class="pre">ERROR_MESSAGES</span></span><a class="headerlink" href="#gui.constants.messages.ERROR_MESSAGES" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">gui.constants.messages.</span></span><span class="sig-name descname"><span class="pre">ERROR_MESSAGES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'POLL_INTERVAL_INVALID_MSG':</span> <span class="pre">'Input</span> <span class="pre">proper</span> <span class="pre">integer.',</span> <span class="pre">'POLL_INTERVAL_INVALID_TITLE':</span> <span class="pre">'Input</span> <span class="pre">error',</span> <span class="pre">'bible_data_missing':</span> <span class="pre">'The</span> <span class="pre">Bible</span> <span class="pre">data</span> <span class="pre">directory</span> <span class="pre">({path})</span> <span class="pre">does</span> <span class="pre">not</span> <span class="pre">exist.</span> <span class="pre">The</span> <span class="pre">program</span> <span class="pre">will</span> <span class="pre">now</span> <span class="pre">exit.',</span> <span class="pre">'bible_files_missing':</span> <span class="pre">'No</span> <span class="pre">Bible</span> <span class="pre">data</span> <span class="pre">found</span> <span class="pre">in</span> <span class="pre">the</span> <span class="pre">json</span> <span class="pre">directory.\n{path}',</span> <span class="pre">'critical_error':</span> <span class="pre">'A</span> <span class="pre">fatal</span> <span class="pre">error</span> <span class="pre">occurred.</span> <span class="pre">See</span> <span class="pre">error_log.txt</span> <span class="pre">for</span> <span class="pre">details.',</span> <span class="pre">'pyside6_missing':</span> <span class="pre">'🚫</span> <span class="pre">PySide6</span> <span class="pre">is</span> <span class="pre">missing!\n\nRunning</span> <span class="pre">from</span> <span class="pre">source?\nGet</span> <span class="pre">started:\n-</span> <span class="pre">Windows/Linux:</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">PySide6\n-</span> <span class="pre">macOS:</span> <span class="pre">brew</span> <span class="pre">install</span> <span class="pre">pyside',</span> <span class="pre">'settings_load':</span> <span class="pre">'Failed</span> <span class="pre">to</span> <span class="pre">load</span> <span class="pre">settings.</span> <span class="pre">Using</span> <span class="pre">defaults.',</span> <span class="pre">'settings_save':</span> <span class="pre">'Failed</span> <span class="pre">to</span> <span class="pre">save</span> <span class="pre">settings.',</span> <span class="pre">'wsl_display':</span> <span class="pre">'🔺</span> <span class="pre">An</span> <span class="pre">X</span> <span class="pre">server</span> <span class="pre">is</span> <span class="pre">required</span> <span class="pre">to</span> <span class="pre">use</span> <span class="pre">GUI</span> <span class="pre">in</span> <span class="pre">WSL</span> <span class="pre">(e.g.,</span> <span class="pre">VcXsrv,</span> <span class="pre">X410).\n🔧</span> <span class="pre">The</span> <span class="pre">DISPLAY</span> <span class="pre">environment</span> <span class="pre">variable</span> <span class="pre">is</span> <span class="pre">not</span> <span class="pre">set.'}</span></em><a class="headerlink" href="#gui.constants.messages.ERROR_MESSAGES" title="Link to this definition"></a></dt>
 <dd><p>Centralized dictionary of user-facing error and warning messages used
 throughout the EuljiroBible GUI.</p>
 <p>This mapping is intended to:</p>
@@ -133,8 +131,8 @@ throughout the EuljiroBible GUI.</p>
 <li><p>Separate presentation text from application logic</p></li>
 </ul>
 <p>Each key represents a semantic error or warning condition, while the
-corresponding value is the message string shown to the user. Some messages
-support runtime formatting via <code class="docutils literal notranslate"><span class="pre">str.format</span></code> (e.g. <code class="docutils literal notranslate"><span class="pre">{path}</span></code>).</p>
+corresponding value is the message string shown to the user.</p>
+<p>Some messages support runtime formatting via <code class="docutils literal notranslate"><span class="pre">str.format</span></code> (e.g. <code class="docutils literal notranslate"><span class="pre">{path}</span></code>).</p>
 <p>Typical usage:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gui.constants.messages</span><span class="w"> </span><span class="kn">import</span> <span class="n">ERROR_MESSAGES</span>
 <span class="n">msg</span> <span class="o">=</span> <span class="n">ERROR_MESSAGES</span><span class="p">[</span><span class="s2">&quot;settings_load&quot;</span><span class="p">]</span>
@@ -154,13 +152,11 @@ Generic fatal error message directing the user to the error log file.</p></li>
 Error raised when the Bible data directory does not exist.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">bible_files_missing</span></code>:
 Error raised when no Bible JSON files are found in the expected directory.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">POLL_INTERVAL_INVALID_TITLE</span></code> /
-<code class="docutils literal notranslate"><span class="pre">POLL_INTERVAL_INVALID_MSG</span></code>:
+<li><p><code class="docutils literal notranslate"><span class="pre">POLL_INTERVAL_INVALID_TITLE</span></code> / <code class="docutils literal notranslate"><span class="pre">POLL_INTERVAL_INVALID_MSG</span></code>:
 Title and body strings used for polling interval input validation dialogs.</p></li>
 </ul>
 </dd></dl>
 
-</section>
 </section>
 
 

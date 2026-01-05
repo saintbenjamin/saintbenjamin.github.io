@@ -114,8 +114,6 @@
 <span class="sd">        settings (dict): Shared application settings dictionary (loaded and persisted via ConfigManager).</span>
 <span class="sd">        verse_path (str): Path to the verse output file used by polling/overlay logic.</span>
 <span class="sd">        poll_timer (QTimer): Timer that periodically triggers polling of the verse output file.</span>
-<span class="sd">        get_main_geometry (Callable[[], QRect]): Callback returning the main window geometry</span>
-<span class="sd">            used to determine which screen is the &quot;main&quot; display.</span>
 <span class="sd">        refresh_settings_callback (Callable[[], None]): Callback invoked when settings should be refreshed</span>
 <span class="sd">            outside of this tab.</span>
 <span class="sd">        get_poll_enabled (Callable[[], bool]): Callback returning whether polling is enabled externally.</span>
@@ -123,6 +121,7 @@
 <span class="sd">        overlay_denied (bool): Flag indicating the user denied overlay usage on single-display setups.</span>
 <span class="sd">        logic (TabSettingsLogic): Backend logic handler for applying UI-driven settings changes.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+        <span class="c1"># get_main_geometry (Callable[[], QRect]): Callback returning the main window geometry used to determine which screen is the &quot;main&quot; display.</span>
 
 <div class="viewcode-block" id="TabSettings.__init__">
 <a class="viewcode-back" href="../../../gui.ui.tab_settings.html#gui.ui.tab_settings.TabSettings.__init__">[docs]</a>

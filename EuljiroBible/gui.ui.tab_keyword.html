@@ -195,29 +195,6 @@ and exporting the selected verse for overlay usage.</p>
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="gui.ui.tab_keyword.TabKeyword.get_polling_status">
-<span class="sig-name descname"><span class="pre">get_polling_status</span></span><a class="reference internal" href="_modules/gui/ui/tab_keyword.html#TabKeyword.get_polling_status"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_keyword.TabKeyword.get_polling_status" title="Link to this definition"></a></dt>
-<dd><p>Callback returning current polling state.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Callable[[], bool]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="gui.ui.tab_keyword.TabKeyword.get_always_show_setting">
-<span class="sig-name descname"><span class="pre">get_always_show_setting</span></span><a class="reference internal" href="_modules/gui/ui/tab_keyword.html#TabKeyword.get_always_show_setting"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_keyword.TabKeyword.get_always_show_setting" title="Link to this definition"></a></dt>
-<dd><p>Callback returning current
-“always show buttons” toggle state.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Callable[[], bool]</p>
-</dd>
-</dl>
-</dd></dl>
-
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.tab_keyword.TabKeyword.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">settings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">get_polling_status</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">get_always_show_setting</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_keyword.html#TabKeyword.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_keyword.TabKeyword.__init__" title="Link to this definition"></a></dt>
@@ -294,8 +271,8 @@ UI state as needed.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="id0">
-<span class="sig-name descname"><span class="pre">get_polling_status</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_keyword.html#TabKeyword.get_polling_status"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id0" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="gui.ui.tab_keyword.TabKeyword.get_polling_status">
+<span class="sig-name descname"><span class="pre">get_polling_status</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_keyword.html#TabKeyword.get_polling_status"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_keyword.TabKeyword.get_polling_status" title="Link to this definition"></a></dt>
 <dd><p>Return the current polling toggle state.</p>
 <p>This method is designed to be overridden or replaced by an injected callback.</p>
 <dl class="field-list simple">
@@ -309,8 +286,8 @@ UI state as needed.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="id1">
-<span class="sig-name descname"><span class="pre">get_always_show_setting</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_keyword.html#TabKeyword.get_always_show_setting"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id1" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="gui.ui.tab_keyword.TabKeyword.get_always_show_setting">
+<span class="sig-name descname"><span class="pre">get_always_show_setting</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_keyword.html#TabKeyword.get_always_show_setting"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_keyword.TabKeyword.get_always_show_setting" title="Link to this definition"></a></dt>
 <dd><p>Return the current “always show buttons” setting.</p>
 <p>This method is designed to be overridden or replaced by an injected callback.</p>
 <dl class="field-list simple">

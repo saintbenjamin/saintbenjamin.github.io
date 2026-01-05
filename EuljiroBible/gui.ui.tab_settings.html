@@ -197,18 +197,6 @@ coordinates the Qt timer, overlay window lifecycle, and language refresh.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="gui.ui.tab_settings.TabSettings.get_main_geometry">
-<span class="sig-name descname"><span class="pre">get_main_geometry</span></span><a class="reference internal" href="_modules/gui/ui/tab_settings.html#TabSettings.get_main_geometry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_settings.TabSettings.get_main_geometry" title="Link to this definition"></a></dt>
-<dd><p>Callback returning the main window geometry
-used to determine which screen is the “main” display.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Callable[[], QRect]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
 <dt class="sig sig-object py" id="gui.ui.tab_settings.TabSettings.refresh_settings_callback">
 <span class="sig-name descname"><span class="pre">refresh_settings_callback</span></span><a class="headerlink" href="#gui.ui.tab_settings.TabSettings.refresh_settings_callback" title="Link to this definition"></a></dt>
 <dd><p>Callback invoked when settings should be refreshed
@@ -384,8 +372,8 @@ geometry. When disabling, it closes the active overlay window.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="id0">
-<span class="sig-name descname"><span class="pre">get_main_geometry</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_settings.html#TabSettings.get_main_geometry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id0" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="gui.ui.tab_settings.TabSettings.get_main_geometry">
+<span class="sig-name descname"><span class="pre">get_main_geometry</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_settings.html#TabSettings.get_main_geometry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_settings.TabSettings.get_main_geometry" title="Link to this definition"></a></dt>
 <dd><p>Return the main window geometry.</p>
 <p>This is a stub fallback used when no external callback is injected. Call sites
 should inject a real geometry provider so overlay placement logic can determine
