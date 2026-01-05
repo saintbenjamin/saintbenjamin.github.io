@@ -79,7 +79,7 @@
 <span class="sd">:E-mail: euljirochurch [at] G.M.A.I.L. (replace [at] with @ and G.M.A.I.L as you understood.)</span>
 <span class="sd">:License: MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</span>
 
-<span class="sd">Watches :py:data:`core.config.paths.VERSE_FILE` and emits a Qt signal when the emergency text is cleared.</span>
+<span class="sd">Watches :py:data:`core.config.paths.VERSE_FILE` and emits a `Qt &lt;https://doc.qt.io/qt-6/index.html&gt;`_ signal when the emergency text is cleared.</span>
 
 <span class="sd">This module defines a lightweight polling watcher used by the slide controller.</span>
 <span class="sd">It monitors the emergency verse file (:py:data:`core.config.paths.VERSE_FILE`) and detects the state</span>
@@ -90,7 +90,7 @@
 <span class="sd">Key behavior:</span>
 
 <span class="sd">- Polls the verse file at a configurable interval (``poll_interval``)</span>
-<span class="sd">- Emits a signal only on the transition: non-empty -&gt; empty</span>
+<span class="sd">- Emits a signal only on the transition: ``non-empty -&gt; empty``</span>
 <span class="sd">- Provides a stop mechanism for clean thread shutdown</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
@@ -108,7 +108,7 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Monitors the emergency verse output file and emits a signal when it is cleared.</span>
 
-<span class="sd">    This watcher is designed to run inside a `QThread` loop (polling-based).</span>
+<span class="sd">    This watcher is designed to run inside a `QThread &lt;https://doc.qt.io/qt-6/qthread.html&gt;`_ loop (polling-based).</span>
 <span class="sd">    It reads :py:data:`core.config.paths.VERSE_FILE` periodically and tracks the last observed content.</span>
 <span class="sd">    When the file transitions from non-empty content to an empty string, it emits</span>
 <span class="sd">    ``interruptor_cleared``.</span>
@@ -146,7 +146,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Stop the watcher loop.</span>
 
-<span class="sd">        This method signals the polling loop in `run()` to exit cleanly.</span>
+<span class="sd">        This method signals the polling loop in ``run()`` to exit cleanly.</span>
 <span class="sd">        It is intended to be called during controller shutdown.</span>
 
 <span class="sd">        Args:</span>
@@ -172,7 +172,7 @@
 
 <span class="sd">        Note:</span>
 <span class="sd">            - This is a polling-based watcher (not filesystem event-based).</span>
-<span class="sd">            - Intended to be executed in a background `QThread`.</span>
+<span class="sd">            - Intended to be executed in a background `QThread &lt;https://doc.qt.io/qt-6/qthread.html&gt;`_.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            None</span>

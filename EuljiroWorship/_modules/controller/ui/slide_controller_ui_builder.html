@@ -119,6 +119,7 @@
 <span class="sd">    controller&#39;s navigation and emergency-caption handlers.</span>
 
 <span class="sd">    The builder assumes the controller already has:</span>
+
 <span class="sd">    - ``slides``: list[dict] containing slide data for preview population</span>
 <span class="sd">    - ``index``: int current slide index to pre-select in the table</span>
 
@@ -128,15 +129,16 @@
 <span class="sd">            Widgets created by this builder are attached onto this object.</span>
 
 <span class="sd">            This builder assigns (at minimum) the following attributes onto ``c``:</span>
-<span class="sd">            - label (QLabel): Top status label (elided text).</span>
-<span class="sd">            - btn_on (QPushButton): Emergency caption ON button.</span>
-<span class="sd">            - btn_off (QPushButton): Emergency caption OFF button.</span>
-<span class="sd">            - first_button (QPushButton): Jump to first slide button.</span>
-<span class="sd">            - prev_button (QPushButton): Jump to previous slide button.</span>
-<span class="sd">            - next_button (QPushButton): Jump to next slide button.</span>
-<span class="sd">            - last_button (QPushButton): Jump to last slide button.</span>
-<span class="sd">            - page_input (QLineEdit): Page number input used for direct jump.</span>
-<span class="sd">            - table (QTableWidget): Slide preview table (row selection + click-to-jump).</span>
+
+<span class="sd">            - label (`QLabel &lt;https://doc.qt.io/qt-6/qlabel.html&gt;`_): Top status label (elided text).</span>
+<span class="sd">            - btn_on (`QPushButton &lt;https://doc.qt.io/qt-6/qpushbutton.html&gt;`_): Emergency caption ON button.</span>
+<span class="sd">            - btn_off (`QPushButton &lt;https://doc.qt.io/qt-6/qpushbutton.html&gt;`_): Emergency caption OFF button.</span>
+<span class="sd">            - first_button (`QPushButton &lt;https://doc.qt.io/qt-6/qpushbutton.html&gt;`_): Jump to first slide button.</span>
+<span class="sd">            - prev_button (`QPushButton &lt;https://doc.qt.io/qt-6/qpushbutton.html&gt;`_): Jump to previous slide button.</span>
+<span class="sd">            - next_button (`QPushButton &lt;https://doc.qt.io/qt-6/qpushbutton.html&gt;`_): Jump to next slide button.</span>
+<span class="sd">            - last_button (`QPushButton &lt;https://doc.qt.io/qt-6/qpushbutton.html&gt;`_): Jump to last slide button.</span>
+<span class="sd">            - page_input (`QLineEdit &lt;https://doc.qt.io/qt-6/qlineedit.html&gt;`_): Page number input used for direct jump.</span>
+<span class="sd">            - table (`QTableWidget &lt;https://doc.qt.io/qt-6/qtablewidget.html&gt;`_): Slide preview table (row selection + click-to-jump).</span>
 
 <span class="sd">    Note:</span>
 <span class="sd">        - Widgets are attached onto the controller instance as attributes</span>
@@ -152,7 +154,7 @@
 <span class="sd">        Initialize the UI builder with a :class:`controller.slide_controller.SlideController` instance.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            controller (QWidget):</span>
+<span class="sd">            controller (`QWidget &lt;https://doc.qt.io/qt-6/qwidget.html&gt;`_):</span>
 <span class="sd">                The main :class:`controller.slide_controller.SlideController` instance that owns the window and runtime</span>
 <span class="sd">                logic. Widgets created by this builder are assigned as attributes</span>
 <span class="sd">                on this object.</span>
@@ -279,7 +281,7 @@
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">set_elided_label_text</span><span class="p">(</span><span class="n">label</span><span class="p">:</span> <span class="n">QLabel</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Set right-elided text on a `QLabel` to fit the current label width.</span>
+<span class="sd">        Set right-elided text on a `QLabel &lt;https://doc.qt.io/qt-6/qlabel.html&gt;`_ to fit the current label width.</span>
 
 <span class="sd">        This helper computes an elided string (truncated with an ellipsis) so the</span>
 <span class="sd">        label does not overflow horizontally. Truncation occurs on the right side.</span>

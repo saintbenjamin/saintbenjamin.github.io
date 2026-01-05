@@ -81,21 +81,20 @@
 
 <span class="sd">Main entry point for the EuljiroWorship application.</span>
 
-<span class="sd">This module launches the Qt-based Slide Generator UI and starts the background</span>
+<span class="sd">This module launches the `Qt &lt;https://doc.qt.io/qt-6/index.html&gt;`_-based Slide Generator UI and starts the background</span>
 <span class="sd">servers required for the browser-based overlay:</span>
 
 <span class="sd">- An HTTP server (static file hosting; default: ``python -m http.server 8080``)</span>
-<span class="sd">- A WebSocket server (real-time slide updates; launched via ``server/websocket_server.py``)</span>
+<span class="sd">- A `WebSocket &lt;https://websocket-client.readthedocs.io/en/latest/index.html&gt;`_ server (real-time slide updates; launched via ``server/websocket_server.py``)</span>
 
 <span class="sd">Typical usage::</span>
 
 <span class="sd">    python EuljiroWorship.py</span>
 
-<span class="sd">Notes:</span>
-
-<span class="sd">- The HTTP document root is currently set to the project root directory. If your overlay/static files live under a specific subdirectory (e.g. ``web/``), update ``http_cwd`` accordingly.</span>
-<span class="sd">- Both servers are started as subprocesses. They are terminated on normal Qt exit and also via ``atexit`` as a fallback.</span>
-<span class="sd">- If the server subprocess exits immediately (e.g., port already in use), the launcher raises a ``RuntimeError``.</span>
+<span class="sd">Note:</span>
+<span class="sd">    - The HTTP document root is currently set to the project root directory. If your overlay/static files live under a specific subdirectory (e.g. ``web/``), update ``http_cwd`` accordingly.</span>
+<span class="sd">    - Both servers are started as subprocesses. They are terminated on normal `Qt &lt;https://doc.qt.io/qt-6/index.html&gt;`_ exit and also via ``atexit`` as a fallback.</span>
+<span class="sd">    - If the server subprocess exits immediately (e.g., port already in use), the launcher raises a ``RuntimeError``.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
@@ -168,7 +167,7 @@
 <a class="viewcode-back" href="../EuljiroWorship.html#EuljiroWorship._start_ws_server">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">_start_ws_server</span><span class="p">(</span><span class="n">root</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Start the WebSocket server as a subprocess.</span>
+<span class="sd">    Start the `WebSocket &lt;https://websocket-client.readthedocs.io/en/latest/index.html&gt;`_ server as a subprocess.</span>
 
 <span class="sd">    This launches::</span>
 
@@ -184,7 +183,7 @@
 
 <span class="sd">    Returns:</span>
 <span class="sd">        subprocess.Popen:</span>
-<span class="sd">            A handle to the spawned WebSocket server process.</span>
+<span class="sd">            A handle to the spawned `WebSocket &lt;https://websocket-client.readthedocs.io/en/latest/index.html&gt;`_ server process.</span>
 
 <span class="sd">    Note:</span>
 <span class="sd">        - The process is spawned with its working directory set to the project root.</span>

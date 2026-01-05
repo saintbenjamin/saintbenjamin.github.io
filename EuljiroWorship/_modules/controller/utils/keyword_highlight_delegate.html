@@ -79,9 +79,9 @@
 <span class="sd">:E-mail: euljirochurch [at] G.M.A.I.L. (replace [at] with @ and G.M.A.I.L as you understood.)</span>
 <span class="sd">:License: MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</span>
 
-<span class="sd">`QStyledItemDelegate` implementation for keyword highlighting in Qt item views.</span>
+<span class="sd">`QStyledItemDelegate &lt;https://doc.qt.io/qt-6/qstyleditemdelegate.html&gt;`_ implementation for keyword highlighting in `Qt &lt;https://doc.qt.io/qt-6/index.html&gt;`_ item views.</span>
 
-<span class="sd">This module defines a delegate that renders cell text using `QTextDocument` so that:</span>
+<span class="sd">This module defines a delegate that renders cell text using `QTextDocument &lt;https://doc.qt.io/qt-6/qtextdocument.html&gt;`_ so that:</span>
 
 <span class="sd">- HTML tags (e.g., ``&lt;b&gt;``) are supported.</span>
 <span class="sd">- Newlines are rendered as multi-line content (``&lt;br&gt;``).</span>
@@ -107,7 +107,7 @@
 
 <span class="sd">    - HTML formatting (keyword highlighting)</span>
 <span class="sd">    - Multi-line wrapping</span>
-<span class="sd">    - Accurate ``sizeHint()`` based on rendered document height</span>
+<span class="sd">    - Accurate :meth:`sizeHint` based on rendered document height</span>
 
 <span class="sd">    Attributes:</span>
 <span class="sd">        keywords (list[str]):</span>
@@ -144,7 +144,7 @@
 
 <span class="sd">        - Fills the background depending on selection state.</span>
 <span class="sd">        - Converts the cell text to HTML with keyword highlighting.</span>
-<span class="sd">        - Uses `QTextDocument` to render the HTML with wrapping.</span>
+<span class="sd">        - Uses `QTextDocument &lt;https://doc.qt.io/qt-6/qtextdocument.html&gt;`_ to render the HTML with wrapping.</span>
 <span class="sd">        - Draws the document contents with a small padding offset.</span>
 
 <span class="sd">        Args:</span>
@@ -195,7 +195,7 @@
 <span class="sd">        This method:</span>
 
 <span class="sd">        - Escapes HTML special characters (``&amp;``, ``&lt;``, ``&gt;``).</span>
-<span class="sd">        - Converts newline characters to &lt;br&gt;.</span>
+<span class="sd">        - Converts newline characters to ``&lt;br&gt;``.</span>
 <span class="sd">        - Wraps each keyword occurrence with::</span>
 
 <span class="sd">            &lt;span style=&#39;color:red&#39;&gt;...&lt;/span&gt;</span>
@@ -235,7 +235,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return the preferred size for a cell based on HTML-rendered content.</span>
 
-<span class="sd">        Computes the document size using `QTextDocument` with the same width constraints</span>
+<span class="sd">        Computes the document size using `QTextDocument &lt;https://doc.qt.io/qt-6/qtextdocument.html&gt;`_ with the same width constraints</span>
 <span class="sd">        used during painting, then adds padding so the content does not touch borders.</span>
 
 <span class="sd">        Args:</span>

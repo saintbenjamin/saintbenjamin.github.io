@@ -138,24 +138,28 @@ table, and installing event filters for keyboard navigation.</p>
 separate from UI layout details. The builder creates and attaches widgets
 onto the controller instance (<code class="docutils literal notranslate"><span class="pre">self.c</span></code>), and wires up signals to the
 controller’s navigation and emergency-caption handlers.</p>
-<p>The builder assumes the controller already has:
-- <code class="docutils literal notranslate"><span class="pre">slides</span></code>: list[dict] containing slide data for preview population
-- <code class="docutils literal notranslate"><span class="pre">index</span></code>: int current slide index to pre-select in the table</p>
+<p>The builder assumes the controller already has:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">slides</span></code>: list[dict] containing slide data for preview population</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">index</span></code>: int current slide index to pre-select in the table</p></li>
+</ul>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="controller.ui.slide_controller_ui_builder.SlideControllerUIBuilder.c">
 <span class="sig-name descname"><span class="pre">c</span></span><a class="headerlink" href="#controller.ui.slide_controller_ui_builder.SlideControllerUIBuilder.c" title="Link to this definition"></a></dt>
 <dd><p>The controller instance that owns the window and runtime logic.
 Widgets created by this builder are attached onto this object.</p>
-<p>This builder assigns (at minimum) the following attributes onto <code class="docutils literal notranslate"><span class="pre">c</span></code>:
-- label (QLabel): Top status label (elided text).
-- btn_on (QPushButton): Emergency caption ON button.
-- btn_off (QPushButton): Emergency caption OFF button.
-- first_button (QPushButton): Jump to first slide button.
-- prev_button (QPushButton): Jump to previous slide button.
-- next_button (QPushButton): Jump to next slide button.
-- last_button (QPushButton): Jump to last slide button.
-- page_input (QLineEdit): Page number input used for direct jump.
-- table (QTableWidget): Slide preview table (row selection + click-to-jump).</p>
+<p>This builder assigns (at minimum) the following attributes onto <code class="docutils literal notranslate"><span class="pre">c</span></code>:</p>
+<ul class="simple">
+<li><p>label (<a class="reference external" href="https://doc.qt.io/qt-6/qlabel.html">QLabel</a>): Top status label (elided text).</p></li>
+<li><p>btn_on (<a class="reference external" href="https://doc.qt.io/qt-6/qpushbutton.html">QPushButton</a>): Emergency caption ON button.</p></li>
+<li><p>btn_off (<a class="reference external" href="https://doc.qt.io/qt-6/qpushbutton.html">QPushButton</a>): Emergency caption OFF button.</p></li>
+<li><p>first_button (<a class="reference external" href="https://doc.qt.io/qt-6/qpushbutton.html">QPushButton</a>): Jump to first slide button.</p></li>
+<li><p>prev_button (<a class="reference external" href="https://doc.qt.io/qt-6/qpushbutton.html">QPushButton</a>): Jump to previous slide button.</p></li>
+<li><p>next_button (<a class="reference external" href="https://doc.qt.io/qt-6/qpushbutton.html">QPushButton</a>): Jump to next slide button.</p></li>
+<li><p>last_button (<a class="reference external" href="https://doc.qt.io/qt-6/qpushbutton.html">QPushButton</a>): Jump to last slide button.</p></li>
+<li><p>page_input (<a class="reference external" href="https://doc.qt.io/qt-6/qlineedit.html">QLineEdit</a>): Page number input used for direct jump.</p></li>
+<li><p>table (<a class="reference external" href="https://doc.qt.io/qt-6/qtablewidget.html">QTableWidget</a>): Slide preview table (row selection + click-to-jump).</p></li>
+</ul>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference internal" href="controller.slide_controller.html#controller.slide_controller.SlideController" title="controller.slide_controller.SlideController">controller.slide_controller.SlideController</a></p>
@@ -178,7 +182,7 @@ support keyboard navigation.</p></li>
 <dd><p>Initialize the UI builder with a <a class="reference internal" href="controller.slide_controller.html#controller.slide_controller.SlideController" title="controller.slide_controller.SlideController"><code class="xref py py-class docutils literal notranslate"><span class="pre">controller.slide_controller.SlideController</span></code></a> instance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>controller</strong> (<em>QWidget</em>) – The main <a class="reference internal" href="controller.slide_controller.html#controller.slide_controller.SlideController" title="controller.slide_controller.SlideController"><code class="xref py py-class docutils literal notranslate"><span class="pre">controller.slide_controller.SlideController</span></code></a> instance that owns the window and runtime
+<dd class="field-odd"><p><strong>controller</strong> (<a class="reference external" href="https://doc.qt.io/qt-6/qwidget.html">QWidget</a>) – The main <a class="reference internal" href="controller.slide_controller.html#controller.slide_controller.SlideController" title="controller.slide_controller.SlideController"><code class="xref py py-class docutils literal notranslate"><span class="pre">controller.slide_controller.SlideController</span></code></a> instance that owns the window and runtime
 logic. Widgets created by this builder are assigned as attributes
 on this object.</p>
 </dd>
@@ -216,7 +220,7 @@ on this object.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="controller.ui.slide_controller_ui_builder.SlideControllerUIBuilder.set_elided_label_text">
 <em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_elided_label_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/ui/slide_controller_ui_builder.html#SlideControllerUIBuilder.set_elided_label_text"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.ui.slide_controller_ui_builder.SlideControllerUIBuilder.set_elided_label_text" title="Link to this definition"></a></dt>
-<dd><p>Set right-elided text on a <cite>QLabel</cite> to fit the current label width.</p>
+<dd><p>Set right-elided text on a <a class="reference external" href="https://doc.qt.io/qt-6/qlabel.html">QLabel</a> to fit the current label width.</p>
 <p>This helper computes an elided string (truncated with an ellipsis) so the
 label does not overflow horizontally. Truncation occurs on the right side.</p>
 <dl class="field-list simple">

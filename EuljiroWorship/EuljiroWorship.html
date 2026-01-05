@@ -111,22 +111,24 @@
 </dd>
 </dl>
 <p>Main entry point for the EuljiroWorship application.</p>
-<p>This module launches the Qt-based Slide Generator UI and starts the background
+<p>This module launches the <a class="reference external" href="https://doc.qt.io/qt-6/index.html">Qt</a>-based Slide Generator UI and starts the background
 servers required for the browser-based overlay:</p>
 <ul class="simple">
 <li><p>An HTTP server (static file hosting; default: <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">http.server</span> <span class="pre">8080</span></code>)</p></li>
-<li><p>A WebSocket server (real-time slide updates; launched via <code class="docutils literal notranslate"><span class="pre">server/websocket_server.py</span></code>)</p></li>
+<li><p>A <a class="reference external" href="https://websocket-client.readthedocs.io/en/latest/index.html">WebSocket</a> server (real-time slide updates; launched via <code class="docutils literal notranslate"><span class="pre">server/websocket_server.py</span></code>)</p></li>
 </ul>
 <p>Typical usage:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">EuljiroWorship</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
-<p>Notes:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <ul class="simple">
 <li><p>The HTTP document root is currently set to the project root directory. If your overlay/static files live under a specific subdirectory (e.g. <code class="docutils literal notranslate"><span class="pre">web/</span></code>), update <code class="docutils literal notranslate"><span class="pre">http_cwd</span></code> accordingly.</p></li>
-<li><p>Both servers are started as subprocesses. They are terminated on normal Qt exit and also via <code class="docutils literal notranslate"><span class="pre">atexit</span></code> as a fallback.</p></li>
+<li><p>Both servers are started as subprocesses. They are terminated on normal <a class="reference external" href="https://doc.qt.io/qt-6/index.html">Qt</a> exit and also via <code class="docutils literal notranslate"><span class="pre">atexit</span></code> as a fallback.</p></li>
 <li><p>If the server subprocess exits immediately (e.g., port already in use), the launcher raises a <code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code>.</p></li>
 </ul>
+</div>
 <dl class="py function">
 <dt class="sig sig-object py" id="EuljiroWorship._project_root">
 <span class="sig-prename descclassname"><span class="pre">EuljiroWorship.</span></span><span class="sig-name descname"><span class="pre">_project_root</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/EuljiroWorship.html#_project_root"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EuljiroWorship._project_root" title="Link to this definition"></a></dt>
@@ -177,7 +179,7 @@ root (i.e., the root directory of the project).</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="EuljiroWorship._start_ws_server">
 <span class="sig-prename descclassname"><span class="pre">EuljiroWorship.</span></span><span class="sig-name descname"><span class="pre">_start_ws_server</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EuljiroWorship.html#_start_ws_server"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EuljiroWorship._start_ws_server" title="Link to this definition"></a></dt>
-<dd><p>Start the WebSocket server as a subprocess.</p>
+<dd><p>Start the <a class="reference external" href="https://websocket-client.readthedocs.io/en/latest/index.html">WebSocket</a> server as a subprocess.</p>
 <p>This launches:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">project_root</span><span class="o">&gt;/</span><span class="n">server</span><span class="o">/</span><span class="n">websocket_server</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
@@ -190,7 +192,8 @@ root (i.e., the root directory of the project).</p>
 <dd class="field-even"><p><strong>FileNotFoundError</strong> – If <code class="docutils literal notranslate"><span class="pre">server/websocket_server.py</span></code> does not exist under <code class="docutils literal notranslate"><span class="pre">root</span></code>.</p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>A handle to the spawned WebSocket server process.</p>
+<dd class="field-odd"><p><p>A handle to the spawned <a class="reference external" href="https://websocket-client.readthedocs.io/en/latest/index.html">WebSocket</a> server process.</p>
+</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>subprocess.Popen</p>

@@ -121,7 +121,7 @@
 <dd class="field-odd"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
 </dd>
 </dl>
-<p>Watches <a class="reference internal" href="core.config.paths.html#core.config.paths.VERSE_FILE" title="core.config.paths.VERSE_FILE"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.VERSE_FILE</span></code></a> and emits a Qt signal when the emergency text is cleared.</p>
+<p>Watches <a class="reference internal" href="core.config.paths.html#core.config.paths.VERSE_FILE" title="core.config.paths.VERSE_FILE"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.VERSE_FILE</span></code></a> and emits a <a class="reference external" href="https://doc.qt.io/qt-6/index.html">Qt</a> signal when the emergency text is cleared.</p>
 <p>This module defines a lightweight polling watcher used by the slide controller.
 It monitors the emergency verse file (<a class="reference internal" href="core.config.paths.html#core.config.paths.VERSE_FILE" title="core.config.paths.VERSE_FILE"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.VERSE_FILE</span></code></a>) and detects the state
 transition from <strong>non-empty</strong> to <strong>empty</strong>. When that transition occurs, it emits
@@ -130,7 +130,7 @@ previous slide session and exit emergency mode.</p>
 <p>Key behavior:</p>
 <ul class="simple">
 <li><p>Polls the verse file at a configurable interval (<code class="docutils literal notranslate"><span class="pre">poll_interval</span></code>)</p></li>
-<li><p>Emits a signal only on the transition: non-empty -&gt; empty</p></li>
+<li><p>Emits a signal only on the transition: <code class="docutils literal notranslate"><span class="pre">non-empty</span> <span class="pre">-&gt;</span> <span class="pre">empty</span></code></p></li>
 <li><p>Provides a stop mechanism for clean thread shutdown</p></li>
 </ul>
 <dl class="py class">
@@ -138,7 +138,7 @@ previous slide session and exit emergency mode.</p>
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">controller.utils.interruptor_watcher.</span></span><span class="sig-name descname"><span class="pre">InterruptorWatcher</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/interruptor_watcher.html#InterruptorWatcher"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.interruptor_watcher.InterruptorWatcher" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QObject</span></code></p>
 <p>Monitors the emergency verse output file and emits a signal when it is cleared.</p>
-<p>This watcher is designed to run inside a <cite>QThread</cite> loop (polling-based).
+<p>This watcher is designed to run inside a <a class="reference external" href="https://doc.qt.io/qt-6/qthread.html">QThread</a> loop (polling-based).
 It reads <a class="reference internal" href="core.config.paths.html#core.config.paths.VERSE_FILE" title="core.config.paths.VERSE_FILE"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.VERSE_FILE</span></code></a> periodically and tracks the last observed content.
 When the file transitions from non-empty content to an empty string, it emits
 <code class="docutils literal notranslate"><span class="pre">interruptor_cleared</span></code>.</p>
@@ -171,7 +171,7 @@ When the file transitions from non-empty content to an empty string, it emits
 <dt class="sig sig-object py" id="controller.utils.interruptor_watcher.InterruptorWatcher.stop">
 <span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/interruptor_watcher.html#InterruptorWatcher.stop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.interruptor_watcher.InterruptorWatcher.stop" title="Link to this definition"></a></dt>
 <dd><p>Stop the watcher loop.</p>
-<p>This method signals the polling loop in <cite>run()</cite> to exit cleanly.
+<p>This method signals the polling loop in <code class="docutils literal notranslate"><span class="pre">run()</span></code> to exit cleanly.
 It is intended to be called during controller shutdown.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -197,7 +197,7 @@ It is intended to be called during controller shutdown.</p>
 <p class="admonition-title">Note</p>
 <ul class="simple">
 <li><p>This is a polling-based watcher (not filesystem event-based).</p></li>
-<li><p>Intended to be executed in a background <cite>QThread</cite>.</p></li>
+<li><p>Intended to be executed in a background <a class="reference external" href="https://doc.qt.io/qt-6/qthread.html">QThread</a>.</p></li>
 </ul>
 </div>
 <dl class="field-list simple">

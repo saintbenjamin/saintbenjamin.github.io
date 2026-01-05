@@ -124,14 +124,14 @@
 <p>Slide file watcher for the slide controller.</p>
 <p>This module continuously monitors the slide output JSON file used by the
 slide controller. It detects file modification events via polling and emits
-Qt signals when:</p>
+<a class="reference external" href="https://doc.qt.io/qt-6/index.html">Qt</a> signals when:</p>
 <ul class="simple">
 <li><p>Slide content is updated (non-empty JSON)</p></li>
 <li><p>Slide content is cleared (empty JSON), typically indicating the end of
 emergency caption mode</p></li>
 </ul>
-<p>The watcher is designed to run inside a <cite>QThread</cite> and communicate with the
-<a class="reference internal" href="controller.slide_controller.html#controller.slide_controller.SlideController" title="controller.slide_controller.SlideController"><code class="xref py py-class docutils literal notranslate"><span class="pre">controller.slide_controller.SlideController</span></code></a> via Qt signals only.</p>
+<p>The watcher is designed to run inside a <a class="reference external" href="https://doc.qt.io/qt-6/qthread.html">QThread</a> and communicate with the
+<a class="reference internal" href="controller.slide_controller.html#controller.slide_controller.SlideController" title="controller.slide_controller.SlideController"><code class="xref py py-class docutils literal notranslate"><span class="pre">controller.slide_controller.SlideController</span></code></a> via <a class="reference external" href="https://doc.qt.io/qt-6/index.html">Qt</a> signals only.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="controller.utils.slide_file_watcher.SlideFileWatcher">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">controller.utils.slide_file_watcher.</span></span><span class="sig-name descname"><span class="pre">SlideFileWatcher</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/slide_file_watcher.html#SlideFileWatcher"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.slide_file_watcher.SlideFileWatcher" title="Link to this definition"></a></dt>
@@ -195,7 +195,7 @@ When a file modification is detected:</p>
 <li><p>Emits <code class="docutils literal notranslate"><span class="pre">slide_changed</span></code> if the file contains slide data</p></li>
 <li><p>Emits <code class="docutils literal notranslate"><span class="pre">slide_cleared</span></code> if the file is empty</p></li>
 </ul>
-<p>This method is intended to be executed inside a <cite>QThread</cite>.</p>
+<p>This method is intended to be executed inside a <a class="reference external" href="https://doc.qt.io/qt-6/qthread.html">QThread</a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>None</p>

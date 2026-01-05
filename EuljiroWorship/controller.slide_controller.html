@@ -122,7 +122,7 @@ file watchers, WebSocket broadcasting, and the emergency verse interruptor.</p>
 <ul>
 <li><p>Ensure the project root is importable (sys.path injection for direct execution)</p></li>
 <li><p>Define <a class="reference internal" href="#controller.slide_controller.launch_interruptor" title="controller.slide_controller.launch_interruptor"><code class="xref py py-func docutils literal notranslate"><span class="pre">controller.slide_controller.launch_interruptor()</span></code></a> to start the verse interruptor as a detached process</p></li>
-<li><p>Define <a class="reference internal" href="#controller.slide_controller.SlideController" title="controller.slide_controller.SlideController"><code class="xref py py-class docutils literal notranslate"><span class="pre">controller.slide_controller.SlideController</span></code></a>, the main <cite>QWidget</cite> that:</p>
+<li><p>Define <a class="reference internal" href="#controller.slide_controller.SlideController" title="controller.slide_controller.SlideController"><code class="xref py py-class docutils literal notranslate"><span class="pre">controller.slide_controller.SlideController</span></code></a>, the main <a class="reference external" href="https://doc.qt.io/qt-6/qwidget.html">QWidget</a> that:</p>
 <blockquote>
 <div><ul class="simple">
 <li><p>loads and displays slide data</p></li>
@@ -402,7 +402,7 @@ and broadcasts the slide.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>row</strong> (<em>int</em>) – The clicked row index (0-based), used as the slide index.</p></li>
-<li><p><strong>_column</strong> (<em>int</em>) – Unused column index (Qt signal provides it).</p></li>
+<li><p><strong>_column</strong> (<em>int</em>) – Unused column index (<a class="reference external" href="https://doc.qt.io/qt-6/">Qt</a> signal provides it).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>

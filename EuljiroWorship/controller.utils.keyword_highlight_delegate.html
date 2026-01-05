@@ -121,8 +121,8 @@
 <dd class="field-odd"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
 </dd>
 </dl>
-<p><cite>QStyledItemDelegate</cite> implementation for keyword highlighting in Qt item views.</p>
-<p>This module defines a delegate that renders cell text using <cite>QTextDocument</cite> so that:</p>
+<p><a class="reference external" href="https://doc.qt.io/qt-6/qstyleditemdelegate.html">QStyledItemDelegate</a> implementation for keyword highlighting in <a class="reference external" href="https://doc.qt.io/qt-6/index.html">Qt</a> item views.</p>
+<p>This module defines a delegate that renders cell text using <a class="reference external" href="https://doc.qt.io/qt-6/qtextdocument.html">QTextDocument</a> so that:</p>
 <ul class="simple">
 <li><p>HTML tags (e.g., <code class="docutils literal notranslate"><span class="pre">&lt;b&gt;</span></code>) are supported.</p></li>
 <li><p>Newlines are rendered as multi-line content (<code class="docutils literal notranslate"><span class="pre">&lt;br&gt;</span></code>).</p></li>
@@ -142,7 +142,7 @@
 <ul class="simple">
 <li><p>HTML formatting (keyword highlighting)</p></li>
 <li><p>Multi-line wrapping</p></li>
-<li><p>Accurate <code class="docutils literal notranslate"><span class="pre">sizeHint()</span></code> based on rendered document height</p></li>
+<li><p>Accurate <a class="reference internal" href="#controller.utils.keyword_highlight_delegate.KeywordHighlightDelegate.sizeHint" title="controller.utils.keyword_highlight_delegate.KeywordHighlightDelegate.sizeHint"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sizeHint()</span></code></a> based on rendered document height</p></li>
 </ul>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="controller.utils.keyword_highlight_delegate.KeywordHighlightDelegate.keywords">
@@ -181,7 +181,7 @@ via simple substring replacement after HTML-escaping the cell text.</p>
 <ul class="simple">
 <li><p>Fills the background depending on selection state.</p></li>
 <li><p>Converts the cell text to HTML with keyword highlighting.</p></li>
-<li><p>Uses <cite>QTextDocument</cite> to render the HTML with wrapping.</p></li>
+<li><p>Uses <a class="reference external" href="https://doc.qt.io/qt-6/qtextdocument.html">QTextDocument</a> to render the HTML with wrapping.</p></li>
 <li><p>Draws the document contents with a small padding offset.</p></li>
 </ul>
 <dl class="field-list simple">
@@ -205,7 +205,7 @@ via simple substring replacement after HTML-escaping the cell text.</p>
 <p>This method:</p>
 <ul>
 <li><p>Escapes HTML special characters (<code class="docutils literal notranslate"><span class="pre">&amp;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&gt;</span></code>).</p></li>
-<li><p>Converts newline characters to &lt;br&gt;.</p></li>
+<li><p>Converts newline characters to <code class="docutils literal notranslate"><span class="pre">&lt;br&gt;</span></code>.</p></li>
 <li><p>Wraps each keyword occurrence with:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">span</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;color:red&#39;</span><span class="o">&gt;...&lt;/</span><span class="n">span</span><span class="o">&gt;</span>
 </pre></div>
@@ -233,7 +233,7 @@ via simple substring replacement after HTML-escaping the cell text.</p>
 <dt class="sig sig-object py" id="controller.utils.keyword_highlight_delegate.KeywordHighlightDelegate.sizeHint">
 <span class="sig-name descname"><span class="pre">sizeHint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">option</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/keyword_highlight_delegate.html#KeywordHighlightDelegate.sizeHint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.keyword_highlight_delegate.KeywordHighlightDelegate.sizeHint" title="Link to this definition"></a></dt>
 <dd><p>Return the preferred size for a cell based on HTML-rendered content.</p>
-<p>Computes the document size using <cite>QTextDocument</cite> with the same width constraints
+<p>Computes the document size using <a class="reference external" href="https://doc.qt.io/qt-6/qtextdocument.html">QTextDocument</a> with the same width constraints
 used during painting, then adds padding so the content does not touch borders.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
