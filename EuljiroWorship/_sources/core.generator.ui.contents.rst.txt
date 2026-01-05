@@ -10,7 +10,7 @@ core.generator.ui.contents
 :License: MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.
 
 .. toctree::
-   :maxdepth: 7
+   :maxdepth: 10
 
    core.generator.ui.contents.anthem_content
    core.generator.ui.contents.corner_content

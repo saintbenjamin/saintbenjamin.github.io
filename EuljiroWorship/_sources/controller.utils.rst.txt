@@ -10,7 +10,7 @@ controller.utils
 :License: MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.
 
 .. toctree::
-   :maxdepth: 7
+   :maxdepth: 10
 
    controller.utils.emergency_caption_handler
    controller.utils.emergency_slide_factory

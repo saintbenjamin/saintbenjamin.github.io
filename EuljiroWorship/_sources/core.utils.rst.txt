@@ -10,7 +10,7 @@ core.utils
 :License: MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.
 
 .. toctree::
-   :maxdepth: 7
+   :maxdepth: 10
 
    core.utils.bible_data_loader
    core.utils.bible_keyword_searcher

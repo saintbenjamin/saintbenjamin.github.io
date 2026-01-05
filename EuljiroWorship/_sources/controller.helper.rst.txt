@@ -10,6 +10,6 @@ controller.helper
 :License: MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.
 
 .. toctree::
-   :maxdepth: 7
+   :maxdepth: 10
 
    controller.helper.verse_interruptor
