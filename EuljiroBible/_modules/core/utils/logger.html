@@ -100,6 +100,8 @@
     <span class="c1"># FileHandler is only added if error/debug logging occurs</span>
     <span class="n">_file_handler</span> <span class="o">=</span> <span class="kc">None</span>
 
+<div class="viewcode-block" id="_ensure_file_handler">
+<a class="viewcode-back" href="../../../core.utils.logger.html#core.utils.logger._ensure_file_handler">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">_ensure_file_handler</span><span class="p">():</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Ensure that a file handler is attached to the logger.</span>
@@ -111,7 +113,8 @@
             <span class="n">_file_handler</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">FileHandler</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">LOG_FILE</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
             <span class="n">formatter</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">(</span><span class="s2">&quot;[</span><span class="si">%(asctime)s</span><span class="s2">] [</span><span class="si">%(levelname)s</span><span class="s2">] </span><span class="si">%(message)s</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="n">_file_handler</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">formatter</span><span class="p">)</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">_file_handler</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">_file_handler</span><span class="p">)</span></div>
+
 <span class="k">else</span><span class="p">:</span>
     <span class="n">DEBUG_MODE</span> <span class="o">=</span> <span class="n">logger</span><span class="o">.</span><span class="n">level</span> <span class="o">==</span> <span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span>
     <span class="n">_file_handler</span> <span class="o">=</span> <span class="kc">None</span>

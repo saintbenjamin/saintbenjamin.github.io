@@ -267,6 +267,8 @@
         <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">loading_indicator</span><span class="p">)</span></div>
 
 
+<div class="viewcode-block" id="TabVerseUI._on_display_verse">
+<a class="viewcode-back" href="../../../gui.ui.tab_verse_ui.html#gui.ui.tab_verse_ui.TabVerseUI._on_display_verse">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">_on_display_verse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Trigger display of Bible verse when Search button is clicked.</span>
@@ -279,8 +281,11 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">apply_output_text</span>
         <span class="p">)</span>
         <span class="k">if</span> <span class="n">output</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">formatted_verse_text</span> <span class="o">=</span> <span class="n">output</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">formatted_verse_text</span> <span class="o">=</span> <span class="n">output</span></div>
 
+
+<div class="viewcode-block" id="TabVerseUI._on_save_verse">
+<a class="viewcode-back" href="../../../gui.ui.tab_verse_ui.html#gui.ui.tab_verse_ui.TabVerseUI._on_save_verse">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">_on_save_verse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Saves the currently displayed verse.</span>
@@ -295,6 +300,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;error_output_title&quot;</span><span class="p">),</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;error_output_msg&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
             <span class="p">)</span></div>
+</div>
 
 </pre></div>
 

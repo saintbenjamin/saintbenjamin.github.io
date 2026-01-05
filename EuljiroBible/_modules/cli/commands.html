@@ -101,7 +101,7 @@
 <a class="viewcode-back" href="../../cli.commands.html#cli.commands.handle_cli_metadata">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">handle_cli_metadata</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Handle CLI metadata options like --help, --version, and --about.</span>
+<span class="sd">    Handle CLI metadata options like ``--help``, ``--version``, and ``--about``.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        bool: True if metadata was handled and command should exit.</span>
@@ -315,6 +315,33 @@
 <div class="viewcode-block" id="detect_lang_code_from_aliases">
 <a class="viewcode-back" href="../../cli.commands.html#cli.commands.detect_lang_code_from_aliases">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">detect_lang_code_from_aliases</span><span class="p">(</span><span class="n">versions</span><span class="p">,</span> <span class="n">alias_map</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Detect a likely language code from user-supplied version aliases.</span>
+
+<span class="sd">    This is a lightweight heuristic for deciding whether the output should be</span>
+<span class="sd">    treated as a right-to-left (RTL) language. It scans each version token</span>
+<span class="sd">    (case-insensitive) and matches it against a small keyword list per language.</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        - ``alias_map`` is currently unused, but kept in the signature for</span>
+<span class="sd">          compatibility with existing call sites and potential future expansion</span>
+<span class="sd">          (e.g., mapping canonical version names to metadata).</span>
+<span class="sd">        - If no RTL-related keyword is found, this defaults to Korean (&quot;ko&quot;).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        versions (list[str]): Version tokens or aliases provided by the user.</span>
+<span class="sd">            Example: [&quot;NKRV&quot;, &quot;WLC&quot;].</span>
+<span class="sd">        alias_map (dict): Version alias mapping (reserved for future use).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        str: Detected language code. One of:</span>
+
+<span class="sd">            - &quot;he&quot; (Hebrew)</span>
+<span class="sd">            - &quot;ar&quot; (Arabic)</span>
+<span class="sd">            - &quot;fa&quot; (Persian/Farsi)</span>
+<span class="sd">            - &quot;ur&quot; (Urdu)</span>
+<span class="sd">            - &quot;ko&quot; (default fallback)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">rtl_map</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s2">&quot;he&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;히브리어&quot;</span><span class="p">,</span> <span class="s2">&quot;hebrew&quot;</span><span class="p">,</span> <span class="s2">&quot;heb&quot;</span><span class="p">,</span> <span class="s2">&quot;wlc&quot;</span><span class="p">,</span> <span class="s2">&quot;mhb&quot;</span><span class="p">],</span>
         <span class="s2">&quot;ar&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;아랍어&quot;</span><span class="p">,</span> <span class="s2">&quot;arabic&quot;</span><span class="p">,</span> <span class="s2">&quot;ar&quot;</span><span class="p">,</span> <span class="s2">&quot;svd&quot;</span><span class="p">],</span>
@@ -462,18 +489,18 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Main CLI handler for parsing and executing Bible verse search commands.</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">        args (list[str]): Command-line arguments excluding the script name.</span>
-
-<span class="sd">    Examples:</span>
-<span class="sd">        $ bible NKRV John 3:16</span>
-<span class="sd">        $ bible NKRV NIV John 3</span>
-<span class="sd">        $ bible NKRV</span>
+<span class="sd">    Example:</span>
+<span class="sd">        - ``$ bible NKRV John 3:16``</span>
+<span class="sd">        - ``$ bible NKRV NIV John 3``</span>
+<span class="sd">        - ``$ bible NKRV``</span>
 
 <span class="sd">    Behavior:</span>
 <span class="sd">        - Prints usage/help if no args.</span>
 <span class="sd">        - Lists books if only version and book given.</span>
 <span class="sd">        - Shows verse(s) if full reference is given.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        args (list[str]): Command-line arguments excluding the script name.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">handle_cli_metadata</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
         <span class="k">return</span>
@@ -509,7 +536,8 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    CLI keyword search command.</span>
 
-<span class="sd">    Usage:</span>
+<span class="sd">    Usage::</span>
+
 <span class="sd">        bible search &lt;version&gt; &lt;keyword1&gt; [keyword2 ...]</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 

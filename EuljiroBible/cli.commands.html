@@ -130,7 +130,7 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="cli.commands.handle_cli_metadata">
 <span class="sig-prename descclassname"><span class="pre">cli.commands.</span></span><span class="sig-name descname"><span class="pre">handle_cli_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cli/commands.html#handle_cli_metadata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cli.commands.handle_cli_metadata" title="Link to this definition"></a></dt>
-<dd><p>Handle CLI metadata options like –help, –version, and –about.</p>
+<dd><p>Handle CLI metadata options like <code class="docutils literal notranslate"><span class="pre">--help</span></code>, <code class="docutils literal notranslate"><span class="pre">--version</span></code>, and <code class="docutils literal notranslate"><span class="pre">--about</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>True if metadata was handled and command should exit.</p>
@@ -255,7 +255,45 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="cli.commands.detect_lang_code_from_aliases">
 <span class="sig-prename descclassname"><span class="pre">cli.commands.</span></span><span class="sig-name descname"><span class="pre">detect_lang_code_from_aliases</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">versions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alias_map</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cli/commands.html#detect_lang_code_from_aliases"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cli.commands.detect_lang_code_from_aliases" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Detect a likely language code from user-supplied version aliases.</p>
+<p>This is a lightweight heuristic for deciding whether the output should be
+treated as a right-to-left (RTL) language. It scans each version token
+(case-insensitive) and matches it against a small keyword list per language.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">alias_map</span></code> is currently unused, but kept in the signature for
+compatibility with existing call sites and potential future expansion
+(e.g., mapping canonical version names to metadata).</p></li>
+<li><p>If no RTL-related keyword is found, this defaults to Korean (“ko”).</p></li>
+</ul>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>versions</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – Version tokens or aliases provided by the user.
+Example: [“NKRV”, “WLC”].</p></li>
+<li><p><strong>alias_map</strong> (<em>dict</em>) – Version alias mapping (reserved for future use).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>Detected language code. One of:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>”he” (Hebrew)</p></li>
+<li><p>”ar” (Arabic)</p></li>
+<li><p>”fa” (Persian/Farsi)</p></li>
+<li><p>”ur” (Urdu)</p></li>
+<li><p>”ko” (default fallback)</p></li>
+</ul>
+</div></blockquote>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="cli.commands.run_display_logic">
@@ -320,15 +358,12 @@
 <dt class="sig sig-object py" id="cli.commands.run_bible_command">
 <span class="sig-prename descclassname"><span class="pre">cli.commands.</span></span><span class="sig-name descname"><span class="pre">run_bible_command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cli/commands.html#run_bible_command"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cli.commands.run_bible_command" title="Link to this definition"></a></dt>
 <dd><p>Main CLI handler for parsing and executing Bible verse search commands.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>args</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – Command-line arguments excluding the script name.</p>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<p>$ bible NKRV John 3:16
-$ bible NKRV NIV John 3
-$ bible NKRV</p>
+<p class="rubric">Example</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">bible</span> <span class="pre">NKRV</span> <span class="pre">John</span> <span class="pre">3:16</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">bible</span> <span class="pre">NKRV</span> <span class="pre">NIV</span> <span class="pre">John</span> <span class="pre">3</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">bible</span> <span class="pre">NKRV</span></code></p></li>
+</ul>
 <dl class="simple">
 <dt>Behavior:</dt><dd><ul class="simple">
 <li><p>Prints usage/help if no args.</p></li>
@@ -337,16 +372,21 @@ $ bible NKRV</p>
 </ul>
 </dd>
 </dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>args</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – Command-line arguments excluding the script name.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="cli.commands.run_search_command">
 <span class="sig-prename descclassname"><span class="pre">cli.commands.</span></span><span class="sig-name descname"><span class="pre">run_search_command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cli/commands.html#run_search_command"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cli.commands.run_search_command" title="Link to this definition"></a></dt>
 <dd><p>CLI keyword search command.</p>
-<dl class="simple">
-<dt>Usage:</dt><dd><p>bible search &lt;version&gt; &lt;keyword1&gt; [keyword2 …]</p>
-</dd>
-</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bible</span> <span class="n">search</span> <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">keyword1</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">keyword2</span> <span class="o">...</span><span class="p">]</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </section>
