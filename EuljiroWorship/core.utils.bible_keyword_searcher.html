@@ -133,16 +133,63 @@ for immediate display use.</p>
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.utils.bible_keyword_searcher.</span></span><span class="sig-name descname"><span class="pre">BibleKeywordSearcher</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'개역개정'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/utils/bible_keyword_searcher.html#BibleKeywordSearcher"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.utils.bible_keyword_searcher.BibleKeywordSearcher" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Keyword-based Bible verse search engine.</p>
-<p>This class loads a single Bible version into memory and provides
-multiple keyword search strategies over the verse text.</p>
-<p>Search results are returned as structured dictionaries containing
-verse location metadata and both raw and highlighted text, making
-them suitable for direct rendering in UI components.</p>
+<p>This class loads a single Bible version into memory and provides multiple
+keyword-based search strategies over verse text, including word-based AND
+search and whitespace-insensitive (compact) substring search.</p>
+<p>Search results are returned as structured dictionaries containing verse
+location metadata and both raw and highlighted text, making them suitable
+for direct rendering in GUI table models, delegates, or CLI output.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>version</strong> (<em>str</em>)</p>
 </dd>
 </dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.utils.bible_keyword_searcher.BibleKeywordSearcher.version">
+<span class="sig-name descname"><span class="pre">version</span></span><a class="headerlink" href="#core.utils.bible_keyword_searcher.BibleKeywordSearcher.version" title="Link to this definition"></a></dt>
+<dd><p>Bible version key currently loaded (e.g., “개역개정”, “NKRV”).
+This corresponds to the JSON filename without extension.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.utils.bible_keyword_searcher.BibleKeywordSearcher.data">
+<span class="sig-name descname"><span class="pre">data</span></span><a class="headerlink" href="#core.utils.bible_keyword_searcher.BibleKeywordSearcher.data" title="Link to this definition"></a></dt>
+<dd><p>Parsed Bible text data loaded from <code class="docutils literal notranslate"><span class="pre">&lt;version&gt;.json</span></code>.
+Structure is typically:
+<code class="docutils literal notranslate"><span class="pre">data[book][chapter][verse]</span> <span class="pre">=</span> <span class="pre">verse_text</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.utils.bible_keyword_searcher.BibleKeywordSearcher.name_map">
+<span class="sig-name descname"><span class="pre">name_map</span></span><a class="headerlink" href="#core.utils.bible_keyword_searcher.BibleKeywordSearcher.name_map" title="Link to this definition"></a></dt>
+<dd><p>Parsed content of <code class="docutils literal notranslate"><span class="pre">standard_book.json</span></code>.
+Used to resolve canonical or localized book names when needed
+by UI or higher-level logic.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>The Bible data for the selected version is fully loaded at initialization time (not lazily).</p></li>
+<li><p>Highlighting is performed using simple HTML <code class="docutils literal notranslate"><span class="pre">&lt;span&gt;</span></code> tags, assuming downstream renderers support HTML (e.g., QTextDocument).</p></li>
+<li><p>This class is used by both GUI (TabKeyword) and CLI search paths.</p></li>
+</ul>
+</div>
 <dl class="py method">
 <dt class="sig sig-object py" id="core.utils.bible_keyword_searcher.BibleKeywordSearcher.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'개역개정'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/utils/bible_keyword_searcher.html#BibleKeywordSearcher.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.utils.bible_keyword_searcher.BibleKeywordSearcher.__init__" title="Link to this definition"></a></dt>

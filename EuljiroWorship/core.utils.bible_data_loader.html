@@ -134,13 +134,109 @@ to minimize startup cost and disk I/O.</p>
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.utils.bible_data_loader.</span></span><span class="sig-name descname"><span class="pre">BibleDataLoader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">json_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/utils/bible_data_loader.html#BibleDataLoader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.utils.bible_data_loader.BibleDataLoader" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Lazy-loading data manager for Bible text and metadata.</p>
-<p>This class loads and caches Bible-related JSON resources on demand,
-including version metadata, book aliases, canonical book names, and
-full Bible text files.</p>
-<p>Bible text files are loaded per version only when first requested
-and stored in an internal cache to avoid repeated disk access.</p>
-<p>The class is shared by both EuljiroBible and EuljiroWorship systems
-and therefore includes several compatibility helper methods.</p>
+<p>This loader provides on-demand (lazy) access to Bible JSON resources and caches
+loaded content in memory to avoid repeated disk I/O.</p>
+<p>It loads and exposes:</p>
+<ul class="simple">
+<li><p>Version alias metadata (e.g., full name → short label)</p></li>
+<li><p>Book alias / canonical naming metadata</p></li>
+<li><p>Canonical book name table (per language)</p></li>
+<li><p>Version sort order metadata</p></li>
+<li><p>Per-version Bible text JSON files (loaded only when first accessed)</p></li>
+</ul>
+<p>The class is shared by both EuljiroBible and EuljiroWorship and therefore keeps
+several compatibility helpers and legacy-style accessors.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.utils.bible_data_loader.BibleDataLoader.json_dir">
+<span class="sig-name descname"><span class="pre">json_dir</span></span><a class="headerlink" href="#core.utils.bible_data_loader.BibleDataLoader.json_dir" title="Link to this definition"></a></dt>
+<dd><p>Directory containing Bible metadata JSON files (aliases, canonical names,
+and sort order).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.utils.bible_data_loader.BibleDataLoader.text_dir">
+<span class="sig-name descname"><span class="pre">text_dir</span></span><a class="headerlink" href="#core.utils.bible_data_loader.BibleDataLoader.text_dir" title="Link to this definition"></a></dt>
+<dd><p>Directory containing Bible text JSON files (per-version text).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.utils.bible_data_loader.BibleDataLoader.aliases_version">
+<span class="sig-name descname"><span class="pre">aliases_version</span></span><a class="headerlink" href="#core.utils.bible_data_loader.BibleDataLoader.aliases_version" title="Link to this definition"></a></dt>
+<dd><p>Parsed content of <code class="docutils literal notranslate"><span class="pre">aliases_version.json</span></code>. Typically maps a version key
+to either a string alias or a nested dict containing localized aliases,
+depending on your data schema.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.utils.bible_data_loader.BibleDataLoader.aliases_book">
+<span class="sig-name descname"><span class="pre">aliases_book</span></span><a class="headerlink" href="#core.utils.bible_data_loader.BibleDataLoader.aliases_book" title="Link to this definition"></a></dt>
+<dd><p>Parsed content of <code class="docutils literal notranslate"><span class="pre">aliases_book.json</span></code>. Used for book name aliasing and
+compatibility mapping.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.utils.bible_data_loader.BibleDataLoader.standard_book">
+<span class="sig-name descname"><span class="pre">standard_book</span></span><a class="headerlink" href="#core.utils.bible_data_loader.BibleDataLoader.standard_book" title="Link to this definition"></a></dt>
+<dd><p>Parsed content of <code class="docutils literal notranslate"><span class="pre">standard_book.json</span></code>. Maps canonical book IDs to a
+per-language display name dictionary (e.g., <code class="docutils literal notranslate"><span class="pre">{&quot;John&quot;:</span> <span class="pre">{&quot;ko&quot;:</span> <span class="pre">&quot;...&quot;,</span> <span class="pre">&quot;en&quot;:</span> <span class="pre">&quot;John&quot;}}</span></code>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.utils.bible_data_loader.BibleDataLoader.sort_order">
+<span class="sig-name descname"><span class="pre">sort_order</span></span><a class="headerlink" href="#core.utils.bible_data_loader.BibleDataLoader.sort_order" title="Link to this definition"></a></dt>
+<dd><p>Parsed content of the configured sort-order JSON (e.g., prefix → rank).
+Used by <a class="reference internal" href="#core.utils.bible_data_loader.BibleDataLoader.get_sort_key" title="core.utils.bible_data_loader.BibleDataLoader.get_sort_key"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_sort_key()</span></code></a> for stable version ordering in UI/CLI.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.utils.bible_data_loader.BibleDataLoader.data">
+<span class="sig-name descname"><span class="pre">data</span></span><a class="headerlink" href="#core.utils.bible_data_loader.BibleDataLoader.data" title="Link to this definition"></a></dt>
+<dd><p>In-memory cache of loaded Bible text, keyed by version key.
+Structure is typically <code class="docutils literal notranslate"><span class="pre">data[version][book][chapter][verse]</span> <span class="pre">=</span> <span class="pre">text</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>Version JSON is loaded lazily by <a class="reference internal" href="#core.utils.bible_data_loader.BibleDataLoader.get_verses" title="core.utils.bible_data_loader.BibleDataLoader.get_verses"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_verses()</span></code></a>. Use <a class="reference internal" href="#core.utils.bible_data_loader.BibleDataLoader.load_version" title="core.utils.bible_data_loader.BibleDataLoader.load_version"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_version()</span></code></a> or <a class="reference internal" href="#core.utils.bible_data_loader.BibleDataLoader.load_versions" title="core.utils.bible_data_loader.BibleDataLoader.load_versions"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_versions()</span></code></a> to preload explicitly.</p></li>
+<li><p>Some methods exist primarily for cross-project compatibility and are not necessarily used by every code path.</p></li>
+</ul>
+</div>
 <dl class="py method">
 <dt class="sig sig-object py" id="core.utils.bible_data_loader.BibleDataLoader.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">json_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/utils/bible_data_loader.html#BibleDataLoader.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.utils.bible_data_loader.BibleDataLoader.__init__" title="Link to this definition"></a></dt>

@@ -105,12 +105,33 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Keyword-based Bible verse search engine.</span>
 
-<span class="sd">    This class loads a single Bible version into memory and provides</span>
-<span class="sd">    multiple keyword search strategies over the verse text.</span>
+<span class="sd">    This class loads a single Bible version into memory and provides multiple</span>
+<span class="sd">    keyword-based search strategies over verse text, including word-based AND</span>
+<span class="sd">    search and whitespace-insensitive (compact) substring search.</span>
 
-<span class="sd">    Search results are returned as structured dictionaries containing</span>
-<span class="sd">    verse location metadata and both raw and highlighted text, making</span>
-<span class="sd">    them suitable for direct rendering in UI components.</span>
+<span class="sd">    Search results are returned as structured dictionaries containing verse</span>
+<span class="sd">    location metadata and both raw and highlighted text, making them suitable</span>
+<span class="sd">    for direct rendering in GUI table models, delegates, or CLI output.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        version (str):</span>
+<span class="sd">            Bible version key currently loaded (e.g., &quot;개역개정&quot;, &quot;NKRV&quot;).</span>
+<span class="sd">            This corresponds to the JSON filename without extension.</span>
+
+<span class="sd">        data (dict):</span>
+<span class="sd">            Parsed Bible text data loaded from ``&lt;version&gt;.json``.</span>
+<span class="sd">            Structure is typically:</span>
+<span class="sd">            ``data[book][chapter][verse] = verse_text``.</span>
+
+<span class="sd">        name_map (dict):</span>
+<span class="sd">            Parsed content of ``standard_book.json``.</span>
+<span class="sd">            Used to resolve canonical or localized book names when needed</span>
+<span class="sd">            by UI or higher-level logic.</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        - The Bible data for the selected version is fully loaded at initialization time (not lazily).</span>
+<span class="sd">        - Highlighting is performed using simple HTML ``&lt;span&gt;`` tags, assuming downstream renderers support HTML (e.g., QTextDocument).</span>
+<span class="sd">        - This class is used by both GUI (TabKeyword) and CLI search paths.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="BibleKeywordSearcher.__init__">
