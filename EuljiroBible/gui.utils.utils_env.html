@@ -134,14 +134,48 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="gui.utils.utils_env.setup_environment">
 <span class="sig-prename descclassname"><span class="pre">gui.utils.utils_env.</span></span><span class="sig-name descname"><span class="pre">setup_environment</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/utils_env.html#setup_environment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.utils_env.setup_environment" title="Link to this definition"></a></dt>
-<dd><p>Sets Qt environment variables for scaling on HiDPI or fractional displays.</p>
+<dd><p>Configure Qt-related environment variables for display scaling.</p>
+<p>This function sets explicit Qt environment variables to ensure predictable
+behavior on HiDPI or fractional-scaling displays. It is intended to be called
+early in application startup, before creating the QApplication instance.</p>
+<dl class="simple">
+<dt>Effects:</dt><dd><ul class="simple">
+<li><p>Disables implicit scale-factor guessing by Qt.</p></li>
+<li><p>Forces consistent scaling behavior across platforms.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="gui.utils.utils_env.verify_wsl_display">
 <span class="sig-prename descclassname"><span class="pre">gui.utils.utils_env.</span></span><span class="sig-name descname"><span class="pre">verify_wsl_display</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/utils_env.html#verify_wsl_display"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.utils_env.verify_wsl_display" title="Link to this definition"></a></dt>
-<dd><p>Ensures DISPLAY environment variable is set when running under WSL.
-Exits the app with a user-friendly message if not configured correctly.</p>
+<dd><p>Verify DISPLAY environment configuration when running under WSL.</p>
+<p>On Windows Subsystem for Linux (WSL), a valid X server and DISPLAY variable
+are required to launch Qt GUI applications. This function detects a WSL
+environment and terminates the application with a user-friendly error dialog
+if DISPLAY is not configured.</p>
+<dl class="simple">
+<dt>Behavior:</dt><dd><ul class="simple">
+<li><p>Detects WSL via kernel release string.</p></li>
+<li><p>Shows a localized error message using the GUI error handler.</p></li>
+<li><p>Exits the application with a non-zero status on failure.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>SystemExit</strong> – If DISPLAY is missing under WSL.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>

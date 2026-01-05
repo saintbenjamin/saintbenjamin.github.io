@@ -134,13 +134,20 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="gui.utils.utils_theme.set_dark_mode">
 <span class="sig-prename descclassname"><span class="pre">gui.utils.utils_theme.</span></span><span class="sig-name descname"><span class="pre">set_dark_mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/utils_theme.html#set_dark_mode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.utils_theme.set_dark_mode" title="Link to this definition"></a></dt>
-<dd><p>Applies or removes the application’s dark theme.</p>
+<dd><p>Enable or disable the application-wide dark theme.</p>
+<p>This helper applies a Qt stylesheet for dark mode when enabled and
+restores the default (light) appearance when disabled. It operates
+directly on the QApplication instance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>app</strong> (<em>QApplication</em>) – QApplication instance.</p></li>
-<li><p><strong>enable</strong> (<em>bool</em>) – True to apply dark theme, False to revert.</p></li>
+<li><p><strong>app</strong> (<em>QApplication</em>) – QApplication instance to which the theme is applied.</p></li>
+<li><p><strong>enable</strong> (<em>bool</em>) – If True, apply the dark theme; if False, clear the stylesheet
+and revert to the default theme.</p></li>
 </ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>

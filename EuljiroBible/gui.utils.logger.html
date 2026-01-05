@@ -134,15 +134,26 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="gui.utils.logger.log_error_with_dialog">
 <span class="sig-prename descclassname"><span class="pre">gui.utils.logger.</span></span><span class="sig-name descname"><span class="pre">log_error_with_dialog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exception</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Error'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra_message</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/logger.html#log_error_with_dialog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.logger.log_error_with_dialog" title="Link to this definition"></a></dt>
-<dd><p>Logs an error and shows a GUI message box to the user with an option to view the error log.</p>
+<dd><p>Log an exception and show a critical dialog with an optional “View Error Log” action.</p>
+<p>This helper is intended for GUI-safe error reporting:</p>
+<ul class="simple">
+<li><p>Always writes the exception to the application error log via <cite>log_error()</cite>.</p></li>
+<li><p>Shows a QMessageBox with the error text (and optional extra context).</p></li>
+<li><p>If the user selects “View Error Log”, opens a <cite>MonitorErrorLog</cite> window.</p></li>
+</ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>parent</strong> (<em>QWidget</em>) – The parent widget for the QMessageBox.</p></li>
-<li><p><strong>exception</strong> (<em>Exception</em>) – The exception object to log and display.</p></li>
-<li><p><strong>title</strong> (<em>str</em>) – The title of the message box.</p></li>
-<li><p><strong>extra_message</strong> (<em>str</em><em>, </em><em>optional</em>) – Additional context to show in the message box.</p></li>
+<li><p><strong>parent</strong> (<em>QWidget</em><em> | </em><em>None</em>) – Parent widget for the QMessageBox and log viewer window.
+If None, a standalone log viewer window is created.</p></li>
+<li><p><strong>exception</strong> (<em>Exception</em>) – The exception instance to log and present to the user.</p></li>
+<li><p><strong>title</strong> (<em>str</em>) – Dialog window title.</p></li>
+<li><p><strong>extra_message</strong> (<em>str</em><em> | </em><em>None</em>) – Optional context string shown above the exception message.
+Use this to explain what the app was trying to do when the error occurred.</p></li>
 </ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -150,15 +161,25 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="gui.utils.logger.handle_exception">
 <span class="sig-prename descclassname"><span class="pre">gui.utils.logger.</span></span><span class="sig-name descname"><span class="pre">handle_exception</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exception</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Error'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_message</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/logger.html#handle_exception"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.logger.handle_exception" title="Link to this definition"></a></dt>
-<dd><p>Shortcut to log and show exception with dialog. Can be used globally in GUI.</p>
+<dd><p>Handle an exception by logging it and showing a GUI dialog.</p>
+<p>This is a convenience wrapper around <cite>log_error_with_dialog()</cite> for use across the GUI.
+Use this when you want a single call site that:</p>
+<ul class="simple">
+<li><p>logs the exception</p></li>
+<li><p>displays a user-facing message (optional)</p></li>
+<li><p>keeps consistent dialog titles</p></li>
+</ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>exception</strong> (<em>Exception</em>) – The exception to handle.</p></li>
-<li><p><strong>title</strong> (<em>str</em>) – Dialog title.</p></li>
-<li><p><strong>user_message</strong> (<em>str</em>) – Optional message for user context.</p></li>
-<li><p><strong>parent</strong> (<em>QWidget</em><em>, </em><em>optional</em>) – Parent widget.</p></li>
+<li><p><strong>exception</strong> (<em>Exception</em>) – The exception instance to handle.</p></li>
+<li><p><strong>title</strong> (<em>str</em>) – Dialog window title.</p></li>
+<li><p><strong>user_message</strong> (<em>str</em><em> | </em><em>None</em>) – Optional, user-friendly context message shown in the dialog.</p></li>
+<li><p><strong>parent</strong> (<em>QWidget</em><em> | </em><em>None</em>) – Parent widget for the dialog (and log viewer if opened).</p></li>
 </ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -167,11 +188,57 @@
 <dt class="sig sig-object py" id="gui.utils.logger.MonitorErrorLog">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gui.utils.logger.</span></span><span class="sig-name descname"><span class="pre">MonitorErrorLog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/logger.html#MonitorErrorLog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.logger.MonitorErrorLog" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
-<p>A window that displays the contents of the application error log file.</p>
+<p>GUI window that displays the contents of the application’s error log file.</p>
+<p>This viewer is used by error dialogs to let the user inspect <cite>paths.LOG_FILE</cite>
+without leaving the application. It renders the full file into a read-only QTextEdit.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.utils.logger.MonitorErrorLog.text_edit">
+<span class="sig-name descname"><span class="pre">text_edit</span></span><a class="headerlink" href="#gui.utils.logger.MonitorErrorLog.text_edit" title="Link to this definition"></a></dt>
+<dd><p>Read-only text area showing the error log content.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QTextEdit</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.utils.logger.MonitorErrorLog.close_button">
+<span class="sig-name descname"><span class="pre">close_button</span></span><a class="headerlink" href="#gui.utils.logger.MonitorErrorLog.close_button" title="Link to this definition"></a></dt>
+<dd><p>Button to close the window.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QPushButton</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.utils.logger.MonitorErrorLog.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/logger.html#MonitorErrorLog.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.logger.MonitorErrorLog.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize the error log viewer window and load current log contents.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>parent</strong> (<em>QWidget</em><em> | </em><em>None</em>) – Optional parent widget.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.utils.logger.MonitorErrorLog.load_log">
 <span class="sig-name descname"><span class="pre">load_log</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/logger.html#MonitorErrorLog.load_log"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.logger.MonitorErrorLog.load_log" title="Link to this definition"></a></dt>
-<dd><p>Loads and displays the error log content in the text edit field.</p>
+<dd><p>Load <cite>paths.LOG_FILE</cite> and display its contents in the viewer text area.</p>
+<p>Behavior:
+- If the log file does not exist, the viewer stays empty.
+- Any read failure is logged via <cite>log_error()</cite> (no dialog recursion).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>

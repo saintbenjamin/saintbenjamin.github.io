@@ -135,19 +135,168 @@
 <dt class="sig sig-object py" id="gui.ui.tab_keyword_ui.TabKeywordUI">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gui.ui.tab_keyword_ui.</span></span><span class="sig-name descname"><span class="pre">TabKeywordUI</span></span><a class="reference internal" href="_modules/gui/ui/tab_keyword_ui.html#TabKeywordUI"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_keyword_ui.TabKeywordUI" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Constructs the visual layout and widget structure for the keyword search tab.
-Provides controls for version selection, keyword input, search execution,
-result display, and slide show output.</p>
+<p>UI builder mixin for the keyword search tab.</p>
+<p>This class constructs the widget layout and connects UI events for keyword
+searching, including version selection, keyword input, search mode toggles,
+result table display, summary output, and overlay export controls.</p>
+<p>The actual business logic (search, export, clearing output) is delegated to the
+owning tab class and its logic backend (e.g., TabKeyword and TabKeywordLogic).</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_keyword_ui.TabKeywordUI.get_polling_status">
+<span class="sig-name descname"><span class="pre">get_polling_status</span></span><a class="headerlink" href="#gui.ui.tab_keyword_ui.TabKeywordUI.get_polling_status" title="Link to this definition"></a></dt>
+<dd><p>Callback used to determine whether
+polling mode is enabled (controls button visibility).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Callable[[], bool]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_keyword_ui.TabKeywordUI.get_always_show_setting">
+<span class="sig-name descname"><span class="pre">get_always_show_setting</span></span><a class="headerlink" href="#gui.ui.tab_keyword_ui.TabKeywordUI.get_always_show_setting" title="Link to this definition"></a></dt>
+<dd><p>Callback used to determine
+whether buttons should always be shown regardless of polling state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Callable[[], bool]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_keyword_ui.TabKeywordUI.version_box">
+<span class="sig-name descname"><span class="pre">version_box</span></span><a class="headerlink" href="#gui.ui.tab_keyword_ui.TabKeywordUI.version_box" title="Link to this definition"></a></dt>
+<dd><p>Dropdown for selecting a Bible version.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QComboBox</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_keyword_ui.TabKeywordUI.keyword_input">
+<span class="sig-name descname"><span class="pre">keyword_input</span></span><a class="headerlink" href="#gui.ui.tab_keyword_ui.TabKeywordUI.keyword_input" title="Link to this definition"></a></dt>
+<dd><p>Text input for search keywords.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QLineEdit</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_keyword_ui.TabKeywordUI.radio_and">
+<span class="sig-name descname"><span class="pre">radio_and</span></span><a class="headerlink" href="#gui.ui.tab_keyword_ui.TabKeywordUI.radio_and" title="Link to this definition"></a></dt>
+<dd><p>Search mode radio for “all words” style search.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QRadioButton</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_keyword_ui.TabKeywordUI.radio_compact">
+<span class="sig-name descname"><span class="pre">radio_compact</span></span><a class="headerlink" href="#gui.ui.tab_keyword_ui.TabKeywordUI.radio_compact" title="Link to this definition"></a></dt>
+<dd><p>Search mode radio for “exact phrase” search.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QRadioButton</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_keyword_ui.TabKeywordUI.radio_group">
+<span class="sig-name descname"><span class="pre">radio_group</span></span><a class="headerlink" href="#gui.ui.tab_keyword_ui.TabKeywordUI.radio_group" title="Link to this definition"></a></dt>
+<dd><p>Radio button group for mutually exclusive modes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QButtonGroup</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_keyword_ui.TabKeywordUI.search_button">
+<span class="sig-name descname"><span class="pre">search_button</span></span><a class="headerlink" href="#gui.ui.tab_keyword_ui.TabKeywordUI.search_button" title="Link to this definition"></a></dt>
+<dd><p>Button triggering a keyword search.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QPushButton</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_keyword_ui.TabKeywordUI.select_button">
+<span class="sig-name descname"><span class="pre">select_button</span></span><a class="headerlink" href="#gui.ui.tab_keyword_ui.TabKeywordUI.select_button" title="Link to this definition"></a></dt>
+<dd><p>Button exporting the selected verse.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QPushButton</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_keyword_ui.TabKeywordUI.clear_button">
+<span class="sig-name descname"><span class="pre">clear_button</span></span><a class="headerlink" href="#gui.ui.tab_keyword_ui.TabKeywordUI.clear_button" title="Link to this definition"></a></dt>
+<dd><p>Button clearing overlay output.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QPushButton</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_keyword_ui.TabKeywordUI.table">
+<span class="sig-name descname"><span class="pre">table</span></span><a class="headerlink" href="#gui.ui.tab_keyword_ui.TabKeywordUI.table" title="Link to this definition"></a></dt>
+<dd><p>Result table view for search hits.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QTableView</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_keyword_ui.TabKeywordUI.summary_title_label">
+<span class="sig-name descname"><span class="pre">summary_title_label</span></span><a class="headerlink" href="#gui.ui.tab_keyword_ui.TabKeywordUI.summary_title_label" title="Link to this definition"></a></dt>
+<dd><p>Label for the summary section.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QLabel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_keyword_ui.TabKeywordUI.summary_box">
+<span class="sig-name descname"><span class="pre">summary_box</span></span><a class="headerlink" href="#gui.ui.tab_keyword_ui.TabKeywordUI.summary_box" title="Link to this definition"></a></dt>
+<dd><p>Read-only summary output widget.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QTextEdit</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.tab_keyword_ui.TabKeywordUI.init_ui">
 <span class="sig-name descname"><span class="pre">init_ui</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">get_polling_status</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">get_always_show_setting</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_keyword_ui.html#TabKeywordUI.init_ui"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_keyword_ui.TabKeywordUI.init_ui" title="Link to this definition"></a></dt>
-<dd><p>Initializes the UI layout and binds widget events.</p>
+<dd><p>Initialize the UI layout and bind widget events.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>version_list</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – List of available Bible version strings</p></li>
-<li><p><strong>get_polling_status</strong> (<em>Callable</em><em>[</em><em>[</em><em>]</em><em>, </em><em>bool</em><em>]</em>) – Callback for checking polling toggle state</p></li>
-<li><p><strong>get_always_show_setting</strong> (<em>Callable</em><em>[</em><em>[</em><em>]</em><em>, </em><em>bool</em><em>]</em>) – Callback for checking ‘always show’ setting</p></li>
+<li><p><strong>version_list</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – List of available Bible version strings.</p></li>
+<li><p><strong>get_polling_status</strong> (<em>Callable</em><em>[</em><em>[</em><em>]</em><em>, </em><em>bool</em><em>]</em>) – Callback for checking polling toggle state.</p></li>
+<li><p><strong>get_always_show_setting</strong> (<em>Callable</em><em>[</em><em>[</em><em>]</em><em>, </em><em>bool</em><em>]</em>) – Callback for checking the
+“always show buttons” setting.</p></li>
 </ul>
 </dd>
 </dl>
@@ -156,18 +305,20 @@ result display, and slide show output.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.tab_keyword_ui.TabKeywordUI.update_button_visibility">
 <span class="sig-name descname"><span class="pre">update_button_visibility</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_keyword_ui.html#TabKeywordUI.update_button_visibility"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_keyword_ui.TabKeywordUI.update_button_visibility" title="Link to this definition"></a></dt>
-<dd><p>Toggles the visibility of the Output and Clear buttons.</p>
-<p>Visibility is determined by polling status or the ‘always show’ setting.</p>
+<dd><p>Update visibility of the Output and Clear buttons.</p>
+<p>Button visibility is determined by the effective polling state, defined as:
+polling enabled OR the “always show buttons” setting enabled.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.tab_keyword_ui.TabKeywordUI.on_double_click_save">
 <span class="sig-name descname"><span class="pre">on_double_click_save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_keyword_ui.html#TabKeywordUI.on_double_click_save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_keyword_ui.TabKeywordUI.on_double_click_save" title="Link to this definition"></a></dt>
-<dd><p>Handles double-click event on the result table.</p>
-<p>Delegates the save logic to TabKeywordLogic.</p>
+<dd><p>Handle a double-click event on the result table.</p>
+<p>If a valid column is clicked, this delegates saving/exporting logic to the
+logic backend through the owning tab instance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>index</strong> (<em>QModelIndex</em>) – Clicked QModelIndex</p>
+<dd class="field-odd"><p><strong>index</strong> (<em>QModelIndex</em>) – Clicked table index.</p>
 </dd>
 </dl>
 </dd></dl>

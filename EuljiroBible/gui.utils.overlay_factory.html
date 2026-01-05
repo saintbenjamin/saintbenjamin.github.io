@@ -135,17 +135,23 @@ current settings and display geometry.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="gui.utils.overlay_factory.create_overlay">
 <span class="sig-prename descclassname"><span class="pre">gui.utils.overlay_factory.</span></span><span class="sig-name descname"><span class="pre">create_overlay</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geometry</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/overlay_factory.html#create_overlay"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.overlay_factory.create_overlay" title="Link to this definition"></a></dt>
-<dd><p>Creates an WidgetOverlay instance using the provided settings and screen geometry.</p>
+<dd><p>Create and return a configured overlay widget instance.</p>
+<p>This factory function constructs a <cite>WidgetOverlay</cite> using the current
+overlay-related settings and the target screen geometry. It centralizes
+overlay creation logic so that callers do not need to manually extract
+individual style parameters from the settings dictionary.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>settings</strong> (<em>dict</em>) – Settings dictionary containing overlay style configurations.</p></li>
-<li><p><strong>geometry</strong> (<em>QRect</em>) – Geometry of the screen on which to display the overlay.</p></li>
-<li><p><strong>parent</strong> (<em>QWidget</em><em>, </em><em>optional</em>) – Optional parent widget for the overlay.</p></li>
+<li><p><strong>settings</strong> (<em>dict</em>) – Application settings dictionary containing overlay-related keys,
+such as font family, font size, colors, transparency, and display mode.</p></li>
+<li><p><strong>geometry</strong> (<em>QRect</em>) – Screen geometry defining the initial size and position
+of the overlay window.</p></li>
+<li><p><strong>parent</strong> (<em>QWidget</em><em> | </em><em>None</em>) – Optional parent widget for ownership and stacking context.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A fully configured and ready-to-show overlay widget.</p>
+<dd class="field-even"><p>A fully initialized overlay widget ready to be shown.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference internal" href="gui.ui.widget_overlay.html#gui.ui.widget_overlay.WidgetOverlay" title="gui.ui.widget_overlay.WidgetOverlay">WidgetOverlay</a></p>

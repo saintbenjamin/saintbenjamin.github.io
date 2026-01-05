@@ -79,7 +79,7 @@
 <span class="sd">:E-mail: euljirochurch [at] G.M.A.I.L. (replace [at] with @ and G.M.A.I.L as you understood.)</span>
 <span class="sd">:License: MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</span>
 
-<span class="sd">Implements the TabVerse class for verse lookup, navigation, display, and output.</span>
+<span class="sd">Implements the :class:`gui.ui.tab_verse.TabVerse` class for verse lookup, navigation, display, and output.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">traceback</span>
@@ -94,27 +94,58 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">gui.ui.tab_verse_ui</span><span class="w"> </span><span class="kn">import</span> <span class="n">TabVerseUI</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">gui.utils.verse_output_handler</span><span class="w"> </span><span class="kn">import</span> <span class="n">VerseOutputHandler</span>
 
-
 <div class="viewcode-block" id="TabVerse">
 <a class="viewcode-back" href="../../../gui.ui.tab_verse.html#gui.ui.tab_verse.TabVerse">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">TabVerse</span><span class="p">(</span><span class="n">QWidget</span><span class="p">,</span> <span class="n">TabVerseUI</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Main UI class for the Bible verse tab.</span>
-<span class="sd">    Provides display, navigation, and save functionality for selected verses.</span>
+<span class="sd">    GUI tab widget for Bible verse lookup, navigation, and export.</span>
+
+<span class="sd">    This tab allows users to select one or more Bible versions, choose a book and</span>
+<span class="sd">    chapter, enter verse ranges, preview formatted output, navigate between verses,</span>
+<span class="sd">    and export the currently displayed verse to the configured overlay output file.</span>
+
+<span class="sd">    The tab coordinates UI state, selection helpers, and backend logic components</span>
+<span class="sd">    (TabVerseLogic, VerseVersionHelper, TabVerseSelectionManager, VerseOutputHandler).</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        tr (Callable[[str], str]): Translation function for UI labels and messages.</span>
+<span class="sd">        settings (dict): Application-level settings dictionary.</span>
+<span class="sd">        bible_data (BibleDataLoader): Bible data loader instance used for verse retrieval.</span>
+<span class="sd">        version_layout (QGridLayout): Layout holding version selection checkboxes.</span>
+<span class="sd">        version_helper (VerseVersionHelper): Helper for version selection and sorting.</span>
+<span class="sd">        selection_manager (TabVerseSelectionManager): Helper for populating and syncing</span>
+<span class="sd">            book/chapter/version UI elements.</span>
+<span class="sd">        output_handler (VerseOutputHandler): Handler that applies formatted verse text</span>
+<span class="sd">            to the main display widget and manages output formatting behavior.</span>
+<span class="sd">        logic (TabVerseLogic): Backend verse display/export logic.</span>
+<span class="sd">        version_list (list[str]): Available Bible versions used to populate UI controls.</span>
+<span class="sd">        current_language (str): Current UI language code (e.g., &quot;ko&quot;, &quot;en&quot;).</span>
+<span class="sd">        formatted_verse_text (str): Most recently formatted verse output (used for Enter key flow).</span>
+<span class="sd">        enter_state (int): Enter-key state machine (0 = ready to display, 1 = ready to export).</span>
+<span class="sd">        use_alias (bool): Whether to display version aliases instead of full version names.</span>
+<span class="sd">        get_polling_status (Callable[[], bool]): Callback returning current polling toggle state.</span>
+<span class="sd">        get_always_show_setting (Callable[[], bool]): Callback returning current</span>
+<span class="sd">            &quot;always show buttons&quot; toggle state.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="TabVerse.__init__">
 <a class="viewcode-back" href="../../../gui.ui.tab_verse.html#gui.ui.tab_verse.TabVerse.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version_list</span><span class="p">,</span> <span class="n">settings</span><span class="p">,</span> <span class="n">tr</span><span class="p">,</span> <span class="n">get_polling_status</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">get_always_show_setting</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Initialize the TabVerse.</span>
+<span class="sd">        Initialize the TabVerse UI and connect backend helpers.</span>
 
-<span class="sd">        :param version_list: Available Bible versions</span>
-<span class="sd">        :type version_list: list[str]</span>
-<span class="sd">        :param settings: Loaded application settings</span>
-<span class="sd">        :type settings: dict</span>
-<span class="sd">        :param tr: Translation function</span>
-<span class="sd">        :type tr: Callable[[str], str]</span>
+<span class="sd">        This creates Bible data access, builds the version selection UI, initializes</span>
+<span class="sd">        selection helpers and logic handlers, and installs UI signal connections for</span>
+<span class="sd">        resetting Enter-state behavior when inputs change.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            version_list (list[str]): Available Bible version identifiers.</span>
+<span class="sd">            settings (dict): Loaded application settings.</span>
+<span class="sd">            tr (Callable[[str], str]): Translation function for UI labels.</span>
+<span class="sd">            get_polling_status (Callable[[], bool] | None): Optional callback that returns</span>
+<span class="sd">                whether polling is active.</span>
+<span class="sd">            get_always_show_setting (Callable[[], bool] | None): Optional callback that returns</span>
+<span class="sd">                whether export/clear buttons should always be shown.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tr</span> <span class="o">=</span> <span class="n">tr</span>
@@ -151,10 +182,13 @@
 <a class="viewcode-back" href="../../../gui.ui.tab_verse.html#gui.ui.tab_verse.TabVerse.change_language">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">change_language</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lang_code</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Dynamically updates UI labels when the language changes.</span>
+<span class="sd">        Update UI labels and state to reflect a new language setting.</span>
 
-<span class="sd">        :param lang_code: Language code (&#39;ko&#39; or &#39;en&#39;)</span>
-<span class="sd">        :type lang_code: str</span>
+<span class="sd">        This updates visible text, version summary rendering, book dropdown population,</span>
+<span class="sd">        and button labels.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            lang_code (str): Language code (e.g., &quot;ko&quot;, &quot;en&quot;).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">current_language</span> <span class="o">=</span> <span class="n">lang_code</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">messages</span> <span class="o">=</span> <span class="n">load_messages</span><span class="p">(</span><span class="n">lang_code</span><span class="p">)</span>
@@ -195,10 +229,10 @@
 <a class="viewcode-back" href="../../../gui.ui.tab_verse.html#gui.ui.tab_verse.TabVerse.resizeEvent">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">resizeEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Responds to window resize events and updates the version layout.</span>
+<span class="sd">        Handle resize events and recompute the version checkbox grid layout.</span>
 
-<span class="sd">        :param event: Resize event object</span>
-<span class="sd">        :type event: QResizeEvent</span>
+<span class="sd">        Args:</span>
+<span class="sd">            event (QResizeEvent): Resize event object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">resizeEvent</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">selection_manager</span><span class="o">.</span><span class="n">update_grid_layout</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
@@ -208,7 +242,10 @@
 <a class="viewcode-back" href="../../../gui.ui.tab_verse.html#gui.ui.tab_verse.TabVerse.update_button_layout">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">update_button_layout</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Updates the layout of the action buttons depending on polling mode.</span>
+<span class="sd">        Update the action button layout depending on effective polling state.</span>
+
+<span class="sd">        Effective polling is defined as:</span>
+<span class="sd">        polling enabled OR the &quot;always show buttons&quot; setting enabled.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">poll_enabled</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_polling_status</span><span class="p">()</span>
         <span class="n">always_show</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_always_show_setting</span><span class="p">()</span>
@@ -235,11 +272,12 @@
 <a class="viewcode-back" href="../../../gui.ui.tab_verse.html#gui.ui.tab_verse.TabVerse.get_polling_status">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_polling_status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns the current polling toggle state.</span>
-<span class="sd">        This method should be overridden or injected externally.</span>
+<span class="sd">        Return the current polling toggle state.</span>
 
-<span class="sd">        :return: True if polling is enabled, False otherwise.</span>
-<span class="sd">        :rtype: bool</span>
+<span class="sd">        This method is designed to be overridden or replaced by an injected callback.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True if polling is enabled; otherwise False.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="kc">False</span>  <span class="c1"># Default fallback, should be replaced by actual callback</span></div>
 
@@ -248,11 +286,12 @@
 <a class="viewcode-back" href="../../../gui.ui.tab_verse.html#gui.ui.tab_verse.TabVerse.get_always_show_setting">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_always_show_setting</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns the current &#39;always show buttons&#39; setting.</span>
-<span class="sd">        This method should be overridden or injected externally.</span>
+<span class="sd">        Return the current &quot;always show buttons&quot; setting.</span>
 
-<span class="sd">        :return: True if always show is enabled, False otherwise.</span>
-<span class="sd">        :rtype: bool</span>
+<span class="sd">        This method is designed to be overridden or replaced by an injected callback.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True if export/clear buttons should always be visible; otherwise False.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="kc">False</span>  <span class="c1"># Default fallback, should be replaced by actual callback</span></div>
 
@@ -261,7 +300,10 @@
 <a class="viewcode-back" href="../../../gui.ui.tab_verse.html#gui.ui.tab_verse.TabVerse.toggle_alias_mode">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">toggle_alias_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Toggles between alias name and full name for Bible versions.</span>
+<span class="sd">        Toggle between alias names and full names for Bible version display.</span>
+
+<span class="sd">        This updates the alias mode flag, refreshes the toggle label, and updates the</span>
+<span class="sd">        version summary accordingly.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">use_alias</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">alias_toggle_btn</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">alias_toggle_btn</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span>
@@ -274,7 +316,11 @@
 <a class="viewcode-back" href="../../../gui.ui.tab_verse.html#gui.ui.tab_verse.TabVerse.handle_enter">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">handle_enter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Handles Enter key logic for alternating between search and save.</span>
+<span class="sd">        Handle Enter-key behavior as a two-step flow: display then export.</span>
+
+<span class="sd">        If no formatted verse is currently staged, this displays the verse and caches</span>
+<span class="sd">        the formatted output. If a formatted verse is already staged, this exports it</span>
+<span class="sd">        to the output destination and resets the state machine.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">formatted_verse_text</span><span class="p">:</span>
             <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logic</span><span class="o">.</span><span class="n">display_verse</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_reference</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">verse_input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">apply_output_text</span><span class="p">)</span>
@@ -298,10 +344,11 @@
 <a class="viewcode-back" href="../../../gui.ui.tab_verse.html#gui.ui.tab_verse.TabVerse.get_reference">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_reference</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns parsed reference from the input fields.</span>
+<span class="sd">        Build and return the resolved verse reference tuple from current UI inputs.</span>
 
-<span class="sd">        :return: (versions, book, chapter, (start_verse, end_verse))</span>
-<span class="sd">        :rtype: tuple</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            tuple: (versions, book, chapter, (start_verse, end_verse)) as produced by</span>
+<span class="sd">                the shared reference resolver.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="kn">from</span><span class="w"> </span><span class="nn">core.logic.verse_logic</span><span class="w"> </span><span class="kn">import</span> <span class="n">resolve_reference</span>
 
@@ -316,10 +363,10 @@
 <a class="viewcode-back" href="../../../gui.ui.tab_verse.html#gui.ui.tab_verse.TabVerse.apply_output_text">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">apply_output_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Displays formatted verse text in the main display box.</span>
+<span class="sd">        Apply formatted verse output text to the main display.</span>
 
-<span class="sd">        :param text: Formatted text to show</span>
-<span class="sd">        :type text: str</span>
+<span class="sd">        Args:</span>
+<span class="sd">            text (str): Formatted text to display.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">text</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">formatted_verse_text</span> <span class="o">=</span> <span class="n">text</span>
@@ -330,10 +377,10 @@
 <a class="viewcode-back" href="../../../gui.ui.tab_verse.html#gui.ui.tab_verse.TabVerse.shift_verse">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">shift_verse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delta</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Changes the current verse number up/down and displays the result.</span>
+<span class="sd">        Shift the current verse number by a delta and refresh the displayed output.</span>
 
-<span class="sd">        :param delta: +1 for next, -1 for previous</span>
-<span class="sd">        :type delta: int</span>
+<span class="sd">        Args:</span>
+<span class="sd">            delta (int): +1 for next verse, -1 for previous verse.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">logic</span><span class="o">.</span><span class="n">delta</span> <span class="o">=</span> <span class="n">delta</span>
@@ -354,7 +401,10 @@
 <a class="viewcode-back" href="../../../gui.ui.tab_verse.html#gui.ui.tab_verse.TabVerse.reset_enter_state">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">reset_enter_state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Resets enter state to default: ready to display verse.</span>
+<span class="sd">        Reset Enter-key state to the default &quot;ready to display&quot; mode.</span>
+
+<span class="sd">        This clears any staged formatted verse output so the next Enter press performs</span>
+<span class="sd">        a display operation.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">enter_state</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">formatted_verse_text</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span></div>
@@ -364,7 +414,10 @@
 <a class="viewcode-back" href="../../../gui.ui.tab_verse.html#gui.ui.tab_verse.TabVerse.clear_outputs">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">clear_outputs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Clears the displayed verse and the output file.</span>
+<span class="sd">        Clear the verse display and clear the output destination.</span>
+
+<span class="sd">        This clears the UI display widget and writes an empty string to the configured</span>
+<span class="sd">        output file(s) to stop any active overlay display.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">display_box</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
         <span class="n">save_to_files</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="p">)</span></div>

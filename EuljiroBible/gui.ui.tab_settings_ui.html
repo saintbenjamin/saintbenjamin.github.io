@@ -135,14 +135,380 @@
 <dt class="sig sig-object py" id="gui.ui.tab_settings_ui.TabSettingsUI">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gui.ui.tab_settings_ui.</span></span><span class="sig-name descname"><span class="pre">TabSettingsUI</span></span><a class="reference internal" href="_modules/gui/ui/tab_settings_ui.html#TabSettingsUI"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_settings_ui.TabSettingsUI" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Builds and applies the layout for the settings tab.
-Includes configuration for UI font, overlay font, display mode, and polling interval.</p>
+<p>UI builder mixin for the settings tab.</p>
+<p>This class constructs the widget layout and connects UI events for configuring
+application settings, including application font selection, theme toggling,
+overlay display options, output path selection, and polling interval controls.</p>
+<p>The actual persistence and application of most settings is delegated to the
+owning tab class (e.g., TabSettings) and its logic backend (TabSettingsLogic).</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_settings_ui.TabSettingsUI.main_group">
+<span class="sig-name descname"><span class="pre">main_group</span></span><a class="headerlink" href="#gui.ui.tab_settings_ui.TabSettingsUI.main_group" title="Link to this definition"></a></dt>
+<dd><p>Group box containing application font and theme controls.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QGroupBox</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_settings_ui.TabSettingsUI.overlay_group">
+<span class="sig-name descname"><span class="pre">overlay_group</span></span><a class="headerlink" href="#gui.ui.tab_settings_ui.TabSettingsUI.overlay_group" title="Link to this definition"></a></dt>
+<dd><p>Group box containing overlay/polling controls.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QGroupBox</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_settings_ui.TabSettingsUI.font_family_label">
+<span class="sig-name descname"><span class="pre">font_family_label</span></span><a class="headerlink" href="#gui.ui.tab_settings_ui.TabSettingsUI.font_family_label" title="Link to this definition"></a></dt>
+<dd><p>Label for the application font family selector.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QLabel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_settings_ui.TabSettingsUI.font_family_combo">
+<span class="sig-name descname"><span class="pre">font_family_combo</span></span><a class="headerlink" href="#gui.ui.tab_settings_ui.TabSettingsUI.font_family_combo" title="Link to this definition"></a></dt>
+<dd><p>Application font family selector.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QComboBox | QFontComboBox</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_settings_ui.TabSettingsUI.font_size_label">
+<span class="sig-name descname"><span class="pre">font_size_label</span></span><a class="headerlink" href="#gui.ui.tab_settings_ui.TabSettingsUI.font_size_label" title="Link to this definition"></a></dt>
+<dd><p>Label for the application font size selector.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QLabel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_settings_ui.TabSettingsUI.font_size_combo">
+<span class="sig-name descname"><span class="pre">font_size_combo</span></span><a class="headerlink" href="#gui.ui.tab_settings_ui.TabSettingsUI.font_size_combo" title="Link to this definition"></a></dt>
+<dd><p>Application font size selector.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QComboBox</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_settings_ui.TabSettingsUI.font_weight_label">
+<span class="sig-name descname"><span class="pre">font_weight_label</span></span><a class="headerlink" href="#gui.ui.tab_settings_ui.TabSettingsUI.font_weight_label" title="Link to this definition"></a></dt>
+<dd><p>Label for the application font weight selector.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QLabel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_settings_ui.TabSettingsUI.font_weight_combo">
+<span class="sig-name descname"><span class="pre">font_weight_combo</span></span><a class="headerlink" href="#gui.ui.tab_settings_ui.TabSettingsUI.font_weight_combo" title="Link to this definition"></a></dt>
+<dd><p>Application font weight selector.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QComboBox</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_settings_ui.TabSettingsUI.theme_toggle_btn">
+<span class="sig-name descname"><span class="pre">theme_toggle_btn</span></span><a class="headerlink" href="#gui.ui.tab_settings_ui.TabSettingsUI.theme_toggle_btn" title="Link to this definition"></a></dt>
+<dd><p>Button that toggles light/dark theme.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QPushButton</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_settings_ui.TabSettingsUI.always_on_off_checkbox">
+<span class="sig-name descname"><span class="pre">always_on_off_checkbox</span></span><a class="headerlink" href="#gui.ui.tab_settings_ui.TabSettingsUI.always_on_off_checkbox" title="Link to this definition"></a></dt>
+<dd><p>Checkbox controlling whether overlay on/off
+controls are always visible.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QCheckBox</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_settings_ui.TabSettingsUI.display_combo">
+<span class="sig-name descname"><span class="pre">display_combo</span></span><a class="headerlink" href="#gui.ui.tab_settings_ui.TabSettingsUI.display_combo" title="Link to this definition"></a></dt>
+<dd><p>Dropdown for selecting the target display/screen.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QComboBox</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_settings_ui.TabSettingsUI.display_font_family_label">
+<span class="sig-name descname"><span class="pre">display_font_family_label</span></span><a class="headerlink" href="#gui.ui.tab_settings_ui.TabSettingsUI.display_font_family_label" title="Link to this definition"></a></dt>
+<dd><p>Label for overlay font family selector.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QLabel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_settings_ui.TabSettingsUI.display_font_family_combo">
+<span class="sig-name descname"><span class="pre">display_font_family_combo</span></span><a class="headerlink" href="#gui.ui.tab_settings_ui.TabSettingsUI.display_font_family_combo" title="Link to this definition"></a></dt>
+<dd><p>Overlay font family selector.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QComboBox | QFontComboBox</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_settings_ui.TabSettingsUI.display_font_size_label">
+<span class="sig-name descname"><span class="pre">display_font_size_label</span></span><a class="headerlink" href="#gui.ui.tab_settings_ui.TabSettingsUI.display_font_size_label" title="Link to this definition"></a></dt>
+<dd><p>Label for overlay font size selector.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QLabel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_settings_ui.TabSettingsUI.display_font_size_combo">
+<span class="sig-name descname"><span class="pre">display_font_size_combo</span></span><a class="headerlink" href="#gui.ui.tab_settings_ui.TabSettingsUI.display_font_size_combo" title="Link to this definition"></a></dt>
+<dd><p>Overlay font size selector.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QComboBox</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_settings_ui.TabSettingsUI.display_font_weight_label">
+<span class="sig-name descname"><span class="pre">display_font_weight_label</span></span><a class="headerlink" href="#gui.ui.tab_settings_ui.TabSettingsUI.display_font_weight_label" title="Link to this definition"></a></dt>
+<dd><p>Label for overlay font weight selector.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QLabel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_settings_ui.TabSettingsUI.display_font_weight_combo">
+<span class="sig-name descname"><span class="pre">display_font_weight_combo</span></span><a class="headerlink" href="#gui.ui.tab_settings_ui.TabSettingsUI.display_font_weight_combo" title="Link to this definition"></a></dt>
+<dd><p>Overlay font weight selector.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QComboBox</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_settings_ui.TabSettingsUI.display_font_color_label">
+<span class="sig-name descname"><span class="pre">display_font_color_label</span></span><a class="headerlink" href="#gui.ui.tab_settings_ui.TabSettingsUI.display_font_color_label" title="Link to this definition"></a></dt>
+<dd><p>Label for overlay text color selector.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QLabel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_settings_ui.TabSettingsUI.text_color_btn">
+<span class="sig-name descname"><span class="pre">text_color_btn</span></span><a class="headerlink" href="#gui.ui.tab_settings_ui.TabSettingsUI.text_color_btn" title="Link to this definition"></a></dt>
+<dd><p>Button showing the current overlay text color.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QPushButton</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_settings_ui.TabSettingsUI.bg_alpha_label">
+<span class="sig-name descname"><span class="pre">bg_alpha_label</span></span><a class="headerlink" href="#gui.ui.tab_settings_ui.TabSettingsUI.bg_alpha_label" title="Link to this definition"></a></dt>
+<dd><p>Label for overlay background alpha slider.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QLabel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_settings_ui.TabSettingsUI.alpha_slider">
+<span class="sig-name descname"><span class="pre">alpha_slider</span></span><a class="headerlink" href="#gui.ui.tab_settings_ui.TabSettingsUI.alpha_slider" title="Link to this definition"></a></dt>
+<dd><p>Slider controlling overlay background alpha (0–100 scale).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QSlider</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_settings_ui.TabSettingsUI.bg_color_label">
+<span class="sig-name descname"><span class="pre">bg_color_label</span></span><a class="headerlink" href="#gui.ui.tab_settings_ui.TabSettingsUI.bg_color_label" title="Link to this definition"></a></dt>
+<dd><p>Label for overlay background color selector.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QLabel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_settings_ui.TabSettingsUI.bg_color_btn">
+<span class="sig-name descname"><span class="pre">bg_color_btn</span></span><a class="headerlink" href="#gui.ui.tab_settings_ui.TabSettingsUI.bg_color_btn" title="Link to this definition"></a></dt>
+<dd><p>Button showing the current overlay background color.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QPushButton</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_settings_ui.TabSettingsUI.path_label">
+<span class="sig-name descname"><span class="pre">path_label</span></span><a class="headerlink" href="#gui.ui.tab_settings_ui.TabSettingsUI.path_label" title="Link to this definition"></a></dt>
+<dd><p>Label for output path selector.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QLabel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_settings_ui.TabSettingsUI.output_edit">
+<span class="sig-name descname"><span class="pre">output_edit</span></span><a class="headerlink" href="#gui.ui.tab_settings_ui.TabSettingsUI.output_edit" title="Link to this definition"></a></dt>
+<dd><p>Text field containing the verse output path.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QLineEdit</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_settings_ui.TabSettingsUI.browse_btn">
+<span class="sig-name descname"><span class="pre">browse_btn</span></span><a class="headerlink" href="#gui.ui.tab_settings_ui.TabSettingsUI.browse_btn" title="Link to this definition"></a></dt>
+<dd><p>Button that opens a file dialog to select output path.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QPushButton</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_settings_ui.TabSettingsUI.overlay_mode_combo">
+<span class="sig-name descname"><span class="pre">overlay_mode_combo</span></span><a class="headerlink" href="#gui.ui.tab_settings_ui.TabSettingsUI.overlay_mode_combo" title="Link to this definition"></a></dt>
+<dd><p>Dropdown selecting overlay mode (“fullscreen” or “resizable”).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QComboBox</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_settings_ui.TabSettingsUI.poll_label">
+<span class="sig-name descname"><span class="pre">poll_label</span></span><a class="headerlink" href="#gui.ui.tab_settings_ui.TabSettingsUI.poll_label" title="Link to this definition"></a></dt>
+<dd><p>Label for polling interval input.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QLabel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_settings_ui.TabSettingsUI.poll_input">
+<span class="sig-name descname"><span class="pre">poll_input</span></span><a class="headerlink" href="#gui.ui.tab_settings_ui.TabSettingsUI.poll_input" title="Link to this definition"></a></dt>
+<dd><p>Text field for polling interval (milliseconds).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QLineEdit</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_settings_ui.TabSettingsUI.poll_save">
+<span class="sig-name descname"><span class="pre">poll_save</span></span><a class="headerlink" href="#gui.ui.tab_settings_ui.TabSettingsUI.poll_save" title="Link to this definition"></a></dt>
+<dd><p>Button that saves the polling interval.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QPushButton</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_settings_ui.TabSettingsUI.main_layout">
+<span class="sig-name descname"><span class="pre">main_layout</span></span><a class="headerlink" href="#gui.ui.tab_settings_ui.TabSettingsUI.main_layout" title="Link to this definition"></a></dt>
+<dd><p>Layout for the main settings group.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QVBoxLayout</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_settings_ui.TabSettingsUI.overlay_layout">
+<span class="sig-name descname"><span class="pre">overlay_layout</span></span><a class="headerlink" href="#gui.ui.tab_settings_ui.TabSettingsUI.overlay_layout" title="Link to this definition"></a></dt>
+<dd><p>Layout for the overlay settings group.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QVBoxLayout</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.tab_settings_ui.TabSettingsUI.init_ui">
 <span class="sig-name descname"><span class="pre">init_ui</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_settings_ui.html#TabSettingsUI.init_ui"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_settings_ui.TabSettingsUI.init_ui" title="Link to this definition"></a></dt>
-<dd><p>Initialize the full settings UI.</p>
-<p>This method constructs all font-related configuration widgets, theme toggles,
-overlay settings, output paths, and polling controls.</p>
+<dd><p>Initialize and assemble the full settings UI.</p>
+<p>This constructs:</p>
+<ul class="simple">
+<li><p>Application font family/size/weight controls</p></li>
+<li><p>Theme toggle and “always show” option</p></li>
+<li><p>Overlay display selection and overlay font controls</p></li>
+<li><p>Overlay colors and background alpha controls</p></li>
+<li><p>Verse output path selector</p></li>
+<li><p>Overlay mode selector and polling interval controls</p></li>
+</ul>
+<p>All relevant widgets are connected to dynamic update handlers so changes can be
+applied immediately and persisted through the logic layer.</p>
 </dd></dl>
 
 </dd></dl>

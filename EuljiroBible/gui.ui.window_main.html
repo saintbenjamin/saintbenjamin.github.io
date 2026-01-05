@@ -135,19 +135,221 @@
 <dt class="sig sig-object py" id="gui.ui.window_main.WindowMain">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gui.ui.window_main.</span></span><span class="sig-name descname"><span class="pre">WindowMain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/window_main.html#WindowMain"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.window_main.WindowMain" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QMainWindow</span></code></p>
-<p>Main application window class for EuljiroBible.</p>
-<p>Manages the main interface, including tabs for verse search, keyword search, settings,
-as well as language switching, overlay control, and polling behavior.</p>
+<p>Main application window for EuljiroBible.</p>
+<p>This window hosts the primary tab-based interface, including:</p>
+<ul class="simple">
+<li><p>Verse lookup and export (TabVerse)</p></li>
+<li><p>Keyword search and export (TabKeyword)</p></li>
+<li><p>Settings and overlay configuration (TabSettings)</p></li>
+</ul>
+<p>It also manages global UI behaviors such as:</p>
+<ul class="simple">
+<li><p>Language switching (menu-driven)</p></li>
+<li><p>Polling enable/disable toggle and propagation to tabs</p></li>
+<li><p>About/help actions</p></li>
+<li><p>Optional memory monitor window</p></li>
+</ul>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.window_main.WindowMain.settings">
+<span class="sig-name descname"><span class="pre">settings</span></span><a class="headerlink" href="#gui.ui.window_main.WindowMain.settings" title="Link to this definition"></a></dt>
+<dd><p>Current settings dictionary (reloaded as needed via ConfigManager).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.window_main.WindowMain.app_version">
+<span class="sig-name descname"><span class="pre">app_version</span></span><a class="headerlink" href="#gui.ui.window_main.WindowMain.app_version" title="Link to this definition"></a></dt>
+<dd><p>Application version string displayed in the title and About dialog.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.window_main.WindowMain.current_language">
+<span class="sig-name descname"><span class="pre">current_language</span></span><a class="headerlink" href="#gui.ui.window_main.WindowMain.current_language" title="Link to this definition"></a></dt>
+<dd><p>Active UI language code (e.g., “ko”, “en”).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.window_main.WindowMain.messages">
+<span class="sig-name descname"><span class="pre">messages</span></span><a class="headerlink" href="#gui.ui.window_main.WindowMain.messages" title="Link to this definition"></a></dt>
+<dd><p>Loaded translation dictionary for the active language.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.window_main.WindowMain.help_menu">
+<span class="sig-name descname"><span class="pre">help_menu</span></span><a class="headerlink" href="#gui.ui.window_main.WindowMain.help_menu" title="Link to this definition"></a></dt>
+<dd><p>Help menu container (About action).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QMenu</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.window_main.WindowMain.tools_menu">
+<span class="sig-name descname"><span class="pre">tools_menu</span></span><a class="headerlink" href="#gui.ui.window_main.WindowMain.tools_menu" title="Link to this definition"></a></dt>
+<dd><p>Tools menu container (memory monitor, test error).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QMenu</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.window_main.WindowMain.lang_menu">
+<span class="sig-name descname"><span class="pre">lang_menu</span></span><a class="headerlink" href="#gui.ui.window_main.WindowMain.lang_menu" title="Link to this definition"></a></dt>
+<dd><p>Language selection menu if languages are available.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QMenu | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.window_main.WindowMain.about_action">
+<span class="sig-name descname"><span class="pre">about_action</span></span><a class="headerlink" href="#gui.ui.window_main.WindowMain.about_action" title="Link to this definition"></a></dt>
+<dd><p>Opens the About dialog.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QAction</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.window_main.WindowMain.memory_action">
+<span class="sig-name descname"><span class="pre">memory_action</span></span><a class="headerlink" href="#gui.ui.window_main.WindowMain.memory_action" title="Link to this definition"></a></dt>
+<dd><p>Opens the memory monitor window.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QAction</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.window_main.WindowMain.test_error_action">
+<span class="sig-name descname"><span class="pre">test_error_action</span></span><a class="headerlink" href="#gui.ui.window_main.WindowMain.test_error_action" title="Link to this definition"></a></dt>
+<dd><p>Triggers a controlled error for testing.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QAction</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.window_main.WindowMain.poll_toggle_btn">
+<span class="sig-name descname"><span class="pre">poll_toggle_btn</span></span><a class="headerlink" href="#gui.ui.window_main.WindowMain.poll_toggle_btn" title="Link to this definition"></a></dt>
+<dd><p>Global polling toggle button (checkable).
+When enabled, export/clear controls become available and polling-dependent
+UI elements are shown where applicable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QPushButton</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.window_main.WindowMain.tabs">
+<span class="sig-name descname"><span class="pre">tabs</span></span><a class="headerlink" href="#gui.ui.window_main.WindowMain.tabs" title="Link to this definition"></a></dt>
+<dd><p>Tab widget hosting the main UI tabs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QTabWidget</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.window_main.WindowMain.tab_verse">
+<span class="sig-name descname"><span class="pre">tab_verse</span></span><a class="headerlink" href="#gui.ui.window_main.WindowMain.tab_verse" title="Link to this definition"></a></dt>
+<dd><p>Verse lookup tab instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="gui.ui.tab_verse.html#gui.ui.tab_verse.TabVerse" title="gui.ui.tab_verse.TabVerse">TabVerse</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.window_main.WindowMain.tab_keyword">
+<span class="sig-name descname"><span class="pre">tab_keyword</span></span><a class="headerlink" href="#gui.ui.window_main.WindowMain.tab_keyword" title="Link to this definition"></a></dt>
+<dd><p>Keyword search tab instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="gui.ui.tab_keyword.html#gui.ui.tab_keyword.TabKeyword" title="gui.ui.tab_keyword.TabKeyword">TabKeyword</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.window_main.WindowMain.tab_settings">
+<span class="sig-name descname"><span class="pre">tab_settings</span></span><a class="headerlink" href="#gui.ui.window_main.WindowMain.tab_settings" title="Link to this definition"></a></dt>
+<dd><p>Settings tab instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="gui.ui.tab_settings.html#gui.ui.tab_settings.TabSettings" title="gui.ui.tab_settings.TabSettings">TabSettings</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.window_main.WindowMain.copyright_label">
+<span class="sig-name descname"><span class="pre">copyright_label</span></span><a class="headerlink" href="#gui.ui.window_main.WindowMain.copyright_label" title="Link to this definition"></a></dt>
+<dd><p>Footer label showing copyright/license text.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QLabel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.window_main.WindowMain.monitor_window">
+<span class="sig-name descname"><span class="pre">monitor_window</span></span><a class="headerlink" href="#gui.ui.window_main.WindowMain.monitor_window" title="Link to this definition"></a></dt>
+<dd><p>Memory monitor window instance when opened.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="gui.ui.monitor_memory.html#gui.ui.monitor_memory.MonitorMemory" title="gui.ui.monitor_memory.MonitorMemory">MonitorMemory</a> | None</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.window_main.WindowMain.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">settings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">icon_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_version</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/window_main.html#WindowMain.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.window_main.WindowMain.__init__" title="Link to this definition"></a></dt>
-<dd><p>Initializes the WindowMain.</p>
+<dd><p>Initialize the main window and construct menus, tabs, and global controls.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>version_list</strong> (<em>list</em>) – List of available Bible versions.</p></li>
-<li><p><strong>settings</strong> (<em>dict</em>) – Loaded user settings.</p></li>
-<li><p><strong>icon_path</strong> (<em>str</em>) – Path to the application icon file.</p></li>
+<li><p><strong>version_list</strong> (<em>list</em>) – List of available Bible version identifiers for the verse/keyword tabs.</p></li>
+<li><p><strong>settings</strong> (<em>dict</em>) – Loaded user settings dictionary.</p></li>
+<li><p><strong>icon_path</strong> (<em>str</em>) – Path to the application icon file (provided by caller).</p></li>
+<li><p><strong>app_version</strong> (<em>str</em>) – Application version string.</p></li>
+<li><p><strong>parent</strong> (<em>QWidget</em><em> | </em><em>None</em>) – Optional parent widget.</p></li>
 </ul>
 </dd>
 </dl>
@@ -156,13 +358,13 @@ as well as language switching, overlay control, and polling behavior.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.window_main.WindowMain.tr">
 <span class="sig-name descname"><span class="pre">tr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/window_main.html#WindowMain.tr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.window_main.WindowMain.tr" title="Link to this definition"></a></dt>
-<dd><p>Translates a UI key into the current language.</p>
+<dd><p>Translate a UI key using the currently loaded language messages.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – Translation key.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Translated string.</p>
+<dd class="field-even"><p>Translated string if found; otherwise the key itself.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
@@ -173,10 +375,16 @@ as well as language switching, overlay control, and polling behavior.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.window_main.WindowMain.change_language">
 <span class="sig-name descname"><span class="pre">change_language</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lang_code</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/window_main.html#WindowMain.change_language"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.window_main.WindowMain.change_language" title="Link to this definition"></a></dt>
-<dd><p>Changes the UI language dynamically.</p>
+<dd><p>Translate a UI key using the currently loaded language messages.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>lang_code</strong> (<em>str</em>) – Language code (e.g., “ko”, “en”).</p>
+<dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – Translation key.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Translated string if found; otherwise the key itself.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
 </dd>
 </dl>
 </dd></dl>
@@ -184,59 +392,76 @@ as well as language switching, overlay control, and polling behavior.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.window_main.WindowMain.refresh_settings_and_tabs">
 <span class="sig-name descname"><span class="pre">refresh_settings_and_tabs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/window_main.html#WindowMain.refresh_settings_and_tabs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.window_main.WindowMain.refresh_settings_and_tabs" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Reload settings from ConfigManager and refresh polling-dependent tab UI.</p>
+<p>This is used after settings changes to ensure:</p>
+<ul class="simple">
+<li><p>verse tab button layout is updated</p></li>
+<li><p>keyword tab output button visibility is updated</p></li>
+<li><p>settings tab overlay group visibility is updated</p></li>
+</ul>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.window_main.WindowMain.apply_tab_icons">
 <span class="sig-name descname"><span class="pre">apply_tab_icons</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/window_main.html#WindowMain.apply_tab_icons"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.window_main.WindowMain.apply_tab_icons" title="Link to this definition"></a></dt>
-<dd><p>Applies SVG icons to each tab in the tab widget, unless on macOS.</p>
-<p>On macOS, tab icons are skipped due to style inconsistencies in Qt rendering.</p>
+<dd><p>Apply tab icons to the QTabWidget (skipped on macOS).</p>
+<p>On macOS, icons are intentionally omitted due to Qt style inconsistencies.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.window_main.WindowMain.update_poll_button_text">
 <span class="sig-name descname"><span class="pre">update_poll_button_text</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/window_main.html#WindowMain.update_poll_button_text"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.window_main.WindowMain.update_poll_button_text" title="Link to this definition"></a></dt>
-<dd><p>Updates the polling toggle button text based on polling state.</p>
+<dd><p>Update the polling toggle button label and icon.</p>
+<p>The button reflects the current checked state and uses localized labels.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.window_main.WindowMain.on_poll_toggle_clicked">
 <span class="sig-name descname"><span class="pre">on_poll_toggle_clicked</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/window_main.html#WindowMain.on_poll_toggle_clicked"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.window_main.WindowMain.on_poll_toggle_clicked" title="Link to this definition"></a></dt>
-<dd><p>Handles the polling toggle button click event.</p>
+<dd><p>Handle clicks on the polling toggle button.</p>
+<p>This persists the new polling state and propagates it across tabs by:</p>
 <ul class="simple">
-<li><p>Saves polling state to config.</p></li>
-<li><p>Updates tab_settings.</p></li>
-<li><p>Applies/restarts polling.</p></li>
-<li><p>Updates toggle button text and version tab button layout.</p></li>
+<li><p>saving poll_enabled to ConfigManager</p></li>
+<li><p>updating settings tab polling behavior (start/stop/restart timer logic)</p></li>
+<li><p>updating button label/icon</p></li>
+<li><p>updating verse/keyword tab button visibility/layout</p></li>
 </ul>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.window_main.WindowMain.show_about">
 <span class="sig-name descname"><span class="pre">show_about</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/window_main.html#WindowMain.show_about"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.window_main.WindowMain.show_about" title="Link to this definition"></a></dt>
-<dd><p>Displays the About dialog.</p>
+<dd><p>Show the About dialog.</p>
+<p>The dialog content is localized and includes the current application version.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.window_main.WindowMain.open_monitor_memory">
 <span class="sig-name descname"><span class="pre">open_monitor_memory</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/window_main.html#WindowMain.open_monitor_memory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.window_main.WindowMain.open_monitor_memory" title="Link to this definition"></a></dt>
-<dd><p>Opens the real-time memory monitor window.</p>
+<dd><p>Open the real-time memory monitor window.</p>
+<p>This reads the refresh interval from settings and launches MonitorMemory.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.window_main.WindowMain.trigger_error">
 <span class="sig-name descname"><span class="pre">trigger_error</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/window_main.html#WindowMain.trigger_error"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.window_main.WindowMain.trigger_error" title="Link to this definition"></a></dt>
-<dd><p>Deliberately triggers a ZeroDivisionError for testing error handling.
-Used to validate logging and critical error dialogs.</p>
+<dd><p>Trigger a controlled exception to test error handling.</p>
+<p>This is intended for validating logging and critical error dialog behavior.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.window_main.WindowMain.closeEvent">
 <span class="sig-name descname"><span class="pre">closeEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/window_main.html#WindowMain.closeEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.window_main.WindowMain.closeEvent" title="Link to this definition"></a></dt>
-<dd><p>Handles cleanup and settings saving before application closes.</p>
+<dd><p>Handle application close events and persist UI state.</p>
+<p>This attempts to:</p>
+<ul class="simple">
+<li><p>apply dynamic settings (fonts/overlay) before exit</p></li>
+<li><p>save UI-derived settings to disk</p></li>
+<li><p>close any active overlay window owned by the settings tab</p></li>
+</ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>event</strong> (<em>QCloseEvent</em>) – The close event.</p>
+<dd class="field-odd"><p><strong>event</strong> (<em>QCloseEvent</em>) – Close event.</p>
 </dd>
 </dl>
 </dd></dl>

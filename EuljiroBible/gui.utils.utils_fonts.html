@@ -134,18 +134,20 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="gui.utils.utils_fonts.create_app_font">
 <span class="sig-prename descclassname"><span class="pre">gui.utils.utils_fonts.</span></span><span class="sig-name descname"><span class="pre">create_app_font</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">family</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight_value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/utils_fonts.html#create_app_font"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.utils_fonts.create_app_font" title="Link to this definition"></a></dt>
-<dd><p>Creates a QFont instance with the given settings.
-Converts int weight to QFont.Weight safely.</p>
+<dd><p>Create a QFont instance from the given font configuration.</p>
+<p>This helper converts an integer weight into a <code class="docutils literal notranslate"><span class="pre">QFont.Weight</span></code> safely,
+falling back to <code class="docutils literal notranslate"><span class="pre">QFont.Weight.Normal</span></code> if the value is invalid.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>family</strong> (<em>str</em>) – Font family name (e.g., “Noto Sans”).</p></li>
+<li><p><strong>family</strong> (<em>str</em>) – Font family name (e.g., <code class="docutils literal notranslate"><span class="pre">&quot;Noto</span> <span class="pre">Sans&quot;</span></code>).</p></li>
 <li><p><strong>size</strong> (<em>int</em>) – Font point size.</p></li>
-<li><p><strong>weight_value</strong> (<em>int</em>) – Integer weight value (e.g., 50, 75).</p></li>
+<li><p><strong>weight_value</strong> (<em>int</em>) – Integer weight value compatible with <code class="docutils literal notranslate"><span class="pre">QFont.Weight</span></code>
+(e.g., <code class="docutils literal notranslate"><span class="pre">50</span></code>, <code class="docutils literal notranslate"><span class="pre">75</span></code>).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Configured QFont instance.</p>
+<dd class="field-even"><p>Configured font instance with antialias preference enabled.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>QFont</p>
@@ -156,20 +158,39 @@ Converts int weight to QFont.Weight safely.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="gui.utils.utils_fonts.load_application_settings">
 <span class="sig-prename descclassname"><span class="pre">gui.utils.utils_fonts.</span></span><span class="sig-name descname"><span class="pre">load_application_settings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/utils_fonts.html#load_application_settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.utils_fonts.load_application_settings" title="Link to this definition"></a></dt>
-<dd><p>Loads saved font settings from settings file and applies to QApplication.</p>
-<p>If loading fails, a fallback font is applied and exception is logged.</p>
+<dd><p>Load persisted application font settings and apply them to QApplication.</p>
+<p>This function reads the settings JSON file and applies the saved font family,
+size, and weight to the given <code class="docutils literal notranslate"><span class="pre">QApplication</span></code> instance.</p>
+<p>Failure behavior:
+- If loading or parsing fails, a GUI-safe error dialog is shown via</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">handle_exception</span></code> and the application continues (Qt default font remains).</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>app</strong> (<em>QApplication</em>) – The QApplication instance to configure.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="gui.utils.utils_fonts.apply_font_to_children">
 <span class="sig-prename descclassname"><span class="pre">gui.utils.utils_fonts.</span></span><span class="sig-name descname"><span class="pre">apply_font_to_children</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">widget</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/utils_fonts.html#apply_font_to_children"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.utils_fonts.apply_font_to_children" title="Link to this definition"></a></dt>
-<dd><p>Recursively applies the given font to the specified widget and all its child widgets.</p>
+<dd><p>Apply a font recursively to a widget and all of its descendants.</p>
+<p>This is used to ensure consistent font appearance across widgets that do not
+automatically update after <code class="docutils literal notranslate"><span class="pre">QApplication.setFont()</span></code> on some platforms.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>widget</strong> (<em>QWidget</em>) – The root widget to apply the font to.</p></li>
-<li><p><strong>font</strong> (<em>QFont</em>) – The font to apply.</p></li>
+<li><p><strong>widget</strong> (<em>QWidget</em>) – Root widget to apply the font to.</p></li>
+<li><p><strong>font</strong> (<em>QFont</em>) – Font to apply.</p></li>
 </ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -177,15 +198,23 @@ Converts int weight to QFont.Weight safely.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="gui.utils.utils_fonts.apply_main_font_to_app">
 <span class="sig-prename descclassname"><span class="pre">gui.utils.utils_fonts.</span></span><span class="sig-name descname"><span class="pre">apply_main_font_to_app</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">font_family</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font_weight</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root_widget</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/utils_fonts.html#apply_main_font_to_app"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.utils_fonts.apply_main_font_to_app" title="Link to this definition"></a></dt>
-<dd><p>Applies the main font settings to the QApplication and all children of the given root widget.</p>
+<dd><p>Persist and apply the main UI font across the application.</p>
+<p>This function:
+- Persists the font configuration via <code class="docutils literal notranslate"><span class="pre">ConfigManager.save_font</span></code>.
+- Updates the global QApplication font.
+- Recursively applies the font to all children of <code class="docutils literal notranslate"><span class="pre">root_widget</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>font_family</strong> (<em>str</em>) – Font family name.</p></li>
-<li><p><strong>font_size</strong> (<em>int</em>) – Font size.</p></li>
-<li><p><strong>font_weight</strong> (<em>QFont.Weight</em>) – Font weight enum.</p></li>
-<li><p><strong>root_widget</strong> (<em>QWidget</em>) – Root widget to apply font recursively.</p></li>
+<li><p><strong>font_size</strong> (<em>int</em>) – Font point size.</p></li>
+<li><p><strong>font_weight</strong> (<em>QFont.Weight</em><em> | </em><em>int</em>) – Font weight. Expected to be compatible
+with <code class="docutils literal notranslate"><span class="pre">QFont.setWeight()</span></code>.</p></li>
+<li><p><strong>root_widget</strong> (<em>QWidget</em>) – Root widget whose descendants should receive the font.</p></li>
 </ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -193,13 +222,25 @@ Converts int weight to QFont.Weight safely.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="gui.utils.utils_fonts.apply_overlay_font">
 <span class="sig-prename descclassname"><span class="pre">gui.utils.utils_fonts.</span></span><span class="sig-name descname"><span class="pre">apply_overlay_font</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">widget_overlay</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">settings</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/utils_fonts.html#apply_overlay_font"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.utils_fonts.apply_overlay_font" title="Link to this definition"></a></dt>
-<dd><p>Applies font settings to the overlay widget and re-applies overlay styles.</p>
+<dd><p>Apply overlay font settings to an existing overlay widget.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">WidgetOverlay.apply_settings()</span></code> already reads from configuration and
+applies font + colors + sizing logic. This helper sets a base font first
+and then delegates the full refresh to <code class="docutils literal notranslate"><span class="pre">apply_settings()</span></code>.</p>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>widget_overlay</strong> (<a class="reference internal" href="gui.ui.widget_overlay.html#gui.ui.widget_overlay.WidgetOverlay" title="gui.ui.widget_overlay.WidgetOverlay"><em>WidgetOverlay</em></a>) – The overlay instance.</p></li>
-<li><p><strong>settings</strong> (<em>dict</em>) – Dictionary with keys: display_font_family, display_font_size, display_font_weight</p></li>
+<li><p><strong>widget_overlay</strong> (<a class="reference internal" href="gui.ui.widget_overlay.html#gui.ui.widget_overlay.WidgetOverlay" title="gui.ui.widget_overlay.WidgetOverlay"><em>WidgetOverlay</em></a><em> | </em><em>None</em>) – Overlay instance to update.</p></li>
+<li><p><strong>settings</strong> (<em>dict</em>) – Settings dictionary expected to contain:
+- <code class="docutils literal notranslate"><span class="pre">display_font_family</span></code> (str)
+- <code class="docutils literal notranslate"><span class="pre">display_font_size</span></code> (int)
+- <code class="docutils literal notranslate"><span class="pre">display_font_weight</span></code> (int or QFont.Weight)</p></li>
 </ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>

@@ -94,23 +94,77 @@
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">gui.ui.common</span><span class="w"> </span><span class="kn">import</span> <span class="n">create_button</span><span class="p">,</span> <span class="n">create_svg_text_button</span>
 
-
 <div class="viewcode-block" id="TabSettingsUI">
 <a class="viewcode-back" href="../../../gui.ui.tab_settings_ui.html#gui.ui.tab_settings_ui.TabSettingsUI">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">TabSettingsUI</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Builds and applies the layout for the settings tab.</span>
-<span class="sd">    Includes configuration for UI font, overlay font, display mode, and polling interval.</span>
+<span class="sd">    UI builder mixin for the settings tab.</span>
+
+<span class="sd">    This class constructs the widget layout and connects UI events for configuring</span>
+<span class="sd">    application settings, including application font selection, theme toggling,</span>
+<span class="sd">    overlay display options, output path selection, and polling interval controls.</span>
+
+<span class="sd">    The actual persistence and application of most settings is delegated to the</span>
+<span class="sd">    owning tab class (e.g., TabSettings) and its logic backend (TabSettingsLogic).</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        main_group (QGroupBox): Group box containing application font and theme controls.</span>
+<span class="sd">        overlay_group (QGroupBox): Group box containing overlay/polling controls.</span>
+
+<span class="sd">        font_family_label (QLabel): Label for the application font family selector.</span>
+<span class="sd">        font_family_combo (QComboBox | QFontComboBox): Application font family selector.</span>
+<span class="sd">        font_size_label (QLabel): Label for the application font size selector.</span>
+<span class="sd">        font_size_combo (QComboBox): Application font size selector.</span>
+<span class="sd">        font_weight_label (QLabel): Label for the application font weight selector.</span>
+<span class="sd">        font_weight_combo (QComboBox): Application font weight selector.</span>
+<span class="sd">        theme_toggle_btn (QPushButton): Button that toggles light/dark theme.</span>
+<span class="sd">        always_on_off_checkbox (QCheckBox): Checkbox controlling whether overlay on/off</span>
+<span class="sd">            controls are always visible.</span>
+
+<span class="sd">        display_combo (QComboBox): Dropdown for selecting the target display/screen.</span>
+<span class="sd">        display_font_family_label (QLabel): Label for overlay font family selector.</span>
+<span class="sd">        display_font_family_combo (QComboBox | QFontComboBox): Overlay font family selector.</span>
+<span class="sd">        display_font_size_label (QLabel): Label for overlay font size selector.</span>
+<span class="sd">        display_font_size_combo (QComboBox): Overlay font size selector.</span>
+<span class="sd">        display_font_weight_label (QLabel): Label for overlay font weight selector.</span>
+<span class="sd">        display_font_weight_combo (QComboBox): Overlay font weight selector.</span>
+<span class="sd">        display_font_color_label (QLabel): Label for overlay text color selector.</span>
+<span class="sd">        text_color_btn (QPushButton): Button showing the current overlay text color.</span>
+<span class="sd">        bg_alpha_label (QLabel): Label for overlay background alpha slider.</span>
+<span class="sd">        alpha_slider (QSlider): Slider controlling overlay background alpha (0–100 scale).</span>
+<span class="sd">        bg_color_label (QLabel): Label for overlay background color selector.</span>
+<span class="sd">        bg_color_btn (QPushButton): Button showing the current overlay background color.</span>
+
+<span class="sd">        path_label (QLabel): Label for output path selector.</span>
+<span class="sd">        output_edit (QLineEdit): Text field containing the verse output path.</span>
+<span class="sd">        browse_btn (QPushButton): Button that opens a file dialog to select output path.</span>
+
+<span class="sd">        overlay_mode_combo (QComboBox): Dropdown selecting overlay mode (&quot;fullscreen&quot; or &quot;resizable&quot;).</span>
+<span class="sd">        poll_label (QLabel): Label for polling interval input.</span>
+<span class="sd">        poll_input (QLineEdit): Text field for polling interval (milliseconds).</span>
+<span class="sd">        poll_save (QPushButton): Button that saves the polling interval.</span>
+
+<span class="sd">        main_layout (QVBoxLayout): Layout for the main settings group.</span>
+<span class="sd">        overlay_layout (QVBoxLayout): Layout for the overlay settings group.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="TabSettingsUI.init_ui">
 <a class="viewcode-back" href="../../../gui.ui.tab_settings_ui.html#gui.ui.tab_settings_ui.TabSettingsUI.init_ui">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">init_ui</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Initialize the full settings UI.</span>
+<span class="sd">        Initialize and assemble the full settings UI.</span>
 
-<span class="sd">        This method constructs all font-related configuration widgets, theme toggles,</span>
-<span class="sd">        overlay settings, output paths, and polling controls.</span>
+<span class="sd">        This constructs:</span>
+
+<span class="sd">        - Application font family/size/weight controls</span>
+<span class="sd">        - Theme toggle and &quot;always show&quot; option</span>
+<span class="sd">        - Overlay display selection and overlay font controls</span>
+<span class="sd">        - Overlay colors and background alpha controls</span>
+<span class="sd">        - Verse output path selector</span>
+<span class="sd">        - Overlay mode selector and polling interval controls</span>
+
+<span class="sd">        All relevant widgets are connected to dynamic update handlers so changes can be</span>
+<span class="sd">        applied immediately and persisted through the logic layer.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># --------------------------</span>
         <span class="c1"># Main Group: App Font and Theme</span>

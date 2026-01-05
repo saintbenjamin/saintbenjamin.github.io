@@ -79,8 +79,8 @@
 <span class="sd">:E-mail: euljirochurch [at] G.M.A.I.L. (replace [at] with @ and G.M.A.I.L as you understood.)</span>
 <span class="sd">:License: MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</span>
 
-<span class="sd">Provides a QStyledItemDelegate that highlights specified keywords in red</span>
-<span class="sd">within a QTextDocument, supporting HTML formatting and line wrapping.</span>
+<span class="sd">Provides a `QStyledItemDelegate` that highlights specified keywords in red</span>
+<span class="sd">within a `QTextDocument`, supporting HTML formatting and line wrapping.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">QStyledItemDelegate</span><span class="p">,</span> <span class="n">QStyle</span>
@@ -91,31 +91,49 @@
 <a class="viewcode-back" href="../../../gui.utils.keyword_highlight_delegate.html#gui.utils.keyword_highlight_delegate.KeywordHighlightDelegate">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">KeywordHighlightDelegate</span><span class="p">(</span><span class="n">QStyledItemDelegate</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Custom delegate to render keyword search results with highlighted terms</span>
-<span class="sd">    using QTextDocument for HTML and multiline support.</span>
+<span class="sd">    Item delegate that highlights keywords in keyword-search result cells.</span>
 
-<span class="sd">    :param keywords: List of keywords to highlight</span>
-<span class="sd">    :type keywords: list[str]</span>
-<span class="sd">    :param parent: Optional parent QWidget</span>
-<span class="sd">    :type parent: QWidget | None</span>
+<span class="sd">    This delegate renders cell text via QTextDocument so that:</span>
+
+<span class="sd">    - HTML formatting (keyword spans) is supported</span>
+<span class="sd">    - multiline text is wrapped and drawn correctly</span>
+<span class="sd">    - selected-row background rendering remains consistent with Qt styles</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        keywords (list[str]): Keywords to highlight. Each keyword is highlighted by</span>
+<span class="sd">            wrapping exact string matches in an HTML &lt;span&gt; with a colored style.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+<div class="viewcode-block" id="KeywordHighlightDelegate.__init__">
+<a class="viewcode-back" href="../../../gui.utils.keyword_highlight_delegate.html#gui.utils.keyword_highlight_delegate.KeywordHighlightDelegate.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keywords</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the delegate.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            keywords (list[str]): List of keywords to highlight.</span>
+<span class="sd">            parent (QWidget | None): Optional parent widget.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">keywords</span> <span class="o">=</span> <span class="n">keywords</span>  <span class="c1"># list[str]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">keywords</span> <span class="o">=</span> <span class="n">keywords</span>  <span class="c1"># list[str]</span></div>
+
 
 <div class="viewcode-block" id="KeywordHighlightDelegate.paint">
 <a class="viewcode-back" href="../../../gui.utils.keyword_highlight_delegate.html#gui.utils.keyword_highlight_delegate.KeywordHighlightDelegate.paint">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">paint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">painter</span><span class="p">,</span> <span class="n">option</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Renders the cell with HTML-formatted text, highlighting keywords.</span>
+<span class="sd">        Paint the table cell using HTML rendering with keyword highlights.</span>
 
-<span class="sd">        :param painter: QPainter object used for rendering</span>
-<span class="sd">        :type painter: QPainter</span>
-<span class="sd">        :param option: Styling options for the item</span>
-<span class="sd">        :type option: QStyleOptionViewItem</span>
-<span class="sd">        :param index: Index of the model item</span>
-<span class="sd">        :type index: QModelIndex</span>
+<span class="sd">        This method:</span>
+
+<span class="sd">        - draws the row background (selected vs non-selected)</span>
+<span class="sd">        - converts the model text into highlighted HTML</span>
+<span class="sd">        - uses QTextDocument to render HTML with wrapping inside the cell rectangle</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            painter (QPainter): Painter used to draw the item.</span>
+<span class="sd">            option (QStyleOptionViewItem): Style options for the item.</span>
+<span class="sd">            index (QModelIndex): Model index for the item being painted.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">text</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">text</span><span class="p">:</span>
@@ -149,13 +167,16 @@
 <a class="viewcode-back" href="../../../gui.utils.keyword_highlight_delegate.html#gui.utils.keyword_highlight_delegate.KeywordHighlightDelegate._highlight_keywords">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">_highlight_keywords</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Escapes HTML in the text and wraps matching keywords with red-colored spans.</span>
-<span class="sd">        Also converts newline characters to &lt;br&gt; for HTML rendering.</span>
+<span class="sd">        Convert plain text into HTML with keyword highlights.</span>
 
-<span class="sd">        :param text: The original verse text</span>
-<span class="sd">        :type text: str</span>
-<span class="sd">        :return: HTML-formatted string with &lt;span&gt; wrapped keywords</span>
-<span class="sd">        :rtype: str</span>
+<span class="sd">        This escapes HTML-sensitive characters, converts newlines to &lt;br&gt;,</span>
+<span class="sd">        and wraps each keyword occurrence with an HTML &lt;span&gt; marker.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            text (str): Original cell text.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: HTML-formatted string with highlighted keywords.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Escape HTML-sensitive characters</span>
         <span class="n">escaped_text</span> <span class="o">=</span> <span class="p">(</span>

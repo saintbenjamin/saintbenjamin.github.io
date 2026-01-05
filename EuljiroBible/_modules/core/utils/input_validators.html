@@ -90,6 +90,13 @@
 <span class="sd">    Validates whether the given input text is a valid integer,</span>
 <span class="sd">    optionally enforcing minimum and/or maximum bounds.</span>
 
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; validate_int(&quot;42&quot;, min_value=10, max_value=100)</span>
+<span class="sd">        (True, 42)</span>
+
+<span class="sd">        &gt;&gt;&gt; validate_int(&quot;abc&quot;)</span>
+<span class="sd">        (False, None)</span>
+
 <span class="sd">    Args:</span>
 <span class="sd">        text (str): Input string to validate.</span>
 <span class="sd">        min_value (int, optional): Lower bound (inclusive). Defaults to None.</span>
@@ -99,13 +106,6 @@
 <span class="sd">        tuple:</span>
 <span class="sd">            - is_valid (bool): True if the input is a valid integer and within bounds.</span>
 <span class="sd">            - value (int or None): The parsed integer if valid; otherwise None.</span>
-
-<span class="sd">    Example:</span>
-<span class="sd">        &gt;&gt;&gt; validate_int(&quot;42&quot;, min_value=10, max_value=100)</span>
-<span class="sd">        (True, 42)</span>
-
-<span class="sd">        &gt;&gt;&gt; validate_int(&quot;abc&quot;)</span>
-<span class="sd">        (False, None)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="c1"># Attempt to convert text to integer</span>

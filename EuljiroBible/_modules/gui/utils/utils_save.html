@@ -91,11 +91,27 @@
 <a class="viewcode-back" href="../../../gui.utils.utils_save.html#gui.utils.utils_save.save_user_settings">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">save_user_settings</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">win</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Saves user settings at exit from the GUI state.</span>
+<span class="sd">    Persist user settings when the GUI application exits.</span>
+
+<span class="sd">    This function collects relevant runtime UI state from the main window and</span>
+<span class="sd">    writes it to the settings store. It is typically invoked during application</span>
+<span class="sd">    shutdown to ensure that the next launch restores the user’s most recent context.</span>
+
+<span class="sd">    Captured settings include:</span>
+
+<span class="sd">    - Application font family and size</span>
+<span class="sd">    - Last selected Bible versions</span>
+<span class="sd">    - Last selected book, chapter, and verse</span>
+<span class="sd">    - Current dark mode state</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        app (QApplication): The application instance.</span>
-<span class="sd">        win (QMainWindow): The main window containing tab state.</span>
+<span class="sd">        app (QApplication): Active QApplication instance used to query global font</span>
+<span class="sd">            and theme (dark mode) state.</span>
+<span class="sd">        win (QMainWindow): Main application window containing the tab widgets</span>
+<span class="sd">            and verse-selection UI.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">win</span><span class="p">:</span>
         <span class="k">return</span>

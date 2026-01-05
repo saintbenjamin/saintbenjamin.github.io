@@ -116,30 +116,74 @@
 <dd class="field-odd"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
 </dd>
 </dl>
-<p>Handles loading, saving, and updating user settings for EuljiroBible GUI.
-Includes utility for font selection and safe default fallback for corrupted or missing settings.</p>
+<p>Configuration manager for the EuljiroBible GUI.</p>
+<p>This module provides a single entry point for loading, saving, and updating user
+settings (JSON) used by the GUI. It also includes platform-aware defaults and
+utilities related to font selection.</p>
+<p>Key responsibilities:</p>
+<ul class="simple">
+<li><p>Read and write the settings JSON file (with UTF-8 encoding).</p></li>
+<li><dl class="simple">
+<dt>Recover safely from missing, corrupted, or invalid settings files by</dt><dd><p>falling back to <code class="docutils literal notranslate"><span class="pre">DEFAULT_SETTINGS</span></code>.</p>
+</dd>
+</dl>
+</li>
+<li><p>Provide OS-specific reasonable default font selection.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>This module may show GUI error dialogs when a QApplication instance exists. If not, it falls back to console output.</p></li>
+</ul>
+</div>
 <dl class="py class">
 <dt class="sig sig-object py" id="gui.config.config_manager.ConfigManager">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gui.config.config_manager.</span></span><span class="sig-name descname"><span class="pre">ConfigManager</span></span><a class="reference internal" href="_modules/gui/config/config_manager.html#ConfigManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.config.config_manager.ConfigManager" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Manages loading, saving, and modifying user settings for the application.</p>
+<p>This class centralizes access to the GUI settings JSON file and provides helpers
+for applying safe defaults when the settings file is missing or invalid. All
+methods are static to keep the API simple and to avoid accidental state drift.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="gui.config.config_manager.ConfigManager.BASE_DIR">
-<span class="sig-name descname"><span class="pre">BASE_DIR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'/home/runner/work/EuljiroBible/EuljiroBible'</span></em><a class="headerlink" href="#gui.config.config_manager.ConfigManager.BASE_DIR" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">BASE_DIR</span></span><a class="headerlink" href="#gui.config.config_manager.ConfigManager.BASE_DIR" title="Link to this definition"></a></dt>
+<dd><p>Absolute path to the application/project base directory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="gui.config.config_manager.ConfigManager.DEFAULT_OUTPUT_PATH">
-<span class="sig-name descname"><span class="pre">DEFAULT_OUTPUT_PATH</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'/home/runner/work/EuljiroBible/EuljiroBible/verse_output.txt'</span></em><a class="headerlink" href="#gui.config.config_manager.ConfigManager.DEFAULT_OUTPUT_PATH" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">DEFAULT_OUTPUT_PATH</span></span><a class="headerlink" href="#gui.config.config_manager.ConfigManager.DEFAULT_OUTPUT_PATH" title="Link to this definition"></a></dt>
+<dd><p>Default verse output path used when <code class="docutils literal notranslate"><span class="pre">output_path</span></code> is missing from the
+settings file. Typically <code class="docutils literal notranslate"><span class="pre">&lt;BASE_DIR&gt;/verse_output.txt</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">BASE_DIR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'/home/runner/work/EuljiroBible/EuljiroBible'</span></em><a class="headerlink" href="#id0" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id1">
+<span class="sig-name descname"><span class="pre">DEFAULT_OUTPUT_PATH</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'/home/runner/work/EuljiroBible/EuljiroBible/verse_output.txt'</span></em><a class="headerlink" href="#id1" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.config.config_manager.ConfigManager.get_icon_dir">
 <em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_icon_dir</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/config/config_manager.html#ConfigManager.get_icon_dir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.config.config_manager.ConfigManager.get_icon_dir" title="Link to this definition"></a></dt>
-<dd><p>Returns the path to the application’s icon directory.</p>
+<dd><p>Return the absolute path to the application’s icon directory.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Absolute path to the icon directory.</p>
+<dd class="field-odd"><p>Absolute path to the icon directory (e.g., <code class="docutils literal notranslate"><span class="pre">paths.ICON_DIR</span></code>).</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>str</p>
@@ -150,10 +194,10 @@ Includes utility for font selection and safe default fallback for corrupted or m
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.config.config_manager.ConfigManager.get_bible_data_dir">
 <em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_bible_data_dir</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/config/config_manager.html#ConfigManager.get_bible_data_dir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.config.config_manager.ConfigManager.get_bible_data_dir" title="Link to this definition"></a></dt>
-<dd><p>Returns the directory path where Bible JSON files are stored.</p>
+<dd><p>Return the directory path where Bible text JSON files are stored.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Path to Bible text data directory.</p>
+<dd class="field-odd"><p>Absolute path to the Bible text data directory (e.g., <code class="docutils literal notranslate"><span class="pre">paths.BIBLE_DATA_DIR</span></code>).</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>str</p>
@@ -164,13 +208,27 @@ Includes utility for font selection and safe default fallback for corrupted or m
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.config.config_manager.ConfigManager.load">
 <em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/config/config_manager.html#ConfigManager.load"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.config.config_manager.ConfigManager.load" title="Link to this definition"></a></dt>
-<dd><p>Loads the user settings from disk. If missing or invalid, falls back to default.</p>
+<dd><p>Load user settings from disk with safe fallback behavior.</p>
+<p>This method reads the JSON settings file defined by <code class="docutils literal notranslate"><span class="pre">paths.SETTINGS_FILE</span></code>.
+If the file does not exist, it is created using <code class="docutils literal notranslate"><span class="pre">DEFAULT_SETTINGS</span></code>.
+If the file exists but is corrupted or not a JSON object, a GUI error dialog
+may be shown (when a QApplication instance exists) and the method falls back to
+<code class="docutils literal notranslate"><span class="pre">DEFAULT_SETTINGS</span></code>.</p>
+<dl class="simple">
+<dt>Backward compatibility:</dt><dd><ul class="simple">
+<li><p>Ensures <code class="docutils literal notranslate"><span class="pre">output_path</span></code> exists in the loaded settings; if missing, it is populated with <code class="docutils literal notranslate"><span class="pre">DEFAULT_OUTPUT_PATH</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Loaded settings or default settings on failure.</p>
+<dd class="field-odd"><p>A settings dictionary. If loading fails, returns <code class="docutils literal notranslate"><span class="pre">DEFAULT_SETTINGS</span></code>.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>dict</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong> – This method is intentionally non-throwing and recovers internally.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -178,10 +236,16 @@ Includes utility for font selection and safe default fallback for corrupted or m
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.config.config_manager.ConfigManager.save">
 <em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/config/config_manager.html#ConfigManager.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.config.config_manager.ConfigManager.save" title="Link to this definition"></a></dt>
-<dd><p>Saves the given settings dictionary to the <cite>settings.json</cite> file.</p>
+<dd><p>Save the given settings dictionary to the settings JSON file.</p>
+<p>The settings are written to <code class="docutils literal notranslate"><span class="pre">paths.SETTINGS_FILE</span></code> using UTF-8 encoding and
+pretty-printed JSON for readability.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>data</strong> (<em>dict</em>) – The settings to save.</p>
+<dd class="field-odd"><p><strong>data</strong> (<em>dict</em>) – The full settings dictionary to write.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Exception</strong> – Re-raises any I/O or serialization error after logging via
+    <code class="docutils literal notranslate"><span class="pre">log_error_with_dialog</span></code>.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -189,10 +253,15 @@ Includes utility for font selection and safe default fallback for corrupted or m
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.config.config_manager.ConfigManager.update_partial">
 <em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">update_partial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/config/config_manager.html#ConfigManager.update_partial"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.config.config_manager.ConfigManager.update_partial" title="Link to this definition"></a></dt>
-<dd><p>Updates part of the settings dictionary and saves the result.</p>
+<dd><p>Update part of the settings dictionary and persist it.</p>
+<p>This method loads the current settings, applies the given partial update
+(overwriting existing keys), and saves the result back to disk.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>data</strong> (<em>dict</em>) – Partial key-value pairs to update.</p>
+<dd class="field-odd"><p><strong>data</strong> (<em>dict</em>) – Partial key-value pairs to merge into the current settings.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Exception</strong> – Propagates exceptions from <code class="docutils literal notranslate"><span class="pre">load()</span></code> or <code class="docutils literal notranslate"><span class="pre">save()</span></code> if saving fails.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -200,11 +269,13 @@ Includes utility for font selection and safe default fallback for corrupted or m
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.config.config_manager.ConfigManager.get_default_font">
 <em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_default_font</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/config/config_manager.html#ConfigManager.get_default_font"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.config.config_manager.ConfigManager.get_default_font" title="Link to this definition"></a></dt>
-<dd><p>Returns a default font based on the operating system.
-Checks several commonly available fonts in system preference order.</p>
+<dd><p>Return the best available default font family for the current platform.</p>
+<p>This method inspects available system fonts (via <code class="docutils literal notranslate"><span class="pre">QFontDatabase</span></code>) and selects
+a preferred font from a platform-specific candidate list. If none of the
+candidates are available, it falls back to Qt’s default font family.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Best available font family for the platform.</p>
+<dd class="field-odd"><p>Font family name that is expected to exist on the current system.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>str</p>
@@ -215,13 +286,16 @@ Checks several commonly available fonts in system preference order.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.config.config_manager.ConfigManager.save_font">
 <em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">save_font</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">family</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/config/config_manager.html#ConfigManager.save_font"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.config.config_manager.ConfigManager.save_font" title="Link to this definition"></a></dt>
-<dd><p>Updates and persists the UI font preferences.</p>
+<dd><p>Update and persist the application’s main UI font preferences.</p>
+<p>This method updates <code class="docutils literal notranslate"><span class="pre">font_family</span></code>, <code class="docutils literal notranslate"><span class="pre">font_size</span></code>, and <code class="docutils literal notranslate"><span class="pre">font_weight</span></code> in the
+settings file and saves them immediately.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>family</strong> (<em>str</em>) – Font family name.</p></li>
-<li><p><strong>size</strong> (<em>int</em>) – Font size.</p></li>
-<li><p><strong>weight</strong> (<em>int</em>) – Font weight value.</p></li>
+<li><p><strong>size</strong> (<em>int</em>) – Font point size.</p></li>
+<li><p><strong>weight</strong> (<em>int</em>) – Font weight value. Typically a Qt weight integer (e.g., values aligned
+with <code class="docutils literal notranslate"><span class="pre">QFont.Weight</span></code>).</p></li>
 </ul>
 </dd>
 </dl>

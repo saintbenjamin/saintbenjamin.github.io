@@ -117,17 +117,27 @@
 </dd>
 </dl>
 <p>GUI environment setup and main launcher logic for EuljiroBible.
-Initializes QApplication, verifies environment, loads settings, and launches the main window.</p>
+Initializes <cite>QApplication</cite>, verifies environment, loads settings, and launches the main window.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="gui.gui_main.run_gui">
 <span class="sig-prename descclassname"><span class="pre">gui.gui_main.</span></span><span class="sig-name descname"><span class="pre">run_gui</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/gui_main.html#run_gui"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.gui_main.run_gui" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Initialize and run the EuljiroBible GUI application.</p>
+<p>This function prepares the runtime environment, initializes the Qt application,
+loads user settings, verifies required resources (such as Bible data),
+and launches the main application window. It also ensures that user settings
+are saved on normal exit and that fatal errors are handled via GUI-safe dialogs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>Exception</strong> – Any unhandled exception during GUI initialization or execution is caught internally and reported using a critical error dialog.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="gui.gui_main.main">
 <span class="sig-prename descclassname"><span class="pre">gui.gui_main.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/gui_main.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.gui_main.main" title="Link to this definition"></a></dt>
 <dd><p>Public GUI entry point.</p>
-<p>This function is called when gui_main.py is executed as the main script.</p>
+<p>This function is called when <code class="docutils literal notranslate"><span class="pre">gui_main.py</span></code> is executed as the main script.</p>
 </dd></dl>
 
 </section>

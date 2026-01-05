@@ -93,28 +93,48 @@
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">gui.ui.common</span><span class="w"> </span><span class="kn">import</span> <span class="n">create_svg_text_button</span>
 
-
 <div class="viewcode-block" id="TabKeywordUI">
 <a class="viewcode-back" href="../../../gui.ui.tab_keyword_ui.html#gui.ui.tab_keyword_ui.TabKeywordUI">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">TabKeywordUI</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Constructs the visual layout and widget structure for the keyword search tab.</span>
-<span class="sd">    Provides controls for version selection, keyword input, search execution,</span>
-<span class="sd">    result display, and slide show output.</span>
+<span class="sd">    UI builder mixin for the keyword search tab.</span>
+
+<span class="sd">    This class constructs the widget layout and connects UI events for keyword</span>
+<span class="sd">    searching, including version selection, keyword input, search mode toggles,</span>
+<span class="sd">    result table display, summary output, and overlay export controls.</span>
+
+<span class="sd">    The actual business logic (search, export, clearing output) is delegated to the</span>
+<span class="sd">    owning tab class and its logic backend (e.g., TabKeyword and TabKeywordLogic).</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        get_polling_status (Callable[[], bool]): Callback used to determine whether</span>
+<span class="sd">            polling mode is enabled (controls button visibility).</span>
+<span class="sd">        get_always_show_setting (Callable[[], bool]): Callback used to determine</span>
+<span class="sd">            whether buttons should always be shown regardless of polling state.</span>
+<span class="sd">        version_box (QComboBox): Dropdown for selecting a Bible version.</span>
+<span class="sd">        keyword_input (QLineEdit): Text input for search keywords.</span>
+<span class="sd">        radio_and (QRadioButton): Search mode radio for &quot;all words&quot; style search.</span>
+<span class="sd">        radio_compact (QRadioButton): Search mode radio for &quot;exact phrase&quot; search.</span>
+<span class="sd">        radio_group (QButtonGroup): Radio button group for mutually exclusive modes.</span>
+<span class="sd">        search_button (QPushButton): Button triggering a keyword search.</span>
+<span class="sd">        select_button (QPushButton): Button exporting the selected verse.</span>
+<span class="sd">        clear_button (QPushButton): Button clearing overlay output.</span>
+<span class="sd">        table (QTableView): Result table view for search hits.</span>
+<span class="sd">        summary_title_label (QLabel): Label for the summary section.</span>
+<span class="sd">        summary_box (QTextEdit): Read-only summary output widget.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="TabKeywordUI.init_ui">
 <a class="viewcode-back" href="../../../gui.ui.tab_keyword_ui.html#gui.ui.tab_keyword_ui.TabKeywordUI.init_ui">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">init_ui</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version_list</span><span class="p">,</span> <span class="n">get_polling_status</span><span class="p">,</span> <span class="n">get_always_show_setting</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Initializes the UI layout and binds widget events.</span>
+<span class="sd">        Initialize the UI layout and bind widget events.</span>
 
-<span class="sd">        :param version_list: List of available Bible version strings</span>
-<span class="sd">        :type version_list: list[str]</span>
-<span class="sd">        :param get_polling_status: Callback for checking polling toggle state</span>
-<span class="sd">        :type get_polling_status: Callable[[], bool]</span>
-<span class="sd">        :param get_always_show_setting: Callback for checking &#39;always show&#39; setting</span>
-<span class="sd">        :type get_always_show_setting: Callable[[], bool]</span>
+<span class="sd">        Args:</span>
+<span class="sd">            version_list (list[str]): List of available Bible version strings.</span>
+<span class="sd">            get_polling_status (Callable[[], bool]): Callback for checking polling toggle state.</span>
+<span class="sd">            get_always_show_setting (Callable[[], bool]): Callback for checking the</span>
+<span class="sd">                &quot;always show buttons&quot; setting.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">get_polling_status</span> <span class="o">=</span> <span class="n">get_polling_status</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">get_always_show_setting</span> <span class="o">=</span> <span class="n">get_always_show_setting</span>
@@ -206,9 +226,10 @@
 <a class="viewcode-back" href="../../../gui.ui.tab_keyword_ui.html#gui.ui.tab_keyword_ui.TabKeywordUI.update_button_visibility">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">update_button_visibility</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Toggles the visibility of the Output and Clear buttons.</span>
+<span class="sd">        Update visibility of the Output and Clear buttons.</span>
 
-<span class="sd">        Visibility is determined by polling status or the &#39;always show&#39; setting.</span>
+<span class="sd">        Button visibility is determined by the effective polling state, defined as:</span>
+<span class="sd">        polling enabled OR the &quot;always show buttons&quot; setting enabled.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">poll_enabled</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_polling_status</span><span class="p">()</span>
         <span class="n">always_show</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_always_show_setting</span><span class="p">()</span>
@@ -222,12 +243,13 @@
 <a class="viewcode-back" href="../../../gui.ui.tab_keyword_ui.html#gui.ui.tab_keyword_ui.TabKeywordUI.on_double_click_save">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">on_double_click_save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Handles double-click event on the result table.</span>
+<span class="sd">        Handle a double-click event on the result table.</span>
 
-<span class="sd">        Delegates the save logic to TabKeywordLogic.</span>
+<span class="sd">        If a valid column is clicked, this delegates saving/exporting logic to the</span>
+<span class="sd">        logic backend through the owning tab instance.</span>
 
-<span class="sd">        :param index: Clicked QModelIndex</span>
-<span class="sd">        :type index: QModelIndex</span>
+<span class="sd">        Args:</span>
+<span class="sd">            index (QModelIndex): Clicked table index.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">index</span><span class="o">.</span><span class="n">column</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">return</span>

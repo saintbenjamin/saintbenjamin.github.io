@@ -97,16 +97,33 @@
 <a class="viewcode-back" href="../../gui.launch.html#gui.launch.launch">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">launch</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">saved_versions</span><span class="p">,</span> <span class="n">settings</span><span class="p">,</span> <span class="n">app_version</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Launches the EuljiroBible main window.</span>
+<span class="sd">    Launch and initialize the main EuljiroBible GUI window.</span>
+
+<span class="sd">    This function performs the full startup sequence:</span>
+
+<span class="sd">    - Builds the full Bible version list for UI display.</span>
+<span class="sd">    - Lazily loads Bible data for the last-used version set.</span>
+<span class="sd">    - Applies platform-specific app icon.</span>
+<span class="sd">    - Applies theme (dark/light) based on user setting, with an auto fallback.</span>
+<span class="sd">    - Applies application-wide font settings.</span>
+<span class="sd">    - Creates and shows :class:`gui.ui.window_main.WindowMain`.</span>
+<span class="sd">    - Restores language and last UI state (versions, book/chapter/verse).</span>
+<span class="sd">    - Finalizes selection summary and persists the restored state.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        app (QApplication): Application instance.</span>
-<span class="sd">        saved_versions (list): Previously selected Bible versions.</span>
-<span class="sd">        settings (dict): Application settings.</span>
-<span class="sd">        app_version (str): Current application version.</span>
+<span class="sd">        app (QApplication):</span>
+<span class="sd">            The running QApplication instance.</span>
+<span class="sd">        saved_versions (list[str] | None):</span>
+<span class="sd">            Previously selected version identifiers (may be ignored if</span>
+<span class="sd">            `settings[&quot;last_versions&quot;]` exists).</span>
+<span class="sd">        settings (dict):</span>
+<span class="sd">            Application settings dictionary loaded from disk.</span>
+<span class="sd">        app_version (str):</span>
+<span class="sd">            Application version string (for window title/about display).</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        WindowMain: The main application window instance.</span>
+<span class="sd">        WindowMain:</span>
+<span class="sd">            The initialized main window instance.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">gui.ui.window_main</span><span class="w"> </span><span class="kn">import</span> <span class="n">WindowMain</span>
 

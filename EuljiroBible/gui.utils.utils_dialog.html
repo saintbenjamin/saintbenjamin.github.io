@@ -134,14 +134,24 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="gui.utils.utils_dialog.set_color_from_dialog">
 <span class="sig-prename descclassname"><span class="pre">gui.utils.utils_dialog.</span></span><span class="sig-name descname"><span class="pre">set_color_from_dialog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">button</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">setting_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/utils_dialog.html#set_color_from_dialog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.utils_dialog.set_color_from_dialog" title="Link to this definition"></a></dt>
-<dd><p>Opens QColorDialog, updates button color, saves to settings, and runs callback.</p>
+<dd><p>Open a color picker dialog and apply the selected color to a button and settings.</p>
+<p>This utility:</p>
+<ul class="simple">
+<li><p>Opens a QColorDialog for user selection.</p></li>
+<li><p>Updates the button background to reflect the chosen color.</p></li>
+<li><p>Persists the color value to settings via ConfigManager.</p></li>
+<li><p>Optionally triggers a callback (commonly used to reapply dynamic settings).</p></li>
+</ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>button</strong> (<em>QPushButton</em>) – The button to update the background color of.</p></li>
-<li><p><strong>setting_key</strong> (<em>str</em>) – Settings dictionary key to update.</p></li>
-<li><p><strong>callback</strong> (<em>function</em><em>, </em><em>optional</em>) – Function to call after color is applied.</p></li>
+<li><p><strong>button</strong> (<em>QPushButton</em>) – Button whose background color represents the setting.</p></li>
+<li><p><strong>setting_key</strong> (<em>str</em>) – Settings key to update with the selected color value.</p></li>
+<li><p><strong>callback</strong> (<em>Callable</em><em> | </em><em>None</em>) – Optional function to invoke after applying the color.</p></li>
 </ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -149,18 +159,20 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="gui.utils.utils_dialog.get_save_path">
 <span class="sig-prename descclassname"><span class="pre">gui.utils.utils_dialog.</span></span><span class="sig-name descname"><span class="pre">get_save_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Text</span> <span class="pre">Files</span> <span class="pre">(*.txt)'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/utils_dialog.html#get_save_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.utils_dialog.get_save_path" title="Link to this definition"></a></dt>
-<dd><p>Opens a file dialog and returns the selected save path.</p>
+<dd><p>Open a file-save dialog and return the selected path.</p>
+<p>This helper wraps QFileDialog.getSaveFileName() and is used to select
+output paths such as verse_output.txt.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>parent</strong> (<em>QWidget</em>) – Parent widget for dialog.</p></li>
-<li><p><strong>current_path</strong> (<em>str</em>) – Initial path.</p></li>
-<li><p><strong>title</strong> (<em>str</em>) – Dialog title.</p></li>
-<li><p><strong>file_filter</strong> (<em>str</em>) – File type filter string.</p></li>
+<li><p><strong>parent</strong> (<em>QWidget</em>) – Parent widget for the file dialog.</p></li>
+<li><p><strong>current_path</strong> (<em>str</em>) – Initial path shown in the dialog.</p></li>
+<li><p><strong>title</strong> (<em>str</em>) – Dialog window title.</p></li>
+<li><p><strong>file_filter</strong> (<em>str</em>) – File type filter string (Qt format).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Selected path or empty string if cancelled.</p>
+<dd class="field-even"><p>Selected file path, or an empty string if the dialog was cancelled.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>

@@ -79,7 +79,7 @@
 <span class="sd">:E-mail: euljirochurch [at] G.M.A.I.L. (replace [at] with @ and G.M.A.I.L as you understood.)</span>
 <span class="sd">:License: MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</span>
 
-<span class="sd">Implements the TabKeyword class for EuljiroBible, enabling Bible keyword search,</span>
+<span class="sd">Implements the :class:`gui.ui.tab_keyword.TabKeyword` class for EuljiroBible, enabling Bible keyword search,</span>
 <span class="sd">search result rendering, multilingual updates, and verse output handling.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
@@ -90,15 +90,25 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">gui.ui.tab_keyword_logic</span><span class="w"> </span><span class="kn">import</span> <span class="n">TabKeywordLogic</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">gui.ui.tab_keyword_ui</span><span class="w"> </span><span class="kn">import</span> <span class="n">TabKeywordUI</span>
 
-
 <div class="viewcode-block" id="TabKeyword">
 <a class="viewcode-back" href="../../../gui.ui.tab_keyword.html#gui.ui.tab_keyword.TabKeyword">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">TabKeyword</span><span class="p">(</span><span class="n">QWidget</span><span class="p">,</span> <span class="n">TabKeywordUI</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    GUI tab class for Bible keyword searching.</span>
+<span class="sd">    GUI tab widget for Bible keyword searching.</span>
 
-<span class="sd">    Provides multilingual keyword search, result table display,</span>
-<span class="sd">    summary box update, and verse export functionality.</span>
+<span class="sd">    This tab provides a multilingual keyword search workflow backed by</span>
+<span class="sd">    TabKeywordLogic, including result table rendering, summary updates,</span>
+<span class="sd">    and exporting the selected verse for overlay usage.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        tr (Callable[[str], str]): Translation function for UI labels and messages.</span>
+<span class="sd">        settings (dict): Application-level settings dictionary.</span>
+<span class="sd">        current_language (str): Current UI language code (e.g., &quot;ko&quot;, &quot;en&quot;).</span>
+<span class="sd">        bible_data (BibleDataLoader): Bible data loader instance used by this tab.</span>
+<span class="sd">        logic (TabKeywordLogic): Backend logic handler for search and export actions.</span>
+<span class="sd">        get_polling_status (Callable[[], bool]): Callback returning current polling state.</span>
+<span class="sd">        get_always_show_setting (Callable[[], bool]): Callback returning current</span>
+<span class="sd">            &quot;always show buttons&quot; toggle state.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="TabKeyword.__init__">
@@ -106,18 +116,16 @@
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version_list</span><span class="p">,</span> <span class="n">settings</span><span class="p">,</span> <span class="n">tr</span><span class="p">,</span>
                  <span class="n">get_polling_status</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">get_always_show_setting</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Initialize the TabKeyword UI, logic, and Bible data.</span>
+<span class="sd">        Initialize the TabKeyword UI, logic backend, and Bible data.</span>
 
-<span class="sd">        :param version_list: Available Bible version list</span>
-<span class="sd">        :type version_list: list[str]</span>
-<span class="sd">        :param settings: Application-level settings</span>
-<span class="sd">        :type settings: dict</span>
-<span class="sd">        :param tr: Translation function for UI labels</span>
-<span class="sd">        :type tr: Callable[[str], str]</span>
-<span class="sd">        :param get_polling_status: Optional callback to get polling state</span>
-<span class="sd">        :type get_polling_status: Callable[[], bool] or None</span>
-<span class="sd">        :param get_always_show_setting: Optional callback for always-show-button toggle</span>
-<span class="sd">        :type get_always_show_setting: Callable[[], bool] or None</span>
+<span class="sd">        Args:</span>
+<span class="sd">            version_list (list[str]): Available Bible version list shown in the UI.</span>
+<span class="sd">            settings (dict): Application-level settings.</span>
+<span class="sd">            tr (Callable[[str], str]): Translation function for UI labels.</span>
+<span class="sd">            get_polling_status (Callable[[], bool] | None): Optional callback to retrieve</span>
+<span class="sd">                polling state. If not provided, a default stub method is used.</span>
+<span class="sd">            get_always_show_setting (Callable[[], bool] | None): Optional callback to retrieve</span>
+<span class="sd">                the &quot;always show buttons&quot; state. If not provided, a default stub method is used.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tr</span> <span class="o">=</span> <span class="n">tr</span>
@@ -142,10 +150,10 @@
 <a class="viewcode-back" href="../../../gui.ui.tab_keyword.html#gui.ui.tab_keyword.TabKeyword.change_language">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">change_language</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lang_code</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Update UI text and placeholder strings according to selected language.</span>
+<span class="sd">        Update UI text and placeholder strings according to the selected language.</span>
 
-<span class="sd">        :param lang_code: Language code (&#39;ko&#39;, &#39;en&#39;, etc.)</span>
-<span class="sd">        :type lang_code: str</span>
+<span class="sd">        Args:</span>
+<span class="sd">            lang_code (str): Language code (e.g., &quot;ko&quot;, &quot;en&quot;).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">current_language</span> <span class="o">=</span> <span class="n">lang_code</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">messages</span> <span class="o">=</span> <span class="n">load_messages</span><span class="p">(</span><span class="n">lang_code</span><span class="p">)</span>
@@ -174,8 +182,11 @@
 <a class="viewcode-back" href="../../../gui.ui.tab_keyword.html#gui.ui.tab_keyword.TabKeyword.save_selected_verse">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">save_selected_verse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Save the currently selected verse to verse_output.txt</span>
-<span class="sd">        for overlay usage or exporting.</span>
+<span class="sd">        Save the currently selected verse to the overlay output file.</span>
+
+<span class="sd">        This delegates to the logic backend, which writes the selected verse to</span>
+<span class="sd">        the configured verse output destination (e.g., verse_output.txt) for overlay</span>
+<span class="sd">        usage or exporting.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logic</span><span class="o">.</span><span class="n">save_selected_verse</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 
@@ -184,7 +195,10 @@
 <a class="viewcode-back" href="../../../gui.ui.tab_keyword.html#gui.ui.tab_keyword.TabKeyword.clear_outputs">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">clear_outputs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Clear the verse output file and reset summary/preview fields.</span>
+<span class="sd">        Clear the verse output destination and reset summary/preview fields.</span>
+
+<span class="sd">        This delegates to the logic backend to clear the output file and reset</span>
+<span class="sd">        UI state as needed.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logic</span><span class="o">.</span><span class="n">clear_outputs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 
@@ -195,8 +209,8 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Update the keyword result table with new entries.</span>
 
-<span class="sd">        :param results: List of result dictionaries</span>
-<span class="sd">        :type results: list[dict]</span>
+<span class="sd">        Args:</span>
+<span class="sd">            results (list[dict]): List of result dictionaries produced by the search backend.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logic</span><span class="o">.</span><span class="n">update_table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">results</span><span class="p">)</span></div>
 
@@ -207,8 +221,8 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Update the summary box with keyword occurrence counts.</span>
 
-<span class="sd">        :param counts: Keyword → count dictionary</span>
-<span class="sd">        :type counts: dict[str, int]</span>
+<span class="sd">        Args:</span>
+<span class="sd">            counts (dict[str, int]): Mapping from keyword to occurrence count.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logic</span><span class="o">.</span><span class="n">update_summary</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">counts</span><span class="p">)</span></div>
 
@@ -218,10 +232,11 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_polling_status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return the current polling toggle state.</span>
-<span class="sd">        Overridable callback for external control.</span>
 
-<span class="sd">        :return: True if polling is active</span>
-<span class="sd">        :rtype: bool</span>
+<span class="sd">        This method is designed to be overridden or replaced by an injected callback.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True if polling is active; otherwise False.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="kc">False</span></div>
 
@@ -230,11 +245,12 @@
 <a class="viewcode-back" href="../../../gui.ui.tab_keyword.html#gui.ui.tab_keyword.TabKeyword.get_always_show_setting">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_always_show_setting</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Return the current &#39;always show buttons&#39; setting.</span>
-<span class="sd">        Overridable callback for external control.</span>
+<span class="sd">        Return the current &quot;always show buttons&quot; setting.</span>
 
-<span class="sd">        :return: True if buttons are always shown</span>
-<span class="sd">        :rtype: bool</span>
+<span class="sd">        This method is designed to be overridden or replaced by an injected callback.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True if buttons are always shown; otherwise False.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="kc">False</span></div>
 </div>

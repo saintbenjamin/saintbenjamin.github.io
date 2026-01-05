@@ -134,8 +134,19 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="gui.utils.utils_validation.verify_bible_data">
 <span class="sig-prename descclassname"><span class="pre">gui.utils.utils_validation.</span></span><span class="sig-name descname"><span class="pre">verify_bible_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/utils_validation.html#verify_bible_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.utils_validation.verify_bible_data" title="Link to this definition"></a></dt>
-<dd><p>Verifies that Bible data directory and required JSON files exist.</p>
-<p>This function displays an error message and exits the app if the data directory or files are missing.</p>
+<dd><p>Verify the presence and validity of the Bible data directory.</p>
+<p>This function checks whether the configured Bible data directory exists
+and whether it contains at least one JSON file. These JSON files are
+required for loading Bible text data at runtime.</p>
+<p>If the directory does not exist or contains no JSON files, a critical
+error dialog is shown to the user and the application terminates
+immediately.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>SystemExit</strong> – If the Bible data directory is missing or contains no
+    valid JSON files.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>

@@ -80,7 +80,7 @@
 <span class="sd">:License: MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</span>
 
 <span class="sd">GUI environment setup and main launcher logic for EuljiroBible.</span>
-<span class="sd">Initializes QApplication, verifies environment, loads settings, and launches the main window.</span>
+<span class="sd">Initializes `QApplication`, verifies environment, loads settings, and launches the main window.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
@@ -106,6 +106,17 @@
 <div class="viewcode-block" id="run_gui">
 <a class="viewcode-back" href="../../gui.gui_main.html#gui.gui_main.run_gui">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">run_gui</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Initialize and run the EuljiroBible GUI application.</span>
+
+<span class="sd">    This function prepares the runtime environment, initializes the Qt application,</span>
+<span class="sd">    loads user settings, verifies required resources (such as Bible data),</span>
+<span class="sd">    and launches the main application window. It also ensures that user settings</span>
+<span class="sd">    are saved on normal exit and that fatal errors are handled via GUI-safe dialogs.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        Exception: Any unhandled exception during GUI initialization or execution is caught internally and reported using a critical error dialog.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)))</span>
     <span class="n">log_debug</span><span class="p">(</span><span class="s1">&#39;EuljiroBible started.&#39;</span><span class="p">)</span>
 
@@ -162,7 +173,7 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Public GUI entry point.</span>
 
-<span class="sd">    This function is called when gui_main.py is executed as the main script.</span>
+<span class="sd">    This function is called when ``gui_main.py`` is executed as the main script.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">run_gui</span><span class="p">()</span></div>
 

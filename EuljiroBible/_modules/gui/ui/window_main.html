@@ -103,22 +103,60 @@
 <a class="viewcode-back" href="../../../gui.ui.window_main.html#gui.ui.window_main.WindowMain">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">WindowMain</span><span class="p">(</span><span class="n">QMainWindow</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Main application window class for EuljiroBible.</span>
+<span class="sd">    Main application window for EuljiroBible.</span>
 
-<span class="sd">    Manages the main interface, including tabs for verse search, keyword search, settings,</span>
-<span class="sd">    as well as language switching, overlay control, and polling behavior.</span>
+<span class="sd">    This window hosts the primary tab-based interface, including:</span>
+
+<span class="sd">    - Verse lookup and export (TabVerse)</span>
+<span class="sd">    - Keyword search and export (TabKeyword)</span>
+<span class="sd">    - Settings and overlay configuration (TabSettings)</span>
+
+<span class="sd">    It also manages global UI behaviors such as:</span>
+
+<span class="sd">    - Language switching (menu-driven)</span>
+<span class="sd">    - Polling enable/disable toggle and propagation to tabs</span>
+<span class="sd">    - About/help actions</span>
+<span class="sd">    - Optional memory monitor window</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        settings (dict): Current settings dictionary (reloaded as needed via ConfigManager).</span>
+<span class="sd">        app_version (str): Application version string displayed in the title and About dialog.</span>
+
+<span class="sd">        current_language (str): Active UI language code (e.g., &quot;ko&quot;, &quot;en&quot;).</span>
+<span class="sd">        messages (dict): Loaded translation dictionary for the active language.</span>
+
+<span class="sd">        help_menu (QMenu): Help menu container (About action).</span>
+<span class="sd">        tools_menu (QMenu): Tools menu container (memory monitor, test error).</span>
+<span class="sd">        lang_menu (QMenu | None): Language selection menu if languages are available.</span>
+
+<span class="sd">        about_action (QAction): Opens the About dialog.</span>
+<span class="sd">        memory_action (QAction): Opens the memory monitor window.</span>
+<span class="sd">        test_error_action (QAction): Triggers a controlled error for testing.</span>
+
+<span class="sd">        poll_toggle_btn (QPushButton): Global polling toggle button (checkable).</span>
+<span class="sd">            When enabled, export/clear controls become available and polling-dependent</span>
+<span class="sd">            UI elements are shown where applicable.</span>
+<span class="sd">        tabs (QTabWidget): Tab widget hosting the main UI tabs.</span>
+<span class="sd">        tab_verse (TabVerse): Verse lookup tab instance.</span>
+<span class="sd">        tab_keyword (TabKeyword): Keyword search tab instance.</span>
+<span class="sd">        tab_settings (TabSettings): Settings tab instance.</span>
+
+<span class="sd">        copyright_label (QLabel): Footer label showing copyright/license text.</span>
+<span class="sd">        monitor_window (MonitorMemory | None): Memory monitor window instance when opened.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="WindowMain.__init__">
 <a class="viewcode-back" href="../../../gui.ui.window_main.html#gui.ui.window_main.WindowMain.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version_list</span><span class="p">,</span> <span class="n">settings</span><span class="p">,</span> <span class="n">icon_path</span><span class="p">,</span> <span class="n">app_version</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Initializes the WindowMain.</span>
+<span class="sd">        Initialize the main window and construct menus, tabs, and global controls.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            version_list (list): List of available Bible versions.</span>
-<span class="sd">            settings (dict): Loaded user settings.</span>
-<span class="sd">            icon_path (str): Path to the application icon file.</span>
+<span class="sd">            version_list (list): List of available Bible version identifiers for the verse/keyword tabs.</span>
+<span class="sd">            settings (dict): Loaded user settings dictionary.</span>
+<span class="sd">            icon_path (str): Path to the application icon file (provided by caller).</span>
+<span class="sd">            app_version (str): Application version string.</span>
+<span class="sd">            parent (QWidget | None): Optional parent widget.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 
@@ -236,13 +274,13 @@
 <a class="viewcode-back" href="../../../gui.ui.window_main.html#gui.ui.window_main.WindowMain.tr">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">tr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Translates a UI key into the current language.</span>
+<span class="sd">        Translate a UI key using the currently loaded language messages.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            key (str): Translation key.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            str: Translated string.</span>
+<span class="sd">            str: Translated string if found; otherwise the key itself.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">messages</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span></div>
 
@@ -251,10 +289,13 @@
 <a class="viewcode-back" href="../../../gui.ui.window_main.html#gui.ui.window_main.WindowMain.change_language">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">change_language</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lang_code</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Changes the UI language dynamically.</span>
+<span class="sd">        Translate a UI key using the currently loaded language messages.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            lang_code (str): Language code (e.g., &quot;ko&quot;, &quot;en&quot;).</span>
+<span class="sd">            key (str): Translation key.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: Translated string if found; otherwise the key itself.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">current_language</span> <span class="o">=</span> <span class="n">lang_code</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">messages</span> <span class="o">=</span> <span class="n">load_messages</span><span class="p">(</span><span class="n">lang_code</span><span class="p">)</span>
@@ -312,6 +353,15 @@
 <div class="viewcode-block" id="WindowMain.refresh_settings_and_tabs">
 <a class="viewcode-back" href="../../../gui.ui.window_main.html#gui.ui.window_main.WindowMain.refresh_settings_and_tabs">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">refresh_settings_and_tabs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Reload settings from ConfigManager and refresh polling-dependent tab UI.</span>
+
+<span class="sd">        This is used after settings changes to ensure:</span>
+
+<span class="sd">        - verse tab button layout is updated</span>
+<span class="sd">        - keyword tab output button visibility is updated</span>
+<span class="sd">        - settings tab overlay group visibility is updated</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">settings</span> <span class="o">=</span> <span class="n">ConfigManager</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tab_verse</span><span class="o">.</span><span class="n">update_button_layout</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tab_keyword</span><span class="o">.</span><span class="n">update_button_visibility</span><span class="p">()</span>
@@ -322,9 +372,9 @@
 <a class="viewcode-back" href="../../../gui.ui.window_main.html#gui.ui.window_main.WindowMain.apply_tab_icons">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">apply_tab_icons</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Applies SVG icons to each tab in the tab widget, unless on macOS.</span>
+<span class="sd">        Apply tab icons to the QTabWidget (skipped on macOS).</span>
 
-<span class="sd">        On macOS, tab icons are skipped due to style inconsistencies in Qt rendering.</span>
+<span class="sd">        On macOS, icons are intentionally omitted due to Qt style inconsistencies.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;Darwin&quot;</span><span class="p">:</span>
             <span class="k">return</span>
@@ -338,7 +388,9 @@
 <a class="viewcode-back" href="../../../gui.ui.window_main.html#gui.ui.window_main.WindowMain.update_poll_button_text">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">update_poll_button_text</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Updates the polling toggle button text based on polling state.</span>
+<span class="sd">        Update the polling toggle button label and icon.</span>
+
+<span class="sd">        The button reflects the current checked state and uses localized labels.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">poll_toggle_btn</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">poll_toggle_btn</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;toggle_btn_poll_enabled&quot;</span><span class="p">))</span>
@@ -353,12 +405,14 @@
 <a class="viewcode-back" href="../../../gui.ui.window_main.html#gui.ui.window_main.WindowMain.on_poll_toggle_clicked">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">on_poll_toggle_clicked</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Handles the polling toggle button click event.</span>
+<span class="sd">        Handle clicks on the polling toggle button.</span>
 
-<span class="sd">        - Saves polling state to config.</span>
-<span class="sd">        - Updates tab_settings.</span>
-<span class="sd">        - Applies/restarts polling.</span>
-<span class="sd">        - Updates toggle button text and version tab button layout.</span>
+<span class="sd">        This persists the new polling state and propagates it across tabs by:</span>
+
+<span class="sd">        - saving poll_enabled to ConfigManager</span>
+<span class="sd">        - updating settings tab polling behavior (start/stop/restart timer logic)</span>
+<span class="sd">        - updating button label/icon</span>
+<span class="sd">        - updating verse/keyword tab button visibility/layout</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">poll_enabled</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">poll_toggle_btn</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span>
         <span class="n">ConfigManager</span><span class="o">.</span><span class="n">update_partial</span><span class="p">({</span><span class="s2">&quot;poll_enabled&quot;</span><span class="p">:</span> <span class="n">poll_enabled</span><span class="p">})</span>
@@ -373,7 +427,9 @@
 <a class="viewcode-back" href="../../../gui.ui.window_main.html#gui.ui.window_main.WindowMain.show_about">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">show_about</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Displays the About dialog.</span>
+<span class="sd">        Show the About dialog.</span>
+
+<span class="sd">        The dialog content is localized and includes the current application version.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">QMessageBox</span><span class="o">.</span><span class="n">about</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
@@ -386,7 +442,9 @@
 <a class="viewcode-back" href="../../../gui.ui.window_main.html#gui.ui.window_main.WindowMain.open_monitor_memory">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">open_monitor_memory</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Opens the real-time memory monitor window.</span>
+<span class="sd">        Open the real-time memory monitor window.</span>
+
+<span class="sd">        This reads the refresh interval from settings and launches MonitorMemory.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">settings</span> <span class="o">=</span> <span class="n">ConfigManager</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
         <span class="n">interval</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;memory_interval_sec&quot;</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
@@ -398,8 +456,9 @@
 <a class="viewcode-back" href="../../../gui.ui.window_main.html#gui.ui.window_main.WindowMain.trigger_error">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">trigger_error</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Deliberately triggers a ZeroDivisionError for testing error handling.</span>
-<span class="sd">        Used to validate logging and critical error dialogs.</span>
+<span class="sd">        Trigger a controlled exception to test error handling.</span>
+
+<span class="sd">        This is intended for validating logging and critical error dialog behavior.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">0</span>
@@ -412,10 +471,16 @@
 <a class="viewcode-back" href="../../../gui.ui.window_main.html#gui.ui.window_main.WindowMain.closeEvent">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">closeEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Handles cleanup and settings saving before application closes.</span>
+<span class="sd">        Handle application close events and persist UI state.</span>
+
+<span class="sd">        This attempts to:</span>
+
+<span class="sd">        - apply dynamic settings (fonts/overlay) before exit</span>
+<span class="sd">        - save UI-derived settings to disk</span>
+<span class="sd">        - close any active overlay window owned by the settings tab</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            event (QCloseEvent): The close event.</span>
+<span class="sd">            event (QCloseEvent): Close event.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">tab_verse</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tabs</span><span class="o">.</span><span class="n">widget</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>

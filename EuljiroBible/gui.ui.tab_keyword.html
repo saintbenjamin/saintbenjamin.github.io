@@ -130,27 +130,108 @@
 <dd class="field-odd"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
 </dd>
 </dl>
-<p>Implements the TabKeyword class for EuljiroBible, enabling Bible keyword search,
+<p>Implements the <a class="reference internal" href="#gui.ui.tab_keyword.TabKeyword" title="gui.ui.tab_keyword.TabKeyword"><code class="xref py py-class docutils literal notranslate"><span class="pre">gui.ui.tab_keyword.TabKeyword</span></code></a> class for EuljiroBible, enabling Bible keyword search,
 search result rendering, multilingual updates, and verse output handling.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="gui.ui.tab_keyword.TabKeyword">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gui.ui.tab_keyword.</span></span><span class="sig-name descname"><span class="pre">TabKeyword</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_keyword.html#TabKeyword"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_keyword.TabKeyword" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code>, <a class="reference internal" href="gui.ui.tab_keyword_ui.html#gui.ui.tab_keyword_ui.TabKeywordUI" title="gui.ui.tab_keyword_ui.TabKeywordUI"><code class="xref py py-class docutils literal notranslate"><span class="pre">TabKeywordUI</span></code></a></p>
-<p>GUI tab class for Bible keyword searching.</p>
-<p>Provides multilingual keyword search, result table display,
-summary box update, and verse export functionality.</p>
+<p>GUI tab widget for Bible keyword searching.</p>
+<p>This tab provides a multilingual keyword search workflow backed by
+TabKeywordLogic, including result table rendering, summary updates,
+and exporting the selected verse for overlay usage.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_keyword.TabKeyword.tr">
+<span class="sig-name descname"><span class="pre">tr</span></span><a class="headerlink" href="#gui.ui.tab_keyword.TabKeyword.tr" title="Link to this definition"></a></dt>
+<dd><p>Translation function for UI labels and messages.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Callable[[str], str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_keyword.TabKeyword.settings">
+<span class="sig-name descname"><span class="pre">settings</span></span><a class="headerlink" href="#gui.ui.tab_keyword.TabKeyword.settings" title="Link to this definition"></a></dt>
+<dd><p>Application-level settings dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_keyword.TabKeyword.current_language">
+<span class="sig-name descname"><span class="pre">current_language</span></span><a class="headerlink" href="#gui.ui.tab_keyword.TabKeyword.current_language" title="Link to this definition"></a></dt>
+<dd><p>Current UI language code (e.g., “ko”, “en”).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_keyword.TabKeyword.bible_data">
+<span class="sig-name descname"><span class="pre">bible_data</span></span><a class="headerlink" href="#gui.ui.tab_keyword.TabKeyword.bible_data" title="Link to this definition"></a></dt>
+<dd><p>Bible data loader instance used by this tab.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader" title="core.utils.bible_data_loader.BibleDataLoader">BibleDataLoader</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_keyword.TabKeyword.logic">
+<span class="sig-name descname"><span class="pre">logic</span></span><a class="headerlink" href="#gui.ui.tab_keyword.TabKeyword.logic" title="Link to this definition"></a></dt>
+<dd><p>Backend logic handler for search and export actions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="gui.ui.tab_keyword_logic.html#gui.ui.tab_keyword_logic.TabKeywordLogic" title="gui.ui.tab_keyword_logic.TabKeywordLogic">TabKeywordLogic</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_keyword.TabKeyword.get_polling_status">
+<span class="sig-name descname"><span class="pre">get_polling_status</span></span><a class="reference internal" href="_modules/gui/ui/tab_keyword.html#TabKeyword.get_polling_status"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_keyword.TabKeyword.get_polling_status" title="Link to this definition"></a></dt>
+<dd><p>Callback returning current polling state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Callable[[], bool]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_keyword.TabKeyword.get_always_show_setting">
+<span class="sig-name descname"><span class="pre">get_always_show_setting</span></span><a class="reference internal" href="_modules/gui/ui/tab_keyword.html#TabKeyword.get_always_show_setting"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_keyword.TabKeyword.get_always_show_setting" title="Link to this definition"></a></dt>
+<dd><p>Callback returning current
+“always show buttons” toggle state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Callable[[], bool]</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.tab_keyword.TabKeyword.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">settings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">get_polling_status</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">get_always_show_setting</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_keyword.html#TabKeyword.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_keyword.TabKeyword.__init__" title="Link to this definition"></a></dt>
-<dd><p>Initialize the TabKeyword UI, logic, and Bible data.</p>
+<dd><p>Initialize the TabKeyword UI, logic backend, and Bible data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>version_list</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – Available Bible version list</p></li>
-<li><p><strong>settings</strong> (<em>dict</em>) – Application-level settings</p></li>
-<li><p><strong>tr</strong> (<em>Callable</em><em>[</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>]</em>) – Translation function for UI labels</p></li>
-<li><p><strong>get_polling_status</strong> (<em>Callable</em><em>[</em><em>[</em><em>]</em><em>, </em><em>bool</em><em>] or </em><em>None</em>) – Optional callback to get polling state</p></li>
-<li><p><strong>get_always_show_setting</strong> (<em>Callable</em><em>[</em><em>[</em><em>]</em><em>, </em><em>bool</em><em>] or </em><em>None</em>) – Optional callback for always-show-button toggle</p></li>
+<li><p><strong>version_list</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – Available Bible version list shown in the UI.</p></li>
+<li><p><strong>settings</strong> (<em>dict</em>) – Application-level settings.</p></li>
+<li><p><strong>tr</strong> (<em>Callable</em><em>[</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>]</em>) – Translation function for UI labels.</p></li>
+<li><p><strong>get_polling_status</strong> (<em>Callable</em><em>[</em><em>[</em><em>]</em><em>, </em><em>bool</em><em>] </em><em>| </em><em>None</em>) – Optional callback to retrieve
+polling state. If not provided, a default stub method is used.</p></li>
+<li><p><strong>get_always_show_setting</strong> (<em>Callable</em><em>[</em><em>[</em><em>]</em><em>, </em><em>bool</em><em>] </em><em>| </em><em>None</em>) – Optional callback to retrieve
+the “always show buttons” state. If not provided, a default stub method is used.</p></li>
 </ul>
 </dd>
 </dl>
@@ -159,10 +240,10 @@ summary box update, and verse export functionality.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.tab_keyword.TabKeyword.change_language">
 <span class="sig-name descname"><span class="pre">change_language</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lang_code</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_keyword.html#TabKeyword.change_language"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_keyword.TabKeyword.change_language" title="Link to this definition"></a></dt>
-<dd><p>Update UI text and placeholder strings according to selected language.</p>
+<dd><p>Update UI text and placeholder strings according to the selected language.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>lang_code</strong> (<em>str</em>) – Language code (‘ko’, ‘en’, etc.)</p>
+<dd class="field-odd"><p><strong>lang_code</strong> (<em>str</em>) – Language code (e.g., “ko”, “en”).</p>
 </dd>
 </dl>
 </dd></dl>
@@ -176,14 +257,18 @@ summary box update, and verse export functionality.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.tab_keyword.TabKeyword.save_selected_verse">
 <span class="sig-name descname"><span class="pre">save_selected_verse</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_keyword.html#TabKeyword.save_selected_verse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_keyword.TabKeyword.save_selected_verse" title="Link to this definition"></a></dt>
-<dd><p>Save the currently selected verse to verse_output.txt
-for overlay usage or exporting.</p>
+<dd><p>Save the currently selected verse to the overlay output file.</p>
+<p>This delegates to the logic backend, which writes the selected verse to
+the configured verse output destination (e.g., verse_output.txt) for overlay
+usage or exporting.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.tab_keyword.TabKeyword.clear_outputs">
 <span class="sig-name descname"><span class="pre">clear_outputs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_keyword.html#TabKeyword.clear_outputs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_keyword.TabKeyword.clear_outputs" title="Link to this definition"></a></dt>
-<dd><p>Clear the verse output file and reset summary/preview fields.</p>
+<dd><p>Clear the verse output destination and reset summary/preview fields.</p>
+<p>This delegates to the logic backend to clear the output file and reset
+UI state as needed.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -192,7 +277,7 @@ for overlay usage or exporting.</p>
 <dd><p>Update the keyword result table with new entries.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>results</strong> (<em>list</em><em>[</em><em>dict</em><em>]</em>) – List of result dictionaries</p>
+<dd class="field-odd"><p><strong>results</strong> (<em>list</em><em>[</em><em>dict</em><em>]</em>) – List of result dictionaries produced by the search backend.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -203,19 +288,19 @@ for overlay usage or exporting.</p>
 <dd><p>Update the summary box with keyword occurrence counts.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>counts</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>int</em><em>]</em>) – Keyword → count dictionary</p>
+<dd class="field-odd"><p><strong>counts</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>int</em><em>]</em>) – Mapping from keyword to occurrence count.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="gui.ui.tab_keyword.TabKeyword.get_polling_status">
-<span class="sig-name descname"><span class="pre">get_polling_status</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_keyword.html#TabKeyword.get_polling_status"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_keyword.TabKeyword.get_polling_status" title="Link to this definition"></a></dt>
-<dd><p>Return the current polling toggle state.
-Overridable callback for external control.</p>
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">get_polling_status</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_keyword.html#TabKeyword.get_polling_status"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id0" title="Link to this definition"></a></dt>
+<dd><p>Return the current polling toggle state.</p>
+<p>This method is designed to be overridden or replaced by an injected callback.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>True if polling is active</p>
+<dd class="field-odd"><p>True if polling is active; otherwise False.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>bool</p>
@@ -224,13 +309,13 @@ Overridable callback for external control.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="gui.ui.tab_keyword.TabKeyword.get_always_show_setting">
-<span class="sig-name descname"><span class="pre">get_always_show_setting</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_keyword.html#TabKeyword.get_always_show_setting"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_keyword.TabKeyword.get_always_show_setting" title="Link to this definition"></a></dt>
-<dd><p>Return the current ‘always show buttons’ setting.
-Overridable callback for external control.</p>
+<dt class="sig sig-object py" id="id1">
+<span class="sig-name descname"><span class="pre">get_always_show_setting</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_keyword.html#TabKeyword.get_always_show_setting"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id1" title="Link to this definition"></a></dt>
+<dd><p>Return the current “always show buttons” setting.</p>
+<p>This method is designed to be overridden or replaced by an injected callback.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>True if buttons are always shown</p>
+<dd class="field-odd"><p>True if buttons are always shown; otherwise False.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>bool</p>

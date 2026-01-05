@@ -79,9 +79,18 @@
 <span class="sd">:E-mail: euljirochurch [at] G.M.A.I.L. (replace [at] with @ and G.M.A.I.L as you understood.)</span>
 <span class="sd">:License: MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</span>
 
-<span class="sd">Provides error and debug logging utilities for EuljiroBible.</span>
+<span class="sd">Provides error and debug logging utilities for EuljiroBible/EuljiroWorship.</span>
 
-<span class="sd">Logs are written to a central file, only when needed.</span>
+<span class="sd">This module defines a lightweight logging wrapper around Python&#39;s</span>
+<span class="sd">standard `logging &lt;https://docs.python.org/3/library/logging.html&gt;`_ module, with the following design goals:</span>
+
+<span class="sd">- Logs are written to disk only when actually needed</span>
+<span class="sd">- A single central log file is used across the application</span>
+<span class="sd">- Debug logging is enabled conditionally via the DEBUG environment variable</span>
+<span class="sd">- Duplicate handlers are avoided to support hot-reload scenarios</span>
+
+<span class="sd">The logger is primarily intended for internal error reporting and</span>
+<span class="sd">optional debug tracing, not for verbose application logging.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
@@ -104,9 +113,17 @@
 <a class="viewcode-back" href="../../../core.utils.logger.html#core.utils.logger._ensure_file_handler">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">_ensure_file_handler</span><span class="p">():</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Ensure that a file handler is attached to the logger.</span>
+<span class="sd">        Ensure that a file handler is attached to the global logger.</span>
 
-<span class="sd">        The file handler writes logs to the log file only when error or debug logging is required.</span>
+<span class="sd">        This function lazily initializes a `logging.FileHandler &lt;https://docs.python.org/3/library/logging.handlers.html#logging.FileHandler&gt;`_ and</span>
+<span class="sd">        attaches it to the module-level logger only once.</span>
+
+<span class="sd">        The log file is created only when an error or debug message</span>
+<span class="sd">        is actually emitted, avoiding unnecessary file I/O during</span>
+<span class="sd">        normal execution.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">global</span> <span class="n">_file_handler</span>
         <span class="k">if</span> <span class="n">_file_handler</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -123,13 +140,20 @@
 <a class="viewcode-back" href="../../../core.utils.logger.html#core.utils.logger.log_error">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">log_error</span><span class="p">(</span><span class="n">e</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Logs an error with full traceback.</span>
+<span class="sd">    Log an exception as an error with full traceback information.</span>
 
-<span class="sd">    The log file is only created if logging is actually used. This function captures the exception</span>
-<span class="sd">    stack trace and logs it as an error message.</span>
+<span class="sd">    This function ensures that the file handler is initialized,</span>
+<span class="sd">    then records the exception message along with its traceback</span>
+<span class="sd">    using ERROR log level.</span>
 
-<span class="sd">    :param e: The exception to log</span>
-<span class="sd">    :type e: Exception</span>
+<span class="sd">    The log file is created only when this function is called.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        e (Exception):</span>
+<span class="sd">            The exception instance to be logged.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">_ensure_file_handler</span><span class="p">()</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">),</span> <span class="n">exc_info</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
@@ -140,10 +164,18 @@
 <a class="viewcode-back" href="../../../core.utils.logger.html#core.utils.logger.log_debug">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">log_debug</span><span class="p">(</span><span class="n">msg</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Logs a debug message, only if DEBUG mode is enabled.</span>
+<span class="sd">    Log a debug message if DEBUG mode is enabled.</span>
 
-<span class="sd">    :param msg: The message to log as a debug message</span>
-<span class="sd">    :type msg: str</span>
+<span class="sd">    Debug mode is determined by the environment variable ``DEBUG=1``</span>
+<span class="sd">    at application startup. If DEBUG mode is disabled, this</span>
+<span class="sd">    function performs no action.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        msg (str):</span>
+<span class="sd">            The debug message to record.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">DEBUG_MODE</span><span class="p">:</span>
         <span class="n">_ensure_file_handler</span><span class="p">()</span>

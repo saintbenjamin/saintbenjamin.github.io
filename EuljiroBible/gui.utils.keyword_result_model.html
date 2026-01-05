@@ -135,31 +135,90 @@
 <dt class="sig sig-object py" id="gui.utils.keyword_result_model.KeywordResultTableModel">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gui.utils.keyword_result_model.</span></span><span class="sig-name descname"><span class="pre">KeywordResultTableModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/keyword_result_model.html#KeywordResultTableModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.keyword_result_model.KeywordResultTableModel" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QAbstractTableModel</span></code></p>
-<p>QAbstractTableModel implementation for Bible keyword search results.</p>
-<p>This model provides three columns:
-0. Row number
-1. Book + chapter:verse (with localized alias)
-2. Verse text</p>
+<p>Table model for displaying Bible keyword search results.</p>
+<dl class="simple">
+<dt>This QAbstractTableModel exposes a fixed 3-column table:</dt><dd><ol class="arabic simple" start="0">
+<li><p>Row index number (1-based)</p></li>
+<li><p>Localized reference string: “&lt;Book&gt; &lt;chapter&gt;:&lt;verse&gt;”</p></li>
+<li><p>Verse text</p></li>
+</ol>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.utils.keyword_result_model.KeywordResultTableModel.results">
+<span class="sig-name descname"><span class="pre">results</span></span><a class="headerlink" href="#gui.utils.keyword_result_model.KeywordResultTableModel.results" title="Link to this definition"></a></dt>
+<dd><p>List of search result entries. Each entry is expected to
+contain at least: “book”, “chapter”, “verse”, and “text”.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[dict]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.utils.keyword_result_model.KeywordResultTableModel.bible_data">
+<span class="sig-name descname"><span class="pre">bible_data</span></span><a class="headerlink" href="#gui.utils.keyword_result_model.KeywordResultTableModel.bible_data" title="Link to this definition"></a></dt>
+<dd><p>Data loader used to resolve localized/standard
+book display names.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader" title="core.utils.bible_data_loader.BibleDataLoader">BibleDataLoader</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.utils.keyword_result_model.KeywordResultTableModel.language">
+<span class="sig-name descname"><span class="pre">language</span></span><a class="headerlink" href="#gui.utils.keyword_result_model.KeywordResultTableModel.language" title="Link to this definition"></a></dt>
+<dd><p>Active language code used for localization (e.g., “ko”, “en”).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.utils.keyword_result_model.KeywordResultTableModel.tr">
+<span class="sig-name descname"><span class="pre">tr</span></span><a class="headerlink" href="#gui.utils.keyword_result_model.KeywordResultTableModel.tr" title="Link to this definition"></a></dt>
+<dd><p>Translation function for header labels and UI text.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Callable[[str], str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gui.utils.keyword_result_model.KeywordResultTableModel.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bible_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tr</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/keyword_result_model.html#KeywordResultTableModel.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.keyword_result_model.KeywordResultTableModel.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize the model with results and localization helpers.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>results</strong> – List of verse dictionaries</p></li>
-<li><p><strong>bible_data</strong> – BibleDataLoader instance for resolving book aliases</p></li>
-<li><p><strong>current_language</strong> – Language code (e.g., ‘ko’, ‘en’) for localization</p></li>
-<li><p><strong>tr</strong> – Translation function</p></li>
+<li><p><strong>results</strong> (<em>list</em><em>[</em><em>dict</em><em>] </em><em>| </em><em>None</em>) – Search results to display. If None, an empty list is used.</p></li>
+<li><p><strong>bible_data</strong> (<a class="reference internal" href="core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader" title="core.utils.bible_data_loader.BibleDataLoader"><em>BibleDataLoader</em></a>) – Bible data loader used for book-name localization.</p></li>
+<li><p><strong>current_language</strong> (<em>str</em>) – Language code for localized book names (e.g., “ko”, “en”).</p></li>
+<li><p><strong>tr</strong> (<em>Callable</em><em>[</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>]</em>) – Translation function for localized header strings.</p></li>
 </ul>
 </dd>
 </dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.utils.keyword_result_model.KeywordResultTableModel.rowCount">
 <span class="sig-name descname"><span class="pre">rowCount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">PySide6.QtCore.QModelIndex</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/keyword_result_model.html#KeywordResultTableModel.rowCount"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.keyword_result_model.KeywordResultTableModel.rowCount" title="Link to this definition"></a></dt>
-<dd><p>Returns the number of rows in the model.</p>
+<dd><p>Return the number of rows in the table.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>parent</strong> – QModelIndex (not used)</p>
+<dd class="field-odd"><p><strong>parent</strong> (<em>QModelIndex</em>) – Unused Qt parent index.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Row count</p>
+<dd class="field-even"><p>Number of result rows.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
 </dd>
 </dl>
 </dd></dl>
@@ -167,17 +226,22 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.utils.keyword_result_model.KeywordResultTableModel.columnCount">
 <span class="sig-name descname"><span class="pre">columnCount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">PySide6.QtCore.QModelIndex</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/keyword_result_model.html#KeywordResultTableModel.columnCount"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.keyword_result_model.KeywordResultTableModel.columnCount" title="Link to this definition"></a></dt>
-<dd><p>Returns the number of columns in the model.</p>
-<p>Columns:
-0 - Index number
-1 - Reference (book + chapter:verse)
+<dd><p>Return the number of columns in the table.</p>
+<dl class="simple">
+<dt>The model always returns 3 columns:</dt><dd><p>0 - Row index number
+1 - Reference (localized book + chapter:verse)
 2 - Verse text</p>
+</dd>
+</dl>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>parent</strong> – QModelIndex (not used)</p>
+<dd class="field-odd"><p><strong>parent</strong> (<em>QModelIndex</em>) – Unused Qt parent index.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Column count (always 3)</p>
+<dd class="field-even"><p>Always 3.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
 </dd>
 </dl>
 </dd></dl>
@@ -185,16 +249,20 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.utils.keyword_result_model.KeywordResultTableModel.data">
 <span class="sig-name descname"><span class="pre">data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">role</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">PySide6.QtCore.Qt.DisplayRole</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/keyword_result_model.html#KeywordResultTableModel.data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.keyword_result_model.KeywordResultTableModel.data" title="Link to this definition"></a></dt>
-<dd><p>Returns the data for a given cell in the model.</p>
+<dd><p>Return cell data for the given index and role.</p>
+<p>Only Qt.DisplayRole is handled. Other roles return None.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> – QModelIndex specifying row and column</p></li>
-<li><p><strong>role</strong> – Qt item role (only DisplayRole is handled)</p></li>
+<li><p><strong>index</strong> (<em>QModelIndex</em>) – Model index indicating the target cell.</p></li>
+<li><p><strong>role</strong> (<em>int</em>) – Qt item data role.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Display string for the given index</p>
+<dd class="field-even"><p>Display string for the cell, or None if not applicable.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str | None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -202,17 +270,21 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.utils.keyword_result_model.KeywordResultTableModel.headerData">
 <span class="sig-name descname"><span class="pre">headerData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">section</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orientation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">role</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/keyword_result_model.html#KeywordResultTableModel.headerData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.keyword_result_model.KeywordResultTableModel.headerData" title="Link to this definition"></a></dt>
-<dd><p>Returns the header labels for columns.</p>
+<dd><p>Return header labels for the table.</p>
+<p>Only Qt.DisplayRole with Qt.Horizontal orientation is handled.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>section</strong> – Column index</p></li>
-<li><p><strong>orientation</strong> – Qt.Horizontal or Qt.Vertical</p></li>
-<li><p><strong>role</strong> – Qt item role</p></li>
+<li><p><strong>section</strong> (<em>int</em>) – Column index.</p></li>
+<li><p><strong>orientation</strong> (<em>Qt.Orientation</em>) – Header orientation.</p></li>
+<li><p><strong>role</strong> (<em>int</em>) – Qt item data role.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Header label string or None</p>
+<dd class="field-even"><p>Header label for the given column, or None if not applicable.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str | None</p>
 </dd>
 </dl>
 </dd></dl>

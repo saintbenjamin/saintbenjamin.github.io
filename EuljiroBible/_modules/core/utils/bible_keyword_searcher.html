@@ -79,7 +79,19 @@
 <span class="sd">:E-mail: euljirochurch [at] G.M.A.I.L. (replace [at] with @ and G.M.A.I.L as you understood.)</span>
 <span class="sd">:License: MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</span>
 
-<span class="sd">Performs keyword-based search on Bible text files for EuljiroBible.</span>
+<span class="sd">Performs keyword-based search on Bible text files for EuljiroBible/EuljiroWorship.</span>
+
+<span class="sd">This module provides lightweight, in-memory keyword search functionality</span>
+<span class="sd">over a single Bible version JSON file. It is designed for fast interactive</span>
+<span class="sd">search in both CLI and GUI contexts.</span>
+
+<span class="sd">Supported search modes include:</span>
+
+<span class="sd">- Word-based AND search</span>
+<span class="sd">- Whitespace-insensitive (compact) substring search</span>
+
+<span class="sd">Search results include both raw verse text and HTML-highlighted text</span>
+<span class="sd">for immediate display use.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
@@ -91,17 +103,57 @@
 <a class="viewcode-back" href="../../../core.utils.bible_keyword_searcher.html#core.utils.bible_keyword_searcher.BibleKeywordSearcher">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">BibleKeywordSearcher</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Provides keyword search functionality for Bible verses.</span>
-<span class="sd">    Searches the full text of the selected Bible version.</span>
+<span class="sd">    Keyword-based Bible verse search engine.</span>
+
+<span class="sd">    This class loads a single Bible version into memory and provides multiple</span>
+<span class="sd">    keyword-based search strategies over verse text, including word-based AND</span>
+<span class="sd">    search and whitespace-insensitive (compact) substring search.</span>
+
+<span class="sd">    Search results are returned as structured dictionaries containing verse</span>
+<span class="sd">    location metadata and both raw and highlighted text, making them suitable</span>
+<span class="sd">    for direct rendering in GUI table models, delegates, or CLI output.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        version (str):</span>
+<span class="sd">            Bible version key currently loaded (e.g., &quot;개역개정&quot;, &quot;NKRV&quot;).</span>
+<span class="sd">            This corresponds to the JSON filename without extension.</span>
+
+<span class="sd">        data (dict):</span>
+<span class="sd">            Parsed Bible text data loaded from ``&lt;version&gt;.json``.</span>
+<span class="sd">            Structure is typically:</span>
+<span class="sd">            ``data[book][chapter][verse] = verse_text``.</span>
+
+<span class="sd">        name_map (dict):</span>
+<span class="sd">            Parsed content of ``standard_book.json``.</span>
+<span class="sd">            Used to resolve canonical or localized book names when needed</span>
+<span class="sd">            by UI or higher-level logic.</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        - The Bible data for the selected version is fully loaded at initialization time (not lazily).</span>
+<span class="sd">        - Highlighting is performed using simple HTML ``&lt;span&gt;`` tags, assuming downstream renderers support HTML (e.g., QTextDocument).</span>
+<span class="sd">        - This class is used by both GUI (TabKeyword) and CLI search paths.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="BibleKeywordSearcher.__init__">
 <a class="viewcode-back" href="../../../core.utils.bible_keyword_searcher.html#core.utils.bible_keyword_searcher.BibleKeywordSearcher.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;개역개정&quot;</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Load Bible data for the given version.</span>
+<span class="sd">        Initialize the keyword searcher with a specific Bible version.</span>
 
-<span class="sd">        :param version: Bible version name (without .json)</span>
+<span class="sd">        The corresponding Bible JSON file is loaded into memory at</span>
+<span class="sd">        initialization time.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            version (str):</span>
+<span class="sd">                Bible version name without file extension</span>
+<span class="sd">                (e.g., &quot;개역개정&quot;, &quot;NKRV&quot;).</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            FileNotFoundError:</span>
+<span class="sd">                If the specified Bible version file does not exist.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="n">version</span>
         <span class="n">filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">BIBLE_DATA_DIR</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">version</span><span class="si">}</span><span class="s2">.json&quot;</span><span class="p">)</span>
@@ -120,8 +172,26 @@
 <a class="viewcode-back" href="../../../core.utils.bible_keyword_searcher.html#core.utils.bible_keyword_searcher.BibleKeywordSearcher.search_compact_string">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">search_compact_string</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keyword</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Search using compressed (whitespace-removed) keyword.</span>
-<span class="sd">        Matches continuous strings regardless of spacing.</span>
+<span class="sd">        Perform whitespace-insensitive substring search.</span>
+
+<span class="sd">        All whitespace is removed from both the keyword and verse text</span>
+<span class="sd">        before matching, allowing detection of continuous phrases</span>
+<span class="sd">        regardless of spacing differences.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            keyword (str):</span>
+<span class="sd">                Input search string.</span>
+<span class="sd">            limit (int, optional):</span>
+<span class="sd">                Maximum number of results to return. Defaults to 100.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list[dict]:</span>
+<span class="sd">                List of matching verse dictionaries, each containing:</span>
+<span class="sd">                - book</span>
+<span class="sd">                - chapter</span>
+<span class="sd">                - verse</span>
+<span class="sd">                - text</span>
+<span class="sd">                - highlighted</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">stripped</span> <span class="o">=</span> <span class="n">keyword</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
@@ -155,8 +225,20 @@
 <a class="viewcode-back" href="../../../core.utils.bible_keyword_searcher.html#core.utils.bible_keyword_searcher.BibleKeywordSearcher.search_wordwise_and">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">search_wordwise_and</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keyword</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Search using word-based AND logic.</span>
-<span class="sd">        All words must be present in the verse text.</span>
+<span class="sd">        Perform word-based AND search.</span>
+
+<span class="sd">        All whitespace-separated words in the keyword must appear</span>
+<span class="sd">        somewhere in the verse text for a match to occur.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            keyword (str):</span>
+<span class="sd">                Space-separated search terms.</span>
+<span class="sd">            limit (int, optional):</span>
+<span class="sd">                Maximum number of results to return. Defaults to 100.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list[dict]:</span>
+<span class="sd">                List of matching verse dictionaries with highlighted terms.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">words</span> <span class="o">=</span> <span class="n">keyword</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
@@ -184,11 +266,24 @@
 <a class="viewcode-back" href="../../../core.utils.bible_keyword_searcher.html#core.utils.bible_keyword_searcher.BibleKeywordSearcher.search">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">search</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keyword</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;and&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Unified search interface.</span>
+<span class="sd">        Unified keyword search interface.</span>
 
-<span class="sd">        :param keyword: Input keyword(s)</span>
-<span class="sd">        :param limit: Max results</span>
-<span class="sd">        :param mode: &#39;and&#39; (default) or &#39;compact&#39;</span>
+<span class="sd">        This method dispatches to the appropriate search strategy</span>
+<span class="sd">        based on the selected mode.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            keyword (str):</span>
+<span class="sd">                Input keyword or phrase.</span>
+<span class="sd">            limit (int, optional):</span>
+<span class="sd">                Maximum number of results to return.</span>
+<span class="sd">            mode (str, optional):</span>
+<span class="sd">                Search mode selector.</span>
+<span class="sd">                - &quot;and&quot;: word-based AND search (default)</span>
+<span class="sd">                - &quot;compact&quot;: whitespace-insensitive substring search</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list[dict]:</span>
+<span class="sd">                Search result list.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;compact&quot;</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">search_compact_string</span><span class="p">(</span><span class="n">keyword</span><span class="p">,</span> <span class="n">limit</span><span class="p">)</span>
@@ -199,13 +294,20 @@
 <a class="viewcode-back" href="../../../core.utils.bible_keyword_searcher.html#core.utils.bible_keyword_searcher.BibleKeywordSearcher.count_keywords">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">count_keywords</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">results</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">],</span> <span class="n">keywords</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Count total occurrences of each keyword across all result texts.</span>
+<span class="sd">        Count total occurrences of each keyword across search results.</span>
 
-<span class="sd">        This version performs full counting using regex (case-insensitive).</span>
+<span class="sd">        This method performs full regex-based counting (case-insensitive)</span>
+<span class="sd">        over the raw verse text of each search result.</span>
 
-<span class="sd">        :param results: List of verse dictionaries (search result)</span>
-<span class="sd">        :param keywords: List of raw keywords to count</span>
-<span class="sd">        :return: Dictionary mapping each keyword to count</span>
+<span class="sd">        Args:</span>
+<span class="sd">            results (list[dict]):</span>
+<span class="sd">                List of verse dictionaries returned from a search.</span>
+<span class="sd">            keywords (list[str]):</span>
+<span class="sd">                List of keywords to count.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict[str, int]:</span>
+<span class="sd">                Mapping of keyword -&gt; total occurrence count.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">counts</span> <span class="o">=</span> <span class="p">{</span><span class="n">w</span><span class="p">:</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">keywords</span><span class="p">}</span>
         <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>

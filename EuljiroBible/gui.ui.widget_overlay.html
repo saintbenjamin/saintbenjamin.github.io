@@ -135,22 +135,130 @@
 <dt class="sig sig-object py" id="gui.ui.widget_overlay.WidgetOverlay">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gui.ui.widget_overlay.</span></span><span class="sig-name descname"><span class="pre">WidgetOverlay</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/widget_overlay.html#WidgetOverlay"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.widget_overlay.WidgetOverlay" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
-<p>Widget that displays Bible verses as an overlay widget, with file watching and polling support.</p>
+<p>Overlay widget that displays verse output text in a dedicated window.</p>
+<p>This widget watches (and optionally polls) the configured verse output file
+(e.g., <code class="docutils literal notranslate"><span class="pre">verse_output.txt</span></code>) and renders its contents as an on-screen overlay.
+It supports two display modes:</p>
+<ul class="simple">
+<li><p>“fullscreen”: frameless, translucent background window intended for projection/overlay use</p></li>
+<li><p>non-fullscreen/windowed: standard resizable window for testing or local preview</p></li>
+</ul>
+<p>The widget applies user-configured font/color/background settings and includes
+a simple auto-shrinking mechanism to fit long text within the available area.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.widget_overlay.WidgetOverlay.mode">
+<span class="sig-name descname"><span class="pre">mode</span></span><a class="headerlink" href="#gui.ui.widget_overlay.WidgetOverlay.mode" title="Link to this definition"></a></dt>
+<dd><p>Display mode (“fullscreen” or windowed variant used by caller).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.widget_overlay.WidgetOverlay.base_font_size">
+<span class="sig-name descname"><span class="pre">base_font_size</span></span><a class="headerlink" href="#gui.ui.widget_overlay.WidgetOverlay.base_font_size" title="Link to this definition"></a></dt>
+<dd><p>Base font size used as the starting point for auto-fit.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.widget_overlay.WidgetOverlay.last_text">
+<span class="sig-name descname"><span class="pre">last_text</span></span><a class="headerlink" href="#gui.ui.widget_overlay.WidgetOverlay.last_text" title="Link to this definition"></a></dt>
+<dd><p>Last rendered text content used to detect changes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.widget_overlay.WidgetOverlay.poll_timer">
+<span class="sig-name descname"><span class="pre">poll_timer</span></span><a class="headerlink" href="#gui.ui.widget_overlay.WidgetOverlay.poll_timer" title="Link to this definition"></a></dt>
+<dd><p>Polling timer used when polling is enabled.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QTimer | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.widget_overlay.WidgetOverlay.verse_path">
+<span class="sig-name descname"><span class="pre">verse_path</span></span><a class="headerlink" href="#gui.ui.widget_overlay.WidgetOverlay.verse_path" title="Link to this definition"></a></dt>
+<dd><p>Path to the verse output file being watched/polled.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.widget_overlay.WidgetOverlay.watcher">
+<span class="sig-name descname"><span class="pre">watcher</span></span><a class="headerlink" href="#gui.ui.widget_overlay.WidgetOverlay.watcher" title="Link to this definition"></a></dt>
+<dd><p>File watcher for verse_path change notifications.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QFileSystemWatcher</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.widget_overlay.WidgetOverlay.label">
+<span class="sig-name descname"><span class="pre">label</span></span><a class="headerlink" href="#gui.ui.widget_overlay.WidgetOverlay.label" title="Link to this definition"></a></dt>
+<dd><p>Central label used to display the verse text.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QLabel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.widget_overlay.WidgetOverlay.bg_style">
+<span class="sig-name descname"><span class="pre">bg_style</span></span><a class="headerlink" href="#gui.ui.widget_overlay.WidgetOverlay.bg_style" title="Link to this definition"></a></dt>
+<dd><p>CSS fragment for background color (rgba) used in the label stylesheet.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.widget_overlay.WidgetOverlay.text_color">
+<span class="sig-name descname"><span class="pre">text_color</span></span><a class="headerlink" href="#gui.ui.widget_overlay.WidgetOverlay.text_color" title="Link to this definition"></a></dt>
+<dd><p>Current text color in hex (e.g., “#000000”).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.widget_overlay.WidgetOverlay.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">font_family</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text_color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bg_color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geometry</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/widget_overlay.html#WidgetOverlay.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.widget_overlay.WidgetOverlay.__init__" title="Link to this definition"></a></dt>
-<dd><p>Initializes the overlay widget.</p>
+<dd><p>Initialize the overlay widget and start file watching/polling.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>font_family</strong> (<em>str</em>) – Font family for text.</p></li>
-<li><p><strong>font_size</strong> (<em>int</em>) – Base font size.</p></li>
-<li><p><strong>text_color</strong> (<em>str</em>) – Text color in hex.</p></li>
-<li><p><strong>bg_color</strong> (<em>str</em>) – Background color in hex.</p></li>
-<li><p><strong>alpha</strong> (<em>float</em>) – Background transparency.</p></li>
-<li><p><strong>mode</strong> (<em>str</em>) – ‘fullscreen’ or ‘windowed’.</p></li>
+<li><p><strong>font_family</strong> (<em>str</em>) – Font family used for displayed text.</p></li>
+<li><p><strong>font_size</strong> (<em>int</em>) – Base font size used as the starting point for auto-fit.</p></li>
+<li><p><strong>text_color</strong> (<em>str</em>) – Text color in hex (e.g., “#000000”).</p></li>
+<li><p><strong>bg_color</strong> (<em>str</em>) – Background color in hex (e.g., “#FFFFFF”).</p></li>
+<li><p><strong>alpha</strong> (<em>float</em>) – Background alpha value used for rgba composition.</p></li>
+<li><p><strong>mode</strong> (<em>str</em>) – Display mode (“fullscreen” or windowed variant used by caller).</p></li>
 <li><p><strong>geometry</strong> (<em>QRect</em>) – Initial window geometry.</p></li>
-<li><p><strong>parent</strong> (<em>QWidget</em><em>, </em><em>optional</em>) – Parent widget.</p></li>
+<li><p><strong>parent</strong> (<em>QWidget</em><em> | </em><em>None</em>) – Optional parent widget.</p></li>
 </ul>
 </dd>
 </dl>
@@ -159,22 +267,33 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.widget_overlay.WidgetOverlay.apply_settings">
 <span class="sig-name descname"><span class="pre">apply_settings</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/widget_overlay.html#WidgetOverlay.apply_settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.widget_overlay.WidgetOverlay.apply_settings" title="Link to this definition"></a></dt>
-<dd><p>Applies updated display settings from configuration.</p>
+<dd><p>Apply updated display settings from persisted configuration.</p>
+<p>This reloads font family/size/weight and overlay color/background settings from
+ConfigManager, applies them to the label, updates the stylesheet, and re-runs
+auto-fit against the currently displayed text.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.widget_overlay.WidgetOverlay.apply_stylesheet">
 <span class="sig-name descname"><span class="pre">apply_stylesheet</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/widget_overlay.html#WidgetOverlay.apply_stylesheet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.widget_overlay.WidgetOverlay.apply_stylesheet" title="Link to this definition"></a></dt>
-<dd><p>Applies the current text color and background style.</p>
+<dd><p>Apply the current text and background style to the label.</p>
+<p>This composes the label stylesheet from:</p>
+<ul class="simple">
+<li><p>text color</p></li>
+<li><p>background rgba style</p></li>
+<li><p>padding / border rules depending on fullscreen vs windowed mode</p></li>
+</ul>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.widget_overlay.WidgetOverlay.adjust_font_size">
 <span class="sig-name descname"><span class="pre">adjust_font_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/widget_overlay.html#WidgetOverlay.adjust_font_size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.widget_overlay.WidgetOverlay.adjust_font_size" title="Link to this definition"></a></dt>
-<dd><p>Adjusts font size dynamically to fit text within the widget.</p>
+<dd><p>Auto-adjust the label font size to fit the given text within the widget.</p>
+<p>This reduces the font size in steps until the rendered bounding rectangle fits
+within a fraction of the available widget width/height.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>text</strong> (<em>str</em>) – Text to fit.</p>
+<dd class="field-odd"><p><strong>text</strong> (<em>str</em>) – Text content to fit.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -182,7 +301,7 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.widget_overlay.WidgetOverlay.display_text">
 <span class="sig-name descname"><span class="pre">display_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/widget_overlay.html#WidgetOverlay.display_text"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.widget_overlay.WidgetOverlay.display_text" title="Link to this definition"></a></dt>
-<dd><p>Displays the given text with adjusted font size.</p>
+<dd><p>Display text in the overlay and apply auto-fit sizing.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>text</strong> (<em>str</em>) – Text to display.</p>
@@ -193,13 +312,13 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.widget_overlay.WidgetOverlay.read_verse_file">
 <span class="sig-name descname"><span class="pre">read_verse_file</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/widget_overlay.html#WidgetOverlay.read_verse_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.widget_overlay.WidgetOverlay.read_verse_file" title="Link to this definition"></a></dt>
-<dd><p>Reads the verse output file.</p>
+<dd><p>Read and return the current verse output file contents.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>File content if successful, else None.</p>
+<dd class="field-odd"><p>Stripped file content if read succeeds; otherwise None.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>str or None</p>
+<dd class="field-even"><p>str | None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -207,24 +326,28 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.widget_overlay.WidgetOverlay.reload_text">
 <span class="sig-name descname"><span class="pre">reload_text</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/widget_overlay.html#WidgetOverlay.reload_text"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.widget_overlay.WidgetOverlay.reload_text" title="Link to this definition"></a></dt>
-<dd><p>Reloads and updates the displayed text from the verse file.</p>
+<dd><p>Reload the verse file content and update the overlay display.</p>
+<p>If the verse file is empty, the overlay closes itself (treated as an intentional
+“clear overlay” signal). Otherwise, the new text is rendered and cached.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.widget_overlay.WidgetOverlay.poll_file">
 <span class="sig-name descname"><span class="pre">poll_file</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/widget_overlay.html#WidgetOverlay.poll_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.widget_overlay.WidgetOverlay.poll_file" title="Link to this definition"></a></dt>
-<dd><p>Periodically checks the verse file for changes and updates display.
-Used when polling is enabled.</p>
+<dd><p>Polling loop callback to detect file changes.</p>
+<p>When polling is enabled, this periodically reads the verse file and triggers a
+reload if the contents differ from the last rendered text.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.widget_overlay.WidgetOverlay.on_file_changed">
 <span class="sig-name descname"><span class="pre">on_file_changed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/widget_overlay.html#WidgetOverlay.on_file_changed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.widget_overlay.WidgetOverlay.on_file_changed" title="Link to this definition"></a></dt>
-<dd><p>Handles file system notification of verse file changes.
-Used when QFileSystemWatcher triggers a change event.</p>
+<dd><p>Handle file change notifications from QFileSystemWatcher.</p>
+<p>This re-adds the path to the watcher (to handle certain platform behaviors where
+the watch can be dropped on write/replace) and reloads the verse content.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – Path of the changed file.</p>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – Changed file path.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -232,10 +355,10 @@ Used when QFileSystemWatcher triggers a change event.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.widget_overlay.WidgetOverlay.resizeEvent">
 <span class="sig-name descname"><span class="pre">resizeEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/widget_overlay.html#WidgetOverlay.resizeEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.widget_overlay.WidgetOverlay.resizeEvent" title="Link to this definition"></a></dt>
-<dd><p>Handles widget resize events and adjusts font size.</p>
+<dd><p>Handle widget resize events and re-run auto-fit for the currently displayed text.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>event</strong> (<em>QResizeEvent</em>) – The resize event.</p>
+<dd class="field-odd"><p><strong>event</strong> (<em>QResizeEvent</em>) – Resize event.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -243,10 +366,11 @@ Used when QFileSystemWatcher triggers a change event.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.widget_overlay.WidgetOverlay.keyPressEvent">
 <span class="sig-name descname"><span class="pre">keyPressEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/widget_overlay.html#WidgetOverlay.keyPressEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.widget_overlay.WidgetOverlay.keyPressEvent" title="Link to this definition"></a></dt>
-<dd><p>Closes the overlay if ESC is pressed.</p>
+<dd><p>Handle key press events for overlay control.</p>
+<p>Pressing ESC closes the overlay window. Other keys are passed to the base class.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>event</strong> (<em>PySide6.QtGui.QKeyEvent</em>)</p>
+<dd class="field-odd"><p><strong>event</strong> (<em>QKeyEvent</em>) – Key event.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -254,10 +378,10 @@ Used when QFileSystemWatcher triggers a change event.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.widget_overlay.WidgetOverlay.closeEvent">
 <span class="sig-name descname"><span class="pre">closeEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/widget_overlay.html#WidgetOverlay.closeEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.widget_overlay.WidgetOverlay.closeEvent" title="Link to this definition"></a></dt>
-<dd><p>Handles widget close events and stops polling/watching.</p>
+<dd><p>Handle widget close events and stop active polling/watching resources.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>event</strong> (<em>QCloseEvent</em>) – The close event.</p>
+<dd class="field-odd"><p><strong>event</strong> (<em>QCloseEvent</em>) – Close event.</p>
 </dd>
 </dl>
 </dd></dl>

@@ -94,10 +94,19 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Handles logic related to selected Bible versions and finding common books.</span>
 
-<span class="sd">    :param bible_data: Bible data loader instance</span>
-<span class="sd">    :type bible_data: BibleDataLoader</span>
-<span class="sd">    :param version_layout: Layout containing QCheckBox widgets for each version</span>
-<span class="sd">    :type version_layout: QLayout</span>
+<span class="sd">    This helper reads the version-selection state from a layout containing</span>
+<span class="sd">    version checkboxes, computes the intersection of available books across</span>
+<span class="sd">    selected versions, and provides stable sorting for version display.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        bible_data (BibleDataLoader):</span>
+<span class="sd">            Shared Bible data loader used to resolve version/book metadata and</span>
+<span class="sd">            access per-version verse structures.</span>
+
+<span class="sd">        version_layout (QLayout):</span>
+<span class="sd">            Layout containing version ``QCheckBox`` widgets. Each checkbox is</span>
+<span class="sd">            expected to expose a ``version_key`` attribute holding the full</span>
+<span class="sd">            internal version identifier (not the alias label shown to users).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="VerseVersionHelper.__init__">
@@ -106,10 +115,9 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize the helper with data source and layout.</span>
 
-<span class="sd">        :param bible_data: Instance of BibleDataLoader</span>
-<span class="sd">        :type bible_data: BibleDataLoader</span>
-<span class="sd">        :param version_layout: Layout containing QCheckBox widgets</span>
-<span class="sd">        :type version_layout: QLayout</span>
+<span class="sd">        Args:</span>
+<span class="sd">            bible_data (BibleDataLoader): Instance of BibleDataLoader.</span>
+<span class="sd">            version_layout (QLayout): Layout containing QCheckBox widgets.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">bible_data</span> <span class="o">=</span> <span class="n">bible_data</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">version_layout</span> <span class="o">=</span> <span class="n">version_layout</span></div>
@@ -119,10 +127,10 @@
 <a class="viewcode-back" href="../../../core.utils.verse_version_helper.html#core.utils.verse_version_helper.VerseVersionHelper.get_selected_versions">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_selected_versions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns a list of selected Bible versions based on checked checkboxes.</span>
+<span class="sd">        Return a list of selected Bible versions based on checked checkboxes.</span>
 
-<span class="sd">        :return: List of selected version keys</span>
-<span class="sd">        :rtype: list[str]</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            list[str]: List of selected version keys.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">selected</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">version_layout</span><span class="o">.</span><span class="n">count</span><span class="p">()):</span>
@@ -141,10 +149,10 @@
 <a class="viewcode-back" href="../../../core.utils.verse_version_helper.html#core.utils.verse_version_helper.VerseVersionHelper.get_common_books">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_common_books</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Find common books among all selected Bible versions.</span>
+<span class="sd">        Find books common to all selected Bible versions.</span>
 
-<span class="sd">        :return: List of book names common to all selected versions</span>
-<span class="sd">        :rtype: list[str]</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            list[str]: List of book names common to all selected versions.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">versions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_selected_versions</span><span class="p">()</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">versions</span><span class="p">:</span>
@@ -164,12 +172,13 @@
 <a class="viewcode-back" href="../../../core.utils.verse_version_helper.html#core.utils.verse_version_helper.VerseVersionHelper.validate_selection">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">validate_selection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">initializing</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Validates selected versions and retrieves common books.</span>
+<span class="sd">        Validate selected versions and compute common books.</span>
 
-<span class="sd">        :param initializing: If True, skip validation logic</span>
-<span class="sd">        :type initializing: bool</span>
-<span class="sd">        :return: Tuple of (validated versions, common books)</span>
-<span class="sd">        :rtype: tuple[list[str], list[str]]</span>
+<span class="sd">        Args:</span>
+<span class="sd">            initializing (bool): If True, skip validation logic and return the raw selection.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            tuple[list[str], list[str]]: (validated_versions, common_books).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">initializing</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_selected_versions</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_common_books</span><span class="p">()</span>
@@ -184,12 +193,13 @@
 <a class="viewcode-back" href="../../../core.utils.verse_version_helper.html#core.utils.verse_version_helper.VerseVersionHelper.sort_versions">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">sort_versions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version_list</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Sort the version list by internal sort order and prefix rules.</span>
+<span class="sd">        Sort a list of version keys using the configured sort order and prefix rules.</span>
 
-<span class="sd">        :param version_list: List of version keys to sort</span>
-<span class="sd">        :type version_list: list[str]</span>
-<span class="sd">        :return: Sorted list of version keys</span>
-<span class="sd">        :rtype: list[str]</span>
+<span class="sd">        Args:</span>
+<span class="sd">            version_list (list[str]): List of version keys to sort.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list[str]: Sorted list of version keys.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Sort by the global sort key first</span>
         <span class="n">version_list</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">bible_data</span><span class="o">.</span><span class="n">get_sort_key</span><span class="p">())</span>

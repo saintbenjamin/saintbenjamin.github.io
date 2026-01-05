@@ -79,8 +79,21 @@
 <span class="sd">:E-mail: euljirochurch [at] G.M.A.I.L. (replace [at] with @ and G.M.A.I.L as you understood.)</span>
 <span class="sd">:License: MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</span>
 
-<span class="sd">Handles loading, saving, and updating user settings for EuljiroBible GUI.</span>
-<span class="sd">Includes utility for font selection and safe default fallback for corrupted or missing settings.</span>
+<span class="sd">Configuration manager for the EuljiroBible GUI.</span>
+
+<span class="sd">This module provides a single entry point for loading, saving, and updating user</span>
+<span class="sd">settings (JSON) used by the GUI. It also includes platform-aware defaults and</span>
+<span class="sd">utilities related to font selection.</span>
+
+<span class="sd">Key responsibilities:</span>
+
+<span class="sd">- Read and write the settings JSON file (with UTF-8 encoding).</span>
+<span class="sd">- Recover safely from missing, corrupted, or invalid settings files by</span>
+<span class="sd">    falling back to ``DEFAULT_SETTINGS``.</span>
+<span class="sd">- Provide OS-specific reasonable default font selection.</span>
+
+<span class="sd">Note:</span>
+<span class="sd">    - This module may show GUI error dialogs when a QApplication instance exists. If not, it falls back to console output.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
@@ -124,6 +137,18 @@
 <span class="k">class</span><span class="w"> </span><span class="nc">ConfigManager</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Manages loading, saving, and modifying user settings for the application.</span>
+
+<span class="sd">    This class centralizes access to the GUI settings JSON file and provides helpers</span>
+<span class="sd">    for applying safe defaults when the settings file is missing or invalid. All</span>
+<span class="sd">    methods are static to keep the API simple and to avoid accidental state drift.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        BASE_DIR (str):</span>
+<span class="sd">            Absolute path to the application/project base directory.</span>
+
+<span class="sd">        DEFAULT_OUTPUT_PATH (str):</span>
+<span class="sd">            Default verse output path used when ``output_path`` is missing from the</span>
+<span class="sd">            settings file. Typically ``&lt;BASE_DIR&gt;/verse_output.txt``.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">BASE_DIR</span> <span class="o">=</span> <span class="n">paths</span><span class="o">.</span><span class="n">BASE_DIR</span>
@@ -134,10 +159,11 @@
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_icon_dir</span><span class="p">():</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns the path to the application&#39;s icon directory.</span>
+<span class="sd">        Return the absolute path to the application&#39;s icon directory.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            str: Absolute path to the icon directory.</span>
+<span class="sd">            str:</span>
+<span class="sd">                Absolute path to the icon directory (e.g., ``paths.ICON_DIR``).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">paths</span><span class="o">.</span><span class="n">ICON_DIR</span></div>
 
@@ -147,10 +173,11 @@
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_bible_data_dir</span><span class="p">():</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns the directory path where Bible JSON files are stored.</span>
+<span class="sd">        Return the directory path where Bible text JSON files are stored.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            str: Path to Bible text data directory.</span>
+<span class="sd">            str:</span>
+<span class="sd">                Absolute path to the Bible text data directory (e.g., ``paths.BIBLE_DATA_DIR``).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">paths</span><span class="o">.</span><span class="n">BIBLE_DATA_DIR</span></div>
 
@@ -160,10 +187,24 @@
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">load</span><span class="p">():</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Loads the user settings from disk. If missing or invalid, falls back to default.</span>
+<span class="sd">        Load user settings from disk with safe fallback behavior.</span>
+
+<span class="sd">        This method reads the JSON settings file defined by ``paths.SETTINGS_FILE``.</span>
+<span class="sd">        If the file does not exist, it is created using ``DEFAULT_SETTINGS``.</span>
+<span class="sd">        If the file exists but is corrupted or not a JSON object, a GUI error dialog</span>
+<span class="sd">        may be shown (when a QApplication instance exists) and the method falls back to</span>
+<span class="sd">        ``DEFAULT_SETTINGS``.</span>
+
+<span class="sd">        Backward compatibility:</span>
+<span class="sd">            - Ensures ``output_path`` exists in the loaded settings; if missing, it is populated with ``DEFAULT_OUTPUT_PATH``.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            dict: Loaded settings or default settings on failure.</span>
+<span class="sd">            dict:</span>
+<span class="sd">                A settings dictionary. If loading fails, returns ``DEFAULT_SETTINGS``.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            None:</span>
+<span class="sd">                This method is intentionally non-throwing and recovers internally.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">log_debug</span><span class="p">(</span><span class="s2">&quot;[ConfigManager] settings loaded&quot;</span><span class="p">)</span>
 
@@ -217,10 +258,19 @@
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">save</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Saves the given settings dictionary to the `settings.json` file.</span>
+<span class="sd">        Save the given settings dictionary to the settings JSON file.</span>
+
+<span class="sd">        The settings are written to ``paths.SETTINGS_FILE`` using UTF-8 encoding and</span>
+<span class="sd">        pretty-printed JSON for readability.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            data (dict): The settings to save.</span>
+<span class="sd">            data (dict):</span>
+<span class="sd">                The full settings dictionary to write.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            Exception:</span>
+<span class="sd">                Re-raises any I/O or serialization error after logging via</span>
+<span class="sd">                ``log_error_with_dialog``.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">log_debug</span><span class="p">(</span><span class="s2">&quot;[ConfigManager] settings saved&quot;</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
@@ -236,10 +286,18 @@
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">update_partial</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Updates part of the settings dictionary and saves the result.</span>
+<span class="sd">        Update part of the settings dictionary and persist it.</span>
+
+<span class="sd">        This method loads the current settings, applies the given partial update</span>
+<span class="sd">        (overwriting existing keys), and saves the result back to disk.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            data (dict): Partial key-value pairs to update.</span>
+<span class="sd">            data (dict):</span>
+<span class="sd">                Partial key-value pairs to merge into the current settings.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            Exception:</span>
+<span class="sd">                Propagates exceptions from ``load()`` or ``save()`` if saving fails.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">log_debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[ConfigManager] settings partially updated: </span><span class="si">{</span><span class="n">data</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">settings</span> <span class="o">=</span> <span class="n">ConfigManager</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
@@ -252,11 +310,15 @@
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_default_font</span><span class="p">():</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns a default font based on the operating system.</span>
-<span class="sd">        Checks several commonly available fonts in system preference order.</span>
+<span class="sd">        Return the best available default font family for the current platform.</span>
+
+<span class="sd">        This method inspects available system fonts (via ``QFontDatabase``) and selects</span>
+<span class="sd">        a preferred font from a platform-specific candidate list. If none of the</span>
+<span class="sd">        candidates are available, it falls back to Qt&#39;s default font family.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            str: Best available font family for the platform.</span>
+<span class="sd">            str:</span>
+<span class="sd">                Font family name that is expected to exist on the current system.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">font_db</span> <span class="o">=</span> <span class="n">QFontDatabase</span><span class="p">()</span>
         <span class="n">system</span> <span class="o">=</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span>
@@ -281,12 +343,21 @@
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">save_font</span><span class="p">(</span><span class="n">family</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">weight</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Updates and persists the UI font preferences.</span>
+<span class="sd">        Update and persist the application&#39;s main UI font preferences.</span>
+
+<span class="sd">        This method updates ``font_family``, ``font_size``, and ``font_weight`` in the</span>
+<span class="sd">        settings file and saves them immediately.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            family (str): Font family name.</span>
-<span class="sd">            size (int): Font size.</span>
-<span class="sd">            weight (int): Font weight value.</span>
+<span class="sd">            family (str):</span>
+<span class="sd">                Font family name.</span>
+
+<span class="sd">            size (int):</span>
+<span class="sd">                Font point size.</span>
+
+<span class="sd">            weight (int):</span>
+<span class="sd">                Font weight value. Typically a Qt weight integer (e.g., values aligned</span>
+<span class="sd">                with ``QFont.Weight``).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">settings</span> <span class="o">=</span> <span class="n">ConfigManager</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
         <span class="n">settings</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>

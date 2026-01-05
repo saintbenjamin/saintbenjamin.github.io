@@ -92,7 +92,18 @@
 <a class="viewcode-back" href="../../../gui.utils.utils_env.html#gui.utils.utils_env.setup_environment">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">setup_environment</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Sets Qt environment variables for scaling on HiDPI or fractional displays.</span>
+<span class="sd">    Configure Qt-related environment variables for display scaling.</span>
+
+<span class="sd">    This function sets explicit Qt environment variables to ensure predictable</span>
+<span class="sd">    behavior on HiDPI or fractional-scaling displays. It is intended to be called</span>
+<span class="sd">    early in application startup, before creating the QApplication instance.</span>
+
+<span class="sd">    Effects:</span>
+<span class="sd">        - Disables implicit scale-factor guessing by Qt.</span>
+<span class="sd">        - Forces consistent scaling behavior across platforms.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;QT_SCALE_FACTOR&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;1&quot;</span>
     <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;QT_AUTO_SCREEN_SCALE_FACTOR&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;1&quot;</span></div>
@@ -102,8 +113,23 @@
 <a class="viewcode-back" href="../../../gui.utils.utils_env.html#gui.utils.utils_env.verify_wsl_display">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">verify_wsl_display</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Ensures DISPLAY environment variable is set when running under WSL.</span>
-<span class="sd">    Exits the app with a user-friendly message if not configured correctly.</span>
+<span class="sd">    Verify DISPLAY environment configuration when running under WSL.</span>
+
+<span class="sd">    On Windows Subsystem for Linux (WSL), a valid X server and DISPLAY variable</span>
+<span class="sd">    are required to launch Qt GUI applications. This function detects a WSL</span>
+<span class="sd">    environment and terminates the application with a user-friendly error dialog</span>
+<span class="sd">    if DISPLAY is not configured.</span>
+
+<span class="sd">    Behavior:</span>
+<span class="sd">        - Detects WSL via kernel release string.</span>
+<span class="sd">        - Shows a localized error message using the GUI error handler.</span>
+<span class="sd">        - Exits the application with a non-zero status on failure.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        SystemExit: If DISPLAY is missing under WSL.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="s2">&quot;microsoft&quot;</span> <span class="ow">in</span> <span class="n">platform</span><span class="o">.</span><span class="n">uname</span><span class="p">()</span><span class="o">.</span><span class="n">release</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;DISPLAY&quot;</span><span class="p">):</span>
         <span class="n">log_debug</span><span class="p">(</span><span class="s1">&#39;Checking DISPLAY environment for WSL.&#39;</span><span class="p">)</span>

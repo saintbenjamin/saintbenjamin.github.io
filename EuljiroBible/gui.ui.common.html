@@ -131,16 +131,16 @@
 </dd>
 </dl>
 <p>Provides reusable UI widgets such as buttons, checkboxes, and loading indicator.
-Includes utility wrappers for QPushButton creation with SVG icons and dynamic sizing.</p>
+Includes utility wrappers for <cite>QPushButton</cite> creation with SVG icons and dynamic sizing.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="gui.ui.common.create_button">
 <span class="sig-prename descclassname"><span class="pre">gui.ui.common.</span></span><span class="sig-name descname"><span class="pre">create_button</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/common.html#create_button"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.common.create_button" title="Link to this definition"></a></dt>
-<dd><p>Creates a QPushButton with optional click callback.</p>
+<dd><p>Creates a <cite>QPushButton</cite> with optional click callback.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>text</strong> (<em>str</em>) – Text to display on the button.</p></li>
-<li><p><strong>callback</strong> (<em>function</em><em>, </em><em>optional</em>) – Slot to connect to clicked() signal.</p></li>
+<li><p><strong>callback</strong> (<em>function</em><em>, </em><em>optional</em>) – Slot to connect to <code class="docutils literal notranslate"><span class="pre">clicked()</span></code> signal.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -155,7 +155,7 @@ Includes utility wrappers for QPushButton creation with SVG icons and dynamic si
 <dl class="py function">
 <dt class="sig sig-object py" id="gui.ui.common.create_checkbox">
 <span class="sig-prename descclassname"><span class="pre">gui.ui.common.</span></span><span class="sig-name descname"><span class="pre">create_checkbox</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">checked</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/common.html#create_checkbox"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.common.create_checkbox" title="Link to this definition"></a></dt>
-<dd><p>Creates a QCheckBox with optional initial state and signal connection.</p>
+<dd><p>Creates a <cite>QCheckBox</cite> with optional initial state and signal connection.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -176,7 +176,7 @@ Includes utility wrappers for QPushButton creation with SVG icons and dynamic si
 <dl class="py function">
 <dt class="sig sig-object py" id="gui.ui.common.create_svg_text_button">
 <span class="sig-prename descclassname"><span class="pre">gui.ui.common.</span></span><span class="sig-name descname"><span class="pre">create_svg_text_button</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">svg_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">icon_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tooltip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/common.html#create_svg_text_button"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.common.create_svg_text_button" title="Link to this definition"></a></dt>
-<dd><p>Creates a QPushButton with SVG icon and text.</p>
+<dd><p>Creates a <cite>QPushButton</cite> with SVG icon and text.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -200,8 +200,37 @@ Includes utility wrappers for QPushButton creation with SVG icons and dynamic si
 <dt class="sig sig-object py" id="gui.ui.common.LoadingIndicator">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gui.ui.common.</span></span><span class="sig-name descname"><span class="pre">LoadingIndicator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/common.html#LoadingIndicator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.common.LoadingIndicator" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
-<p>A spinning arc-based loading indicator widget.
-Can be shown during background loading operations.</p>
+<p>A spinning arc-based loading indicator widget.</p>
+<p>This widget displays a rotating arc animation to indicate that a background
+operation (such as data loading or initialization) is in progress. It is
+designed to be lightweight and self-contained, relying on a QTimer-driven
+angle update and custom painting via QPainter.</p>
+<p>The widget automatically centers itself within its parent when shown or when
+the parent is resized.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.common.LoadingIndicator.angle">
+<span class="sig-name descname"><span class="pre">angle</span></span><a class="headerlink" href="#gui.ui.common.LoadingIndicator.angle" title="Link to this definition"></a></dt>
+<dd><p>Current rotation angle of the arc, in degrees. This value is incremented
+periodically by the internal timer to animate the spinner.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.common.LoadingIndicator.timer">
+<span class="sig-name descname"><span class="pre">timer</span></span><a class="headerlink" href="#gui.ui.common.LoadingIndicator.timer" title="Link to this definition"></a></dt>
+<dd><p>Timer used to update the rotation angle at a fixed interval, driving
+the animation loop.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QTimer</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.common.LoadingIndicator.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/common.html#LoadingIndicator.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.common.LoadingIndicator.__init__" title="Link to this definition"></a></dt>

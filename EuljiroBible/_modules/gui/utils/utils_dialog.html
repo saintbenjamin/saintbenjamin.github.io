@@ -89,12 +89,22 @@
 <a class="viewcode-back" href="../../../gui.utils.utils_dialog.html#gui.utils.utils_dialog.set_color_from_dialog">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">set_color_from_dialog</span><span class="p">(</span><span class="n">button</span><span class="p">,</span> <span class="n">setting_key</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Opens QColorDialog, updates button color, saves to settings, and runs callback.</span>
+<span class="sd">    Open a color picker dialog and apply the selected color to a button and settings.</span>
+
+<span class="sd">    This utility:</span>
+
+<span class="sd">    - Opens a QColorDialog for user selection.</span>
+<span class="sd">    - Updates the button background to reflect the chosen color.</span>
+<span class="sd">    - Persists the color value to settings via ConfigManager.</span>
+<span class="sd">    - Optionally triggers a callback (commonly used to reapply dynamic settings).</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        button (QPushButton): The button to update the background color of.</span>
-<span class="sd">        setting_key (str): Settings dictionary key to update.</span>
-<span class="sd">        callback (function, optional): Function to call after color is applied.</span>
+<span class="sd">        button (QPushButton): Button whose background color represents the setting.</span>
+<span class="sd">        setting_key (str): Settings key to update with the selected color value.</span>
+<span class="sd">        callback (Callable | None): Optional function to invoke after applying the color.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">color</span> <span class="o">=</span> <span class="n">QColorDialog</span><span class="o">.</span><span class="n">getColor</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">color</span><span class="o">.</span><span class="n">isValid</span><span class="p">():</span>
@@ -108,16 +118,19 @@
 <a class="viewcode-back" href="../../../gui.utils.utils_dialog.html#gui.utils.utils_dialog.get_save_path">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">get_save_path</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">current_path</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">file_filter</span><span class="o">=</span><span class="s2">&quot;Text Files (*.txt)&quot;</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Opens a file dialog and returns the selected save path.</span>
+<span class="sd">    Open a file-save dialog and return the selected path.</span>
+
+<span class="sd">    This helper wraps QFileDialog.getSaveFileName() and is used to select</span>
+<span class="sd">    output paths such as verse_output.txt.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        parent (QWidget): Parent widget for dialog.</span>
-<span class="sd">        current_path (str): Initial path.</span>
-<span class="sd">        title (str): Dialog title.</span>
-<span class="sd">        file_filter (str): File type filter string.</span>
+<span class="sd">        parent (QWidget): Parent widget for the file dialog.</span>
+<span class="sd">        current_path (str): Initial path shown in the dialog.</span>
+<span class="sd">        title (str): Dialog window title.</span>
+<span class="sd">        file_filter (str): File type filter string (Qt format).</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        str: Selected path or empty string if cancelled.</span>
+<span class="sd">        str: Selected file path, or an empty string if the dialog was cancelled.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">path</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">QFileDialog</span><span class="o">.</span><span class="n">getSaveFileName</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">current_path</span><span class="p">,</span> <span class="n">file_filter</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">path</span></div>

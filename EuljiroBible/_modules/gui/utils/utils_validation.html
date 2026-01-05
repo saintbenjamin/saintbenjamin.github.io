@@ -93,9 +93,19 @@
 <a class="viewcode-back" href="../../../gui.utils.utils_validation.html#gui.utils.utils_validation.verify_bible_data">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">verify_bible_data</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Verifies that Bible data directory and required JSON files exist.</span>
+<span class="sd">    Verify the presence and validity of the Bible data directory.</span>
 
-<span class="sd">    This function displays an error message and exits the app if the data directory or files are missing.</span>
+<span class="sd">    This function checks whether the configured Bible data directory exists</span>
+<span class="sd">    and whether it contains at least one JSON file. These JSON files are</span>
+<span class="sd">    required for loading Bible text data at runtime.</span>
+
+<span class="sd">    If the directory does not exist or contains no JSON files, a critical</span>
+<span class="sd">    error dialog is shown to the user and the application terminates</span>
+<span class="sd">    immediately.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        SystemExit: If the Bible data directory is missing or contains no</span>
+<span class="sd">            valid JSON files.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">BIBLE_DATA_DIR</span><span class="p">):</span>
         <span class="n">msg</span> <span class="o">=</span> <span class="n">messages</span><span class="o">.</span><span class="n">ERROR_MESSAGES</span><span class="p">[</span><span class="s2">&quot;bible_data_missing&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">paths</span><span class="o">.</span><span class="n">BIBLE_DATA_DIR</span><span class="p">)</span>

@@ -87,15 +87,22 @@
 <a class="viewcode-back" href="../../../gui.utils.overlay_factory.html#gui.utils.overlay_factory.create_overlay">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">create_overlay</span><span class="p">(</span><span class="n">settings</span><span class="p">,</span> <span class="n">geometry</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Creates an WidgetOverlay instance using the provided settings and screen geometry.</span>
+<span class="sd">    Create and return a configured overlay widget instance.</span>
+
+<span class="sd">    This factory function constructs a `WidgetOverlay` using the current</span>
+<span class="sd">    overlay-related settings and the target screen geometry. It centralizes</span>
+<span class="sd">    overlay creation logic so that callers do not need to manually extract</span>
+<span class="sd">    individual style parameters from the settings dictionary.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        settings (dict): Settings dictionary containing overlay style configurations.</span>
-<span class="sd">        geometry (QRect): Geometry of the screen on which to display the overlay.</span>
-<span class="sd">        parent (QWidget, optional): Optional parent widget for the overlay.</span>
+<span class="sd">        settings (dict): Application settings dictionary containing overlay-related keys,</span>
+<span class="sd">            such as font family, font size, colors, transparency, and display mode.</span>
+<span class="sd">        geometry (QRect): Screen geometry defining the initial size and position</span>
+<span class="sd">            of the overlay window.</span>
+<span class="sd">        parent (QWidget | None): Optional parent widget for ownership and stacking context.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        WidgetOverlay: A fully configured and ready-to-show overlay widget.</span>
+<span class="sd">        WidgetOverlay: A fully initialized overlay widget ready to be shown.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">gui.ui.widget_overlay</span><span class="w"> </span><span class="kn">import</span> <span class="n">WidgetOverlay</span>
 

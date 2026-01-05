@@ -119,12 +119,12 @@ version compatibility, and formatting rules are handled throughout EuljiroBible.
 <dl class="py function">
 <dt class="sig sig-object py" id="core.logic.verse_logic.parse_verse_range">
 <span class="sig-prename descclassname"><span class="pre">core.logic.verse_logic.</span></span><span class="sig-name descname"><span class="pre">parse_verse_range</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verse_text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">book</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chapter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bible_data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/logic/verse_logic.html#parse_verse_range"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.logic.verse_logic.parse_verse_range" title="Link to this definition"></a></dt>
-<dd><p>Parses a verse input string and returns a (start, end) tuple.</p>
-<p>Supports formats like “1”, “3-5”, or blank input (interpreted as full chapter).</p>
+<dd><p>Parses a verse input string and returns a <code class="docutils literal notranslate"><span class="pre">(start,</span> <span class="pre">end)</span></code> tuple.</p>
+<p>Supports formats like <cite>“1”</cite>, <cite>“3-5”</cite>, or blank input (interpreted as full chapter).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>verse_text</strong> (<em>str</em>) – Raw input like “1”, “4-6”, or “”.</p></li>
+<li><p><strong>verse_text</strong> (<em>str</em>) – Raw input like <code class="docutils literal notranslate"><span class="pre">&quot;1&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;4-6&quot;</span></code>, or <code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code>.</p></li>
 <li><p><strong>version</strong> (<em>str</em>) – Bible version key.</p></li>
 <li><p><strong>book</strong> (<em>str</em>) – Internal book name key.</p></li>
 <li><p><strong>chapter</strong> (<em>int</em>) – Chapter number.</p></li>
@@ -151,7 +151,7 @@ version compatibility, and formatting rules are handled throughout EuljiroBible.
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>current_verse</strong> (<em>int</em>) – Current verse number.</p></li>
-<li><p><strong>delta</strong> (<em>int</em>) – +1, -1, etc.</p></li>
+<li><p><strong>delta</strong> (<em>int</em>) – <code class="docutils literal notranslate"><span class="pre">+1</span></code>, <code class="docutils literal notranslate"><span class="pre">-1</span></code>, etc.</p></li>
 <li><p><strong>max_verse</strong> (<em>int</em>) – Maximum valid verse in chapter.</p></li>
 </ul>
 </dd>

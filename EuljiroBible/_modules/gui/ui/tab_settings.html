@@ -79,7 +79,7 @@
 <span class="sd">:E-mail: euljirochurch [at] G.M.A.I.L. (replace [at] with @ and G.M.A.I.L as you understood.)</span>
 <span class="sd">:License: MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</span>
 
-<span class="sd">Implements the TabSettings class for managing application fonts, overlay behavior, polling, and output path configuration.</span>
+<span class="sd">Implements the :class:`gui.ui.tab_settings.TabSettings` class for managing application fonts, overlay behavior, polling, and output path configuration.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtCore</span><span class="w"> </span><span class="kn">import</span> <span class="n">QTimer</span><span class="p">,</span> <span class="n">QCoreApplication</span>
@@ -99,24 +99,50 @@
 <a class="viewcode-back" href="../../../gui.ui.tab_settings.html#gui.ui.tab_settings.TabSettings">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">TabSettings</span><span class="p">(</span><span class="n">QWidget</span><span class="p">,</span> <span class="n">TabSettingsUI</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Provides the UI and logic for application settings including fonts, themes,</span>
-<span class="sd">    overlay display configuration, file output path, and polling mechanism.</span>
+<span class="sd">    Settings tab widget for configuring application behavior and overlay display.</span>
+
+<span class="sd">    This tab provides UI and orchestration for user-adjustable settings such as</span>
+<span class="sd">    fonts, theme mode, overlay display configuration, output file path selection,</span>
+<span class="sd">    and the polling mechanism that monitors the verse output file.</span>
+
+<span class="sd">    Most per-feature operations are delegated to TabSettingsLogic, while this class</span>
+<span class="sd">    coordinates the Qt timer, overlay window lifecycle, and language refresh.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        tr (Callable[[str], str]): Translation function for UI labels and messages.</span>
+<span class="sd">        app (QApplication): Qt application instance used for theme changes and global styling.</span>
+<span class="sd">        settings (dict): Shared application settings dictionary (loaded and persisted via ConfigManager).</span>
+<span class="sd">        verse_path (str): Path to the verse output file used by polling/overlay logic.</span>
+<span class="sd">        poll_timer (QTimer): Timer that periodically triggers polling of the verse output file.</span>
+<span class="sd">        get_main_geometry (Callable[[], QRect]): Callback returning the main window geometry</span>
+<span class="sd">            used to determine which screen is the &quot;main&quot; display.</span>
+<span class="sd">        refresh_settings_callback (Callable[[], None]): Callback invoked when settings should be refreshed</span>
+<span class="sd">            outside of this tab.</span>
+<span class="sd">        get_poll_enabled (Callable[[], bool]): Callback returning whether polling is enabled externally.</span>
+<span class="sd">        overlay (QWidget | None): Active overlay window instance when enabled; otherwise None.</span>
+<span class="sd">        overlay_denied (bool): Flag indicating the user denied overlay usage on single-display setups.</span>
+<span class="sd">        logic (TabSettingsLogic): Backend logic handler for applying UI-driven settings changes.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="TabSettings.__init__">
 <a class="viewcode-back" href="../../../gui.ui.tab_settings.html#gui.ui.tab_settings.TabSettings.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">app</span><span class="p">,</span> <span class="n">settings</span><span class="p">,</span> <span class="n">tr</span><span class="p">,</span> <span class="n">get_poll_enabled_callback</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">get_main_geometry</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">refresh_settings_callback</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Initializes the settings tab with provided context.</span>
+<span class="sd">        Initialize the settings tab with application context and user settings.</span>
 
-<span class="sd">        :param app: QApplication instance</span>
-<span class="sd">        :type app: QApplication</span>
-<span class="sd">        :param settings: Shared settings dictionary</span>
-<span class="sd">        :type settings: dict</span>
-<span class="sd">        :param tr: Translation function</span>
-<span class="sd">        :type tr: Callable[[str], str]</span>
-<span class="sd">        :param get_poll_enabled_callback: Optional polling state checker</span>
-<span class="sd">        :type get_poll_enabled_callback: Callable or None</span>
+<span class="sd">        This sets up the polling timer, installs optional callbacks, initializes the</span>
+<span class="sd">        logic backend, and builds the UI.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            app (QApplication): QApplication instance.</span>
+<span class="sd">            settings (dict): Shared settings dictionary.</span>
+<span class="sd">            tr (Callable[[str], str]): Translation function for UI labels.</span>
+<span class="sd">            get_poll_enabled_callback (Callable[[], bool] | None): Optional callback that returns</span>
+<span class="sd">                whether polling is enabled externally.</span>
+<span class="sd">            get_main_geometry (Callable[[], QRect] | None): Optional callback that returns the main</span>
+<span class="sd">                window geometry used for screen selection logic.</span>
+<span class="sd">            refresh_settings_callback (Callable[[], None] | None): Optional callback invoked when</span>
+<span class="sd">                settings should be refreshed outside this tab.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tr</span> <span class="o">=</span> <span class="n">tr</span>
@@ -144,10 +170,13 @@
 <a class="viewcode-back" href="../../../gui.ui.tab_settings.html#gui.ui.tab_settings.TabSettings.change_language">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">change_language</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lang_code</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Updates all labels and buttons to reflect a new language setting.</span>
+<span class="sd">        Update all labels and buttons to reflect a new language setting.</span>
 
-<span class="sd">        :param lang_code: Language code (e.g. &#39;ko&#39;, &#39;en&#39;)</span>
-<span class="sd">        :type lang_code: str</span>
+<span class="sd">        This updates visible UI text, persists the selected language in settings,</span>
+<span class="sd">        and writes the change through ConfigManager.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            lang_code (str): Language code (e.g., &quot;ko&quot;, &quot;en&quot;).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">current_language</span> <span class="o">=</span> <span class="n">lang_code</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">messages</span> <span class="o">=</span> <span class="n">load_messages</span><span class="p">(</span><span class="n">lang_code</span><span class="p">)</span>
@@ -183,49 +212,81 @@
 <div class="viewcode-block" id="TabSettings.apply_dynamic_settings">
 <a class="viewcode-back" href="../../../gui.ui.tab_settings.html#gui.ui.tab_settings.TabSettings.apply_dynamic_settings">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">apply_dynamic_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Applies all dynamic settings through logic module.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Apply all dynamic settings through the logic module.</span>
+
+<span class="sd">        This delegates to TabSettingsLogic to apply the current UI selections to the</span>
+<span class="sd">        application and persisted settings.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logic</span><span class="o">.</span><span class="n">apply_dynamic_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="TabSettings.apply_font_to_children">
 <a class="viewcode-back" href="../../../gui.ui.tab_settings.html#gui.ui.tab_settings.TabSettings.apply_font_to_children">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">apply_font_to_children</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">widget</span><span class="p">,</span> <span class="n">font</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Applies font to all child widgets recursively.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Apply a font to child widgets recursively.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            widget (QWidget): Root widget whose children should receive the font.</span>
+<span class="sd">            font (QFont): Font to apply.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logic</span><span class="o">.</span><span class="n">apply_font_to_children</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="TabSettings.select_text_color">
 <a class="viewcode-back" href="../../../gui.ui.tab_settings.html#gui.ui.tab_settings.TabSettings.select_text_color">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">select_text_color</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Opens color dialog to select text color.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Open a color picker dialog to select the display text color.</span>
+
+<span class="sd">        This delegates to TabSettingsLogic, which updates both UI previews and persisted settings.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logic</span><span class="o">.</span><span class="n">select_text_color</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="TabSettings.select_bg_color">
 <a class="viewcode-back" href="../../../gui.ui.tab_settings.html#gui.ui.tab_settings.TabSettings.select_bg_color">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">select_bg_color</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Opens color dialog to select background color.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Open a color picker dialog to select the display background color.</span>
+
+<span class="sd">        This delegates to TabSettingsLogic, which updates both UI previews and persisted settings.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logic</span><span class="o">.</span><span class="n">select_bg_color</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="TabSettings.select_output_path">
 <a class="viewcode-back" href="../../../gui.ui.tab_settings.html#gui.ui.tab_settings.TabSettings.select_output_path">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">select_output_path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Opens file browser to select output path.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Open a file browser dialog to select the verse output path.</span>
+
+<span class="sd">        This delegates to TabSettingsLogic, which validates and stores the selected path.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logic</span><span class="o">.</span><span class="n">select_output_path</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="TabSettings.apply_polling_settings">
 <a class="viewcode-back" href="../../../gui.ui.tab_settings.html#gui.ui.tab_settings.TabSettings.apply_polling_settings">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">apply_polling_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Applies polling settings and restarts polling if enabled.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Apply polling settings and restart polling if enabled.</span>
+
+<span class="sd">        This delegates to TabSettingsLogic to validate the polling interval, update settings,</span>
+<span class="sd">        and start/stop the polling timer as needed.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logic</span><span class="o">.</span><span class="n">apply_polling_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="TabSettings.save_poll_interval">
 <a class="viewcode-back" href="../../../gui.ui.tab_settings.html#gui.ui.tab_settings.TabSettings.save_poll_interval">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">save_poll_interval</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Saves polling interval value from UI.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Save the polling interval value from the UI.</span>
+
+<span class="sd">        This delegates to TabSettingsLogic, which validates the input and persists it.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logic</span><span class="o">.</span><span class="n">save_poll_interval</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 
 
@@ -233,7 +294,10 @@
 <a class="viewcode-back" href="../../../gui.ui.tab_settings.html#gui.ui.tab_settings.TabSettings.toggle_theme">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">toggle_theme</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Toggles between dark and light application themes.</span>
+<span class="sd">        Toggle between dark and light application themes.</span>
+
+<span class="sd">        This flips the current theme state, applies the stylesheet accordingly, updates</span>
+<span class="sd">        the settings dictionary, and persists the change via :class:`gui.config.config_manager.ConfigManager`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">log_debug</span><span class="p">(</span><span class="s2">&quot;[TabSettings] toggle_theme called&quot;</span><span class="p">)</span>
         <span class="n">enable</span> <span class="o">=</span> <span class="ow">not</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">styleSheet</span><span class="p">())</span>
@@ -255,8 +319,17 @@
 <a class="viewcode-back" href="../../../gui.ui.tab_settings.html#gui.ui.tab_settings.TabSettings.toggle_overlay">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">toggle_overlay</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Turns the overlay display on or off based on its current state.</span>
-<span class="sd">        Uses screen geometry logic to determine placement.</span>
+<span class="sd">        Toggle the overlay display on or off.</span>
+
+<span class="sd">        When enabling, this determines the target screen geometry based on the current</span>
+<span class="sd">        overlay mode (fullscreen vs resizable), screen count, and the main window</span>
+<span class="sd">        geometry. When disabling, it closes the active overlay window.</span>
+
+<span class="sd">        This method also respects a user-denial flag for single-display setups.</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            - In fullscreen mode, the overlay prefers a secondary monitor if available.</span>
+<span class="sd">            - In resizable mode, the overlay uses the user-selected display index.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">log_debug</span><span class="p">(</span><span class="s2">&quot;[TabSettings] toggle_overlay called&quot;</span><span class="p">)</span>
 
@@ -312,6 +385,16 @@
 <div class="viewcode-block" id="TabSettings.get_main_geometry">
 <a class="viewcode-back" href="../../../gui.ui.tab_settings.html#gui.ui.tab_settings.TabSettings.get_main_geometry">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_main_geometry</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the main window geometry.</span>
+
+<span class="sd">        This is a stub fallback used when no external callback is injected. Call sites</span>
+<span class="sd">        should inject a real geometry provider so overlay placement logic can determine</span>
+<span class="sd">        the primary screen reliably.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            QRect: Geometry of the main window (fallback is a zero rect).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;get_main_geometry internally called&quot;</span><span class="p">)</span>
         <span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtCore</span><span class="w"> </span><span class="kn">import</span> <span class="n">QRect</span>
         <span class="k">return</span> <span class="n">QRect</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></div>
@@ -321,7 +404,9 @@
 <a class="viewcode-back" href="../../../gui.ui.tab_settings.html#gui.ui.tab_settings.TabSettings.populate_displays">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">populate_displays</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Fills the display dropdown with screen descriptions.</span>
+<span class="sd">        Populate the display dropdown with available screen descriptions.</span>
+
+<span class="sd">        This clears the display combo box and fills it with human-readable display names.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">display_combo</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">display_combo</span><span class="o">.</span><span class="n">addItems</span><span class="p">(</span><span class="n">get_display_descriptions</span><span class="p">())</span></div>
@@ -331,7 +416,9 @@
 <a class="viewcode-back" href="../../../gui.ui.tab_settings.html#gui.ui.tab_settings.TabSettings.ensure_overlay_on">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">ensure_overlay_on</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Ensures the overlay is visible, enabling it if necessary.</span>
+<span class="sd">        Ensure the overlay window is visible, enabling it if necessary.</span>
+
+<span class="sd">        If overlay usage was previously denied by the user, this does nothing.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;overlay_denied&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
             <span class="n">log_debug</span><span class="p">(</span><span class="s2">&quot;[TabSettings] ensure_overlay_on skipped: previously denied&quot;</span><span class="p">)</span>
@@ -345,7 +432,13 @@
 <a class="viewcode-back" href="../../../gui.ui.tab_settings.html#gui.ui.tab_settings.TabSettings.poll_file">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">poll_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Periodically checks the verse output file and controls overlay visibility.</span>
+<span class="sd">        Poll the verse output file and control overlay visibility.</span>
+
+<span class="sd">        If polling is disabled, any active overlay is closed. If polling is enabled,</span>
+<span class="sd">        the overlay is shown when the verse output file indicates content should be</span>
+<span class="sd">        displayed, and hidden when the output is empty.</span>
+
+<span class="sd">        This method is intended to be called periodically by poll_timer.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;poll_enabled&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">overlay</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">overlay</span><span class="o">.</span><span class="n">isVisible</span><span class="p">():</span>
@@ -368,9 +461,11 @@
 <a class="viewcode-back" href="../../../gui.ui.tab_settings.html#gui.ui.tab_settings.TabSettings.update_presentation_visibility">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">update_presentation_visibility</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Shows or hides the overlay configuration group based on polling or always-show setting.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        Update visibility of the overlay configuration group.</span>
 
+<span class="sd">        Visibility is determined by the effective polling state, defined as:</span>
+<span class="sd">        polling enabled OR the &quot;always show on/off buttons&quot; setting enabled.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="p">[</span><span class="s2">&quot;always_show_on_off_buttons&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">always_on_off_checkbox</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span>
 
         <span class="n">always_on</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;always_show_on_off_buttons&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>

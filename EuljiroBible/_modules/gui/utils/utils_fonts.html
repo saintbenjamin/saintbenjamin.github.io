@@ -95,16 +95,19 @@
 <a class="viewcode-back" href="../../../gui.utils.utils_fonts.html#gui.utils.utils_fonts.create_app_font">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">create_app_font</span><span class="p">(</span><span class="n">family</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">weight_value</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">QFont</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Creates a QFont instance with the given settings.</span>
-<span class="sd">    Converts int weight to QFont.Weight safely.</span>
+<span class="sd">    Create a QFont instance from the given font configuration.</span>
+
+<span class="sd">    This helper converts an integer weight into a ``QFont.Weight`` safely,</span>
+<span class="sd">    falling back to ``QFont.Weight.Normal`` if the value is invalid.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        family (str): Font family name (e.g., &quot;Noto Sans&quot;).</span>
+<span class="sd">        family (str): Font family name (e.g., ``&quot;Noto Sans&quot;``).</span>
 <span class="sd">        size (int): Font point size.</span>
-<span class="sd">        weight_value (int): Integer weight value (e.g., 50, 75).</span>
+<span class="sd">        weight_value (int): Integer weight value compatible with ``QFont.Weight``</span>
+<span class="sd">            (e.g., ``50``, ``75``).</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        QFont: Configured QFont instance.</span>
+<span class="sd">        QFont: Configured font instance with antialias preference enabled.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">font</span> <span class="o">=</span> <span class="n">QFont</span><span class="p">(</span><span class="n">family</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span>
     <span class="n">font</span><span class="o">.</span><span class="n">setStyleStrategy</span><span class="p">(</span><span class="n">QFont</span><span class="o">.</span><span class="n">PreferAntialias</span><span class="p">)</span>
@@ -121,9 +124,20 @@
 <a class="viewcode-back" href="../../../gui.utils.utils_fonts.html#gui.utils.utils_fonts.load_application_settings">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">load_application_settings</span><span class="p">(</span><span class="n">app</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Loads saved font settings from settings file and applies to QApplication.</span>
+<span class="sd">    Load persisted application font settings and apply them to QApplication.</span>
 
-<span class="sd">    If loading fails, a fallback font is applied and exception is logged.</span>
+<span class="sd">    This function reads the settings JSON file and applies the saved font family,</span>
+<span class="sd">    size, and weight to the given ``QApplication`` instance.</span>
+
+<span class="sd">    Failure behavior:</span>
+<span class="sd">    - If loading or parsing fails, a GUI-safe error dialog is shown via</span>
+<span class="sd">      ``handle_exception`` and the application continues (Qt default font remains).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        app (QApplication): The QApplication instance to configure.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">SETTINGS_FILE</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
@@ -142,11 +156,17 @@
 <a class="viewcode-back" href="../../../gui.utils.utils_fonts.html#gui.utils.utils_fonts.apply_font_to_children">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">apply_font_to_children</span><span class="p">(</span><span class="n">widget</span><span class="p">,</span> <span class="n">font</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Recursively applies the given font to the specified widget and all its child widgets.</span>
+<span class="sd">    Apply a font recursively to a widget and all of its descendants.</span>
+
+<span class="sd">    This is used to ensure consistent font appearance across widgets that do not</span>
+<span class="sd">    automatically update after ``QApplication.setFont()`` on some platforms.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        widget (QWidget): The root widget to apply the font to.</span>
-<span class="sd">        font (QFont): The font to apply.</span>
+<span class="sd">        widget (QWidget): Root widget to apply the font to.</span>
+<span class="sd">        font (QFont): Font to apply.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">widget</span><span class="o">.</span><span class="n">setFont</span><span class="p">(</span><span class="n">font</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">widget</span><span class="o">.</span><span class="n">findChildren</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
@@ -157,13 +177,22 @@
 <a class="viewcode-back" href="../../../gui.utils.utils_fonts.html#gui.utils.utils_fonts.apply_main_font_to_app">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">apply_main_font_to_app</span><span class="p">(</span><span class="n">font_family</span><span class="p">,</span> <span class="n">font_size</span><span class="p">,</span> <span class="n">font_weight</span><span class="p">,</span> <span class="n">root_widget</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Applies the main font settings to the QApplication and all children of the given root widget.</span>
+<span class="sd">    Persist and apply the main UI font across the application.</span>
+
+<span class="sd">    This function:</span>
+<span class="sd">    - Persists the font configuration via ``ConfigManager.save_font``.</span>
+<span class="sd">    - Updates the global QApplication font.</span>
+<span class="sd">    - Recursively applies the font to all children of ``root_widget``.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        font_family (str): Font family name.</span>
-<span class="sd">        font_size (int): Font size.</span>
-<span class="sd">        font_weight (QFont.Weight): Font weight enum.</span>
-<span class="sd">        root_widget (QWidget): Root widget to apply font recursively.</span>
+<span class="sd">        font_size (int): Font point size.</span>
+<span class="sd">        font_weight (QFont.Weight | int): Font weight. Expected to be compatible</span>
+<span class="sd">            with ``QFont.setWeight()``.</span>
+<span class="sd">        root_widget (QWidget): Root widget whose descendants should receive the font.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">ConfigManager</span><span class="o">.</span><span class="n">save_font</span><span class="p">(</span><span class="n">font_family</span><span class="p">,</span> <span class="n">font_size</span><span class="p">,</span> <span class="n">font_weight</span><span class="p">)</span>
     <span class="n">font</span> <span class="o">=</span> <span class="n">QApplication</span><span class="o">.</span><span class="n">font</span><span class="p">()</span>
@@ -178,11 +207,22 @@
 <a class="viewcode-back" href="../../../gui.utils.utils_fonts.html#gui.utils.utils_fonts.apply_overlay_font">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">apply_overlay_font</span><span class="p">(</span><span class="n">widget_overlay</span><span class="p">,</span> <span class="n">settings</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Applies font settings to the overlay widget and re-applies overlay styles.</span>
+<span class="sd">    Apply overlay font settings to an existing overlay widget.</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        ``WidgetOverlay.apply_settings()`` already reads from configuration and</span>
+<span class="sd">        applies font + colors + sizing logic. This helper sets a base font first</span>
+<span class="sd">        and then delegates the full refresh to ``apply_settings()``.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        widget_overlay (WidgetOverlay): The overlay instance.</span>
-<span class="sd">        settings (dict): Dictionary with keys: display_font_family, display_font_size, display_font_weight</span>
+<span class="sd">        widget_overlay (WidgetOverlay | None): Overlay instance to update.</span>
+<span class="sd">        settings (dict): Settings dictionary expected to contain:</span>
+<span class="sd">            - ``display_font_family`` (str)</span>
+<span class="sd">            - ``display_font_size`` (int)</span>
+<span class="sd">            - ``display_font_weight`` (int or QFont.Weight)</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">widget_overlay</span><span class="p">:</span>
         <span class="k">return</span>

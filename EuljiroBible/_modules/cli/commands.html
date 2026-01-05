@@ -79,9 +79,27 @@
 <span class="sd">:E-mail: euljirochurch [at] G.M.A.I.L. (replace [at] with @ and G.M.A.I.L as you understood.)</span>
 <span class="sd">:License: MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</span>
 
-<span class="sd">CLI command handler for EuljiroBible.</span>
 
-<span class="sd">Parses command-line arguments and coordinates verse lookup and display.</span>
+<span class="sd">CLI command handlers for EuljiroBible.</span>
+
+<span class="sd">This module contains the top-level command functions used by the CLI entry point:</span>
+
+<span class="sd">- :func:`run_bible_command` for verse lookup and formatted verse output.</span>
+<span class="sd">- :func:`run_search_command` for keyword search and result printing.</span>
+
+<span class="sd">Design notes:</span>
+
+<span class="sd">- Argument parsing here is intentionally lightweight. Deep validation and output</span>
+<span class="sd">  formatting is delegated to shared core logic (e.g., :mod:`core.logic.verse_logic`).</span>
+<span class="sd">- CLI error messages are expected to be English-only by project convention.</span>
+<span class="sd">- Version names in the CLI are provided via a simplified alias map loaded from</span>
+<span class="sd">  :data:`core.config.paths.ALIASES_VERSION_CLI_FILE`.</span>
+
+<span class="sd">Limitations:</span>
+
+<span class="sd">- CLI display for Right-to-Left (RTL) scripts (Hebrew/Arabic/etc.) depends on the</span>
+<span class="sd">  terminal/font environment and may not render ideally. A note is printed when a</span>
+<span class="sd">  likely RTL version is detected.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
@@ -101,10 +119,23 @@
 <a class="viewcode-back" href="../../cli.commands.html#cli.commands.handle_cli_metadata">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">handle_cli_metadata</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Handle CLI metadata options like ``--help``, ``--version``, and ``--about``.</span>
+<span class="sd">    Handle CLI metadata options for the verse lookup command.</span>
+
+<span class="sd">    This function checks for single-token metadata options and prints an</span>
+<span class="sd">    appropriate message. If a metadata option is handled, the caller should</span>
+<span class="sd">    exit early without further parsing.</span>
+
+<span class="sd">    Supported options:</span>
+<span class="sd">        - ``--help`` / ``-h``: Print usage and examples.</span>
+<span class="sd">        - ``--version`` / ``-v``: Print CLI version string.</span>
+<span class="sd">        - ``--about``: Print author and license information.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        args (list[str]): Raw CLI arguments *for the bible command* (excluding the script name).</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        bool: True if metadata was handled and command should exit.</span>
+<span class="sd">        bool: ``True`` if a metadata option was handled and the command should exit,</span>
+<span class="sd">        otherwise ``False``.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">False</span>
@@ -141,13 +172,19 @@
 <a class="viewcode-back" href="../../cli.commands.html#cli.commands.handle_search_metadata">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">handle_search_metadata</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Handle CLI metadata options for keyword search command.</span>
+<span class="sd">    Handle CLI metadata options for the keyword search command.</span>
+
+<span class="sd">    Supported options:</span>
+<span class="sd">        - ``--help`` / ``-h``: Print usage and examples.</span>
+<span class="sd">        - ``--version`` / ``-v``: Print CLI version string.</span>
+<span class="sd">        - ``--about``: Print author and license information.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        args (list[str]): CLI args</span>
+<span class="sd">        args (list[str]): Raw CLI arguments for the ``search`` command.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        bool: True if metadata handled and program should exit.</span>
+<span class="sd">        bool: ``True`` if a metadata option was handled and the command should exit,</span>
+<span class="sd">        otherwise ``False``.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">False</span>
@@ -184,10 +221,13 @@
 <a class="viewcode-back" href="../../cli.commands.html#cli.commands.show_usage_and_versions">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">show_usage_and_versions</span><span class="p">(</span><span class="n">cli_aliases</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Print general CLI usage and list of available version aliases.</span>
+<span class="sd">    Print general CLI usage for verse lookup and a list of available version aliases.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        cli_aliases (list[str]): List of CLI aliases to display.</span>
+<span class="sd">        cli_aliases (list[str]): List of CLI aliases to display (e.g., ``[&quot;NKRV&quot;, &quot;KJV&quot;]``).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;EuljiroBible v</span><span class="si">{</span><span class="n">APP_VERSION</span><span class="si">}</span><span class="s2"> (CLI interface) - Bible Verse Lookup Tool&quot;</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;For more information, use: --about or --help</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -200,10 +240,13 @@
 <a class="viewcode-back" href="../../cli.commands.html#cli.commands.show_search_usage">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">show_search_usage</span><span class="p">(</span><span class="n">cli_aliases</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Print usage information and available versions for keyword search command.</span>
+<span class="sd">    Print usage for keyword search and a list of available version aliases.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        cli_aliases (list[str]): CLI version aliases</span>
+<span class="sd">        cli_aliases (list[str]): CLI version aliases to display.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;EuljiroBible v</span><span class="si">{</span><span class="n">APP_VERSION</span><span class="si">}</span><span class="s2"> (CLI interface) - Bible Keyword Search&quot;</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;For more information, use: --about or --help</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -216,10 +259,27 @@
 <a class="viewcode-back" href="../../cli.commands.html#cli.commands.load_cli_alias_map">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">load_cli_alias_map</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Load CLI alias map from JSON file.</span>
+<span class="sd">    Load the CLI alias map from the configured JSON file.</span>
+
+<span class="sd">    The alias map is expected to be a JSON object mapping *full version names*</span>
+<span class="sd">    to *CLI-friendly aliases* (strings). </span>
+<span class="sd">    </span>
+<span class="sd">    Example shape::</span>
+
+<span class="sd">        {</span>
+<span class="sd">          &quot;대한민국 개역개정 (1998)&quot;: &quot;NKRV&quot;,</span>
+<span class="sd">          &quot;King James Version&quot;: &quot;KJV&quot;</span>
+<span class="sd">        }</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        tuple: (alias_map, cli_aliases)</span>
+<span class="sd">        tuple[dict, list[str]]: ``(alias_map, cli_aliases)`` where:</span>
+
+<span class="sd">        - ``alias_map`` maps full version name -&gt; CLI alias.</span>
+<span class="sd">        - ``cli_aliases`` is a list of CLI aliases (values of the map).</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        FileNotFoundError: If the alias file does not exist.</span>
+<span class="sd">        json.JSONDecodeError: If the alias file is not valid JSON.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">alias_file</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">alias_map</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
@@ -231,14 +291,27 @@
 <a class="viewcode-back" href="../../cli.commands.html#cli.commands.parse_versions_from_args">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">parse_versions_from_args</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">alias_map</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Parse version aliases from CLI args.</span>
+<span class="sd">    Parse one or more version aliases from the beginning of CLI arguments.</span>
+
+<span class="sd">    Parsing strategy:</span>
+<span class="sd">        - Scan tokens left-to-right.</span>
+<span class="sd">        - For each token, check if it matches any alias in ``alias_map.values()``.</span>
+<span class="sd">        - Stop at the first token that does not match a known alias.</span>
+<span class="sd">        - The remaining tokens are treated as the Bible reference portion.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        args (list[str]): Raw CLI arguments.</span>
-<span class="sd">        alias_map (dict): Full-to-short alias mapping.</span>
+<span class="sd">        alias_map (dict): Full-to-short alias mapping (full version -&gt; CLI alias).</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        tuple: (versions, remaining_args)</span>
+<span class="sd">        tuple[list[str], list[str]]: ``(versions, remaining_args)`` where:</span>
+
+<span class="sd">        - ``versions`` is a list of full version names (keys from ``alias_map``).</span>
+<span class="sd">        - ``remaining_args`` is the remainder of tokens after the version list.</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        - If no version tokens are found, ``versions`` will be an empty list.</span>
+<span class="sd">        - Callers should validate and emit a helpful error.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Parse versions from args</span>
     <span class="n">versions</span> <span class="o">=</span> <span class="p">[]</span>
@@ -263,13 +336,19 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Resolve the full Bible version name for keyword search.</span>
 
+<span class="sd">    Keyword search requires exactly one version. This helper:</span>
+
+<span class="sd">    - Validates that ``version_alias`` exists in the alias map.</span>
+<span class="sd">    - Ensures none of the remaining keyword tokens look like a version alias.</span>
+<span class="sd">    - Returns the full version name corresponding to ``version_alias``.</span>
+
 <span class="sd">    Args:</span>
-<span class="sd">        version_alias (str): CLI alias given by user</span>
-<span class="sd">        alias_map (dict): Full-to-short alias map</span>
-<span class="sd">        keywords (list[str]): User-specified search keywords</span>
+<span class="sd">        version_alias (str): CLI alias provided by the user.</span>
+<span class="sd">        alias_map (dict): Full-to-short alias map (full version -&gt; CLI alias).</span>
+<span class="sd">        keywords (list[str]): User-supplied keyword tokens.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        str or None: Full version name if found; otherwise None</span>
+<span class="sd">        str | None: Full version name if resolved; otherwise ``None`` (after printing an error).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">cli_aliases</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">alias_map</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
 
@@ -291,11 +370,21 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Join and validate Bible reference tokens.</span>
 
+<span class="sd">    Expected token shape::</span>
+
+<span class="sd">        &lt;book&gt; &lt;chapter[:verse[-verse]]&gt;</span>
+
+<span class="sd">    This function joins the two tokens into a single reference string and uses</span>
+<span class="sd">    :func:`core.utils.bible_parser.parse_reference` for parsing.</span>
+
 <span class="sd">    Args:</span>
-<span class="sd">        remaining (list[str]): List of tokens representing reference.</span>
+<span class="sd">        remaining (list[str]): Tokens representing the reference portion.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        tuple or None: (book, chapter, verse_range) if valid; otherwise None.</span>
+<span class="sd">        tuple | None: ``(book, chapter, verse_range)`` if valid; otherwise ``None``.</span>
+
+<span class="sd">    Side effects:</span>
+<span class="sd">        Prints an ``[ERROR]`` message on invalid input.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Expecting: &lt;book&gt; &lt;chapter[:verse[-verse]]&gt;</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">remaining</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
@@ -316,31 +405,22 @@
 <a class="viewcode-back" href="../../cli.commands.html#cli.commands.detect_lang_code_from_aliases">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">detect_lang_code_from_aliases</span><span class="p">(</span><span class="n">versions</span><span class="p">,</span> <span class="n">alias_map</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Detect a likely language code from user-supplied version aliases.</span>
+<span class="sd">    Heuristically detect a language code based on selected versions.</span>
 
-<span class="sd">    This is a lightweight heuristic for deciding whether the output should be</span>
-<span class="sd">    treated as a right-to-left (RTL) language. It scans each version token</span>
-<span class="sd">    (case-insensitive) and matches it against a small keyword list per language.</span>
+<span class="sd">    This is a CLI-only heuristic primarily used to warn about potential RTL rendering.</span>
+<span class="sd">    The detection checks the lowercased version string (full canonical names in this</span>
+<span class="sd">    module) against a small keyword list.</span>
 
 <span class="sd">    Note:</span>
-<span class="sd">        - ``alias_map`` is currently unused, but kept in the signature for</span>
-<span class="sd">          compatibility with existing call sites and potential future expansion</span>
-<span class="sd">          (e.g., mapping canonical version names to metadata).</span>
-<span class="sd">        - If no RTL-related keyword is found, this defaults to Korean (&quot;ko&quot;).</span>
+<span class="sd">        ``alias_map`` is currently unused, but kept for signature stability and</span>
+<span class="sd">        potential future mapping to version metadata.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        versions (list[str]): Version tokens or aliases provided by the user.</span>
-<span class="sd">            Example: [&quot;NKRV&quot;, &quot;WLC&quot;].</span>
-<span class="sd">        alias_map (dict): Version alias mapping (reserved for future use).</span>
+<span class="sd">        versions (list[str]): Full version names selected for output.</span>
+<span class="sd">        alias_map (dict): Full-to-short alias mapping (reserved for future use).</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        str: Detected language code. One of:</span>
-
-<span class="sd">            - &quot;he&quot; (Hebrew)</span>
-<span class="sd">            - &quot;ar&quot; (Arabic)</span>
-<span class="sd">            - &quot;fa&quot; (Persian/Farsi)</span>
-<span class="sd">            - &quot;ur&quot; (Urdu)</span>
-<span class="sd">            - &quot;ko&quot; (default fallback)</span>
+<span class="sd">        str: Language code among ``{&quot;he&quot;, &quot;ar&quot;, &quot;fa&quot;, &quot;ur&quot;, &quot;ko&quot;}``.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">rtl_map</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s2">&quot;he&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;히브리어&quot;</span><span class="p">,</span> <span class="s2">&quot;hebrew&quot;</span><span class="p">,</span> <span class="s2">&quot;heb&quot;</span><span class="p">,</span> <span class="s2">&quot;wlc&quot;</span><span class="p">,</span> <span class="s2">&quot;mhb&quot;</span><span class="p">],</span>
@@ -362,14 +442,23 @@
 <a class="viewcode-back" href="../../cli.commands.html#cli.commands.run_display_logic">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">run_display_logic</span><span class="p">(</span><span class="n">versions</span><span class="p">,</span> <span class="n">book</span><span class="p">,</span> <span class="n">chapter</span><span class="p">,</span> <span class="n">verse_range</span><span class="p">,</span> <span class="n">alias_map</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Execute the main display logic for CLI output.</span>
+<span class="sd">    Execute the CLI verse display pipeline.</span>
+
+<span class="sd">    This function:</span>
+
+<span class="sd">    1) Loads the selected Bible versions.</span>
+<span class="sd">    2) Validates that the requested book exists in the first version.</span>
+<span class="sd">    3) Invokes :func:`core.logic.verse_logic.display_verse_logic` in CLI mode, sending output to stdout.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        versions (list): Full version names.</span>
-<span class="sd">        book (str): Resolved book name.</span>
+<span class="sd">        versions (list[str]): Full version names to load and display.</span>
+<span class="sd">        book (str): Canonical book key expected by :class:`BibleDataLoader`.</span>
 <span class="sd">        chapter (int): Chapter number.</span>
-<span class="sd">        verse_range (tuple): Start and optional end verse.</span>
-<span class="sd">        alias_map (dict): CLI alias map.</span>
+<span class="sd">        verse_range (tuple[int, int]): Verse range ``(start, end)``.</span>
+<span class="sd">        alias_map (dict): Full-to-short alias mapping (for version aliases in output).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">bible_data</span> <span class="o">=</span> <span class="n">BibleDataLoader</span><span class="p">(</span><span class="n">json_dir</span><span class="o">=</span><span class="n">name_path</span><span class="p">,</span> <span class="n">text_dir</span><span class="o">=</span><span class="n">data_path</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">versions</span><span class="p">:</span>
@@ -408,11 +497,18 @@
 <a class="viewcode-back" href="../../cli.commands.html#cli.commands.run_keyword_search">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">run_keyword_search</span><span class="p">(</span><span class="n">full_version</span><span class="p">,</span> <span class="n">keywords</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Run keyword search and print results.</span>
+<span class="sd">    Run a keyword search and print results to stdout.</span>
+
+<span class="sd">    This function loads the specified Bible version through</span>
+<span class="sd">    :class:`core.utils.bible_keyword_searcher.BibleKeywordSearcher`, runs the search,</span>
+<span class="sd">    prints each matching verse, then prints per-keyword frequencies and total count.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        full_version (str): Full Bible version name.</span>
-<span class="sd">        keywords (list[str]): List of keywords to search.</span>
+<span class="sd">        keywords (list[str]): Keywords to search (tokens). They are joined with spaces.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">searcher</span> <span class="o">=</span> <span class="n">BibleKeywordSearcher</span><span class="p">(</span><span class="n">version</span><span class="o">=</span><span class="n">full_version</span><span class="p">)</span>
@@ -443,9 +539,14 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Handle the case where only the version is specified.</span>
 
+<span class="sd">    This prints the general usage plus the list of available books in that version.</span>
+
 <span class="sd">    Args:</span>
 <span class="sd">        version (str): Full Bible version name.</span>
-<span class="sd">        alias_map (dict): Full-to-short alias mapping.</span>
+<span class="sd">        alias_map (dict): Full-to-short alias mapping (full version -&gt; CLI alias).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">bible_data</span> <span class="o">=</span> <span class="n">BibleDataLoader</span><span class="p">(</span><span class="n">json_dir</span><span class="o">=</span><span class="n">name_path</span><span class="p">,</span> <span class="n">text_dir</span><span class="o">=</span><span class="n">data_path</span><span class="p">)</span>
     <span class="k">try</span><span class="p">:</span>
@@ -464,14 +565,22 @@
 <a class="viewcode-back" href="../../cli.commands.html#cli.commands.handle_book_only">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">handle_book_only</span><span class="p">(</span><span class="n">version</span><span class="p">,</span> <span class="n">raw_book</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Handle the case where only a book name is given (show chapter count).</span>
+<span class="sd">    Handle the case where a version and book are provided, but no chapter/verse.</span>
+
+<span class="sd">    This prints the chapter count for the requested book.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        version (str): Full Bible version name.</span>
-<span class="sd">        raw_book (str): User input book name.</span>
+<span class="sd">        raw_book (str): User-supplied book token (may be localized/abbreviated).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">bible_data</span> <span class="o">=</span> <span class="n">BibleDataLoader</span><span class="p">(</span><span class="n">json_dir</span><span class="o">=</span><span class="n">name_path</span><span class="p">,</span> <span class="n">text_dir</span><span class="o">=</span><span class="n">data_path</span><span class="p">)</span>
     <span class="n">bible_data</span><span class="o">.</span><span class="n">load_version</span><span class="p">(</span><span class="n">version</span><span class="p">)</span>
+
+    <span class="c1"># NOTE: resolve_book_name signature may depend on your parser implementation.</span>
+    <span class="c1"># Here we preserve your current call shape and only document expectations.</span>
     <span class="n">book</span> <span class="o">=</span> <span class="n">resolve_book_name</span><span class="p">(</span><span class="n">raw_book</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">book</span> <span class="ow">or</span> <span class="n">book</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">bible_data</span><span class="o">.</span><span class="n">get_verses</span><span class="p">(</span><span class="n">version</span><span class="p">):</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[ERROR] Unknown book name: &#39;</span><span class="si">{</span><span class="n">raw_book</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
@@ -487,20 +596,35 @@
 <a class="viewcode-back" href="../../cli.commands.html#cli.commands.run_bible_command">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">run_bible_command</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Main CLI handler for parsing and executing Bible verse search commands.</span>
+<span class="sd">    Entry point for the CLI ``bible`` command.</span>
 
-<span class="sd">    Example:</span>
-<span class="sd">        - ``$ bible NKRV John 3:16``</span>
-<span class="sd">        - ``$ bible NKRV NIV John 3``</span>
-<span class="sd">        - ``$ bible NKRV``</span>
+<span class="sd">    Supported invocation patterns::</span>
+
+<span class="sd">        $ bible                          # show usage and available versions</span>
+<span class="sd">        $ bible NKRV                     # list books available in NKRV</span>
+<span class="sd">        $ bible NKRV John                # show chapter count for John</span>
+<span class="sd">        $ bible NKRV John 3:16           # show a single verse</span>
+<span class="sd">        $ bible NKRV John 3:16-18        # show a verse range</span>
+<span class="sd">        $ bible KJV NIV John 3:16        # show the same reference in multiple versions</span>
 
 <span class="sd">    Behavior:</span>
-<span class="sd">        - Prints usage/help if no args.</span>
-<span class="sd">        - Lists books if only version and book given.</span>
-<span class="sd">        - Shows verse(s) if full reference is given.</span>
+
+<span class="sd">    - Handles metadata flags (``--help``, ``--version``, ``--about``).</span>
+<span class="sd">    - Loads alias map and parses one or more version tokens from the front.</span>
+<span class="sd">    - If only a version is given, prints available books.</span>
+<span class="sd">    - If version + book are given, prints chapter count.</span>
+<span class="sd">    - If a full reference is provided, prints formatted verse output via shared logic.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        args (list[str]): Command-line arguments excluding the script name.</span>
+<span class="sd">        args (list[str]): Command-line arguments excluding the script name and excluding the ``bible`` token.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        - This function assumes at least one valid version alias is supplied when</span>
+<span class="sd">        verse lookup is attempted. </span>
+<span class="sd">        - If no version is found, callers should see usage.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">handle_cli_metadata</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
         <span class="k">return</span>
@@ -534,13 +658,29 @@
 <a class="viewcode-back" href="../../cli.commands.html#cli.commands.run_search_command">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">run_search_command</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    CLI keyword search command.</span>
+<span class="sd">    Entry point for the CLI ``search`` command.</span>
 
 <span class="sd">    Usage::</span>
 
 <span class="sd">        bible search &lt;version&gt; &lt;keyword1&gt; [keyword2 ...]</span>
-<span class="sd">    &quot;&quot;&quot;</span>
 
+<span class="sd">    Examples::</span>
+
+<span class="sd">        bible search NKRV 믿음</span>
+<span class="sd">        bible search KJV faith grace</span>
+
+<span class="sd">    Behavior:</span>
+
+<span class="sd">    - Handles metadata flags (``--help``, ``--version``, ``--about``).</span>
+<span class="sd">    - Requires exactly one version alias.</span>
+<span class="sd">    - Runs keyword search and prints matches and keyword frequencies.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        args (list[str]): Command-line arguments excluding the script name and excluding the ``search`` token.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">handle_search_metadata</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
         <span class="k">return</span>
 

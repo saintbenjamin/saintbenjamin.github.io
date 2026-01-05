@@ -134,13 +134,28 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="gui.utils.utils_save.save_user_settings">
 <span class="sig-prename descclassname"><span class="pre">gui.utils.utils_save.</span></span><span class="sig-name descname"><span class="pre">save_user_settings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">win</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/utils_save.html#save_user_settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.utils_save.save_user_settings" title="Link to this definition"></a></dt>
-<dd><p>Saves user settings at exit from the GUI state.</p>
+<dd><p>Persist user settings when the GUI application exits.</p>
+<p>This function collects relevant runtime UI state from the main window and
+writes it to the settings store. It is typically invoked during application
+shutdown to ensure that the next launch restores the user’s most recent context.</p>
+<p>Captured settings include:</p>
+<ul class="simple">
+<li><p>Application font family and size</p></li>
+<li><p>Last selected Bible versions</p></li>
+<li><p>Last selected book, chapter, and verse</p></li>
+<li><p>Current dark mode state</p></li>
+</ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>app</strong> (<em>QApplication</em>) – The application instance.</p></li>
-<li><p><strong>win</strong> (<em>QMainWindow</em>) – The main window containing tab state.</p></li>
+<li><p><strong>app</strong> (<em>QApplication</em>) – Active QApplication instance used to query global font
+and theme (dark mode) state.</p></li>
+<li><p><strong>win</strong> (<em>QMainWindow</em>) – Main application window containing the tab widgets
+and verse-selection UI.</p></li>
 </ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>

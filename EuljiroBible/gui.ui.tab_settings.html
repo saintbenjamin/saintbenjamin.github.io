@@ -130,24 +130,158 @@
 <dd class="field-odd"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
 </dd>
 </dl>
-<p>Implements the TabSettings class for managing application fonts, overlay behavior, polling, and output path configuration.</p>
+<p>Implements the <a class="reference internal" href="#gui.ui.tab_settings.TabSettings" title="gui.ui.tab_settings.TabSettings"><code class="xref py py-class docutils literal notranslate"><span class="pre">gui.ui.tab_settings.TabSettings</span></code></a> class for managing application fonts, overlay behavior, polling, and output path configuration.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="gui.ui.tab_settings.TabSettings">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gui.ui.tab_settings.</span></span><span class="sig-name descname"><span class="pre">TabSettings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_settings.html#TabSettings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_settings.TabSettings" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code>, <a class="reference internal" href="gui.ui.tab_settings_ui.html#gui.ui.tab_settings_ui.TabSettingsUI" title="gui.ui.tab_settings_ui.TabSettingsUI"><code class="xref py py-class docutils literal notranslate"><span class="pre">TabSettingsUI</span></code></a></p>
-<p>Provides the UI and logic for application settings including fonts, themes,
-overlay display configuration, file output path, and polling mechanism.</p>
+<p>Settings tab widget for configuring application behavior and overlay display.</p>
+<p>This tab provides UI and orchestration for user-adjustable settings such as
+fonts, theme mode, overlay display configuration, output file path selection,
+and the polling mechanism that monitors the verse output file.</p>
+<p>Most per-feature operations are delegated to TabSettingsLogic, while this class
+coordinates the Qt timer, overlay window lifecycle, and language refresh.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_settings.TabSettings.tr">
+<span class="sig-name descname"><span class="pre">tr</span></span><a class="headerlink" href="#gui.ui.tab_settings.TabSettings.tr" title="Link to this definition"></a></dt>
+<dd><p>Translation function for UI labels and messages.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Callable[[str], str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_settings.TabSettings.app">
+<span class="sig-name descname"><span class="pre">app</span></span><a class="headerlink" href="#gui.ui.tab_settings.TabSettings.app" title="Link to this definition"></a></dt>
+<dd><p>Qt application instance used for theme changes and global styling.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QApplication</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_settings.TabSettings.settings">
+<span class="sig-name descname"><span class="pre">settings</span></span><a class="headerlink" href="#gui.ui.tab_settings.TabSettings.settings" title="Link to this definition"></a></dt>
+<dd><p>Shared application settings dictionary (loaded and persisted via ConfigManager).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_settings.TabSettings.verse_path">
+<span class="sig-name descname"><span class="pre">verse_path</span></span><a class="headerlink" href="#gui.ui.tab_settings.TabSettings.verse_path" title="Link to this definition"></a></dt>
+<dd><p>Path to the verse output file used by polling/overlay logic.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_settings.TabSettings.poll_timer">
+<span class="sig-name descname"><span class="pre">poll_timer</span></span><a class="headerlink" href="#gui.ui.tab_settings.TabSettings.poll_timer" title="Link to this definition"></a></dt>
+<dd><p>Timer that periodically triggers polling of the verse output file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QTimer</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_settings.TabSettings.get_main_geometry">
+<span class="sig-name descname"><span class="pre">get_main_geometry</span></span><a class="reference internal" href="_modules/gui/ui/tab_settings.html#TabSettings.get_main_geometry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_settings.TabSettings.get_main_geometry" title="Link to this definition"></a></dt>
+<dd><p>Callback returning the main window geometry
+used to determine which screen is the “main” display.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Callable[[], QRect]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_settings.TabSettings.refresh_settings_callback">
+<span class="sig-name descname"><span class="pre">refresh_settings_callback</span></span><a class="headerlink" href="#gui.ui.tab_settings.TabSettings.refresh_settings_callback" title="Link to this definition"></a></dt>
+<dd><p>Callback invoked when settings should be refreshed
+outside of this tab.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Callable[[], None]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_settings.TabSettings.get_poll_enabled">
+<span class="sig-name descname"><span class="pre">get_poll_enabled</span></span><a class="headerlink" href="#gui.ui.tab_settings.TabSettings.get_poll_enabled" title="Link to this definition"></a></dt>
+<dd><p>Callback returning whether polling is enabled externally.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Callable[[], bool]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_settings.TabSettings.overlay">
+<span class="sig-name descname"><span class="pre">overlay</span></span><a class="headerlink" href="#gui.ui.tab_settings.TabSettings.overlay" title="Link to this definition"></a></dt>
+<dd><p>Active overlay window instance when enabled; otherwise None.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QWidget | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_settings.TabSettings.overlay_denied">
+<span class="sig-name descname"><span class="pre">overlay_denied</span></span><a class="headerlink" href="#gui.ui.tab_settings.TabSettings.overlay_denied" title="Link to this definition"></a></dt>
+<dd><p>Flag indicating the user denied overlay usage on single-display setups.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_settings.TabSettings.logic">
+<span class="sig-name descname"><span class="pre">logic</span></span><a class="headerlink" href="#gui.ui.tab_settings.TabSettings.logic" title="Link to this definition"></a></dt>
+<dd><p>Backend logic handler for applying UI-driven settings changes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="gui.ui.tab_settings_logic.html#gui.ui.tab_settings_logic.TabSettingsLogic" title="gui.ui.tab_settings_logic.TabSettingsLogic">TabSettingsLogic</a></p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.tab_settings.TabSettings.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">settings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">get_poll_enabled_callback</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">get_main_geometry</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refresh_settings_callback</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_settings.html#TabSettings.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_settings.TabSettings.__init__" title="Link to this definition"></a></dt>
-<dd><p>Initializes the settings tab with provided context.</p>
+<dd><p>Initialize the settings tab with application context and user settings.</p>
+<p>This sets up the polling timer, installs optional callbacks, initializes the
+logic backend, and builds the UI.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>app</strong> (<em>QApplication</em>) – QApplication instance</p></li>
-<li><p><strong>settings</strong> (<em>dict</em>) – Shared settings dictionary</p></li>
-<li><p><strong>tr</strong> (<em>Callable</em><em>[</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>]</em>) – Translation function</p></li>
-<li><p><strong>get_poll_enabled_callback</strong> (<em>Callable</em><em> or </em><em>None</em>) – Optional polling state checker</p></li>
+<li><p><strong>app</strong> (<em>QApplication</em>) – QApplication instance.</p></li>
+<li><p><strong>settings</strong> (<em>dict</em>) – Shared settings dictionary.</p></li>
+<li><p><strong>tr</strong> (<em>Callable</em><em>[</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>]</em>) – Translation function for UI labels.</p></li>
+<li><p><strong>get_poll_enabled_callback</strong> (<em>Callable</em><em>[</em><em>[</em><em>]</em><em>, </em><em>bool</em><em>] </em><em>| </em><em>None</em>) – Optional callback that returns
+whether polling is enabled externally.</p></li>
+<li><p><strong>get_main_geometry</strong> (<em>Callable</em><em>[</em><em>[</em><em>]</em><em>, </em><em>QRect</em><em>] </em><em>| </em><em>None</em>) – Optional callback that returns the main
+window geometry used for screen selection logic.</p></li>
+<li><p><strong>refresh_settings_callback</strong> (<em>Callable</em><em>[</em><em>[</em><em>]</em><em>, </em><em>None</em><em>] </em><em>| </em><em>None</em>) – Optional callback invoked when
+settings should be refreshed outside this tab.</p></li>
 </ul>
 </dd>
 </dl>
@@ -156,10 +290,12 @@ overlay display configuration, file output path, and polling mechanism.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.tab_settings.TabSettings.change_language">
 <span class="sig-name descname"><span class="pre">change_language</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lang_code</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_settings.html#TabSettings.change_language"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_settings.TabSettings.change_language" title="Link to this definition"></a></dt>
-<dd><p>Updates all labels and buttons to reflect a new language setting.</p>
+<dd><p>Update all labels and buttons to reflect a new language setting.</p>
+<p>This updates visible UI text, persists the selected language in settings,
+and writes the change through ConfigManager.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>lang_code</strong> (<em>str</em>) – Language code (e.g. ‘ko’, ‘en’)</p>
+<dd class="field-odd"><p><strong>lang_code</strong> (<em>str</em>) – Language code (e.g., “ko”, “en”).</p>
 </dd>
 </dl>
 </dd></dl>
@@ -167,85 +303,133 @@ overlay display configuration, file output path, and polling mechanism.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.tab_settings.TabSettings.apply_dynamic_settings">
 <span class="sig-name descname"><span class="pre">apply_dynamic_settings</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_settings.html#TabSettings.apply_dynamic_settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_settings.TabSettings.apply_dynamic_settings" title="Link to this definition"></a></dt>
-<dd><p>Applies all dynamic settings through logic module.</p>
+<dd><p>Apply all dynamic settings through the logic module.</p>
+<p>This delegates to TabSettingsLogic to apply the current UI selections to the
+application and persisted settings.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.tab_settings.TabSettings.apply_font_to_children">
 <span class="sig-name descname"><span class="pre">apply_font_to_children</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">widget</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_settings.html#TabSettings.apply_font_to_children"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_settings.TabSettings.apply_font_to_children" title="Link to this definition"></a></dt>
-<dd><p>Applies font to all child widgets recursively.</p>
+<dd><p>Apply a font to child widgets recursively.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>widget</strong> (<em>QWidget</em>) – Root widget whose children should receive the font.</p></li>
+<li><p><strong>font</strong> (<em>QFont</em>) – Font to apply.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.tab_settings.TabSettings.select_text_color">
 <span class="sig-name descname"><span class="pre">select_text_color</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_settings.html#TabSettings.select_text_color"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_settings.TabSettings.select_text_color" title="Link to this definition"></a></dt>
-<dd><p>Opens color dialog to select text color.</p>
+<dd><p>Open a color picker dialog to select the display text color.</p>
+<p>This delegates to TabSettingsLogic, which updates both UI previews and persisted settings.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.tab_settings.TabSettings.select_bg_color">
 <span class="sig-name descname"><span class="pre">select_bg_color</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_settings.html#TabSettings.select_bg_color"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_settings.TabSettings.select_bg_color" title="Link to this definition"></a></dt>
-<dd><p>Opens color dialog to select background color.</p>
+<dd><p>Open a color picker dialog to select the display background color.</p>
+<p>This delegates to TabSettingsLogic, which updates both UI previews and persisted settings.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.tab_settings.TabSettings.select_output_path">
 <span class="sig-name descname"><span class="pre">select_output_path</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_settings.html#TabSettings.select_output_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_settings.TabSettings.select_output_path" title="Link to this definition"></a></dt>
-<dd><p>Opens file browser to select output path.</p>
+<dd><p>Open a file browser dialog to select the verse output path.</p>
+<p>This delegates to TabSettingsLogic, which validates and stores the selected path.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.tab_settings.TabSettings.apply_polling_settings">
 <span class="sig-name descname"><span class="pre">apply_polling_settings</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_settings.html#TabSettings.apply_polling_settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_settings.TabSettings.apply_polling_settings" title="Link to this definition"></a></dt>
-<dd><p>Applies polling settings and restarts polling if enabled.</p>
+<dd><p>Apply polling settings and restart polling if enabled.</p>
+<p>This delegates to TabSettingsLogic to validate the polling interval, update settings,
+and start/stop the polling timer as needed.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.tab_settings.TabSettings.save_poll_interval">
 <span class="sig-name descname"><span class="pre">save_poll_interval</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_settings.html#TabSettings.save_poll_interval"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_settings.TabSettings.save_poll_interval" title="Link to this definition"></a></dt>
-<dd><p>Saves polling interval value from UI.</p>
+<dd><p>Save the polling interval value from the UI.</p>
+<p>This delegates to TabSettingsLogic, which validates the input and persists it.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.tab_settings.TabSettings.toggle_theme">
 <span class="sig-name descname"><span class="pre">toggle_theme</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_settings.html#TabSettings.toggle_theme"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_settings.TabSettings.toggle_theme" title="Link to this definition"></a></dt>
-<dd><p>Toggles between dark and light application themes.</p>
+<dd><p>Toggle between dark and light application themes.</p>
+<p>This flips the current theme state, applies the stylesheet accordingly, updates
+the settings dictionary, and persists the change via <a class="reference internal" href="gui.config.config_manager.html#gui.config.config_manager.ConfigManager" title="gui.config.config_manager.ConfigManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">gui.config.config_manager.ConfigManager</span></code></a>.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.tab_settings.TabSettings.toggle_overlay">
 <span class="sig-name descname"><span class="pre">toggle_overlay</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_settings.html#TabSettings.toggle_overlay"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_settings.TabSettings.toggle_overlay" title="Link to this definition"></a></dt>
-<dd><p>Turns the overlay display on or off based on its current state.
-Uses screen geometry logic to determine placement.</p>
+<dd><p>Toggle the overlay display on or off.</p>
+<p>When enabling, this determines the target screen geometry based on the current
+overlay mode (fullscreen vs resizable), screen count, and the main window
+geometry. When disabling, it closes the active overlay window.</p>
+<p>This method also respects a user-denial flag for single-display setups.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>In fullscreen mode, the overlay prefers a secondary monitor if available.</p></li>
+<li><p>In resizable mode, the overlay uses the user-selected display index.</p></li>
+</ul>
+</div>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="gui.ui.tab_settings.TabSettings.get_main_geometry">
-<span class="sig-name descname"><span class="pre">get_main_geometry</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_settings.html#TabSettings.get_main_geometry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_settings.TabSettings.get_main_geometry" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">get_main_geometry</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_settings.html#TabSettings.get_main_geometry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id0" title="Link to this definition"></a></dt>
+<dd><p>Return the main window geometry.</p>
+<p>This is a stub fallback used when no external callback is injected. Call sites
+should inject a real geometry provider so overlay placement logic can determine
+the primary screen reliably.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Geometry of the main window (fallback is a zero rect).</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>QRect</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.tab_settings.TabSettings.populate_displays">
 <span class="sig-name descname"><span class="pre">populate_displays</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_settings.html#TabSettings.populate_displays"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_settings.TabSettings.populate_displays" title="Link to this definition"></a></dt>
-<dd><p>Fills the display dropdown with screen descriptions.</p>
+<dd><p>Populate the display dropdown with available screen descriptions.</p>
+<p>This clears the display combo box and fills it with human-readable display names.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.tab_settings.TabSettings.ensure_overlay_on">
 <span class="sig-name descname"><span class="pre">ensure_overlay_on</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_settings.html#TabSettings.ensure_overlay_on"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_settings.TabSettings.ensure_overlay_on" title="Link to this definition"></a></dt>
-<dd><p>Ensures the overlay is visible, enabling it if necessary.</p>
+<dd><p>Ensure the overlay window is visible, enabling it if necessary.</p>
+<p>If overlay usage was previously denied by the user, this does nothing.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.tab_settings.TabSettings.poll_file">
 <span class="sig-name descname"><span class="pre">poll_file</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_settings.html#TabSettings.poll_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_settings.TabSettings.poll_file" title="Link to this definition"></a></dt>
-<dd><p>Periodically checks the verse output file and controls overlay visibility.</p>
+<dd><p>Poll the verse output file and control overlay visibility.</p>
+<p>If polling is disabled, any active overlay is closed. If polling is enabled,
+the overlay is shown when the verse output file indicates content should be
+displayed, and hidden when the output is empty.</p>
+<p>This method is intended to be called periodically by poll_timer.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.tab_settings.TabSettings.update_presentation_visibility">
 <span class="sig-name descname"><span class="pre">update_presentation_visibility</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_settings.html#TabSettings.update_presentation_visibility"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_settings.TabSettings.update_presentation_visibility" title="Link to this definition"></a></dt>
-<dd><p>Shows or hides the overlay configuration group based on polling or always-show setting.</p>
+<dd><p>Update visibility of the overlay configuration group.</p>
+<p>Visibility is determined by the effective polling state, defined as:
+polling enabled OR the “always show on/off buttons” setting enabled.</p>
 </dd></dl>
 
 </dd></dl>

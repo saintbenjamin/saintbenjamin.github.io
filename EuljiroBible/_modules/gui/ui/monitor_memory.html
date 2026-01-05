@@ -79,8 +79,21 @@
 <span class="sd">:E-mail: euljirochurch [at] G.M.A.I.L. (replace [at] with @ and G.M.A.I.L as you understood.)</span>
 <span class="sd">:License: MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</span>
 
-<span class="sd">Popup window to monitor current memory usage periodically.</span>
-<span class="sd">Logs to file and provides GUI interface for checking memory in real time.</span>
+<span class="sd">Popup window for monitoring the current Python process memory usage.</span>
+
+<span class="sd">This module provides a lightweight GUI tool that periodically measures the</span>
+<span class="sd">resident set size (RSS) of the running process, appends the record to a log file,</span>
+<span class="sd">and displays the latest values in real time.</span>
+
+<span class="sd">Key behaviors:</span>
+
+<span class="sd">- Memory is sampled at a user-configurable interval (seconds).</span>
+<span class="sd">- Each sample is appended to ``paths.MEMORY_LOG_FILE`` (typically ``memory_log.txt``).</span>
+<span class="sd">- Entries exceeding a fixed warning threshold (currently 400 MB) are highlighted in the UI and marked as warnings in the log output.</span>
+
+<span class="sd">Note:</span>
+<span class="sd">- This tool is intended for runtime debugging and stability monitoring.</span>
+<span class="sd">- The monitor does not attempt to manage or reduce memory; it only reports.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">psutil</span><span class="o">,</span><span class="w"> </span><span class="nn">os</span>
@@ -93,24 +106,51 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">core.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">paths</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">gui.config.config_manager</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConfigManager</span>
 
-
 <div class="viewcode-block" id="MonitorMemory">
 <a class="viewcode-back" href="../../../gui.ui.monitor_memory.html#gui.ui.monitor_memory.MonitorMemory">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">MonitorMemory</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Popup QWidget that monitors and displays Python process memory usage.</span>
-<span class="sd">    Automatically logs to memory_log.txt and shows warnings when exceeding threshold.</span>
+<span class="sd">    Popup ``QWidget`` that monitors and displays the current process memory usage.</span>
+
+<span class="sd">    The widget periodically reads RSS memory usage using ``psutil`` and:</span>
+
+<span class="sd">    - Appends log lines to ``paths.MEMORY_LOG_FILE``.</span>
+<span class="sd">    - Displays the log in a read-only ``QTextEdit`` in real time.</span>
+<span class="sd">    - Highlights entries in red when the warning threshold is exceeded.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        interval_input (QLineEdit):</span>
+<span class="sd">            Text input containing the monitoring interval in seconds.</span>
+
+<span class="sd">        save_btn (QPushButton):</span>
+<span class="sd">            Button that saves the interval to settings and applies it immediately.</span>
+
+<span class="sd">        text_area (QTextEdit):</span>
+<span class="sd">            Read-only area showing the rolling log output (styled by warning level).</span>
+
+<span class="sd">        close_btn (QPushButton):</span>
+<span class="sd">            Button that stops monitoring and closes the window.</span>
+
+<span class="sd">        timer (QTimer):</span>
+<span class="sd">            Periodic timer that triggers memory sampling.</span>
+
+<span class="sd">        interval_sec (int):</span>
+<span class="sd">            Effective monitoring interval in seconds (clamped to at least 1).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="MonitorMemory.__init__">
 <a class="viewcode-back" href="../../../gui.ui.monitor_memory.html#gui.ui.monitor_memory.MonitorMemory.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">interval_sec</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Initializes the memory monitor widget and UI layout.</span>
+<span class="sd">        Initialize the memory monitor widget and build the UI.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            interval_sec (int): Monitoring interval in seconds.</span>
-<span class="sd">            parent (QWidget, optional): Parent window.</span>
+<span class="sd">            interval_sec (int):</span>
+<span class="sd">                Initial monitoring interval in seconds. Values less than 1 are clamped</span>
+<span class="sd">                to 1 when applied.</span>
+
+<span class="sd">            parent (QWidget, optional):</span>
+<span class="sd">                Optional parent widget.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s2">&quot;Memory Monitor&quot;</span><span class="p">)</span>
@@ -154,10 +194,13 @@
 <a class="viewcode-back" href="../../../gui.ui.monitor_memory.html#gui.ui.monitor_memory.MonitorMemory.set_interval">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">set_interval</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">interval_sec</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Sets the interval between memory checks.</span>
+<span class="sd">        Apply a new monitoring interval to the internal timer.</span>
+
+<span class="sd">        The value is clamped to at least 1 second.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            interval_sec (int): Interval in seconds.</span>
+<span class="sd">            interval_sec (int):</span>
+<span class="sd">                Interval in seconds.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">interval_sec</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">interval_sec</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">setInterval</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">interval_sec</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">)</span></div>
@@ -167,8 +210,18 @@
 <a class="viewcode-back" href="../../../gui.ui.monitor_memory.html#gui.ui.monitor_memory.MonitorMemory.save_interval">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">save_interval</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Saves the user-entered interval to the settings file and updates the timer.</span>
-<span class="sd">        Displays confirmation or error in the log area.</span>
+<span class="sd">        Save the user-entered interval to settings and apply it immediately.</span>
+
+<span class="sd">        Behavior:</span>
+
+<span class="sd">        - Reads the interval from ``self.interval_input``.</span>
+<span class="sd">        - Updates ``self.timer`` interval.</span>
+<span class="sd">        - Persists the value to settings under ``memory_interval_sec``.</span>
+<span class="sd">        - Writes an info/error message into ``self.text_area``.</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            - This method only validates that the input can be parsed as an integer.</span>
+<span class="sd">            - Non-integer input is treated as an error.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">interval</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">interval_input</span><span class="o">.</span><span class="n">text</span><span class="p">())</span>
@@ -187,8 +240,17 @@
 <a class="viewcode-back" href="../../../gui.ui.monitor_memory.html#gui.ui.monitor_memory.MonitorMemory.record_and_display_memory">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">record_and_display_memory</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Measures current memory usage, logs to file, and displays in UI.</span>
-<span class="sd">        Highlights warnings when memory exceeds 400MB.</span>
+<span class="sd">        Sample current RSS memory usage, append it to the log file, and render it in the UI.</span>
+
+<span class="sd">        Output format:</span>
+<span class="sd">            ``[&lt;timestamp&gt;] Memory: &lt;MB&gt; MB``</span>
+
+<span class="sd">        Warning behavior:</span>
+<span class="sd">            If the sampled memory exceeds a fixed threshold (currently 400 MB),</span>
+<span class="sd">            the log line is marked with ``[WARNING]`` and colored red in the UI.</span>
+
+<span class="sd">        Failures:</span>
+<span class="sd">            Any unexpected exception is appended to the UI output area as plain text.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">process</span> <span class="o">=</span> <span class="n">psutil</span><span class="o">.</span><span class="n">Process</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getpid</span><span class="p">())</span>
@@ -223,7 +285,7 @@
 <a class="viewcode-back" href="../../../gui.ui.monitor_memory.html#gui.ui.monitor_memory.MonitorMemory.close_monitor">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">close_monitor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Stops the timer and closes the widget.</span>
+<span class="sd">        Stop the monitoring timer and close the widget.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>

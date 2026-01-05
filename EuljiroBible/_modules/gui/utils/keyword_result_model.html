@@ -88,34 +88,52 @@
 <a class="viewcode-back" href="../../../gui.utils.keyword_result_model.html#gui.utils.keyword_result_model.KeywordResultTableModel">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">KeywordResultTableModel</span><span class="p">(</span><span class="n">QAbstractTableModel</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    QAbstractTableModel implementation for Bible keyword search results.</span>
+<span class="sd">    Table model for displaying Bible keyword search results.</span>
 
-<span class="sd">    This model provides three columns:</span>
-<span class="sd">    0. Row number</span>
-<span class="sd">    1. Book + chapter:verse (with localized alias)</span>
-<span class="sd">    2. Verse text</span>
+<span class="sd">    This QAbstractTableModel exposes a fixed 3-column table:</span>
+<span class="sd">        0) Row index number (1-based)</span>
+<span class="sd">        1) Localized reference string: &quot;&lt;Book&gt; &lt;chapter&gt;:&lt;verse&gt;&quot;</span>
+<span class="sd">        2) Verse text</span>
 
-<span class="sd">    :param results: List of verse dictionaries</span>
-<span class="sd">    :param bible_data: BibleDataLoader instance for resolving book aliases</span>
-<span class="sd">    :param current_language: Language code (e.g., &#39;ko&#39;, &#39;en&#39;) for localization</span>
-<span class="sd">    :param tr: Translation function</span>
+<span class="sd">    Attributes:</span>
+<span class="sd">        results (list[dict]): List of search result entries. Each entry is expected to</span>
+<span class="sd">            contain at least: &quot;book&quot;, &quot;chapter&quot;, &quot;verse&quot;, and &quot;text&quot;.</span>
+<span class="sd">        bible_data (BibleDataLoader): Data loader used to resolve localized/standard</span>
+<span class="sd">            book display names.</span>
+<span class="sd">        language (str): Active language code used for localization (e.g., &quot;ko&quot;, &quot;en&quot;).</span>
+<span class="sd">        tr (Callable[[str], str]): Translation function for header labels and UI text.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+<div class="viewcode-block" id="KeywordResultTableModel.__init__">
+<a class="viewcode-back" href="../../../gui.utils.keyword_result_model.html#gui.utils.keyword_result_model.KeywordResultTableModel.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">results</span><span class="p">,</span> <span class="n">bible_data</span><span class="p">,</span> <span class="n">current_language</span><span class="p">,</span> <span class="n">tr</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the model with results and localization helpers.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            results (list[dict] | None): Search results to display. If None, an empty list is used.</span>
+<span class="sd">            bible_data (BibleDataLoader): Bible data loader used for book-name localization.</span>
+<span class="sd">            current_language (str): Language code for localized book names (e.g., &quot;ko&quot;, &quot;en&quot;).</span>
+<span class="sd">            tr (Callable[[str], str]): Translation function for localized header strings.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">results</span> <span class="o">=</span> <span class="n">results</span> <span class="ow">or</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">bible_data</span> <span class="o">=</span> <span class="n">bible_data</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">language</span> <span class="o">=</span> <span class="n">current_language</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tr</span> <span class="o">=</span> <span class="n">tr</span> 
+        <span class="bp">self</span><span class="o">.</span><span class="n">tr</span> <span class="o">=</span> <span class="n">tr</span> </div>
+
 
 <div class="viewcode-block" id="KeywordResultTableModel.rowCount">
 <a class="viewcode-back" href="../../../gui.utils.keyword_result_model.html#gui.utils.keyword_result_model.KeywordResultTableModel.rowCount">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">rowCount</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="n">QModelIndex</span><span class="p">()):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns the number of rows in the model.</span>
+<span class="sd">        Return the number of rows in the table.</span>
 
-<span class="sd">        :param parent: QModelIndex (not used)</span>
-<span class="sd">        :return: Row count</span>
+<span class="sd">        Args:</span>
+<span class="sd">            parent (QModelIndex): Unused Qt parent index.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            int: Number of result rows.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">)</span></div>
 
@@ -124,15 +142,18 @@
 <a class="viewcode-back" href="../../../gui.utils.keyword_result_model.html#gui.utils.keyword_result_model.KeywordResultTableModel.columnCount">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">columnCount</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="n">QModelIndex</span><span class="p">()):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns the number of columns in the model.</span>
+<span class="sd">        Return the number of columns in the table.</span>
 
-<span class="sd">        Columns:</span>
-<span class="sd">        0 - Index number</span>
-<span class="sd">        1 - Reference (book + chapter:verse)</span>
-<span class="sd">        2 - Verse text</span>
+<span class="sd">        The model always returns 3 columns:</span>
+<span class="sd">            0 - Row index number</span>
+<span class="sd">            1 - Reference (localized book + chapter:verse)</span>
+<span class="sd">            2 - Verse text</span>
 
-<span class="sd">        :param parent: QModelIndex (not used)</span>
-<span class="sd">        :return: Column count (always 3)</span>
+<span class="sd">        Args:</span>
+<span class="sd">            parent (QModelIndex): Unused Qt parent index.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            int: Always 3.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="mi">3</span></div>
 
@@ -141,11 +162,16 @@
 <a class="viewcode-back" href="../../../gui.utils.keyword_result_model.html#gui.utils.keyword_result_model.KeywordResultTableModel.data">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">role</span><span class="o">=</span><span class="n">Qt</span><span class="o">.</span><span class="n">DisplayRole</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns the data for a given cell in the model.</span>
+<span class="sd">        Return cell data for the given index and role.</span>
 
-<span class="sd">        :param index: QModelIndex specifying row and column</span>
-<span class="sd">        :param role: Qt item role (only DisplayRole is handled)</span>
-<span class="sd">        :return: Display string for the given index</span>
+<span class="sd">        Only Qt.DisplayRole is handled. Other roles return None.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            index (QModelIndex): Model index indicating the target cell.</span>
+<span class="sd">            role (int): Qt item data role.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str | None: Display string for the cell, or None if not applicable.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">index</span><span class="o">.</span><span class="n">isValid</span><span class="p">():</span>
             <span class="k">return</span> <span class="kc">None</span>
@@ -169,12 +195,17 @@
 <a class="viewcode-back" href="../../../gui.utils.keyword_result_model.html#gui.utils.keyword_result_model.KeywordResultTableModel.headerData">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">headerData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">,</span> <span class="n">orientation</span><span class="p">,</span> <span class="n">role</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns the header labels for columns.</span>
+<span class="sd">        Return header labels for the table.</span>
 
-<span class="sd">        :param section: Column index</span>
-<span class="sd">        :param orientation: Qt.Horizontal or Qt.Vertical</span>
-<span class="sd">        :param role: Qt item role</span>
-<span class="sd">        :return: Header label string or None</span>
+<span class="sd">        Only Qt.DisplayRole with Qt.Horizontal orientation is handled.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            section (int): Column index.</span>
+<span class="sd">            orientation (Qt.Orientation): Header orientation.</span>
+<span class="sd">            role (int): Qt item data role.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str | None: Header label for the given column, or None if not applicable.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">role</span> <span class="o">==</span> <span class="n">Qt</span><span class="o">.</span><span class="n">DisplayRole</span> <span class="ow">and</span> <span class="n">orientation</span> <span class="o">==</span> <span class="n">Qt</span><span class="o">.</span><span class="n">Horizontal</span><span class="p">:</span>
             <span class="k">return</span> <span class="p">[</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;search_location&quot;</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;search_verse&quot;</span><span class="p">)][</span><span class="n">section</span><span class="p">]</span>

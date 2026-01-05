@@ -90,31 +90,35 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">gui.ui.common</span><span class="w"> </span><span class="kn">import</span> <span class="n">create_checkbox</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">gui.utils.logger</span><span class="w"> </span><span class="kn">import</span> <span class="n">log_error_with_dialog</span>
 
-
 <div class="viewcode-block" id="TabVerseSelectionManager">
 <a class="viewcode-back" href="../../../gui.ui.tab_verse_selection_manager.html#gui.ui.tab_verse_selection_manager.TabVerseSelectionManager">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">TabVerseSelectionManager</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Manages the logic for updating version checkboxes, summary label,</span>
-<span class="sd">    and dropdowns for book and chapter selection in the TabVerse UI.</span>
+<span class="sd">    Selection and dropdown manager for the TabVerse UI.</span>
 
-<span class="sd">    :param bible_data: Instance of BibleDataLoader</span>
-<span class="sd">    :type bible_data: BibleDataLoader</span>
-<span class="sd">    :param version_helper: Helper for version selection and validation</span>
-<span class="sd">    :type version_helper: VerseVersionHelper</span>
-<span class="sd">    :param tr_func: Translation function (usually `self.tr`)</span>
-<span class="sd">    :type tr_func: Callable[[str], str]</span>
+<span class="sd">    This class manages version checkbox layout and selection state, the version</span>
+<span class="sd">    summary label, and the book/chapter dropdown behavior for the verse tab. It</span>
+<span class="sd">    coordinates with VerseVersionHelper to validate version selections and compute</span>
+<span class="sd">    the set of common books available across selected versions.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        bible_data (BibleDataLoader): Bible data loader instance used to resolve</span>
+<span class="sd">            standard book names and verse structures.</span>
+<span class="sd">        version_helper (VerseVersionHelper): Helper used to read selected versions,</span>
+<span class="sd">            validate selections, and compute common books.</span>
+<span class="sd">        tr (Callable[[str], str]): Translation function used for localized UI messages.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="TabVerseSelectionManager.__init__">
 <a class="viewcode-back" href="../../../gui.ui.tab_verse_selection_manager.html#gui.ui.tab_verse_selection_manager.TabVerseSelectionManager.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bible_data</span><span class="p">,</span> <span class="n">version_helper</span><span class="p">,</span> <span class="n">tr_func</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Initialize the manager with data and helpers.</span>
+<span class="sd">        Initialize the selection manager with Bible data and helper dependencies.</span>
 
-<span class="sd">        :param bible_data: Bible data loader</span>
-<span class="sd">        :param version_helper: Instance for managing selected versions</span>
-<span class="sd">        :param tr_func: Translation function</span>
+<span class="sd">        Args:</span>
+<span class="sd">            bible_data (BibleDataLoader): Bible data loader instance.</span>
+<span class="sd">            version_helper (VerseVersionHelper): Helper used to manage selected versions.</span>
+<span class="sd">            tr_func (Callable[[str], str]): Translation function for localized UI strings.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">bible_data</span> <span class="o">=</span> <span class="n">bible_data</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">version_helper</span> <span class="o">=</span> <span class="n">version_helper</span>
@@ -125,13 +129,17 @@
 <a class="viewcode-back" href="../../../gui.ui.tab_verse_selection_manager.html#gui.ui.tab_verse_selection_manager.TabVerseSelectionManager.create_version_checkbox">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">create_version_checkbox</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">version_name</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Creates a checkbox for a given Bible version.</span>
+<span class="sd">        Create a version selection checkbox for a given Bible version.</span>
 
-<span class="sd">        :param parent: Parent widget with access to bible_data and update method</span>
-<span class="sd">        :param version_name: Full name of the version</span>
-<span class="sd">        :type version_name: str</span>
-<span class="sd">        :return: Configured QCheckBox</span>
-<span class="sd">        :rtype: QCheckBox</span>
+<span class="sd">        The checkbox label uses the GUI alias mapping when available, while the</span>
+<span class="sd">        underlying version key is stored on the widget as `version_key`.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            parent (QWidget): Parent UI instance used to access bible_data and update callbacks.</span>
+<span class="sd">            version_name (str): Full version identifier.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            QCheckBox: Configured checkbox instance.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">label</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">bible_data</span><span class="o">.</span><span class="n">aliases_version</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">version_name</span><span class="p">,</span> <span class="n">version_name</span><span class="p">)</span>
         <span class="n">checkbox</span> <span class="o">=</span> <span class="n">create_checkbox</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="k">lambda</span> <span class="n">_</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">update_version_summary</span><span class="p">(</span><span class="n">parent</span><span class="p">))</span>
@@ -145,9 +153,14 @@
 <a class="viewcode-back" href="../../../gui.ui.tab_verse_selection_manager.html#gui.ui.tab_verse_selection_manager.TabVerseSelectionManager.update_grid_layout">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">update_grid_layout</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Updates the layout grid for version checkboxes based on platform-specific width.</span>
+<span class="sd">        Reflow the version checkbox grid layout based on the current viewport width.</span>
 
-<span class="sd">        :param parent: Parent widget with scroll and layout references</span>
+<span class="sd">        This recomputes the number of columns from the available width and places</span>
+<span class="sd">        checkboxes into the grid accordingly. Platform-specific width ratios are used</span>
+<span class="sd">        to account for rendering/scrollbar differences.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            parent (QWidget): TabVerse instance containing the version scroll area and grid layout.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">width</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">version_scroll</span><span class="o">.</span><span class="n">viewport</span><span class="p">()</span><span class="o">.</span><span class="n">width</span><span class="p">()</span>
 
@@ -169,9 +182,14 @@
 <a class="viewcode-back" href="../../../gui.ui.tab_verse_selection_manager.html#gui.ui.tab_verse_selection_manager.TabVerseSelectionManager.update_version_summary">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">update_version_summary</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Updates the label summarizing selected versions and repopulates book dropdown.</span>
+<span class="sd">        Update the selected-version summary label and refresh dependent dropdowns.</span>
 
-<span class="sd">        :param parent: TabVerse instance with summary label and dropdown widgets</span>
+<span class="sd">        If no versions are selected, this clears book/chapter/verse inputs and shows a</span>
+<span class="sd">        warning dialog. Otherwise, it updates the summary label (alias vs full name)</span>
+<span class="sd">        and refreshes the book dropdown to reflect books common to all selected versions.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            parent (QWidget): TabVerse instance containing summary label and dropdown widgets.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="s2">&quot;initializing&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
             <span class="k">return</span>
@@ -214,11 +232,13 @@
 <a class="viewcode-back" href="../../../gui.ui.tab_verse_selection_manager.html#gui.ui.tab_verse_selection_manager.TabVerseSelectionManager.populate_book_dropdown">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">populate_book_dropdown</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">lang_code</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Populates the book dropdown with all standard books.</span>
+<span class="sd">        Populate the book dropdown with the full standard book list.</span>
 
-<span class="sd">        :param parent: TabVerse instance with combo box</span>
-<span class="sd">        :param lang_code: Language code (&#39;ko&#39; or &#39;en&#39;)</span>
-<span class="sd">        :type lang_code: str | None</span>
+<span class="sd">        This is used to initialize the book dropdown independent of version filtering.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            parent (QWidget): TabVerse instance containing the book combo box.</span>
+<span class="sd">            lang_code (str | None): Language code used for display names (default: &quot;ko&quot;).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">lang_code</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">lang_code</span> <span class="o">=</span> <span class="s2">&quot;ko&quot;</span>
@@ -238,10 +258,16 @@
 <a class="viewcode-back" href="../../../gui.ui.tab_verse_selection_manager.html#gui.ui.tab_verse_selection_manager.TabVerseSelectionManager.update_book_dropdown">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">update_book_dropdown</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">lang_code</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Updates the book dropdown to show only those available in all selected versions.</span>
+<span class="sd">        Update the book dropdown to include only books common to all selected versions.</span>
 
-<span class="sd">        :param parent: TabVerse instance with input fields and book combo box</span>
-<span class="sd">        :param lang_code: Language code (&#39;ko&#39; or &#39;en&#39;)</span>
+<span class="sd">        This validates the selected versions, computes the intersection of supported</span>
+<span class="sd">        books, updates the dropdown entries accordingly, and attempts to restore any</span>
+<span class="sd">        previous book/chapter/verse selections when possible.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            parent (QWidget): TabVerse instance containing book/chapter/verse input widgets.</span>
+<span class="sd">            lang_code (str | None): Language code used for display names. If not provided,</span>
+<span class="sd">                it is inferred from the current translation context.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="s2">&quot;initializing&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
             <span class="k">return</span>
@@ -319,9 +345,14 @@
 <a class="viewcode-back" href="../../../gui.ui.tab_verse_selection_manager.html#gui.ui.tab_verse_selection_manager.TabVerseSelectionManager.update_chapter_dropdown">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">update_chapter_dropdown</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Updates the chapter dropdown to reflect the selected book and version.</span>
+<span class="sd">        Update the chapter dropdown for the currently selected book.</span>
 
-<span class="sd">        :param parent: TabVerse instance with combo boxes and data access</span>
+<span class="sd">        This resolves the internal book key, reads available chapter indices from the</span>
+<span class="sd">        selected version&#39;s verse structure, and fills the chapter combo box with a</span>
+<span class="sd">        1..max range.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            parent (QWidget): TabVerse instance containing the book and chapter widgets.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">selected_versions</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">version_helper</span><span class="o">.</span><span class="n">get_selected_versions</span><span class="p">()</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">selected_versions</span><span class="p">:</span>

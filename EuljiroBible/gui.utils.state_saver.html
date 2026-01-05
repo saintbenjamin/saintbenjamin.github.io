@@ -134,15 +134,28 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="gui.utils.state_saver.save_settings_from_ui">
 <span class="sig-prename descclassname"><span class="pre">gui.utils.state_saver.</span></span><span class="sig-name descname"><span class="pre">save_settings_from_ui</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tab_verse</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/state_saver.html#save_settings_from_ui"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.state_saver.save_settings_from_ui" title="Link to this definition"></a></dt>
-<dd><p>Saves UI state settings into the settings.json file.</p>
-<p>Captures font settings, last selected versions, last book/chapter/verse,
-and dark mode status from the UI and persists them.</p>
+<dd><p>Persist relevant UI state into the application settings.</p>
+<p>This function extracts user-facing state from the running UI and writes it
+to the settings store via ConfigManager. It is typically called on application
+shutdown to ensure that the next launch restores the most recent context.</p>
+<p>The following information is captured:</p>
+<ul class="simple">
+<li><p>Application-wide font family, size, and weight</p></li>
+<li><p>Last selected Bible versions</p></li>
+<li><p>Last selected book, chapter, and verse</p></li>
+<li><p>Current dark mode state</p></li>
+</ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>app</strong> (<em>QApplication</em>) – The main application instance.</p></li>
-<li><p><strong>tab_verse</strong> (<a class="reference internal" href="gui.ui.tab_verse.html#gui.ui.tab_verse.TabVerse" title="gui.ui.tab_verse.TabVerse"><em>TabVerse</em></a>) – The verse tab widget containing the UI state.</p></li>
+<li><p><strong>app</strong> (<em>QApplication</em>) – Active QApplication instance used to query global font
+and theme (dark mode) state.</p></li>
+<li><p><strong>tab_verse</strong> (<a class="reference internal" href="gui.ui.tab_verse.html#gui.ui.tab_verse.TabVerse" title="gui.ui.tab_verse.TabVerse"><em>TabVerse</em></a>) – Verse tab instance providing access to the current
+book/chapter/verse selection and version helper.</p></li>
 </ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>

@@ -130,22 +130,72 @@
 <dd class="field-odd"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
 </dd>
 </dl>
-<p>Provides logic for verse display, saving, and verse shifting for the TabVerse UI.</p>
+<p>Provides logic for verse display, saving, and verse shifting for the <a class="reference internal" href="gui.ui.tab_verse.html#gui.ui.tab_verse.TabVerse" title="gui.ui.tab_verse.TabVerse"><code class="xref py py-class docutils literal notranslate"><span class="pre">gui.ui.tab_verse.TabVerse</span></code></a> UI.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="gui.ui.tab_verse_logic.TabVerseLogic">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gui.ui.tab_verse_logic.</span></span><span class="sig-name descname"><span class="pre">TabVerseLogic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bible_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tr_func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">settings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_language</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_verse_logic.html#TabVerseLogic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_verse_logic.TabVerseLogic" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Contains logic to handle displaying, saving, and navigating Bible verses in the UI.</p>
+<p>Backend logic for displaying, exporting, and navigating Bible verses.</p>
+<p>This class provides the non-UI operations used by the TabVerse GUI tab. It
+delegates complex formatting and parsing to shared logic functions while
+holding the dependencies required for verse retrieval, localization, and
+output persistence.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_verse_logic.TabVerseLogic.bible_data">
+<span class="sig-name descname"><span class="pre">bible_data</span></span><a class="headerlink" href="#gui.ui.tab_verse_logic.TabVerseLogic.bible_data" title="Link to this definition"></a></dt>
+<dd><p>Bible data loader instance used to access verse content.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>bible_data</strong> (<a class="reference internal" href="core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader" title="core.utils.bible_data_loader.BibleDataLoader"><em>BibleDataLoader</em></a>) – Instance of BibleDataLoader containing Bible content</p></li>
-<li><p><strong>tr_func</strong> (<em>Callable</em><em>[</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>]</em>) – Translation function used for localized UI messages</p></li>
-<li><p><strong>settings</strong> (<em>dict</em>) – Configuration settings for verse output</p></li>
-<li><p><strong>current_language</strong> (<em>str</em>) – Active language code (e.g., ‘en’, ‘ko’)</p></li>
-</ul>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader" title="core.utils.bible_data_loader.BibleDataLoader">BibleDataLoader</a></p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_verse_logic.TabVerseLogic.tr">
+<span class="sig-name descname"><span class="pre">tr</span></span><a class="headerlink" href="#gui.ui.tab_verse_logic.TabVerseLogic.tr" title="Link to this definition"></a></dt>
+<dd><p>Translation function used for localized UI messages.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Callable[[str], str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_verse_logic.TabVerseLogic.settings">
+<span class="sig-name descname"><span class="pre">settings</span></span><a class="headerlink" href="#gui.ui.tab_verse_logic.TabVerseLogic.settings" title="Link to this definition"></a></dt>
+<dd><p>Application settings dictionary used for output persistence.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_verse_logic.TabVerseLogic.current_language">
+<span class="sig-name descname"><span class="pre">current_language</span></span><a class="headerlink" href="#gui.ui.tab_verse_logic.TabVerseLogic.current_language" title="Link to this definition"></a></dt>
+<dd><p>Active UI language code (e.g., “ko”, “en”).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_verse_logic.TabVerseLogic.delta">
+<span class="sig-name descname"><span class="pre">delta</span></span><a class="headerlink" href="#gui.ui.tab_verse_logic.TabVerseLogic.delta" title="Link to this definition"></a></dt>
+<dd><p>Verse navigation direction used by shift_verse
+(+1 for next, -1 for previous). This is set externally by the UI layer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.tab_verse_logic.TabVerseLogic.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bible_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tr_func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">settings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_language</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_verse_logic.html#TabVerseLogic.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_verse_logic.TabVerseLogic.__init__" title="Link to this definition"></a></dt>
@@ -153,10 +203,10 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>bible_data</strong> – Bible data instance</p></li>
-<li><p><strong>tr_func</strong> – Translation function</p></li>
-<li><p><strong>settings</strong> – Application settings dictionary</p></li>
-<li><p><strong>current_language</strong> – Current UI language code</p></li>
+<li><p><strong>bible_data</strong> (<a class="reference internal" href="core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader" title="core.utils.bible_data_loader.BibleDataLoader"><em>BibleDataLoader</em></a>) – Bible data loader instance containing Bible content.</p></li>
+<li><p><strong>tr_func</strong> (<em>Callable</em><em>[</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>]</em>) – Translation function for localized UI strings.</p></li>
+<li><p><strong>settings</strong> (<em>dict</em>) – Application settings dictionary used for output.</p></li>
+<li><p><strong>current_language</strong> (<em>str</em>) – Current UI language code (e.g., “ko”, “en”).</p></li>
 </ul>
 </dd>
 </dl>
@@ -165,17 +215,22 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.tab_verse_logic.TabVerseLogic.display_verse">
 <span class="sig-name descname"><span class="pre">display_verse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ref_func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verse_input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">apply_output_text</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_verse_logic.html#TabVerseLogic.display_verse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_verse_logic.TabVerseLogic.display_verse" title="Link to this definition"></a></dt>
-<dd><p>Renders and returns a formatted Bible verse using internal display logic.</p>
+<dd><p>Render and return formatted verse text for the current UI reference.</p>
+<p>This delegates to the shared verse display implementation, injecting the
+current dependencies (bible_data, translation function, settings, language)
+and a callback for applying output to the UI.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>ref_func</strong> (<em>Callable</em>) – Function returning (versions, book, chapter, verse_range, warning)</p></li>
-<li><p><strong>verse_input</strong> (<em>QLineEdit</em>) – Input box containing the verse reference</p></li>
-<li><p><strong>apply_output_text</strong> (<em>Callable</em>) – Callback to apply rendered text to the UI</p></li>
+<li><p><strong>ref_func</strong> (<em>Callable</em><em>[</em><em>[</em><em>]</em><em>, </em><em>tuple</em><em>]</em>) – Callback returning the current resolved reference.
+Expected to return a tuple like:
+(versions, book, chapter, verse_range, warning).</p></li>
+<li><p><strong>verse_input</strong> (<em>QLineEdit</em>) – Verse input widget (used by the shared display logic).</p></li>
+<li><p><strong>apply_output_text</strong> (<em>Callable</em><em>[</em><em>[</em><em>str</em><em>]</em><em>, </em><em>None</em><em>]</em>) – Callback that applies rendered text to the UI.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Final rendered verse text, or None if failed</p>
+<dd class="field-even"><p>Rendered verse output, or None if display failed.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str | tuple | None</p>
@@ -186,13 +241,13 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.tab_verse_logic.TabVerseLogic.save_verse">
 <span class="sig-name descname"><span class="pre">save_verse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">formatted_verse_text</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_verse_logic.html#TabVerseLogic.save_verse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_verse_logic.TabVerseLogic.save_verse" title="Link to this definition"></a></dt>
-<dd><p>Saves the formatted verse to the configured output file.</p>
+<dd><p>Save formatted verse text to the configured output destination.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>formatted_verse_text</strong> (<em>str</em>) – Verse text to save</p>
+<dd class="field-odd"><p><strong>formatted_verse_text</strong> (<em>str</em>) – Verse text to save. If empty/None, an empty string is written.</p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>Exception</strong> – If saving fails</p>
+<dd class="field-even"><p><strong>Exception</strong> – If saving fails.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -200,19 +255,27 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.tab_verse_logic.TabVerseLogic.shift_verse">
 <span class="sig-name descname"><span class="pre">shift_verse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ref_func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verse_input_widget</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_verse_logic.html#TabVerseLogic.shift_verse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_verse_logic.TabVerseLogic.shift_verse" title="Link to this definition"></a></dt>
-<dd><p>Shifts to the previous or next verse depending on <cite>self.delta</cite>.</p>
+<dd><p>Shift the current verse number by self.delta and update the input widget.</p>
+<p>This validates that a single verse is selected (not a range), determines the
+maximum verse count for the chapter, computes the new verse number, and writes
+it back into the verse input widget.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>ref_func</strong> (<em>Callable</em>) – Function returning (versions, book, chapter, verse_range, warning)</p></li>
-<li><p><strong>verse_input_widget</strong> (<em>QLineEdit</em>) – The input widget to update with new verse</p></li>
+<li><p><strong>ref_func</strong> (<em>Callable</em><em>[</em><em>[</em><em>]</em><em>, </em><em>tuple</em><em>]</em>) – Callback returning the current resolved reference.
+Expected to return: (versions, book, chapter, verse_range, warning).</p></li>
+<li><p><strong>verse_input_widget</strong> (<em>QLineEdit</em>) – Verse input widget to update with the new verse number.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>New verse number or None if shifting is not possible</p>
+<dd class="field-even"><p>New verse number if shifting succeeds; otherwise None.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>int | None</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Exception</strong> – If reference data is invalid, the book/chapter cannot be resolved,
+    or shifting is not possible (e.g., verse range selected).</p>
 </dd>
 </dl>
 </dd></dl>

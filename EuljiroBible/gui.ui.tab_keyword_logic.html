@@ -130,22 +130,48 @@
 <dd class="field-odd"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
 </dd>
 </dl>
-<p>Handles the keyword search, result display, and verse saving logic for the TabKeyword UI.</p>
+<p>Handles the keyword search, result display, and verse saving logic for the <a class="reference internal" href="gui.ui.tab_keyword.html#gui.ui.tab_keyword.TabKeyword" title="gui.ui.tab_keyword.TabKeyword"><code class="xref py py-class docutils literal notranslate"><span class="pre">gui.ui.tab_keyword.TabKeyword</span></code></a> UI.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="gui.ui.tab_keyword_logic.TabKeywordLogic">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gui.ui.tab_keyword_logic.</span></span><span class="sig-name descname"><span class="pre">TabKeywordLogic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tr_func</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_keyword_logic.html#TabKeywordLogic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_keyword_logic.TabKeywordLogic" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Provides backend logic for keyword-based search, result formatting,
-and verse saving for the TabKeyword UI.</p>
+<p>Backend logic for keyword-based Bible search and verse export.</p>
+<p>This class implements the non-UI logic used by the TabKeyword GUI tab,
+including executing keyword searches, formatting results for display,
+and exporting a selected verse to the configured overlay output file.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_keyword_logic.TabKeywordLogic.settings">
+<span class="sig-name descname"><span class="pre">settings</span></span><a class="headerlink" href="#gui.ui.tab_keyword_logic.TabKeywordLogic.settings" title="Link to this definition"></a></dt>
+<dd><p>Application-level settings dictionary used for output paths
+and persistence behavior.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_keyword_logic.TabKeywordLogic.tr">
+<span class="sig-name descname"><span class="pre">tr</span></span><a class="headerlink" href="#gui.ui.tab_keyword_logic.TabKeywordLogic.tr" title="Link to this definition"></a></dt>
+<dd><p>Translation function used to render localized
+UI strings and message box text.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Callable[[str], str]</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.tab_keyword_logic.TabKeywordLogic.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tr_func</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_keyword_logic.html#TabKeywordLogic.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_keyword_logic.TabKeywordLogic.__init__" title="Link to this definition"></a></dt>
-<dd><p>Initializes the logic handler with settings and translation function.</p>
+<dd><p>Initialize the logic handler with settings and a translation function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>settings</strong> (<em>dict</em>) – Global application settings</p></li>
-<li><p><strong>tr_func</strong> (<em>Callable</em><em>[</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>]</em>) – Translation function for localized strings</p></li>
+<li><p><strong>settings</strong> (<em>dict</em>) – Global application settings.</p></li>
+<li><p><strong>tr_func</strong> (<em>Callable</em><em>[</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>]</em>) – Translation function for localized strings.</p></li>
 </ul>
 </dd>
 </dl>
@@ -154,10 +180,15 @@ and verse saving for the TabKeyword UI.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.tab_keyword_logic.TabKeywordLogic.run_search">
 <span class="sig-name descname"><span class="pre">run_search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_keyword_logic.html#TabKeywordLogic.run_search"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_keyword_logic.TabKeywordLogic.run_search" title="Link to this definition"></a></dt>
-<dd><p>Performs a keyword search and updates the result table and summary.</p>
+<dd><p>Run a keyword search and update the UI with results and summary.</p>
+<p>This reads the selected Bible version and keyword input from the parent UI,
+executes the search via BibleKeywordSearcher, and then updates the table and
+summary views through the parent’s update methods. User-facing warnings are
+shown when input is missing or no results are found.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>parent</strong> (<em>QWidget</em>) – The TabKeyword instance (UI context)</p>
+<dd class="field-odd"><p><strong>parent</strong> (<em>QWidget</em>) – The TabKeyword UI instance providing the search inputs
+and output widgets.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -165,10 +196,20 @@ and verse saving for the TabKeyword UI.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.tab_keyword_logic.TabKeywordLogic.save_selected_verse">
 <span class="sig-name descname"><span class="pre">save_selected_verse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_keyword_logic.html#TabKeywordLogic.save_selected_verse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_keyword_logic.TabKeywordLogic.save_selected_verse" title="Link to this definition"></a></dt>
-<dd><p>Saves the currently selected verse in the result table to verse_output.txt.</p>
+<dd><p>Save the currently selected verse from the result table to the overlay output.</p>
+<p>This extracts the selected reference from the result table, resolves/normalizes
+the book name, retrieves the verse text from the selected version, formats the
+output text, and writes it using the project’s output-saving helper.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>parent</strong> (<em>QWidget</em>) – The TabKeyword instance</p>
+<dd class="field-odd"><p><strong>parent</strong> (<em>QWidget</em>) – The TabKeyword UI instance providing table selection,
+Bible data access, language context, and settings.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>Exception</strong> – Any error raised by the output writer is caught and presented</p></li>
+<li><p><strong>to the user via a critical dialog.</strong> – </p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -176,10 +217,12 @@ and verse saving for the TabKeyword UI.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.tab_keyword_logic.TabKeywordLogic.clear_outputs">
 <span class="sig-name descname"><span class="pre">clear_outputs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_keyword_logic.html#TabKeywordLogic.clear_outputs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_keyword_logic.TabKeywordLogic.clear_outputs" title="Link to this definition"></a></dt>
-<dd><p>Clears the verse output file by writing an empty string.</p>
+<dd><p>Clear the verse output destination.</p>
+<p>This writes an empty string to the configured output path(s), effectively
+clearing any overlay text that is being polled or displayed.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>parent</strong> (<em>QWidget</em>) – TabKeyword instance</p>
+<dd class="field-odd"><p><strong>parent</strong> (<em>QWidget</em>) – The TabKeyword UI instance providing settings.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -187,12 +230,15 @@ and verse saving for the TabKeyword UI.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.tab_keyword_logic.TabKeywordLogic.update_table">
 <span class="sig-name descname"><span class="pre">update_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">results</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_keyword_logic.html#TabKeywordLogic.update_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_keyword_logic.TabKeywordLogic.update_table" title="Link to this definition"></a></dt>
-<dd><p>Sets the result table model and installs a keyword highlight delegate.</p>
+<dd><p>Update the result table model and install keyword highlighting.</p>
+<p>This constructs a KeywordResultTableModel from the search results, attaches it
+to the UI table, and applies a KeywordHighlightDelegate for visual emphasis of
+matched terms.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>parent</strong> (<em>QWidget</em>) – TabKeyword instance</p></li>
-<li><p><strong>results</strong> (<em>list</em><em>[</em><em>dict</em><em>]</em>) – List of verse entry dictionaries</p></li>
+<li><p><strong>parent</strong> (<em>QWidget</em>) – The TabKeyword UI instance containing the table widget.</p></li>
+<li><p><strong>results</strong> (<em>list</em><em>[</em><em>dict</em><em>]</em>) – List of verse entry dictionaries returned by the searcher.</p></li>
 </ul>
 </dd>
 </dl>
@@ -201,12 +247,12 @@ and verse saving for the TabKeyword UI.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.tab_keyword_logic.TabKeywordLogic.update_summary">
 <span class="sig-name descname"><span class="pre">update_summary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">counts</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_keyword_logic.html#TabKeywordLogic.update_summary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_keyword_logic.TabKeywordLogic.update_summary" title="Link to this definition"></a></dt>
-<dd><p>Updates the summary box with the count of each keyword found.</p>
+<dd><p>Update the summary box with per-keyword occurrence counts.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>parent</strong> (<em>QWidget</em>) – TabKeyword instance</p></li>
-<li><p><strong>counts</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>int</em><em>]</em>) – Dictionary mapping keyword → count</p></li>
+<li><p><strong>parent</strong> (<em>QWidget</em>) – The TabKeyword UI instance containing the summary widget.</p></li>
+<li><p><strong>counts</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>int</em><em>]</em>) – Mapping from keyword to occurrence count.</p></li>
 </ul>
 </dd>
 </dl>

@@ -119,18 +119,30 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="gui.launch.launch">
 <span class="sig-prename descclassname"><span class="pre">gui.launch.</span></span><span class="sig-name descname"><span class="pre">launch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">saved_versions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">settings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_version</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/launch.html#launch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.launch.launch" title="Link to this definition"></a></dt>
-<dd><p>Launches the EuljiroBible main window.</p>
+<dd><p>Launch and initialize the main EuljiroBible GUI window.</p>
+<p>This function performs the full startup sequence:</p>
+<ul class="simple">
+<li><p>Builds the full Bible version list for UI display.</p></li>
+<li><p>Lazily loads Bible data for the last-used version set.</p></li>
+<li><p>Applies platform-specific app icon.</p></li>
+<li><p>Applies theme (dark/light) based on user setting, with an auto fallback.</p></li>
+<li><p>Applies application-wide font settings.</p></li>
+<li><p>Creates and shows <a class="reference internal" href="gui.ui.window_main.html#gui.ui.window_main.WindowMain" title="gui.ui.window_main.WindowMain"><code class="xref py py-class docutils literal notranslate"><span class="pre">gui.ui.window_main.WindowMain</span></code></a>.</p></li>
+<li><p>Restores language and last UI state (versions, book/chapter/verse).</p></li>
+<li><p>Finalizes selection summary and persists the restored state.</p></li>
+</ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>app</strong> (<em>QApplication</em>) – Application instance.</p></li>
-<li><p><strong>saved_versions</strong> (<em>list</em>) – Previously selected Bible versions.</p></li>
-<li><p><strong>settings</strong> (<em>dict</em>) – Application settings.</p></li>
-<li><p><strong>app_version</strong> (<em>str</em>) – Current application version.</p></li>
+<li><p><strong>app</strong> (<em>QApplication</em>) – The running QApplication instance.</p></li>
+<li><p><strong>saved_versions</strong> (<em>list</em><em>[</em><em>str</em><em>] </em><em>| </em><em>None</em>) – Previously selected version identifiers (may be ignored if
+<cite>settings[“last_versions”]</cite> exists).</p></li>
+<li><p><strong>settings</strong> (<em>dict</em>) – Application settings dictionary loaded from disk.</p></li>
+<li><p><strong>app_version</strong> (<em>str</em>) – Application version string (for window title/about display).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The main application window instance.</p>
+<dd class="field-even"><p>The initialized main window instance.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference internal" href="gui.ui.window_main.html#gui.ui.window_main.WindowMain" title="gui.ui.window_main.WindowMain">WindowMain</a></p>

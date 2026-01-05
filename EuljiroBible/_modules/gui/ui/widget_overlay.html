@@ -94,25 +94,46 @@
 <a class="viewcode-back" href="../../../gui.ui.widget_overlay.html#gui.ui.widget_overlay.WidgetOverlay">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">WidgetOverlay</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Widget that displays Bible verses as an overlay widget, with file watching and polling support.</span>
+<span class="sd">    Overlay widget that displays verse output text in a dedicated window.</span>
+
+<span class="sd">    This widget watches (and optionally polls) the configured verse output file</span>
+<span class="sd">    (e.g., ``verse_output.txt``) and renders its contents as an on-screen overlay.</span>
+<span class="sd">    It supports two display modes:</span>
+
+<span class="sd">    - &quot;fullscreen&quot;: frameless, translucent background window intended for projection/overlay use</span>
+<span class="sd">    - non-fullscreen/windowed: standard resizable window for testing or local preview</span>
+
+<span class="sd">    The widget applies user-configured font/color/background settings and includes</span>
+<span class="sd">    a simple auto-shrinking mechanism to fit long text within the available area.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        mode (str): Display mode (&quot;fullscreen&quot; or windowed variant used by caller).</span>
+<span class="sd">        base_font_size (int): Base font size used as the starting point for auto-fit.</span>
+<span class="sd">        last_text (str): Last rendered text content used to detect changes.</span>
+<span class="sd">        poll_timer (QTimer | None): Polling timer used when polling is enabled.</span>
+<span class="sd">        verse_path (str): Path to the verse output file being watched/polled.</span>
+<span class="sd">        watcher (QFileSystemWatcher): File watcher for verse_path change notifications.</span>
+<span class="sd">        label (QLabel): Central label used to display the verse text.</span>
+<span class="sd">        bg_style (str): CSS fragment for background color (rgba) used in the label stylesheet.</span>
+<span class="sd">        text_color (str): Current text color in hex (e.g., &quot;#000000&quot;).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="WidgetOverlay.__init__">
 <a class="viewcode-back" href="../../../gui.ui.widget_overlay.html#gui.ui.widget_overlay.WidgetOverlay.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">font_family</span><span class="p">,</span> <span class="n">font_size</span><span class="p">,</span> <span class="n">text_color</span><span class="p">,</span> <span class="n">bg_color</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">geometry</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Initializes the overlay widget.</span>
+<span class="sd">        Initialize the overlay widget and start file watching/polling.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            font_family (str): Font family for text.</span>
-<span class="sd">            font_size (int): Base font size.</span>
-<span class="sd">            text_color (str): Text color in hex.</span>
-<span class="sd">            bg_color (str): Background color in hex.</span>
-<span class="sd">            alpha (float): Background transparency.</span>
-<span class="sd">            mode (str): &#39;fullscreen&#39; or &#39;windowed&#39;.</span>
+<span class="sd">            font_family (str): Font family used for displayed text.</span>
+<span class="sd">            font_size (int): Base font size used as the starting point for auto-fit.</span>
+<span class="sd">            text_color (str): Text color in hex (e.g., &quot;#000000&quot;).</span>
+<span class="sd">            bg_color (str): Background color in hex (e.g., &quot;#FFFFFF&quot;).</span>
+<span class="sd">            alpha (float): Background alpha value used for rgba composition.</span>
+<span class="sd">            mode (str): Display mode (&quot;fullscreen&quot; or windowed variant used by caller).</span>
 <span class="sd">            geometry (QRect): Initial window geometry.</span>
-<span class="sd">            parent (QWidget, optional): Parent widget.</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">            parent (QWidget | None): Optional parent widget.</span>
+<span class="sd">        &quot;&quot;&quot;</span>      
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="n">mode</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">base_font_size</span> <span class="o">=</span> <span class="n">font_size</span>
@@ -166,7 +187,11 @@
 <a class="viewcode-back" href="../../../gui.ui.widget_overlay.html#gui.ui.widget_overlay.WidgetOverlay.apply_settings">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">apply_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Applies updated display settings from configuration.</span>
+<span class="sd">        Apply updated display settings from persisted configuration.</span>
+
+<span class="sd">        This reloads font family/size/weight and overlay color/background settings from</span>
+<span class="sd">        ConfigManager, applies them to the label, updates the stylesheet, and re-runs</span>
+<span class="sd">        auto-fit against the currently displayed text.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">settings</span> <span class="o">=</span> <span class="n">ConfigManager</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
         <span class="n">font_family</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;display_font_family&quot;</span><span class="p">,</span> <span class="s2">&quot;Arial&quot;</span><span class="p">)</span>
@@ -198,7 +223,13 @@
 <a class="viewcode-back" href="../../../gui.ui.widget_overlay.html#gui.ui.widget_overlay.WidgetOverlay.apply_stylesheet">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">apply_stylesheet</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Applies the current text color and background style.</span>
+<span class="sd">        Apply the current text and background style to the label.</span>
+
+<span class="sd">        This composes the label stylesheet from:</span>
+
+<span class="sd">        - text color</span>
+<span class="sd">        - background rgba style</span>
+<span class="sd">        - padding / border rules depending on fullscreen vs windowed mode</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;fullscreen&quot;</span><span class="p">:</span>
             <span class="n">border_radius</span> <span class="o">=</span> <span class="s2">&quot;border-radius: 30px; padding: 40px;&quot;</span>
@@ -216,10 +247,13 @@
 <a class="viewcode-back" href="../../../gui.ui.widget_overlay.html#gui.ui.widget_overlay.WidgetOverlay.adjust_font_size">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">adjust_font_size</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Adjusts font size dynamically to fit text within the widget.</span>
+<span class="sd">        Auto-adjust the label font size to fit the given text within the widget.</span>
+
+<span class="sd">        This reduces the font size in steps until the rendered bounding rectangle fits</span>
+<span class="sd">        within a fraction of the available widget width/height.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            text (str): Text to fit.</span>
+<span class="sd">            text (str): Text content to fit.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">available_width</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">()</span> <span class="o">*</span> <span class="mf">0.8</span><span class="p">)</span>
         <span class="n">available_height</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">()</span> <span class="o">*</span> <span class="mf">0.8</span><span class="p">)</span>
@@ -245,7 +279,7 @@
 <a class="viewcode-back" href="../../../gui.ui.widget_overlay.html#gui.ui.widget_overlay.WidgetOverlay.display_text">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">display_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Displays the given text with adjusted font size.</span>
+<span class="sd">        Display text in the overlay and apply auto-fit sizing.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            text (str): Text to display.</span>
@@ -258,10 +292,10 @@
 <a class="viewcode-back" href="../../../gui.ui.widget_overlay.html#gui.ui.widget_overlay.WidgetOverlay.read_verse_file">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">read_verse_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Reads the verse output file.</span>
+<span class="sd">        Read and return the current verse output file contents.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            str or None: File content if successful, else None.</span>
+<span class="sd">            str | None: Stripped file content if read succeeds; otherwise None.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">verse_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
@@ -276,7 +310,10 @@
 <a class="viewcode-back" href="../../../gui.ui.widget_overlay.html#gui.ui.widget_overlay.WidgetOverlay.reload_text">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">reload_text</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Reloads and updates the displayed text from the verse file.</span>
+<span class="sd">        Reload the verse file content and update the overlay display.</span>
+
+<span class="sd">        If the verse file is empty, the overlay closes itself (treated as an intentional</span>
+<span class="sd">        &quot;clear overlay&quot; signal). Otherwise, the new text is rendered and cached.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">verse_path</span><span class="p">):</span>
             <span class="n">verse_text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_verse_file</span><span class="p">()</span>
@@ -296,8 +333,10 @@
 <a class="viewcode-back" href="../../../gui.ui.widget_overlay.html#gui.ui.widget_overlay.WidgetOverlay.poll_file">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">poll_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Periodically checks the verse file for changes and updates display.</span>
-<span class="sd">        Used when polling is enabled.</span>
+<span class="sd">        Polling loop callback to detect file changes.</span>
+
+<span class="sd">        When polling is enabled, this periodically reads the verse file and triggers a</span>
+<span class="sd">        reload if the contents differ from the last rendered text.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">verse_path</span><span class="p">):</span>
             <span class="n">verse_text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_verse_file</span><span class="p">()</span>
@@ -311,11 +350,13 @@
 <a class="viewcode-back" href="../../../gui.ui.widget_overlay.html#gui.ui.widget_overlay.WidgetOverlay.on_file_changed">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">on_file_changed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Handles file system notification of verse file changes.</span>
-<span class="sd">        Used when QFileSystemWatcher triggers a change event.</span>
+<span class="sd">        Handle file change notifications from QFileSystemWatcher.</span>
+
+<span class="sd">        This re-adds the path to the watcher (to handle certain platform behaviors where</span>
+<span class="sd">        the watch can be dropped on write/replace) and reloads the verse content.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            path (str): Path of the changed file.</span>
+<span class="sd">            path (str): Changed file path.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">watcher</span><span class="o">.</span><span class="n">addPath</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
@@ -326,10 +367,10 @@
 <a class="viewcode-back" href="../../../gui.ui.widget_overlay.html#gui.ui.widget_overlay.WidgetOverlay.resizeEvent">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">resizeEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Handles widget resize events and adjusts font size.</span>
+<span class="sd">        Handle widget resize events and re-run auto-fit for the currently displayed text.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            event (QResizeEvent): The resize event.</span>
+<span class="sd">            event (QResizeEvent): Resize event.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">resizeEvent</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;label&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">text</span><span class="p">():</span>
@@ -340,7 +381,12 @@
 <a class="viewcode-back" href="../../../gui.ui.widget_overlay.html#gui.ui.widget_overlay.WidgetOverlay.keyPressEvent">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">keyPressEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">QKeyEvent</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Closes the overlay if ESC is pressed.</span>
+<span class="sd">        Handle key press events for overlay control.</span>
+
+<span class="sd">        Pressing ESC closes the overlay window. Other keys are passed to the base class.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            event (QKeyEvent): Key event.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span><span class="p">()</span> <span class="o">==</span> <span class="n">Qt</span><span class="o">.</span><span class="n">Key_Escape</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
@@ -352,10 +398,10 @@
 <a class="viewcode-back" href="../../../gui.ui.widget_overlay.html#gui.ui.widget_overlay.WidgetOverlay.closeEvent">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">closeEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Handles widget close events and stops polling/watching.</span>
+<span class="sd">        Handle widget close events and stop active polling/watching resources.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            event (QCloseEvent): The close event.</span>
+<span class="sd">            event (QCloseEvent): Close event.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;poll_timer&#39;</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">poll_timer</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>

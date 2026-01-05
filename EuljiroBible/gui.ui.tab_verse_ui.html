@@ -135,16 +135,274 @@
 <dt class="sig sig-object py" id="gui.ui.tab_verse_ui.TabVerseUI">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gui.ui.tab_verse_ui.</span></span><span class="sig-name descname"><span class="pre">TabVerseUI</span></span><a class="reference internal" href="_modules/gui/ui/tab_verse_ui.html#TabVerseUI"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_verse_ui.TabVerseUI" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Provides the full layout for the TabVerse interface.</p>
-<p>Contains UI components for version selection, book/chapter/verse input,
-and buttons to display, save, or clear verse text.</p>
+<p>UI builder mixin for the verse tab.</p>
+<p>This class constructs the widget layout and connects UI events for verse lookup,
+including version selection checkboxes, book/chapter/verse inputs, navigation
+buttons, and a read-only display panel for rendered verse output.</p>
+<p>The owning tab class (TabVerse) is responsible for providing:</p>
+<ul class="simple">
+<li><p>selection_manager (TabVerseSelectionManager)</p></li>
+<li><p>logic (TabVerseLogic)</p></li>
+<li><p>handlers such as get_reference(), apply_output_text(), shift_verse(), clear_outputs()</p></li>
+</ul>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_verse_ui.TabVerseUI.version_scroll">
+<span class="sig-name descname"><span class="pre">version_scroll</span></span><a class="headerlink" href="#gui.ui.tab_verse_ui.TabVerseUI.version_scroll" title="Link to this definition"></a></dt>
+<dd><p>Scroll area containing the version checkbox grid.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QScrollArea</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_verse_ui.TabVerseUI.version_widget">
+<span class="sig-name descname"><span class="pre">version_widget</span></span><a class="headerlink" href="#gui.ui.tab_verse_ui.TabVerseUI.version_widget" title="Link to this definition"></a></dt>
+<dd><p>Container widget for the version checkbox grid.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QWidget</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_verse_ui.TabVerseUI.version_layout">
+<span class="sig-name descname"><span class="pre">version_layout</span></span><a class="headerlink" href="#gui.ui.tab_verse_ui.TabVerseUI.version_layout" title="Link to this definition"></a></dt>
+<dd><p>Grid layout holding version selection checkboxes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QGridLayout</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_verse_ui.TabVerseUI.enter_state">
+<span class="sig-name descname"><span class="pre">enter_state</span></span><a class="headerlink" href="#gui.ui.tab_verse_ui.TabVerseUI.enter_state" title="Link to this definition"></a></dt>
+<dd><p>Enter-key state machine (0 = ready to display, 1 = ready to export).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_verse_ui.TabVerseUI.use_alias">
+<span class="sig-name descname"><span class="pre">use_alias</span></span><a class="headerlink" href="#gui.ui.tab_verse_ui.TabVerseUI.use_alias" title="Link to this definition"></a></dt>
+<dd><p>Whether to display version aliases instead of full version names.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_verse_ui.TabVerseUI.alias_toggle_btn">
+<span class="sig-name descname"><span class="pre">alias_toggle_btn</span></span><a class="headerlink" href="#gui.ui.tab_verse_ui.TabVerseUI.alias_toggle_btn" title="Link to this definition"></a></dt>
+<dd><p>Toggle button switching alias/full version summary mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QPushButton</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_verse_ui.TabVerseUI.version_summary_label">
+<span class="sig-name descname"><span class="pre">version_summary_label</span></span><a class="headerlink" href="#gui.ui.tab_verse_ui.TabVerseUI.version_summary_label" title="Link to this definition"></a></dt>
+<dd><p>Label summarizing currently selected Bible versions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QLabel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_verse_ui.TabVerseUI.book_label">
+<span class="sig-name descname"><span class="pre">book_label</span></span><a class="headerlink" href="#gui.ui.tab_verse_ui.TabVerseUI.book_label" title="Link to this definition"></a></dt>
+<dd><p>Label for the book selector.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QLabel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_verse_ui.TabVerseUI.chapter_label">
+<span class="sig-name descname"><span class="pre">chapter_label</span></span><a class="headerlink" href="#gui.ui.tab_verse_ui.TabVerseUI.chapter_label" title="Link to this definition"></a></dt>
+<dd><p>Label for the chapter selector.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QLabel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_verse_ui.TabVerseUI.verse_label">
+<span class="sig-name descname"><span class="pre">verse_label</span></span><a class="headerlink" href="#gui.ui.tab_verse_ui.TabVerseUI.verse_label" title="Link to this definition"></a></dt>
+<dd><p>Label for the verse input field.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QLabel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_verse_ui.TabVerseUI.book_combo">
+<span class="sig-name descname"><span class="pre">book_combo</span></span><a class="headerlink" href="#gui.ui.tab_verse_ui.TabVerseUI.book_combo" title="Link to this definition"></a></dt>
+<dd><p>Editable dropdown for selecting a book name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QComboBox</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_verse_ui.TabVerseUI.chapter_input">
+<span class="sig-name descname"><span class="pre">chapter_input</span></span><a class="headerlink" href="#gui.ui.tab_verse_ui.TabVerseUI.chapter_input" title="Link to this definition"></a></dt>
+<dd><p>Editable dropdown for chapter selection.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QComboBox</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_verse_ui.TabVerseUI.verse_input">
+<span class="sig-name descname"><span class="pre">verse_input</span></span><a class="headerlink" href="#gui.ui.tab_verse_ui.TabVerseUI.verse_input" title="Link to this definition"></a></dt>
+<dd><p>Verse input field supporting single verses or ranges.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QLineEdit</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_verse_ui.TabVerseUI.search_btn">
+<span class="sig-name descname"><span class="pre">search_btn</span></span><a class="headerlink" href="#gui.ui.tab_verse_ui.TabVerseUI.search_btn" title="Link to this definition"></a></dt>
+<dd><p>Button that triggers verse display.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QPushButton</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_verse_ui.TabVerseUI.save_btn">
+<span class="sig-name descname"><span class="pre">save_btn</span></span><a class="headerlink" href="#gui.ui.tab_verse_ui.TabVerseUI.save_btn" title="Link to this definition"></a></dt>
+<dd><p>Button that exports the currently formatted verse output.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QPushButton</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_verse_ui.TabVerseUI.clear_display_btn">
+<span class="sig-name descname"><span class="pre">clear_display_btn</span></span><a class="headerlink" href="#gui.ui.tab_verse_ui.TabVerseUI.clear_display_btn" title="Link to this definition"></a></dt>
+<dd><p>Button that clears output destination and display.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QPushButton</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_verse_ui.TabVerseUI.prev_verse_btn">
+<span class="sig-name descname"><span class="pre">prev_verse_btn</span></span><a class="headerlink" href="#gui.ui.tab_verse_ui.TabVerseUI.prev_verse_btn" title="Link to this definition"></a></dt>
+<dd><p>Button that navigates to the previous verse.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QPushButton</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_verse_ui.TabVerseUI.next_verse_btn">
+<span class="sig-name descname"><span class="pre">next_verse_btn</span></span><a class="headerlink" href="#gui.ui.tab_verse_ui.TabVerseUI.next_verse_btn" title="Link to this definition"></a></dt>
+<dd><p>Button that navigates to the next verse.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QPushButton</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_verse_ui.TabVerseUI.input_layout">
+<span class="sig-name descname"><span class="pre">input_layout</span></span><a class="headerlink" href="#gui.ui.tab_verse_ui.TabVerseUI.input_layout" title="Link to this definition"></a></dt>
+<dd><p>Layout containing book/chapter/verse inputs and buttons.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QHBoxLayout</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_verse_ui.TabVerseUI.button_layout">
+<span class="sig-name descname"><span class="pre">button_layout</span></span><a class="headerlink" href="#gui.ui.tab_verse_ui.TabVerseUI.button_layout" title="Link to this definition"></a></dt>
+<dd><p>Layout containing action/navigation buttons.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QHBoxLayout</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_verse_ui.TabVerseUI.display_box">
+<span class="sig-name descname"><span class="pre">display_box</span></span><a class="headerlink" href="#gui.ui.tab_verse_ui.TabVerseUI.display_box" title="Link to this definition"></a></dt>
+<dd><p>Read-only display widget for rendered verse output.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QTextEdit</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_verse_ui.TabVerseUI.loading_indicator">
+<span class="sig-name descname"><span class="pre">loading_indicator</span></span><a class="headerlink" href="#gui.ui.tab_verse_ui.TabVerseUI.loading_indicator" title="Link to this definition"></a></dt>
+<dd><p>Overlay indicator shown during long operations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="gui.ui.common.html#gui.ui.common.LoadingIndicator" title="gui.ui.common.LoadingIndicator">LoadingIndicator</a></p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.tab_verse_ui.TabVerseUI.init_ui">
 <span class="sig-name descname"><span class="pre">init_ui</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version_list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_verse_ui.html#TabVerseUI.init_ui"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_verse_ui.TabVerseUI.init_ui" title="Link to this definition"></a></dt>
-<dd><p>Initializes the full verse tab interface layout.</p>
+<dd><p>Initialize and assemble the full verse tab UI.</p>
+<p>This builds:</p>
+<ul class="simple">
+<li><p>A scrollable grid of version selection checkboxes</p></li>
+<li><p>Alias/full-name toggle and selected-version summary label</p></li>
+<li><p>Book/chapter/verse input row (with editable combos)</p></li>
+<li><p>Action buttons for display/export/clear and verse navigation</p></li>
+<li><p>A read-only display box for rendered output</p></li>
+<li><p>A loading indicator overlay</p></li>
+</ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>version_list</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – List of Bible versions to populate as checkboxes</p>
+<dd class="field-odd"><p><strong>version_list</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – List of Bible versions used to create checkboxes.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -152,15 +410,17 @@ and buttons to display, save, or clear verse text.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.tab_verse_ui.TabVerseUI._on_display_verse">
 <span class="sig-name descname"><span class="pre">_on_display_verse</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_verse_ui.html#TabVerseUI._on_display_verse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_verse_ui.TabVerseUI._on_display_verse" title="Link to this definition"></a></dt>
-<dd><p>Trigger display of Bible verse when Search button is clicked.</p>
-<p>Uses <cite>self.get_reference</cite>, <cite>self.verse_input</cite>, and <cite>self.apply_output_text</cite>.</p>
+<dd><p>Display the current verse reference.</p>
+<p>This is invoked by the Search button and delegates rendering to the logic layer
+using the current reference resolver and output applicator.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.tab_verse_ui.TabVerseUI._on_save_verse">
 <span class="sig-name descname"><span class="pre">_on_save_verse</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_verse_ui.html#TabVerseUI._on_save_verse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_verse_ui.TabVerseUI._on_save_verse" title="Link to this definition"></a></dt>
-<dd><p>Saves the currently displayed verse.</p>
-<p>Invoked by the Save button; shows critical dialog on error.</p>
+<dd><p>Export the currently displayed verse output.</p>
+<p>This is invoked by the Save button and delegates persistence to the logic layer.
+A critical dialog is shown if saving fails.</p>
 </dd></dl>
 
 </dd></dl>

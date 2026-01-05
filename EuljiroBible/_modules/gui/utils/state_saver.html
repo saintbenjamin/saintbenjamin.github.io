@@ -88,14 +88,27 @@
 <a class="viewcode-back" href="../../../gui.utils.state_saver.html#gui.utils.state_saver.save_settings_from_ui">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">save_settings_from_ui</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">tab_verse</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Saves UI state settings into the settings.json file.</span>
+<span class="sd">    Persist relevant UI state into the application settings.</span>
 
-<span class="sd">    Captures font settings, last selected versions, last book/chapter/verse,</span>
-<span class="sd">    and dark mode status from the UI and persists them.</span>
+<span class="sd">    This function extracts user-facing state from the running UI and writes it</span>
+<span class="sd">    to the settings store via ConfigManager. It is typically called on application</span>
+<span class="sd">    shutdown to ensure that the next launch restores the most recent context.</span>
+
+<span class="sd">    The following information is captured:</span>
+
+<span class="sd">    - Application-wide font family, size, and weight</span>
+<span class="sd">    - Last selected Bible versions</span>
+<span class="sd">    - Last selected book, chapter, and verse</span>
+<span class="sd">    - Current dark mode state</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        app (QApplication): The main application instance.</span>
-<span class="sd">        tab_verse (TabVerse): The verse tab widget containing the UI state.</span>
+<span class="sd">        app (QApplication): Active QApplication instance used to query global font</span>
+<span class="sd">            and theme (dark mode) state.</span>
+<span class="sd">        tab_verse (TabVerse): Verse tab instance providing access to the current</span>
+<span class="sd">            book/chapter/verse selection and version helper.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">selected_versions</span> <span class="o">=</span> <span class="n">tab_verse</span><span class="o">.</span><span class="n">version_helper</span><span class="o">.</span><span class="n">get_selected_versions</span><span class="p">()</span>
     <span class="n">settings</span> <span class="o">=</span> <span class="p">{</span>

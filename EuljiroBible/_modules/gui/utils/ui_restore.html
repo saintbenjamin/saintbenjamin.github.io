@@ -86,11 +86,20 @@
 <a class="viewcode-back" href="../../../gui.utils.ui_restore.html#gui.utils.ui_restore.restore_settings_to_ui">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">restore_settings_to_ui</span><span class="p">(</span><span class="n">win</span><span class="p">,</span> <span class="n">settings</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Applies saved settings to the main window&#39;s UI components.</span>
+<span class="sd">    Restore persisted settings into the main window UI.</span>
+
+<span class="sd">    This function applies previously saved user settings (typically loaded from the</span>
+<span class="sd">    settings store at startup) to the active UI widgets. It focuses on restoring</span>
+<span class="sd">    state that helps the user resume where they left off, such as the last selected</span>
+<span class="sd">    book/chapter/verse and any optional display toggles that exist on the verse tab.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        win (MainWindow): The main window instance.</span>
-<span class="sd">        settings (dict): Loaded user settings.</span>
+<span class="sd">        win (MainWindow): Main window instance that owns the tab widget and all</span>
+<span class="sd">            child tabs.</span>
+<span class="sd">        settings (dict): Settings dictionary loaded from the configuration store.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="c1"># --- Restore TabVerse ---</span>

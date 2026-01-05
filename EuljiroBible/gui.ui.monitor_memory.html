@@ -130,23 +130,106 @@
 <dd class="field-odd"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
 </dd>
 </dl>
-<p>Popup window to monitor current memory usage periodically.
-Logs to file and provides GUI interface for checking memory in real time.</p>
+<p>Popup window for monitoring the current Python process memory usage.</p>
+<p>This module provides a lightweight GUI tool that periodically measures the
+resident set size (RSS) of the running process, appends the record to a log file,
+and displays the latest values in real time.</p>
+<p>Key behaviors:</p>
+<ul class="simple">
+<li><p>Memory is sampled at a user-configurable interval (seconds).</p></li>
+<li><p>Each sample is appended to <code class="docutils literal notranslate"><span class="pre">paths.MEMORY_LOG_FILE</span></code> (typically <code class="docutils literal notranslate"><span class="pre">memory_log.txt</span></code>).</p></li>
+<li><p>Entries exceeding a fixed warning threshold (currently 400 MB) are highlighted in the UI and marked as warnings in the log output.</p></li>
+</ul>
+<p>Note:
+- This tool is intended for runtime debugging and stability monitoring.
+- The monitor does not attempt to manage or reduce memory; it only reports.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="gui.ui.monitor_memory.MonitorMemory">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gui.ui.monitor_memory.</span></span><span class="sig-name descname"><span class="pre">MonitorMemory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/monitor_memory.html#MonitorMemory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.monitor_memory.MonitorMemory" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
-<p>Popup QWidget that monitors and displays Python process memory usage.
-Automatically logs to memory_log.txt and shows warnings when exceeding threshold.</p>
+<p>Popup <code class="docutils literal notranslate"><span class="pre">QWidget</span></code> that monitors and displays the current process memory usage.</p>
+<p>The widget periodically reads RSS memory usage using <code class="docutils literal notranslate"><span class="pre">psutil</span></code> and:</p>
+<ul class="simple">
+<li><p>Appends log lines to <code class="docutils literal notranslate"><span class="pre">paths.MEMORY_LOG_FILE</span></code>.</p></li>
+<li><p>Displays the log in a read-only <code class="docutils literal notranslate"><span class="pre">QTextEdit</span></code> in real time.</p></li>
+<li><p>Highlights entries in red when the warning threshold is exceeded.</p></li>
+</ul>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.monitor_memory.MonitorMemory.interval_input">
+<span class="sig-name descname"><span class="pre">interval_input</span></span><a class="headerlink" href="#gui.ui.monitor_memory.MonitorMemory.interval_input" title="Link to this definition"></a></dt>
+<dd><p>Text input containing the monitoring interval in seconds.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QLineEdit</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.monitor_memory.MonitorMemory.save_btn">
+<span class="sig-name descname"><span class="pre">save_btn</span></span><a class="headerlink" href="#gui.ui.monitor_memory.MonitorMemory.save_btn" title="Link to this definition"></a></dt>
+<dd><p>Button that saves the interval to settings and applies it immediately.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QPushButton</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.monitor_memory.MonitorMemory.text_area">
+<span class="sig-name descname"><span class="pre">text_area</span></span><a class="headerlink" href="#gui.ui.monitor_memory.MonitorMemory.text_area" title="Link to this definition"></a></dt>
+<dd><p>Read-only area showing the rolling log output (styled by warning level).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QTextEdit</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.monitor_memory.MonitorMemory.close_btn">
+<span class="sig-name descname"><span class="pre">close_btn</span></span><a class="headerlink" href="#gui.ui.monitor_memory.MonitorMemory.close_btn" title="Link to this definition"></a></dt>
+<dd><p>Button that stops monitoring and closes the window.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QPushButton</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.monitor_memory.MonitorMemory.timer">
+<span class="sig-name descname"><span class="pre">timer</span></span><a class="headerlink" href="#gui.ui.monitor_memory.MonitorMemory.timer" title="Link to this definition"></a></dt>
+<dd><p>Periodic timer that triggers memory sampling.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QTimer</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.monitor_memory.MonitorMemory.interval_sec">
+<span class="sig-name descname"><span class="pre">interval_sec</span></span><a class="headerlink" href="#gui.ui.monitor_memory.MonitorMemory.interval_sec" title="Link to this definition"></a></dt>
+<dd><p>Effective monitoring interval in seconds (clamped to at least 1).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.monitor_memory.MonitorMemory.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interval_sec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/monitor_memory.html#MonitorMemory.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.monitor_memory.MonitorMemory.__init__" title="Link to this definition"></a></dt>
-<dd><p>Initializes the memory monitor widget and UI layout.</p>
+<dd><p>Initialize the memory monitor widget and build the UI.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>interval_sec</strong> (<em>int</em>) – Monitoring interval in seconds.</p></li>
-<li><p><strong>parent</strong> (<em>QWidget</em><em>, </em><em>optional</em>) – Parent window.</p></li>
+<li><p><strong>interval_sec</strong> (<em>int</em>) – Initial monitoring interval in seconds. Values less than 1 are clamped
+to 1 when applied.</p></li>
+<li><p><strong>parent</strong> (<em>QWidget</em><em>, </em><em>optional</em>) – Optional parent widget.</p></li>
 </ul>
 </dd>
 </dl>
@@ -155,7 +238,8 @@ Automatically logs to memory_log.txt and shows warnings when exceeding threshold
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.monitor_memory.MonitorMemory.set_interval">
 <span class="sig-name descname"><span class="pre">set_interval</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interval_sec</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/monitor_memory.html#MonitorMemory.set_interval"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.monitor_memory.MonitorMemory.set_interval" title="Link to this definition"></a></dt>
-<dd><p>Sets the interval between memory checks.</p>
+<dd><p>Apply a new monitoring interval to the internal timer.</p>
+<p>The value is clamped to at least 1 second.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>interval_sec</strong> (<em>int</em>) – Interval in seconds.</p>
@@ -166,21 +250,42 @@ Automatically logs to memory_log.txt and shows warnings when exceeding threshold
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.monitor_memory.MonitorMemory.save_interval">
 <span class="sig-name descname"><span class="pre">save_interval</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/monitor_memory.html#MonitorMemory.save_interval"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.monitor_memory.MonitorMemory.save_interval" title="Link to this definition"></a></dt>
-<dd><p>Saves the user-entered interval to the settings file and updates the timer.
-Displays confirmation or error in the log area.</p>
+<dd><p>Save the user-entered interval to settings and apply it immediately.</p>
+<p>Behavior:</p>
+<ul class="simple">
+<li><p>Reads the interval from <code class="docutils literal notranslate"><span class="pre">self.interval_input</span></code>.</p></li>
+<li><p>Updates <code class="docutils literal notranslate"><span class="pre">self.timer</span></code> interval.</p></li>
+<li><p>Persists the value to settings under <code class="docutils literal notranslate"><span class="pre">memory_interval_sec</span></code>.</p></li>
+<li><p>Writes an info/error message into <code class="docutils literal notranslate"><span class="pre">self.text_area</span></code>.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>This method only validates that the input can be parsed as an integer.</p></li>
+<li><p>Non-integer input is treated as an error.</p></li>
+</ul>
+</div>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.monitor_memory.MonitorMemory.record_and_display_memory">
 <span class="sig-name descname"><span class="pre">record_and_display_memory</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/monitor_memory.html#MonitorMemory.record_and_display_memory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.monitor_memory.MonitorMemory.record_and_display_memory" title="Link to this definition"></a></dt>
-<dd><p>Measures current memory usage, logs to file, and displays in UI.
-Highlights warnings when memory exceeds 400MB.</p>
+<dd><p>Sample current RSS memory usage, append it to the log file, and render it in the UI.</p>
+<dl class="simple">
+<dt>Output format:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">[&lt;timestamp&gt;]</span> <span class="pre">Memory:</span> <span class="pre">&lt;MB&gt;</span> <span class="pre">MB</span></code></p>
+</dd>
+<dt>Warning behavior:</dt><dd><p>If the sampled memory exceeds a fixed threshold (currently 400 MB),
+the log line is marked with <code class="docutils literal notranslate"><span class="pre">[WARNING]</span></code> and colored red in the UI.</p>
+</dd>
+<dt>Failures:</dt><dd><p>Any unexpected exception is appended to the UI output area as plain text.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.monitor_memory.MonitorMemory.close_monitor">
 <span class="sig-name descname"><span class="pre">close_monitor</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/monitor_memory.html#MonitorMemory.close_monitor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.monitor_memory.MonitorMemory.close_monitor" title="Link to this definition"></a></dt>
-<dd><p>Stops the timer and closes the widget.</p>
+<dd><p>Stop the monitoring timer and close the widget.</p>
 </dd></dl>
 
 </dd></dl>

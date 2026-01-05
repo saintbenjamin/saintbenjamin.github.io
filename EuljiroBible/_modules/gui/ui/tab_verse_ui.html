@@ -93,25 +93,71 @@
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">gui.ui.common</span><span class="w"> </span><span class="kn">import</span> <span class="n">create_svg_text_button</span><span class="p">,</span> <span class="n">LoadingIndicator</span>
 
-
 <div class="viewcode-block" id="TabVerseUI">
 <a class="viewcode-back" href="../../../gui.ui.tab_verse_ui.html#gui.ui.tab_verse_ui.TabVerseUI">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">TabVerseUI</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Provides the full layout for the TabVerse interface.</span>
+<span class="sd">    UI builder mixin for the verse tab.</span>
 
-<span class="sd">    Contains UI components for version selection, book/chapter/verse input,</span>
-<span class="sd">    and buttons to display, save, or clear verse text.</span>
+<span class="sd">    This class constructs the widget layout and connects UI events for verse lookup,</span>
+<span class="sd">    including version selection checkboxes, book/chapter/verse inputs, navigation</span>
+<span class="sd">    buttons, and a read-only display panel for rendered verse output.</span>
+
+<span class="sd">    The owning tab class (TabVerse) is responsible for providing:</span>
+
+<span class="sd">    - selection_manager (TabVerseSelectionManager)</span>
+<span class="sd">    - logic (TabVerseLogic)</span>
+<span class="sd">    - handlers such as get_reference(), apply_output_text(), shift_verse(), clear_outputs()</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        version_scroll (QScrollArea): Scroll area containing the version checkbox grid.</span>
+<span class="sd">        version_widget (QWidget): Container widget for the version checkbox grid.</span>
+<span class="sd">        version_layout (QGridLayout): Grid layout holding version selection checkboxes.</span>
+
+<span class="sd">        enter_state (int): Enter-key state machine (0 = ready to display, 1 = ready to export).</span>
+<span class="sd">        use_alias (bool): Whether to display version aliases instead of full version names.</span>
+
+<span class="sd">        alias_toggle_btn (QPushButton): Toggle button switching alias/full version summary mode.</span>
+<span class="sd">        version_summary_label (QLabel): Label summarizing currently selected Bible versions.</span>
+
+<span class="sd">        book_label (QLabel): Label for the book selector.</span>
+<span class="sd">        chapter_label (QLabel): Label for the chapter selector.</span>
+<span class="sd">        verse_label (QLabel): Label for the verse input field.</span>
+
+<span class="sd">        book_combo (QComboBox): Editable dropdown for selecting a book name.</span>
+<span class="sd">        chapter_input (QComboBox): Editable dropdown for chapter selection.</span>
+<span class="sd">        verse_input (QLineEdit): Verse input field supporting single verses or ranges.</span>
+
+<span class="sd">        search_btn (QPushButton): Button that triggers verse display.</span>
+<span class="sd">        save_btn (QPushButton): Button that exports the currently formatted verse output.</span>
+<span class="sd">        clear_display_btn (QPushButton): Button that clears output destination and display.</span>
+<span class="sd">        prev_verse_btn (QPushButton): Button that navigates to the previous verse.</span>
+<span class="sd">        next_verse_btn (QPushButton): Button that navigates to the next verse.</span>
+
+<span class="sd">        input_layout (QHBoxLayout): Layout containing book/chapter/verse inputs and buttons.</span>
+<span class="sd">        button_layout (QHBoxLayout): Layout containing action/navigation buttons.</span>
+
+<span class="sd">        display_box (QTextEdit): Read-only display widget for rendered verse output.</span>
+<span class="sd">        loading_indicator (LoadingIndicator): Overlay indicator shown during long operations.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="TabVerseUI.init_ui">
 <a class="viewcode-back" href="../../../gui.ui.tab_verse_ui.html#gui.ui.tab_verse_ui.TabVerseUI.init_ui">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">init_ui</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version_list</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Initializes the full verse tab interface layout.</span>
+<span class="sd">        Initialize and assemble the full verse tab UI.</span>
 
-<span class="sd">        :param version_list: List of Bible versions to populate as checkboxes</span>
-<span class="sd">        :type version_list: list[str]</span>
+<span class="sd">        This builds:</span>
+
+<span class="sd">        - A scrollable grid of version selection checkboxes</span>
+<span class="sd">        - Alias/full-name toggle and selected-version summary label</span>
+<span class="sd">        - Book/chapter/verse input row (with editable combos)</span>
+<span class="sd">        - Action buttons for display/export/clear and verse navigation</span>
+<span class="sd">        - A read-only display box for rendered output</span>
+<span class="sd">        - A loading indicator overlay</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            version_list (list[str]): List of Bible versions used to create checkboxes.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Scrollable checkbox grid for Bible versions</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">version_scroll</span> <span class="o">=</span> <span class="n">QScrollArea</span><span class="p">()</span>
@@ -271,9 +317,10 @@
 <a class="viewcode-back" href="../../../gui.ui.tab_verse_ui.html#gui.ui.tab_verse_ui.TabVerseUI._on_display_verse">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">_on_display_verse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Trigger display of Bible verse when Search button is clicked.</span>
+<span class="sd">        Display the current verse reference.</span>
 
-<span class="sd">        Uses `self.get_reference`, `self.verse_input`, and `self.apply_output_text`.</span>
+<span class="sd">        This is invoked by the Search button and delegates rendering to the logic layer</span>
+<span class="sd">        using the current reference resolver and output applicator.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logic</span><span class="o">.</span><span class="n">display_verse</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">get_reference</span><span class="p">,</span>
@@ -288,9 +335,10 @@
 <a class="viewcode-back" href="../../../gui.ui.tab_verse_ui.html#gui.ui.tab_verse_ui.TabVerseUI._on_save_verse">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">_on_save_verse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Saves the currently displayed verse.</span>
+<span class="sd">        Export the currently displayed verse output.</span>
 
-<span class="sd">        Invoked by the Save button; shows critical dialog on error.</span>
+<span class="sd">        This is invoked by the Save button and delegates persistence to the logic layer.</span>
+<span class="sd">        A critical dialog is shown if saving fails.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">logic</span><span class="o">.</span><span class="n">save_verse</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">formatted_verse_text</span><span class="p">)</span>

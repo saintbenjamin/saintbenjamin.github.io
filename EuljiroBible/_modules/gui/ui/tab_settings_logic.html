@@ -98,27 +98,32 @@
 <a class="viewcode-back" href="../../../gui.ui.tab_settings_logic.html#gui.ui.tab_settings_logic.TabSettingsLogic">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">TabSettingsLogic</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Provides logic operations for the settings tab UI.</span>
+<span class="sd">    Backend logic handler for the settings tab.</span>
 
-<span class="sd">    Handles font application, theme updates, polling intervals, path selections, and color pickers.</span>
+<span class="sd">    This class encapsulates non-UI operations used by TabSettings, including:</span>
+<span class="sd">    font application, overlay configuration persistence, polling interval validation,</span>
+<span class="sd">    output path selection, and color picker actions.</span>
 
-<span class="sd">    :param settings: Shared application settings dictionary</span>
-<span class="sd">    :type settings: dict</span>
-<span class="sd">    :param app: QApplication instance</span>
-<span class="sd">    :type app: QApplication</span>
-<span class="sd">    :param tr_func: Translation function for localized messages</span>
-<span class="sd">    :type tr_func: Callable[[str], str]</span>
+<span class="sd">    Attributes:</span>
+<span class="sd">        settings (dict): Shared application settings dictionary.</span>
+<span class="sd">        app (QApplication): Qt application instance used for theme/style updates.</span>
+<span class="sd">        tr (Callable[[str], str]): Translation function for localized UI strings.</span>
+<span class="sd">        refresh_settings_callback (Callable[[], None] | None): Optional callback to refresh</span>
+<span class="sd">            other UI tabs/components after settings changes.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="TabSettingsLogic.__init__">
 <a class="viewcode-back" href="../../../gui.ui.tab_settings_logic.html#gui.ui.tab_settings_logic.TabSettingsLogic.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">settings</span><span class="p">,</span> <span class="n">app</span><span class="p">,</span> <span class="n">tr_func</span><span class="p">,</span> <span class="n">refresh_settings_callback</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Initialize settings logic handler.</span>
+<span class="sd">        Initialize the settings logic handler.</span>
 
-<span class="sd">        :param settings: Settings dictionary</span>
-<span class="sd">        :param app: QApplication instance</span>
-<span class="sd">        :param tr_func: Translation function</span>
+<span class="sd">        Args:</span>
+<span class="sd">            settings (dict): Shared application settings dictionary.</span>
+<span class="sd">            app (QApplication): QApplication instance.</span>
+<span class="sd">            tr_func (Callable[[str], str]): Translation function for localized messages.</span>
+<span class="sd">            refresh_settings_callback (Callable[[], None] | None): Optional callback invoked</span>
+<span class="sd">                after applying settings to refresh other UI components.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">settings</span> <span class="o">=</span> <span class="n">settings</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">app</span> <span class="o">=</span> <span class="n">app</span>
@@ -130,10 +135,15 @@
 <a class="viewcode-back" href="../../../gui.ui.tab_settings_logic.html#gui.ui.tab_settings_logic.TabSettingsLogic.apply_dynamic_settings">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">apply_dynamic_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Apply font, overlay, and display settings to the application.</span>
+<span class="sd">        Apply dynamic font and overlay display settings.</span>
 
-<span class="sd">        :param parent: Reference to the TabSettings instance (contains UI state)</span>
-<span class="sd">        :type parent: QWidget</span>
+<span class="sd">        This applies the main application font, collects overlay display settings from</span>
+<span class="sd">        the UI widgets, persists them via ConfigManager, and updates the active overlay</span>
+<span class="sd">        window if it is currently shown. If a refresh callback is provided, it is called</span>
+<span class="sd">        to propagate the updated settings to other tabs.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            parent (QWidget): TabSettings instance providing current UI widget state.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="s2">&quot;display_font_size_combo&quot;</span><span class="p">):</span>
             <span class="k">return</span>
@@ -176,14 +186,12 @@
 <a class="viewcode-back" href="../../../gui.ui.tab_settings_logic.html#gui.ui.tab_settings_logic.TabSettingsLogic.apply_font_to_children">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">apply_font_to_children</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">widget</span><span class="p">,</span> <span class="n">font</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Recursively apply a font to a widget and its children.</span>
+<span class="sd">        Apply a font to a widget and all of its child widgets.</span>
 
-<span class="sd">        :param parent: Root window</span>
-<span class="sd">        :type parent: QWidget</span>
-<span class="sd">        :param widget: Target widget to apply font to</span>
-<span class="sd">        :type widget: QWidget</span>
-<span class="sd">        :param font: QFont instance</span>
-<span class="sd">        :type font: QFont</span>
+<span class="sd">        Args:</span>
+<span class="sd">            parent (QWidget): Root window or settings tab context (kept for signature consistency).</span>
+<span class="sd">            widget (QWidget): Target widget to apply the font to.</span>
+<span class="sd">            font (QFont): Font to apply.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">widget</span><span class="o">.</span><span class="n">setFont</span><span class="p">(</span><span class="n">font</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">widget</span><span class="o">.</span><span class="n">findChildren</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
@@ -194,10 +202,13 @@
 <a class="viewcode-back" href="../../../gui.ui.tab_settings_logic.html#gui.ui.tab_settings_logic.TabSettingsLogic.select_output_path">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">select_output_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Open a file dialog to set the verse output file path.</span>
+<span class="sd">        Open a file dialog to select the verse output file path.</span>
 
-<span class="sd">        :param parent: TabSettings instance with path input field</span>
-<span class="sd">        :type parent: QWidget</span>
+<span class="sd">        If the user selects a path, this updates the UI field and persists the value</span>
+<span class="sd">        to settings via ConfigManager.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            parent (QWidget): TabSettings instance containing the path UI field and settings.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">current_path</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">output_edit</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
         <span class="n">path</span> <span class="o">=</span> <span class="n">get_save_path</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">current_path</span><span class="p">,</span> <span class="n">parent</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;dialog_path&quot;</span><span class="p">))</span>
@@ -211,12 +222,13 @@
 <a class="viewcode-back" href="../../../gui.ui.tab_settings_logic.html#gui.ui.tab_settings_logic.TabSettingsLogic.select_text_color">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">select_text_color</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Open a color picker dialog to select the overlay text color.</span>
+<span class="sd">        Open a color picker dialog to set the overlay text color.</span>
 
-<span class="sd">        Updates button color, saves to settings, and reapplies dynamic settings.</span>
+<span class="sd">        This updates the color preview, persists the setting, and triggers reapplication</span>
+<span class="sd">        of dynamic settings.</span>
 
-<span class="sd">        :param parent: TabSettings instance</span>
-<span class="sd">        :type parent: QWidget</span>
+<span class="sd">        Args:</span>
+<span class="sd">            parent (QWidget): TabSettings instance containing the text color UI button.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">set_color_from_dialog</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">text_color_btn</span><span class="p">,</span> <span class="s2">&quot;display_text_color&quot;</span><span class="p">,</span> <span class="n">parent</span><span class="o">.</span><span class="n">apply_dynamic_settings</span><span class="p">)</span></div>
 
@@ -225,12 +237,13 @@
 <a class="viewcode-back" href="../../../gui.ui.tab_settings_logic.html#gui.ui.tab_settings_logic.TabSettingsLogic.select_bg_color">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">select_bg_color</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Open a color picker dialog to select the overlay background color.</span>
+<span class="sd">        Open a color picker dialog to set the overlay background color.</span>
 
-<span class="sd">        Updates button color, saves to settings, and reapplies dynamic settings.</span>
+<span class="sd">        This updates the color preview, persists the setting, and triggers reapplication</span>
+<span class="sd">        of dynamic settings.</span>
 
-<span class="sd">        :param parent: TabSettings instance</span>
-<span class="sd">        :type parent: QWidget</span>
+<span class="sd">        Args:</span>
+<span class="sd">            parent (QWidget): TabSettings instance containing the background color UI button.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">set_color_from_dialog</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">bg_color_btn</span><span class="p">,</span> <span class="s2">&quot;display_bg_color&quot;</span><span class="p">,</span> <span class="n">parent</span><span class="o">.</span><span class="n">apply_dynamic_settings</span><span class="p">)</span></div>
 
@@ -239,12 +252,13 @@
 <a class="viewcode-back" href="../../../gui.ui.tab_settings_logic.html#gui.ui.tab_settings_logic.TabSettingsLogic.save_poll_interval">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">save_poll_interval</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Save the polling interval from the input box.</span>
+<span class="sd">        Validate and save the polling interval from the UI.</span>
 
-<span class="sd">        If the value is not a valid integer, show a warning dialog.</span>
+<span class="sd">        If the interval is not a valid integer, this shows a warning dialog and does not</span>
+<span class="sd">        persist any changes. On success, the interval is saved to settings via ConfigManager.</span>
 
-<span class="sd">        :param parent: TabSettings instance</span>
-<span class="sd">        :type parent: QWidget</span>
+<span class="sd">        Args:</span>
+<span class="sd">            parent (QWidget): TabSettings instance containing the polling interval input widget.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">text</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">poll_input</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
 
@@ -268,10 +282,14 @@
 <a class="viewcode-back" href="../../../gui.ui.tab_settings_logic.html#gui.ui.tab_settings_logic.TabSettingsLogic.apply_polling_settings">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">apply_polling_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Apply polling logic: start or stop polling based on toggle.</span>
+<span class="sd">        Apply polling timer behavior based on the current settings.</span>
 
-<span class="sd">        :param parent: TabSettings instance</span>
-<span class="sd">        :type parent: QWidget</span>
+<span class="sd">        If polling is enabled, this restarts the polling timer using the configured</span>
+<span class="sd">        interval and performs an immediate poll. If polling is disabled, this stops</span>
+<span class="sd">        the timer and closes any active overlay window.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            parent (QWidget): TabSettings instance owning the polling timer and overlay window.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">poll_enabled</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;poll_enabled&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
         <span class="n">poll_interval</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;poll_interval&quot;</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>

@@ -135,23 +135,53 @@
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gui.utils.verse_output_handler.</span></span><span class="sig-name descname"><span class="pre">VerseOutputHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">display_box</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">settings</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/verse_output_handler.html#VerseOutputHandler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.verse_output_handler.VerseOutputHandler" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Manages displaying and saving Bible verse text in the GUI.</p>
+<p>This class is responsible for:</p>
+<ul class="simple">
+<li><p>Rendering formatted Bible verse text into a QTextEdit widget.</p></li>
+<li><p>Applying consistent paragraph formatting (e.g. line spacing).</p></li>
+<li><p>Delegating persistence of verse output to file-based utilities.</p></li>
+</ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>display_box</strong> (<em>QTextEdit</em>) – QTextEdit widget where verses will be shown</p></li>
-<li><p><strong>settings</strong> (<em>dict</em>) – Application settings dictionary</p></li>
+<li><p><strong>display_box</strong> (<em>PySide6.QtWidgets.QTextEdit</em>)</p></li>
+<li><p><strong>settings</strong> (<em>dict</em>)</p></li>
 </ul>
 </dd>
 </dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.utils.verse_output_handler.VerseOutputHandler.display_box">
+<span class="sig-name descname"><span class="pre">display_box</span></span><a class="headerlink" href="#gui.utils.verse_output_handler.VerseOutputHandler.display_box" title="Link to this definition"></a></dt>
+<dd><p>Text edit widget used to display verse output to the user.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QTextEdit</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.utils.verse_output_handler.VerseOutputHandler.settings">
+<span class="sig-name descname"><span class="pre">settings</span></span><a class="headerlink" href="#gui.utils.verse_output_handler.VerseOutputHandler.settings" title="Link to this definition"></a></dt>
+<dd><p>Application settings dictionary. This typically includes output
+paths and related configuration used when saving verse text.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.utils.verse_output_handler.VerseOutputHandler.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">display_box</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">settings</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/verse_output_handler.html#VerseOutputHandler.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.verse_output_handler.VerseOutputHandler.__init__" title="Link to this definition"></a></dt>
-<dd><p>Initialize the handler with the display box and configuration.</p>
+<dd><p>Initialize the handler with the display widget and configuration.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>display_box</strong> (<em>QTextEdit</em>) – The QTextEdit area for displaying verse output</p></li>
-<li><p><strong>settings</strong> (<em>dict</em>) – Dictionary containing application settings (e.g. output path)</p></li>
+<li><p><strong>display_box</strong> (<em>QTextEdit</em>) – QTextEdit area for displaying verse output.</p></li>
+<li><p><strong>settings</strong> (<em>dict</em>) – Dictionary containing application settings
+(e.g. output paths, polling options).</p></li>
 </ul>
 </dd>
 </dl>
@@ -160,11 +190,12 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.utils.verse_output_handler.VerseOutputHandler.apply_output_text">
 <span class="sig-name descname"><span class="pre">apply_output_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/verse_output_handler.html#VerseOutputHandler.apply_output_text"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.verse_output_handler.VerseOutputHandler.apply_output_text" title="Link to this definition"></a></dt>
-<dd><p>Display the given verse text in the output box with proper formatting.</p>
-<p>Applies a block format with approximately 150% line spacing.</p>
+<dd><p>Display the given verse text in the output box with formatting applied.</p>
+<p>The text is rendered into the QTextEdit and a block format is applied
+to enforce approximately 150% line spacing across the entire document.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>text</strong> (<em>str</em>) – The verse string to render</p>
+<dd class="field-odd"><p><strong>text</strong> (<em>str</em>) – Verse text to render in the output box.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -172,10 +203,12 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.utils.verse_output_handler.VerseOutputHandler.save_verse">
 <span class="sig-name descname"><span class="pre">save_verse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">formatted_text</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/verse_output_handler.html#VerseOutputHandler.save_verse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.verse_output_handler.VerseOutputHandler.save_verse" title="Link to this definition"></a></dt>
-<dd><p>Save the formatted verse text to the file(s) specified in settings.</p>
+<dd><p>Save the formatted verse text to output file(s).</p>
+<p>If the provided text is empty or None, it is treated as an empty string.
+Actual file writing is delegated to the output utility layer.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>formatted_text</strong> (<em>str</em>) – The string of formatted verses</p>
+<dd class="field-odd"><p><strong>formatted_text</strong> (<em>str</em>) – Formatted verse text to be saved.</p>
 </dd>
 </dl>
 </dd></dl>

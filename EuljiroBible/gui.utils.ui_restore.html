@@ -134,13 +134,21 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="gui.utils.ui_restore.restore_settings_to_ui">
 <span class="sig-prename descclassname"><span class="pre">gui.utils.ui_restore.</span></span><span class="sig-name descname"><span class="pre">restore_settings_to_ui</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">win</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">settings</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/ui_restore.html#restore_settings_to_ui"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.ui_restore.restore_settings_to_ui" title="Link to this definition"></a></dt>
-<dd><p>Applies saved settings to the main window’s UI components.</p>
+<dd><p>Restore persisted settings into the main window UI.</p>
+<p>This function applies previously saved user settings (typically loaded from the
+settings store at startup) to the active UI widgets. It focuses on restoring
+state that helps the user resume where they left off, such as the last selected
+book/chapter/verse and any optional display toggles that exist on the verse tab.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>win</strong> (<em>MainWindow</em>) – The main window instance.</p></li>
-<li><p><strong>settings</strong> (<em>dict</em>) – Loaded user settings.</p></li>
+<li><p><strong>win</strong> (<em>MainWindow</em>) – Main window instance that owns the tab widget and all
+child tabs.</p></li>
+<li><p><strong>settings</strong> (<em>dict</em>) – Settings dictionary loaded from the configuration store.</p></li>
 </ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>

@@ -94,22 +94,32 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Manages displaying and saving Bible verse text in the GUI.</span>
 
-<span class="sd">    :param display_box: QTextEdit widget where verses will be shown</span>
-<span class="sd">    :type display_box: QTextEdit</span>
-<span class="sd">    :param settings: Application settings dictionary</span>
-<span class="sd">    :type settings: dict</span>
+<span class="sd">    This class is responsible for:</span>
+
+<span class="sd">    - Rendering formatted Bible verse text into a QTextEdit widget.</span>
+<span class="sd">    - Applying consistent paragraph formatting (e.g. line spacing).</span>
+<span class="sd">    - Delegating persistence of verse output to file-based utilities.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        display_box (QTextEdit):</span>
+<span class="sd">            Text edit widget used to display verse output to the user.</span>
+<span class="sd">        settings (dict):</span>
+<span class="sd">            Application settings dictionary. This typically includes output</span>
+<span class="sd">            paths and related configuration used when saving verse text.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="VerseOutputHandler.__init__">
 <a class="viewcode-back" href="../../../gui.utils.verse_output_handler.html#gui.utils.verse_output_handler.VerseOutputHandler.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">display_box</span><span class="p">:</span> <span class="n">QTextEdit</span><span class="p">,</span> <span class="n">settings</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Initialize the handler with the display box and configuration.</span>
+<span class="sd">        Initialize the handler with the display widget and configuration.</span>
 
-<span class="sd">        :param display_box: The QTextEdit area for displaying verse output</span>
-<span class="sd">        :type display_box: QTextEdit</span>
-<span class="sd">        :param settings: Dictionary containing application settings (e.g. output path)</span>
-<span class="sd">        :type settings: dict</span>
+<span class="sd">        Args:</span>
+<span class="sd">            display_box (QTextEdit):</span>
+<span class="sd">                QTextEdit area for displaying verse output.</span>
+<span class="sd">            settings (dict):</span>
+<span class="sd">                Dictionary containing application settings</span>
+<span class="sd">                (e.g. output paths, polling options).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">display_box</span> <span class="o">=</span> <span class="n">display_box</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">settings</span> <span class="o">=</span> <span class="n">settings</span></div>
@@ -119,12 +129,14 @@
 <a class="viewcode-back" href="../../../gui.utils.verse_output_handler.html#gui.utils.verse_output_handler.VerseOutputHandler.apply_output_text">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">apply_output_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Display the given verse text in the output box with proper formatting.</span>
+<span class="sd">        Display the given verse text in the output box with formatting applied.</span>
 
-<span class="sd">        Applies a block format with approximately 150% line spacing.</span>
+<span class="sd">        The text is rendered into the QTextEdit and a block format is applied</span>
+<span class="sd">        to enforce approximately 150% line spacing across the entire document.</span>
 
-<span class="sd">        :param text: The verse string to render</span>
-<span class="sd">        :type text: str</span>
+<span class="sd">        Args:</span>
+<span class="sd">            text (str):</span>
+<span class="sd">                Verse text to render in the output box.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Insert the formatted verse text into the text box</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">display_box</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
@@ -142,10 +154,14 @@
 <a class="viewcode-back" href="../../../gui.utils.verse_output_handler.html#gui.utils.verse_output_handler.VerseOutputHandler.save_verse">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">save_verse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">formatted_text</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Save the formatted verse text to the file(s) specified in settings.</span>
+<span class="sd">        Save the formatted verse text to output file(s).</span>
 
-<span class="sd">        :param formatted_text: The string of formatted verses</span>
-<span class="sd">        :type formatted_text: str</span>
+<span class="sd">        If the provided text is empty or None, it is treated as an empty string.</span>
+<span class="sd">        Actual file writing is delegated to the output utility layer.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            formatted_text (str):</span>
+<span class="sd">                Formatted verse text to be saved.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># If text is empty or None, treat it as empty string</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">formatted_text</span><span class="p">:</span>

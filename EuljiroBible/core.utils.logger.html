@@ -121,24 +121,47 @@
 <dd class="field-odd"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
 </dd>
 </dl>
-<p>Provides error and debug logging utilities for EuljiroBible.</p>
-<p>Logs are written to a central file, only when needed.</p>
+<p>Provides error and debug logging utilities for EuljiroBible/EuljiroWorship.</p>
+<p>This module defines a lightweight logging wrapper around Python’s
+standard <a class="reference external" href="https://docs.python.org/3/library/logging.html">logging</a> module, with the following design goals:</p>
+<ul class="simple">
+<li><p>Logs are written to disk only when actually needed</p></li>
+<li><p>A single central log file is used across the application</p></li>
+<li><p>Debug logging is enabled conditionally via the DEBUG environment variable</p></li>
+<li><p>Duplicate handlers are avoided to support hot-reload scenarios</p></li>
+</ul>
+<p>The logger is primarily intended for internal error reporting and
+optional debug tracing, not for verbose application logging.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="core.utils.logger._ensure_file_handler">
 <span class="sig-prename descclassname"><span class="pre">core.utils.logger.</span></span><span class="sig-name descname"><span class="pre">_ensure_file_handler</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/utils/logger.html#_ensure_file_handler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.utils.logger._ensure_file_handler" title="Link to this definition"></a></dt>
-<dd><p>Ensure that a file handler is attached to the logger.</p>
-<p>The file handler writes logs to the log file only when error or debug logging is required.</p>
+<dd><p>Ensure that a file handler is attached to the global logger.</p>
+<p>This function lazily initializes a <a class="reference external" href="https://docs.python.org/3/library/logging.handlers.html#logging.FileHandler">logging.FileHandler</a> and
+attaches it to the module-level logger only once.</p>
+<p>The log file is created only when an error or debug message
+is actually emitted, avoiding unnecessary file I/O during
+normal execution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="core.utils.logger.log_error">
 <span class="sig-prename descclassname"><span class="pre">core.utils.logger.</span></span><span class="sig-name descname"><span class="pre">log_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/utils/logger.html#log_error"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.utils.logger.log_error" title="Link to this definition"></a></dt>
-<dd><p>Logs an error with full traceback.</p>
-<p>The log file is only created if logging is actually used. This function captures the exception
-stack trace and logs it as an error message.</p>
+<dd><p>Log an exception as an error with full traceback information.</p>
+<p>This function ensures that the file handler is initialized,
+then records the exception message along with its traceback
+using ERROR log level.</p>
+<p>The log file is created only when this function is called.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>e</strong> (<em>Exception</em>) – The exception to log</p>
+<dd class="field-odd"><p><strong>e</strong> (<em>Exception</em>) – The exception instance to be logged.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -146,10 +169,16 @@ stack trace and logs it as an error message.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="core.utils.logger.log_debug">
 <span class="sig-prename descclassname"><span class="pre">core.utils.logger.</span></span><span class="sig-name descname"><span class="pre">log_debug</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/utils/logger.html#log_debug"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.utils.logger.log_debug" title="Link to this definition"></a></dt>
-<dd><p>Logs a debug message, only if DEBUG mode is enabled.</p>
+<dd><p>Log a debug message if DEBUG mode is enabled.</p>
+<p>Debug mode is determined by the environment variable <code class="docutils literal notranslate"><span class="pre">DEBUG=1</span></code>
+at application startup. If DEBUG mode is disabled, this
+function performs no action.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>msg</strong> (<em>str</em>) – The message to log as a debug message</p>
+<dd class="field-odd"><p><strong>msg</strong> (<em>str</em>) – The debug message to record.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>

@@ -118,6 +118,49 @@
 </dl>
 <p>Centralized error message constants for user-facing dialogs in EuljiroBible.
 Intended for reuse across GUI modules to maintain consistency and easy localization.</p>
+<section id="error-message-constants">
+<h2>Error message constants<a class="headerlink" href="#error-message-constants" title="Link to this heading"></a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="gui.constants.messages.ERROR_MESSAGES">
+<span class="sig-prename descclassname"><span class="pre">gui.constants.messages.</span></span><span class="sig-name descname"><span class="pre">ERROR_MESSAGES</span></span><a class="headerlink" href="#gui.constants.messages.ERROR_MESSAGES" title="Link to this definition"></a></dt>
+<dd><p>Centralized dictionary of user-facing error and warning messages used
+throughout the EuljiroBible GUI.</p>
+<p>This mapping is intended to:</p>
+<ul class="simple">
+<li><p>Ensure consistent wording and tone across all dialogs and message boxes</p></li>
+<li><p>Avoid hard-coded strings scattered across GUI modules</p></li>
+<li><p>Serve as a single point of modification for future localization (i18n)</p></li>
+<li><p>Separate presentation text from application logic</p></li>
+</ul>
+<p>Each key represents a semantic error or warning condition, while the
+corresponding value is the message string shown to the user. Some messages
+support runtime formatting via <code class="docutils literal notranslate"><span class="pre">str.format</span></code> (e.g. <code class="docutils literal notranslate"><span class="pre">{path}</span></code>).</p>
+<p>Typical usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gui.constants.messages</span><span class="w"> </span><span class="kn">import</span> <span class="n">ERROR_MESSAGES</span>
+<span class="n">msg</span> <span class="o">=</span> <span class="n">ERROR_MESSAGES</span><span class="p">[</span><span class="s2">&quot;settings_load&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Defined messages include (non-exhaustive):</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">pyside6_missing</span></code>:
+Displayed when PySide6 is not installed and the GUI cannot be started.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">wsl_display</span></code>:
+Shown when running under WSL without a configured X server or DISPLAY.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">settings_load</span></code> / <code class="docutils literal notranslate"><span class="pre">settings_save</span></code>:
+Warnings related to loading or saving application settings.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">critical_error</span></code>:
+Generic fatal error message directing the user to the error log file.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bible_data_missing</span></code>:
+Error raised when the Bible data directory does not exist.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bible_files_missing</span></code>:
+Error raised when no Bible JSON files are found in the expected directory.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">POLL_INTERVAL_INVALID_TITLE</span></code> /
+<code class="docutils literal notranslate"><span class="pre">POLL_INTERVAL_INVALID_MSG</span></code>:
+Title and body strings used for polling interval input validation dialogs.</p></li>
+</ul>
+</dd></dl>
+
+</section>
 </section>
 
 

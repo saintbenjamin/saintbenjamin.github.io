@@ -135,27 +135,56 @@
 <dt class="sig sig-object py" id="gui.ui.tab_verse_selection_manager.TabVerseSelectionManager">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gui.ui.tab_verse_selection_manager.</span></span><span class="sig-name descname"><span class="pre">TabVerseSelectionManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bible_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version_helper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tr_func</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_verse_selection_manager.html#TabVerseSelectionManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_verse_selection_manager.TabVerseSelectionManager" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Manages the logic for updating version checkboxes, summary label,
-and dropdowns for book and chapter selection in the TabVerse UI.</p>
+<p>Selection and dropdown manager for the TabVerse UI.</p>
+<p>This class manages version checkbox layout and selection state, the version
+summary label, and the book/chapter dropdown behavior for the verse tab. It
+coordinates with VerseVersionHelper to validate version selections and compute
+the set of common books available across selected versions.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_verse_selection_manager.TabVerseSelectionManager.bible_data">
+<span class="sig-name descname"><span class="pre">bible_data</span></span><a class="headerlink" href="#gui.ui.tab_verse_selection_manager.TabVerseSelectionManager.bible_data" title="Link to this definition"></a></dt>
+<dd><p>Bible data loader instance used to resolve
+standard book names and verse structures.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>bible_data</strong> (<a class="reference internal" href="core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader" title="core.utils.bible_data_loader.BibleDataLoader"><em>BibleDataLoader</em></a>) – Instance of BibleDataLoader</p></li>
-<li><p><strong>version_helper</strong> (<a class="reference internal" href="core.utils.verse_version_helper.html#core.utils.verse_version_helper.VerseVersionHelper" title="core.utils.verse_version_helper.VerseVersionHelper"><em>VerseVersionHelper</em></a>) – Helper for version selection and validation</p></li>
-<li><p><strong>tr_func</strong> (<em>Callable</em><em>[</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>]</em>) – Translation function (usually <cite>self.tr</cite>)</p></li>
-</ul>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader" title="core.utils.bible_data_loader.BibleDataLoader">BibleDataLoader</a></p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_verse_selection_manager.TabVerseSelectionManager.version_helper">
+<span class="sig-name descname"><span class="pre">version_helper</span></span><a class="headerlink" href="#gui.ui.tab_verse_selection_manager.TabVerseSelectionManager.version_helper" title="Link to this definition"></a></dt>
+<dd><p>Helper used to read selected versions,
+validate selections, and compute common books.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="core.utils.verse_version_helper.html#core.utils.verse_version_helper.VerseVersionHelper" title="core.utils.verse_version_helper.VerseVersionHelper">VerseVersionHelper</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gui.ui.tab_verse_selection_manager.TabVerseSelectionManager.tr">
+<span class="sig-name descname"><span class="pre">tr</span></span><a class="headerlink" href="#gui.ui.tab_verse_selection_manager.TabVerseSelectionManager.tr" title="Link to this definition"></a></dt>
+<dd><p>Translation function used for localized UI messages.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Callable[[str], str]</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.tab_verse_selection_manager.TabVerseSelectionManager.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bible_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version_helper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tr_func</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_verse_selection_manager.html#TabVerseSelectionManager.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_verse_selection_manager.TabVerseSelectionManager.__init__" title="Link to this definition"></a></dt>
-<dd><p>Initialize the manager with data and helpers.</p>
+<dd><p>Initialize the selection manager with Bible data and helper dependencies.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>bible_data</strong> – Bible data loader</p></li>
-<li><p><strong>version_helper</strong> – Instance for managing selected versions</p></li>
-<li><p><strong>tr_func</strong> – Translation function</p></li>
+<li><p><strong>bible_data</strong> (<a class="reference internal" href="core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader" title="core.utils.bible_data_loader.BibleDataLoader"><em>BibleDataLoader</em></a>) – Bible data loader instance.</p></li>
+<li><p><strong>version_helper</strong> (<a class="reference internal" href="core.utils.verse_version_helper.html#core.utils.verse_version_helper.VerseVersionHelper" title="core.utils.verse_version_helper.VerseVersionHelper"><em>VerseVersionHelper</em></a>) – Helper used to manage selected versions.</p></li>
+<li><p><strong>tr_func</strong> (<em>Callable</em><em>[</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>]</em>) – Translation function for localized UI strings.</p></li>
 </ul>
 </dd>
 </dl>
@@ -164,16 +193,18 @@ and dropdowns for book and chapter selection in the TabVerse UI.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.tab_verse_selection_manager.TabVerseSelectionManager.create_version_checkbox">
 <span class="sig-name descname"><span class="pre">create_version_checkbox</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_verse_selection_manager.html#TabVerseSelectionManager.create_version_checkbox"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_verse_selection_manager.TabVerseSelectionManager.create_version_checkbox" title="Link to this definition"></a></dt>
-<dd><p>Creates a checkbox for a given Bible version.</p>
+<dd><p>Create a version selection checkbox for a given Bible version.</p>
+<p>The checkbox label uses the GUI alias mapping when available, while the
+underlying version key is stored on the widget as <cite>version_key</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>parent</strong> – Parent widget with access to bible_data and update method</p></li>
-<li><p><strong>version_name</strong> (<em>str</em>) – Full name of the version</p></li>
+<li><p><strong>parent</strong> (<em>QWidget</em>) – Parent UI instance used to access bible_data and update callbacks.</p></li>
+<li><p><strong>version_name</strong> (<em>str</em>) – Full version identifier.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Configured QCheckBox</p>
+<dd class="field-even"><p>Configured checkbox instance.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>QCheckBox</p>
@@ -184,10 +215,13 @@ and dropdowns for book and chapter selection in the TabVerse UI.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.tab_verse_selection_manager.TabVerseSelectionManager.update_grid_layout">
 <span class="sig-name descname"><span class="pre">update_grid_layout</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_verse_selection_manager.html#TabVerseSelectionManager.update_grid_layout"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_verse_selection_manager.TabVerseSelectionManager.update_grid_layout" title="Link to this definition"></a></dt>
-<dd><p>Updates the layout grid for version checkboxes based on platform-specific width.</p>
+<dd><p>Reflow the version checkbox grid layout based on the current viewport width.</p>
+<p>This recomputes the number of columns from the available width and places
+checkboxes into the grid accordingly. Platform-specific width ratios are used
+to account for rendering/scrollbar differences.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>parent</strong> – Parent widget with scroll and layout references</p>
+<dd class="field-odd"><p><strong>parent</strong> (<em>QWidget</em>) – TabVerse instance containing the version scroll area and grid layout.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -195,10 +229,13 @@ and dropdowns for book and chapter selection in the TabVerse UI.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.tab_verse_selection_manager.TabVerseSelectionManager.update_version_summary">
 <span class="sig-name descname"><span class="pre">update_version_summary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_verse_selection_manager.html#TabVerseSelectionManager.update_version_summary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_verse_selection_manager.TabVerseSelectionManager.update_version_summary" title="Link to this definition"></a></dt>
-<dd><p>Updates the label summarizing selected versions and repopulates book dropdown.</p>
+<dd><p>Update the selected-version summary label and refresh dependent dropdowns.</p>
+<p>If no versions are selected, this clears book/chapter/verse inputs and shows a
+warning dialog. Otherwise, it updates the summary label (alias vs full name)
+and refreshes the book dropdown to reflect books common to all selected versions.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>parent</strong> – TabVerse instance with summary label and dropdown widgets</p>
+<dd class="field-odd"><p><strong>parent</strong> (<em>QWidget</em>) – TabVerse instance containing summary label and dropdown widgets.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -206,12 +243,13 @@ and dropdowns for book and chapter selection in the TabVerse UI.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.tab_verse_selection_manager.TabVerseSelectionManager.populate_book_dropdown">
 <span class="sig-name descname"><span class="pre">populate_book_dropdown</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lang_code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_verse_selection_manager.html#TabVerseSelectionManager.populate_book_dropdown"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_verse_selection_manager.TabVerseSelectionManager.populate_book_dropdown" title="Link to this definition"></a></dt>
-<dd><p>Populates the book dropdown with all standard books.</p>
+<dd><p>Populate the book dropdown with the full standard book list.</p>
+<p>This is used to initialize the book dropdown independent of version filtering.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>parent</strong> – TabVerse instance with combo box</p></li>
-<li><p><strong>lang_code</strong> (<em>str</em><em> | </em><em>None</em>) – Language code (‘ko’ or ‘en’)</p></li>
+<li><p><strong>parent</strong> (<em>QWidget</em>) – TabVerse instance containing the book combo box.</p></li>
+<li><p><strong>lang_code</strong> (<em>str</em><em> | </em><em>None</em>) – Language code used for display names (default: “ko”).</p></li>
 </ul>
 </dd>
 </dl>
@@ -220,12 +258,16 @@ and dropdowns for book and chapter selection in the TabVerse UI.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.tab_verse_selection_manager.TabVerseSelectionManager.update_book_dropdown">
 <span class="sig-name descname"><span class="pre">update_book_dropdown</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lang_code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_verse_selection_manager.html#TabVerseSelectionManager.update_book_dropdown"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_verse_selection_manager.TabVerseSelectionManager.update_book_dropdown" title="Link to this definition"></a></dt>
-<dd><p>Updates the book dropdown to show only those available in all selected versions.</p>
+<dd><p>Update the book dropdown to include only books common to all selected versions.</p>
+<p>This validates the selected versions, computes the intersection of supported
+books, updates the dropdown entries accordingly, and attempts to restore any
+previous book/chapter/verse selections when possible.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>parent</strong> – TabVerse instance with input fields and book combo box</p></li>
-<li><p><strong>lang_code</strong> – Language code (‘ko’ or ‘en’)</p></li>
+<li><p><strong>parent</strong> (<em>QWidget</em>) – TabVerse instance containing book/chapter/verse input widgets.</p></li>
+<li><p><strong>lang_code</strong> (<em>str</em><em> | </em><em>None</em>) – Language code used for display names. If not provided,
+it is inferred from the current translation context.</p></li>
 </ul>
 </dd>
 </dl>
@@ -234,10 +276,13 @@ and dropdowns for book and chapter selection in the TabVerse UI.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gui.ui.tab_verse_selection_manager.TabVerseSelectionManager.update_chapter_dropdown">
 <span class="sig-name descname"><span class="pre">update_chapter_dropdown</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/ui/tab_verse_selection_manager.html#TabVerseSelectionManager.update_chapter_dropdown"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.ui.tab_verse_selection_manager.TabVerseSelectionManager.update_chapter_dropdown" title="Link to this definition"></a></dt>
-<dd><p>Updates the chapter dropdown to reflect the selected book and version.</p>
+<dd><p>Update the chapter dropdown for the currently selected book.</p>
+<p>This resolves the internal book key, reads available chapter indices from the
+selected version’s verse structure, and fills the chapter combo box with a
+1..max range.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>parent</strong> – TabVerse instance with combo boxes and data access</p>
+<dd class="field-odd"><p><strong>parent</strong> (<em>QWidget</em>) – TabVerse instance containing the book and chapter widgets.</p>
 </dd>
 </dl>
 </dd></dl>

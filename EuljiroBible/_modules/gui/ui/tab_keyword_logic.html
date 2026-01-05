@@ -79,7 +79,7 @@
 <span class="sd">:E-mail: euljirochurch [at] G.M.A.I.L. (replace [at] with @ and G.M.A.I.L as you understood.)</span>
 <span class="sd">:License: MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</span>
 
-<span class="sd">Handles the keyword search, result display, and verse saving logic for the TabKeyword UI.</span>
+<span class="sd">Handles the keyword search, result display, and verse saving logic for the :class:`gui.ui.tab_keyword.TabKeyword` UI.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtCore</span><span class="w"> </span><span class="kn">import</span> <span class="n">Qt</span>
@@ -93,25 +93,32 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">gui.utils.keyword_result_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">KeywordResultTableModel</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">gui.utils.keyword_highlight_delegate</span><span class="w"> </span><span class="kn">import</span> <span class="n">KeywordHighlightDelegate</span>
 
-
 <div class="viewcode-block" id="TabKeywordLogic">
 <a class="viewcode-back" href="../../../gui.ui.tab_keyword_logic.html#gui.ui.tab_keyword_logic.TabKeywordLogic">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">TabKeywordLogic</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Provides backend logic for keyword-based search, result formatting,</span>
-<span class="sd">    and verse saving for the TabKeyword UI.</span>
+<span class="sd">    Backend logic for keyword-based Bible search and verse export.</span>
+
+<span class="sd">    This class implements the non-UI logic used by the TabKeyword GUI tab,</span>
+<span class="sd">    including executing keyword searches, formatting results for display,</span>
+<span class="sd">    and exporting a selected verse to the configured overlay output file.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        settings (dict): Application-level settings dictionary used for output paths</span>
+<span class="sd">            and persistence behavior.</span>
+<span class="sd">        tr (Callable[[str], str]): Translation function used to render localized</span>
+<span class="sd">            UI strings and message box text.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="TabKeywordLogic.__init__">
 <a class="viewcode-back" href="../../../gui.ui.tab_keyword_logic.html#gui.ui.tab_keyword_logic.TabKeywordLogic.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">settings</span><span class="p">,</span> <span class="n">tr_func</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Initializes the logic handler with settings and translation function.</span>
+<span class="sd">        Initialize the logic handler with settings and a translation function.</span>
 
-<span class="sd">        :param settings: Global application settings</span>
-<span class="sd">        :type settings: dict</span>
-<span class="sd">        :param tr_func: Translation function for localized strings</span>
-<span class="sd">        :type tr_func: Callable[[str], str]</span>
+<span class="sd">        Args:</span>
+<span class="sd">            settings (dict): Global application settings.</span>
+<span class="sd">            tr_func (Callable[[str], str]): Translation function for localized strings.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">settings</span> <span class="o">=</span> <span class="n">settings</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tr</span> <span class="o">=</span> <span class="n">tr_func</span></div>
@@ -121,10 +128,16 @@
 <a class="viewcode-back" href="../../../gui.ui.tab_keyword_logic.html#gui.ui.tab_keyword_logic.TabKeywordLogic.run_search">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">run_search</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Performs a keyword search and updates the result table and summary.</span>
+<span class="sd">        Run a keyword search and update the UI with results and summary.</span>
 
-<span class="sd">        :param parent: The TabKeyword instance (UI context)</span>
-<span class="sd">        :type parent: QWidget</span>
+<span class="sd">        This reads the selected Bible version and keyword input from the parent UI,</span>
+<span class="sd">        executes the search via BibleKeywordSearcher, and then updates the table and</span>
+<span class="sd">        summary views through the parent&#39;s update methods. User-facing warnings are</span>
+<span class="sd">        shown when input is missing or no results are found.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            parent (QWidget): The TabKeyword UI instance providing the search inputs</span>
+<span class="sd">                and output widgets.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">log_debug</span><span class="p">(</span><span class="s2">&quot;[TabKeyword] run_search started&quot;</span><span class="p">)</span>
         <span class="n">version</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">version_box</span><span class="o">.</span><span class="n">currentText</span><span class="p">()</span>
@@ -158,10 +171,19 @@
 <a class="viewcode-back" href="../../../gui.ui.tab_keyword_logic.html#gui.ui.tab_keyword_logic.TabKeywordLogic.save_selected_verse">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">save_selected_verse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Saves the currently selected verse in the result table to verse_output.txt.</span>
+<span class="sd">        Save the currently selected verse from the result table to the overlay output.</span>
 
-<span class="sd">        :param parent: The TabKeyword instance</span>
-<span class="sd">        :type parent: QWidget</span>
+<span class="sd">        This extracts the selected reference from the result table, resolves/normalizes</span>
+<span class="sd">        the book name, retrieves the verse text from the selected version, formats the</span>
+<span class="sd">        output text, and writes it using the project&#39;s output-saving helper.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            parent (QWidget): The TabKeyword UI instance providing table selection,</span>
+<span class="sd">                Bible data access, language context, and settings.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            Exception: Any error raised by the output writer is caught and presented</span>
+<span class="sd">            to the user via a critical dialog.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">log_debug</span><span class="p">(</span><span class="s2">&quot;[TabKeyword] save_selected_verse called&quot;</span><span class="p">)</span>
 
@@ -233,10 +255,13 @@
 <a class="viewcode-back" href="../../../gui.ui.tab_keyword_logic.html#gui.ui.tab_keyword_logic.TabKeywordLogic.clear_outputs">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">clear_outputs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Clears the verse output file by writing an empty string.</span>
+<span class="sd">        Clear the verse output destination.</span>
 
-<span class="sd">        :param parent: TabKeyword instance</span>
-<span class="sd">        :type parent: QWidget</span>
+<span class="sd">        This writes an empty string to the configured output path(s), effectively</span>
+<span class="sd">        clearing any overlay text that is being polled or displayed.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            parent (QWidget): The TabKeyword UI instance providing settings.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">save_to_files</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">parent</span><span class="o">.</span><span class="n">settings</span><span class="p">)</span></div>
 
@@ -245,12 +270,15 @@
 <a class="viewcode-back" href="../../../gui.ui.tab_keyword_logic.html#gui.ui.tab_keyword_logic.TabKeywordLogic.update_table">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">update_table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">results</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Sets the result table model and installs a keyword highlight delegate.</span>
+<span class="sd">        Update the result table model and install keyword highlighting.</span>
 
-<span class="sd">        :param parent: TabKeyword instance</span>
-<span class="sd">        :type parent: QWidget</span>
-<span class="sd">        :param results: List of verse entry dictionaries</span>
-<span class="sd">        :type results: list[dict]</span>
+<span class="sd">        This constructs a KeywordResultTableModel from the search results, attaches it</span>
+<span class="sd">        to the UI table, and applies a KeywordHighlightDelegate for visual emphasis of</span>
+<span class="sd">        matched terms.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            parent (QWidget): The TabKeyword UI instance containing the table widget.</span>
+<span class="sd">            results (list[dict]): List of verse entry dictionaries returned by the searcher.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">model</span> <span class="o">=</span> <span class="n">KeywordResultTableModel</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">parent</span><span class="o">.</span><span class="n">bible_data</span><span class="p">,</span> <span class="n">parent</span><span class="o">.</span><span class="n">current_language</span><span class="p">,</span> <span class="n">parent</span><span class="o">.</span><span class="n">tr</span><span class="p">)</span>
         <span class="n">parent</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setModel</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
@@ -268,12 +296,11 @@
 <a class="viewcode-back" href="../../../gui.ui.tab_keyword_logic.html#gui.ui.tab_keyword_logic.TabKeywordLogic.update_summary">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">update_summary</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">counts</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Updates the summary box with the count of each keyword found.</span>
+<span class="sd">        Update the summary box with per-keyword occurrence counts.</span>
 
-<span class="sd">        :param parent: TabKeyword instance</span>
-<span class="sd">        :type parent: QWidget</span>
-<span class="sd">        :param counts: Dictionary mapping keyword → count</span>
-<span class="sd">        :type counts: dict[str, int]</span>
+<span class="sd">        Args:</span>
+<span class="sd">            parent (QWidget): The TabKeyword UI instance containing the summary widget.</span>
+<span class="sd">            counts (dict[str, int]): Mapping from keyword to occurrence count.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">parent</span><span class="o">.</span><span class="n">summary_box</span><span class="o">.</span><span class="n">setPlainText</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">counts</span><span class="o">.</span><span class="n">items</span><span class="p">()))</span></div>
 </div>

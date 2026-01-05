@@ -112,13 +112,59 @@
 </dd>
 </dl>
 <p>Command-line entry point for the EuljiroBible CLI interface.</p>
-<p>This module parses command-line arguments and delegates
-the logic to the CLI command engine.</p>
+<p>This module provides a minimal command dispatcher for the CLI. It parses
+<code class="docutils literal notranslate"><span class="pre">sys.argv</span></code> and routes execution to the appropriate command handler.</p>
+<p>Supported commands:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">bible</span></code>: Bible lookup / verse output workflow handled by
+<a class="reference internal" href="cli.commands.html#cli.commands.run_bible_command" title="cli.commands.run_bible_command"><code class="xref py py-func docutils literal notranslate"><span class="pre">cli.commands.run_bible_command()</span></code></a>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">search</span></code>: Keyword search workflow handled by
+<a class="reference internal" href="cli.commands.html#cli.commands.run_search_command" title="cli.commands.run_search_command"><code class="xref py py-func docutils literal notranslate"><span class="pre">cli.commands.run_search_command()</span></code></a>.</p></li>
+</ul>
+<p>Dispatch behavior:</p>
+<ul class="simple">
+<li><p>If no arguments are provided, this module calls <code class="docutils literal notranslate"><span class="pre">run_bible_command([])</span></code>,
+which is expected to display CLI usage and available versions.</p></li>
+<li><p>If the first token is an unknown command, this module falls back to treating
+the entire argument list as a <code class="docutils literal notranslate"><span class="pre">bible</span></code> command. This preserves a simple UX
+where users can type version/book references directly without explicitly
+prefixing <code class="docutils literal notranslate"><span class="pre">bible</span></code>.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>This module intentionally keeps parsing and routing logic small. Command semantics, validation, I/O, and user-facing messages belong in <a class="reference internal" href="cli.commands.html#module-cli.commands" title="cli.commands"><code class="xref py py-mod docutils literal notranslate"><span class="pre">cli.commands</span></code></a>.</p></li>
+<li><p>CLI error messages are expected to be English-only by project convention.</p></li>
+</ul>
+</div>
+<p class="rubric">Example</p>
+<p>Typical usage patterns:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ bible NKRV John 3:16
+$ bible search NKRV &quot;God so loved&quot;
+$ bible NKRV John 3:16   # falls back to &#39;bible&#39; command
+</pre></div>
+</div>
 <dl class="py function">
 <dt class="sig sig-object py" id="cli.cli_main.main">
 <span class="sig-prename descclassname"><span class="pre">cli.cli_main.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/cli/cli_main.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cli.cli_main.main" title="Link to this definition"></a></dt>
 <dd><p>Main entry point for the CLI version of EuljiroBible.</p>
-<p>Parses arguments from the command line and executes the relevant logic.</p>
+<p>This function reads command-line arguments from <code class="docutils literal notranslate"><span class="pre">sys.argv</span></code> and dispatches
+execution to the appropriate command handler.</p>
+<dl class="simple">
+<dt>Behavior:</dt><dd><ul class="simple">
+<li><p>No arguments: show default Bible command usage (delegated).</p></li>
+<li><p>First argument is <code class="docutils literal notranslate"><span class="pre">bible</span></code>: dispatch to <a class="reference internal" href="cli.commands.html#cli.commands.run_bible_command" title="cli.commands.run_bible_command"><code class="xref py py-func docutils literal notranslate"><span class="pre">cli.commands.run_bible_command()</span></code></a>.</p></li>
+<li><p>First argument is <code class="docutils literal notranslate"><span class="pre">search</span></code>: dispatch to <a class="reference internal" href="cli.commands.html#cli.commands.run_search_command" title="cli.commands.run_search_command"><code class="xref py py-func docutils literal notranslate"><span class="pre">cli.commands.run_search_command()</span></code></a>.</p></li>
+<li><p>Otherwise: fallback to <a class="reference internal" href="cli.commands.html#cli.commands.run_bible_command" title="cli.commands.run_bible_command"><code class="xref py py-func docutils literal notranslate"><span class="pre">cli.commands.run_bible_command()</span></code></a> with the
+full argument list.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>

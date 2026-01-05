@@ -80,7 +80,7 @@
 <span class="sd">:License: MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</span>
 
 <span class="sd">Provides reusable UI widgets such as buttons, checkboxes, and loading indicator.</span>
-<span class="sd">Includes utility wrappers for QPushButton creation with SVG icons and dynamic sizing.</span>
+<span class="sd">Includes utility wrappers for `QPushButton` creation with SVG icons and dynamic sizing.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">QPushButton</span><span class="p">,</span> <span class="n">QCheckBox</span><span class="p">,</span> <span class="n">QWidget</span><span class="p">,</span> <span class="n">QApplication</span><span class="p">,</span> <span class="n">QSizePolicy</span>
@@ -92,11 +92,11 @@
 <a class="viewcode-back" href="../../../gui.ui.common.html#gui.ui.common.create_button">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">create_button</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Creates a QPushButton with optional click callback.</span>
+<span class="sd">    Creates a `QPushButton` with optional click callback.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        text (str): Text to display on the button.</span>
-<span class="sd">        callback (function, optional): Slot to connect to clicked() signal.</span>
+<span class="sd">        callback (function, optional): Slot to connect to ``clicked()`` signal.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        QPushButton: The configured button.</span>
@@ -112,7 +112,7 @@
 <a class="viewcode-back" href="../../../gui.ui.common.html#gui.ui.common.create_checkbox">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">create_checkbox</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">checked</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Creates a QCheckBox with optional initial state and signal connection.</span>
+<span class="sd">    Creates a `QCheckBox` with optional initial state and signal connection.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        text (str): Label text next to the checkbox.</span>
@@ -134,7 +134,7 @@
 <a class="viewcode-back" href="../../../gui.ui.common.html#gui.ui.common.create_svg_text_button">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">create_svg_text_button</span><span class="p">(</span><span class="n">svg_path</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">tooltip</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Creates a QPushButton with SVG icon and text.</span>
+<span class="sd">    Creates a `QPushButton` with SVG icon and text.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        svg_path (str): Path to SVG icon.</span>
@@ -168,7 +168,23 @@
 <span class="k">class</span><span class="w"> </span><span class="nc">LoadingIndicator</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A spinning arc-based loading indicator widget.</span>
-<span class="sd">    Can be shown during background loading operations.</span>
+
+<span class="sd">    This widget displays a rotating arc animation to indicate that a background</span>
+<span class="sd">    operation (such as data loading or initialization) is in progress. It is</span>
+<span class="sd">    designed to be lightweight and self-contained, relying on a QTimer-driven</span>
+<span class="sd">    angle update and custom painting via QPainter.</span>
+
+<span class="sd">    The widget automatically centers itself within its parent when shown or when</span>
+<span class="sd">    the parent is resized.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        angle (int):</span>
+<span class="sd">            Current rotation angle of the arc, in degrees. This value is incremented</span>
+<span class="sd">            periodically by the internal timer to animate the spinner.</span>
+
+<span class="sd">        timer (QTimer):</span>
+<span class="sd">            Timer used to update the rotation angle at a fixed interval, driving</span>
+<span class="sd">            the animation loop.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="LoadingIndicator.__init__">

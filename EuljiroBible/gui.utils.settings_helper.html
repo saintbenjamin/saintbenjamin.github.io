@@ -135,25 +135,62 @@ based on user interface widget states, especially overlay-related UI components.
 <dl class="py function">
 <dt class="sig sig-object py" id="gui.utils.settings_helper.update_overlay_settings">
 <span class="sig-prename descclassname"><span class="pre">gui.utils.settings_helper.</span></span><span class="sig-name descname"><span class="pre">update_overlay_settings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">widget_overlays</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/settings_helper.html#update_overlay_settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.settings_helper.update_overlay_settings" title="Link to this definition"></a></dt>
-<dd><p>Update the given settings dictionary with current values from overlay-related UI widgets.</p>
+<dd><p>Collect overlay display settings from UI widgets and update the settings dictionary.</p>
+<p>This function reads the current state of overlay-related UI controls
+(font, size, weight, colors, transparency, and display mode) and writes
+their values into the provided settings dictionary using standardized keys.</p>
+<p>It is designed to be called whenever overlay UI controls change, ensuring
+that runtime behavior and persisted configuration remain consistent.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>settings</strong> (<em>dict</em>) – Settings dictionary to be updated.</p></li>
-<li><p><strong>widget_overlays</strong> (<em>dict</em>) – <p>Dictionary of UI widgets used for overlay settings.</p>
-<p>Expected keys include:
-font_combo (QComboBox or QFontComboBox),
-size_combo (QComboBox),
-weight_combo (QComboBox),
-alpha_slider (QSlider),
-text_color_btn (QPushButton),
-bg_color_btn (QPushButton),
-mode_combo (QComboBox; values: “fullscreen” or “resizable”).</p>
+<li><p><strong>settings</strong> (<em>dict</em>) – Application settings dictionary to update in-place.</p></li>
+<li><p><strong>widget_overlays</strong> (<em>dict</em>) – <p>Mapping of overlay-related UI widgets.
+Expected keys and widget types:</p>
+<blockquote>
+<div><ul>
+<li><dl class="simple">
+<dt>”font_family_combo” (QComboBox | QFontComboBox):</dt><dd><p>Font family selector.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>”font_size_combo” (QComboBox):</dt><dd><p>Font size selector (text convertible to int).</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>”font_weight_combo” (QComboBox):</dt><dd><p>Font weight selector (Qt weight stored as item data).</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>”alpha_slider” (QSlider):</dt><dd><p>Background transparency slider (0–100).</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>”text_color_btn” (QPushButton):</dt><dd><p>Button whose palette color represents text color.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>”bg_color_btn” (QPushButton):</dt><dd><p>Button whose palette color represents background color.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>”mode_combo” (QComboBox):</dt><dd><p>Overlay mode selector (index 0 = fullscreen, 1 = resizable).</p>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
 </p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Updated settings dictionary containing overlay display configuration.</p>
+<dd class="field-even"><p>The updated settings dictionary containing overlay display configuration.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>dict</p>

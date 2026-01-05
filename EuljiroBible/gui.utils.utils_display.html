@@ -134,13 +134,22 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="gui.utils.utils_display.get_display_descriptions">
 <span class="sig-prename descclassname"><span class="pre">gui.utils.utils_display.</span></span><span class="sig-name descname"><span class="pre">get_display_descriptions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gui/utils/utils_display.html#get_display_descriptions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gui.utils.utils_display.get_display_descriptions" title="Link to this definition"></a></dt>
-<dd><p>Returns a list of human-readable descriptions for all connected displays.</p>
-<p>Each description includes the display number, resolution, and position.</p>
-<p class="rubric">Example</p>
-<p>[“Display 1: 1920x1080 &#64; (0,0)”, “Display 2: 1280x1024 &#64; (1920,0)”]</p>
+<dd><p>Return human-readable descriptions of all connected displays.</p>
+<p>Each entry includes:</p>
+<ul class="simple">
+<li><p>Display index (1-based)</p></li>
+<li><p>Screen resolution (width × height)</p></li>
+<li><p>Top-left screen position in virtual desktop coordinates</p></li>
+</ul>
+<p>This helper is typically used to populate display-selection dropdowns
+for overlay or presentation output configuration.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>List of display descriptions in the format “Display N: WxH &#64; (X,Y)”.</p>
+<dd class="field-odd"><p><dl class="simple">
+<dt>Display descriptions in the format</dt><dd><p>”Display N: WxH &#64; (X,Y)”.</p>
+</dd>
+</dl>
+</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>list[str]</p>
