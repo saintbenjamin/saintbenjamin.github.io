@@ -161,11 +161,10 @@ falling back to <code class="docutils literal notranslate"><span class="pre">QFo
 <dd><p>Load persisted application font settings and apply them to QApplication.</p>
 <p>This function reads the settings JSON file and applies the saved font family,
 size, and weight to the given <code class="docutils literal notranslate"><span class="pre">QApplication</span></code> instance.</p>
-<p>Failure behavior:
-- If loading or parsing fails, a GUI-safe error dialog is shown via</p>
-<blockquote>
-<div><p><code class="docutils literal notranslate"><span class="pre">handle_exception</span></code> and the application continues (Qt default font remains).</p>
-</div></blockquote>
+<p>Failure behavior:</p>
+<ul class="simple">
+<li><p>If loading or parsing fails, a GUI-safe error dialog is shown via <code class="docutils literal notranslate"><span class="pre">handle_exception</span></code> and the application continues (Qt default font remains).</p></li>
+</ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>app</strong> (<em>QApplication</em>) – The QApplication instance to configure.</p>
