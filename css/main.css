@@ -130,14 +130,17 @@ a {
     cursor: pointer;
 }
 
-.icon-container {
+/* shared icon bar style (header + footer) */
+.header-icon-container,
+.footer-icon-container {
     display: flex;
     justify-content: center;
     gap: 15px;
     padding: 10px;
 }
 
-.icon-container i {
+.header-icon-container i,
+.footer-icon-container i {
     font-size: 40px;
     color: gray;
     transition: transform 0.3s ease, color 0.3s ease;
@@ -145,22 +148,31 @@ a {
     z-index: 1;
 }
 
-.icon-container i:hover {
+.header-icon-container i:hover,
+.footer-icon-container i:hover {
     color: orangered;
     transform: translate(5px, 5px);
     cursor: pointer;
 }
 
-.icon-container a:hover,
-.icon-container button:hover {
+/* remove hover background box for both */
+.header-icon-container a:hover,
+.header-icon-container button:hover,
+.footer-icon-container a:hover,
+.footer-icon-container button:hover {
     background: none !important;
 }
 
-.icon-container button {
+/* normalize button look for both */
+.header-icon-container button,
+.footer-icon-container button {
     background: none;
     border: none;
     padding: 0;
 }
+
+.header-icon-container { display: none; }
+.footer-icon-container { display: flex; }
 
 .background {
     position: fixed;
@@ -526,4 +538,7 @@ code {
     .menu li a:active {
         background: rgba(0,0,0,0.05);
     }
+
+    .header-icon-container { display: flex; }
+    .footer-icon-container { display: none; }
 }
