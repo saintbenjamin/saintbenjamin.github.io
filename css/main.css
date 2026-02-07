@@ -33,7 +33,8 @@ body {
 
 header {
     width: 90%;
-    opacity: 80%;
+    opacity: 1;
+    background: rgba(255,255,255,0.8);
     color: black;
     padding: 20px;
     position: fixed;
@@ -422,129 +423,61 @@ code {
     font-weight: bold;
 }
 
-
 @media (max-width: 768px) {
-    .hamburger {
-        display: flex;
-    }
+  .hamburger { display: flex; }
 
-    .menu {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: -100%;
-        left: 0;
-        width: 100%;
-        background-color: rgba(255, 255, 255, 1);
-        z-index: 1;
-    }
+  .menu {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
 
-    .menu.open {
-        display: flex;
-        list-style-type: none;
-        padding: 0;
-        margin: 0;
-        background-color: rgba(255, 255, 255, 1);
-        justify-content: center;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: auto;
-        height: auto;
-    }
+    /* background + blur fusion */
+    background: rgba(255,255,255,0.8);
+    backdrop-filter: blur(6px);
 
-    .menu li a {
-        font-size: 2.0rem;
-        padding: 15px 20px;
-    }
+    z-index: 1000;
 
-    .popup img {
-        width: 600px;
-        height: 600px;
-    }    
+    /* critical overrides (desktop leftovers) */
+    height: auto;
+    justify-content: flex-start;
+    align-items: stretch;
 
-    p {
-        text-indent: 20px;
-        font-size: 2.0rem;
-        margin-top: 20px;
-        margin-right: 20px;
-    }
+    /* animation */
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: 
+      max-height 220ms ease,
+      opacity 180ms ease,
+      transform 180ms ease;
 
-    li {
-        font-size: 2.0rem;
-        margin-bottom: 10px;
-    }
+    box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+  }
 
-    .outlined-text-big {
-        font-size: 2.5rem;
-        color: black;
-        text-shadow: 
-            0.5px  0.5px 0 white, 
-           -0.5px -0.5px 0 white, 
-            0.5px -0.5px 0 white, 
-           -0.5px  0.5px 0 white,
-            1.0px  1.0px 0 white, 
-           -1.0px -1.0px 0 white, 
-            1.0px -1.0px 0 white, 
-           -1.0px  1.0px 0 white;
-    }    
+  .menu.open {
+    max-height: 70vh;
+    opacity: 1;
+    transform: translateY(0);
+    list-style: none;
+    padding: 10px 0;
+    margin: 0;
+  }
 
-    .outlined-text-semibig {
-        font-size: 2.2rem;
-        font-weight: bold;
-        color: black;
-        text-shadow: 
-            0.5px  0.5px 0 white, 
-           -0.5px -0.5px 0 white, 
-            0.5px -0.5px 0 white, 
-           -0.5px  0.5px 0 white,
-            1.0px  1.0px 0 white, 
-           -1.0px -1.0px 0 white, 
-            1.0px -1.0px 0 white, 
-           -1.0px  1.0px 0 white;
-    }
+  .menu li { width: 100%; }
 
-    /* === arXiv myarticles widget font & size === */
+  .menu li a {
+    display: block;
+    font-size: 1.4rem;
+    padding: 14px 20px;
+  }
 
-    /* Base text styling */
-    #arxivfeed,
-    #arxivfeed p,
-    #arxivfeed li,
-    #arxivfeed a,
-    #arxivfeed span,
-    #arxivfeed div {
-        font-family: 'Crimson Pro', 'Noto Serif JP', sans-serif !important;
-        font-size: 2.0rem;
-    }
-
-    /* === Apply white outline (stroke-like effect) to all visible text inside arxivfeed === */
-    #arxivfeed p,
-    #arxivfeed li,
-    #arxivfeed a,
-    #arxivfeed h1,
-    #arxivfeed h2,
-    #arxivfeed h3,
-    #arxivfeed h4,
-    #arxivfeed h5,
-    #arxivfeed h6,
-    #arxivfeed span,
-    #arxivfeed div {
-        text-shadow: 
-        0.5px  0.5px 0 white, 
-        -0.5px -0.5px 0 white, 
-        0.5px -0.5px 0 white, 
-        -0.5px  0.5px 0 white,
-        1.0px  1.0px 0 white, 
-        -1.0px -1.0px 0 white, 
-        1.0px -1.0px 0 white, 
-        -1.0px  1.0px 0 white;
-    }
-
-    /* Larger font for paper titles */
-    #arxivfeed .list-title,
-    #arxivfeed .list-title a {
-        font-size: 2.5rem !important;  /* bigger than 1.0rem base */
-        font-weight: bold;
-    }
-
+  .menu li a:active {
+    background: rgba(0,0,0,0.05);
+  }
 }
