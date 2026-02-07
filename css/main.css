@@ -423,7 +423,7 @@ code {
     font-weight: bold;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1280px) {
   .hamburger { display: flex; }
 
   .menu {
