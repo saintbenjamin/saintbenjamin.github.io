@@ -424,7 +424,9 @@ code {
 }
 
 @media (max-width: 1280px) {
-  .hamburger { display: flex; }
+  .hamburger {
+    display: flex;
+  }
 
   .menu {
     display: flex;
@@ -434,49 +436,59 @@ code {
     left: 0;
     width: 100%;
 
-    /* background + blur fusion */
-    background: rgba(255,255,255,0.8);
-    backdrop-filter: blur(6px);
+    /* Background (no opacity on container!) */
+    background: rgba(255,255,255,0.85);
 
     z-index: 1000;
 
-    /* critical overrides (desktop leftovers) */
+    /* Critical overrides from desktop layout */
     height: auto;
     justify-content: flex-start;
     align-items: stretch;
 
-    /* animation */
+    /* Animation (closed state) */
     max-height: 0;
     overflow: hidden;
     opacity: 0;
     transform: translateY(-8px);
-    transition: 
+    transition:
       max-height 220ms ease,
       opacity 180ms ease,
       transform 180ms ease;
 
+    /* Visual polish */
     box-shadow: 0 12px 30px rgba(0,0,0,0.12);
     border-bottom-left-radius: 12px;
     border-bottom-right-radius: 12px;
   }
 
+  /* Open state */
   .menu.open {
-    max-height: 70vh;
+    max-height: 70vh;                 /* limit height */
+    overflow-y: auto;                 /* enable internal scrolling */
+    -webkit-overflow-scrolling: touch;/* smooth scroll on iOS */
+
     opacity: 1;
     transform: translateY(0);
+
     list-style: none;
-    padding: 10px 0;
+    padding: 10px 0 16px;             /* bottom padding for scroll comfort */
     margin: 0;
   }
 
-  .menu li { width: 100%; }
+  /* Full-width rows */
+  .menu li {
+    width: 100%;
+  }
 
+  /* Menu links */
   .menu li a {
     display: block;
     font-size: 1.4rem;
     padding: 14px 20px;
   }
 
+  /* Touch feedback */
   .menu li a:active {
     background: rgba(0,0,0,0.05);
   }
