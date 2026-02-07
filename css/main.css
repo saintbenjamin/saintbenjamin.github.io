@@ -437,76 +437,84 @@ code {
 }
 
 @media (max-width: 1280px) {
-  :root{ 
-    --header-h: 100px; 
-  } /* mobile header height: tune if needed */
+    /* mobile header height: tune if needed */
+    :root{ 
+        --header-h: 100px; 
+    }
 
-  .hamburger {
-    display: flex;
-  }
+    .hamburger {
+        display: flex;
+    }
 
-  .menu {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
+    /* make sure header is the positioning context */
+    header { 
+        position: fixed; 
+    }
 
-    /* Background (no opacity on container!) */
-    background: rgba(255,255,255,0.85);
+    .menu {
+        /* keep what you already have */
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
 
-    z-index: 1000;
+        /* Background (no opacity on container!) */
+        background: rgba(255,255,255,0.85);
+        z-index: 1000;
 
-    /* Critical overrides from desktop layout */
-    height: auto;
-    justify-content: flex-start;
-    align-items: stretch;
+        /* Critical overrides from desktop layout */
+        height: auto;
+        justify-content: flex-start;
+        align-items: stretch;
 
-    /* Animation (closed state) */
-    max-height: 0;
-    overflow: hidden;
-    opacity: 0;
-    transform: translateY(-8px);
-    transition:
-      max-height 220ms ease,
-      opacity 180ms ease,
-      transform 180ms ease;
+        /* closed state */
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transform: translateY(-8px);
+        transition:
+        max-height 220ms ease,
+        opacity 180ms ease,
+        transform 180ms ease;
 
-    /* Visual polish */
-    box-shadow: 0 12px 30px rgba(0,0,0,0.12);
-    border-bottom-left-radius: 12px;
-    border-bottom-right-radius: 12px;
-  }
+        /* Visual polish */
+        box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+        border-bottom-left-radius: 12px;
+        border-bottom-right-radius: 12px;
+    }
 
-  /* Open state */
-  .menu.open {
-    max-height: 70vh;                 /* limit height */
-    overflow-y: auto;                 /* enable internal scrolling */
-    -webkit-overflow-scrolling: touch;/* smooth scroll on iOS */
+    .menu.open {
+        /* IMPORTANT: no item limit; show as many as possible */
+        opacity: 1;
+        transform: translateY(0);
 
-    opacity: 1;
-    transform: translateY(0);
+        list-style: none;
+        padding: 10px 0 16px;
+        margin: 0;
 
-    list-style: none;
-    padding: 10px 0 16px;             /* bottom padding for scroll comfort */
-    margin: 0;
-  }
+        /* If the menu fits, it ends exactly at the last item.
+        If it doesn't fit, it becomes scrollable. */
+        max-height: calc(100vh - 120px); /* tweak 120px to your header height */
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
 
-  /* Full-width rows */
-  .menu li {
-    width: 100%;
-  }
+    /* Full-width rows */
+    .menu li {
+        width: 100%;
+    }
 
-  /* Menu links */
-  .menu li a {
-    display: block;
-    font-size: 1.4rem;
-    padding: 14px 20px;
-  }
+    /* Menu links */
+    .menu li a {
+        display: block;
+        font-size: 1.4rem;
+        padding: 14px 20px;
+    }
 
-  /* Touch feedback */
-  .menu li a:active {
-    background: rgba(0,0,0,0.05);
-  }
+    /* Touch feedback */
+    .menu li a:active {
+        background: rgba(0,0,0,0.05);
+    }
 }
