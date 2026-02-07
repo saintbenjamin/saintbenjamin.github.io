@@ -290,8 +290,11 @@ function renderHonor(xmlDoc, container) {
   entries.forEach((entry) => {
     const title = nodeTextNS(entry, ATOM_NS, "title");
 
+    // <li class="outlined-text-semibig"><b>title</b></li>
     const liTitle = el("li", "outlined-text-semibig");
-    liTitle.textContent = title;
+    const b = document.createElement("b");
+    b.textContent = title;
+    liTitle.appendChild(b);
     ulOuter.appendChild(liTitle);
 
     const ulDetail = el("ul", "no-bullets");
@@ -299,6 +302,11 @@ function renderHonor(xmlDoc, container) {
     const titleJpLi = el("li");
     titleJpLi.textContent = nodeTextNS(entry, ATOM_NS, "title_jp");
     ulDetail.appendChild(titleJpLi);
+
+    // MISSING in your JS: <li><xsl:value-of select="a:location"/></li>
+    const locationLi = el("li");
+    locationLi.textContent = nodeTextNS(entry, ATOM_NS, "location");
+    ulDetail.appendChild(locationLi);
 
     const dateLi = el("li");
     dateLi.textContent = nodeTextNS(entry, ATOM_NS, "date");
