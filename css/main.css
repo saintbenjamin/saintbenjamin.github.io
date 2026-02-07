@@ -72,7 +72,7 @@ footer {
     width: 95%;
     bottom: 0;
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
 }
 
 p {
@@ -132,7 +132,7 @@ a {
 
 .icon-container {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     gap: 15px;
     padding: 10px;
 }
@@ -149,6 +149,17 @@ a {
     color: orangered;
     transform: translate(5px, 5px);
     cursor: pointer;
+}
+
+.icon-container a:hover,
+.icon-container button:hover {
+    background: none !important;
+}
+
+.icon-container button {
+    background: none;
+    border: none;
+    padding: 0;
 }
 
 .background {
@@ -290,13 +301,11 @@ code {
 }
 
 .qr-button {
-    background-color: orangered;
-    color: white;
-    padding: 10px 20px;
+    background: none;
     border: none;
-    border-radius: 5px;
+    padding: 0;
+    color: inherit;
     cursor: pointer;
-    font-size: 16px;
 }
 
 .qr-button:hover {
