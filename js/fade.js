@@ -1,19 +1,38 @@
-// script.js
+/**
+ * Applies a fade-in animation to elements when they enter the viewport.
+ *
+ * Elements must:
+ *   - have the class `.fade-in`
+ *   - define their initial hidden state in CSS
+ *
+ * Once an element becomes visible:
+ *   - the `visible` class is added
+ *   - the observer stops tracking that element (one-shot animation)
+ */
 document.addEventListener("DOMContentLoaded", () => {
-    const fadeIns = document.querySelectorAll('.fade-in');
+  // Collect all elements that should fade in
+  const fadeIns = document.querySelectorAll(".fade-in");
 
-    const options = {
-        threshold: 0.1,
-    };
+  // Observer configuration:
+  // Trigger when at least 10% of the element is visible
+  const options = {
+    threshold: 0.1,
+  };
 
-    const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, options);
+  // IntersectionObserver callback
+  const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      // When the element enters the viewport
+      if (entry.isIntersecting) {
+        // Activate fade-in animation
+        entry.target.classList.add("visible");
 
-    fadeIns.forEach(fadeIn => observer.observe(fadeIn));
+        // Stop observing after first trigger
+        observer.unobserve(entry.target);
+      }
+    });
+  }, options);
+
+  // Register all fade-in elements with the observer
+  fadeIns.forEach(el => observer.observe(el));
 });
