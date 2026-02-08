@@ -1,0 +1,42 @@
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  height: 100vh;
+  font-family: 'Crimson Pro', 'Noto Serif JP', sans-serif;
+}
+
+header {
+  width: 100%;
+  left: 0;
+  top: 0;
+  opacity: 1;
+  background: rgba(255,255,255,0.8);
+  color: black;
+  padding: 20px;
+  position: fixed;
+  display: flex;
+  justify-content: flex-end;
+  z-index: 1000;
+  min-height: var(--header-h);
+  box-sizing: border-box;
+}
+
+main {
+  flex: 1;
+  padding: 20px;
+  color: black;
+  padding-top: calc(var(--header-h) + 20px);
+  padding-bottom: 80px;
+}
+
+footer {
+  opacity: 80%;
+  color: black;
+  padding: 20px;
+  position: fixed;
+  width: 95%;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+}

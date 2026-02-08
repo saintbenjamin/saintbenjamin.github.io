@@ -1,0 +1,120 @@
+/* Small icon row (if used somewhere) */
+.here-icon-container {
+  display: flex;
+  gap: 15px;
+  padding: 10px;
+}
+
+.here-icon-container i {
+  font-size: 30px;
+  color: gray;
+  transition: transform 0.3s ease, color 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.here-icon-container i:hover {
+  color: orangered;
+  transform: translate(5px, 5px);
+  cursor: pointer;
+}
+
+/* Shared icon bar style (header + footer) */
+.header-icon-container,
+.footer-icon-container {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  padding: 10px;
+}
+
+.header-icon-container i,
+.footer-icon-container i {
+  font-size: 40px;
+  color: gray;
+  transition: transform 0.3s ease, color 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.header-icon-container i:hover,
+.footer-icon-container i:hover {
+  color: orangered;
+  transform: translate(5px, 5px);
+  cursor: pointer;
+}
+
+/* Remove hover background box for both */
+.header-icon-container a:hover,
+.header-icon-container button:hover,
+.footer-icon-container a:hover,
+.footer-icon-container button:hover {
+  background: none !important;
+}
+
+/* Normalize button look for both */
+.header-icon-container button,
+.footer-icon-container button {
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.header-icon-container { display: none; }
+.footer-icon-container { display: flex; }
+
+/* QR button */
+.qr-button {
+  background: none;
+  border: none;
+  padding: 0;
+  color: inherit;
+  cursor: pointer;
+}
+
+/* Overlay popup */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup {
+  position: relative;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.popup img {
+  width: 400px;
+  height: 400px;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.close-btn:hover {
+  background-color: #ff0000;
+}

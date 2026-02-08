@@ -1,0 +1,74 @@
+@media (max-width: 1280px) {
+  /* Mobile header height: tune if needed */
+  :root{
+    --header-h: 100px;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  /* Make sure header is the positioning context */
+  header {
+    position: fixed;
+  }
+
+  .menu {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+
+    background: rgba(255,255,255,0.85);
+    z-index: 1000;
+
+    height: auto;
+    justify-content: flex-start;
+    align-items: stretch;
+
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-8px);
+    transition:
+      max-height 220ms ease,
+      opacity 180ms ease,
+      transform 180ms ease;
+
+    box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+  }
+
+  .menu.open {
+    opacity: 1;
+    transform: translateY(0);
+
+    list-style: none;
+    padding: 10px 0 16px;
+    margin: 0;
+
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .menu li {
+    width: 100%;
+  }
+
+  .menu li a {
+    display: block;
+    font-size: 1.4rem;
+    padding: 14px 20px;
+  }
+
+  .menu li a:active {
+    background: rgba(0,0,0,0.05);
+  }
+
+  .header-icon-container { display: flex; }
+  .footer-icon-container { display: none; }
+}

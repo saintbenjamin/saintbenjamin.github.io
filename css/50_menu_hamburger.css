@@ -1,0 +1,41 @@
+.hamburger {
+  display: none;
+  flex-direction: column;
+  width: 30px;
+  height: 25px;
+  justify-content: space-between;
+  cursor: pointer;
+  margin: 20px;
+}
+
+.hamburger div {
+  height: 4px;
+  width: 100%;
+  background-color: orangered;
+  transition: all 0.3s ease;
+}
+
+.menu {
+  display: flex;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  justify-content: flex-end;
+  align-items: center;
+  flex-direction: row;
+}
+
+.menu li {
+  padding: 20px;
+  color: black;
+  text-align: center;
+  width: 100%;
+}
+
+.menu li:hover {
+  background-color: orangered;
+}

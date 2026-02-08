@@ -1,0 +1,7 @@
+:root{
+  --header-h: 80px; /* desktop-ish default */
+}
+
+html{
+  scroll-padding-top: var(--header-h);
+}

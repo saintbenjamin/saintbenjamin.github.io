@@ -1,0 +1,149 @@
+p {
+  text-indent: 20px;
+  font-size: 1.2rem;
+  margin-top: 20px;
+  margin-right: 20px;
+}
+
+ul.no-bullets {
+  list-style-type: none;
+  padding-left: 20px;
+}
+
+li {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+a {
+  color: orangered;
+  text-decoration: none;
+}
+
+/* Fade-in animation */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Outlined text variants */
+.outlined-text-superbig {
+  font-size: 2.5rem;
+  color: black;
+  text-shadow:
+    0.5px  0.5px 0 white,
+   -0.5px -0.5px 0 white,
+    0.5px -0.5px 0 white,
+   -0.5px  0.5px 0 white,
+    1.0px  1.0px 0 white,
+   -1.0px -1.0px 0 white,
+    1.0px -1.0px 0 white,
+   -1.0px  1.0px 0 white;
+}
+
+.outlined-text-big {
+  font-size: 2.0rem;
+  color: black;
+  text-shadow:
+    0.5px  0.5px 0 white,
+   -0.5px -0.5px 0 white,
+    0.5px -0.5px 0 white,
+   -0.5px  0.5px 0 white,
+    1.0px  1.0px 0 white,
+   -1.0px -1.0px 0 white,
+    1.0px -1.0px 0 white,
+   -1.0px  1.0px 0 white;
+}
+
+.outlined-text-semibig {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: black;
+  text-shadow:
+    0.5px  0.5px 0 white,
+   -0.5px -0.5px 0 white,
+    0.5px -0.5px 0 white,
+   -0.5px  0.5px 0 white,
+    1.0px  1.0px 0 white,
+   -1.0px -1.0px 0 white,
+    1.0px -1.0px 0 white,
+   -1.0px  1.0px 0 white;
+}
+
+.outlined-text {
+  color: black;
+  text-shadow:
+    0.5px  0.5px 0 white,
+   -0.5px -0.5px 0 white,
+    0.5px -0.5px 0 white,
+   -0.5px  0.5px 0 white,
+    1.0px  1.0px 0 white,
+   -1.0px -1.0px 0 white,
+    1.0px -1.0px 0 white,
+   -1.0px  1.0px 0 white;
+}
+
+/* Custom lists */
+.paren-ol{
+  list-style:none;
+  counter-reset:item;
+  margin:0.5rem 0 0;
+  padding-left:2rem;
+}
+.paren-ol > li{
+  counter-increment:item;
+  position:relative;
+  margin:0.25rem 0;
+}
+.paren-ol > li::before{
+  content:"(" counter(item) ") ";
+  position:absolute;
+  left:-2rem;
+}
+
+.bullet-ul{
+  list-style: disc;
+  list-style-position: outside;
+  margin: 0.5rem 0 0;
+  padding-left: 1.25rem;
+}
+.bullet-ul > li{
+  margin: 0.25rem 0;
+}
+.bullet-ul ul{
+  list-style: circle;
+  margin: 0.25rem 0 0;
+}
+.bullet-ul ul ul{
+  list-style: square;
+}
+
+/* Small caps helper */
+.sc {
+  font-variant: small-caps;
+}
+
+/* Inline code style */
+code {
+  font-family: monospace;
+  background: #f5f5f5;
+  padding: 0.1em 0.3em;
+  border-radius: 3px;
+}
+
+/* Word break helper */
+.word-break {
+  flex-wrap: wrap;
+  display: inline-block;
+  word-break: keep-all;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}

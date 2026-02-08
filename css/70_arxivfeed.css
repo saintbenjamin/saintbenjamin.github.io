@@ -1,0 +1,43 @@
+/* === arXiv myarticles widget font & size === */
+
+/* Base text styling */
+#arxivfeed,
+#arxivfeed p,
+#arxivfeed li,
+#arxivfeed a,
+#arxivfeed span,
+#arxivfeed .list-title,
+#arxivfeed div {
+  font-family: 'Crimson Pro', 'Noto Serif JP', sans-serif !important;
+  font-size: 1.2rem;
+}
+
+/* White outline effect for all visible text inside arxivfeed */
+#arxivfeed p,
+#arxivfeed li,
+#arxivfeed a,
+#arxivfeed h1,
+#arxivfeed h2,
+#arxivfeed h3,
+#arxivfeed h4,
+#arxivfeed h5,
+#arxivfeed h6,
+#arxivfeed span,
+#arxivfeed div {
+  text-shadow:
+    0.5px  0.5px 0 white,
+   -0.5px -0.5px 0 white,
+    0.5px -0.5px 0 white,
+   -0.5px  0.5px 0 white,
+    1.0px  1.0px 0 white,
+   -1.0px -1.0px 0 white,
+    1.0px -1.0px 0 white,
+   -1.0px  1.0px 0 white;
+}
+
+/* Larger font for paper titles */
+#arxivfeed .list-title,
+#arxivfeed .list-title a {
+  font-size: 1.5rem !important;
+  font-weight: bold;
+}

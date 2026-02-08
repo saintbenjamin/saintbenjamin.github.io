@@ -1,0 +1,24 @@
+@font-face {
+  font-family: 'Crimson Pro';
+  src: url('../fonts/CrimsonPro-VariableFont_wght.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Noto Serif JP';
+  src: url('../fonts/NotoSerifJP-VariableFont_wght.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'IPAex Mincho';
+  src: url('../fonts/IPAexMincho.woff2') format('woff2'),
+       url('../fonts/IPAexMincho.woff')  format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
