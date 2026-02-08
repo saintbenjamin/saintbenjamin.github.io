@@ -33,5 +33,5 @@ function loadExternalHTML(filePath, divId) {
  * Kept separate from JSON-based rendering pipeline.
  */
 window.onload = function () {
-  loadExternalHTML("statement.html", "self-state");
+  loadExternalHTML('res_sta.html', 'res-sta');
 };
