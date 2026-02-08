@@ -53,6 +53,23 @@
             }
           ]
         }
+      },
+      {
+        "a:title": { "_text": "Benjamin Jaedon Choi" },
+        "a:item_s": {
+          "a:item": [
+            {
+              "a:title": {
+                "_text": "崔 在敦"
+              }
+            },
+            {
+              "a:title": {
+                "_text": "耽津崔氏 靑陽禮山判書公派"
+              }
+            }
+          ]
+        }
       }
     ]
   }
