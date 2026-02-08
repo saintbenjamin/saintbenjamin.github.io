@@ -1,0 +1,254 @@
+{
+  "a:feed": {
+    "a:title": { "_text": "Benjamin J. Choi's Link" },
+    "a:updated": { "_text": "2024-12-09T00:00:00-05:00" },
+    "a:id": { "_text": "benji_link" },
+    "a:entry": [
+      {
+        "a:title": { "_text": "Christian" },
+        "a:item_s": {
+          "a:item": [
+            {
+              "a:title": {
+                "_text": "EuljiroBible Documentation",
+                "_attrs": {
+                  "link": "https://saintbenjamin.github.io/EuljiroBible",
+                  "target": "_blank"
+                }
+              }
+            },
+            {
+              "a:title": {
+                "_text": "EuljiroWorship Documentation",
+                "_attrs": {
+                  "link": "https://saintbenjamin.github.io/EuljiroWorship",
+                  "target": "_blank"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "a:title": { "_text": "Academia" },
+        "a:item_s": {
+          "a:item": [
+            {
+              "a:title": {
+                "_text": "Large-scale lattice QCD simulation and development of AI technology",
+                "_attrs": {
+                  "link": "https://www-het.ph.tsukuba.ac.jp/~latticeqcd_ai/latticeqcd_ai/",
+                  "target": "_blank"
+                }
+              }
+            },
+            {
+              "a:title": {
+                "_text": "Lattice QCD + ML (Notion page of Akio Tomiya)",
+                "_attrs": {
+                  "link": "https://chain-track-dd9.notion.site/Lattice-QCD-ML-f88a01373d394ba28c4ac39821b75a63#0674afe907384f87bfc23eb25381c656",
+                  "target": "_blank"
+                }
+              }
+            },
+            {
+              "a:title": {
+                "_text": "Lattice Diversity and Inclusion Committee",
+                "_attrs": {
+                  "link": "https://latticediversity.github.io/about/",
+                  "target": "_blank"
+                }
+              }
+            },
+            {
+              "a:title": {
+                "_text": "Qiita Blog of Yuki Nagai",
+                "_attrs": {
+                  "link": "https://qiita.com/cometscome_phys",
+                  "target": "_blank"
+                }
+              }
+            },
+            {
+              "a:title": {
+                "_text": "BQCD",
+                "_attrs": {
+                  "link": "https://www.rrz.uni-hamburg.de/services/hpc/bqcd/",
+                  "target": "_blank"
+                }
+              }
+            },
+            {
+              "a:title": {
+                "_text": "Bridge++ Documents",
+                "_attrs": {
+                  "link": "https://research.kek.jp/people/matufuru/Research/Docs/Bridge/index.html",
+                  "target": "_blank"
+                }
+              }
+            },
+            {
+              "a:title": {
+                "_text": "HEP Theory Postdoc Rumor Mill",
+                "_attrs": {
+                  "link": "https://sites.google.com/site/postdocrumor/",
+                  "target": "_blank"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "a:title": { "_text": "Classical Music" },
+        "a:item_s": {
+          "a:item": [
+            {
+              "a:title": {
+                "_text": "Soprano Juhee Choi",
+                "_attrs": {
+                  "link": "https://sop-juhee-choi.github.io",
+                  "target": "_blank"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "a:title": { "_text": "Favorite sports teams" },
+        "a:item_s": {
+          "a:item": [
+            {
+              "a:title": {
+                "_text": "Yomiuri Giants",
+                "_attrs": {
+                  "link": "https://www.giants.jp/",
+                  "target": "_blank"
+                }
+              },
+              "a:desc": {
+                "_text": "A NPB team. Its ballpark is Tokyo dome."
+              }
+            },
+            {
+              "a:title": {
+                "_text": "Samurai Japan",
+                "_attrs": {
+                  "link": "https://www.japan-baseball.jp/",
+                  "target": "_blank"
+                }
+              },
+              "a:desc": {
+                "_text": "The Japan national baseball team."
+              }
+            },
+            {
+              "a:title": {
+                "_text": "Hanwha Eagles",
+                "_attrs": {
+                  "link": "https://www.hanwhaeagles.co.kr/EN/index.do",
+                  "target": "_blank"
+                }
+              },
+              "a:desc": {
+                "_text": "A KBO team. Its ballpark is Daejeon Hanwha Life Ballpark."
+              }
+            }
+          ]
+        }
+      },
+      {
+        "a:title": { "_text": "Favorite sports stars" },
+        "a:item_s": {
+          "a:item": [
+            {
+              "a:title": {
+                "_text": "Yutaka Enatsu",
+                "_attrs": {
+                  "link": "https://npb.jp/bis/players/41343824.html",
+                  "target": "_blank"
+                }
+              },
+              "a:desc": {
+                "_text": "a.k.a. the 21 balls of Enatsu."
+              }
+            },
+            {
+              "a:title": {
+                "_text": "Tsunemi Tsuda",
+                "_attrs": {
+                  "link": "https://npb.jp/bis/players/41743865.html",
+                  "target": "_blank"
+                }
+              },
+              "a:desc": {
+                "_text": "a.k.a. the stopper of the flame."
+              }
+            },
+            {
+              "a:title": {
+                "_text": "Hisashi Iwakuma",
+                "_attrs": {
+                  "link": "https://npb.jp/bis/players/01105111.html",
+                  "target": "_blank"
+                }
+              },
+              "a:desc": {
+                "_text": "A Japanese hero of 2nd World Baseball Classic championship."
+              }
+            },
+            {
+              "a:title": {
+                "_text": "JANG, Min Je",
+                "_attrs": {
+                  "link": "http://eng.koreabaseball.com/Teams/PlayerInfoPitcher/Summary.aspx?pcode=79764",
+                  "target": "_blank"
+                }
+              },
+              "a:desc": {
+                "_text": "My favorite Korean professional baseball pitcher of Hanwha Eagles."
+              }
+            },
+            {
+              "a:title": {
+                "_text": "Shohei Ohtani",
+                "_attrs": {
+                  "link": "https://npb.jp/bis/players/01305137.html",
+                  "target": "_blank"
+                }
+              },
+              "a:desc": {
+                "_text": "The superstar of LA Dodgers."
+              }
+            },
+            {
+              "a:title": {
+                "_text": "Kaoru Mitoma",
+                "_attrs": {
+                  "link": "https://www.jfa.jp/samuraiblue/member/mitoma_kaoru.html",
+                  "target": "_blank"
+                }
+              },
+              "a:desc": {
+                "_text": "A football player of the Samurai Blue. University of Tsukuba Alumni."
+              }
+            },
+            {
+              "a:title": {
+                "_text": "Ritsu Doan",
+                "_attrs": {
+                  "link": "https://www.jfa.jp/samuraiblue/member/doan_ritsu.html",
+                  "target": "_blank"
+                }
+              },
+              "a:desc": {
+                "_text": "A football player of the Samurai Blue."
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

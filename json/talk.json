@@ -1,0 +1,471 @@
+{
+  "a:feed": {
+    "a:title": { "_text": "Benjamin Jaedon Choi's talks" },
+    "a:updated": { "_text": "2024-12-04T00:00:00-05:00" },
+    "a:id": { "_text": "benji_talk" },
+    "a:entry": [
+      {
+        "a:id": { "_text": "benji_28" },
+        "a:updated": { "_text": "2026-01-21" },
+        "a:title": {
+          "_text": "Machine Learning-Based Estimation of Cumulants of Chiral Condensate via Multi-Ensemble Reweighting with Deborah.jl",
+          "_attrs": {
+            "link": "https://conference-indico.kek.jp/event/355/contributions/7472/",
+            "target": "_blank"
+          }
+        },
+        "a:author": { "_text": "Benjamin J. Choi, Hiroshi Ohno, Akio Tomiya" },
+        "a:conf_en": {
+          "_text": "The 2nd \"AI+HEP in East Asia\" workshop",
+          "_attrs": { "link": "https://conference-indico.kek.jp/event/355/", "target": "_blank" }
+        },
+        "a:conf_jp": { "_text": "第2回東アジアAI+高エネルギー物理学ワークショップ" },
+        "a:loc_en": {
+          "_text": "KEK, Tsukuba, Japan",
+          "_attrs": { "link": "https://www.kek.jp/ja/", "target": "_blank" }
+        },
+        "a:loc_jp": { "_text": "高エネルギー加速器研究機構" },
+        "a:session": { "_text": "Talk" }
+      },
+      {
+        "a:id": { "_text": "benji_27" },
+        "a:updated": { "_text": "2026-01-15" },
+        "a:title": {
+          "_text": "Machine Learning-Based Estimation of Cumulants of Chiral Condensate via Multi-Ensemble Reweighting with Deborah.jl",
+          "_attrs": {
+            "link": "https://kds.kek.jp/event/57304/contributions/305869/attachments/197573/270974/benji.pdf",
+            "target": "_blank"
+          }
+        },
+        "a:author": { "_text": "Benjamin J. Choi, Hiroshi Ohno, Akio Tomiya" },
+        "a:conf_en": {
+          "_text": "Symposium of Basic Science Research Programs on the Fugaku supercomputer",
+          "_attrs": { "link": "https://kds.kek.jp/event/57304/", "target": "_blank" }
+        },
+        "a:conf_jp": { "_text": "「富岳成果創出加速プログラム」基礎科学合同シンポジウム" },
+        "a:loc_en": {
+          "_text": "Ochanomizu Sola city Conference Center, Tokyo, Japan",
+          "_attrs": { "link": "https://solacity.jp/", "target": "_blank" }
+        },
+        "a:loc_jp": { "_text": "御茶ノ水ソラシティカンファレンスセンター" },
+        "a:session": { "_text": "Talk" }
+      },
+      {
+        "a:id": { "_text": "benji_26" },
+        "a:updated": { "_text": "2025-11-04" },
+        "a:title": {
+          "_text": "Machine Learning-Based Estimation of Cumulants of Chiral Condensate via Multi-Ensemble Reweighting with Deborah.jl",
+          "_attrs": { "link": "https://indico.global/event/14504/contributions/137858/", "target": "_blank" }
+        },
+        "a:author": { "_text": "Benjamin J. Choi, Hiroshi Ohno, Akio Tomiya" },
+        "a:conf_en": {
+          "_text": "The 42nd International Symposium on Lattice Field Theory (Lattice 2025)",
+          "_attrs": { "link": "https://indico.global/event/14504", "target": "_blank" }
+        },
+        "a:conf_jp": { "_text": "第42回格子上の場の理論国際シンポジウム" },
+        "a:loc_en": { "_text": "TIFR Mumbai, India" },
+        "a:loc_jp": { "_text": "タタ基礎研究所" },
+        "a:session": { "_text": "Talk" }
+      },
+      {
+        "a:id": { "_text": "benji_25" },
+        "a:updated": { "_text": "2025-10-24" },
+        "a:title": {
+          "_text": "Machine Learning-Based Estimation of Cumulants of Chiral Condensate via Multi-Ensemble Reweighting"
+        },
+        "a:author": { "_text": "Benjamin J. Choi, Hiroshi Ohno, Akio Tomiya" },
+        "a:conf_en": {
+          "_text": "KPS 2025 Fall Meeting",
+          "_attrs": { "link": "https://www.kps.or.kr/conference/event/index.php?cfrid=25", "target": "_blank" }
+        },
+        "a:conf_jp": { "_text": "韓国物理学会2025年秋の学術論文発表会及び臨時総会" },
+        "a:loc_en": { "_text": "Gwangju Kim Daejung Convention Center, South Korea" },
+        "a:loc_jp": { "_text": "金大中コンベンションセンター" },
+        "a:session": { "_text": "Talk" }
+      },
+      {
+        "a:id": { "_text": "benji_24" },
+        "a:updated": { "_text": "2025-10-10" },
+        "a:title": {
+          "_text": "Machine Learning-Based Estimation of Cumulants of Chiral Condensate via Multi-Ensemble Reweighting"
+        },
+        "a:author": { "_text": "Benjamin J. Choi, Hiroshi Ohno, Akio Tomiya" },
+        "a:conf_en": {
+          "_text": "10th International Symposium of Quantum Beam Science",
+          "_attrs": { "link": "https://sites.google.com/view/isqbs2025", "target": "_blank" }
+        },
+        "a:conf_jp": { "_text": "第10回量子ビームサイエンス国際シンポジウム(ISQBS2025)" },
+        "a:loc_en": { "_text": "Ibaraki University, Mito, Japan" },
+        "a:loc_jp": { "_text": "茨城大学水戸キャンパス" },
+        "a:session": { "_text": "Poster" }
+      },
+      {
+        "a:id": { "_text": "benji_23" },
+        "a:updated": { "_text": "2025-09-16" },
+        "a:title": {
+          "_text": "Machine Learning-Based Estimation of Cumulants of Chiral Condensate via Multi-Ensemble Reweighting"
+        },
+        "a:author": { "_text": "Benjamin J. Choi, Hiroshi Ohno, Akio Tomiya" },
+        "a:conf_en": {
+          "_text": "The Physical Society of Japan 2025 Annual Meeting",
+          "_attrs": {
+            "link": "https://www.jps.or.jp/activities/meetings/annual/annual-index.php",
+            "target": "_blank"
+          }
+        },
+        "a:conf_jp": { "_text": "日本物理学会第80回年次大会(2025年)" },
+        "a:loc_en": { "_text": "Hiroshima University, Hiroshima, Japan" },
+        "a:loc_jp": { "_text": "広島大学東広島キャンパス" },
+        "a:session": { "_text": "Talk" }
+      },
+      {
+        "a:id": { "_text": "benji_22" },
+        "a:updated": { "_text": "2025-09-09" },
+        "a:title": {
+          "_text": "Machine Learning-Based Estimation of Cumulants of Chiral Condensate via Multi-Ensemble Reweighting",
+          "_attrs": {
+            "link": "https://www-het.ph.tsukuba.ac.jp/~latticeqcd_ai/workshop2025/slide/1st_1/Choi.pdf",
+            "target": "_blank"
+          }
+        },
+        "a:author": { "_text": "Benjamin J. Choi, Hiroshi Ohno, Akio Tomiya" },
+        "a:conf_en": {
+          "_text": "Workshop for the Program for Promoting Researches on the\n        Supercomputer Fugaku: Large-scale lattice QCD simulation and development\n        of AI technology",
+          "_attrs": {
+            "link": "https://www-het.ph.tsukuba.ac.jp/~latticeqcd_ai/workshop2025/",
+            "target": "_blank"
+          }
+        },
+        "a:conf_jp": {
+          "_text": "「富岳」成果創出加速プログラム超大規模格子 QCD による新物理探索\n        と次世代計算に向けた AI 技術開発総括研究会"
+        },
+        "a:loc_en": { "_text": "Vision Center Tamachi, Tokyo, Japan" },
+        "a:loc_jp": { "_text": "ビジョンセンター田町" },
+        "a:session": { "_text": "Talk" }
+      },
+      {
+        "a:id": { "_text": "benji_21" },
+        "a:updated": { "_text": "2025-03-19" },
+        "a:title": {
+          "_text": "Machine Learning-based Estimation of the Cumulants of Chiral Condensate using Gradient Boosting Decision Tree Regression"
+        },
+        "a:author": { "_text": "Benjamin J. Choi, Hiroshi Ohno, Takayuki Sumimoto, Akio Tomiya" },
+        "a:conf_en": {
+          "_text": "The Physical Society of Japan 2025 Spring Meeting",
+          "_attrs": { "link": "https://www.jps.or.jp/activities/meetings/spring/spring_index.php", "target": "_blank" }
+        },
+        "a:conf_jp": { "_text": "日本物理学会2025年春季大会" },
+        "a:loc_en": { "_text": "Online Virtual Meeting" },
+        "a:loc_jp": { "_text": "オンライン開催" },
+        "a:session": { "_text": "Talk" }
+      },
+      {
+        "a:id": { "_text": "benji_20" },
+        "a:updated": { "_text": "2025-03-12" },
+        "a:title": {
+          "_text": "Machine Learning-based Estimation of the Cumulants of Chiral Condensate using Gradient Boosting Decision Tree Regression"
+        },
+        "a:author": { "_text": "Benjamin J. Choi, Hiroshi Ohno, Takayuki Sumimoto, Akio Tomiya" },
+        "a:conf_en": {
+          "_text": "The 2025 Spring School on Computational Physics",
+          "_attrs": { "link": "https://compphysschool.github.io/homepage2025/", "target": "_blank" }
+        },
+        "a:conf_jp": { "_text": "計算物理春の学校 2025" },
+        "a:loc_en": { "_text": "Okinawa Prefectural Municipal and Village Government Hall, Okinawa, Japan" },
+        "a:loc_jp": { "_text": "沖縄県市町村自治会館" },
+        "a:session": { "_text": "Poster" }
+      },
+      {
+        "a:id": { "_text": "benji_19" },
+        "a:updated": { "_text": "2025-02-21" },
+        "a:title": {
+          "_text": "Machine Learning Estimation on the Trace of Inverse Dirac Operator using the Gradient Boosting Decision Tree Regression",
+          "_attrs": { "link": "https://youtu.be/4ijSUSIsTk0", "target": "_blank" }
+        },
+        "a:author": { "_text": "Benjamin J. Choi, Hiroshi Ohno, Takayuki Sumimoto, Akio Tomiya" },
+        "a:conf_en": {
+          "_text": "The 4th Research Workshop of \"Program for Promoting Research on the Supercomputer Fugaku\"",
+          "_attrs": { "link": "https://www.rist.or.jp/sc/ws/04/", "target": "_blank" }
+        },
+        "a:conf_jp": { "_text": "第4回「富岳成果創出加速プログラム」研究交流会" },
+        "a:loc_en": {
+          "_text": "AKIBA HALL and Reception Hall, AKIBA PLAZA 5th floor, Tokyo, Japan",
+          "_attrs": { "link": "https://www.fsi.co.jp/akibaplaza/en/", "target": "_blank" }
+        },
+        "a:loc_jp": { "_text": "富士ソフトアキバプラザ 5階アキバホール、レセプションホール" },
+        "a:session": { "_text": "Poster" }
+      },
+      {
+        "a:id": { "_text": "benji_18" },
+        "a:updated": { "_text": "2025-01-10" },
+        "a:title": {
+          "_text": "Machine Learning Estimation on the Trace of Inverse Dirac Operator using the Gradient Boosting Decision Tree Regression",
+          "_attrs": {
+            "link": "https://kds.kek.jp/event/52621/contributions/280928/attachments/186255/250750/Fugaku_250110_Benji.pdf",
+            "target": "_blank"
+          }
+        },
+        "a:author": { "_text": "Benjamin J. Choi, Hiroshi Ohno, Takayuki Sumimoto, Akio Tomiya" },
+        "a:conf_en": {
+          "_text": "Symposium of Basic Science Research Programs on the Fugaku supercomputer",
+          "_attrs": { "link": "https://kds.kek.jp/event/52621/", "target": "_blank" }
+        },
+        "a:conf_jp": { "_text": "「富岳成果創出加速プログラム」基礎科学合同シンポジウム" },
+        "a:loc_en": {
+          "_text": "Kanda Urbannet Conference, Tokyo, Japan",
+          "_attrs": { "link": "https://kanda-c.jp/", "target": "_blank" }
+        },
+        "a:loc_jp": { "_text": "アーバンネット神田カンファレンス" },
+        "a:session": { "_text": "Talk" }
+      },
+      {
+        "a:id": { "_text": "benji_17" },
+        "a:updated": { "_text": "2024-12-14" },
+        "a:title": {
+          "_text": "Machine Learning Estimation on the Trace of Inverse Dirac Operator using the Gradient Boosting Decision Tree Regression"
+        },
+        "a:author": { "_text": "Benjamin J. Choi, Hiroshi Ohno, Takayuki Sumimoto, Akio Tomiya" },
+        "a:conf_en": {
+          "_text": "Julia in Physics 2024",
+          "_attrs": { "link": "https://ohno.github.io/julia_in_physics_2024/", "target": "_blank" }
+        },
+        "a:conf_jp": { "_text": "Julia in Physics 2024 研究会" },
+        "a:loc_en": {
+          "_text": "The University of Tokyo, Japan",
+          "_attrs": { "link": "https://www.u-tokyo.ac.jp/campusmap/cam01_13_01_j.html", "target": "_blank" }
+        },
+        "a:loc_jp": { "_text": "東京大学 本郷地区キャンパス(浅野キャンパス) 情報基盤センター(本館) 214" },
+        "a:session": { "_text": "Talk" }
+      },
+      {
+        "a:id": { "_text": "benji_16" },
+        "a:updated": { "_text": "2024-09-25" },
+        "a:title": {
+          "_text": "Machine Learning Estimation on the Trace of Inverse Dirac Operator using the Gradient Boosting Decision Tree Regression"
+        },
+        "a:author": { "_text": "Benjamin J. Choi, Hiroshi Ohno, Takayuki Sumimoto, Akio Tomiya" },
+        "a:conf_en": {
+          "_text": "2024 Annual Meeting for \"Foundation of Machine Learning Physics\"",
+          "_attrs": { "link": "https://mlphys.scphys.kyoto-u.ac.jp/events/#sec_02", "target": "_blank" }
+        },
+        "a:conf_jp": { "_text": "学術変革領域(A)「学習物理学の創成」R6年度領域会議" },
+        "a:loc_en": {
+          "_text": "The University of Tokyo, Japan",
+          "_attrs": { "link": "https://www.s.u-tokyo.ac.jp/en/hall/koshiba.html", "target": "_blank" }
+        },
+        "a:loc_jp": { "_text": "東京大学本郷地区キャンパス小柴ホール" },
+        "a:session": { "_text": "Talk" }
+      },
+      {
+        "a:id": { "_text": "benji_15" },
+        "a:updated": { "_text": "2024-07-29" },
+        "a:title": {
+          "_text": "Machine Learning Estimation on the Trace of Inverse Dirac Operator using the Gradient Boosting Decision Tree Regression",
+          "_attrs": {
+            "link": "https://conference.ippp.dur.ac.uk/event/1265/contributions/7582/",
+            "target": "_blank"
+          }
+        },
+        "a:author": { "_text": "Benjamin J. Choi, Hiroshi Ohno, Takayuki Sumimoto, Akio Tomiya" },
+        "a:conf_en": {
+          "_text": "The 41st International Symposium on Lattice Field Theory (Lattice 2024)",
+          "_attrs": { "link": "https://conference.ippp.dur.ac.uk/event/1265/", "target": "_blank" }
+        },
+        "a:conf_jp": { "_text": "第41回格子上の場の理論国際シンポジウム" },
+        "a:loc_en": {
+          "_text": "The University of Liverpool, UK",
+          "_attrs": { "link": "https://www.liverpool.ac.uk/mathematical-sciences/events/lattice-2024/" }
+        },
+        "a:loc_jp": { "_text": "リバプール大学" },
+        "a:session": { "_text": "Talk" }
+      },
+      {
+        "a:id": { "_text": "benji_14" },
+        "a:updated": { "_text": "2023-07-31" },
+        "a:title": {
+          "_text": "Current Progress on the Semileptonic Form Factors for $\\bar{B} \\to D^{\\ast} \\ell \\bar{\\nu}$ Decay using the Oktay-Kronfeld Action",
+          "_attrs": { "link": "https://indico.fnal.gov/event/57249/contributions/270573/", "target": "_blank" }
+        },
+        "a:author": { "_text": "Benjamin J. Choi" },
+        "a:conf_en": {
+          "_text": "The 40th International Symposium on Lattice Field Theory (Lattice 2023)",
+          "_attrs": { "link": "https://indico.fnal.gov/event/57249/", "target": "_blank" }
+        },
+        "a:conf_jp": { "_text": "第40回格子上の場の理論国際シンポジウム" },
+        "a:loc_en": { "_text": "Fermilab, Illinois, USA", "_attrs": { "link": "https://www.fnal.gov/", "target": "_blank" } },
+        "a:loc_jp": { "_text": "フェルミ国立加速器研究所" },
+        "a:session": { "_text": "Talk" }
+      },
+      {
+        "a:id": { "_text": "benji_13" },
+        "a:updated": { "_text": "2022-08-22" },
+        "a:title": { "_text": "Improved data analysis on two-point correlation function with sequential Bayesian method" },
+        "a:author": { "_text": "Benjamin J. Choi" },
+        "a:conf_en": { "_text": "The 15th Asia Pacific Physics Conference (APPC15)", "_attrs": { "link": "https://www.appc15.org/", "target": "_blank" } },
+        "a:conf_jp": { "_text": "第15回アジア太平洋物理学コンファレンス" },
+        "a:loc_en": { "_text": "Online Conference" },
+        "a:loc_jp": { "_text": "オンライン学会" },
+        "a:session": { "_text": "Talk" }
+      },
+      {
+        "a:id": { "_text": "benji_12" },
+        "a:updated": { "_text": "2022-08-09" },
+        "a:title": { "_text": "Data analysis on 2pt correlation function with the OK action", "_attrs": { "link": "https://indico.hiskp.uni-bonn.de/event/40/contributions/635/", "target": "_blank" } },
+        "a:author": { "_text": "Benjamin J. Choi" },
+        "a:conf_en": { "_text": "The 39th International Symposium on Lattice Field Theory (Lattice 2022)", "_attrs": { "link": "https://indico.hiskp.uni-bonn.de/event/40/", "target": "_blank" } },
+        "a:conf_jp": { "_text": "第39回格子上の場の理論国際シンポジウム" },
+        "a:loc_en": { "_text": "The Rhenish Friedrich Wilhelm University of Bonn, Germany", "_attrs": { "link": "https://www.uni-bonn.de/en", "target": "_blank" } },
+        "a:loc_jp": { "_text": "ライン・フリードリヒ・ヴィルヘルム大学ボン" },
+        "a:session": { "_text": "Poster" }
+      },
+      {
+        "a:id": { "_text": "benji_11" },
+        "a:updated": { "_text": "2021-07-29" },
+        "a:title": { "_text": "Data analysis on two-point correlation function with sequential Bayesian method", "_attrs": { "link": "https://indico.cern.ch/event/1006302/contributions/4376561/", "target": "_blank" } },
+        "a:author": { "_text": "Benjamin J. Choi" },
+        "a:conf_en": { "_text": "The 38th International Symposium on Lattice Field Theory (Lattice 2021)", "_attrs": { "link": "https://indico.cern.ch/event/1006302/", "target": "_blank" } },
+        "a:conf_jp": { "_text": "第38回格子上の場の理論国際シンポジウム (Lattice 2021)" },
+        "a:loc_en": { "_text": "Zoom/Gather@MIT (Online Conference)" },
+        "a:loc_jp": { "_text": "オンライン学会" },
+        "a:session": { "_text": "Talk" }
+      },
+      {
+        "a:id": { "_text": "benji_10" },
+        "a:updated": { "_text": "2021-04-23" },
+        "a:title": { "_text": "Decay constant Analysis of $B_{(s)}$ and $D_{(s)}$ using the Oktay-Kronfeld action" },
+        "a:author": { "_text": "Benjamin J. Choi" },
+        "a:conf_en": { "_text": "KPS 2021 Spring Meeting", "_attrs": { "link": "https://www.kps.or.kr/conference/event/index.php?cfrid=10", "target": "_blank" } },
+        "a:conf_jp": { "_text": "韓国物理学会2021年春の学術論文発表会及び第97回定期総会" },
+        "a:loc_en": { "_text": "Online Conference" },
+        "a:loc_jp": { "_text": "オンライン学会" },
+        "a:session": { "_text": "Talk" }
+      },
+      {
+        "a:id": { "_text": "benji_09" },
+        "a:updated": { "_text": "2020-02-03" },
+        "a:title": { "_text": "Perturbative calculation of $Z_q$ at the one-loop level using improved staggered quarks" },
+        "a:author": { "_text": "Benjamin J. Choi" },
+        "a:conf_en": {
+          "_text": "BK21+ Young Physicists' Workshop 2020",
+          "_attrs": {
+            "link": "https://physics.kaist.ac.kr/index.php?mid=p_news_event1&page=5&document_srl=10865",
+            "target": "_blank"
+          }
+        },
+        "a:conf_jp": { "_text": "第12回BK21+若手物理学者ワークショップ" },
+        "a:loc_en": { "_text": "KAIST, South Korea" },
+        "a:loc_jp": { "_text": "韓国科学技術院" },
+        "a:session": { "_text": "Talk" }
+      },
+      {
+        "a:id": { "_text": "benji_08" },
+        "a:updated": { "_text": "2019-06-18" },
+        "a:title": {
+          "_text": "Leptonic decays of $B_{(s)}$ and $D_{(s)}$ using the OK action",
+          "_attrs": { "link": "https://indico.cern.ch/event/764552/contributions/3421211/", "target": "_blank" }
+        },
+        "a:author": { "_text": "Benjamin J. Choi" },
+        "a:conf_en": {
+          "_text": "The 37th International Symposium on Lattice Field Theory (Lattice 2019)",
+          "_attrs": { "link": "https://indico.cern.ch/event/764552/", "target": "_blank" }
+        },
+        "a:conf_jp": { "_text": "第37回格子上の場の理論国際シンポジウム (Lattice 2019)" },
+        "a:loc_en": { "_text": "Hilton Hotel Wuhan Riverside, China" },
+        "a:loc_jp": { "_text": "ヒルトン武漢リバーサイド" },
+        "a:session": { "_text": "Poster" }
+      },
+      {
+        "a:id": { "_text": "benji_07" },
+        "a:updated": { "_text": "2019-02-14" },
+        "a:title": { "_text": "Perturbative calculation of $Z_q$ at the one-loop level using improved staggered quarks" },
+        "a:author": { "_text": "Benjamin J. Choi" },
+        "a:conf_en": {
+          "_text": "BK21+ Young Physicists' Workshop 2019",
+          "_attrs": {
+            "link": "https://physics.kaist.ac.kr/index.php?mid=p_news_event1&page=6&document_srl=9695",
+            "target": "_blank"
+          }
+        },
+        "a:conf_jp": { "_text": "第11回BK21+若手物理学者ワークショップ" },
+        "a:loc_en": { "_text": "POSTECH, South Korea" },
+        "a:loc_jp": { "_text": "浦項工科大学" },
+        "a:session": { "_text": "Talk" }
+      },
+      {
+        "a:id": { "_text": "benji_06" },
+        "a:updated": { "_text": "2018-07-24" },
+        "a:title": {
+          "_text": "Perturbative calculation of $Z_q$ at the one-loop level using HYP-smeared staggered quarks",
+          "_attrs": { "link": "https://indico.fnal.gov/event/15949/contributions/34874/", "target": "_blank" }
+        },
+        "a:author": { "_text": "Benjamin J. Choi" },
+        "a:conf_en": {
+          "_text": "The 36th International Symposium on Lattice Field Theory (Lattice 2018)",
+          "_attrs": { "link": "https://indico.fnal.gov/event/15949/", "target": "_blank" }
+        },
+        "a:conf_jp": { "_text": "第36回格子上の場の理論国際シンポジウム (Lattice 2018)" },
+        "a:loc_en": { "_text": "Kellogg Hotel and Conference Center, Michigan, USA" },
+        "a:loc_jp": { "_text": "ケロッグホテル&カンファレンスセンター" },
+        "a:session": { "_text": "Poster" }
+      },
+      {
+        "a:id": { "_text": "benji_05" },
+        "a:updated": { "_text": "2018-02-08" },
+        "a:title": { "_text": "One-loop perturbative calculation of $Z_q$ in RI-MOM scheme using improved staggered quarks" },
+        "a:author": { "_text": "Benjamin J. Choi" },
+        "a:conf_en": { "_text": "BK21+ Young Physicists' Workshop 2018", "_attrs": { "link": "http://phya.snu.ac.kr/ypw2018/index.html", "target": "_blank" } },
+        "a:conf_jp": { "_text": "第10回BK21+若手物理学者ワークショップ" },
+        "a:loc_en": { "_text": "SNU, South Korea" },
+        "a:loc_jp": { "_text": "ソウル大学" },
+        "a:session": { "_text": "Talk" }
+      },
+      {
+        "a:id": { "_text": "benji_04" },
+        "a:updated": { "_text": "2017-10-27" },
+        "a:title": { "_text": "One-loop perturbative calculation of $Z_q$ and $Z_m$ in RI-MOM scheme using improved staggered quarks" },
+        "a:author": { "_text": "Benjamin J. Choi" },
+        "a:conf_en": { "_text": "KPS 2017 Fall Meeting", "_attrs": { "link": "https://www.kps.or.kr/content/conference/meeting_past.php", "target": "_blank" } },
+        "a:conf_jp": { "_text": "韓国物理学会2017年秋の学術論文発表会及び臨時総会" },
+        "a:loc_en": { "_text": "Gyeongju HICO, South Korea" },
+        "a:loc_jp": { "_text": "慶州画伯コンベンションセンター" },
+        "a:session": { "_text": "Talk" }
+      },
+      {
+        "a:id": { "_text": "benji_03" },
+        "a:updated": { "_text": "2016-10-19" },
+        "a:title": { "_text": "Perturbative calculation of $Z_q$ and $Z_m$ at the one-loop level using improved staggered quarks" },
+        "a:author": { "_text": "Benjamin J. Choi" },
+        "a:conf_en": { "_text": "KPS 2016 Fall Meeting", "_attrs": { "link": "https://www.kps.or.kr/content/conference/meeting_past.php", "target": "_blank" } },
+        "a:conf_jp": { "_text": "韓国物理学会2016年秋の学術論文発表会及び臨時総会" },
+        "a:loc_en": { "_text": "Gwangju Kim Daejung Convention Center, South Korea" },
+        "a:loc_jp": { "_text": "金大中コンベンションセンター" },
+        "a:session": { "_text": "Talk" }
+      },
+      {
+        "a:id": { "_text": "benji_02" },
+        "a:updated": { "_text": "2016-07-26" },
+        "a:title": {
+          "_text": "Perturbative calculation of $Z_q$ and $Z_m$ at the one-loop level using improved staggered quark",
+          "_attrs": { "link": "https://conference.ippp.dur.ac.uk/event/470/contributions/2714/" }
+        },
+        "a:author": { "_text": "Benjamin J. Choi" },
+        "a:conf_en": { "_text": "The 34th International Symposium on Lattice Field Theory (Lattice 2016)", "_attrs": { "link": "https://conference.ippp.dur.ac.uk/event/470/" } },
+        "a:conf_jp": { "_text": "第34回格子上の場の理論国際シンポジウム (Lattice 2016)" },
+        "a:loc_en": { "_text": "University of Southampton, UK", "_attrs": { "link": "https://www.southampton.ac.uk/lattice2016/" } },
+        "a:loc_jp": { "_text": "サウサンプトン大学" },
+        "a:session": { "_text": "Poster" }
+      },
+      {
+        "a:id": { "_text": "benji_01" },
+        "a:updated": { "_text": "2016-04-20" },
+        "a:title": { "_text": "Perturbative calculation of $Z_q$ at one-loop level using unimproved staggered quarks" },
+        "a:author": { "_text": "Benjamin J. Choi" },
+        "a:conf_en": { "_text": "KPS 2016 Spring Meeting", "_attrs": { "link": "https://www.kps.or.kr/content/conference/meeting_past.php", "target": "_blank" } },
+        "a:conf_jp": { "_text": "韓国物理学会2016年春の学術論文発表会及び第92回定期総会" },
+        "a:loc_en": { "_text": "Daejeon DCC, South Korea" },
+        "a:loc_jp": { "_text": "大田コンベンションセンター" },
+        "a:session": { "_text": "Talk" }
+      }
+    ]
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "a:feed": {
+    "a:title": { "_text": "Benjamin J. Choi's Information" },
+    "a:updated": { "_text": "2024-12-09T00:00:00-05:00" },
+    "a:id": { "_text": "benji_education" },
+    "a:entry": [
+      {
+        "a:title": { "_text": "Christian" },
+        "a:item_s": {
+          "a:item": [
+            {
+              "a:title": {
+                "_text": "The Eulji-ro Presbyterian Church, Seoul, South Korea",
+                "_attrs": {
+                  "link": "https://www.euljiro.org/",
+                  "target": "_blank"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "a:title": { "_text": "Postdoctoral researcher" },
+        "a:item_s": {
+          "a:item": [
+            {
+              "a:title": {
+                "_text": "Center for Computational Sciences, University of Tsukuba, 1-1-1 Tennodai, Tsukuba, Ibaraki 305-8577, Japan",
+                "_attrs": {
+                  "link": "https://www.ccs.tsukuba.ac.jp/ccs_introduction/teacher/list/depart_particle/",
+                  "target": "_blank"
+                }
+              }
+            },
+            {
+              "a:title": {
+                "_text": "iNSPIRE-HEP",
+                "_attrs": {
+                  "link": "https://inspirehep.net/authors/1421094",
+                  "target": "_blank"
+                }
+              }
+            },
+            {
+              "a:title": {
+                "_text": "Researchmap",
+                "_attrs": {
+                  "link": "https://researchmap.jp/benjaminchoi",
+                  "target": "_blank"
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

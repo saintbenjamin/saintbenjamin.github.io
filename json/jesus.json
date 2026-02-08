@@ -1,0 +1,24 @@
+{
+  "a:feed": {
+    "a:title": { "_text": "Jesus Christ" },
+    "a:updated": { "_text": "2024-12-09T00:00:00-05:00" },
+    "a:entry": [
+      {
+        "a:word_en": {
+          "_text": "In the day when I cried out, You answered me, and made me bold with strength in my soul. (Psalm 138:3, NKJV)"
+        },
+        "a:word_jp": {
+          "_text": "私が呼んだその日に、あなたは私に答え、私のたましいに力を与えて強くされました。(詩編138:3、新改訳)"
+        }
+      },
+      {
+        "a:word_en": {
+          "_text": "I can do all things through Christ who strengthens me. (Philippians 4:13, NKJV)"
+        },
+        "a:word_jp": {
+          "_text": "私は、私を強くしてくださる方によって、どんなことでもできるのです。(ピリピ人への手紙4:13、新改訳)"
+        }
+      }
+    ]
+  }
+}

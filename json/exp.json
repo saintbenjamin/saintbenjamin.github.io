@@ -1,0 +1,64 @@
+{
+  "a:feed": {
+    "a:title": { "_text": "Benjamin J. Choi's Experiences" },
+    "a:updated": { "_text": "2024-12-09T00:00:00-05:00" },
+    "a:id": { "_text": "benji_experiences" },
+    "a:entry": [
+      {
+        "a:title": { "_text": "Co-Chair" },
+        "a:title_jp": { "_text": "国際格子理論分野多様性・包括性委員会 共同委員長" },
+        "a:location": {
+          "_text": "The Lattice Diversity and Inclusion Committee (LDIC)",
+          "_attrs": { "link": "https://latticediversity.github.io/about/" }
+        },
+        "a:desc": {
+          "_text": "Elected as a committee member in October 2025, and appointed as Co-Chair at the December 2025 monthly committee meeting."
+        },
+        "a:date": { "_text": "Oct. 2025 - Present" }
+      },
+      {
+        "a:title": { "_text": "Regular Member" },
+        "a:title_jp": { "_text": "日本物理学会 正会員" },
+        "a:location": {
+          "_text": "The Physical Society of Japan",
+          "_attrs": { "link": "https://www.jps.or.jp/" }
+        },
+        "a:desc": { "_text": "Membership in the Physical Society of Japan." },
+        "a:date": { "_text": "Sep. 2024 - Present" }
+      },
+      {
+        "a:title": { "_text": "Regular Member" },
+        "a:title_jp": { "_text": "韓国物理学会 正会員" },
+        "a:location": {
+          "_text": "Korean Physical Society",
+          "_attrs": { "link": "https://www.kps.or.kr/" }
+        },
+        "a:desc": { "_text": "Membership in the Korean Physical Society." },
+        "a:date": { "_text": "Feb. 2016 - Present" }
+      },
+      {
+        "a:title": { "_text": "Research Associate" },
+        "a:title_jp": { "_text": "ソウル大学総長任命研究員" },
+        "a:location": {
+          "_text": "The Research Institute of Basic Science, Seoul National University",
+          "_attrs": { "link": "https://ribs.snu.ac.kr/" }
+        },
+        "a:desc": { "_text": "Supervisor: Prof. Weonjong Lee" },
+        "a:date": { "_text": "Sep. 2015 - Feb. 2016" }
+      },
+      {
+        "a:title": { "_text": "Social Service Personnel" },
+        "a:title_jp": { "_text": "社会服務要員（大韓民国陸軍補充役）" },
+        "a:location": {
+          "_text": "Seodaemun-gu Office, Seoul, Republic of Korea",
+          "_attrs": { "link": "https://www.sdm.go.kr/en/eng/main/index.jsp" }
+        },
+        "a:desc": {
+          "_text": "ROK Army Supplementary Service (Mandatory Military Service)",
+          "_attrs": { "link": "https://mma.go.kr/contents.do?mc=mma0000744" }
+        },
+        "a:date": { "_text": "Jul. 2013 - Aug. 2015" }
+      }
+    ]
+  }
+}

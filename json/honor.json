@@ -1,0 +1,33 @@
+{
+  "a:feed": {
+    "a:title": { "_text": "Benjamin J. Choi's Honors" },
+    "a:updated": { "_text": "2024-12-09T00:00:00-05:00" },
+    "a:id": { "_text": "benji_honors" },
+    "a:entry": [
+      {
+        "a:title": { "_text": "Academic Next Generation Fellowship" },
+        "a:title_jp": { "_text": "基礎学問分野・学問後続世代奨学金" },
+        "a:location": { "_text": "Seoul National University" },
+        "a:date": { "_text": "Mar. 2021 - Feb. 2024" }
+      },
+      {
+        "a:title": { "_text": "GSI Scholarship" },
+        "a:title_jp": { "_text": "講義研究支援奨学金" },
+        "a:location": { "_text": "Seoul National University" },
+        "a:date": { "_text": "Mar. 2017 - Feb. 2019" }
+      },
+      {
+        "a:title": { "_text": "BK Scholarship" },
+        "a:title_jp": { "_text": "BK(ブレイン・コリア)博士スカラシップ" },
+        "a:location": { "_text": "Seoul National University" },
+        "a:date": { "_text": "Mar. 2016 - Aug. 2016" }
+      },
+      {
+        "a:title": { "_text": "Japan-Korea Joint Government Scholarship" },
+        "a:title_jp": { "_text": "日韓共同理工系学部留学生第6期" },
+        "a:location": { "_text": "University of Tsukuba, MEXT (Japan), MOE (Korea)" },
+        "a:date": { "_text": "Apr. 2006 - Mar. 2010" }
+      }
+    ]
+  }
+}

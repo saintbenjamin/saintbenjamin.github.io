@@ -1,0 +1,81 @@
+{
+  "a:feed": {
+    "a:title": { "_text": "Benjamin J. Choi's Education" },
+    "a:updated": { "_text": "2024-12-09T00:00:00-05:00" },
+    "a:id": { "_text": "benji_education" },
+    "a:entry": [
+      {
+        "a:title": {
+          "_text": "Ph. D.",
+          "_attrs": {
+            "link": "https://inspirehep.net/literature/2839267"
+          }
+        },
+        "a:supervisor": {
+          "_text": "Supervisor: Prof. Weonjong Lee"
+        },
+        "a:title_jp": {
+          "_text": "ソウル大学物理天文学部(理学博士)"
+        },
+        "a:location": {
+          "_text": "Department of Physics and Astronomy, Seoul National University",
+          "_attrs": {
+            "link": "https://physics.snu.ac.kr/en"
+          }
+        },
+        "a:date": {
+          "_text": "Mar. 2016 - Feb. 2024"
+        }
+      },
+      {
+        "a:title": {
+          "_text": "Master of Physics"
+        },
+        "a:supervisor": {
+          "_text": "Supervisor: Prof. Kazuyuki Kanaya",
+          "_attrs": {
+            "link": "https://www2.ccs.tsukuba.ac.jp/people/kanaya/kanaya-j.html",
+            "target": "_blank"
+          }
+        },
+        "a:title_jp": {
+          "_text": "筑波大学数理物質科学研究科素粒子理論研究室博士前期課程(物理学修士)"
+        },
+        "a:location": {
+          "_text": "Particle Theory Group, Faculty of Pure and Applied Science, University of Tsukuba",
+          "_attrs": {
+            "link": "https://www-het.ph.tsukuba.ac.jp/"
+          }
+        },
+        "a:date": {
+          "_text": "Apr. 2010 - Mar. 2013"
+        }
+      },
+      {
+        "a:title": {
+          "_text": "Bachelor of Science"
+        },
+        "a:supervisor": {
+          "_text": "Supervisor: Prof. Nobuyuki Ishibashi",
+          "_attrs": {
+            "link": "https://www-het.ph.tsukuba.ac.jp/%7Eishibash/index.html",
+            "target": "_blank"
+          }
+        },
+        "a:title_jp": {
+          "_text": "筑波大学第一学群自然学類物理学主専攻(理学士)"
+        },
+        "a:location": {
+          "_text": "College of Natural Sciences, First Cluster of Colleges, University of Tsukuba",
+          "_attrs": {
+            "link": "https://sse.tsukuba.ac.jp/introduction/physics/",
+            "target": "_blank"
+          }
+        },
+        "a:date": {
+          "_text": "Apr. 2006 - Mar. 2010."
+        }
+      }
+    ]
+  }
+}
