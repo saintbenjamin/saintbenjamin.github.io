@@ -16,7 +16,6 @@ header {
   padding: 20px;
   position: fixed;
   display: flex;
-  justify-content: flex-end;
   z-index: 1000;
   min-height: var(--header-h);
   box-sizing: border-box;
@@ -30,7 +29,7 @@ main {
   padding-bottom: 80px;
 }
 
-footer {
+/* footer {
   opacity: 80%;
   color: black;
   padding: 20px;
@@ -39,4 +38,18 @@ footer {
   bottom: 0;
   display: flex;
   justify-content: center;
+} */
+
+footer {
+  height: 0;
+  padding: 0;
+  margin: 0;
+
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+
+  overflow: hidden;
+  pointer-events: none;
 }

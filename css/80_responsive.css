@@ -1,4 +1,4 @@
-@media (max-width: 1280px) {
+@media (max-width: 1510px) {
   /* Mobile header height: tune if needed */
   :root{
     --header-h: 100px;
@@ -11,6 +11,7 @@
   /* Make sure header is the positioning context */
   header {
     position: fixed;
+    justify-content: flex-end;
   }
 
   .menu {
@@ -69,6 +70,6 @@
     background: rgba(0,0,0,0.05);
   }
 
-  .header-icon-container { display: flex; }
-  .footer-icon-container { display: none; }
+  .mobile-icon-container { display: flex; }
+  .desktop-icon-container { display: none; }
 }
