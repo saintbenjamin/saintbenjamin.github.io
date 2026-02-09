@@ -38,44 +38,45 @@
 }
 
 .menu li:hover {
-    /* background-color: forestgreen; */
-    transform: translate(5px, 5px);
-    cursor: pointer;
+  /* background-color: forestgreen; */
+  transform: translate(5px, 5px);
+  cursor: pointer;
 }
 
 .contact-row{
-    margin-top: 10px;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
-    font-size: 1.15em;
+  margin-top: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-size: 1.15em;
 }
 
 .contact-label{
-    font-weight: 700;
+  font-weight: 700;
 }
 
 .contact-hint{
-    font-size: 0.9em;
-    opacity: 0;
-    transform: translateY(-2px);
-    transition: opacity 0.25s ease, transform 0.25s ease;
-    pointer-events: none;
+  color: gray;
+  font-size: 0.9em;
+  opacity: 0;
+  transform: translateY(-2px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  pointer-events: none;
 }
 
 .email-copy{
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: none;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    color: forestgreen;
-    transition: color 0.25s ease;
-    transition: transform 0.3s ease, color 0.3s ease;
-    font-size: 1em;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: forestgreen;
+  transition: color 0.25s ease;
+  transition: transform 0.3s ease, color 0.3s ease;
+  font-size: 1em;
 }
 
 .email-copy i {
@@ -86,17 +87,17 @@
 }
 
 .email-copy:hover{ 
-    color: mediumseagreen; 
-    transform: translate(5px, 5px);
-    cursor: pointer;
+  color: mediumseagreen; 
+  transform: translate(5px, 5px);
+  cursor: pointer;
 }
 
 .email-copy.copied{ 
-    color: forestgreen; 
+  color: forestgreen; 
 }
 
 .email-copy.copied .label::after{ 
-    content: " ✓"; 
+  content: " ✓"; 
 }
 
 .email-copy.copied + .contact-hint{
