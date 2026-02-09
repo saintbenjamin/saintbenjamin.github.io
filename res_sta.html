@@ -1,11 +1,11 @@
 <!-- First -->
 
-<p class="outlined-text-semibig">
+<p class="outlined-text-semibig fade-in">
     <em>A Regression-Based Machine Learning Approach to Traces of Inverse Dirac
     Operator</em>
 </p>
 
-<p class="outlined-text">
+<p class="outlined-text fade-in">
     The project I have led since my appointment at the Center for Computational
     Sciences, University of Tsukuba, is a research effort to reduce the
     computational cost of measuring physical observables &mdash; traditionally
@@ -13,7 +13,7 @@
     learning techniques.
 </p>
 
-<p class="outlined-text">
+<p class="outlined-text fade-in">
     Specifically, cumulants (susceptibility, skewness, kurtosis) of the chiral
     condensate, which are computed by leading international research groups such
     as the HotQCD collaboration, are based on traces of the inverse Dirac
@@ -27,7 +27,7 @@
     leading to significant computational cost.
 </p>
 
-<p class="outlined-text">
+<p class="outlined-text fade-in">
     Accordingly, I aimed to reduce this cost by replacing or supplementing the
     traditional measurement process with machine learning. 
 
@@ -40,7 +40,7 @@
     predicted based on the $X$ values in the unlabeled set.
 </p>
 
-<p class="outlined-text">
+<p class="outlined-text fade-in">
     An important point is that not all of the labeled set is used for training;
     rather, it is further divided into a training set and a bias correction set, and
     bias correction is performed based on the latter.
@@ -51,7 +51,7 @@
     target="_blank">the All Mode Averaging (AMA) method</a>.
 </p>
 
-<div class="outlined-text">
+<div class="outlined-text fade-in">
     <p>
         My particular focus was on building a system that evaluates the stability and
         reliability of machine learning results as two ratios are varied:
@@ -62,14 +62,14 @@
     </ol>
 </div>
 
-<p class="outlined-text">
+<p class="outlined-text fade-in">
     Through this so-called label-train scanning system, I clearly identified regions
     where prediction performance deteriorates sharply due to insufficient labeled
     data, as well as regions where performance remains stable given an adequate
     labeled set.
 </p>
 
-<p class="outlined-text">
+<p class="outlined-text fade-in">
     I gave a talk based on this initial research at Lattice 2024 (Liverpool),
     just three months after my appointment, and the results were published as
     <a href="https://arxiv.org/abs/2411.18170v2" target="_blank">Choi <i>et
@@ -88,7 +88,7 @@
     that point.
 </p>
 
-<div class="outlined-text">
+<div class="outlined-text fade-in">
     <p>
         I have structured the entire research into three integrated and
         automated phases, and assigned the following names to each module:
@@ -105,7 +105,7 @@
     </ul>
 </div>
 
-<p class="outlined-text">
+<p class="outlined-text fade-in">
     Among them, <strong><code>Deborah.jl</code></strong> was mainly used for
     trace estimation, but it was designed from the beginning with a generalized
     structure to flexibly support various types of data. 
@@ -115,7 +115,7 @@
     gradient boosting decision trees via LightGBM.
 </p>
 
-<p class="outlined-text">
+<p class="outlined-text fade-in">
     I organically integrated these three modules to construct a fully automated
     system that begins with raw data and proceeds all the way to the final
     physical quantity computation. 
@@ -132,12 +132,12 @@
 
 <!-- Second -->
 
-<p class="outlined-text-semibig">
+<p class="outlined-text-semibig fade-in">
     <em>Data analysis technique: toward the precise determination of
     $\left|V_{cb}\right|$ using the Oktay-Kronfeld action</em>
 </p>
 
-<p class="outlined-text">
+<p class="outlined-text fade-in">
     My collaborators in LANL/SWME and I am having been worked for the
     calculation of For the heavy (light) quark, we are using the
     <a href="https://arxiv.org/abs/0803.0523" target="_blank">Oktay-Kronfeld
@@ -147,7 +147,7 @@
     ensemble</a>.
 </p>
 
-<p class="outlined-text">
+<p class="outlined-text fade-in">
     During the Ph.D. course days, I have mainly worked on the data analysis
     technique. For the determination of $\left|V_{cb}\right|$ combining with the
     experimental result, we need to calculate semileptonic form factor such as
@@ -160,7 +160,7 @@
     fitting parameters of 2pt correlator fit as input parameters.
 </p>
 
-<p class="outlined-text">
+<p class="outlined-text fade-in">
     Hence, we need to perform the 2pt correlator fit first. We use sequential
     Bayesian method. For the least $\chi^{2}$ fitting, we use
     Broyden-Fletcher-Goldfarb-Shanno algorithm, which is a quasi-Newton method.
@@ -173,7 +173,7 @@
     within the radius of convergence, we further introduce scanning method.
 </p>
 
-<p class="outlined-text">
+<p class="outlined-text fade-in">
     To solve the Newton method, we need multiple time slices which is equal to
     the number of fitting parameters. Those time slices can be chosen within the
     fit range. By this, we have multiple time slice combinations. Before the
@@ -186,7 +186,7 @@
     among them, for example.
 </p>
 
-<p class="outlined-text">
+<p class="outlined-text fade-in">
     By this kind of combination of scanning method, Newton method and sequential
     Bayesian method, we can find global minimum and local minima of $\chi^{2}$,
     consuming up all possible time slices. I updated our fitting code. I
@@ -195,7 +195,7 @@
     code. 
 </p>
 
-<p class="outlined-text">
+<p class="outlined-text fade-in">
     Through these accomplishments, I am interested in the combinations of two or
     more various algorithms to compensate each other, such as sequential
     Bayesian method and Newton method.

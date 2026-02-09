@@ -13,6 +13,34 @@
  * - Existing renderers are invoked without modification.
  * ========================================================= */
 
+/**
+ * Apply per-line fade-in targets to dynamically rendered content.
+ *
+ * Strategy:
+ * - Target common "line-level" elements inside `.xml-content` blocks.
+ * - Add `.fade-in` class to those elements so the observer can animate them.
+ *
+ * Notes:
+ * - This function is intentionally conservative; it only adds a class.
+ * - Actual animation is controlled by CSS (`.fade-in` and `.fade-in.visible`).
+ */
+function applyLineFadeIn() {
+  const containers = document.querySelectorAll(".xml-content");
+  if (!containers.length) return;
+
+  containers.forEach((container) => {
+    // Typical line-level elements produced by renderers
+    const lines = container.querySelectorAll("p, li");
+
+    lines.forEach((line) => {
+      // Avoid re-adding if already tagged
+      if (!line.classList.contains("fade-in")) {
+        line.classList.add("fade-in");
+      }
+    });
+  });
+}
+
 async function loaderAndRender(dataUrl, containerId, rendererFn, options = {}) {
   const container = document.getElementById(containerId);
   if (!container) return;
@@ -54,6 +82,14 @@ async function loaderAndRender(dataUrl, containerId, rendererFn, options = {}) {
       await window.MathJax.typesetPromise();
     } else if (window.MathJax && typeof window.MathJax.typeset === "function") {
       window.MathJax.typeset();
+    }
+    // After rendering, optionally enable per-line fade-in on generated content.
+    applyLineFadeIn();
+
+    // If a fade refresh hook exists (defined in fade.js), call it.
+    // This is necessary when fade-in targets are added after DOMContentLoaded.
+    if (typeof window.refreshFadeIns === "function") {
+      window.refreshFadeIns();
     }
   } catch (error) {
     console.error("Error rendering data:", error);

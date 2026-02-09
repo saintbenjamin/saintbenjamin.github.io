@@ -1,45 +1,55 @@
 /**
- * Applies a fade-in animation to elements when they enter the viewport,
- * and resets the animation when they leave the viewport.
+ * Fade-in controller using IntersectionObserver.
+ *
+ * Supports dynamic content:
+ * - Exposes `window.refreshFadeIns()` so newly added `.fade-in` elements
+ *   (e.g., rendered after fetch) can be observed at any time.
  *
  * Behavior:
- * - Elements with the `.fade-in` class are observed using IntersectionObserver.
- * - When an element becomes visible (intersection threshold met),
- *   the `visible` class is added to trigger the CSS transition.
- * - When the element leaves the viewport,
- *   the `visible` class is removed, resetting it to the hidden state.
- *
- * This allows the fade-in animation to replay each time the element
- * re-enters the viewport.
+ * - When an element enters the viewport, `visible` is added.
+ * - When it leaves, `visible` is removed (so the animation can replay).
  *
  * Requirements:
- * - Elements must define their initial hidden state in CSS via `.fade-in`.
- * - The visible state must be defined via `.fade-in.visible`.
+ * - `.fade-in` defines the hidden initial state in CSS.
+ * - `.fade-in.visible` defines the visible state in CSS.
  */
-document.addEventListener("DOMContentLoaded", () => {
-  // Collect all elements that should participate in the fade-in effect
-  const fadeIns = document.querySelectorAll(".fade-in");
 
-  // Create an IntersectionObserver to track visibility changes
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        // When the element enters the viewport
-        if (entry.isIntersecting) {
-          // Activate the fade-in animation
-          entry.target.classList.add("visible");
-        } else {
-          // Reset to the hidden state when leaving the viewport
-          entry.target.classList.remove("visible");
-        }
-      });
-    },
-    {
-      // Trigger when at least 10% of the element is visible
-      threshold: 0.01,
-    }
-  );
+(() => {
+  /** @type {IntersectionObserver|null} */
+  let observer = null;
 
-  // Register each fade-in element with the observer
-  fadeIns.forEach((el) => observer.observe(el));
-});
+  /**
+   * Observe all `.fade-in` elements currently in the DOM.
+   * Safe to call repeatedly.
+   */
+  function refreshFadeIns() {
+    if (!observer) return;
+
+    document.querySelectorAll(".fade-in").forEach((el) => {
+      observer.observe(el);
+    });
+  }
+
+  // Make the refresh hook available globally for loader/render pipelines.
+  window.refreshFadeIns = refreshFadeIns;
+
+  document.addEventListener("DOMContentLoaded", () => {
+    observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          } else {
+            entry.target.classList.remove("visible");
+          }
+        });
+      },
+      {
+        threshold: 0.02,
+      }
+    );
+
+    // Observe any `.fade-in` elements that already exist at load time.
+    refreshFadeIns();
+  });
+})();
