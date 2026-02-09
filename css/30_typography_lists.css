@@ -18,7 +18,6 @@ li {
 a {
   color: forestgreen;
   text-decoration: none;
-  display: inline-block;
   transition: color 0.25s ease, transform 0.25s ease;
 }
 
