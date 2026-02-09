@@ -32,6 +32,23 @@
                   "target": "_blank"
                 }
               }
+            }
+          ]
+        }
+      },
+      {
+        "a:title": { "_text": "Contact" },
+        "a:item_s": {
+          "a:item": [
+            {
+              "a:title": {
+                "_text": "Benjamin Jaedon Choi"
+              }
+            },
+            {
+              "a:title": {
+                "_text": "崔 在敦"
+              }
             },
             {
               "a:title": {
@@ -49,23 +66,6 @@
                   "link": "https://researchmap.jp/benjaminchoi",
                   "target": "_blank"
                 }
-              }
-            }
-          ]
-        }
-      },
-      {
-        "a:title": { "_text": "Contact" },
-        "a:item_s": {
-          "a:item": [
-            {
-              "a:title": {
-                "_text": "Benjamin Jaedon Choi"
-              }
-            },
-            {
-              "a:title": {
-                "_text": "崔 在敦"
               }
             }
           ]
