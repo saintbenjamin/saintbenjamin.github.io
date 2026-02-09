@@ -70,6 +70,7 @@
     background: rgba(0,0,0,0.05);
   }
 
-  .mobile-icon-container { display: flex; }
-  .desktop-icon-container { display: none; }
+  .icon-container{
+    justify-content: center;
+  }
 }

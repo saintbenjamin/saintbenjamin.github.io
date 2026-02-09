@@ -19,25 +19,19 @@
   cursor: pointer;
 }
 
-.desktop-icon-container {
+.icon-container {
     position: relative;
     justify-content: flex-start;
 }
 
-.mobile-icon-container{
-    justify-content: center;
-}
-
 /* Shared icon bar style (header + footer) */
-.mobile-icon-container,
-.desktop-icon-container {
+.icon-container {
   display: flex;
   gap: 15px;
   padding: 10px;
 }
 
-.mobile-icon-container i,
-.desktop-icon-container i {
+.icon-container i {
   font-size: 40px;
   color: forestgreen;
   transition: transform 0.3s ease, color 0.3s ease;
@@ -45,31 +39,24 @@
   z-index: 1;
 }
 
-.mobile-icon-container i:hover,
-.desktop-icon-container i:hover {
+.icon-container i:hover {
   color: mediumseagreen;
   transform: translate(5px, 5px);
   cursor: pointer;
 }
 
 /* Remove hover background box for both */
-.mobile-icon-container a:hover,
-.mobile-icon-container button:hover,
-.desktop-icon-container a:hover,
-.desktop-icon-container button:hover {
+.icon-container a:hover,
+.icon-container button:hover {
   background: none !important;
 }
 
 /* Normalize button look for both */
-.mobile-icon-container button,
-.desktop-icon-container button {
+.icon-container button {
   background: none;
   border: none;
   padding: 0;
 }
-
-.mobile-icon-container { display: none; }
-.desktop-icon-container { display: flex; }
 
 /* QR button */
 .qr-button {
