@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     {
       // Trigger when at least 10% of the element is visible
-      threshold: 0.1,
+      threshold: 0.01,
     }
   );
 
