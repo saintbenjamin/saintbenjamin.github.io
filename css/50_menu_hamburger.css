@@ -42,3 +42,74 @@
     transform: translate(5px, 5px);
     cursor: pointer;
 }
+
+.contact-row{
+    margin-top: 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    font-size: 1.15em;
+}
+
+.contact-label{
+    font-weight: 700;
+}
+
+.contact-hint{
+    font-size: 0.9em;
+    opacity: 0;
+    transform: translateY(-2px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    pointer-events: none;
+}
+
+.email-copy{
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: gray;
+    transition: color 0.25s ease;
+    transition: transform 0.3s ease, color 0.3s ease;
+    font-size: 1em;
+}
+
+.email-copy i {
+  font-size: 1em;
+  transform: translateY(3px);
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+}
+
+.email-copy:hover{ 
+    color: orangered; 
+    transform: translate(5px, 5px);
+    cursor: pointer;
+}
+
+.email-copy.copied{ 
+    color: orangered; 
+}
+
+.email-copy.copied .label::after{ 
+    content: " ✓"; 
+}
+
+.email-copy.copied + .contact-hint{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.sr-only{
+  position:absolute;
+  width:1px; height:1px;
+  padding:0; margin:-1px;
+  overflow:hidden;
+  clip:rect(0,0,0,0);
+  white-space:nowrap;
+  border:0;
+}

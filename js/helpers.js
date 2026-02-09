@@ -250,3 +250,50 @@ function jsonToXmlLikeDoc(raw) {
   doc.childNodes = [makeJsonNode(raw, ATOM_NS, "feed")];
   return doc;
 }
+
+/**
+ * Email copy-to-clipboard interaction.
+ *
+ * This attaches a click handler to elements with the
+ * `.email-copy` class and performs the following:
+ *
+ * 1. Reconstructs the email address from data attributes
+ *    (`data-user` + `data-domain`) to avoid exposing the
+ *    full address in the DOM.
+ * 2. Copies the reconstructed email address to the clipboard.
+ * 3. Temporarily toggles the `copied` CSS class to provide
+ *    visual feedback (e.g. "✓" indicator).
+ *
+ * This implementation is intentionally:
+ * - Minimal and dependency-free
+ * - Resistant to naive email scraping
+ * - Non-intrusive (no alerts or blocking UI)
+ *
+ * The visual feedback timing is controlled purely via
+ * CSS + a short timeout, keeping logic simple.
+ */
+document.querySelectorAll(".email-copy").forEach(btn => {
+  let timer = null;
+
+  btn.addEventListener("click", async () => {
+    const user = btn.dataset.user;
+    const domain = btn.dataset.domain;
+    const email = `${user}@${domain}`;
+
+    try {
+      await navigator.clipboard.writeText(email);
+
+      btn.classList.add("copied");
+
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        btn.classList.remove("copied");
+      }, 1500);
+
+    } catch (e) {
+      // Clipboard API may fail in older browsers
+      // or restricted contexts (e.g. non-HTTPS).
+      console.error("Clipboard failed", e);
+    }
+  });
+});
