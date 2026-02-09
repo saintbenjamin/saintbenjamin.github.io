@@ -5,6 +5,56 @@
     "a:id": { "_text": "benji_talk" },
     "a:entry": [
       {
+        "a:id": { "_text": "benji_31" },
+        "a:updated": { "_text": "2026-03-25" },
+        "a:title": {
+          "_text": "Machine Learning-Based Estimation of Cumulants of Chiral Condensate via Multi-Ensemble Reweighting with Deborah.jl"
+        },
+        "a:author": { "_text": "Benjamin J. Choi, Hiroshi Ohno, Akio Tomiya" },
+        "a:conf_en": {
+          "_text": "The Physical Society of Japan 2026 Spring Meeting",
+          "_attrs": { "link": "https://www.jps.or.jp/activities/meetings/spring/spring_index.php", "target": "_blank" }
+        },
+        "a:conf_jp": { "_text": "日本物理学会2026年春季大会" },
+        "a:loc_en": { "_text": "Online Virtual Meeting" },
+        "a:loc_jp": { "_text": "オンライン開催" },
+        "a:session": { "_text": "Talk" }
+      },
+      {
+        "a:id": { "_text": "benji_30" },
+        "a:updated": { "_text": "2026-03-11" },
+        "a:title": {
+          "_text": "Machine Learning-Based Estimation of Cumulants of Chiral Condensate via Multi-Ensemble Reweighting with Deborah.jl"
+        },
+        "a:author": { "_text": "Benjamin J. Choi, Hiroshi Ohno, Akio Tomiya" },
+        "a:conf_en": {
+          "_text": "The 2026 Spring School on Computational Physics",
+          "_attrs": { "link": "https://compphysschool.github.io/2026/", "target": "_blank" }
+        },
+        "a:conf_jp": { "_text": "計算物理春の学校 2026" },
+        "a:loc_en": { "_text": "Okinawa Prefectural Municipal and Village Government Hall, Okinawa, Japan" },
+        "a:loc_jp": { "_text": "沖縄県市町村自治会館" },
+        "a:session": { "_text": "Poster" }
+      },
+      {
+        "a:id": { "_text": "benji_29" },
+        "a:updated": { "_text": "2026-03-03" },
+        "a:title": {
+          "_text": "Machine Learning-Based Estimation of Cumulants of Chiral Condensate via Multi-Ensemble Reweighting with Deborah.jl"
+        },
+        "a:author": { "_text": "Benjamin J. Choi, Hiroshi Ohno, Akio Tomiya" },
+        "a:conf_en": {
+          "_text": "The 5th Research Workshop of \"Program for Promoting Research on the Supercomputer Fugaku\"",
+          "_attrs": { "link": "https://www.rist.or.jp/sc/ws/05/", "target": "_blank" }
+        },
+        "a:conf_jp": { "_text": "第5回「富岳成果創出加速プログラム」研究交流会" },
+        "a:loc_en": {
+          "_text": "AKIBA HALL and Reception Hall, AKIBA PLAZA 5th floor, Tokyo, Japan",
+          "_attrs": { "link": "https://www.fsi.co.jp/akibaplaza/en/", "target": "_blank" }
+        },
+        "a:loc_jp": { "_text": "富士ソフトアキバプラザ 5階アキバホール、レセプションホール" },
+        "a:session": { "_text": "Poster" }
+      },      {
         "a:id": { "_text": "benji_28" },
         "a:updated": { "_text": "2026-01-21" },
         "a:title": {
