@@ -5,6 +5,18 @@
     "a:id": { "_text": "benji_experiences" },
     "a:entry": [
       {
+        "a:title": { "_text": "Co-Chair" },
+        "a:title_jp": { "_text": "国際格子理論分野多様性・包括性委員会 共同委員長" },
+        "a:location": {
+          "_text": "The Lattice Diversity and Inclusion Committee (LDIC)",
+          "_attrs": { "link": "https://latticediversity.github.io/about/" }
+        },
+        "a:desc": {
+          "_text": "Elected as a committee member in October 2025, and appointed as Co-Chair at the December 2025 monthly committee meeting."
+        },
+        "a:date": { "_text": "Oct. 2025 - Present" }
+      },
+      {
         "a:title": { "_text": "Regular Member" },
         "a:title_jp": { "_text": "日本物理学会 正会員" },
         "a:location": {
