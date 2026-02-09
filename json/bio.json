@@ -55,6 +55,34 @@
         }
       },
       {
+        "a:title": { "_text": "Co-Chair" },
+        "a:item_s": {
+          "a:item": [
+            {
+              "a:title": {
+                "_text": "The Lattice Diversity and Inclusion Committee (LDIC)",
+                "_attrs": {
+                  "link": "https://latticediversity.github.io/about/"
+                }
+              }
+            },
+            {
+              "a:title": {
+                "_text": "国際格子理論分野多様性・包括性委員会 共同委員長"
+              }
+            },
+            {
+              "a:title": {
+                "_text": "Elected as a committee member in October 2025, and appointed as Co-Chair at the December 2025 monthly committee meeting."
+              }
+            },
+            {
+              "a:title": { "_text": "Oct. 2025 - Present" }
+            }
+          ]
+        }
+      },
+      {
         "a:title": { "_text": "Benjamin Jaedon Choi" },
         "a:item_s": {
           "a:item": [
