@@ -33,57 +33,57 @@
         <div class="background"></div>
         <!-- Header section -->
         <header>
-        <!-- Header icon bar -->
-        <div class="icon-bar icon-container">
-            <a
-            href="https://orcid.org/0000-0002-5438-5490"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="ORCID"
-            >
-            <i class="fab fa-orcid" aria-hidden="true"></i>
-            </a>
-            <a
-            href="https://github.com/saintbenjamin"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="GitHub"
-            >
-            <i class="fab fa-github" aria-hidden="true"></i>
-            </a>
-            <!-- QR popup trigger -->
+            <!-- Header icon bar -->
+            <div class="icon-bar icon-container">
+                <a
+                href="https://orcid.org/0000-0002-5438-5490"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="ORCID"
+                >
+                    <i class="fab fa-orcid" aria-hidden="true"></i>
+                </a>
+                <a
+                href="https://github.com/saintbenjamin"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="GitHub"
+                >
+                    <i class="fab fa-github" aria-hidden="true"></i>
+                </a>
+                <!-- QR popup trigger -->
+                <button
+                type="button"
+                class="qr-button icon-btn qr-trigger"
+                aria-label="Show QR code"
+                >
+                    <i class="fas fa-qrcode" aria-hidden="true"></i>
+                </button>
+            </div>
+            <!-- Hamburger -->
             <button
-            type="button"
-            class="qr-button icon-btn qr-trigger"
-            aria-label="Show QR code"
+                type="button"
+                class="hamburger"
+                aria-label="Open menu"
+                aria-expanded="false"
+                aria-controls="site-menu"
             >
-            <i class="fas fa-qrcode" aria-hidden="true"></i>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
             </button>
-        </div>
-        <!-- Hamburger -->
-        <button
-            type="button"
-            class="hamburger"
-            aria-label="Open menu"
-            aria-expanded="false"
-            aria-controls="site-menu"
-        >
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-        </button>
-        <!-- Menu -->
-        <ul class="menu" id="site-menu">
-            <li class="outlined-text-semibig"><a href="#jesus" aria-current="page">Faith</a></li>
-            <li class="outlined-text-semibig"><a href="#bio" aria-current="page">About</a></li>
-            <li class="outlined-text-semibig"><a href="#edu" aria-current="page">Education</a></li>
-            <li class="outlined-text-semibig"><a href="#academic" aria-current="page">Experience</a></li>
-            <li class="outlined-text-semibig"><a href="#honor" aria-current="page">Honors</a></li>
-            <li class="outlined-text-semibig"><a href="#publication" aria-current="page">Publications</a></li>
-            <li class="outlined-text-semibig"><a href="#talk" aria-current="page">Presentations</a></li>
-            <li class="outlined-text-semibig"><a href="#research" aria-current="page">Statement</a></li>
-            <li class="outlined-text-semibig"><a href="#links" aria-current="page">Links</a></li>
-        </ul>
+            <!-- Menu -->
+            <ul class="menu" id="site-menu">
+                <li class="outlined-text-semibig"><a href="#jesus" aria-current="page">Faith</a></li>
+                <li class="outlined-text-semibig"><a href="#bio" aria-current="page">About</a></li>
+                <li class="outlined-text-semibig"><a href="#edu" aria-current="page">Education</a></li>
+                <li class="outlined-text-semibig"><a href="#academic" aria-current="page">Experience</a></li>
+                <li class="outlined-text-semibig"><a href="#honor" aria-current="page">Honors</a></li>
+                <li class="outlined-text-semibig"><a href="#publication" aria-current="page">Publications</a></li>
+                <li class="outlined-text-semibig"><a href="#talk" aria-current="page">Presentations</a></li>
+                <li class="outlined-text-semibig"><a href="#research" aria-current="page">Statement</a></li>
+                <li class="outlined-text-semibig"><a href="#links" aria-current="page">Links</a></li>
+            </ul>
         </header>
         <!-- Main section -->
         <main>
@@ -95,95 +95,97 @@
             <!-- Biography -->
             <section class="menus" id="bio">
                 <div class="here-icon-container">
-                <h1 class="outlined-text-superbig word-break fade-in" style="white-space: nowrap;">
-                    Benjamin J. Choi
-                    <a
-                    href="https://orcid.org/0000-0002-5438-5490"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="ORCID"
-                    >
-                    <i class="fab fa-orcid" aria-hidden="true"></i>
-                    </a>
-                </h1>
+                    <h1 class="outlined-text-superbig word-break fade-in" style="white-space: nowrap;">
+                        Benjamin J. Choi
+                        <a
+                            href="https://orcid.org/0000-0002-5438-5490"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="ORCID"
+                        >
+                        <i class="fab fa-orcid" aria-hidden="true"></i>
+                        </a>
+                    </h1>
                 </div>
                 <div id="bio-container" class="xml-content fade-in"></div>
                 <!-- Contact icon bar (fixed invalid ul nesting) -->
                 <ul class="no-bullets fade-in fade-content">
-                <li class="outlined-text-semibig">
-                    <div class="icon-bar here-icon-container">
-                    <a
-                        href="https://github.com/saintbenjamin"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="GitHub"
-                    >
-                        <i class="fab fa-github" aria-hidden="true"></i>
-                    </a>
-                    <a
-                        href="https://gitlab.com/saintbenjamin"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="GitLab"
-                    >
-                        <i class="fab fa-gitlab" aria-hidden="true"></i>
-                    </a>
-                    <a
-                        href="https://saintbenjamin.wordpress.com/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="WordPress"
-                    >
-                        <i class="fab fa-wordpress" aria-hidden="true"></i>
-                    </a>
-                    <a
-                        href="https://www.linkedin.com/in/saintbenjamin/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="LinkedIn"
-                    >
-                        <i class="fab fa-linkedin" aria-hidden="true"></i>
-                    </a>
-                    <a
-                        href="https://x.com/BenjaminJChoi"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="X"
-                    >
-                        <i class="fab fa-twitter" aria-hidden="true"></i>
-                    </a>
-                    <a
-                        href="https://www.instagram.com/benji_johannes/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="Instagram"
-                    >
-                        <i class="fab fa-instagram-square" aria-hidden="true"></i>
-                    </a>
-                    <a
-                        href="https://www.facebook.com/benjamin.dion.choi"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="Facebook"
-                    >
-                        <i class="fab fa-facebook-square" aria-hidden="true"></i>
-                    </a>
-                    <button
-                        type="button"
-                        class="email-copy"
-                        data-user="benchoi"
-                        data-domain="het.ph.tsukuba.ac.jp"
-                        aria-label="Copy email address"
-                    >
-                        <i class="fa fa-envelope" aria-hidden="true"></i>
-                        <span class="sr-only">Copy email</span>
-                    </button>
-                    <span class="contact-hint" aria-live="polite">
-                        <i class="fa-regular fa-copy" aria-hidden="true"></i>
-                        <span class="sr-only">Copied to clipboard</span>
-                    </span>
-                    </div>
-                </li>
+                    <li class="outlined-text-semibig">
+                        <div class="icon-bar here-icon-container">
+                            <a
+                            href="https://github.com/saintbenjamin"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="GitHub"
+                            >
+                                <i class="fab fa-github" aria-hidden="true"></i>
+                            </a>
+                            <a
+                                href="https://gitlab.com/saintbenjamin"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="GitLab"
+                            >
+                                <i class="fab fa-gitlab" aria-hidden="true"></i>
+                            </a>
+                            <a
+                                href="https://saintbenjamin.wordpress.com/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="WordPress"
+                            >
+                                <i class="fab fa-wordpress" aria-hidden="true"></i>
+                            </a>
+                            <a
+                                href="https://x.com/BenjaminJChoi"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="X"
+                            >
+                                <i class="fab fa-twitter" aria-hidden="true"></i>
+                            </a>
+                            <a
+                                href="https://www.instagram.com/benji_johannes/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="Instagram"
+                            >
+                                <i class="fab fa-instagram-square" aria-hidden="true"></i>
+                            </a>
+                            <a
+                                href="https://www.facebook.com/benjamin.dion.choi"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="Facebook"
+                            >
+                                <i class="fab fa-facebook-square" aria-hidden="true"></i>
+                            </a>
+                            <a
+                                href="https://www.linkedin.com/in/saintbenjamin/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="LinkedIn"
+                            >
+                                <i class="fab fa-linkedin" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                        <div class="icon-bar here-icon-container">
+                            <button
+                                type="button"
+                                class="email-copy"
+                                data-user="benchoi"
+                                data-domain="het.ph.tsukuba.ac.jp"
+                                aria-label="Copy email address"
+                            >
+                                <i class="fa fa-envelope" aria-hidden="true"></i>
+                                <span class="sr-only">Copy email</span>
+                            </button>
+                            <span class="contact-hint" aria-live="polite">
+                                <i class="fa-regular fa-copy" aria-hidden="true"></i>
+                                <span class="sr-only">Copied to clipboard</span>
+                            </span>
+                        </div>
+                    </li>
                 </ul>
                 <br />
             </section>
