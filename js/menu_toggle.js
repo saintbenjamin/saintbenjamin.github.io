@@ -1,25 +1,49 @@
 /**
- * Toggles the mobile hamburger menu open/closed state.
- * 
- * - Adds or removes the `.open` class on the menu element.
- * - When any menu link is clicked, the menu automatically closes.
- * 
- * This behavior is intended for single-page navigation,
- * so the menu collapses immediately after a section jump.
+ * Mobile hamburger menu controller.
+ *
+ * Responsibilities:
+ * - Toggle the `.open` class on the menu element.
+ * - Synchronize `aria-expanded` on the hamburger button.
+ * - Close the menu automatically when a menu link is clicked.
+ *
+ * This implementation avoids duplicate event listeners
+ * and is suitable for single-page navigation.
  */
-function toggleMenu() {
-  // Select the main navigation menu
-  const menu = document.querySelector('.menu');
-  if (!menu) return;
 
-  // Toggle the open/closed state
-  menu.classList.toggle('open');
+function toggleMenu(forceOpen) {
+  const menu = document.querySelector(".menu");
+  const hamburger = document.querySelector(".hamburger");
+  if (!menu || !hamburger) return;
 
-  // Close the menu when any internal link is clicked
-  const menuItems = document.querySelectorAll('.menu a');
-  menuItems.forEach(item => {
-    item.addEventListener('click', () => {
-      menu.classList.remove('open');
-    });
-  });
+  const shouldOpen =
+    typeof forceOpen === "boolean"
+      ? forceOpen
+      : !menu.classList.contains("open");
+
+  menu.classList.toggle("open", shouldOpen);
+  hamburger.setAttribute("aria-expanded", shouldOpen ? "true" : "false");
+  hamburger.classList.toggle("open", shouldOpen);
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  const hamburger = document.querySelector(".hamburger");
+  const menu = document.querySelector(".menu");
+  if (!hamburger || !menu) return;
+
+  // Toggle menu when the hamburger button is clicked
+  hamburger.addEventListener("click", (e) => {
+    e.preventDefault();
+    toggleMenu();
+  });
+
+  // Close menu when any internal navigation link is clicked
+  const menuLinks = menu.querySelectorAll("a");
+  menuLinks.forEach((link) => {
+    link.addEventListener("click", () => toggleMenu(false));
+  });
+
+  // Optional: close the menu when the Escape key is pressed
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") toggleMenu(false);
+  });
+});

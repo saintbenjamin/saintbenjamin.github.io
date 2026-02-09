@@ -1,3 +1,4 @@
+/* Hamburger button (hidden by default, shown in mobile layout) */
 .hamburger {
   display: none;
   flex-direction: column;
@@ -6,13 +7,41 @@
   justify-content: space-between;
   cursor: pointer;
   margin: 20px;
+
+  /* Reset default button styles */
+  background: none;
+  border: none;
+  padding: 0;
+
+  align-items: stretch;
 }
 
-.hamburger div {
+/* Individual hamburger bars */
+.hamburger span {
+  display: block;
   height: 4px;
   width: 100%;
   background-color: forestgreen;
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Visible focus indicator for keyboard navigation */
+.hamburger:focus-visible {
+  outline: 2px solid mediumseagreen;
+  outline-offset: 4px;
+}
+
+/* Transform hamburger into an "X" when menu is open */
+.hamburger.open span:nth-child(1) {
+  transform: translateY(10.5px) rotate(45deg);
+}
+
+.hamburger.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.open span:nth-child(3) {
+  transform: translateY(-10.5px) rotate(-45deg);
 }
 
 .menu {
