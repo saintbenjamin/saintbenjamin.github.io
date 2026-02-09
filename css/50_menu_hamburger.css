@@ -11,7 +11,7 @@
 .hamburger div {
   height: 4px;
   width: 100%;
-  background-color: orangered;
+  background-color: forestgreen;
   transition: all 0.3s ease;
 }
 
@@ -38,7 +38,7 @@
 }
 
 .menu li:hover {
-    /* background-color: orangered; */
+    /* background-color: forestgreen; */
     transform: translate(5px, 5px);
     cursor: pointer;
 }
@@ -72,7 +72,7 @@
     border: none;
     padding: 0;
     cursor: pointer;
-    color: gray;
+    color: forestgreen;
     transition: color 0.25s ease;
     transition: transform 0.3s ease, color 0.3s ease;
     font-size: 1em;
@@ -86,13 +86,13 @@
 }
 
 .email-copy:hover{ 
-    color: orangered; 
+    color: mediumseagreen; 
     transform: translate(5px, 5px);
     cursor: pointer;
 }
 
 .email-copy.copied{ 
-    color: orangered; 
+    color: forestgreen; 
 }
 
 .email-copy.copied .label::after{ 

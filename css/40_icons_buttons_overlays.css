@@ -7,14 +7,14 @@
 
 .here-icon-container i {
   font-size: 30px;
-  color: gray;
+  color: forestgreen;
   transition: transform 0.3s ease, color 0.3s ease;
   position: relative;
   z-index: 1;
 }
 
 .here-icon-container i:hover {
-  color: orangered;
+  color: mediumseagreen;
   transform: translate(5px, 5px);
   cursor: pointer;
 }
@@ -31,7 +31,7 @@
 .header-icon-container i,
 .footer-icon-container i {
   font-size: 40px;
-  color: gray;
+  color: forestgreen;
   transition: transform 0.3s ease, color 0.3s ease;
   position: relative;
   z-index: 1;
@@ -39,7 +39,7 @@
 
 .header-icon-container i:hover,
 .footer-icon-container i:hover {
-  color: orangered;
+  color: mediumseagreen;
   transform: translate(5px, 5px);
   cursor: pointer;
 }

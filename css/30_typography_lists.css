@@ -16,8 +16,15 @@ li {
 }
 
 a {
-  color: orangered;
+  color: forestgreen;
   text-decoration: none;
+  display: inline-block;
+  transition: color 0.25s ease, transform 0.25s ease;
+}
+
+a:hover {
+  color: mediumseagreen;
+  transform: translate(2px, 2px);
 }
 
 /* Fade-in animation */
