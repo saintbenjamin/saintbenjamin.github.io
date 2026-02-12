@@ -40,7 +40,8 @@
         "a:id": { "_text": "benji_29" },
         "a:updated": { "_text": "2026-03-03" },
         "a:title": {
-          "_text": "Machine Learning-Based Estimation of Cumulants of Chiral Condensate via Multi-Ensemble Reweighting with Deborah.jl"
+          "_text": "Machine Learning-Based Estimation of Cumulants of Chiral Condensate via Multi-Ensemble Reweighting with Deborah.jl",
+          "_attrs": { "link": "https://youtu.be/nM3j5KX6DYs?si=GimZZVRFo2WarRSz", "target": "_blank" }
         },
         "a:author": { "_text": "Benjamin J. Choi, Hiroshi Ohno, Akio Tomiya" },
         "a:conf_en": {
