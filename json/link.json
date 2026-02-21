@@ -10,6 +10,15 @@
           "a:item": [
             {
               "a:title": {
+                "_text": "Deborah.jl Documentation",
+                "_attrs": {
+                  "link": "https://saintbenjamin.github.io/Deborah.jl/stable/",
+                  "target": "_blank"
+                }
+              }
+            },            
+            {
+              "a:title": {
                 "_text": "EuljiroBible Documentation",
                 "_attrs": {
                   "link": "https://saintbenjamin.github.io/EuljiroBible",
