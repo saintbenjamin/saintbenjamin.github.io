@@ -19,6 +19,15 @@
             },
             {
               "a:title": {
+                "_text": "Maranatha.jl Documentation",
+                "_attrs": {
+                  "link": "https://saintbenjamin.github.io/Maranatha.jl/stable/",
+                  "target": "_blank"
+                }
+              }
+            },
+            {
+              "a:title": {
                 "_text": "EuljiroBible Documentation",
                 "_attrs": {
                   "link": "https://saintbenjamin.github.io/EuljiroBible",
