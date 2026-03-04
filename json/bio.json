@@ -62,6 +62,15 @@
                   "target": "_blank"
                 }
               }
+            },
+            {
+              "a:title": {
+                "_text": "Google Scholar",
+                "_attrs": {
+                  "link": "https://scholar.google.com/citations?user=rqBuyfcAAAAJ",
+                  "target": "_blank"
+                }
+              }
             }
           ]
         }
