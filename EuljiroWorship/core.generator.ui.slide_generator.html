@@ -424,17 +424,140 @@ and written as UTF-8 JSON.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator._get_announcement_import_settings_path">
+<span class="sig-name descname"><span class="pre">_get_announcement_import_settings_path</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator._get_announcement_import_settings_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator._get_announcement_import_settings_path" title="Link to this definition"></a></dt>
+<dd><p>Return the JSON path used to persist announcement import range settings.</p>
+<p>This file is stored alongside the existing “last opened file” setting
+so that the announcement import feature can keep its own lightweight,
+dedicated configuration without affecting unrelated generator settings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Absolute path to the announcement import settings JSON file.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator._load_announcement_import_settings">
+<span class="sig-name descname"><span class="pre">_load_announcement_import_settings</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator._load_announcement_import_settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator._load_announcement_import_settings" title="Link to this definition"></a></dt>
+<dd><p>Load persisted announcement import marker settings.</p>
+<p>If the settings file does not exist or cannot be parsed, default marker
+values are returned.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>Dictionary containing:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">start_headline</span></code> (str):</dt><dd><p>Headline text that marks the first slide of the import block.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">end_headline</span></code> (str):</dt><dd><p>Headline text that marks the last slide of the import block.
+If empty, the block extends to the end of the file.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator._save_announcement_import_settings">
+<span class="sig-name descname"><span class="pre">_save_announcement_import_settings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start_headline</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_headline</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator._save_announcement_import_settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator._save_announcement_import_settings" title="Link to this definition"></a></dt>
+<dd><p>Save announcement import marker settings to a dedicated JSON file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>start_headline</strong> (<em>str</em>) – Headline text marking the first slide of the import block.</p></li>
+<li><p><strong>end_headline</strong> (<em>str</em>) – Headline text marking the last slide of the import block.
+If empty, the block extends to the end of the file.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator._prompt_announcement_import_range">
+<span class="sig-name descname"><span class="pre">_prompt_announcement_import_range</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start_default</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_default</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator._prompt_announcement_import_range"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator._prompt_announcement_import_range" title="Link to this definition"></a></dt>
+<dd><p>Open a modal dialog that asks the user for announcement import markers.</p>
+<p>The dialog lets the user define the start and end headlines used when
+extracting and replacing the announcement block. If the end headline is
+left empty, the import block extends to the end of the file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>start_default</strong> (<em>str</em>) – Default text to pre-fill in the start marker field.</p></li>
+<li><p><strong>end_default</strong> (<em>str</em>) – Default text to pre-fill in the end marker field.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>Two-element tuple of <code class="docutils literal notranslate"><span class="pre">(start_headline,</span> <span class="pre">end_headline)</span></code>.</p>
+<ul class="simple">
+<li><p>If the user accepts the dialog, stripped string values are returned.</p></li>
+<li><p>If the user cancels the dialog, <code class="docutils literal notranslate"><span class="pre">(None,</span> <span class="pre">None)</span></code> is returned.</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple[str | None, str | None]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator._find_slide_index_by_headline">
+<span class="sig-name descname"><span class="pre">_find_slide_index_by_headline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slides</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headline</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator._find_slide_index_by_headline"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator._find_slide_index_by_headline" title="Link to this definition"></a></dt>
+<dd><p>Find the first slide index whose headline matches the given text.</p>
+<p>Matching is performed using stripped exact string comparison.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>slides</strong> (<em>list</em><em>[</em><em>dict</em><em>]</em>) – Slide dictionaries to search.</p></li>
+<li><p><strong>headline</strong> (<em>str</em>) – Target headline text to match.</p></li>
+<li><p><strong>start_index</strong> (<em>int</em>) – Row index from which to begin the search.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Index of the first matching slide, or <code class="docutils literal notranslate"><span class="pre">None</span></code> if not found.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator.import_announcements">
 <span class="sig-name descname"><span class="pre">import_announcements</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator.import_announcements"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator.import_announcements" title="Link to this definition"></a></dt>
-<dd><p>Import an announcement block from an external slide JSON file and
-replace the existing announcement block in the current session.</p>
-<p>This method opens a file-selection dialog, loads the chosen slide JSON,
-extracts the announcement section starting from the standard greeting
-slide (e.g., “오늘 처음 오신 분들을 환영하고 축복합니다!”), and
-replaces the corresponding section in the currently loaded generator
-table.</p>
-<p>The operation preserves all slides before the announcement block and
-overwrites only the announcement portion.</p>
+<dd><p>Import a configurable slide block from an external slide JSON file and
+replace the corresponding block in the current session.</p>
+<p>This method opens a file-selection dialog, asks the user for the start
+and end headline markers that define the import range, persists those
+marker values to a dedicated settings JSON file, and then replaces the
+matching range in the currently loaded generator table.</p>
+<p>The imported range is extracted from the selected source file and applied
+onto the current session using the same start/end markers.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>None</strong></p>
@@ -452,13 +575,17 @@ overwrites only the announcement portion.</p>
 </dl>
 <p class="rubric">Notes</p>
 <ul class="simple">
-<li><p>The announcement start is detected by matching a known headline</p></li>
+<li><p>Range boundaries are detected by exact headline matching after</p></li>
 </ul>
-<p>string used in worship announcements.
+<p>stripping leading and trailing whitespace.
+- If the end marker is empty, the import block extends to the end
+of the file.
 - If either the source file or the current session does not contain
-a detectable announcement block, no changes are applied.
+the requested start marker, no changes are applied.
 - This function modifies the generator table in place and does not
-automatically save the session file.</p>
+automatically save the session file.
+- User-edited start/end marker values are persisted and reused as
+defaults in subsequent imports.</p>
 </dd></dl>
 
 <dl class="py method">

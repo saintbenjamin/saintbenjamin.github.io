@@ -100,10 +100,11 @@
 <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
-    <span class="n">QMainWindow</span><span class="p">,</span> <span class="n">QTableWidget</span><span class="p">,</span> <span class="n">QWidget</span><span class="p">,</span> 
-    <span class="n">QFileDialog</span><span class="p">,</span> <span class="n">QMessageBox</span><span class="p">,</span> <span class="n">QHeaderView</span><span class="p">,</span> 
-    <span class="n">QAbstractItemView</span><span class="p">,</span> <span class="n">QInputDialog</span><span class="p">,</span> <span class="n">QDialog</span><span class="p">,</span> 
-    <span class="n">QTableWidgetItem</span>
+    <span class="n">QMainWindow</span><span class="p">,</span> <span class="n">QTableWidget</span><span class="p">,</span> <span class="n">QWidget</span><span class="p">,</span>
+    <span class="n">QFileDialog</span><span class="p">,</span> <span class="n">QMessageBox</span><span class="p">,</span> <span class="n">QHeaderView</span><span class="p">,</span>
+    <span class="n">QAbstractItemView</span><span class="p">,</span> <span class="n">QInputDialog</span><span class="p">,</span> <span class="n">QDialog</span><span class="p">,</span>
+    <span class="n">QTableWidgetItem</span><span class="p">,</span> <span class="n">QDialogButtonBox</span><span class="p">,</span>
+    <span class="n">QVBoxLayout</span><span class="p">,</span> <span class="n">QFormLayout</span><span class="p">,</span> <span class="n">QLineEdit</span>
 <span class="p">)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtGui</span><span class="w"> </span><span class="kn">import</span> <span class="n">QFont</span>
 
@@ -443,21 +444,198 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">last_saved_path</span> <span class="o">=</span> <span class="n">path</span></div>
 
 
+<div class="viewcode-block" id="SlideGenerator._get_announcement_import_settings_path">
+<a class="viewcode-back" href="../../../../core.generator.ui.slide_generator.html#core.generator.ui.slide_generator.SlideGenerator._get_announcement_import_settings_path">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_announcement_import_settings_path</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the JSON path used to persist announcement import range settings.</span>
+
+<span class="sd">        This file is stored alongside the existing &quot;last opened file&quot; setting</span>
+<span class="sd">        so that the announcement import feature can keep its own lightweight,</span>
+<span class="sd">        dedicated configuration without affecting unrelated generator settings.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str:</span>
+<span class="sd">                Absolute path to the announcement import settings JSON file.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">settings_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">SETTING_LAST_OPEN_FILE</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">settings_dir</span><span class="p">,</span> <span class="s2">&quot;announcement_import_settings.json&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SlideGenerator._load_announcement_import_settings">
+<a class="viewcode-back" href="../../../../core.generator.ui.slide_generator.html#core.generator.ui.slide_generator.SlideGenerator._load_announcement_import_settings">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_load_announcement_import_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Load persisted announcement import marker settings.</span>
+
+<span class="sd">        If the settings file does not exist or cannot be parsed, default marker</span>
+<span class="sd">        values are returned.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict:</span>
+<span class="sd">                Dictionary containing:</span>
+
+<span class="sd">                - ``start_headline`` (str):</span>
+<span class="sd">                    Headline text that marks the first slide of the import block.</span>
+<span class="sd">                - ``end_headline`` (str):</span>
+<span class="sd">                    Headline text that marks the last slide of the import block.</span>
+<span class="sd">                    If empty, the block extends to the end of the file.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">default_settings</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;start_headline&quot;</span><span class="p">:</span> <span class="s2">&quot;오늘 처음 오신 분들을 환영하고 축복합니다!&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;end_headline&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span>
+        <span class="p">}</span>
+
+        <span class="n">settings_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_announcement_import_settings_path</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">settings_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">loaded</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">loaded</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="n">default_settings</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+                    <span class="s2">&quot;start_headline&quot;</span><span class="p">:</span> <span class="n">loaded</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;start_headline&quot;</span><span class="p">,</span> <span class="n">default_settings</span><span class="p">[</span><span class="s2">&quot;start_headline&quot;</span><span class="p">]),</span>
+                    <span class="s2">&quot;end_headline&quot;</span><span class="p">:</span> <span class="n">loaded</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;end_headline&quot;</span><span class="p">,</span> <span class="n">default_settings</span><span class="p">[</span><span class="s2">&quot;end_headline&quot;</span><span class="p">]),</span>
+                <span class="p">})</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+        <span class="k">return</span> <span class="n">default_settings</span></div>
+
+
+<div class="viewcode-block" id="SlideGenerator._save_announcement_import_settings">
+<a class="viewcode-back" href="../../../../core.generator.ui.slide_generator.html#core.generator.ui.slide_generator.SlideGenerator._save_announcement_import_settings">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_save_announcement_import_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start_headline</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">end_headline</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Save announcement import marker settings to a dedicated JSON file.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            start_headline (str):</span>
+<span class="sd">                Headline text marking the first slide of the import block.</span>
+<span class="sd">            end_headline (str):</span>
+<span class="sd">                Headline text marking the last slide of the import block.</span>
+<span class="sd">                If empty, the block extends to the end of the file.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">settings_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_announcement_import_settings_path</span><span class="p">()</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">settings_path</span><span class="p">),</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;start_headline&quot;</span><span class="p">:</span> <span class="n">start_headline</span><span class="p">,</span>
+            <span class="s2">&quot;end_headline&quot;</span><span class="p">:</span> <span class="n">end_headline</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">settings_path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SlideGenerator._prompt_announcement_import_range">
+<a class="viewcode-back" href="../../../../core.generator.ui.slide_generator.html#core.generator.ui.slide_generator.SlideGenerator._prompt_announcement_import_range">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_prompt_announcement_import_range</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">start_default</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">end_default</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Open a modal dialog that asks the user for announcement import markers.</span>
+
+<span class="sd">        The dialog lets the user define the start and end headlines used when</span>
+<span class="sd">        extracting and replacing the announcement block. If the end headline is</span>
+<span class="sd">        left empty, the import block extends to the end of the file.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            start_default (str):</span>
+<span class="sd">                Default text to pre-fill in the start marker field.</span>
+<span class="sd">            end_default (str):</span>
+<span class="sd">                Default text to pre-fill in the end marker field.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            tuple[str | None, str | None]:</span>
+<span class="sd">                Two-element tuple of ``(start_headline, end_headline)``.</span>
+
+<span class="sd">                - If the user accepts the dialog, stripped string values are returned.</span>
+<span class="sd">                - If the user cancels the dialog, ``(None, None)`` is returned.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">dialog</span> <span class="o">=</span> <span class="n">QDialog</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">dialog</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s2">&quot;광고 가져오기 범위 설정&quot;</span><span class="p">)</span>
+        <span class="n">dialog</span><span class="o">.</span><span class="n">setMinimumWidth</span><span class="p">(</span><span class="mi">520</span><span class="p">)</span>
+
+        <span class="n">layout</span> <span class="o">=</span> <span class="n">QVBoxLayout</span><span class="p">(</span><span class="n">dialog</span><span class="p">)</span>
+        <span class="n">form</span> <span class="o">=</span> <span class="n">QFormLayout</span><span class="p">()</span>
+
+        <span class="n">start_input</span> <span class="o">=</span> <span class="n">QLineEdit</span><span class="p">(</span><span class="n">start_default</span><span class="p">)</span>
+        <span class="n">end_input</span> <span class="o">=</span> <span class="n">QLineEdit</span><span class="p">(</span><span class="n">end_default</span><span class="p">)</span>
+
+        <span class="n">start_input</span><span class="o">.</span><span class="n">setPlaceholderText</span><span class="p">(</span><span class="s2">&quot;가져오기 시작 headline&quot;</span><span class="p">)</span>
+        <span class="n">end_input</span><span class="o">.</span><span class="n">setPlaceholderText</span><span class="p">(</span><span class="s2">&quot;가져오기 끝 headline (비우면 파일 끝까지)&quot;</span><span class="p">)</span>
+
+        <span class="n">form</span><span class="o">.</span><span class="n">addRow</span><span class="p">(</span><span class="s2">&quot;가져오기 시작&quot;</span><span class="p">,</span> <span class="n">start_input</span><span class="p">)</span>
+        <span class="n">form</span><span class="o">.</span><span class="n">addRow</span><span class="p">(</span><span class="s2">&quot;가져오기 끝&quot;</span><span class="p">,</span> <span class="n">end_input</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">form</span><span class="p">)</span>
+
+        <span class="n">button_box</span> <span class="o">=</span> <span class="n">QDialogButtonBox</span><span class="p">(</span><span class="n">QDialogButtonBox</span><span class="o">.</span><span class="n">Ok</span> <span class="o">|</span> <span class="n">QDialogButtonBox</span><span class="o">.</span><span class="n">Cancel</span><span class="p">)</span>
+        <span class="n">button_box</span><span class="o">.</span><span class="n">accepted</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">dialog</span><span class="o">.</span><span class="n">accept</span><span class="p">)</span>
+        <span class="n">button_box</span><span class="o">.</span><span class="n">rejected</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">dialog</span><span class="o">.</span><span class="n">reject</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">button_box</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">dialog</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span> <span class="o">!=</span> <span class="n">QDialog</span><span class="o">.</span><span class="n">DialogCode</span><span class="o">.</span><span class="n">Accepted</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+
+        <span class="k">return</span> <span class="n">start_input</span><span class="o">.</span><span class="n">text</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span> <span class="n">end_input</span><span class="o">.</span><span class="n">text</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="SlideGenerator._find_slide_index_by_headline">
+<a class="viewcode-back" href="../../../../core.generator.ui.slide_generator.html#core.generator.ui.slide_generator.SlideGenerator._find_slide_index_by_headline">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_find_slide_index_by_headline</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">slides</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">],</span>
+        <span class="n">headline</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">start_index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Find the first slide index whose headline matches the given text.</span>
+
+<span class="sd">        Matching is performed using stripped exact string comparison.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            slides (list[dict]):</span>
+<span class="sd">                Slide dictionaries to search.</span>
+<span class="sd">            headline (str):</span>
+<span class="sd">                Target headline text to match.</span>
+<span class="sd">            start_index (int):</span>
+<span class="sd">                Row index from which to begin the search.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            int | None:</span>
+<span class="sd">                Index of the first matching slide, or ``None`` if not found.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">target</span> <span class="o">=</span> <span class="n">headline</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">start_index</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">slides</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">slides</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;headline&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="n">target</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">i</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+
 <div class="viewcode-block" id="SlideGenerator.import_announcements">
 <a class="viewcode-back" href="../../../../core.generator.ui.slide_generator.html#core.generator.ui.slide_generator.SlideGenerator.import_announcements">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">import_announcements</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Import an announcement block from an external slide JSON file and</span>
-<span class="sd">        replace the existing announcement block in the current session.</span>
+<span class="sd">        Import a configurable slide block from an external slide JSON file and</span>
+<span class="sd">        replace the corresponding block in the current session.</span>
 
-<span class="sd">        This method opens a file-selection dialog, loads the chosen slide JSON,</span>
-<span class="sd">        extracts the announcement section starting from the standard greeting</span>
-<span class="sd">        slide (e.g., “오늘 처음 오신 분들을 환영하고 축복합니다!”), and</span>
-<span class="sd">        replaces the corresponding section in the currently loaded generator</span>
-<span class="sd">        table.</span>
+<span class="sd">        This method opens a file-selection dialog, asks the user for the start</span>
+<span class="sd">        and end headline markers that define the import range, persists those</span>
+<span class="sd">        marker values to a dedicated settings JSON file, and then replaces the</span>
+<span class="sd">        matching range in the currently loaded generator table.</span>
 
-<span class="sd">        The operation preserves all slides before the announcement block and</span>
-<span class="sd">        overwrites only the announcement portion.</span>
+<span class="sd">        The imported range is extracted from the selected source file and applied</span>
+<span class="sd">        onto the current session using the same start/end markers.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            None</span>
@@ -471,16 +649,18 @@
 <span class="sd">            reported to the user via message dialogs.</span>
 
 <span class="sd">        Notes:</span>
-<span class="sd">            - The announcement start is detected by matching a known headline</span>
-<span class="sd">            string used in worship announcements.</span>
+<span class="sd">            - Range boundaries are detected by exact headline matching after</span>
+<span class="sd">            stripping leading and trailing whitespace.</span>
+<span class="sd">            - If the end marker is empty, the import block extends to the end</span>
+<span class="sd">            of the file.</span>
 <span class="sd">            - If either the source file or the current session does not contain</span>
-<span class="sd">            a detectable announcement block, no changes are applied.</span>
+<span class="sd">            the requested start marker, no changes are applied.</span>
 <span class="sd">            - This function modifies the generator table in place and does not</span>
 <span class="sd">            automatically save the session file.</span>
+<span class="sd">            - User-edited start/end marker values are persisted and reused as</span>
+<span class="sd">            defaults in subsequent imports.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
         <span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">QFileDialog</span><span class="p">,</span> <span class="n">QMessageBox</span>
-        <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
 
         <span class="c1"># ── 1. Select source file ─────────────────────────────</span>
         <span class="n">src_path</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">QFileDialog</span><span class="o">.</span><span class="n">getOpenFileName</span><span class="p">(</span>
@@ -492,7 +672,25 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="n">src_path</span><span class="p">:</span>
             <span class="k">return</span>
 
-        <span class="c1"># ── 2. Load source slides ─────────────────────────────</span>
+        <span class="c1"># ── 2. Load persisted defaults and ask for range ─────</span>
+        <span class="n">settings</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_announcement_import_settings</span><span class="p">()</span>
+        <span class="n">start_default</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;start_headline&quot;</span><span class="p">,</span> <span class="s2">&quot;오늘 처음 오신 분들을 환영하고 축복합니다!&quot;</span><span class="p">)</span>
+        <span class="n">end_default</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;end_headline&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+        <span class="n">start_headline</span><span class="p">,</span> <span class="n">end_headline</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prompt_announcement_import_range</span><span class="p">(</span>
+            <span class="n">start_default</span><span class="o">=</span><span class="n">start_default</span><span class="p">,</span>
+            <span class="n">end_default</span><span class="o">=</span><span class="n">end_default</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">start_headline</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">start_headline</span><span class="p">:</span>
+            <span class="n">QMessageBox</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;실패&quot;</span><span class="p">,</span> <span class="s2">&quot;시작 headline은 비워둘 수 없습니다.&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_save_announcement_import_settings</span><span class="p">(</span><span class="n">start_headline</span><span class="p">,</span> <span class="n">end_headline</span><span class="p">)</span>
+
+        <span class="c1"># ── 3. Load source slides ─────────────────────────────</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">src_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
                 <span class="n">src_slides</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
@@ -500,31 +698,51 @@
             <span class="n">QMessageBox</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;오류&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;파일을 읽을 수 없습니다:</span><span class="se">\n</span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="k">return</span>
 
-        <span class="c1"># ── 3. Find announcement start in source ──────────────</span>
-        <span class="k">def</span><span class="w"> </span><span class="nf">find_announcement_start</span><span class="p">(</span><span class="n">slides</span><span class="p">):</span>
-            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">slides</span><span class="p">):</span>
-                <span class="k">if</span> <span class="n">s</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;headline&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;오늘 처음 오신 분들을 환영하고 축복합니다!&quot;</span><span class="p">:</span>
-                    <span class="k">return</span> <span class="n">i</span>
-            <span class="k">return</span> <span class="kc">None</span>
-
-        <span class="n">start_src</span> <span class="o">=</span> <span class="n">find_announcement_start</span><span class="p">(</span><span class="n">src_slides</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">start_src</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">QMessageBox</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;실패&quot;</span><span class="p">,</span> <span class="s2">&quot;원본 파일에서 광고 시작을 찾을 수 없습니다.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">src_slides</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">QMessageBox</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;실패&quot;</span><span class="p">,</span> <span class="s2">&quot;원본 파일 형식이 올바르지 않습니다.&quot;</span><span class="p">)</span>
             <span class="k">return</span>
 
-        <span class="n">announcement_block</span> <span class="o">=</span> <span class="n">src_slides</span><span class="p">[</span><span class="n">start_src</span><span class="p">:]</span>
+        <span class="c1"># ── 4. Find source range ──────────────────────────────</span>
+        <span class="n">start_src</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_find_slide_index_by_headline</span><span class="p">(</span><span class="n">src_slides</span><span class="p">,</span> <span class="n">start_headline</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">start_src</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">QMessageBox</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;실패&quot;</span><span class="p">,</span> <span class="s2">&quot;원본 파일에서 시작 headline을 찾을 수 없습니다.&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
 
-        <span class="c1"># ── 4. Collect current slides from table ──────────────</span>
+        <span class="k">if</span> <span class="n">end_headline</span><span class="p">:</span>
+            <span class="n">end_src</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_find_slide_index_by_headline</span><span class="p">(</span><span class="n">src_slides</span><span class="p">,</span> <span class="n">end_headline</span><span class="p">,</span> <span class="n">start_index</span><span class="o">=</span><span class="n">start_src</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">end_src</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">QMessageBox</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;실패&quot;</span><span class="p">,</span> <span class="s2">&quot;원본 파일에서 끝 headline을 찾을 수 없습니다.&quot;</span><span class="p">)</span>
+                <span class="k">return</span>
+            <span class="k">if</span> <span class="n">end_src</span> <span class="o">&lt;</span> <span class="n">start_src</span><span class="p">:</span>
+                <span class="n">QMessageBox</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;실패&quot;</span><span class="p">,</span> <span class="s2">&quot;원본 파일에서 끝 headline이 시작 headline보다 앞에 있습니다.&quot;</span><span class="p">)</span>
+                <span class="k">return</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">end_src</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">src_slides</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+
+        <span class="n">announcement_block</span> <span class="o">=</span> <span class="n">src_slides</span><span class="p">[</span><span class="n">start_src</span><span class="p">:</span><span class="n">end_src</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+
+        <span class="c1"># ── 5. Collect current slides and find target range ──</span>
         <span class="n">current_slides</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_manager</span><span class="o">.</span><span class="n">collect_slide_data</span><span class="p">()</span>
 
-        <span class="n">start_dst</span> <span class="o">=</span> <span class="n">find_announcement_start</span><span class="p">(</span><span class="n">current_slides</span><span class="p">)</span>
+        <span class="n">start_dst</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_find_slide_index_by_headline</span><span class="p">(</span><span class="n">current_slides</span><span class="p">,</span> <span class="n">start_headline</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">start_dst</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">QMessageBox</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;실패&quot;</span><span class="p">,</span> <span class="s2">&quot;현재 파일에서 광고 시작을 찾을 수 없습니다.&quot;</span><span class="p">)</span>
+            <span class="n">QMessageBox</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;실패&quot;</span><span class="p">,</span> <span class="s2">&quot;현재 파일에서 시작 headline을 찾을 수 없습니다.&quot;</span><span class="p">)</span>
             <span class="k">return</span>
 
-        <span class="n">new_slides</span> <span class="o">=</span> <span class="n">current_slides</span><span class="p">[:</span><span class="n">start_dst</span><span class="p">]</span> <span class="o">+</span> <span class="n">announcement_block</span>
+        <span class="k">if</span> <span class="n">end_headline</span><span class="p">:</span>
+            <span class="n">end_dst</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_find_slide_index_by_headline</span><span class="p">(</span><span class="n">current_slides</span><span class="p">,</span> <span class="n">end_headline</span><span class="p">,</span> <span class="n">start_index</span><span class="o">=</span><span class="n">start_dst</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">end_dst</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">QMessageBox</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;실패&quot;</span><span class="p">,</span> <span class="s2">&quot;현재 파일에서 끝 headline을 찾을 수 없습니다.&quot;</span><span class="p">)</span>
+                <span class="k">return</span>
+            <span class="k">if</span> <span class="n">end_dst</span> <span class="o">&lt;</span> <span class="n">start_dst</span><span class="p">:</span>
+                <span class="n">QMessageBox</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;실패&quot;</span><span class="p">,</span> <span class="s2">&quot;현재 파일에서 끝 headline이 시작 headline보다 앞에 있습니다.&quot;</span><span class="p">)</span>
+                <span class="k">return</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">end_dst</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">current_slides</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
 
-        <span class="c1"># ── 5. Reload table with new slides ───────────────────</span>
+        <span class="n">new_slides</span> <span class="o">=</span> <span class="n">current_slides</span><span class="p">[:</span><span class="n">start_dst</span><span class="p">]</span> <span class="o">+</span> <span class="n">announcement_block</span> <span class="o">+</span> <span class="n">current_slides</span><span class="p">[</span><span class="n">end_dst</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:]</span>
+
+        <span class="c1"># ── 6. Reload table with new slides ───────────────────</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">blockSignals</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setRowCount</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
@@ -534,19 +752,28 @@
         <span class="k">for</span> <span class="n">row</span><span class="p">,</span> <span class="n">slide</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">new_slides</span><span class="p">):</span>
             <span class="n">combo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">cellWidget</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">combo</span><span class="p">:</span>
+                <span class="n">combo</span><span class="o">.</span><span class="n">blockSignals</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
                 <span class="n">combo</span><span class="o">.</span><span class="n">setCurrentText</span><span class="p">(</span>
                     <span class="n">style_map</span><span class="o">.</span><span class="n">STYLE_ALIASES</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">slide</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;style&quot;</span><span class="p">,</span> <span class="s2">&quot;lyrics&quot;</span><span class="p">),</span> <span class="s2">&quot;찬양가사&quot;</span><span class="p">)</span>
                 <span class="p">)</span>
+                <span class="n">combo</span><span class="o">.</span><span class="n">blockSignals</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
 
+            <span class="n">style</span> <span class="o">=</span> <span class="n">slide</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;style&quot;</span><span class="p">,</span> <span class="s2">&quot;lyrics&quot;</span><span class="p">)</span>
             <span class="n">caption</span> <span class="o">=</span> <span class="n">slide</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;caption&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
             <span class="n">headline</span> <span class="o">=</span> <span class="n">slide</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;headline&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">style</span> <span class="o">==</span> <span class="s2">&quot;anthem&quot;</span><span class="p">:</span>
+                <span class="n">caption</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">slide</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;caption&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">slide</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;caption_choir&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="n">style</span> <span class="o">==</span> <span class="s2">&quot;verse&quot;</span><span class="p">:</span>
+                <span class="n">headline</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_manager</span><span class="o">.</span><span class="n">_split_verse_headline</span><span class="p">(</span><span class="n">headline</span><span class="p">)</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">QTableWidgetItem</span><span class="p">(</span><span class="n">caption</span><span class="p">))</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">QTableWidgetItem</span><span class="p">(</span><span class="n">headline</span><span class="p">))</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">blockSignals</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
 
-        <span class="n">QMessageBox</span><span class="o">.</span><span class="n">information</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;완료&quot;</span><span class="p">,</span> <span class="s2">&quot;광고를 가져왔습니다.&quot;</span><span class="p">)</span></div>
+        <span class="n">QMessageBox</span><span class="o">.</span><span class="n">information</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;완료&quot;</span><span class="p">,</span> <span class="s2">&quot;지정한 범위의 슬라이드를 가져왔습니다.&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="SlideGenerator.warn_if_controller_running">
