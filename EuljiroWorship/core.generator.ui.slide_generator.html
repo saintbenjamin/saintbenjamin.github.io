@@ -424,6 +424,44 @@ and written as UTF-8 JSON.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator.import_announcements">
+<span class="sig-name descname"><span class="pre">import_announcements</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator.import_announcements"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator.import_announcements" title="Link to this definition"></a></dt>
+<dd><p>Import an announcement block from an external slide JSON file and
+replace the existing announcement block in the current session.</p>
+<p>This method opens a file-selection dialog, loads the chosen slide JSON,
+extracts the announcement section starting from the standard greeting
+slide (e.g., “오늘 처음 오신 분들을 환영하고 축복합니다!”), and
+replaces the corresponding section in the currently loaded generator
+table.</p>
+<p>The operation preserves all slides before the announcement block and
+overwrites only the announcement portion.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>None explicitly.</strong> – </p></li>
+<li><p><strong>Any file I/O</strong><strong> or </strong><strong>JSON parsing errors are handled internally and</strong> – </p></li>
+<li><p><strong>reported to the user via message dialogs.</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The announcement start is detected by matching a known headline</p></li>
+</ul>
+<p>string used in worship announcements.
+- If either the source file or the current session does not contain
+a detectable announcement block, no changes are applied.
+- This function modifies the generator table in place and does not
+automatically save the session file.</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator.warn_if_controller_running">
 <span class="sig-name descname"><span class="pre">warn_if_controller_running</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator.warn_if_controller_running"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator.warn_if_controller_running" title="Link to this definition"></a></dt>
 <dd><p>Warn the user if the slide controller is currently running.</p>

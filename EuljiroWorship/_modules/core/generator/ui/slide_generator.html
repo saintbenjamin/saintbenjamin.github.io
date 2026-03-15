@@ -442,6 +442,112 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">last_saved_path</span> <span class="o">=</span> <span class="n">path</span></div>
 
 
+<div class="viewcode-block" id="SlideGenerator.import_announcements">
+<a class="viewcode-back" href="../../../../core.generator.ui.slide_generator.html#core.generator.ui.slide_generator.SlideGenerator.import_announcements">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">import_announcements</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Import an announcement block from an external slide JSON file and</span>
+<span class="sd">        replace the existing announcement block in the current session.</span>
+
+<span class="sd">        This method opens a file-selection dialog, loads the chosen slide JSON,</span>
+<span class="sd">        extracts the announcement section starting from the standard greeting</span>
+<span class="sd">        slide (e.g., “오늘 처음 오신 분들을 환영하고 축복합니다!”), and</span>
+<span class="sd">        replaces the corresponding section in the currently loaded generator</span>
+<span class="sd">        table.</span>
+
+<span class="sd">        The operation preserves all slides before the announcement block and</span>
+<span class="sd">        overwrites only the announcement portion.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            None explicitly.</span>
+<span class="sd">            Any file I/O or JSON parsing errors are handled internally and</span>
+<span class="sd">            reported to the user via message dialogs.</span>
+
+<span class="sd">        Notes:</span>
+<span class="sd">            - The announcement start is detected by matching a known headline</span>
+<span class="sd">            string used in worship announcements.</span>
+<span class="sd">            - If either the source file or the current session does not contain</span>
+<span class="sd">            a detectable announcement block, no changes are applied.</span>
+<span class="sd">            - This function modifies the generator table in place and does not</span>
+<span class="sd">            automatically save the session file.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">QFileDialog</span><span class="p">,</span> <span class="n">QMessageBox</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+
+        <span class="c1"># ── 1. Select source file ─────────────────────────────</span>
+        <span class="n">src_path</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">QFileDialog</span><span class="o">.</span><span class="n">getOpenFileName</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="s2">&quot;광고를 가져올 예배 파일 선택&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;JSON Files (*.json)&quot;</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">src_path</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="c1"># ── 2. Load source slides ─────────────────────────────</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">src_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">src_slides</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">QMessageBox</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;오류&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;파일을 읽을 수 없습니다:</span><span class="se">\n</span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="c1"># ── 3. Find announcement start in source ──────────────</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">find_announcement_start</span><span class="p">(</span><span class="n">slides</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">slides</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">s</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;headline&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;오늘 처음 오신 분들을 환영하고 축복합니다!&quot;</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">i</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="n">start_src</span> <span class="o">=</span> <span class="n">find_announcement_start</span><span class="p">(</span><span class="n">src_slides</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">start_src</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">QMessageBox</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;실패&quot;</span><span class="p">,</span> <span class="s2">&quot;원본 파일에서 광고 시작을 찾을 수 없습니다.&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="n">announcement_block</span> <span class="o">=</span> <span class="n">src_slides</span><span class="p">[</span><span class="n">start_src</span><span class="p">:]</span>
+
+        <span class="c1"># ── 4. Collect current slides from table ──────────────</span>
+        <span class="n">current_slides</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_manager</span><span class="o">.</span><span class="n">collect_slide_data</span><span class="p">()</span>
+
+        <span class="n">start_dst</span> <span class="o">=</span> <span class="n">find_announcement_start</span><span class="p">(</span><span class="n">current_slides</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">start_dst</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">QMessageBox</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;실패&quot;</span><span class="p">,</span> <span class="s2">&quot;현재 파일에서 광고 시작을 찾을 수 없습니다.&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="n">new_slides</span> <span class="o">=</span> <span class="n">current_slides</span><span class="p">[:</span><span class="n">start_dst</span><span class="p">]</span> <span class="o">+</span> <span class="n">announcement_block</span>
+
+        <span class="c1"># ── 5. Reload table with new slides ───────────────────</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">blockSignals</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setRowCount</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">new_slides</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data_manager</span><span class="o">.</span><span class="n">_insert_empty_row</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">row</span><span class="p">,</span> <span class="n">slide</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">new_slides</span><span class="p">):</span>
+            <span class="n">combo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">cellWidget</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">combo</span><span class="p">:</span>
+                <span class="n">combo</span><span class="o">.</span><span class="n">setCurrentText</span><span class="p">(</span>
+                    <span class="n">style_map</span><span class="o">.</span><span class="n">STYLE_ALIASES</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">slide</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;style&quot;</span><span class="p">,</span> <span class="s2">&quot;lyrics&quot;</span><span class="p">),</span> <span class="s2">&quot;찬양가사&quot;</span><span class="p">)</span>
+                <span class="p">)</span>
+
+            <span class="n">caption</span> <span class="o">=</span> <span class="n">slide</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;caption&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="n">headline</span> <span class="o">=</span> <span class="n">slide</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;headline&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">QTableWidgetItem</span><span class="p">(</span><span class="n">caption</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">QTableWidgetItem</span><span class="p">(</span><span class="n">headline</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">blockSignals</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="n">QMessageBox</span><span class="o">.</span><span class="n">information</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;완료&quot;</span><span class="p">,</span> <span class="s2">&quot;광고를 가져왔습니다.&quot;</span><span class="p">)</span></div>
+
+
 <div class="viewcode-block" id="SlideGenerator.warn_if_controller_running">
 <a class="viewcode-back" href="../../../../core.generator.ui.slide_generator.html#core.generator.ui.slide_generator.SlideGenerator.warn_if_controller_running">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">warn_if_controller_running</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
