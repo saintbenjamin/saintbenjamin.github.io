@@ -97,21 +97,27 @@
 
 <span class="sd">If the first input is not recognized as a Bible reference, the dialog can also</span>
 <span class="sd">build non-Bible emergency slides using a selected slide style (e.g., &quot;lyrics&quot;,</span>
-<span class="sd">&quot;hymn&quot;, &quot;respo&quot;) and optional preset numbers.</span>
+<span class="sd">&quot;hymn&quot;, &quot;respo&quot;, &quot;image&quot;, &quot;video&quot;) and optional preset numbers or referenced</span>
+<span class="sd">media files.</span>
 
 <span class="sd">The dialog returns a list of slide dictionaries via :meth:`controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.get_final_slides`,</span>
 <span class="sd">ready to be written to the slide output file and broadcast by the controller.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">shutil</span>
+
 <span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
-    <span class="n">QDialog</span><span class="p">,</span> <span class="n">QLabel</span><span class="p">,</span> <span class="n">QLineEdit</span><span class="p">,</span> 
-    <span class="n">QTextEdit</span><span class="p">,</span> <span class="n">QVBoxLayout</span><span class="p">,</span> <span class="n">QPushButton</span><span class="p">,</span> 
-    <span class="n">QComboBox</span><span class="p">,</span> <span class="n">QHeaderView</span><span class="p">,</span> <span class="n">QHBoxLayout</span><span class="p">,</span> 
-    <span class="n">QRadioButton</span><span class="p">,</span> <span class="n">QButtonGroup</span><span class="p">,</span> <span class="n">QTableView</span>
+    <span class="n">QDialog</span><span class="p">,</span> <span class="n">QLabel</span><span class="p">,</span> <span class="n">QLineEdit</span><span class="p">,</span>
+    <span class="n">QTextEdit</span><span class="p">,</span> <span class="n">QVBoxLayout</span><span class="p">,</span> <span class="n">QPushButton</span><span class="p">,</span>
+    <span class="n">QComboBox</span><span class="p">,</span> <span class="n">QHeaderView</span><span class="p">,</span> <span class="n">QHBoxLayout</span><span class="p">,</span>
+    <span class="n">QRadioButton</span><span class="p">,</span> <span class="n">QButtonGroup</span><span class="p">,</span> <span class="n">QTableView</span><span class="p">,</span>
+    <span class="n">QFileDialog</span><span class="p">,</span> <span class="n">QMessageBox</span><span class="p">,</span> <span class="n">QWidget</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtCore</span><span class="w"> </span><span class="kn">import</span> <span class="n">Qt</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtGui</span><span class="w"> </span><span class="kn">import</span> <span class="n">QTextCursor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtCore</span><span class="w"> </span><span class="kn">import</span> <span class="n">Qt</span><span class="p">,</span> <span class="n">QUrl</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtGui</span><span class="w"> </span><span class="kn">import</span> <span class="n">QTextCursor</span><span class="p">,</span> <span class="n">QPixmap</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtMultimedia</span><span class="w"> </span><span class="kn">import</span> <span class="n">QMediaPlayer</span><span class="p">,</span> <span class="n">QAudioOutput</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtMultimediaWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">QVideoWidget</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">controller.utils.emergency_slide_factory</span><span class="w"> </span><span class="kn">import</span> <span class="n">EmergencySlideFactory</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">controller.utils.keyword_highlight_delegate</span><span class="w"> </span><span class="kn">import</span> <span class="n">KeywordHighlightDelegate</span>
@@ -142,6 +148,8 @@
 <span class="sd">    - Non-Bible emergency slide generation</span>
 <span class="sd">        - User chooses a slide style from :py:data:`core.config.style_map.STYLE_ALIASES`.</span>
 <span class="sd">        - For preset-based styles (e.g., &quot;respo&quot; / &quot;hymn&quot;), numeric inputs can load presets.</span>
+<span class="sd">        - For media styles (e.g., &quot;image&quot; / &quot;video&quot;), a referenced asset can be selected,</span>
+<span class="sd">          copied into the overlay asset directory, and previewed inside the dialog.</span>
 <span class="sd">        - Otherwise, a manual slide is created from caption/headline inputs.</span>
 
 <span class="sd">    Generated slides are stored in ``self.finalized_slides`` and can be retrieved</span>
@@ -167,6 +175,7 @@
 <span class="sd">        - Bible reference input and preview</span>
 <span class="sd">        - Keyword-based Bible search and result selection</span>
 <span class="sd">        - Manual emergency message and style-based slide generation</span>
+<span class="sd">        - Conditional media selection and preview for image/video manual slides</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            parent (QDialog | None):</span>
@@ -223,26 +232,80 @@
         <span class="n">header</span><span class="o">.</span><span class="n">setSectionResizeMode</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">QHeaderView</span><span class="o">.</span><span class="n">ResizeToContents</span><span class="p">)</span>
         <span class="n">header</span><span class="o">.</span><span class="n">setSectionResizeMode</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">QHeaderView</span><span class="o">.</span><span class="n">Stretch</span><span class="p">)</span>
 
-        <span class="c1"># --- Input field for additional message ---</span>
+        <span class="c1"># --- Default labels/placeholders for the manual section ---</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default_manual_label_text</span> <span class="o">=</span> <span class="s2">&quot;기타 긴급 메시지&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default_input3_placeholder</span> <span class="o">=</span> <span class="s2">&quot;제목 또는 번호 (예: 123)&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default_input2_placeholder</span> <span class="o">=</span> <span class="s2">&quot;두 줄 이상의 긴급 메시지나 안내문을 입력하세요...&quot;</span>
+
+        <span class="c1"># --- Input field for additional message / caption ---</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">input2</span> <span class="o">=</span> <span class="n">QTextEdit</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">input2</span><span class="o">.</span><span class="n">setPlaceholderText</span><span class="p">(</span><span class="s2">&quot;예: 하나님이 세상을 이처럼 사랑하사...&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input2</span><span class="o">.</span><span class="n">setPlaceholderText</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">default_input2_placeholder</span><span class="p">)</span>
 
         <span class="c1"># --- Button to confirm and output the emergency caption ---</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ok_button</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">()</span>
         <span class="n">set_svg_icon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ok_button</span><span class="p">,</span> <span class="n">get_icon_path</span><span class="p">(</span><span class="s2">&quot;export.svg&quot;</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ok_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">on_confirm_clicked</span><span class="p">)</span>
 
-        <span class="c1"># --- Style dropdown and caption input (input3) ---</span>
+        <span class="c1"># --- Style dropdown and single-line input (caption / number / media path) ---</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">style_dropdown</span> <span class="o">=</span> <span class="n">QComboBox</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">style_dropdown</span><span class="o">.</span><span class="n">addItems</span><span class="p">(</span><span class="n">style_map</span><span class="o">.</span><span class="n">STYLE_ALIASES</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">input3</span> <span class="o">=</span> <span class="n">QLineEdit</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">input3</span><span class="o">.</span><span class="n">setPlaceholderText</span><span class="p">(</span><span class="s2">&quot;제목 또는 번호 (예: 123)&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input3</span><span class="o">.</span><span class="n">setPlaceholderText</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">default_input3_placeholder</span><span class="p">)</span>
 
-        <span class="c1"># Horizontal layout for style + caption input</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">media_button</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="s2">&quot;참조&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">media_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">select_media_file</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">media_button</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+
+        <span class="c1"># Horizontal layout for style + caption/path input</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">caption_row</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">caption_row</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">style_dropdown</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">caption_row</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input3</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">caption_row</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">media_button</span><span class="p">)</span>
+
+        <span class="c1"># Shared status label for selected media path</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">media_status</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">media_status</span><span class="o">.</span><span class="n">setAlignment</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">media_status</span><span class="o">.</span><span class="n">setWordWrap</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">media_status</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+
+        <span class="c1"># Image preview</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image_preview</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="s2">&quot;선택된 그림 없음&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image_preview</span><span class="o">.</span><span class="n">setAlignment</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image_preview</span><span class="o">.</span><span class="n">setFixedHeight</span><span class="p">(</span><span class="mi">220</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image_preview</span><span class="o">.</span><span class="n">setScaledContents</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image_preview</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+
+        <span class="c1"># Video preview</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">video_status</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="s2">&quot;선택된 비디오 없음&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">video_status</span><span class="o">.</span><span class="n">setAlignment</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">video_status</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">video_widget</span> <span class="o">=</span> <span class="n">QVideoWidget</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">video_widget</span><span class="o">.</span><span class="n">setMinimumHeight</span><span class="p">(</span><span class="mi">240</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">video_widget</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">video_controls_widget</span> <span class="o">=</span> <span class="n">QWidget</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">video_controls</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">video_controls_widget</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">video_controls</span><span class="o">.</span><span class="n">setContentsMargins</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">play_button</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="s2">&quot;재생&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pause_button</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="s2">&quot;일시정지&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stop_button</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="s2">&quot;정지&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">play_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">play_preview</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pause_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pause_preview</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stop_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stop_preview</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">video_controls</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">play_button</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">video_controls</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pause_button</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">video_controls</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stop_button</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">video_controls_widget</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">player</span> <span class="o">=</span> <span class="n">QMediaPlayer</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">audio</span> <span class="o">=</span> <span class="n">QAudioOutput</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="o">.</span><span class="n">setAudioOutput</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">audio</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="o">.</span><span class="n">setVideoOutput</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">video_widget</span><span class="p">)</span>
 
         <span class="c1"># Insert caption row above the message input</span>
         <span class="n">layout</span> <span class="o">=</span> <span class="n">QVBoxLayout</span><span class="p">()</span>
@@ -272,15 +335,377 @@
         <span class="n">layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">search_row</span><span class="p">)</span>
         <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">search_results</span><span class="p">,</span> <span class="n">stretch</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 
-        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">QLabel</span><span class="p">(</span><span class="s2">&quot;기타 긴급 메시지&quot;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">manual_label</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">default_manual_label_text</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">manual_label</span><span class="p">)</span>
         <span class="n">layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">caption_row</span><span class="p">)</span>
         <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input2</span><span class="p">,</span> <span class="n">stretch</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">media_status</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">image_preview</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">video_status</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">video_widget</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">video_controls_widget</span><span class="p">)</span>
         <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ok_button</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">layout</span><span class="p">)</span>
 
+        <span class="bp">self</span><span class="o">.</span><span class="n">style_dropdown</span><span class="o">.</span><span class="n">currentTextChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">update_manual_media_ui</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input3</span><span class="o">.</span><span class="n">textChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">on_manual_media_path_changed</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_manual_media_ui</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">style_dropdown</span><span class="o">.</span><span class="n">currentText</span><span class="p">())</span>
+
         <span class="c1"># --- Tracks whether preview has been shown ---</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">previewed_once</span> <span class="o">=</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="EmergencyCaptionDialog._current_manual_style_code">
+<a class="viewcode-back" href="../../../controller.ui.emergency_caption_dialog.html#controller.ui.emergency_caption_dialog.EmergencyCaptionDialog._current_manual_style_code">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_current_manual_style_code</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the internal style code for the current manual-style selection.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str:</span>
+<span class="sd">                Internal style code such as ``lyrics``, ``image``, or ``video``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">core.config.style_map</span><span class="w"> </span><span class="kn">import</span> <span class="n">REVERSE_ALIASES</span>
+        <span class="k">return</span> <span class="n">REVERSE_ALIASES</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">style_dropdown</span><span class="o">.</span><span class="n">currentText</span><span class="p">(),</span> <span class="s2">&quot;verse&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="EmergencyCaptionDialog.update_manual_media_ui">
+<a class="viewcode-back" href="../../../controller.ui.emergency_caption_dialog.html#controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.update_manual_media_ui">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">update_manual_media_ui</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_style_display</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Update the manual input area when the selected style changes.</span>
+
+<span class="sd">        This method toggles the visibility and wording of the manual-input</span>
+<span class="sd">        widgets so that ``image`` and ``video`` styles can reuse the existing</span>
+<span class="sd">        manual entry area. It also shows or hides the appropriate preview</span>
+<span class="sd">        widgets and reloads previews when a stored media path is already present.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            _style_display (str):</span>
+<span class="sd">                Current display text emitted by the style dropdown.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">style_code</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_manual_style_code</span><span class="p">()</span>
+        <span class="n">is_media</span> <span class="o">=</span> <span class="n">style_code</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="s2">&quot;video&quot;</span><span class="p">}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">media_button</span><span class="o">.</span><span class="n">setVisible</span><span class="p">(</span><span class="n">is_media</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">is_media</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">manual_label</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">default_manual_label_text</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">input3</span><span class="o">.</span><span class="n">setPlaceholderText</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">default_input3_placeholder</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">input2</span><span class="o">.</span><span class="n">setPlaceholderText</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">default_input2_placeholder</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">media_status</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">image_preview</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">video_status</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">video_widget</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">video_controls_widget</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stop_preview</span><span class="p">()</span>
+            <span class="k">return</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">manual_label</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;기타 긴급 미디어&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input3</span><span class="o">.</span><span class="n">setPlaceholderText</span><span class="p">(</span><span class="s2">&quot;미디어 파일 경로&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input2</span><span class="o">.</span><span class="n">setPlaceholderText</span><span class="p">(</span><span class="s2">&quot;부제 / 설명 (선택)&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">media_status</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">style_code</span> <span class="o">==</span> <span class="s2">&quot;image&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stop_preview</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">video_status</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">video_widget</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">video_controls_widget</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">image_preview</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">input3</span><span class="o">.</span><span class="n">text</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_load_image_preview</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input3</span><span class="o">.</span><span class="n">text</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">image_preview</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">image_preview</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;선택된 그림 없음&quot;</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">image_preview</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">video_status</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">video_widget</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">video_controls_widget</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">input3</span><span class="o">.</span><span class="n">text</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_load_video_preview</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input3</span><span class="o">.</span><span class="n">text</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">video_status</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;선택된 비디오 없음&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="EmergencyCaptionDialog.on_manual_media_path_changed">
+<a class="viewcode-back" href="../../../controller.ui.emergency_caption_dialog.html#controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.on_manual_media_path_changed">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">on_manual_media_path_changed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Refresh media preview when the path input changes.</span>
+
+<span class="sd">        This method only reacts when the currently selected manual style is</span>
+<span class="sd">        ``image`` or ``video``. The single-line manual input is interpreted as</span>
+<span class="sd">        a media path and the corresponding preview area is refreshed.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            text (str):</span>
+<span class="sd">                Current contents of the single-line manual input.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">style_code</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_manual_style_code</span><span class="p">()</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">style_code</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="s2">&quot;video&quot;</span><span class="p">}:</span>
+            <span class="k">return</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">media_status</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">media_status</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">style_code</span> <span class="o">==</span> <span class="s2">&quot;image&quot;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">image_preview</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">image_preview</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;선택된 그림 없음&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">stop_preview</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">video_status</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;선택된 비디오 없음&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span> <span class="n">style_code</span> <span class="o">==</span> <span class="s2">&quot;image&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_load_image_preview</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_load_video_preview</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="EmergencyCaptionDialog.select_media_file">
+<a class="viewcode-back" href="../../../controller.ui.emergency_caption_dialog.html#controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.select_media_file">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">select_media_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Open a file picker for the currently selected media style.</span>
+
+<span class="sd">        The selected file is copied into ``./html/img`` and the relative path is</span>
+<span class="sd">        stored in the single-line manual input field.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">style_code</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_manual_style_code</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">style_code</span> <span class="o">==</span> <span class="s2">&quot;image&quot;</span><span class="p">:</span>
+            <span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;그림 선택&quot;</span>
+            <span class="n">file_filter</span> <span class="o">=</span> <span class="s2">&quot;Images (*.png *.jpg *.jpeg *.bmp *.gif *.webp)&quot;</span>
+        <span class="k">elif</span> <span class="n">style_code</span> <span class="o">==</span> <span class="s2">&quot;video&quot;</span><span class="p">:</span>
+            <span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;비디오 선택&quot;</span>
+            <span class="n">file_filter</span> <span class="o">=</span> <span class="s2">&quot;Videos (*.mp4 *.mov *.m4v *.webm *.mkv *.avi)&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="n">source_path</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">QFileDialog</span><span class="o">.</span><span class="n">getOpenFileName</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">file_filter</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">source_path</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="n">relative_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy_media_to_img_folder</span><span class="p">(</span><span class="n">source_path</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;/&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input3</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">relative_path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">media_status</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="n">source_path</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="EmergencyCaptionDialog.copy_media_to_img_folder">
+<a class="viewcode-back" href="../../../controller.ui.emergency_caption_dialog.html#controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.copy_media_to_img_folder">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">copy_media_to_img_folder</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Copy the selected media file into ``./html/img``.</span>
+
+<span class="sd">        If the target directory does not exist, it is created. If a file with</span>
+<span class="sd">        the same name already exists there, the existing file is reused and no</span>
+<span class="sd">        second copy is made.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            source_path (str):</span>
+<span class="sd">                Absolute path to the source media file.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str:</span>
+<span class="sd">                Relative media path for overlay usage, e.g. ``img/example.png``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">overlay_root</span> <span class="o">=</span> <span class="s2">&quot;.&quot;</span>
+        <span class="n">img_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">overlay_root</span><span class="p">,</span> <span class="s2">&quot;html&quot;</span><span class="p">,</span> <span class="s2">&quot;img&quot;</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">img_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">fname</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">source_path</span><span class="p">)</span>
+        <span class="n">dest_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">img_dir</span><span class="p">,</span> <span class="n">fname</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">dest_path</span><span class="p">):</span>
+            <span class="n">shutil</span><span class="o">.</span><span class="n">copy2</span><span class="p">(</span><span class="n">source_path</span><span class="p">,</span> <span class="n">dest_path</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;img&quot;</span><span class="p">,</span> <span class="n">fname</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="EmergencyCaptionDialog._resolve_preview_path">
+<a class="viewcode-back" href="../../../controller.ui.emergency_caption_dialog.html#controller.ui.emergency_caption_dialog.EmergencyCaptionDialog._resolve_preview_path">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_resolve_preview_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">raw_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Resolve either an absolute path or an overlay-relative ``img/...`` path.</span>
+
+<span class="sd">        The resolution order is:</span>
+
+<span class="sd">        1. Existing absolute path</span>
+<span class="sd">        2. Overlay-relative path under ``./html/``</span>
+<span class="sd">        3. Existing local relative path from the current working directory</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            raw_path (str):</span>
+<span class="sd">                Raw path text entered by the user.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str:</span>
+<span class="sd">                Absolute path if the file exists; otherwise an empty string.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">candidate</span> <span class="o">=</span> <span class="n">raw_path</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">candidate</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isabs</span><span class="p">(</span><span class="n">candidate</span><span class="p">)</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">candidate</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">candidate</span>
+
+        <span class="k">if</span> <span class="n">candidate</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;img/&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">candidate</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;img</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">):</span>
+            <span class="n">html_relative</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="s2">&quot;html&quot;</span><span class="p">,</span> <span class="n">candidate</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">html_relative</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">html_relative</span>
+
+        <span class="n">local_relative</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">candidate</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">local_relative</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">local_relative</span>
+
+        <span class="k">return</span> <span class="s2">&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="EmergencyCaptionDialog._load_image_preview">
+<a class="viewcode-back" href="../../../controller.ui.emergency_caption_dialog.html#controller.ui.emergency_caption_dialog.EmergencyCaptionDialog._load_image_preview">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_load_image_preview</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path_or_rel</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Load an image preview from either an absolute or relative path.</span>
+
+<span class="sd">        The resolved image is shown in ``self.image_preview`` and the resolved</span>
+<span class="sd">        absolute path is mirrored into the media status tooltip for operator</span>
+<span class="sd">        visibility.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            path_or_rel (str):</span>
+<span class="sd">                Absolute source path or stored relative overlay path.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">abs_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resolve_preview_path</span><span class="p">(</span><span class="n">path_or_rel</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image_preview</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">abs_path</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">image_preview</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">image_preview</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;그림 로딩 실패&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="n">pixmap</span> <span class="o">=</span> <span class="n">QPixmap</span><span class="p">(</span><span class="n">abs_path</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">pixmap</span><span class="o">.</span><span class="n">isNull</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">image_preview</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">image_preview</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;그림 로딩 실패&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">image_preview</span><span class="o">.</span><span class="n">setPixmap</span><span class="p">(</span><span class="n">pixmap</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image_preview</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="n">abs_path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">media_status</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input3</span><span class="o">.</span><span class="n">text</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="ow">or</span> <span class="n">abs_path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">media_status</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="n">abs_path</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="EmergencyCaptionDialog._load_video_preview">
+<a class="viewcode-back" href="../../../controller.ui.emergency_caption_dialog.html#controller.ui.emergency_caption_dialog.EmergencyCaptionDialog._load_video_preview">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_load_video_preview</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path_or_rel</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Load a video preview from either an absolute or relative path.</span>
+
+<span class="sd">        The resolved media source is loaded into ``self.player`` and the video</span>
+<span class="sd">        preview widgets are shown. If the path cannot be resolved, the preview</span>
+<span class="sd">        is stopped and a failure message is displayed instead.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            path_or_rel (str):</span>
+<span class="sd">                Absolute source path or stored relative overlay path.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">abs_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resolve_preview_path</span><span class="p">(</span><span class="n">path_or_rel</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">video_status</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">video_widget</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">video_controls_widget</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">abs_path</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stop_preview</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">video_status</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;비디오 로딩 실패&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">video_status</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">abs_path</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">video_status</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="n">abs_path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">media_status</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input3</span><span class="o">.</span><span class="n">text</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="ow">or</span> <span class="n">abs_path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">media_status</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="n">abs_path</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="o">.</span><span class="n">setSource</span><span class="p">(</span><span class="n">QUrl</span><span class="o">.</span><span class="n">fromLocalFile</span><span class="p">(</span><span class="n">abs_path</span><span class="p">))</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">video_status</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;비디오 로딩 실패&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="EmergencyCaptionDialog.play_preview">
+<a class="viewcode-back" href="../../../controller.ui.emergency_caption_dialog.html#controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.play_preview">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">play_preview</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Start playing the current video preview.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="o">.</span><span class="n">play</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="EmergencyCaptionDialog.pause_preview">
+<a class="viewcode-back" href="../../../controller.ui.emergency_caption_dialog.html#controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.pause_preview">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">pause_preview</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Pause the current video preview.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="o">.</span><span class="n">pause</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="EmergencyCaptionDialog.stop_preview">
+<a class="viewcode-back" href="../../../controller.ui.emergency_caption_dialog.html#controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.stop_preview">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">stop_preview</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Stop the current video preview.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="EmergencyCaptionDialog.get_inputs">
@@ -344,7 +769,12 @@
 
 <span class="sd">        If the primary input is recognized as a Bible reference,</span>
 <span class="sd">        a preview is generated if not already shown.</span>
-<span class="sd">        Otherwise, non-Bible emergency slides are built directly.</span>
+<span class="sd">        Otherwise, non-Bible emergency slides are built directly. For media</span>
+<span class="sd">        styles, validation failures keep the dialog open so the operator can</span>
+<span class="sd">        choose a file or correct the referenced path.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            None</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            None</span>
@@ -356,8 +786,8 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">previewed_once</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">build_non_bible_slides</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span></div>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">build_non_bible_slides</span><span class="p">():</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="EmergencyCaptionDialog.show_preview">
@@ -484,39 +914,65 @@
 
 <div class="viewcode-block" id="EmergencyCaptionDialog.build_non_bible_slides">
 <a class="viewcode-back" href="../../../controller.ui.emergency_caption_dialog.html#controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.build_non_bible_slides">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">build_non_bible_slides</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">build_non_bible_slides</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Build emergency slides from manual inputs and selected style.</span>
 
 <span class="sd">        Depending on the chosen style and caption input, this may:</span>
 
-<span class="sd">        - Load a preset responsive reading or &quot;hymn&quot; slide.</span>
+<span class="sd">        - Load a preset responsive reading or hymn slide.</span>
 <span class="sd">        - Create a manual emergency slide with custom caption and text.</span>
+<span class="sd">        - Create an image/video slide using a selected media file path.</span>
+
+<span class="sd">        For media styles, the single-line input stores the referenced asset</span>
+<span class="sd">        path while the multiline editor stores optional caption/description text.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            None</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            None</span>
+<span class="sd">            bool:</span>
+<span class="sd">                ``True`` if the build step completed and the dialog may close.</span>
+<span class="sd">                ``False`` if validation failed and the dialog should remain open.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="kn">from</span><span class="w"> </span><span class="nn">core.config.style_map</span><span class="w"> </span><span class="kn">import</span> <span class="n">REVERSE_ALIASES</span>
 
-        <span class="c1"># Gather user inputs</span>
-        <span class="n">caption_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input3</span><span class="o">.</span><span class="n">text</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-        <span class="n">headline</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input2</span><span class="o">.</span><span class="n">toPlainText</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
         <span class="n">style_display</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">style_dropdown</span><span class="o">.</span><span class="n">currentText</span><span class="p">()</span>
         <span class="n">style_code</span> <span class="o">=</span> <span class="n">REVERSE_ALIASES</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">style_display</span><span class="p">,</span> <span class="s2">&quot;verse&quot;</span><span class="p">)</span>
-
         <span class="n">factory</span> <span class="o">=</span> <span class="n">EmergencySlideFactory</span><span class="p">()</span>
 
-        <span class="c1"># Create responsive reading slide if applicable</span>
+        <span class="c1"># Media slides: input3 stores the selected media path, input2 stores optional caption.</span>
+        <span class="k">if</span> <span class="n">style_code</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="s2">&quot;video&quot;</span><span class="p">}:</span>
+            <span class="n">media_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input3</span><span class="o">.</span><span class="n">text</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="n">caption_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input2</span><span class="o">.</span><span class="n">toPlainText</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">media_path</span><span class="p">:</span>
+                <span class="n">QMessageBox</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="p">,</span>
+                    <span class="s2">&quot;입력 오류&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;미디어 파일을 먼저 선택하거나 경로를 입력하세요.&quot;</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">finalized_slides</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">return</span> <span class="kc">False</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">finalized_slides</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="n">create_manual_slide</span><span class="p">(</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">style_code</span><span class="p">,</span>
+                <span class="n">caption</span><span class="o">=</span><span class="n">caption_input</span><span class="p">,</span>
+                <span class="n">text</span><span class="o">=</span><span class="n">media_path</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="c1"># Existing non-media behavior</span>
+        <span class="n">caption_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input3</span><span class="o">.</span><span class="n">text</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="n">headline</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input2</span><span class="o">.</span><span class="n">toPlainText</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
         <span class="k">if</span> <span class="n">style_code</span> <span class="o">==</span> <span class="s2">&quot;respo&quot;</span> <span class="ow">and</span> <span class="n">caption_input</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">finalized_slides</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="n">create_from_respo</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">caption_input</span><span class="p">))</span>
 
-        <span class="c1"># Create hymn slide if applicable</span>
         <span class="k">elif</span> <span class="n">style_code</span> <span class="o">==</span> <span class="s2">&quot;hymn&quot;</span> <span class="ow">and</span> <span class="n">caption_input</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">finalized_slides</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="n">create_from_hymn</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">caption_input</span><span class="p">))</span>
 
-        <span class="c1"># Create manual slide with input text</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="c1"># Use fallback caption if none provided</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">caption_input</span> <span class="ow">and</span> <span class="n">headline</span><span class="p">:</span>
                 <span class="n">caption_input</span> <span class="o">=</span> <span class="s2">&quot;대한예수교장로회(통합) 을지로교회&quot;</span>
 
@@ -524,7 +980,9 @@
                 <span class="n">style</span><span class="o">=</span><span class="n">style_code</span><span class="p">,</span>
                 <span class="n">caption</span><span class="o">=</span><span class="n">caption_input</span><span class="p">,</span>
                 <span class="n">text</span><span class="o">=</span><span class="n">headline</span>
-            <span class="p">)</span></div>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="kc">True</span></div>
 
 
 <div class="viewcode-block" id="EmergencyCaptionDialog.get_final_slides">

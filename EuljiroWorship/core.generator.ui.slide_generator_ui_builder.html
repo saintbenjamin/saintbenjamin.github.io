@@ -126,9 +126,9 @@ class (<a class="reference internal" href="core.generator.ui.slide_generator.htm
 <p>The builder assembles:</p>
 <ul class="simple">
 <li><p>A top row of action buttons with icons (load, save, add, insert, delete, move, export)</p></li>
+<li><p>A tools menu containing church-specific announcement import actions and generator settings</p></li>
 <li><p>A central table area for listing and managing slides</p></li>
 <li><p>A label showing the current worship/session name</p></li>
-<li><p>A menu bar entry for accessing generator settings</p></li>
 <li><p>Keyboard shortcuts (e.g., Ctrl+S) and signal connections</p></li>
 </ul>
 <dl class="py class">
@@ -145,7 +145,7 @@ parent provides the required widgets, managers, and callbacks.</p>
 <li><p>A horizontal toolbar of action buttons (SVG-icon buttons)</p></li>
 <li><p>A label displaying the current worship/session name</p></li>
 <li><p>The central slide table widget</p></li>
-<li><p>A <code class="docutils literal notranslate"><span class="pre">도구</span> <span class="pre">&gt;</span> <span class="pre">설정</span></code> menu entry</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">도구</span></code> menu actions for church-specific announcement import and settings</p></li>
 <li><p>Keyboard shortcuts and signal-slot connections</p></li>
 </ul>
 <p>Required parent interface:</p>
@@ -178,6 +178,16 @@ parent provides the required widgets, managers, and callbacks.</p>
 </li>
 <li><dl class="simple">
 <dt><code class="docutils literal notranslate"><span class="pre">export_slides_for_overlay()</span></code>:</dt><dd><p>Export overlay-ready JSON and launch the slide controller if needed.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">import_announcements()</span></code>:</dt><dd><p>Import announcement slides from another worship JSON file.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">import_announcements_from_hwpx()</span></code>:</dt><dd><p>Import announcement slides from a HWPX bulletin file.</p>
 </dd>
 </dl>
 </li>
@@ -262,7 +272,7 @@ It must expose the methods and attributes required by this builder.</p></li>
 <li><p>Registers keyboard shortcuts (e.g., Ctrl+S for saving)</p></li>
 <li><p>Creates action buttons with SVG icons and connects them to parent handlers</p></li>
 <li><p>Assembles the button toolbar, label, and slide table into a vertical layout</p></li>
-<li><p>Adds a ‘Tools &gt; Settings’ menu entry to the menu bar</p></li>
+<li><p>Adds church-specific announcement import actions and a settings action to the Tools menu</p></li>
 <li><p>Applies persisted font settings to the UI</p></li>
 <li><p>Connects table double-click events to the slide editor dialog</p></li>
 <li><p>Installs the composed layout as the parent’s central widget</p></li>

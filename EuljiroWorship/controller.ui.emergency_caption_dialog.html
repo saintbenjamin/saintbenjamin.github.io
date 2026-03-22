@@ -146,7 +146,8 @@ slides on demand. It supports the following workflows:</p>
 </ol>
 <p>If the first input is not recognized as a Bible reference, the dialog can also
 build non-Bible emergency slides using a selected slide style (e.g., “lyrics”,
-“hymn”, “respo”) and optional preset numbers.</p>
+“hymn”, “respo”, “image”, “video”) and optional preset numbers or referenced
+media files.</p>
 <p>The dialog returns a list of slide dictionaries via <a class="reference internal" href="#controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.get_final_slides" title="controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.get_final_slides"><code class="xref py py-meth docutils literal notranslate"><span class="pre">controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.get_final_slides()</span></code></a>,
 ready to be written to the slide output file and broadcast by the controller.</p>
 <dl class="py class">
@@ -177,6 +178,8 @@ ready to be written to the slide output file and broadcast by the controller.</p
 <dt>Non-Bible emergency slide generation</dt><dd><ul>
 <li><p>User chooses a slide style from <a class="reference internal" href="core.config.style_map.html#core.config.style_map.STYLE_ALIASES" title="core.config.style_map.STYLE_ALIASES"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.style_map.STYLE_ALIASES</span></code></a>.</p></li>
 <li><p>For preset-based styles (e.g., “respo” / “hymn”), numeric inputs can load presets.</p></li>
+<li><p>For media styles (e.g., “image” / “video”), a referenced asset can be selected,
+copied into the overlay asset directory, and previewed inside the dialog.</p></li>
 <li><p>Otherwise, a manual slide is created from caption/headline inputs.</p></li>
 </ul>
 </dd>
@@ -227,10 +230,198 @@ via <a class="reference internal" href="#controller.ui.emergency_caption_dialog.
 <li><p>Bible reference input and preview</p></li>
 <li><p>Keyword-based Bible search and result selection</p></li>
 <li><p>Manual emergency message and style-based slide generation</p></li>
+<li><p>Conditional media selection and preview for image/video manual slides</p></li>
 </ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>parent</strong> (<em>QDialog</em><em> | </em><em>None</em>) – Optional parent widget for the dialog.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.ui.emergency_caption_dialog.EmergencyCaptionDialog._current_manual_style_code">
+<span class="sig-name descname"><span class="pre">_current_manual_style_code</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/ui/emergency_caption_dialog.html#EmergencyCaptionDialog._current_manual_style_code"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.ui.emergency_caption_dialog.EmergencyCaptionDialog._current_manual_style_code" title="Link to this definition"></a></dt>
+<dd><p>Return the internal style code for the current manual-style selection.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Internal style code such as <code class="docutils literal notranslate"><span class="pre">lyrics</span></code>, <code class="docutils literal notranslate"><span class="pre">image</span></code>, or <code class="docutils literal notranslate"><span class="pre">video</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.update_manual_media_ui">
+<span class="sig-name descname"><span class="pre">update_manual_media_ui</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_style_display</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/ui/emergency_caption_dialog.html#EmergencyCaptionDialog.update_manual_media_ui"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.update_manual_media_ui" title="Link to this definition"></a></dt>
+<dd><p>Update the manual input area when the selected style changes.</p>
+<p>This method toggles the visibility and wording of the manual-input
+widgets so that <code class="docutils literal notranslate"><span class="pre">image</span></code> and <code class="docutils literal notranslate"><span class="pre">video</span></code> styles can reuse the existing
+manual entry area. It also shows or hides the appropriate preview
+widgets and reloads previews when a stored media path is already present.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>_style_display</strong> (<em>str</em>) – Current display text emitted by the style dropdown.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.on_manual_media_path_changed">
+<span class="sig-name descname"><span class="pre">on_manual_media_path_changed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/ui/emergency_caption_dialog.html#EmergencyCaptionDialog.on_manual_media_path_changed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.on_manual_media_path_changed" title="Link to this definition"></a></dt>
+<dd><p>Refresh media preview when the path input changes.</p>
+<p>This method only reacts when the currently selected manual style is
+<code class="docutils literal notranslate"><span class="pre">image</span></code> or <code class="docutils literal notranslate"><span class="pre">video</span></code>. The single-line manual input is interpreted as
+a media path and the corresponding preview area is refreshed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>text</strong> (<em>str</em>) – Current contents of the single-line manual input.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.select_media_file">
+<span class="sig-name descname"><span class="pre">select_media_file</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/ui/emergency_caption_dialog.html#EmergencyCaptionDialog.select_media_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.select_media_file" title="Link to this definition"></a></dt>
+<dd><p>Open a file picker for the currently selected media style.</p>
+<p>The selected file is copied into <code class="docutils literal notranslate"><span class="pre">./html/img</span></code> and the relative path is
+stored in the single-line manual input field.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.copy_media_to_img_folder">
+<span class="sig-name descname"><span class="pre">copy_media_to_img_folder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/ui/emergency_caption_dialog.html#EmergencyCaptionDialog.copy_media_to_img_folder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.copy_media_to_img_folder" title="Link to this definition"></a></dt>
+<dd><p>Copy the selected media file into <code class="docutils literal notranslate"><span class="pre">./html/img</span></code>.</p>
+<p>If the target directory does not exist, it is created. If a file with
+the same name already exists there, the existing file is reused and no
+second copy is made.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>source_path</strong> (<em>str</em>) – Absolute path to the source media file.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Relative media path for overlay usage, e.g. <code class="docutils literal notranslate"><span class="pre">img/example.png</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.ui.emergency_caption_dialog.EmergencyCaptionDialog._resolve_preview_path">
+<span class="sig-name descname"><span class="pre">_resolve_preview_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/ui/emergency_caption_dialog.html#EmergencyCaptionDialog._resolve_preview_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.ui.emergency_caption_dialog.EmergencyCaptionDialog._resolve_preview_path" title="Link to this definition"></a></dt>
+<dd><p>Resolve either an absolute path or an overlay-relative <code class="docutils literal notranslate"><span class="pre">img/...</span></code> path.</p>
+<p>The resolution order is:</p>
+<ol class="arabic simple">
+<li><p>Existing absolute path</p></li>
+<li><p>Overlay-relative path under <code class="docutils literal notranslate"><span class="pre">./html/</span></code></p></li>
+<li><p>Existing local relative path from the current working directory</p></li>
+</ol>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>raw_path</strong> (<em>str</em>) – Raw path text entered by the user.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Absolute path if the file exists; otherwise an empty string.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.ui.emergency_caption_dialog.EmergencyCaptionDialog._load_image_preview">
+<span class="sig-name descname"><span class="pre">_load_image_preview</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_or_rel</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/ui/emergency_caption_dialog.html#EmergencyCaptionDialog._load_image_preview"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.ui.emergency_caption_dialog.EmergencyCaptionDialog._load_image_preview" title="Link to this definition"></a></dt>
+<dd><p>Load an image preview from either an absolute or relative path.</p>
+<p>The resolved image is shown in <code class="docutils literal notranslate"><span class="pre">self.image_preview</span></code> and the resolved
+absolute path is mirrored into the media status tooltip for operator
+visibility.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path_or_rel</strong> (<em>str</em>) – Absolute source path or stored relative overlay path.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.ui.emergency_caption_dialog.EmergencyCaptionDialog._load_video_preview">
+<span class="sig-name descname"><span class="pre">_load_video_preview</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_or_rel</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/ui/emergency_caption_dialog.html#EmergencyCaptionDialog._load_video_preview"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.ui.emergency_caption_dialog.EmergencyCaptionDialog._load_video_preview" title="Link to this definition"></a></dt>
+<dd><p>Load a video preview from either an absolute or relative path.</p>
+<p>The resolved media source is loaded into <code class="docutils literal notranslate"><span class="pre">self.player</span></code> and the video
+preview widgets are shown. If the path cannot be resolved, the preview
+is stopped and a failure message is displayed instead.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path_or_rel</strong> (<em>str</em>) – Absolute source path or stored relative overlay path.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.play_preview">
+<span class="sig-name descname"><span class="pre">play_preview</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/ui/emergency_caption_dialog.html#EmergencyCaptionDialog.play_preview"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.play_preview" title="Link to this definition"></a></dt>
+<dd><p>Start playing the current video preview.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.pause_preview">
+<span class="sig-name descname"><span class="pre">pause_preview</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/ui/emergency_caption_dialog.html#EmergencyCaptionDialog.pause_preview"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.pause_preview" title="Link to this definition"></a></dt>
+<dd><p>Pause the current video preview.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.stop_preview">
+<span class="sig-name descname"><span class="pre">stop_preview</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/ui/emergency_caption_dialog.html#EmergencyCaptionDialog.stop_preview"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.ui.emergency_caption_dialog.EmergencyCaptionDialog.stop_preview" title="Link to this definition"></a></dt>
+<dd><p>Stop the current video preview.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>None</p>
@@ -290,10 +481,15 @@ Bible search using the current search mode.</p>
 <dd><p>Finalize emergency slide generation and close the dialog.</p>
 <p>If the primary input is recognized as a Bible reference,
 a preview is generated if not already shown.
-Otherwise, non-Bible emergency slides are built directly.</p>
+Otherwise, non-Bible emergency slides are built directly. For media
+styles, validation failures keep the dialog open so the operator can
+choose a file or correct the referenced path.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None</p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -347,12 +543,22 @@ emergency slides are generated, and the dialog is accepted.</p>
 <dd><p>Build emergency slides from manual inputs and selected style.</p>
 <p>Depending on the chosen style and caption input, this may:</p>
 <ul class="simple">
-<li><p>Load a preset responsive reading or “hymn” slide.</p></li>
+<li><p>Load a preset responsive reading or hymn slide.</p></li>
 <li><p>Create a manual emergency slide with custom caption and text.</p></li>
+<li><p>Create an image/video slide using a selected media file path.</p></li>
 </ul>
+<p>For media styles, the single-line input stores the referenced asset
+path while the multiline editor stores optional caption/description text.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None</p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if the build step completed and the dialog may close.
+<code class="docutils literal notranslate"><span class="pre">False</span></code> if validation failed and the dialog should remain open.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
 </dd>
 </dl>
 </dd></dl>
