@@ -98,9 +98,10 @@
 <span class="sd">    Manage row-level operations on the slide table.</span>
 
 <span class="sd">    This class owns all logic related to modifying the table rows that</span>
-<span class="sd">    represent slides, including insertion, deletion, reordering, and</span>
-<span class="sd">    style selection handling. It delegates edit-safety checks to the</span>
-<span class="sd">    parent generator to ensure consistency with the controller state.</span>
+<span class="sd">    represent slides, including insertion, duplication, deletion,</span>
+<span class="sd">    reordering, and style selection handling. It delegates edit-safety</span>
+<span class="sd">    checks to the parent generator to ensure consistency with the</span>
+<span class="sd">    controller state.</span>
 
 <span class="sd">    Attributes:</span>
 <span class="sd">        table (QTableWidget):</span>
@@ -243,6 +244,56 @@
         <span class="n">selected</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">currentRow</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">selected</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">removeRow</span><span class="p">(</span><span class="n">selected</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SlideTableManager.duplicate_selected_row">
+<a class="viewcode-back" href="../../../../core.generator.ui.slide_table_manager.html#core.generator.ui.slide_table_manager.SlideTableManager.duplicate_selected_row">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">duplicate_selected_row</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Duplicate the currently selected slide row immediately below itself.</span>
+
+<span class="sd">        The duplicated row copies:</span>
+
+<span class="sd">        - The selected slide style</span>
+<span class="sd">        - The caption text</span>
+<span class="sd">        - The headline text</span>
+
+<span class="sd">        If no row is selected, this method does nothing. If the slide</span>
+<span class="sd">        controller is running, duplication is aborted.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">generator</span><span class="o">.</span><span class="n">warn_if_controller_running</span><span class="p">():</span>
+            <span class="k">return</span>
+
+        <span class="n">source_row</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">currentRow</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">source_row</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="n">source_combo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">cellWidget</span><span class="p">(</span><span class="n">source_row</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">style_text</span> <span class="o">=</span> <span class="n">source_combo</span><span class="o">.</span><span class="n">currentText</span><span class="p">()</span> <span class="k">if</span> <span class="n">source_combo</span> <span class="k">else</span> <span class="n">STYLE_LIST</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="n">caption_item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">source_row</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">headline_item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">source_row</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+        <span class="n">caption</span> <span class="o">=</span> <span class="n">caption_item</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="k">if</span> <span class="n">caption_item</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">headline</span> <span class="o">=</span> <span class="n">headline_item</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="k">if</span> <span class="n">headline_item</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+
+        <span class="c1"># Insert a new row directly below the selected row.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">insert_row</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="n">source_row</span><span class="p">,</span> <span class="n">above</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="n">target_row</span> <span class="o">=</span> <span class="n">source_row</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">target_combo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">cellWidget</span><span class="p">(</span><span class="n">target_row</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">target_combo</span><span class="p">:</span>
+            <span class="n">target_combo</span><span class="o">.</span><span class="n">setCurrentText</span><span class="p">(</span><span class="n">style_text</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">target_row</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">QTableWidgetItem</span><span class="p">(</span><span class="n">caption</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">target_row</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">QTableWidgetItem</span><span class="p">(</span><span class="n">headline</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">selectRow</span><span class="p">(</span><span class="n">target_row</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="SlideTableManager.move_row_up">

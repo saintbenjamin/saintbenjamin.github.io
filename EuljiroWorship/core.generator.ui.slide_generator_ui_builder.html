@@ -125,7 +125,7 @@ It separates UI composition from application logic to keep the main window
 class (<a class="reference internal" href="core.generator.ui.slide_generator.html#core.generator.ui.slide_generator.SlideGenerator" title="core.generator.ui.slide_generator.SlideGenerator"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.generator.ui.slide_generator.SlideGenerator</span></code></a>) focused on workflow and state management.</p>
 <p>The builder assembles:</p>
 <ul class="simple">
-<li><p>A top row of action buttons with icons (load, save, add, insert, delete, move, export)</p></li>
+<li><p>A top row of action buttons with icons (load, save, add, duplicate, insert, delete, move, export)</p></li>
 <li><p>A tools menu containing church-specific announcement import actions and generator settings</p></li>
 <li><p>A central table area for listing and managing slides</p></li>
 <li><p>A label showing the current worship/session name</p></li>
@@ -142,7 +142,7 @@ It does not own or manage application state; instead, it assumes that the
 parent provides the required widgets, managers, and callbacks.</p>
 <p>Constructed UI elements include:</p>
 <ul class="simple">
-<li><p>A horizontal toolbar of action buttons (SVG-icon buttons)</p></li>
+<li><p>A horizontal toolbar of action buttons (SVG-icon buttons), including row duplication</p></li>
 <li><p>A label displaying the current worship/session name</p></li>
 <li><p>The central slide table widget</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">도구</span></code> menu actions for church-specific announcement import and settings</p></li>
@@ -162,7 +162,8 @@ parent provides the required widgets, managers, and callbacks.</p>
 </dl>
 </li>
 <li><dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">table_manager</span></code> (core.generator.ui.slide_table_manager.SlideTableManager):</dt><dd><p>Row manipulation logic for the slide table.</p>
+<dt><code class="docutils literal notranslate"><span class="pre">table_manager</span></code> (core.generator.ui.slide_table_manager.SlideTableManager):</dt><dd><p>Row manipulation logic for the slide table, including insertion,
+deletion, movement, and duplication.</p>
 </dd>
 </dl>
 </li>
@@ -271,6 +272,7 @@ It must expose the methods and attributes required by this builder.</p></li>
 <ul class="simple">
 <li><p>Registers keyboard shortcuts (e.g., Ctrl+S for saving)</p></li>
 <li><p>Creates action buttons with SVG icons and connects them to parent handlers</p></li>
+<li><p>Provides direct row actions such as add, duplicate, insert, delete, and move</p></li>
 <li><p>Assembles the button toolbar, label, and slide table into a vertical layout</p></li>
 <li><p>Adds church-specific announcement import actions and a settings action to the Tools menu</p></li>
 <li><p>Applies persisted font settings to the UI</p></li>

@@ -130,9 +130,10 @@ coordinates with the parent generator to enforce edit restrictions
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Manage row-level operations on the slide table.</p>
 <p>This class owns all logic related to modifying the table rows that
-represent slides, including insertion, deletion, reordering, and
-style selection handling. It delegates edit-safety checks to the
-parent generator to ensure consistency with the controller state.</p>
+represent slides, including insertion, duplication, deletion,
+reordering, and style selection handling. It delegates edit-safety
+checks to the parent generator to ensure consistency with the
+controller state.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="core.generator.ui.slide_table_manager.SlideTableManager.table">
 <span class="sig-name descname"><span class="pre">table</span></span><a class="headerlink" href="#core.generator.ui.slide_table_manager.SlideTableManager.table" title="Link to this definition"></a></dt>
@@ -228,6 +229,28 @@ other parts of the generator UI (e.g., the right-hand detail pane).</p>
 <dd><p>Delete the currently selected slide row from the table.</p>
 <p>If no row is selected, this method does nothing. If the slide
 controller is running, deletion is aborted.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.slide_table_manager.SlideTableManager.duplicate_selected_row">
+<span class="sig-name descname"><span class="pre">duplicate_selected_row</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_table_manager.html#SlideTableManager.duplicate_selected_row"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_table_manager.SlideTableManager.duplicate_selected_row" title="Link to this definition"></a></dt>
+<dd><p>Duplicate the currently selected slide row immediately below itself.</p>
+<p>The duplicated row copies:</p>
+<ul class="simple">
+<li><p>The selected slide style</p></li>
+<li><p>The caption text</p></li>
+<li><p>The headline text</p></li>
+</ul>
+<p>If no row is selected, this method does nothing. If the slide
+controller is running, duplication is aborted.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>None</strong></p>
