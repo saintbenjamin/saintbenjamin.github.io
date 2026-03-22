@@ -356,6 +356,84 @@ as UTF-8 JSON.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator._get_default_load_directory">
+<span class="sig-name descname"><span class="pre">_get_default_load_directory</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator._get_default_load_directory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator._get_default_load_directory" title="Link to this definition"></a></dt>
+<dd><p>Return the initial directory used by the slide file open dialog.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Directory path derived from the last opened/saved slide file,
+or the current working directory if no usable record exists.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator._prompt_worship_title">
+<span class="sig-name descname"><span class="pre">_prompt_worship_title</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">default_title</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator._prompt_worship_title"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator._prompt_worship_title" title="Link to this definition"></a></dt>
+<dd><p>Ask the user for the worship title that should back the session filename.</p>
+<p>The dialog is pre-filled with the selected JSON filename stem. Empty
+values and filenames containing invalid characters are rejected and the
+user is prompted again until a valid value is entered.</p>
+<p>If the user presses Cancel or closes the dialog, the original default
+title is used instead of aborting the load flow.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>default_title</strong> (<em>str</em>) – Initial text shown in the input field.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Validated title text.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator._resolve_selected_session_path">
+<span class="sig-name descname"><span class="pre">_resolve_selected_session_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator._resolve_selected_session_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator._resolve_selected_session_path" title="Link to this definition"></a></dt>
+<dd><p>Resolve the actual path to load after a user picks a session JSON file.</p>
+<p>Keeping the default title loads the original file. Changing the title
+creates a same-folder copy with the new filename and loads that copy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>source_path</strong> (<em>str</em>) – Path selected in the open-file dialog.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Path that should be loaded into the generator, or <code class="docutils literal notranslate"><span class="pre">None</span></code> if
+the title step is canceled or the copy operation fails.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator.prompt_load_from_file">
+<span class="sig-name descname"><span class="pre">prompt_load_from_file</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator.prompt_load_from_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator.prompt_load_from_file" title="Link to this definition"></a></dt>
+<dd><p>Interactively select a slide JSON file and load it into the generator.</p>
+<p>This wrapper owns the startup/manual-open flow that the user sees:</p>
+<ol class="arabic simple">
+<li><p>Show the OS file-open dialog.</p></li>
+<li><p>Ask for the worship title using the filename stem as the default.</p></li>
+<li><p>If the title changes, duplicate the JSON file in the same folder.</p></li>
+<li><p>Load the chosen original/copy into the generator.</p></li>
+</ol>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Loaded file path, or <code class="docutils literal notranslate"><span class="pre">None</span></code> if the flow is canceled.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator.load_from_file">
 <span class="sig-name descname"><span class="pre">load_from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator.load_from_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator.load_from_file" title="Link to this definition"></a></dt>
 <dd><p>Load a slide session JSON file into the generator.</p>
@@ -543,6 +621,45 @@ left empty, the import block extends to the end of the file.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>int | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator._load_slide_list_into_table">
+<span class="sig-name descname"><span class="pre">_load_slide_list_into_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slides</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator._load_slide_list_into_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator._load_slide_list_into_table" title="Link to this definition"></a></dt>
+<dd><p>Load an in-memory slide list into the generator table.</p>
+<p>This helper clears the current table contents, recreates the required
+rows, and writes each slide’s style/caption/headline into the visible UI.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>slides</strong> (<em>list</em><em>[</em><em>dict</em><em>]</em>) – Slide dictionaries to render into the generator table.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator.import_announcements_from_hwpx">
+<span class="sig-name descname"><span class="pre">import_announcements_from_hwpx</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator.import_announcements_from_hwpx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator.import_announcements_from_hwpx" title="Link to this definition"></a></dt>
+<dd><p>Import announcements from a HWPX bulletin and replace the current
+announcement area between the fixed welcome slide and the fixed
+closing-verse slide.</p>
+<p>Imported items are intentionally inserted as <code class="docutils literal notranslate"><span class="pre">lyrics</span></code> style only.</p>
+<p>The source HWPX file is parsed into announcement slides, and the
+matching range in the current session is replaced using fixed headline
+anchors that mark the start and end of the announcement block.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>

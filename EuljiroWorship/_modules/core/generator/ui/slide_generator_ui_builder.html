@@ -132,8 +132,8 @@
 <span class="sd">        Menu bar accessor for adding menus and actions.</span>
 <span class="sd">    - ``table_manager`` (core.generator.ui.slide_table_manager.SlideTableManager):</span>
 <span class="sd">        Row manipulation logic for the slide table.</span>
-<span class="sd">    - ``load_from_file()``:</span>
-<span class="sd">        Load a slide session into the table.</span>
+<span class="sd">    - ``prompt_load_from_file()``:</span>
+<span class="sd">        Run the interactive file-open flow and load a slide session.</span>
 <span class="sd">    - ``save_as()``:</span>
 <span class="sd">        Save the current slide session using a Save As flow.</span>
 <span class="sd">    - ``export_slides_for_overlay()``:</span>
@@ -237,7 +237,7 @@
             <span class="n">btn</span><span class="o">.</span><span class="n">setMinimumHeight</span><span class="p">(</span><span class="mi">28</span><span class="p">)</span>
 
         <span class="c1"># Connect button actions to parent handlers</span>
-        <span class="n">load_btn</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">)</span>
+        <span class="n">load_btn</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">prompt_load_from_file</span><span class="p">)</span>
         <span class="n">save_btn</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">save_as</span><span class="p">)</span>
         <span class="n">add_btn</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">table_manager</span><span class="o">.</span><span class="n">add_row</span><span class="p">)</span>
         <span class="n">insert_above_btn</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">parent</span><span class="o">.</span><span class="n">table_manager</span><span class="o">.</span><span class="n">insert_row</span><span class="p">(</span><span class="n">above</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
@@ -273,9 +273,16 @@
         <span class="n">main_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">worship_label</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
         <span class="n">main_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">table</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
-        <span class="c1"># Create &#39;Tools &gt; Settings&#39; menu</span>
+        <span class="c1"># Create &#39;Tools&#39; menu</span>
         <span class="n">menubar</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">menuBar</span><span class="p">()</span>
         <span class="n">tool_menu</span> <span class="o">=</span> <span class="n">menubar</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="s2">&quot;도구&quot;</span><span class="p">)</span>
+
+        <span class="n">hwpx_announcement_action</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="s2">&quot;주보 HWPX 광고 가져오기 (을지로교회 전용)&quot;</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
+        <span class="n">hwpx_announcement_action</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">import_announcements_from_hwpx</span><span class="p">)</span>
+        <span class="n">tool_menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="n">hwpx_announcement_action</span><span class="p">)</span>
+
+        <span class="n">tool_menu</span><span class="o">.</span><span class="n">addSeparator</span><span class="p">()</span>
+
         <span class="n">settings_action</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="s2">&quot;설정&quot;</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
         <span class="n">settings_action</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">open_settings_dialog</span><span class="p">)</span>
         <span class="n">tool_menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="n">settings_action</span><span class="p">)</span>

@@ -664,7 +664,7 @@
 
 <span class="sd">        - Page number (1-based)</span>
 <span class="sd">        - Caption</span>
-<span class="sd">        - First line preview of headline (trimmed)</span>
+<span class="sd">        - Full headline text</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            None</span>
@@ -674,7 +674,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">insertRow</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">QTableWidgetItem</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)))</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">QTableWidgetItem</span><span class="p">(</span><span class="n">slide</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;caption&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)))</span>
-            <span class="n">headline</span> <span class="o">=</span> <span class="n">slide</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;headline&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">][:</span><span class="mi">50</span><span class="p">]</span>
+            <span class="n">headline</span> <span class="o">=</span> <span class="n">slide</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;headline&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">QTableWidgetItem</span><span class="p">(</span><span class="n">headline</span><span class="p">))</span></div>
 
 
