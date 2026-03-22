@@ -357,9 +357,9 @@ second copy is made.</p>
 <dt class="sig sig-object py" id="controller.ui.emergency_caption_dialog.EmergencyCaptionDialog._load_image_preview">
 <span class="sig-name descname"><span class="pre">_load_image_preview</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_or_rel</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/ui/emergency_caption_dialog.html#EmergencyCaptionDialog._load_image_preview"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.ui.emergency_caption_dialog.EmergencyCaptionDialog._load_image_preview" title="Link to this definition"></a></dt>
 <dd><p>Load an image preview from either an absolute or relative path.</p>
-<p>The resolved image is shown in <code class="docutils literal notranslate"><span class="pre">self.image_preview</span></code> and the resolved
-absolute path is mirrored into the media status tooltip for operator
-visibility.</p>
+<p>The resolved image is scaled to fit inside the fixed preview box and the
+resolved absolute path is mirrored into the media status tooltip for
+operator visibility.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>path_or_rel</strong> (<em>str</em>) – Absolute source path or stored relative overlay path.</p>

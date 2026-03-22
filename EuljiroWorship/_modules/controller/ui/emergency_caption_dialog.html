@@ -272,8 +272,8 @@
         <span class="c1"># Image preview</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">image_preview</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="s2">&quot;선택된 그림 없음&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">image_preview</span><span class="o">.</span><span class="n">setAlignment</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">image_preview</span><span class="o">.</span><span class="n">setFixedHeight</span><span class="p">(</span><span class="mi">220</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">image_preview</span><span class="o">.</span><span class="n">setScaledContents</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image_preview</span><span class="o">.</span><span class="n">setFixedSize</span><span class="p">(</span><span class="mi">640</span><span class="p">,</span> <span class="mi">220</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image_preview</span><span class="o">.</span><span class="n">setScaledContents</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">image_preview</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
 
         <span class="c1"># Video preview</span>
@@ -340,11 +340,12 @@
         <span class="n">layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">caption_row</span><span class="p">)</span>
         <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input2</span><span class="p">,</span> <span class="n">stretch</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
         <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">media_status</span><span class="p">)</span>
-        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">image_preview</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">image_preview</span><span class="p">,</span> <span class="n">alignment</span><span class="o">=</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignHCenter</span><span class="p">)</span>
         <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">video_status</span><span class="p">)</span>
         <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">video_widget</span><span class="p">)</span>
         <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">video_controls_widget</span><span class="p">)</span>
         <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ok_button</span><span class="p">)</span>
+
 
         <span class="bp">self</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">layout</span><span class="p">)</span>
 
@@ -591,9 +592,9 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Load an image preview from either an absolute or relative path.</span>
 
-<span class="sd">        The resolved image is shown in ``self.image_preview`` and the resolved</span>
-<span class="sd">        absolute path is mirrored into the media status tooltip for operator</span>
-<span class="sd">        visibility.</span>
+<span class="sd">        The resolved image is scaled to fit inside the fixed preview box and the</span>
+<span class="sd">        resolved absolute path is mirrored into the media status tooltip for</span>
+<span class="sd">        operator visibility.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            path_or_rel (str):</span>
@@ -616,7 +617,14 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">image_preview</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;그림 로딩 실패&quot;</span><span class="p">)</span>
             <span class="k">return</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">image_preview</span><span class="o">.</span><span class="n">setPixmap</span><span class="p">(</span><span class="n">pixmap</span><span class="p">)</span>
+        <span class="n">scaled_pixmap</span> <span class="o">=</span> <span class="n">pixmap</span><span class="o">.</span><span class="n">scaled</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">image_preview</span><span class="o">.</span><span class="n">size</span><span class="p">(),</span>
+            <span class="n">Qt</span><span class="o">.</span><span class="n">AspectRatioMode</span><span class="o">.</span><span class="n">KeepAspectRatio</span><span class="p">,</span>
+            <span class="n">Qt</span><span class="o">.</span><span class="n">TransformationMode</span><span class="o">.</span><span class="n">SmoothTransformation</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">image_preview</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image_preview</span><span class="o">.</span><span class="n">setPixmap</span><span class="p">(</span><span class="n">scaled_pixmap</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">image_preview</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="n">abs_path</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">media_status</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input3</span><span class="o">.</span><span class="n">text</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="ow">or</span> <span class="n">abs_path</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">media_status</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="n">abs_path</span><span class="p">)</span></div>
