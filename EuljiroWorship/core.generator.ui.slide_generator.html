@@ -645,6 +645,274 @@ rows, and writes each slide’s style/caption/headline into the visible UI.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator._compact_order_text">
+<span class="sig-name descname"><span class="pre">_compact_order_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator._compact_order_text"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator._compact_order_text" title="Link to this definition"></a></dt>
+<dd><p>Remove whitespace from a worship-order string for loose comparisons.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>text</strong> (<em>str</em>) – Source text to normalize for structural matching.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Text with all whitespace removed.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator._split_choir_caption_parts">
+<span class="sig-name descname"><span class="pre">_split_choir_caption_parts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">choir_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator._split_choir_caption_parts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator._split_choir_caption_parts" title="Link to this definition"></a></dt>
+<dd><p>Split a choir label like <code class="docutils literal notranslate"><span class="pre">시온찬양대</span></code> into <code class="docutils literal notranslate"><span class="pre">(&quot;시온&quot;,</span> <span class="pre">&quot;찬양대&quot;)</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>choir_name</strong> (<em>str</em>) – Full choir label parsed from the worship-order source.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Two-element tuple of <code class="docutils literal notranslate"><span class="pre">(caption,</span> <span class="pre">caption_choir)</span></code>.
+If no standard suffix is found, returns <code class="docutils literal notranslate"><span class="pre">(choir_name,</span> <span class="pre">&quot;&quot;)</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple[str, str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator._get_default_bible_version_for_order_import">
+<span class="sig-name descname"><span class="pre">_get_default_bible_version_for_order_import</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator._get_default_bible_version_for_order_import"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator._get_default_bible_version_for_order_import" title="Link to this definition"></a></dt>
+<dd><p>Choose the preferred Bible version for worship-order verse imports.</p>
+<p>The selection prioritizes locally available Korean Revised Version
+files and falls back to the first available JSON Bible dataset when the
+preferred names are not present.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Version name to pass to <code class="docutils literal notranslate"><span class="pre">BibleDataLoader</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator._build_hymn_slide_from_number">
+<span class="sig-name descname"><span class="pre">_build_hymn_slide_from_number</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">number</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator._build_hymn_slide_from_number"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator._build_hymn_slide_from_number" title="Link to this definition"></a></dt>
+<dd><p>Build a hymn slide payload from a hymn number dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>number</strong> (<em>int</em>) – Hymn number to load from <code class="docutils literal notranslate"><span class="pre">data/hymns</span></code>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Slide dictionary containing the hymn style, caption, and
+headline text for the requested hymn.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator._build_respo_slide_from_number">
+<span class="sig-name descname"><span class="pre">_build_respo_slide_from_number</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">number</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator._build_respo_slide_from_number"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator._build_respo_slide_from_number" title="Link to this definition"></a></dt>
+<dd><p>Build a responsive-reading slide payload from a reading number dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>number</strong> (<em>int</em>) – Responsive reading number to load from <code class="docutils literal notranslate"><span class="pre">data/respo</span></code>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Slide dictionary containing the responsive-reading style,
+caption, and combined headline HTML text.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator._build_verse_slide_from_reference">
+<span class="sig-name descname"><span class="pre">_build_verse_slide_from_reference</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reference</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator._build_verse_slide_from_reference"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator._build_verse_slide_from_reference" title="Link to this definition"></a></dt>
+<dd><p>Build a Bible-reading slide payload from a parsed reference string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>reference</strong> (<em>str</em>) – Scripture reference text extracted from the worship-order
+bulletin.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Slide dictionary containing the verse style, caption, and
+resolved Bible text. If parsing fails, an empty verse headline
+is returned with the original caption preserved.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator._classify_worship_order_slide">
+<span class="sig-name descname"><span class="pre">_classify_worship_order_slide</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slides</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator._classify_worship_order_slide"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator._classify_worship_order_slide" title="Link to this definition"></a></dt>
+<dd><p>Classify a slide into a worship-order slot category.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>slides</strong> (<em>list</em><em>[</em><em>dict</em><em>]</em>) – Full slide list currently being analyzed.</p></li>
+<li><p><strong>index</strong> (<em>int</em>) – Index of the slide to classify.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Normalized worship-order kind such as <code class="docutils literal notranslate"><span class="pre">hymn</span></code> or <code class="docutils literal notranslate"><span class="pre">sermon</span></code>,
+or <code class="docutils literal notranslate"><span class="pre">None</span></code> when the slide does not match a managed category.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator._describe_worship_order_slide">
+<span class="sig-name descname"><span class="pre">_describe_worship_order_slide</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slide</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator._describe_worship_order_slide"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator._describe_worship_order_slide" title="Link to this definition"></a></dt>
+<dd><p>Produce a short human-readable description of a worship-order slide.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>slide</strong> (<em>dict</em>) – Slide dictionary to summarize.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Compact text summary used in removal-confirmation prompts.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator._prompt_remove_missing_worship_order">
+<span class="sig-name descname"><span class="pre">_prompt_remove_missing_worship_order</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slide</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator._prompt_remove_missing_worship_order"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator._prompt_remove_missing_worship_order" title="Link to this definition"></a></dt>
+<dd><p>Ask the user whether a slide missing from the imported order should be removed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>slide</strong> (<em>dict</em>) – Existing slide dictionary that is not present in the imported
+HWPX worship-order data.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if the user approves removal, otherwise <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator._remove_worship_order_block">
+<span class="sig-name descname"><span class="pre">_remove_worship_order_block</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slides</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator._remove_worship_order_block"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator._remove_worship_order_block" title="Link to this definition"></a></dt>
+<dd><p>Remove a managed worship-order block from the working slide list.</p>
+<p>Anthem blocks span two slides in this project: the <code class="docutils literal notranslate"><span class="pre">anthem</span></code> slide and
+its following lyrics slide. Other kinds are removed as a single slide.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>slides</strong> (<em>list</em><em>[</em><em>dict</em><em>]</em>) – Mutable slide list being updated.</p></li>
+<li><p><strong>index</strong> (<em>int</em>) – Index of the first slide in the block to remove.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator._find_communion_insert_index">
+<span class="sig-name descname"><span class="pre">_find_communion_insert_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slides</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator._find_communion_insert_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator._find_communion_insert_index" title="Link to this definition"></a></dt>
+<dd><p>Determine where a communion block should be inserted in the slide list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>slides</strong> (<em>list</em><em>[</em><em>dict</em><em>]</em>) – Working slide list after other worship-order updates.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Insertion index for the communion block, typically after the
+last hymn if one exists.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator._build_special_worship_order_block">
+<span class="sig-name descname"><span class="pre">_build_special_worship_order_block</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kind</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator._build_special_worship_order_block"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator._build_special_worship_order_block" title="Link to this definition"></a></dt>
+<dd><p>Build predefined slide blocks for special worship-order items.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>kind</strong> (<em>str</em>) – Special worship-order kind to generate, such as <code class="docutils literal notranslate"><span class="pre">communion</span></code>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>New slide dictionaries representing the requested special block.
+Returns an empty list when no template is defined.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[dict]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator._apply_worship_order_entries">
+<span class="sig-name descname"><span class="pre">_apply_worship_order_entries</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">current_slides</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order_entries</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator._apply_worship_order_entries"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator._apply_worship_order_entries" title="Link to this definition"></a></dt>
+<dd><p>Apply imported worship-order entries to the current generator session.</p>
+<p>This routine updates matching managed slide slots, prompts about
+removing obsolete items, and inserts selected special-order templates
+when needed. Sermon titles are updated conservatively so that imported
+text is preserved unless an exact preacher suffix can be removed using
+the current sermon slide caption as context.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>current_slides</strong> (<em>list</em><em>[</em><em>dict</em><em>]</em>) – Existing slide dictionaries collected from the generator table.</p></li>
+<li><p><strong>order_entries</strong> (<em>list</em><em>[</em><em>dict</em><em>]</em>) – Parsed worship-order entry dictionaries extracted from HWPX.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Updated slide list ready to be reloaded into the generator
+table.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[dict]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator.import_worship_order_from_hwpx">
+<span class="sig-name descname"><span class="pre">import_worship_order_from_hwpx</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator.import_worship_order_from_hwpx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator.import_worship_order_from_hwpx" title="Link to this definition"></a></dt>
+<dd><p>Import first-service worship-order information from a HWPX bulletin and
+conservatively update matching slots in the current generator session.</p>
+<p>This first-pass implementation updates the existing session structure
+rather than rebuilding the whole file from scratch.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator.import_announcements_from_hwpx">
 <span class="sig-name descname"><span class="pre">import_announcements_from_hwpx</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator.import_announcements_from_hwpx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator.import_announcements_from_hwpx" title="Link to this definition"></a></dt>
 <dd><p>Import announcements from a HWPX bulletin and replace the current
