@@ -18,3 +18,5 @@ core.generator.utils
    core.generator.utils.slide_generator_data_manager
    core.generator.utils.slide_input_submitter
    core.generator.utils.text_splitter
+   core.generator.utils.hwpx_announcement_parser
+   core.generator.utils.hwpx_worship_order_parser

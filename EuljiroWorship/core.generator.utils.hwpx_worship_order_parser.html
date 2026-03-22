@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>core.generator.utils.text_splitter &mdash; EuljiroWorship 0.1 documentation</title>
+  <title>core.generator.utils.hwpx_worship_order_parser &mdash; EuljiroWorship 0.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
 
@@ -19,8 +19,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="core.generator.utils.hwpx_announcement_parser" href="core.generator.utils.hwpx_announcement_parser.html" />
-    <link rel="prev" title="core.generator.utils.slide_input_submitter" href="core.generator.utils.slide_input_submitter.html" /> 
+    <link rel="next" title="core.generator.settings_generator" href="core.generator.settings_generator.html" />
+    <link rel="prev" title="core.generator.utils.hwpx_announcement_parser" href="core.generator.utils.hwpx_announcement_parser.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -83,9 +83,9 @@
           <li class="breadcrumb-item"><a href="core.html">core</a></li>
           <li class="breadcrumb-item"><a href="core.generator.html">core.generator</a></li>
           <li class="breadcrumb-item"><a href="core.generator.utils.html">core.generator.utils</a></li>
-      <li class="breadcrumb-item active">core.generator.utils.text_splitter</li>
+      <li class="breadcrumb-item active">core.generator.utils.hwpx_worship_order_parser</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/core.generator.utils.text_splitter.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/core.generator.utils.hwpx_worship_order_parser.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -93,11 +93,11 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-core.generator.utils.text_splitter">
-<span id="core-generator-utils-text-splitter"></span><h1>core.generator.utils.text_splitter<a class="headerlink" href="#module-core.generator.utils.text_splitter" title="Link to this heading"></a></h1>
+  <section id="module-core.generator.utils.hwpx_worship_order_parser">
+<span id="core-generator-utils-hwpx-worship-order-parser"></span><h1>core.generator.utils.hwpx_worship_order_parser<a class="headerlink" href="#module-core.generator.utils.hwpx_worship_order_parser" title="Link to this heading"></a></h1>
 <dl class="field-list simple">
 <dt class="field-odd">File<span class="colon">:</span></dt>
-<dd class="field-odd"><p>EuljiroWorship/core/generator/utils/text_splitter.py</p>
+<dd class="field-odd"><p>EuljiroWorship/core/generator/utils/hwpx_worship_order_parser.py</p>
 </dd>
 <dt class="field-even">Author<span class="colon">:</span></dt>
 <dd class="field-even"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
@@ -118,42 +118,38 @@
 <dd class="field-odd"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
 </dd>
 </dl>
-<p>Provides utility function for splitting text into chunks of specified length.</p>
-<p>This module contains a simple text segmentation helper used primarily during
-slide export. Its main purpose is to prevent excessively long lines from being
-rendered as a single overlay line by splitting text into display-friendly units.</p>
+<p>HWPX worship-order parser for the Slide Generator’s Euljiro-specific bulletin workflow.</p>
+<p>This module parses HWPX section XML files, locates the portion of the weekly
+bulletin that contains the first-service worship order, and converts supported
+rows into normalized entry dictionaries for generator-side update logic.</p>
+<p>The logic here is intentionally church-specific. It assumes Euljiro
+Presbyterian Church bulletin patterns such as:</p>
+<ul class="simple">
+<li><p>A first-service order embedded in a known HWPX bulletin structure</p></li>
+<li><p>Worship-order labels and line formats used by Euljiro weekly bulletins</p></li>
+<li><p>Euljiro-specific expectations around choir naming, sermon-title handling,
+first-service extraction, and special liturgical insertions</p></li>
+</ul>
+<p>These helpers exist to support the church-specific Tools-menu import features,
+not as a general-purpose HWPX worship-order parser for arbitrary churches.</p>
 <dl class="py function">
-<dt class="sig sig-object py" id="core.generator.utils.text_splitter.split_by_length">
-<span class="sig-prename descclassname"><span class="pre">core.generator.utils.text_splitter.</span></span><span class="sig-name descname"><span class="pre">split_by_length</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_chars</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">60</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/utils/text_splitter.html#split_by_length"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.utils.text_splitter.split_by_length" title="Link to this definition"></a></dt>
-<dd><p>Split a text string into multiple chunks constrained by a maximum character length.</p>
-<p>This helper uses Python’s <a class="reference external" href="https://docs.python.org/3/library/textwrap.html#textwrap.wrap">textwrap.wrap</a> to break a long string into
-word-aware segments. Line breaks are inserted at appropriate word boundaries
-whenever possible, ensuring that each resulting chunk does not exceed
-<code class="docutils literal notranslate"><span class="pre">max_chars</span></code> characters.</p>
-<p>This function is intentionally simple and presentation-oriented:</p>
-<ul class="simple">
-<li><p>It does not preserve original newlines.</p></li>
-<li><p>It does not apply hyphenation.</p></li>
-<li><p>It assumes the input text is a single logical paragraph.</p></li>
-</ul>
-<p>Typical use cases include:</p>
-<ul class="simple">
-<li><p>Splitting long Bible verses for overlay display.</p></li>
-<li><p>Breaking lyrics or responsive readings into readable slide units.</p></li>
-</ul>
+<dt class="sig sig-object py" id="core.generator.utils.hwpx_worship_order_parser.extract_first_service_order_entries_from_hwpx">
+<span class="sig-prename descclassname"><span class="pre">core.generator.utils.hwpx_worship_order_parser.</span></span><span class="sig-name descname"><span class="pre">extract_first_service_order_entries_from_hwpx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hwpx_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/utils/hwpx_worship_order_parser.html#extract_first_service_order_entries_from_hwpx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.utils.hwpx_worship_order_parser.extract_first_service_order_entries_from_hwpx" title="Link to this definition"></a></dt>
+<dd><p>Extract recognized first-service worship-order entries from a HWPX bulletin.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>text</strong> (<em>str</em>) – Input text to be split.</p></li>
-<li><p><strong>max_chars</strong> (<em>int</em>) – Maximum number of characters allowed per chunk.
-Defaults to 60.</p></li>
-</ul>
+<dd class="field-odd"><p><strong>hwpx_path</strong> (<em>str</em>) – Filesystem path to the source HWPX bulletin file.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A list of text chunks, each suitable for individual slide display.</p>
+<dd class="field-even"><p>Ordered list of normalized worship-order entry dictionaries suitable
+for generator-side update logic.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>list[str]</p>
+<dd class="field-odd"><p>list[dict]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – Raised when no supported first-service worship-order items can be
+    extracted from the file.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -164,8 +160,8 @@ Defaults to 60.</p></li>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="core.generator.utils.slide_input_submitter.html" class="btn btn-neutral float-left" title="core.generator.utils.slide_input_submitter" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="core.generator.utils.hwpx_announcement_parser.html" class="btn btn-neutral float-right" title="core.generator.utils.hwpx_announcement_parser" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="core.generator.utils.hwpx_announcement_parser.html" class="btn btn-neutral float-left" title="core.generator.utils.hwpx_announcement_parser" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="core.generator.settings_generator.html" class="btn btn-neutral float-right" title="core.generator.settings_generator" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

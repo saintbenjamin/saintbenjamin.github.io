@@ -1,0 +1,651 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>core.generator.utils.hwpx_announcement_parser &mdash; EuljiroWorship 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=2709fde1"></script>
+      <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            EuljiroWorship
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../modules.html">Modules</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">EuljiroWorship</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">core.generator.utils.hwpx_announcement_parser</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for core.generator.utils.hwpx_announcement_parser</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-ㅋㅁ</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">:File: EuljiroWorship/core/generator/utils/hwpx_announcement_parser.py</span>
+<span class="sd">:Author: Benjamin Jaedon Choi - https://github.com/saintbenjamin</span>
+<span class="sd">:Affiliated Church: The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</span>
+<span class="sd">:Address: The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</span>
+<span class="sd">:Telephone: +82-2-2266-3070</span>
+<span class="sd">:E-mail: euljirochurch [at] G.M.A.I.L. (replace [at] with @ and G.M.A.I.L as you understood.)</span>
+<span class="sd">:License: MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</span>
+
+<span class="sd">HWPX announcement parser for the Slide Generator&#39;s Euljiro-specific bulletin workflow.</span>
+
+<span class="sd">This module contains church-specific parsing helpers used to extract</span>
+<span class="sd">announcement slides from HWPX weekly bulletin files that follow the</span>
+<span class="sd">Eulji-ro Presbyterian Church&#39;s layout and worship-publication conventions.</span>
+<span class="sd">Unlike the generic slide generator utilities, the rules in this module</span>
+<span class="sd">intentionally assume Euljiro bulletin structure such as:</span>
+
+<span class="sd">- Announcement-heavy tables embedded in the first page layout</span>
+<span class="sd">- Section markers like ``환영``, ``예배``, ``모임``, and ``소식``</span>
+<span class="sd">- Bracketed announcement titles and optional nested-table announcement blocks</span>
+
+<span class="sd">The output is a normalized list of announcement slide dictionaries that can be</span>
+<span class="sd">inserted into the generator session through the church-specific import tools.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">zipfile</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">xml.etree.ElementTree</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ET</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">core.generator.utils.text_splitter</span><span class="w"> </span><span class="kn">import</span> <span class="n">split_by_length</span>
+
+<span class="n">SECTION_NAMES</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;환영&quot;</span><span class="p">,</span> <span class="s2">&quot;예배&quot;</span><span class="p">,</span> <span class="s2">&quot;모임&quot;</span><span class="p">,</span> <span class="s2">&quot;소식&quot;</span><span class="p">)</span>
+<span class="n">SECTION_FALLBACK_CAPTIONS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;환영&quot;</span><span class="p">:</span> <span class="s2">&quot;성도의 교제&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">BRACKET_TITLE_RE</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^[\[【]\s*(.+?)\s*[\]】]\s*(.*)$&quot;</span><span class="p">)</span>
+<span class="n">BULLET_RE</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^[\-•·ㆍ∙]\s*(.+)$&quot;</span><span class="p">)</span>
+<span class="n">WHITESPACE_RE</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;[ \t\u00A0\u3000]+&quot;</span><span class="p">)</span>
+<span class="n">INLINE_BULLET_SPLIT_RE</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\s+(?=[\-•·ㆍ∙]\s*)&quot;</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_local_name</span><span class="p">(</span><span class="n">tag</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return the local XML element name without namespace or prefix markers.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        tag (str):</span>
+<span class="sd">            Raw XML tag string, possibly including a namespace URI or prefix.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        str:</span>
+<span class="sd">            Normalized local tag name.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="s2">&quot;}&quot;</span> <span class="ow">in</span> <span class="n">tag</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">tag</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="s2">&quot;}&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">if</span> <span class="s2">&quot;:&quot;</span> <span class="ow">in</span> <span class="n">tag</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">tag</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">tag</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_compact</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Remove all whitespace from a text string.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        text (str):</span>
+<span class="sd">            Input text to compact.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        str:</span>
+<span class="sd">            Text with all whitespace removed.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\s+&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">text</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_normalize_line</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Normalize a single extracted text line for downstream parsing.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        text (str):</span>
+<span class="sd">            Raw text extracted from the HWPX XML.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        str:</span>
+<span class="sd">            Cleaned line text.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="p">(</span><span class="n">text</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\r</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\u200b</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">WHITESPACE_RE</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_normalize_for_compare</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Normalize text for loose equality checks between similar entries.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        text (str):</span>
+<span class="sd">            Source text to normalize.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        str:</span>
+<span class="sd">            Compacted text with comparison-noise characters removed.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">_compact</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">ch</span> <span class="ow">in</span> <span class="s2">&quot;-•·ㆍ∙:()[]</span><span class="si">{}</span><span class="s2">【】&quot;</span><span class="p">:</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">ch</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">text</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_is_fixed_welcome_line</span><span class="p">(</span><span class="n">line</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Check whether a line matches the fixed welcome sentence.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        line (str):</span>
+<span class="sd">            Candidate announcement line.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        bool:</span>
+<span class="sd">            True if the line is the fixed welcome text, otherwise False.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">compact</span> <span class="o">=</span> <span class="n">_normalize_for_compare</span><span class="p">(</span><span class="n">line</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;.!&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">compact</span> <span class="o">==</span> <span class="n">_normalize_for_compare</span><span class="p">(</span><span class="s2">&quot;오늘 처음 오신 분들을 환영하고 축복합니다.&quot;</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_xml_sort_key</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Build a stable sort key for XML entries inside a HWPX archive.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        name (str):</span>
+<span class="sd">            Archive entry name.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tuple:</span>
+<span class="sd">            Sort key suitable for ordering section XML files before other XML files.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">lower</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    <span class="n">match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;section(\d+)\.xml$&quot;</span><span class="p">,</span> <span class="n">lower</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">match</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)),</span> <span class="n">lower</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">lower</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_iter_table_paragraph_groups</span><span class="p">(</span><span class="n">hwpx_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Yield paragraph lists extracted from each table found in a HWPX file.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        hwpx_path (str):</span>
+<span class="sd">            Path to the source ``.hwpx`` file.</span>
+
+<span class="sd">    Yields:</span>
+<span class="sd">        list[str]:</span>
+<span class="sd">            Paragraph texts collected from a single table element.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="n">hwpx_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">zf</span><span class="p">:</span>
+        <span class="n">xml_names</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">name</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">zf</span><span class="o">.</span><span class="n">namelist</span><span class="p">()</span> <span class="k">if</span> <span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.xml&quot;</span><span class="p">)],</span>
+            <span class="n">key</span><span class="o">=</span><span class="n">_xml_sort_key</span>
+        <span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">xml_names</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">root</span> <span class="o">=</span> <span class="n">ET</span><span class="o">.</span><span class="n">fromstring</span><span class="p">(</span><span class="n">zf</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+            <span class="k">except</span> <span class="n">ET</span><span class="o">.</span><span class="n">ParseError</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+            <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">iter</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">_local_name</span><span class="p">(</span><span class="n">elem</span><span class="o">.</span><span class="n">tag</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;tbl&quot;</span><span class="p">,</span> <span class="s2">&quot;table&quot;</span><span class="p">}:</span>
+                    <span class="k">continue</span>
+
+                <span class="n">paragraphs</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="n">last_text</span> <span class="o">=</span> <span class="kc">None</span>
+
+                <span class="k">for</span> <span class="n">para</span> <span class="ow">in</span> <span class="n">elem</span><span class="o">.</span><span class="n">iter</span><span class="p">():</span>
+                    <span class="k">if</span> <span class="n">_local_name</span><span class="p">(</span><span class="n">para</span><span class="o">.</span><span class="n">tag</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;p&quot;</span><span class="p">,</span> <span class="s2">&quot;paragraph&quot;</span><span class="p">}:</span>
+                        <span class="k">continue</span>
+
+                    <span class="n">text</span> <span class="o">=</span> <span class="n">_normalize_line</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">para</span><span class="o">.</span><span class="n">itertext</span><span class="p">()))</span>
+                    <span class="k">if</span> <span class="n">text</span> <span class="ow">and</span> <span class="n">text</span> <span class="o">!=</span> <span class="n">last_text</span><span class="p">:</span>
+                        <span class="n">paragraphs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+                        <span class="n">last_text</span> <span class="o">=</span> <span class="n">text</span>
+
+                <span class="k">if</span> <span class="n">paragraphs</span><span class="p">:</span>
+                    <span class="k">yield</span> <span class="n">paragraphs</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_score_table</span><span class="p">(</span><span class="n">paragraphs</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Score a table candidate based on how closely it resembles an announcement block.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        paragraphs (list[str]):</span>
+<span class="sd">            Paragraph texts extracted from a single table.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        int:</span>
+<span class="sd">            Heuristic score where higher values indicate a more likely</span>
+<span class="sd">            announcement table.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">compact_lines</span> <span class="o">=</span> <span class="p">[</span><span class="n">_compact</span><span class="p">(</span><span class="n">line</span><span class="p">)</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s2">&quot;∙•·ㆍ-&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">paragraphs</span><span class="p">]</span>
+    <span class="n">section_hits</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span>
+        <span class="mi">1</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">SECTION_NAMES</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">line</span> <span class="o">==</span> <span class="n">name</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">compact_lines</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">bracket_hits</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">paragraphs</span> <span class="k">if</span> <span class="n">BRACKET_TITLE_RE</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">line</span><span class="p">))</span>
+
+    <span class="n">score</span> <span class="o">=</span> <span class="p">(</span><span class="n">section_hits</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">bracket_hits</span> <span class="o">*</span> <span class="mi">5</span><span class="p">)</span> <span class="o">+</span> <span class="nb">min</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">paragraphs</span><span class="p">),</span> <span class="mi">40</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">_is_fixed_welcome_line</span><span class="p">(</span><span class="n">line</span><span class="p">)</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">paragraphs</span><span class="p">):</span>
+        <span class="n">score</span> <span class="o">+=</span> <span class="mi">40</span>
+
+    <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="s2">&quot;창립70주년기념사업&quot;</span> <span class="ow">in</span> <span class="n">_compact</span><span class="p">(</span><span class="n">line</span><span class="p">)</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">paragraphs</span><span class="p">):</span>
+        <span class="n">score</span> <span class="o">+=</span> <span class="mi">10</span>
+
+    <span class="k">return</span> <span class="n">score</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_select_announcement_paragraphs</span><span class="p">(</span><span class="n">hwpx_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Select the most likely announcement table from a HWPX bulletin.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        hwpx_path (str):</span>
+<span class="sd">            Path to the source `.hwpx` file.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list[str]:</span>
+<span class="sd">            Paragraph texts from the best matching announcement table.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError:</span>
+<span class="sd">            Raised when no sufficiently strong announcement-table candidate is found.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">best_paragraphs</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">best_score</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+
+    <span class="k">for</span> <span class="n">paragraphs</span> <span class="ow">in</span> <span class="n">_iter_table_paragraph_groups</span><span class="p">(</span><span class="n">hwpx_path</span><span class="p">):</span>
+        <span class="n">score</span> <span class="o">=</span> <span class="n">_score_table</span><span class="p">(</span><span class="n">paragraphs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">score</span> <span class="o">&gt;</span> <span class="n">best_score</span><span class="p">:</span>
+            <span class="n">best_score</span> <span class="o">=</span> <span class="n">score</span>
+            <span class="n">best_paragraphs</span> <span class="o">=</span> <span class="n">paragraphs</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">best_paragraphs</span> <span class="ow">or</span> <span class="n">best_score</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;광고 표를 찾지 못했습니다. 실제 HWPX 구조에 맞춰 파서를 조금 조정해야 합니다.&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">best_paragraphs</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_detect_section</span><span class="p">(</span><span class="n">line</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Detect whether a line is one of the known announcement section headers.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        line (str):</span>
+<span class="sd">            Normalized line text.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        str | None:</span>
+<span class="sd">            Matching section name, or `None` if the line is not a section header.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">compact</span> <span class="o">=</span> <span class="n">_compact</span><span class="p">(</span><span class="n">line</span><span class="p">)</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s2">&quot;∙•·ㆍ-&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">section</span> <span class="ow">in</span> <span class="n">SECTION_NAMES</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">compact</span> <span class="o">==</span> <span class="n">section</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">section</span>
+    <span class="k">return</span> <span class="kc">None</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_split_inline_bullets</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Split a paragraph that contains multiple inline bullet items.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        text (str):</span>
+<span class="sd">            Input paragraph text that may contain inline bullet separators.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list[str]:</span>
+<span class="sd">            Individual bullet-like text segments. If no split is possible,</span>
+<span class="sd">            the original text is returned as a single-element list.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">_normalize_line</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">text</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[]</span>
+
+    <span class="n">parts</span> <span class="o">=</span> <span class="n">INLINE_BULLET_SPLIT_RE</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="n">cleaned</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">parts</span><span class="p">:</span>
+        <span class="n">part</span> <span class="o">=</span> <span class="n">_normalize_line</span><span class="p">(</span><span class="n">part</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">part</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">part</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^[\-•·ㆍ∙]\s*&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">part</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">part</span><span class="p">:</span>
+            <span class="n">cleaned</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">part</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">cleaned</span> <span class="ow">or</span> <span class="p">[</span><span class="n">text</span><span class="p">]</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_format_headline</span><span class="p">(</span><span class="n">paragraphs</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">wrap_width</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Format entry paragraphs into a slide-ready multiline headline string.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        paragraphs (list[str]):</span>
+<span class="sd">            Entry body paragraphs to format.</span>
+<span class="sd">        wrap_width (int):</span>
+<span class="sd">            Maximum line width used for wrapping.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        str:</span>
+<span class="sd">            Paragraphs joined into a slide headline with blank lines preserved</span>
+<span class="sd">            between logical blocks.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">formatted</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">para</span> <span class="ow">in</span> <span class="n">paragraphs</span><span class="p">:</span>
+        <span class="n">para</span> <span class="o">=</span> <span class="n">_normalize_line</span><span class="p">(</span><span class="n">para</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">para</span><span class="p">:</span>
+            <span class="k">continue</span>
+
+        <span class="n">wrapped</span> <span class="o">=</span> <span class="n">split_by_length</span><span class="p">(</span><span class="n">para</span><span class="p">,</span> <span class="n">max_chars</span><span class="o">=</span><span class="n">wrap_width</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">wrapped</span><span class="p">:</span>
+            <span class="n">wrapped</span> <span class="o">=</span> <span class="p">[</span><span class="n">para</span><span class="p">]</span>
+
+        <span class="n">formatted</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">wrapped</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">formatted</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_flush_entry</span><span class="p">(</span><span class="n">entry</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="n">entries</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Validate the current entry and append it to the parsed entry list.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        entry (dict | None):</span>
+<span class="sd">            Entry currently being accumulated.</span>
+<span class="sd">        entries (list[dict]):</span>
+<span class="sd">            Output list that stores parsed entries.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">entry</span><span class="p">:</span>
+        <span class="k">return</span>
+
+    <span class="n">caption</span> <span class="o">=</span> <span class="n">_normalize_line</span><span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;caption&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span>
+    <span class="n">paragraphs</span> <span class="o">=</span> <span class="p">[</span><span class="n">_normalize_line</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">entry</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;paragraphs&quot;</span><span class="p">,</span> <span class="p">[])</span> <span class="k">if</span> <span class="n">_normalize_line</span><span class="p">(</span><span class="n">p</span><span class="p">)]</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">caption</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">paragraphs</span><span class="p">:</span>
+        <span class="k">return</span>
+
+    <span class="n">entries</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+        <span class="s2">&quot;caption&quot;</span><span class="p">:</span> <span class="n">caption</span><span class="p">,</span>
+        <span class="s2">&quot;paragraphs&quot;</span><span class="p">:</span> <span class="n">paragraphs</span><span class="p">,</span>
+    <span class="p">})</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_entry_score</span><span class="p">(</span><span class="n">entry</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute a richness score used to choose between duplicate caption entries.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        entry (dict):</span>
+<span class="sd">            Parsed announcement entry containing `caption` and `paragraphs`.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tuple[int, int, int]:</span>
+<span class="sd">            Comparison tuple where larger values indicate a more informative entry.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">paragraphs</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;paragraphs&quot;</span><span class="p">,</span> <span class="p">[])</span>
+    <span class="n">joined</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">paragraphs</span><span class="p">)</span>
+    <span class="n">bullet_like_count</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span>
+        <span class="mi">1</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">paragraphs</span>
+        <span class="k">if</span> <span class="s2">&quot;:&quot;</span> <span class="ow">in</span> <span class="n">p</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">_split_inline_bullets</span><span class="p">(</span><span class="n">p</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">1</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="nb">len</span><span class="p">(</span><span class="n">paragraphs</span><span class="p">),</span>
+        <span class="n">bullet_like_count</span><span class="p">,</span>
+        <span class="nb">len</span><span class="p">(</span><span class="n">joined</span><span class="p">),</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_dedupe_entries</span><span class="p">(</span><span class="n">entries</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Remove duplicate parsed entries while preserving the stronger candidate.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        entries (list[dict]):</span>
+<span class="sd">            Parsed announcement entries before deduplication.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list[dict]:</span>
+<span class="sd">            Deduplicated entry list.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">deduped</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">caption_index</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">entries</span><span class="p">:</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="n">_normalize_for_compare</span><span class="p">(</span><span class="n">entry</span><span class="p">[</span><span class="s2">&quot;caption&quot;</span><span class="p">])</span>
+        <span class="n">existing_idx</span> <span class="o">=</span> <span class="n">caption_index</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">existing_idx</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">caption_index</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">deduped</span><span class="p">)</span>
+            <span class="n">deduped</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span>
+            <span class="k">continue</span>
+
+        <span class="n">existing</span> <span class="o">=</span> <span class="n">deduped</span><span class="p">[</span><span class="n">existing_idx</span><span class="p">]</span>
+
+        <span class="n">existing_text</span> <span class="o">=</span> <span class="n">_normalize_for_compare</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">existing</span><span class="p">[</span><span class="s2">&quot;paragraphs&quot;</span><span class="p">]))</span>
+        <span class="n">incoming_text</span> <span class="o">=</span> <span class="n">_normalize_for_compare</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">entry</span><span class="p">[</span><span class="s2">&quot;paragraphs&quot;</span><span class="p">]))</span>
+
+        <span class="k">if</span> <span class="n">existing_text</span> <span class="o">==</span> <span class="n">incoming_text</span><span class="p">:</span>
+            <span class="k">continue</span>
+
+        <span class="k">if</span> <span class="n">_entry_score</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">_entry_score</span><span class="p">(</span><span class="n">existing</span><span class="p">):</span>
+            <span class="n">deduped</span><span class="p">[</span><span class="n">existing_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">entry</span>
+
+    <span class="k">return</span> <span class="n">deduped</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_parse_announcement_paragraphs</span><span class="p">(</span><span class="n">paragraphs</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">wrap_width</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Parse announcement table paragraphs into generator slide dictionaries.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        paragraphs (list[str]):</span>
+<span class="sd">            Paragraphs extracted from the selected announcement table.</span>
+<span class="sd">        wrap_width (int):</span>
+<span class="sd">            Maximum line width used when formatting slide headlines.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list[dict]:</span>
+<span class="sd">            Slide dictionaries in generator format. All returned slides use the</span>
+<span class="sd">            `lyrics` style.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">entries</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">current_section</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">current_entry</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">for</span> <span class="n">raw_line</span> <span class="ow">in</span> <span class="n">paragraphs</span><span class="p">:</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="n">_normalize_line</span><span class="p">(</span><span class="n">raw_line</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">line</span><span class="p">:</span>
+            <span class="k">continue</span>
+
+        <span class="n">section</span> <span class="o">=</span> <span class="n">_detect_section</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">section</span><span class="p">:</span>
+            <span class="n">_flush_entry</span><span class="p">(</span><span class="n">current_entry</span><span class="p">,</span> <span class="n">entries</span><span class="p">)</span>
+            <span class="n">current_entry</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">current_section</span> <span class="o">=</span> <span class="n">section</span>
+            <span class="k">continue</span>
+
+        <span class="k">if</span> <span class="n">current_section</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">continue</span>
+
+        <span class="k">if</span> <span class="n">_is_fixed_welcome_line</span><span class="p">(</span><span class="n">line</span><span class="p">):</span>
+            <span class="k">continue</span>
+
+        <span class="n">bracket_match</span> <span class="o">=</span> <span class="n">BRACKET_TITLE_RE</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">bracket_match</span><span class="p">:</span>
+            <span class="n">_flush_entry</span><span class="p">(</span><span class="n">current_entry</span><span class="p">,</span> <span class="n">entries</span><span class="p">)</span>
+
+            <span class="n">caption</span> <span class="o">=</span> <span class="n">_normalize_line</span><span class="p">(</span><span class="n">bracket_match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+            <span class="n">rest</span> <span class="o">=</span> <span class="n">_normalize_line</span><span class="p">(</span><span class="n">bracket_match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+
+            <span class="n">current_entry</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;caption&quot;</span><span class="p">:</span> <span class="n">caption</span><span class="p">,</span>
+                <span class="s2">&quot;paragraphs&quot;</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="p">}</span>
+
+            <span class="k">if</span> <span class="n">rest</span><span class="p">:</span>
+                <span class="n">current_entry</span><span class="p">[</span><span class="s2">&quot;paragraphs&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">_split_inline_bullets</span><span class="p">(</span><span class="n">rest</span><span class="p">))</span>
+
+            <span class="k">continue</span>
+
+        <span class="n">bullet_match</span> <span class="o">=</span> <span class="n">BULLET_RE</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">bullet_match</span><span class="p">:</span>
+            <span class="n">bullet_text</span> <span class="o">=</span> <span class="n">_normalize_line</span><span class="p">(</span><span class="n">bullet_match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+
+            <span class="k">if</span> <span class="n">current_entry</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">current_entry</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s2">&quot;caption&quot;</span><span class="p">:</span> <span class="n">SECTION_FALLBACK_CAPTIONS</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">current_section</span><span class="p">,</span> <span class="n">current_section</span><span class="p">),</span>
+                    <span class="s2">&quot;paragraphs&quot;</span><span class="p">:</span> <span class="p">[],</span>
+                <span class="p">}</span>
+
+            <span class="n">current_entry</span><span class="p">[</span><span class="s2">&quot;paragraphs&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bullet_text</span><span class="p">)</span>
+            <span class="k">continue</span>
+
+        <span class="k">if</span> <span class="n">current_entry</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">current_entry</span><span class="p">[</span><span class="s2">&quot;paragraphs&quot;</span><span class="p">]:</span>
+                <span class="n">current_entry</span><span class="p">[</span><span class="s2">&quot;paragraphs&quot;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">current_entry</span><span class="p">[</span><span class="s1">&#39;paragraphs&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">line</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">current_entry</span><span class="p">[</span><span class="s2">&quot;paragraphs&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+            <span class="k">continue</span>
+
+        <span class="n">current_entry</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;caption&quot;</span><span class="p">:</span> <span class="n">SECTION_FALLBACK_CAPTIONS</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">current_section</span><span class="p">,</span> <span class="n">current_section</span><span class="p">),</span>
+            <span class="s2">&quot;paragraphs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">line</span><span class="p">],</span>
+        <span class="p">}</span>
+
+    <span class="n">_flush_entry</span><span class="p">(</span><span class="n">current_entry</span><span class="p">,</span> <span class="n">entries</span><span class="p">)</span>
+
+    <span class="n">entries</span> <span class="o">=</span> <span class="n">_dedupe_entries</span><span class="p">(</span><span class="n">entries</span><span class="p">)</span>
+
+    <span class="n">slides</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">entries</span><span class="p">:</span>
+        <span class="n">slides</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+            <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;lyrics&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;caption&quot;</span><span class="p">:</span> <span class="n">entry</span><span class="p">[</span><span class="s2">&quot;caption&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;headline&quot;</span><span class="p">:</span> <span class="n">_format_headline</span><span class="p">(</span><span class="n">entry</span><span class="p">[</span><span class="s2">&quot;paragraphs&quot;</span><span class="p">],</span> <span class="n">wrap_width</span><span class="p">),</span>
+        <span class="p">})</span>
+
+    <span class="k">return</span> <span class="n">slides</span>
+
+
+<div class="viewcode-block" id="extract_announcement_slides_from_hwpx">
+<a class="viewcode-back" href="../../../../core.generator.utils.hwpx_announcement_parser.html#core.generator.utils.hwpx_announcement_parser.extract_announcement_slides_from_hwpx">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">extract_announcement_slides_from_hwpx</span><span class="p">(</span><span class="n">hwpx_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">wrap_width</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">28</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extract announcement slides from a HWPX bulletin file.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        hwpx_path (str):</span>
+<span class="sd">            Path to the source `.hwpx` file.</span>
+<span class="sd">        wrap_width (int, optional):</span>
+<span class="sd">            Maximum line width used when wrapping announcement text. Defaults to 28.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list[dict]:</span>
+<span class="sd">            Parsed announcement slides in generator format.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError:</span>
+<span class="sd">            Raised when no announcement table or announcement entries can be extracted.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">paragraphs</span> <span class="o">=</span> <span class="n">_select_announcement_paragraphs</span><span class="p">(</span><span class="n">hwpx_path</span><span class="p">)</span>
+    <span class="n">slides</span> <span class="o">=</span> <span class="n">_parse_announcement_paragraphs</span><span class="p">(</span><span class="n">paragraphs</span><span class="p">,</span> <span class="n">wrap_width</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">slides</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;광고 항목을 추출하지 못했습니다.&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">slides</span></div>
+
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Benjamin J. Choi.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
