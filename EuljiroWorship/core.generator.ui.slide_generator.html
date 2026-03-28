@@ -834,34 +834,55 @@ its following lyrics slide. Other kinds are removed as a single slide.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator._find_communion_insert_index">
-<span class="sig-name descname"><span class="pre">_find_communion_insert_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slides</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator._find_communion_insert_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator._find_communion_insert_index" title="Link to this definition"></a></dt>
-<dd><p>Determine where a communion block should be inserted in the slide list.</p>
+<dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator._build_worship_order_blocks">
+<span class="sig-name descname"><span class="pre">_build_worship_order_blocks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slides</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator._build_worship_order_blocks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator._build_worship_order_blocks" title="Link to this definition"></a></dt>
+<dd><p>Group the current slide list into first-service worship-order blocks.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>slides</strong> (<em>list</em><em>[</em><em>dict</em><em>]</em>) – Working slide list after other worship-order updates.</p>
+<dd class="field-odd"><p><strong>slides</strong> (<em>list</em><em>[</em><em>dict</em><em>]</em>) – Existing slide dictionaries collected from the generator table.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Insertion index for the communion block, typically after the
-last hymn if one exists.</p>
+<dd class="field-even"><p>Ordered block dictionaries. Each block stores its classified
+kind and the slides that should move together during updates.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>int</p>
+<dd class="field-odd"><p>list[dict]</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator._build_special_worship_order_block">
-<span class="sig-name descname"><span class="pre">_build_special_worship_order_block</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kind</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator._build_special_worship_order_block"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator._build_special_worship_order_block" title="Link to this definition"></a></dt>
-<dd><p>Build predefined slide blocks for special worship-order items.</p>
+<dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator._build_new_worship_order_block">
+<span class="sig-name descname"><span class="pre">_build_new_worship_order_block</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">entry</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator._build_new_worship_order_block"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator._build_new_worship_order_block" title="Link to this definition"></a></dt>
+<dd><p>Build a new generic first-service slide block for a parsed entry.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>kind</strong> (<em>str</em>) – Special worship-order kind to generate, such as <code class="docutils literal notranslate"><span class="pre">communion</span></code>.</p>
+<dd class="field-odd"><p><strong>entry</strong> (<em>dict</em>) – Parsed first-service worship-order entry dictionary.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>New slide dictionaries representing the requested special block.
-Returns an empty list when no template is defined.</p>
+<dd class="field-even"><p>New slide dictionaries that represent the requested entry.
+The block may contain one or more slides depending on the kind.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[dict]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator._update_worship_order_block">
+<span class="sig-name descname"><span class="pre">_update_worship_order_block</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">existing_slides</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entry</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator._update_worship_order_block"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator._update_worship_order_block" title="Link to this definition"></a></dt>
+<dd><p>Update an existing first-service block using a parsed entry.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>existing_slides</strong> (<em>list</em><em>[</em><em>dict</em><em>]</em>) – Existing slide dictionaries that make up the matched block.</p></li>
+<li><p><strong>entry</strong> (<em>dict</em>) – Parsed first-service worship-order entry dictionary.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Updated slide dictionaries for the block. When the existing
+block cannot be updated safely, a new generic block is returned.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>list[dict]</p>

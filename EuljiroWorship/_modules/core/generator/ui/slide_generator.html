@@ -1209,55 +1209,293 @@
         <span class="k">del</span> <span class="n">slides</span><span class="p">[</span><span class="n">index</span><span class="p">]</span></div>
 
 
-<div class="viewcode-block" id="SlideGenerator._find_communion_insert_index">
-<a class="viewcode-back" href="../../../../core.generator.ui.slide_generator.html#core.generator.ui.slide_generator.SlideGenerator._find_communion_insert_index">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">_find_communion_insert_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">slides</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<div class="viewcode-block" id="SlideGenerator._build_worship_order_blocks">
+<a class="viewcode-back" href="../../../../core.generator.ui.slide_generator.html#core.generator.ui.slide_generator.SlideGenerator._build_worship_order_blocks">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_build_worship_order_blocks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">slides</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Determine where a communion block should be inserted in the slide list.</span>
+<span class="sd">        Group the current slide list into first-service worship-order blocks.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            slides (list[dict]):</span>
-<span class="sd">                Working slide list after other worship-order updates.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            int:</span>
-<span class="sd">                Insertion index for the communion block, typically after the</span>
-<span class="sd">                last hymn if one exists.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">hymn_indices</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="n">idx</span> <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">slides</span><span class="p">))</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_classify_worship_order_slide</span><span class="p">(</span><span class="n">slides</span><span class="p">,</span> <span class="n">idx</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;hymn&quot;</span>
-        <span class="p">]</span>
-        <span class="k">if</span> <span class="n">hymn_indices</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">hymn_indices</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">slides</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="SlideGenerator._build_special_worship_order_block">
-<a class="viewcode-back" href="../../../../core.generator.ui.slide_generator.html#core.generator.ui.slide_generator.SlideGenerator._build_special_worship_order_block">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">_build_special_worship_order_block</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kind</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Build predefined slide blocks for special worship-order items.</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            kind (str):</span>
-<span class="sd">                Special worship-order kind to generate, such as ``communion``.</span>
+<span class="sd">                Existing slide dictionaries collected from the generator table.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            list[dict]:</span>
-<span class="sd">                New slide dictionaries representing the requested special block.</span>
-<span class="sd">                Returns an empty list when no template is defined.</span>
+<span class="sd">                Ordered block dictionaries. Each block stores its classified</span>
+<span class="sd">                kind and the slides that should move together during updates.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">templates</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;communion&quot;</span><span class="p">:</span> <span class="p">[</span>
-                <span class="p">{</span>
-                    <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;corner&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;caption&quot;</span><span class="p">:</span> <span class="s2">&quot;성찬식&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;headline&quot;</span><span class="p">:</span> <span class="s2">&quot;성찬&quot;</span><span class="p">,</span>
-                <span class="p">}</span>
-            <span class="p">]</span>
-        <span class="p">}</span>
-        <span class="k">return</span> <span class="p">[</span><span class="nb">dict</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">templates</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">kind</span><span class="p">,</span> <span class="p">[])]</span></div>
+        <span class="n">blocks</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">while</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">slides</span><span class="p">):</span>
+            <span class="n">kind</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_classify_worship_order_slide</span><span class="p">(</span><span class="n">slides</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span>
+            <span class="n">end_index</span> <span class="o">=</span> <span class="n">index</span> <span class="o">+</span> <span class="mi">1</span>
+
+            <span class="k">if</span> <span class="n">slides</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;style&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;anthem&quot;</span><span class="p">:</span>
+                <span class="k">while</span> <span class="n">end_index</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">slides</span><span class="p">)</span> <span class="ow">and</span> <span class="n">slides</span><span class="p">[</span><span class="n">end_index</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;style&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;lyrics&quot;</span><span class="p">:</span>
+                    <span class="n">end_index</span> <span class="o">+=</span> <span class="mi">1</span>
+
+            <span class="n">blocks</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                <span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="n">kind</span><span class="p">,</span>
+                <span class="s2">&quot;slides&quot;</span><span class="p">:</span> <span class="p">[</span><span class="nb">dict</span><span class="p">(</span><span class="n">slide</span><span class="p">)</span> <span class="k">for</span> <span class="n">slide</span> <span class="ow">in</span> <span class="n">slides</span><span class="p">[</span><span class="n">index</span><span class="p">:</span><span class="n">end_index</span><span class="p">]],</span>
+            <span class="p">})</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="n">end_index</span>
+
+        <span class="k">return</span> <span class="n">blocks</span></div>
+
+
+<div class="viewcode-block" id="SlideGenerator._build_new_worship_order_block">
+<a class="viewcode-back" href="../../../../core.generator.ui.slide_generator.html#core.generator.ui.slide_generator.SlideGenerator._build_new_worship_order_block">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_build_new_worship_order_block</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entry</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Build a new generic first-service slide block for a parsed entry.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            entry (dict):</span>
+<span class="sd">                Parsed first-service worship-order entry dictionary.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list[dict]:</span>
+<span class="sd">                New slide dictionaries that represent the requested entry.</span>
+<span class="sd">            The block may contain one or more slides depending on the kind.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">kind</span> <span class="o">=</span> <span class="n">entry</span><span class="p">[</span><span class="s2">&quot;kind&quot;</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;hymn&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_build_hymn_slide_from_number</span><span class="p">(</span><span class="n">entry</span><span class="p">[</span><span class="s2">&quot;number&quot;</span><span class="p">])]</span>
+
+        <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;respo&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_build_respo_slide_from_number</span><span class="p">(</span><span class="n">entry</span><span class="p">[</span><span class="s2">&quot;number&quot;</span><span class="p">])]</span>
+
+        <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;verse&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_build_verse_slide_from_reference</span><span class="p">(</span><span class="n">entry</span><span class="p">[</span><span class="s2">&quot;reference&quot;</span><span class="p">])]</span>
+
+        <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;prayer&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[{</span>
+                <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;prayer&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;caption&quot;</span><span class="p">:</span> <span class="s2">&quot;기도&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;headline&quot;</span><span class="p">:</span> <span class="n">entry</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;leader&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+            <span class="p">}]</span>
+
+        <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;anthem&quot;</span><span class="p">:</span>
+            <span class="n">choir_caption</span><span class="p">,</span> <span class="n">choir_suffix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split_choir_caption_parts</span><span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;choir&quot;</span><span class="p">,</span> <span class="s2">&quot;찬양대&quot;</span><span class="p">))</span>
+            <span class="k">return</span> <span class="p">[{</span>
+                <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;anthem&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;caption&quot;</span><span class="p">:</span> <span class="n">choir_caption</span><span class="p">,</span>
+                <span class="s2">&quot;headline&quot;</span><span class="p">:</span> <span class="n">entry</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+                <span class="s2">&quot;caption_choir&quot;</span><span class="p">:</span> <span class="n">choir_suffix</span><span class="p">,</span>
+            <span class="p">}]</span>
+
+        <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;sermon&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[{</span>
+                <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;corner&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;caption&quot;</span><span class="p">:</span> <span class="s2">&quot;설교자&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;headline&quot;</span><span class="p">:</span> <span class="n">entry</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+            <span class="p">}]</span>
+
+        <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;call_to_worship&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[{</span>
+                <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;corner&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;caption&quot;</span><span class="p">:</span> <span class="s2">&quot;인도자&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;headline&quot;</span><span class="p">:</span> <span class="s2">&quot;예배의 부름&quot;</span><span class="p">,</span>
+            <span class="p">}]</span>
+
+        <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;response_song&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[{</span>
+                <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;corner&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;caption&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;headline&quot;</span><span class="p">:</span> <span class="s2">&quot;화답송&quot;</span><span class="p">,</span>
+            <span class="p">}]</span>
+
+        <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;response_doxology&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[{</span>
+                <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;corner&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;caption&quot;</span><span class="p">:</span> <span class="s2">&quot;찬양대&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;headline&quot;</span><span class="p">:</span> <span class="s2">&quot;화답송영&quot;</span><span class="p">,</span>
+            <span class="p">}]</span>
+
+        <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;invocation&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[{</span>
+                <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;corner&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;caption&quot;</span><span class="p">:</span> <span class="s2">&quot;인도자&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;headline&quot;</span><span class="p">:</span> <span class="s2">&quot;기원&quot;</span><span class="p">,</span>
+            <span class="p">}]</span>
+
+        <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;creed&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[{</span>
+                <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;lyrics&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;caption&quot;</span><span class="p">:</span> <span class="s2">&quot;사도신경&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;headline&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="p">}]</span>
+
+        <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;confession_prayer&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[{</span>
+                <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;corner&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;caption&quot;</span><span class="p">:</span> <span class="s2">&quot;인도자&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;headline&quot;</span><span class="p">:</span> <span class="s2">&quot;고백의 기도&quot;</span><span class="p">,</span>
+            <span class="p">}]</span>
+
+        <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;post_sermon_prayer&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[{</span>
+                <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;corner&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;caption&quot;</span><span class="p">:</span> <span class="s2">&quot;설교자&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;headline&quot;</span><span class="p">:</span> <span class="s2">&quot;기도&quot;</span><span class="p">,</span>
+            <span class="p">}]</span>
+
+        <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;offering&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[{</span>
+                <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;corner&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;caption&quot;</span><span class="p">:</span> <span class="s2">&quot;다같이&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;headline&quot;</span><span class="p">:</span> <span class="s2">&quot;봉헌&quot;</span><span class="p">,</span>
+            <span class="p">}]</span>
+
+        <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;offering_prayer&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[{</span>
+                <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;corner&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;caption&quot;</span><span class="p">:</span> <span class="s2">&quot;당회장&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;headline&quot;</span><span class="p">:</span> <span class="s2">&quot;봉헌기도&quot;</span><span class="p">,</span>
+            <span class="p">}]</span>
+
+        <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;benediction&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[{</span>
+                <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;corner&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;caption&quot;</span><span class="p">:</span> <span class="s2">&quot;설교자&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;headline&quot;</span><span class="p">:</span> <span class="s2">&quot;축도&quot;</span><span class="p">,</span>
+            <span class="p">}]</span>
+
+        <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;communion&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[{</span>
+                <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;corner&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;caption&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;caption&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span>
+                <span class="s2">&quot;headline&quot;</span><span class="p">:</span> <span class="s2">&quot;성찬식&quot;</span><span class="p">,</span>
+            <span class="p">}]</span>
+
+        <span class="k">return</span> <span class="p">[]</span></div>
+
+
+<div class="viewcode-block" id="SlideGenerator._update_worship_order_block">
+<a class="viewcode-back" href="../../../../core.generator.ui.slide_generator.html#core.generator.ui.slide_generator.SlideGenerator._update_worship_order_block">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_update_worship_order_block</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">existing_slides</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">],</span>
+        <span class="n">entry</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Update an existing first-service block using a parsed entry.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            existing_slides (list[dict]):</span>
+<span class="sd">                Existing slide dictionaries that make up the matched block.</span>
+<span class="sd">            entry (dict):</span>
+<span class="sd">                Parsed first-service worship-order entry dictionary.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list[dict]:</span>
+<span class="sd">                Updated slide dictionaries for the block. When the existing</span>
+<span class="sd">                block cannot be updated safely, a new generic block is returned.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">slides</span> <span class="o">=</span> <span class="p">[</span><span class="nb">dict</span><span class="p">(</span><span class="n">slide</span><span class="p">)</span> <span class="k">for</span> <span class="n">slide</span> <span class="ow">in</span> <span class="n">existing_slides</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">slides</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_new_worship_order_block</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span>
+
+        <span class="n">kind</span> <span class="o">=</span> <span class="n">entry</span><span class="p">[</span><span class="s2">&quot;kind&quot;</span><span class="p">]</span>
+        <span class="n">first_slide</span> <span class="o">=</span> <span class="n">slides</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">style</span> <span class="o">=</span> <span class="n">first_slide</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;style&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;hymn&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_build_hymn_slide_from_number</span><span class="p">(</span><span class="n">entry</span><span class="p">[</span><span class="s2">&quot;number&quot;</span><span class="p">])]</span>
+
+        <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;respo&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_build_respo_slide_from_number</span><span class="p">(</span><span class="n">entry</span><span class="p">[</span><span class="s2">&quot;number&quot;</span><span class="p">])]</span>
+
+        <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;verse&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_build_verse_slide_from_reference</span><span class="p">(</span><span class="n">entry</span><span class="p">[</span><span class="s2">&quot;reference&quot;</span><span class="p">])]</span>
+
+        <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;prayer&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">style</span> <span class="o">==</span> <span class="s2">&quot;prayer&quot;</span><span class="p">:</span>
+                <span class="n">first_slide</span><span class="p">[</span><span class="s2">&quot;headline&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;leader&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">slides</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_new_worship_order_block</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;anthem&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">style</span> <span class="o">==</span> <span class="s2">&quot;anthem&quot;</span><span class="p">:</span>
+                <span class="n">parsed_choir_name</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;choir&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                <span class="n">choir_caption</span> <span class="o">=</span> <span class="n">first_slide</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;caption&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+                <span class="n">choir_suffix</span> <span class="o">=</span> <span class="n">first_slide</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;caption_choir&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">parsed_choir_name</span><span class="p">:</span>
+                    <span class="n">parsed_caption</span><span class="p">,</span> <span class="n">parsed_suffix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split_choir_caption_parts</span><span class="p">(</span><span class="n">parsed_choir_name</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">parsed_caption</span><span class="p">:</span>
+                        <span class="n">choir_caption</span> <span class="o">=</span> <span class="n">parsed_caption</span>
+                    <span class="k">if</span> <span class="n">parsed_suffix</span><span class="p">:</span>
+                        <span class="n">choir_suffix</span> <span class="o">=</span> <span class="n">parsed_suffix</span>
+
+                <span class="n">first_slide</span><span class="p">[</span><span class="s2">&quot;caption&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">choir_caption</span>
+                <span class="n">first_slide</span><span class="p">[</span><span class="s2">&quot;caption_choir&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">choir_suffix</span>
+                <span class="n">first_slide</span><span class="p">[</span><span class="s2">&quot;headline&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">slides</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">slides</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;style&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;lyrics&quot;</span><span class="p">:</span>
+                    <span class="n">slides</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;caption&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+                <span class="k">return</span> <span class="n">slides</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_new_worship_order_block</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;sermon&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">style</span> <span class="o">==</span> <span class="s2">&quot;corner&quot;</span><span class="p">:</span>
+                <span class="n">imported_title</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                <span class="n">current_caption</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">first_slide</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;caption&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+                <span class="n">preacher_suffix</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+                <span class="n">preacher_match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span>
+                    <span class="sa">r</span><span class="s2">&quot;([가-힣A-Za-z·]{2,4}\s*목사)\s*$&quot;</span><span class="p">,</span>
+                    <span class="n">current_caption</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="k">if</span> <span class="n">preacher_match</span><span class="p">:</span>
+                    <span class="n">preacher_suffix</span> <span class="o">=</span> <span class="n">preacher_match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+                <span class="k">if</span> <span class="n">preacher_suffix</span><span class="p">:</span>
+                    <span class="n">compact_suffix</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\s+&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">preacher_suffix</span><span class="p">)</span>
+                    <span class="n">suffix_pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;\s*&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">ch</span><span class="p">)</span> <span class="k">for</span> <span class="n">ch</span> <span class="ow">in</span> <span class="n">compact_suffix</span><span class="p">)</span>
+                    <span class="n">imported_title</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span>
+                        <span class="sa">rf</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">suffix_pattern</span><span class="si">}</span><span class="s2">\s*$&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                        <span class="n">imported_title</span><span class="p">,</span>
+                    <span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+                <span class="n">first_slide</span><span class="p">[</span><span class="s2">&quot;headline&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">imported_title</span>
+                <span class="k">return</span> <span class="n">slides</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_new_worship_order_block</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;post_sermon_prayer&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">style</span> <span class="o">==</span> <span class="s2">&quot;corner&quot;</span><span class="p">:</span>
+                <span class="n">first_slide</span><span class="p">[</span><span class="s2">&quot;caption&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;설교자&quot;</span>
+                <span class="n">first_slide</span><span class="p">[</span><span class="s2">&quot;headline&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;기도&quot;</span>
+                <span class="k">return</span> <span class="n">slides</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_new_worship_order_block</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">kind</span> <span class="ow">in</span> <span class="p">{</span>
+            <span class="s2">&quot;call_to_worship&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;response_song&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;response_doxology&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;invocation&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;creed&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;confession_prayer&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;offering&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;offering_prayer&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;benediction&quot;</span><span class="p">,</span>
+        <span class="p">}:</span>
+            <span class="k">return</span> <span class="n">slides</span>
+
+        <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;communion&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">style</span> <span class="o">==</span> <span class="s2">&quot;corner&quot;</span><span class="p">:</span>
+                <span class="n">imported_caption</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;caption&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">imported_caption</span><span class="p">:</span>
+                    <span class="n">first_slide</span><span class="p">[</span><span class="s2">&quot;caption&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">imported_caption</span>
+                <span class="n">first_slide</span><span class="p">[</span><span class="s2">&quot;headline&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;성찬식&quot;</span>
+                <span class="k">return</span> <span class="n">slides</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_new_worship_order_block</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">slides</span></div>
 
 
 <div class="viewcode-block" id="SlideGenerator._apply_worship_order_entries">
@@ -1287,102 +1525,10 @@
 <span class="sd">                Updated slide list ready to be reloaded into the generator</span>
 <span class="sd">                table.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">slides</span> <span class="o">=</span> <span class="p">[</span><span class="nb">dict</span><span class="p">(</span><span class="n">slide</span><span class="p">)</span> <span class="k">for</span> <span class="n">slide</span> <span class="ow">in</span> <span class="n">current_slides</span><span class="p">]</span>
-
-        <span class="n">kind_indices</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">slides</span><span class="p">)):</span>
-            <span class="n">kind</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_classify_worship_order_slide</span><span class="p">(</span><span class="n">slides</span><span class="p">,</span> <span class="n">idx</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">kind</span> <span class="ow">and</span> <span class="n">kind</span> <span class="o">!=</span> <span class="s2">&quot;anthem_lyrics&quot;</span><span class="p">:</span>
-                <span class="n">kind_indices</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">kind</span><span class="p">,</span> <span class="p">[])</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
-
-        <span class="n">consumed_counts</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="n">parsed_counts</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-
-        <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">order_entries</span><span class="p">:</span>
-            <span class="n">kind</span> <span class="o">=</span> <span class="n">entry</span><span class="p">[</span><span class="s2">&quot;kind&quot;</span><span class="p">]</span>
-            <span class="n">parsed_counts</span><span class="p">[</span><span class="n">kind</span><span class="p">]</span> <span class="o">=</span> <span class="n">parsed_counts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">kind</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
-
-            <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;communion&quot;</span><span class="p">:</span>
-                <span class="k">continue</span>
-
-            <span class="n">current_list</span> <span class="o">=</span> <span class="n">kind_indices</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">kind</span><span class="p">,</span> <span class="p">[])</span>
-            <span class="n">cursor</span> <span class="o">=</span> <span class="n">consumed_counts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">kind</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">cursor</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">current_list</span><span class="p">):</span>
-                <span class="k">continue</span>
-
-            <span class="n">idx</span> <span class="o">=</span> <span class="n">current_list</span><span class="p">[</span><span class="n">cursor</span><span class="p">]</span>
-            <span class="n">consumed_counts</span><span class="p">[</span><span class="n">kind</span><span class="p">]</span> <span class="o">=</span> <span class="n">cursor</span> <span class="o">+</span> <span class="mi">1</span>
-
-            <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;hymn&quot;</span><span class="p">:</span>
-                <span class="n">slides</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_hymn_slide_from_number</span><span class="p">(</span><span class="n">entry</span><span class="p">[</span><span class="s2">&quot;number&quot;</span><span class="p">])</span>
-
-            <span class="k">elif</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;respo&quot;</span><span class="p">:</span>
-                <span class="n">slides</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_respo_slide_from_number</span><span class="p">(</span><span class="n">entry</span><span class="p">[</span><span class="s2">&quot;number&quot;</span><span class="p">])</span>
-
-            <span class="k">elif</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;verse&quot;</span><span class="p">:</span>
-                <span class="n">slides</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_verse_slide_from_reference</span><span class="p">(</span><span class="n">entry</span><span class="p">[</span><span class="s2">&quot;reference&quot;</span><span class="p">])</span>
-
-            <span class="k">elif</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;anthem&quot;</span><span class="p">:</span>
-                <span class="n">parsed_choir_name</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;choir&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-
-                <span class="n">choir_caption</span> <span class="o">=</span> <span class="n">slides</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;caption&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
-                <span class="n">choir_suffix</span> <span class="o">=</span> <span class="n">slides</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;caption_choir&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
-
-                <span class="k">if</span> <span class="n">parsed_choir_name</span><span class="p">:</span>
-                    <span class="n">parsed_caption</span><span class="p">,</span> <span class="n">parsed_suffix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split_choir_caption_parts</span><span class="p">(</span><span class="n">parsed_choir_name</span><span class="p">)</span>
-                    <span class="k">if</span> <span class="n">parsed_caption</span><span class="p">:</span>
-                        <span class="n">choir_caption</span> <span class="o">=</span> <span class="n">parsed_caption</span>
-                    <span class="k">if</span> <span class="n">parsed_suffix</span><span class="p">:</span>
-                        <span class="n">choir_suffix</span> <span class="o">=</span> <span class="n">parsed_suffix</span>
-
-                <span class="n">slides</span><span class="p">[</span><span class="n">idx</span><span class="p">][</span><span class="s2">&quot;caption&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">choir_caption</span>
-                <span class="n">slides</span><span class="p">[</span><span class="n">idx</span><span class="p">][</span><span class="s2">&quot;caption_choir&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">choir_suffix</span>
-                <span class="n">slides</span><span class="p">[</span><span class="n">idx</span><span class="p">][</span><span class="s2">&quot;headline&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">entry</span><span class="p">[</span><span class="s2">&quot;title&quot;</span><span class="p">]</span>
-
-                <span class="k">if</span> <span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">slides</span><span class="p">)</span> <span class="ow">and</span> <span class="n">slides</span><span class="p">[</span><span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;style&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;lyrics&quot;</span><span class="p">:</span>
-                    <span class="n">slides</span><span class="p">[</span><span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">][</span><span class="s2">&quot;caption&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">entry</span><span class="p">[</span><span class="s2">&quot;title&quot;</span><span class="p">]</span>
-
-            <span class="k">elif</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;sermon&quot;</span><span class="p">:</span>
-                <span class="n">imported_title</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-                <span class="n">current_caption</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">slides</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;caption&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-
-                <span class="c1"># If the current sermon slide already contains preacher info in</span>
-                <span class="c1"># its caption, strip only that exact preacher suffix from the</span>
-                <span class="c1"># imported HWPX payload. This avoids sacrificing any sermon-title</span>
-                <span class="c1"># text while still removing duplicated preacher names when the</span>
-                <span class="c1"># HWPX line is glued together.</span>
-                <span class="n">preacher_suffix</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-                <span class="n">preacher_match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span>
-                    <span class="sa">r</span><span class="s2">&quot;([가-힣A-Za-z·]{2,4}\s*목사)\s*$&quot;</span><span class="p">,</span>
-                    <span class="n">current_caption</span><span class="p">,</span>
-                <span class="p">)</span>
-                <span class="k">if</span> <span class="n">preacher_match</span><span class="p">:</span>
-                    <span class="n">preacher_suffix</span> <span class="o">=</span> <span class="n">preacher_match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-
-                <span class="k">if</span> <span class="n">preacher_suffix</span><span class="p">:</span>
-                    <span class="n">compact_suffix</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\s+&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">preacher_suffix</span><span class="p">)</span>
-                    <span class="n">suffix_pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;\s*&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">ch</span><span class="p">)</span> <span class="k">for</span> <span class="n">ch</span> <span class="ow">in</span> <span class="n">compact_suffix</span><span class="p">)</span>
-                    <span class="n">imported_title</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span>
-                        <span class="sa">rf</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">suffix_pattern</span><span class="si">}</span><span class="s2">\s*$&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;&quot;</span><span class="p">,</span>
-                        <span class="n">imported_title</span><span class="p">,</span>
-                    <span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-
-                <span class="n">slides</span><span class="p">[</span><span class="n">idx</span><span class="p">][</span><span class="s2">&quot;headline&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">imported_title</span>
-
-            <span class="k">elif</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;prayer&quot;</span><span class="p">:</span>
-                <span class="n">slides</span><span class="p">[</span><span class="n">idx</span><span class="p">][</span><span class="s2">&quot;headline&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;leader&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
-
-            <span class="k">elif</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;post_sermon_prayer&quot;</span><span class="p">:</span>
-                <span class="n">slides</span><span class="p">[</span><span class="n">idx</span><span class="p">][</span><span class="s2">&quot;caption&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;설교자&quot;</span>
-                <span class="n">slides</span><span class="p">[</span><span class="n">idx</span><span class="p">][</span><span class="s2">&quot;headline&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;기도&quot;</span>
-
-            <span class="c1"># Fixed liturgy items are only presence-checked for now.</span>
-
-        <span class="n">remove_candidates</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">managed_kinds</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;call_to_worship&quot;</span><span class="p">,</span>
             <span class="s2">&quot;response_song&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;response_doxology&quot;</span><span class="p">,</span>
             <span class="s2">&quot;invocation&quot;</span><span class="p">,</span>
             <span class="s2">&quot;creed&quot;</span><span class="p">,</span>
             <span class="s2">&quot;confession_prayer&quot;</span><span class="p">,</span>
@@ -1396,39 +1542,64 @@
             <span class="s2">&quot;offering&quot;</span><span class="p">,</span>
             <span class="s2">&quot;offering_prayer&quot;</span><span class="p">,</span>
             <span class="s2">&quot;benediction&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;response_doxology&quot;</span><span class="p">,</span>
             <span class="s2">&quot;communion&quot;</span><span class="p">,</span>
         <span class="p">}</span>
+        <span class="n">current_blocks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_worship_order_blocks</span><span class="p">(</span><span class="n">current_slides</span><span class="p">)</span>
+        <span class="n">result_blocks</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="mi">0</span>
 
-        <span class="k">for</span> <span class="n">kind</span><span class="p">,</span> <span class="n">idx_list</span> <span class="ow">in</span> <span class="n">kind_indices</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="k">if</span> <span class="n">kind</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">managed_kinds</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">order_entries</span><span class="p">:</span>
+            <span class="n">match_index</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">cursor</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">current_blocks</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="n">current_blocks</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;kind&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="n">entry</span><span class="p">[</span><span class="s2">&quot;kind&quot;</span><span class="p">]:</span>
+                    <span class="n">match_index</span> <span class="o">=</span> <span class="n">index</span>
+                    <span class="k">break</span>
+
+            <span class="k">if</span> <span class="n">match_index</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">new_block_slides</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_new_worship_order_block</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">new_block_slides</span><span class="p">:</span>
+                    <span class="n">result_blocks</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                        <span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="n">entry</span><span class="p">[</span><span class="s2">&quot;kind&quot;</span><span class="p">],</span>
+                        <span class="s2">&quot;slides&quot;</span><span class="p">:</span> <span class="n">new_block_slides</span><span class="p">,</span>
+                    <span class="p">})</span>
                 <span class="k">continue</span>
 
-            <span class="n">keep_count</span> <span class="o">=</span> <span class="n">parsed_counts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">kind</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-            <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">idx_list</span><span class="p">[</span><span class="n">keep_count</span><span class="p">:]:</span>
-                <span class="n">remove_candidates</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">idx</span><span class="p">,</span> <span class="n">kind</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">cursor</span><span class="p">,</span> <span class="n">match_index</span><span class="p">):</span>
+                <span class="n">block</span> <span class="o">=</span> <span class="n">current_blocks</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+                <span class="n">block_kind</span> <span class="o">=</span> <span class="n">block</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;kind&quot;</span><span class="p">)</span>
 
-        <span class="n">approved_remove_indices</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">kind</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">remove_candidates</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">item</span><span class="p">:</span> <span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
-            <span class="k">if</span> <span class="n">idx</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">slides</span><span class="p">):</span>
-                <span class="k">continue</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_classify_worship_order_slide</span><span class="p">(</span><span class="n">slides</span><span class="p">,</span> <span class="n">idx</span><span class="p">)</span> <span class="o">!=</span> <span class="n">kind</span><span class="p">:</span>
-                <span class="k">continue</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prompt_remove_missing_worship_order</span><span class="p">(</span><span class="n">slides</span><span class="p">[</span><span class="n">idx</span><span class="p">]):</span>
-                <span class="n">approved_remove_indices</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">idx</span><span class="p">,</span> <span class="n">kind</span><span class="p">))</span>
+                <span class="k">if</span> <span class="n">block_kind</span> <span class="ow">in</span> <span class="n">managed_kinds</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prompt_remove_missing_worship_order</span><span class="p">(</span><span class="n">block</span><span class="p">[</span><span class="s2">&quot;slides&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]):</span>
+                        <span class="k">continue</span>
 
-        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">kind</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">approved_remove_indices</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">item</span><span class="p">:</span> <span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">idx</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">slides</span><span class="p">):</span>
-                <span class="k">continue</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_classify_worship_order_slide</span><span class="p">(</span><span class="n">slides</span><span class="p">,</span> <span class="n">idx</span><span class="p">)</span> <span class="o">!=</span> <span class="n">kind</span><span class="p">:</span>
-                <span class="k">continue</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_remove_worship_order_block</span><span class="p">(</span><span class="n">slides</span><span class="p">,</span> <span class="n">idx</span><span class="p">)</span>
+                <span class="n">result_blocks</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                    <span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="n">block_kind</span><span class="p">,</span>
+                    <span class="s2">&quot;slides&quot;</span><span class="p">:</span> <span class="p">[</span><span class="nb">dict</span><span class="p">(</span><span class="n">slide</span><span class="p">)</span> <span class="k">for</span> <span class="n">slide</span> <span class="ow">in</span> <span class="n">block</span><span class="p">[</span><span class="s2">&quot;slides&quot;</span><span class="p">]],</span>
+                <span class="p">})</span>
 
-        <span class="k">if</span> <span class="n">parsed_counts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;communion&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">kind_indices</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;communion&quot;</span><span class="p">):</span>
-            <span class="n">insert_at</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_find_communion_insert_index</span><span class="p">(</span><span class="n">slides</span><span class="p">)</span>
-            <span class="n">slides</span><span class="p">[</span><span class="n">insert_at</span><span class="p">:</span><span class="n">insert_at</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_special_worship_order_block</span><span class="p">(</span><span class="s2">&quot;communion&quot;</span><span class="p">)</span>
+            <span class="n">result_blocks</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                <span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="n">entry</span><span class="p">[</span><span class="s2">&quot;kind&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;slides&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_update_worship_order_block</span><span class="p">(</span>
+                    <span class="n">current_blocks</span><span class="p">[</span><span class="n">match_index</span><span class="p">][</span><span class="s2">&quot;slides&quot;</span><span class="p">],</span>
+                    <span class="n">entry</span><span class="p">,</span>
+                <span class="p">),</span>
+            <span class="p">})</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">match_index</span> <span class="o">+</span> <span class="mi">1</span>
 
-        <span class="k">return</span> <span class="n">slides</span></div>
+        <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">cursor</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">current_blocks</span><span class="p">)):</span>
+            <span class="n">block</span> <span class="o">=</span> <span class="n">current_blocks</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+            <span class="n">block_kind</span> <span class="o">=</span> <span class="n">block</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;kind&quot;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">block_kind</span> <span class="ow">in</span> <span class="n">managed_kinds</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prompt_remove_missing_worship_order</span><span class="p">(</span><span class="n">block</span><span class="p">[</span><span class="s2">&quot;slides&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]):</span>
+                    <span class="k">continue</span>
+
+            <span class="n">result_blocks</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                <span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="n">block_kind</span><span class="p">,</span>
+                <span class="s2">&quot;slides&quot;</span><span class="p">:</span> <span class="p">[</span><span class="nb">dict</span><span class="p">(</span><span class="n">slide</span><span class="p">)</span> <span class="k">for</span> <span class="n">slide</span> <span class="ow">in</span> <span class="n">block</span><span class="p">[</span><span class="s2">&quot;slides&quot;</span><span class="p">]],</span>
+            <span class="p">})</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_flatten_slide_blocks</span><span class="p">(</span><span class="n">result_blocks</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="SlideGenerator._split_music_group_parts">
