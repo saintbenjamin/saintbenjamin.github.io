@@ -896,6 +896,164 @@ table.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator._split_music_group_parts">
+<span class="sig-name descname"><span class="pre">_split_music_group_parts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator._split_music_group_parts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator._split_music_group_parts" title="Link to this definition"></a></dt>
+<dd><p>Split a music-group label into its main caption and suffix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>group_name</strong> (<em>str</em>) – Full group label such as <code class="docutils literal notranslate"><span class="pre">마리아찬양대</span></code> or <code class="docutils literal notranslate"><span class="pre">여호수아중창단</span></code>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Two-element tuple of <code class="docutils literal notranslate"><span class="pre">(caption,</span> <span class="pre">caption_choir)</span></code>.
+If no supported suffix is found, returns <code class="docutils literal notranslate"><span class="pre">(group_name,</span> <span class="pre">&quot;&quot;)</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple[str, str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator._classify_praise_service_slide">
+<span class="sig-name descname"><span class="pre">_classify_praise_service_slide</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slides</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator._classify_praise_service_slide"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator._classify_praise_service_slide" title="Link to this definition"></a></dt>
+<dd><p>Classify a slide into an afternoon praise-service slot category.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>slides</strong> (<em>list</em><em>[</em><em>dict</em><em>]</em>) – Full slide list currently being analyzed.</p></li>
+<li><p><strong>index</strong> (<em>int</em>) – Index of the slide to classify.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Normalized afternoon-service kind such as <code class="docutils literal notranslate"><span class="pre">hymn</span></code> or
+<code class="docutils literal notranslate"><span class="pre">special_praise</span></code>, or <code class="docutils literal notranslate"><span class="pre">None</span></code> when the slide does not match
+a managed category.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator._build_praise_service_blocks">
+<span class="sig-name descname"><span class="pre">_build_praise_service_blocks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slides</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator._build_praise_service_blocks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator._build_praise_service_blocks" title="Link to this definition"></a></dt>
+<dd><p>Group the current slide list into afternoon-service update blocks.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>slides</strong> (<em>list</em><em>[</em><em>dict</em><em>]</em>) – Existing slide dictionaries collected from the generator table.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Ordered block dictionaries. Each block stores its classified
+kind and the slides that should move together during updates.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[dict]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator._remove_exact_caption_suffix_from_imported_text">
+<span class="sig-name descname"><span class="pre">_remove_exact_caption_suffix_from_imported_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">imported_text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_caption</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator._remove_exact_caption_suffix_from_imported_text"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator._remove_exact_caption_suffix_from_imported_text" title="Link to this definition"></a></dt>
+<dd><p>Remove an exact trailing caption suffix from imported text when present.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>imported_text</strong> (<em>str</em>) – Imported text that may include a glued leader or preacher suffix.</p></li>
+<li><p><strong>current_caption</strong> (<em>str</em>) – Existing slide caption used as the authoritative suffix to strip.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Imported text with the exact compacted caption suffix removed
+from the end when a match exists. Otherwise returns the input
+text unchanged.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator._build_new_praise_service_block">
+<span class="sig-name descname"><span class="pre">_build_new_praise_service_block</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">entry</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator._build_new_praise_service_block"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator._build_new_praise_service_block" title="Link to this definition"></a></dt>
+<dd><p>Build a new generic afternoon-service slide block for a parsed entry.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>entry</strong> (<em>dict</em>) – Parsed afternoon praise-service entry dictionary.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>New slide dictionaries that represent the requested entry.
+The block may contain one or more slides depending on the kind.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[dict]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator._update_praise_service_block">
+<span class="sig-name descname"><span class="pre">_update_praise_service_block</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">existing_slides</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entry</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator._update_praise_service_block"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator._update_praise_service_block" title="Link to this definition"></a></dt>
+<dd><p>Update an existing afternoon-service block using a parsed entry.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>existing_slides</strong> (<em>list</em><em>[</em><em>dict</em><em>]</em>) – Existing slide dictionaries that make up the matched block.</p></li>
+<li><p><strong>entry</strong> (<em>dict</em>) – Parsed afternoon praise-service entry dictionary.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Updated slide dictionaries for the block. When the existing
+block cannot be updated safely, a new generic block is returned.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[dict]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator._flatten_slide_blocks">
+<span class="sig-name descname"><span class="pre">_flatten_slide_blocks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">blocks</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator._flatten_slide_blocks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator._flatten_slide_blocks" title="Link to this definition"></a></dt>
+<dd><p>Flatten a block list back into a single slide list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>blocks</strong> (<em>list</em><em>[</em><em>dict</em><em>]</em>) – Block dictionaries that each contain a <code class="docutils literal notranslate"><span class="pre">slides</span></code> list.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Flat slide dictionary list in block order.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[dict]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator._apply_praise_service_order_entries">
+<span class="sig-name descname"><span class="pre">_apply_praise_service_order_entries</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">current_slides</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order_entries</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator._apply_praise_service_order_entries"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator._apply_praise_service_order_entries" title="Link to this definition"></a></dt>
+<dd><p>Apply imported afternoon praise-service entries to the current session.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>current_slides</strong> (<em>list</em><em>[</em><em>dict</em><em>]</em>) – Existing slide dictionaries collected from the generator table.</p></li>
+<li><p><strong>order_entries</strong> (<em>list</em><em>[</em><em>dict</em><em>]</em>) – Parsed afternoon praise-service entry dictionaries extracted
+from HWPX.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Updated slide list ready to be reloaded into the generator
+table.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[dict]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator.import_worship_order_from_hwpx">
 <span class="sig-name descname"><span class="pre">import_worship_order_from_hwpx</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator.import_worship_order_from_hwpx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator.import_worship_order_from_hwpx" title="Link to this definition"></a></dt>
 <dd><p>Import first-service worship-order information from a HWPX bulletin and
@@ -908,6 +1066,51 @@ rather than rebuilding the whole file from scratch.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator.import_praise_service_order_from_hwpx">
+<span class="sig-name descname"><span class="pre">import_praise_service_order_from_hwpx</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator.import_praise_service_order_from_hwpx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator.import_praise_service_order_from_hwpx" title="Link to this definition"></a></dt>
+<dd><p>Import afternoon praise-service order information from a HWPX bulletin
+and conservatively update matching slots in the current generator
+session.</p>
+<p>Missing special-order items are inserted with generic blocks when
+needed, while unmatched existing afternoon-service blocks can be kept
+or removed through confirmation prompts.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator._replace_announcement_block_in_slides">
+<span class="sig-name descname"><span class="pre">_replace_announcement_block_in_slides</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slides</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">imported_slides</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_anchor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'오늘</span> <span class="pre">처음</span> <span class="pre">오신</span> <span class="pre">분들을</span> <span class="pre">환영하고</span> <span class="pre">축복합니다!'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_anchor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'용서,</span> <span class="pre">사랑의</span> <span class="pre">시작입니다'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator._replace_announcement_block_in_slides"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator._replace_announcement_block_in_slides" title="Link to this definition"></a></dt>
+<dd><p>Replace the announcement block in a slide list using fixed headline anchors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>slides</strong> (<em>list</em><em>[</em><em>dict</em><em>]</em>) – Working slide list that already contains the surrounding fixed
+welcome and closing slides.</p></li>
+<li><p><strong>imported_slides</strong> (<em>list</em><em>[</em><em>dict</em><em>]</em>) – Announcement slides extracted from a source HWPX or JSON file.</p></li>
+<li><p><strong>start_anchor</strong> (<em>str</em>) – Headline text that marks the first fixed slide before the
+announcement block.</p></li>
+<li><p><strong>end_anchor</strong> (<em>str</em>) – Headline text that marks the first fixed slide after the
+announcement block.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Updated slide list with the announcement block replaced, or
+<code class="docutils literal notranslate"><span class="pre">None</span></code> if the anchor range cannot be resolved safely.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[dict] | None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -940,6 +1143,25 @@ slides from a single HWPX bulletin and apply them in one pass.</p>
 <p>The existing session is first updated with the imported worship order,
 then the announcement block between the fixed anchors is replaced with
 announcement slides extracted from the same HWPX file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator.import_praise_service_order_and_announcements_from_hwpx">
+<span class="sig-name descname"><span class="pre">import_praise_service_order_and_announcements_from_hwpx</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator.import_praise_service_order_and_announcements_from_hwpx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator.import_praise_service_order_and_announcements_from_hwpx" title="Link to this definition"></a></dt>
+<dd><p>Import both afternoon praise-service order information and announcement
+slides from a single HWPX bulletin and apply them in one pass.</p>
+<p>The existing session is first updated with the imported afternoon
+praise-service order, then the announcement block between the fixed
+anchors is replaced with announcement slides extracted from the same
+HWPX file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>None</strong></p>

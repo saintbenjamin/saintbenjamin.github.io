@@ -126,8 +126,8 @@ class (<a class="reference internal" href="core.generator.ui.slide_generator.htm
 <p>The builder assembles:</p>
 <ul class="simple">
 <li><p>A top row of action buttons with icons (load, save, add, duplicate, insert, delete, move, export)</p></li>
-<li><p>A tools menu containing church-specific combined HWPX import, worship-order import,
-announcement import, and settings actions</p></li>
+<li><p>A tools menu containing church-specific Sunday worship-order actions,
+afternoon praise-service actions, announcement import actions, and settings</p></li>
 <li><p>A central table area for listing and managing slides</p></li>
 <li><p>A label showing the current worship/session name</p></li>
 <li><p>Keyboard shortcuts (e.g., Ctrl+S) and signal connections</p></li>
@@ -146,8 +146,9 @@ parent provides the required widgets, managers, and callbacks.</p>
 <li><p>A horizontal toolbar of action buttons (SVG-icon buttons), including row duplication</p></li>
 <li><p>A label displaying the current worship/session name</p></li>
 <li><p>The central slide table widget</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">도구</span></code> menu actions for church-specific combined HWPX import,
-worship-order import, announcement import, and settings</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">도구</span></code> menu actions for church-specific Sunday worship-order actions,
+afternoon praise-service actions, announcement import actions, and
+settings</p></li>
 <li><p>Keyboard shortcuts and signal-slot connections</p></li>
 </ul>
 <p>Required parent interface:</p>
@@ -192,6 +193,17 @@ single HWPX bulletin file.</p>
 </li>
 <li><dl class="simple">
 <dt><code class="docutils literal notranslate"><span class="pre">import_worship_order_from_hwpx()</span></code>:</dt><dd><p>Import worship-order information from a HWPX bulletin file.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">import_praise_service_order_and_announcements_from_hwpx()</span></code>:</dt><dd><p>Import both afternoon praise-service order information and
+announcement slides from a single HWPX bulletin file.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">import_praise_service_order_from_hwpx()</span></code>:</dt><dd><p>Import afternoon praise-service order information from a HWPX bulletin file.</p>
 </dd>
 </dl>
 </li>
@@ -292,8 +304,9 @@ It must expose the methods and attributes required by this builder.</p></li>
 <li><p>Creates action buttons with SVG icons and connects them to parent handlers</p></li>
 <li><p>Provides direct row actions such as add, duplicate, insert, delete, and move</p></li>
 <li><p>Assembles the button toolbar, label, and slide table into a vertical layout</p></li>
-<li><p>Adds church-specific combined HWPX import, worship-order import,
-announcement import, and settings actions to the Tools menu</p></li>
+<li><p>Adds grouped church-specific Sunday worship-order, afternoon
+praise-service, announcement import, and settings actions to the
+Tools menu</p></li>
 <li><p>Applies persisted font settings to the UI</p></li>
 <li><p>Connects table double-click events to the slide editor dialog</p></li>
 <li><p>Installs the composed layout as the parent’s central widget</p></li>

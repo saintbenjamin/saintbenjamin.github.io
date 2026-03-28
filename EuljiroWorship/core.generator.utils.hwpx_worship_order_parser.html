@@ -119,16 +119,19 @@
 </dd>
 </dl>
 <p>HWPX worship-order parser for the Slide Generator’s Euljiro-specific bulletin workflow.</p>
-<p>This module parses HWPX section XML files, locates the portion of the weekly
-bulletin that contains the first-service worship order, and converts supported
-rows into normalized entry dictionaries for generator-side update logic.</p>
+<p>This module parses HWPX section XML files, locates the portions of the weekly
+bulletin that contain the first-service worship order and the afternoon praise
+service order, and converts supported rows into normalized entry dictionaries
+for generator-side update logic.</p>
 <p>The logic here is intentionally church-specific. It assumes Euljiro
 Presbyterian Church bulletin patterns such as:</p>
 <ul class="simple">
 <li><p>A first-service order embedded in a known HWPX bulletin structure</p></li>
+<li><p>An afternoon praise-service order embedded in the second-page middle column</p></li>
 <li><p>Worship-order labels and line formats used by Euljiro weekly bulletins</p></li>
 <li><p>Euljiro-specific expectations around choir naming, sermon-title handling,
-first-service extraction, and special liturgical insertions</p></li>
+first-service extraction, praise-service extraction, and special liturgical
+insertions</p></li>
 </ul>
 <p>These helpers exist to support the church-specific Tools-menu import features,
 not as a general-purpose HWPX worship-order parser for arbitrary churches.</p>
@@ -149,6 +152,28 @@ for generator-side update logic.</p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>ValueError</strong> – Raised when no supported first-service worship-order items can be
+    extracted from the file.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="core.generator.utils.hwpx_worship_order_parser.extract_praise_service_order_entries_from_hwpx">
+<span class="sig-prename descclassname"><span class="pre">core.generator.utils.hwpx_worship_order_parser.</span></span><span class="sig-name descname"><span class="pre">extract_praise_service_order_entries_from_hwpx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hwpx_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/utils/hwpx_worship_order_parser.html#extract_praise_service_order_entries_from_hwpx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.utils.hwpx_worship_order_parser.extract_praise_service_order_entries_from_hwpx" title="Link to this definition"></a></dt>
+<dd><p>Extract recognized afternoon praise-service order entries from a HWPX bulletin.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>hwpx_path</strong> (<em>str</em>) – Filesystem path to the source HWPX bulletin file.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Ordered list of normalized afternoon praise-service entry
+dictionaries suitable for generator-side update logic.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[dict]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – Raised when no supported afternoon praise-service items can be
     extracted from the file.</p>
 </dd>
 </dl>

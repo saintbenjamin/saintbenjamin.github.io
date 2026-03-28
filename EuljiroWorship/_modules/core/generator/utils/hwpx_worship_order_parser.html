@@ -81,17 +81,20 @@
 
 <span class="sd">HWPX worship-order parser for the Slide Generator&#39;s Euljiro-specific bulletin workflow.</span>
 
-<span class="sd">This module parses HWPX section XML files, locates the portion of the weekly</span>
-<span class="sd">bulletin that contains the first-service worship order, and converts supported</span>
-<span class="sd">rows into normalized entry dictionaries for generator-side update logic.</span>
+<span class="sd">This module parses HWPX section XML files, locates the portions of the weekly</span>
+<span class="sd">bulletin that contain the first-service worship order and the afternoon praise</span>
+<span class="sd">service order, and converts supported rows into normalized entry dictionaries</span>
+<span class="sd">for generator-side update logic.</span>
 
 <span class="sd">The logic here is intentionally church-specific. It assumes Euljiro</span>
 <span class="sd">Presbyterian Church bulletin patterns such as:</span>
 
 <span class="sd">- A first-service order embedded in a known HWPX bulletin structure</span>
+<span class="sd">- An afternoon praise-service order embedded in the second-page middle column</span>
 <span class="sd">- Worship-order labels and line formats used by Euljiro weekly bulletins</span>
 <span class="sd">- Euljiro-specific expectations around choir naming, sermon-title handling,</span>
-<span class="sd">  first-service extraction, and special liturgical insertions</span>
+<span class="sd">  first-service extraction, praise-service extraction, and special liturgical</span>
+<span class="sd">  insertions</span>
 
 <span class="sd">These helpers exist to support the church-specific Tools-menu import features,</span>
 <span class="sd">not as a general-purpose HWPX worship-order parser for arbitrary churches.</span>
@@ -111,8 +114,128 @@
 <span class="p">)</span>
 
 <span class="n">ROLE_SUFFIX_RE</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
-    <span class="sa">r</span><span class="s2">&quot;(?:다같이|인도자|설교자|앉아서|[가-힣A-Za-z·]+(?:목사|장로|집사|권사))+$&quot;</span>
+    <span class="sa">r</span><span class="s2">&quot;(?:다같이|인도자|설교자|앉아서|[가-힣A-Za-z·0-9()]+(?:목사|장로|집사|권사))+$&quot;</span>
 <span class="p">)</span>
+
+<span class="n">PRAISE_SERVICE_START_MARKER</span> <span class="o">=</span> <span class="s2">&quot;오후2:30인도:&quot;</span>
+<span class="n">PRAISE_SERVICE_END_MARKERS</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">&quot;*다음주&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;영유아유치부&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;오후12:00인도:&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">PRAISE_SERVICE_TOKENS</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">&quot;전주반주자&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;기원인도자&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;성경봉독&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;봉헌기도&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;교회소식&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;사업보고&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;찬송&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;기도&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;찬양&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;말씀&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;봉헌&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;인사&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;축도&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">PRAISE_SERVICE_NEXT_MARKERS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;__leader__&quot;</span><span class="p">:</span> <span class="p">(</span>
+        <span class="s2">&quot;전주반주자&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;기원인도자&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;찬송&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;기도&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;성경봉독&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;찬양&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;말씀&quot;</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="s2">&quot;전주반주자&quot;</span><span class="p">:</span> <span class="p">(</span>
+        <span class="s2">&quot;기원인도자&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;찬송&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;기도&quot;</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="s2">&quot;기원인도자&quot;</span><span class="p">:</span> <span class="p">(</span>
+        <span class="s2">&quot;찬송&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;기도&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;성경봉독&quot;</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="s2">&quot;찬송&quot;</span><span class="p">:</span> <span class="p">(</span>
+        <span class="s2">&quot;기도&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;성경봉독&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;찬양&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;교회소식&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;봉헌기도&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;봉헌&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;축도&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;인사&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;사업보고&quot;</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="s2">&quot;기도&quot;</span><span class="p">:</span> <span class="p">(</span>
+        <span class="s2">&quot;찬송&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;성경봉독&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;찬양&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;교회소식&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;봉헌기도&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;봉헌&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;축도&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;인사&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;사업보고&quot;</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="s2">&quot;성경봉독&quot;</span><span class="p">:</span> <span class="p">(</span>
+        <span class="s2">&quot;찬양&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;말씀&quot;</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="s2">&quot;찬양&quot;</span><span class="p">:</span> <span class="p">(</span>
+        <span class="s2">&quot;말씀&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;교회소식&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;봉헌기도&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;봉헌&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;축도&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;인사&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;사업보고&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;찬송&quot;</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="s2">&quot;말씀&quot;</span><span class="p">:</span> <span class="p">(</span>
+        <span class="s2">&quot;기도&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;봉헌기도&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;봉헌&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;교회소식&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;찬송&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;축도&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;인사&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;사업보고&quot;</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="s2">&quot;봉헌&quot;</span><span class="p">:</span> <span class="p">(</span>
+        <span class="s2">&quot;봉헌기도&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;인사&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;사업보고&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;교회소식&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;찬송&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;축도&quot;</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="s2">&quot;봉헌기도&quot;</span><span class="p">:</span> <span class="p">(</span>
+        <span class="s2">&quot;인사&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;사업보고&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;교회소식&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;찬송&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;축도&quot;</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="s2">&quot;인사&quot;</span><span class="p">:</span> <span class="p">(</span>
+        <span class="s2">&quot;사업보고&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;교회소식&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;찬송&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;축도&quot;</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="s2">&quot;사업보고&quot;</span><span class="p">:</span> <span class="p">(</span>
+        <span class="s2">&quot;교회소식&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;찬송&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;축도&quot;</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="s2">&quot;교회소식&quot;</span><span class="p">:</span> <span class="p">(</span>
+        <span class="s2">&quot;찬송&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;축도&quot;</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="s2">&quot;축도&quot;</span><span class="p">:</span> <span class="p">(),</span>
+<span class="p">}</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_local_name</span><span class="p">(</span><span class="n">tag</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
@@ -253,6 +376,399 @@
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;HWPX에서 성도의교제 지점을 찾지 못했습니다.&quot;</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">paragraphs</span><span class="p">[</span><span class="n">start_idx</span><span class="p">:</span><span class="n">end_idx</span><span class="p">]</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_compact_with_index_map</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compact a string while preserving a reverse index map to the original text.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        text (str):</span>
+<span class="sd">            Source text that may contain whitespace between meaningful tokens.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tuple[str, list[int]]:</span>
+<span class="sd">            Two-element tuple containing the whitespace-free text and a list</span>
+<span class="sd">            mapping each compacted character index back to the original string</span>
+<span class="sd">            index.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">compact_chars</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">index_map</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">char</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">char</span><span class="o">.</span><span class="n">isspace</span><span class="p">():</span>
+            <span class="k">continue</span>
+        <span class="n">compact_chars</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">char</span><span class="p">)</span>
+        <span class="n">index_map</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">compact_chars</span><span class="p">),</span> <span class="n">index_map</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_slice_by_compact_range</span><span class="p">(</span>
+    <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">index_map</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+    <span class="n">start_index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">end_index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Slice the original text using a range expressed in compacted-text indices.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        text (str):</span>
+<span class="sd">            Original un-compacted text.</span>
+<span class="sd">        index_map (list[int]):</span>
+<span class="sd">            Index map returned by :func:`_compact_with_index_map`.</span>
+<span class="sd">        start_index (int):</span>
+<span class="sd">            Inclusive compact-text start index.</span>
+<span class="sd">        end_index (int):</span>
+<span class="sd">            Exclusive compact-text end index.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        str:</span>
+<span class="sd">            Original-text substring that spans the requested compact-text</span>
+<span class="sd">            range. Returns an empty string when the requested range is empty.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">index_map</span> <span class="ow">or</span> <span class="n">end_index</span> <span class="o">&lt;=</span> <span class="n">start_index</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+
+    <span class="n">start_index</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">start_index</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">end_index</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">end_index</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">index_map</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">end_index</span> <span class="o">&lt;=</span> <span class="n">start_index</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+
+    <span class="n">original_start</span> <span class="o">=</span> <span class="n">index_map</span><span class="p">[</span><span class="n">start_index</span><span class="p">]</span>
+    <span class="n">original_end</span> <span class="o">=</span> <span class="n">index_map</span><span class="p">[</span><span class="n">end_index</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">text</span><span class="p">[</span><span class="n">original_start</span><span class="p">:</span><span class="n">original_end</span><span class="p">]</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_find_next_marker</span><span class="p">(</span>
+    <span class="n">compact_text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">start_index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">markers</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Find the earliest marker occurrence at or after the given compact index.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        compact_text (str):</span>
+<span class="sd">            Whitespace-free comparison text.</span>
+<span class="sd">        start_index (int):</span>
+<span class="sd">            Compact-text index from which the search should begin.</span>
+<span class="sd">        markers (tuple[str, ...]):</span>
+<span class="sd">            Marker strings to search for.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        int:</span>
+<span class="sd">            Earliest matching compact-text index, or ``-1`` if no marker is</span>
+<span class="sd">            found.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">candidates</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">marker</span> <span class="ow">in</span> <span class="n">markers</span><span class="p">:</span>
+        <span class="n">position</span> <span class="o">=</span> <span class="n">compact_text</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">marker</span><span class="p">,</span> <span class="n">start_index</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">position</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">candidates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="nb">min</span><span class="p">(</span><span class="n">candidates</span><span class="p">)</span> <span class="k">if</span> <span class="n">candidates</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_extract_praise_service_segment</span><span class="p">(</span><span class="n">paragraphs</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extract the afternoon praise-service order segment from the bulletin.</span>
+
+<span class="sd">    The Euljiro weekly bulletin usually stores the afternoon praise-service</span>
+<span class="sd">    order as a compact middle-column text run on the second page. This helper</span>
+<span class="sd">    finds the known afternoon-service start marker, then trims the segment</span>
+<span class="sd">    before the next unrelated schedule section.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        paragraphs (list[str]):</span>
+<span class="sd">            Full paragraph stream extracted from the HWPX bulletin.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        str:</span>
+<span class="sd">            Original-text segment that contains only the afternoon</span>
+<span class="sd">            praise-service order.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError:</span>
+<span class="sd">            Raised when the afternoon praise-service segment cannot be located.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">joined_text</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">paragraphs</span><span class="p">)</span>
+    <span class="n">compact_text</span><span class="p">,</span> <span class="n">index_map</span> <span class="o">=</span> <span class="n">_compact_with_index_map</span><span class="p">(</span><span class="n">joined_text</span><span class="p">)</span>
+
+    <span class="n">start_index</span> <span class="o">=</span> <span class="n">compact_text</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">PRAISE_SERVICE_START_MARKER</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">start_index</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;HWPX에서 오후찬양예배 순서 시작 지점을 찾지 못했습니다.&quot;</span><span class="p">)</span>
+
+    <span class="n">end_index</span> <span class="o">=</span> <span class="n">_find_next_marker</span><span class="p">(</span>
+        <span class="n">compact_text</span><span class="p">,</span>
+        <span class="n">start_index</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">PRAISE_SERVICE_START_MARKER</span><span class="p">),</span>
+        <span class="n">PRAISE_SERVICE_END_MARKERS</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">end_index</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+        <span class="n">end_index</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">compact_text</span><span class="p">)</span>
+
+    <span class="n">segment</span> <span class="o">=</span> <span class="n">_slice_by_compact_range</span><span class="p">(</span><span class="n">joined_text</span><span class="p">,</span> <span class="n">index_map</span><span class="p">,</span> <span class="n">start_index</span><span class="p">,</span> <span class="n">end_index</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">segment</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;HWPX에서 오후찬양예배 순서 본문을 추출하지 못했습니다.&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">segment</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_clean_praise_service_payload</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Normalize a raw afternoon-service payload fragment for display and parsing.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        text (str):</span>
+<span class="sd">            Raw substring captured between afternoon-service order markers.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        str:</span>
+<span class="sd">            Cleaned text with decorative ellipsis separators removed and</span>
+<span class="sd">            whitespace normalized.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">_normalize_line</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;[.…⋯]{2,}&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\s+&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s2">&quot; :-&quot;</span><span class="p">)</span>
+
+    <span class="n">compact_text</span> <span class="o">=</span> <span class="n">_compact</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">compact_text</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;다같이&quot;</span><span class="p">,</span> <span class="s2">&quot;인도자&quot;</span><span class="p">,</span> <span class="s2">&quot;설교자&quot;</span><span class="p">,</span> <span class="s2">&quot;반주자&quot;</span><span class="p">,</span> <span class="s2">&quot;찬양대&quot;</span><span class="p">,</span> <span class="s2">&quot;중창단&quot;</span><span class="p">}:</span>
+        <span class="k">return</span> <span class="n">compact_text</span>
+
+    <span class="k">return</span> <span class="n">text</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_split_numbered_people_entries</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Split numbered person lists such as ``①안재평 목사②김용옥 장로``.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        text (str):</span>
+<span class="sd">            Raw numbered list payload extracted from an ``인사`` block.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list[str]:</span>
+<span class="sd">            Individual person-entry strings. Returns the original text as a</span>
+<span class="sd">            single-item list when no numbered sub-entries are detected.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cleaned</span> <span class="o">=</span> <span class="n">_clean_praise_service_payload</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">cleaned</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[]</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;[①②③④⑤⑥⑦⑧⑨]&quot;</span><span class="p">,</span> <span class="n">cleaned</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">cleaned</span><span class="p">]</span>
+
+    <span class="n">parts</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;[①②③④⑤⑥⑦⑧⑨]\s*&quot;</span><span class="p">,</span> <span class="n">cleaned</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">part</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">parts</span> <span class="k">if</span> <span class="n">part</span><span class="o">.</span><span class="n">strip</span><span class="p">()]</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_parse_praise_service_token</span><span class="p">(</span><span class="n">token</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">payload</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">raw</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert one afternoon-service token and payload into normalized entries.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        token (str):</span>
+<span class="sd">            Compact service-order token that identified the current block.</span>
+<span class="sd">        payload (str):</span>
+<span class="sd">            Normalized payload text following the token.</span>
+<span class="sd">        raw (str):</span>
+<span class="sd">            Original raw payload substring captured from the bulletin segment.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list[dict]:</span>
+<span class="sd">            One or more normalized entry dictionaries representing the parsed</span>
+<span class="sd">            token block.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">token</span> <span class="o">==</span> <span class="s2">&quot;전주반주자&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[{</span>
+            <span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;prelude&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;leader&quot;</span><span class="p">:</span> <span class="s2">&quot;반주자&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;raw&quot;</span><span class="p">:</span> <span class="n">raw</span><span class="p">,</span>
+        <span class="p">}]</span>
+
+    <span class="k">if</span> <span class="n">token</span> <span class="o">==</span> <span class="s2">&quot;기원인도자&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[{</span>
+            <span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;invocation&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;leader&quot;</span><span class="p">:</span> <span class="s2">&quot;인도자&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;raw&quot;</span><span class="p">:</span> <span class="n">raw</span><span class="p">,</span>
+        <span class="p">}]</span>
+
+    <span class="k">if</span> <span class="n">token</span> <span class="o">==</span> <span class="s2">&quot;찬송&quot;</span><span class="p">:</span>
+        <span class="n">number_match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;(\d+)장&quot;</span><span class="p">,</span> <span class="n">_compact</span><span class="p">(</span><span class="n">payload</span><span class="p">))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">number_match</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[]</span>
+        <span class="k">return</span> <span class="p">[{</span>
+            <span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;hymn&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;number&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">number_match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)),</span>
+            <span class="s2">&quot;raw&quot;</span><span class="p">:</span> <span class="n">raw</span><span class="p">,</span>
+        <span class="p">}]</span>
+
+    <span class="k">if</span> <span class="n">token</span> <span class="o">==</span> <span class="s2">&quot;기도&quot;</span><span class="p">:</span>
+        <span class="n">compact_payload</span> <span class="o">=</span> <span class="n">_compact</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s2">&quot;설교자&quot;</span> <span class="ow">in</span> <span class="n">compact_payload</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[{</span>
+                <span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;post_sermon_prayer&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;raw&quot;</span><span class="p">:</span> <span class="n">raw</span><span class="p">,</span>
+            <span class="p">}]</span>
+
+        <span class="k">return</span> <span class="p">[{</span>
+            <span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;prayer&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;leader&quot;</span><span class="p">:</span> <span class="n">payload</span><span class="p">,</span>
+            <span class="s2">&quot;raw&quot;</span><span class="p">:</span> <span class="n">raw</span><span class="p">,</span>
+        <span class="p">}]</span>
+
+    <span class="k">if</span> <span class="n">token</span> <span class="o">==</span> <span class="s2">&quot;성경봉독&quot;</span><span class="p">:</span>
+        <span class="n">compact_payload</span> <span class="o">=</span> <span class="n">_compact</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+        <span class="n">reference_match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;(.+?\d+:\d+(?:-\d+)?)&quot;</span><span class="p">,</span> <span class="n">compact_payload</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[{</span>
+            <span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;verse&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;reference&quot;</span><span class="p">:</span> <span class="p">(</span>
+                <span class="n">reference_match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">reference_match</span>
+                <span class="k">else</span> <span class="n">_strip_role_suffix</span><span class="p">(</span><span class="n">compact_payload</span><span class="p">)</span>
+            <span class="p">),</span>
+            <span class="s2">&quot;raw&quot;</span><span class="p">:</span> <span class="n">raw</span><span class="p">,</span>
+        <span class="p">}]</span>
+
+    <span class="k">if</span> <span class="n">token</span> <span class="o">==</span> <span class="s2">&quot;찬양&quot;</span><span class="p">:</span>
+        <span class="n">compact_payload</span> <span class="o">=</span> <span class="n">_compact</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+        <span class="n">hymn_match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;(\d+)장&quot;</span><span class="p">,</span> <span class="n">compact_payload</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">hymn_match</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[{</span>
+                <span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;hymn&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;number&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">hymn_match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)),</span>
+                <span class="s2">&quot;raw&quot;</span><span class="p">:</span> <span class="n">raw</span><span class="p">,</span>
+            <span class="p">}]</span>
+
+        <span class="k">return</span> <span class="p">[{</span>
+            <span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;special_praise&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;group&quot;</span><span class="p">:</span> <span class="n">payload</span><span class="p">,</span>
+            <span class="s2">&quot;raw&quot;</span><span class="p">:</span> <span class="n">raw</span><span class="p">,</span>
+        <span class="p">}]</span>
+
+    <span class="k">if</span> <span class="n">token</span> <span class="o">==</span> <span class="s2">&quot;말씀&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[{</span>
+            <span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;sermon&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="n">payload</span><span class="p">,</span>
+            <span class="s2">&quot;preacher&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;raw&quot;</span><span class="p">:</span> <span class="n">raw</span><span class="p">,</span>
+        <span class="p">}]</span>
+
+    <span class="k">if</span> <span class="n">token</span> <span class="o">==</span> <span class="s2">&quot;봉헌&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[{</span>
+            <span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;offering&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="n">payload</span> <span class="ow">or</span> <span class="s2">&quot;다같이&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;raw&quot;</span><span class="p">:</span> <span class="n">raw</span><span class="p">,</span>
+        <span class="p">}]</span>
+
+    <span class="k">if</span> <span class="n">token</span> <span class="o">==</span> <span class="s2">&quot;봉헌기도&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[{</span>
+            <span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;offering_prayer&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;leader&quot;</span><span class="p">:</span> <span class="n">payload</span><span class="p">,</span>
+            <span class="s2">&quot;raw&quot;</span><span class="p">:</span> <span class="n">raw</span><span class="p">,</span>
+        <span class="p">}]</span>
+
+    <span class="k">if</span> <span class="n">token</span> <span class="o">==</span> <span class="s2">&quot;인사&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;greeting&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;person&quot;</span><span class="p">:</span> <span class="n">person</span><span class="p">,</span>
+                <span class="s2">&quot;raw&quot;</span><span class="p">:</span> <span class="n">raw</span><span class="p">,</span>
+            <span class="p">}</span>
+            <span class="k">for</span> <span class="n">person</span> <span class="ow">in</span> <span class="n">_split_numbered_people_entries</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+        <span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">token</span> <span class="o">==</span> <span class="s2">&quot;사업보고&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[{</span>
+            <span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;report&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="n">payload</span><span class="p">,</span>
+            <span class="s2">&quot;raw&quot;</span><span class="p">:</span> <span class="n">raw</span><span class="p">,</span>
+        <span class="p">}]</span>
+
+    <span class="k">if</span> <span class="n">token</span> <span class="o">==</span> <span class="s2">&quot;교회소식&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[{</span>
+            <span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;church_news&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;leader&quot;</span><span class="p">:</span> <span class="n">payload</span> <span class="ow">or</span> <span class="s2">&quot;인도자&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;raw&quot;</span><span class="p">:</span> <span class="n">raw</span><span class="p">,</span>
+        <span class="p">}]</span>
+
+    <span class="k">if</span> <span class="n">token</span> <span class="o">==</span> <span class="s2">&quot;축도&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[{</span>
+            <span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;benediction&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;leader&quot;</span><span class="p">:</span> <span class="n">payload</span><span class="p">,</span>
+            <span class="s2">&quot;raw&quot;</span><span class="p">:</span> <span class="n">raw</span><span class="p">,</span>
+        <span class="p">}]</span>
+
+    <span class="k">return</span> <span class="p">[]</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_parse_praise_service_segment</span><span class="p">(</span><span class="n">segment</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Parse the extracted afternoon praise-service segment into entry dictionaries.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        segment (str):</span>
+<span class="sd">            Afternoon praise-service source text extracted from the bulletin.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list[dict]:</span>
+<span class="sd">            Ordered list of normalized afternoon-service entry dictionaries.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">compact_text</span><span class="p">,</span> <span class="n">index_map</span> <span class="o">=</span> <span class="n">_compact_with_index_map</span><span class="p">(</span><span class="n">segment</span><span class="p">)</span>
+    <span class="n">start_index</span> <span class="o">=</span> <span class="n">compact_text</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">PRAISE_SERVICE_START_MARKER</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">start_index</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[]</span>
+
+    <span class="n">entries</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">start_index</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">PRAISE_SERVICE_START_MARKER</span><span class="p">)</span>
+
+    <span class="n">next_marker</span> <span class="o">=</span> <span class="n">_find_next_marker</span><span class="p">(</span>
+        <span class="n">compact_text</span><span class="p">,</span>
+        <span class="n">cursor</span><span class="p">,</span>
+        <span class="n">PRAISE_SERVICE_NEXT_MARKERS</span><span class="p">[</span><span class="s2">&quot;__leader__&quot;</span><span class="p">],</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">next_marker</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+        <span class="n">next_marker</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">compact_text</span><span class="p">)</span>
+
+    <span class="n">leader_raw</span> <span class="o">=</span> <span class="n">_slice_by_compact_range</span><span class="p">(</span><span class="n">segment</span><span class="p">,</span> <span class="n">index_map</span><span class="p">,</span> <span class="n">cursor</span><span class="p">,</span> <span class="n">next_marker</span><span class="p">)</span>
+    <span class="n">leader</span> <span class="o">=</span> <span class="n">_clean_praise_service_payload</span><span class="p">(</span><span class="n">leader_raw</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">leader</span><span class="p">:</span>
+        <span class="n">entries</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+            <span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;service_leader&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;leader&quot;</span><span class="p">:</span> <span class="n">leader</span><span class="p">,</span>
+            <span class="s2">&quot;raw&quot;</span><span class="p">:</span> <span class="n">leader_raw</span><span class="p">,</span>
+        <span class="p">})</span>
+
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">next_marker</span>
+
+    <span class="k">while</span> <span class="n">cursor</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">compact_text</span><span class="p">):</span>
+        <span class="n">token</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">candidate</span> <span class="k">for</span> <span class="n">candidate</span> <span class="ow">in</span> <span class="n">PRAISE_SERVICE_TOKENS</span> <span class="k">if</span> <span class="n">compact_text</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">candidate</span><span class="p">,</span> <span class="n">cursor</span><span class="p">)),</span>
+            <span class="kc">None</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">token</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">next_cursor</span> <span class="o">=</span> <span class="n">_find_next_marker</span><span class="p">(</span><span class="n">compact_text</span><span class="p">,</span> <span class="n">cursor</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">PRAISE_SERVICE_TOKENS</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">next_cursor</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                <span class="k">break</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">next_cursor</span>
+            <span class="k">continue</span>
+
+        <span class="n">payload_start</span> <span class="o">=</span> <span class="n">cursor</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+        <span class="n">next_markers</span> <span class="o">=</span> <span class="n">PRAISE_SERVICE_NEXT_MARKERS</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">token</span><span class="p">,</span> <span class="n">PRAISE_SERVICE_TOKENS</span><span class="p">)</span>
+        <span class="n">next_cursor</span> <span class="o">=</span> <span class="n">_find_next_marker</span><span class="p">(</span><span class="n">compact_text</span><span class="p">,</span> <span class="n">payload_start</span><span class="p">,</span> <span class="n">next_markers</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">next_cursor</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">next_cursor</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">compact_text</span><span class="p">)</span>
+
+        <span class="n">payload_raw</span> <span class="o">=</span> <span class="n">_slice_by_compact_range</span><span class="p">(</span><span class="n">segment</span><span class="p">,</span> <span class="n">index_map</span><span class="p">,</span> <span class="n">payload_start</span><span class="p">,</span> <span class="n">next_cursor</span><span class="p">)</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="n">_clean_praise_service_payload</span><span class="p">(</span><span class="n">payload_raw</span><span class="p">)</span>
+
+        <span class="n">entries</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">_parse_praise_service_token</span><span class="p">(</span><span class="n">token</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="n">payload_raw</span><span class="p">))</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="n">next_cursor</span>
+
+    <span class="k">return</span> <span class="p">[</span><span class="n">entry</span> <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">entries</span> <span class="k">if</span> <span class="n">entry</span><span class="p">]</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_parse_order_line</span><span class="p">(</span><span class="n">line</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
@@ -436,6 +952,37 @@
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">entries</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;HWPX에서 1부 예배순서 항목을 파싱하지 못했습니다.&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">entries</span></div>
+
+
+
+<div class="viewcode-block" id="extract_praise_service_order_entries_from_hwpx">
+<a class="viewcode-back" href="../../../../core.generator.utils.hwpx_worship_order_parser.html#core.generator.utils.hwpx_worship_order_parser.extract_praise_service_order_entries_from_hwpx">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">extract_praise_service_order_entries_from_hwpx</span><span class="p">(</span><span class="n">hwpx_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extract recognized afternoon praise-service order entries from a HWPX bulletin.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        hwpx_path (str):</span>
+<span class="sd">            Filesystem path to the source HWPX bulletin file.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list[dict]:</span>
+<span class="sd">            Ordered list of normalized afternoon praise-service entry</span>
+<span class="sd">            dictionaries suitable for generator-side update logic.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError:</span>
+<span class="sd">            Raised when no supported afternoon praise-service items can be</span>
+<span class="sd">            extracted from the file.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">paragraphs</span> <span class="o">=</span> <span class="n">_load_section_paragraphs</span><span class="p">(</span><span class="n">hwpx_path</span><span class="p">)</span>
+    <span class="n">segment</span> <span class="o">=</span> <span class="n">_extract_praise_service_segment</span><span class="p">(</span><span class="n">paragraphs</span><span class="p">)</span>
+    <span class="n">entries</span> <span class="o">=</span> <span class="n">_parse_praise_service_segment</span><span class="p">(</span><span class="n">segment</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">entries</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;HWPX에서 오후찬양예배 순서 항목을 파싱하지 못했습니다.&quot;</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">entries</span></div>
 

@@ -89,8 +89,8 @@
 <span class="sd">The builder assembles:</span>
 
 <span class="sd">- A top row of action buttons with icons (load, save, add, duplicate, insert, delete, move, export)</span>
-<span class="sd">- A tools menu containing church-specific combined HWPX import, worship-order import,</span>
-<span class="sd">  announcement import, and settings actions</span>
+<span class="sd">- A tools menu containing church-specific Sunday worship-order actions,</span>
+<span class="sd">  afternoon praise-service actions, announcement import actions, and settings</span>
 <span class="sd">- A central table area for listing and managing slides</span>
 <span class="sd">- A label showing the current worship/session name</span>
 <span class="sd">- Keyboard shortcuts (e.g., Ctrl+S) and signal connections</span>
@@ -120,8 +120,9 @@
 <span class="sd">    - A horizontal toolbar of action buttons (SVG-icon buttons), including row duplication</span>
 <span class="sd">    - A label displaying the current worship/session name</span>
 <span class="sd">    - The central slide table widget</span>
-<span class="sd">    - ``도구`` menu actions for church-specific combined HWPX import,</span>
-<span class="sd">      worship-order import, announcement import, and settings</span>
+<span class="sd">    - ``도구`` menu actions for church-specific Sunday worship-order actions,</span>
+<span class="sd">      afternoon praise-service actions, announcement import actions, and</span>
+<span class="sd">      settings</span>
 <span class="sd">    - Keyboard shortcuts and signal-slot connections</span>
 
 <span class="sd">    Required parent interface:</span>
@@ -146,6 +147,11 @@
 <span class="sd">        single HWPX bulletin file.</span>
 <span class="sd">    - ``import_worship_order_from_hwpx()``:</span>
 <span class="sd">        Import worship-order information from a HWPX bulletin file.</span>
+<span class="sd">    - ``import_praise_service_order_and_announcements_from_hwpx()``:</span>
+<span class="sd">        Import both afternoon praise-service order information and</span>
+<span class="sd">        announcement slides from a single HWPX bulletin file.</span>
+<span class="sd">    - ``import_praise_service_order_from_hwpx()``:</span>
+<span class="sd">        Import afternoon praise-service order information from a HWPX bulletin file.</span>
 <span class="sd">    - ``import_announcements()``:</span>
 <span class="sd">        Import announcement slides from another worship JSON file.</span>
 <span class="sd">    - ``import_announcements_from_hwpx()``:</span>
@@ -207,8 +213,9 @@
 <span class="sd">        - Creates action buttons with SVG icons and connects them to parent handlers</span>
 <span class="sd">        - Provides direct row actions such as add, duplicate, insert, delete, and move</span>
 <span class="sd">        - Assembles the button toolbar, label, and slide table into a vertical layout</span>
-<span class="sd">        - Adds church-specific combined HWPX import, worship-order import,</span>
-<span class="sd">          announcement import, and settings actions to the Tools menu</span>
+<span class="sd">        - Adds grouped church-specific Sunday worship-order, afternoon</span>
+<span class="sd">          praise-service, announcement import, and settings actions to the</span>
+<span class="sd">          Tools menu</span>
 <span class="sd">        - Applies persisted font settings to the UI</span>
 <span class="sd">        - Connects table double-click events to the slide editor dialog</span>
 <span class="sd">        - Installs the composed layout as the parent&#39;s central widget</span>
@@ -293,13 +300,25 @@
         <span class="n">menubar</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">menuBar</span><span class="p">()</span>
         <span class="n">tool_menu</span> <span class="o">=</span> <span class="n">menubar</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="s2">&quot;도구&quot;</span><span class="p">)</span>
 
+        <span class="n">hwpx_worship_order_action</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="s2">&quot;HWPX 예배순서 가져오기 (을지로교회 전용)&quot;</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
+        <span class="n">hwpx_worship_order_action</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">import_worship_order_from_hwpx</span><span class="p">)</span>
+        <span class="n">tool_menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="n">hwpx_worship_order_action</span><span class="p">)</span>
+
         <span class="n">hwpx_full_action</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="s2">&quot;HWPX 예배순서+광고 가져오기 (을지로교회 전용)&quot;</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
         <span class="n">hwpx_full_action</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">import_worship_order_and_announcements_from_hwpx</span><span class="p">)</span>
         <span class="n">tool_menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="n">hwpx_full_action</span><span class="p">)</span>
 
-        <span class="n">hwpx_worship_order_action</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="s2">&quot;HWPX 예배순서 가져오기 (을지로교회 전용)&quot;</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
-        <span class="n">hwpx_worship_order_action</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">import_worship_order_from_hwpx</span><span class="p">)</span>
-        <span class="n">tool_menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="n">hwpx_worship_order_action</span><span class="p">)</span>
+        <span class="n">tool_menu</span><span class="o">.</span><span class="n">addSeparator</span><span class="p">()</span>
+
+        <span class="n">hwpx_praise_service_action</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="s2">&quot;HWPX 오후찬양예배 순서 가져오기 (을지로교회 전용)&quot;</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
+        <span class="n">hwpx_praise_service_action</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">import_praise_service_order_from_hwpx</span><span class="p">)</span>
+        <span class="n">tool_menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="n">hwpx_praise_service_action</span><span class="p">)</span>
+
+        <span class="n">hwpx_praise_service_full_action</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="s2">&quot;HWPX 오후찬양예배 순서+광고 가져오기 (을지로교회 전용)&quot;</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
+        <span class="n">hwpx_praise_service_full_action</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">import_praise_service_order_and_announcements_from_hwpx</span><span class="p">)</span>
+        <span class="n">tool_menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="n">hwpx_praise_service_full_action</span><span class="p">)</span>
+
+        <span class="n">tool_menu</span><span class="o">.</span><span class="n">addSeparator</span><span class="p">()</span>
 
         <span class="n">hwpx_announcement_action</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="s2">&quot;HWPX 광고 가져오기 (을지로교회 전용)&quot;</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
         <span class="n">hwpx_announcement_action</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">import_announcements_from_hwpx</span><span class="p">)</span>
