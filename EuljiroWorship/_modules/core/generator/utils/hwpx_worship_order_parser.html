@@ -303,6 +303,31 @@
     <span class="k">return</span> <span class="n">ROLE_SUFFIX_RE</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
 
 
+<span class="k">def</span><span class="w"> </span><span class="nf">_space_person_role_suffix</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Insert a single display-friendly space before a trailing role suffix.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        text (str):</span>
+<span class="sd">            Person-like text that may end with a role such as ``목사``,</span>
+<span class="sd">            ``장로``, ``집사``, ``권사``, or ``전도사``.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        str:</span>
+<span class="sd">            Text with a single space inserted before the trailing role suffix</span>
+<span class="sd">            when one is detected. Existing spacing is preserved.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">_normalize_line</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">text</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">text</span>
+
+    <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span>
+        <span class="sa">r</span><span class="s2">&quot;(?&lt;!\s)(목사|장로|집사|권사|전도사)(\s*\([^)]*\))?$&quot;</span><span class="p">,</span>
+        <span class="sa">r</span><span class="s2">&quot; \1\2&quot;</span><span class="p">,</span>
+        <span class="n">text</span><span class="p">,</span>
+    <span class="p">)</span>
+
+
 <span class="k">def</span><span class="w"> </span><span class="nf">_load_section_paragraphs</span><span class="p">(</span><span class="n">hwpx_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Read all section XML files in a HWPX archive and collect paragraph text.</span>
@@ -616,7 +641,7 @@
 
         <span class="k">return</span> <span class="p">[{</span>
             <span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;prayer&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;leader&quot;</span><span class="p">:</span> <span class="n">payload</span><span class="p">,</span>
+            <span class="s2">&quot;leader&quot;</span><span class="p">:</span> <span class="n">_space_person_role_suffix</span><span class="p">(</span><span class="n">payload</span><span class="p">),</span>
             <span class="s2">&quot;raw&quot;</span><span class="p">:</span> <span class="n">raw</span><span class="p">,</span>
         <span class="p">}]</span>
 
@@ -667,7 +692,7 @@
     <span class="k">if</span> <span class="n">token</span> <span class="o">==</span> <span class="s2">&quot;봉헌기도&quot;</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">[{</span>
             <span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;offering_prayer&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;leader&quot;</span><span class="p">:</span> <span class="n">payload</span><span class="p">,</span>
+            <span class="s2">&quot;leader&quot;</span><span class="p">:</span> <span class="n">_space_person_role_suffix</span><span class="p">(</span><span class="n">payload</span><span class="p">),</span>
             <span class="s2">&quot;raw&quot;</span><span class="p">:</span> <span class="n">raw</span><span class="p">,</span>
         <span class="p">}]</span>
 
@@ -675,7 +700,7 @@
         <span class="k">return</span> <span class="p">[</span>
             <span class="p">{</span>
                 <span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;greeting&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;person&quot;</span><span class="p">:</span> <span class="n">person</span><span class="p">,</span>
+                <span class="s2">&quot;person&quot;</span><span class="p">:</span> <span class="n">_space_person_role_suffix</span><span class="p">(</span><span class="n">person</span><span class="p">),</span>
                 <span class="s2">&quot;raw&quot;</span><span class="p">:</span> <span class="n">raw</span><span class="p">,</span>
             <span class="p">}</span>
             <span class="k">for</span> <span class="n">person</span> <span class="ow">in</span> <span class="n">_split_numbered_people_entries</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
@@ -691,14 +716,14 @@
     <span class="k">if</span> <span class="n">token</span> <span class="o">==</span> <span class="s2">&quot;교회소식&quot;</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">[{</span>
             <span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;church_news&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;leader&quot;</span><span class="p">:</span> <span class="n">payload</span> <span class="ow">or</span> <span class="s2">&quot;인도자&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;leader&quot;</span><span class="p">:</span> <span class="n">_space_person_role_suffix</span><span class="p">(</span><span class="n">payload</span> <span class="ow">or</span> <span class="s2">&quot;인도자&quot;</span><span class="p">),</span>
             <span class="s2">&quot;raw&quot;</span><span class="p">:</span> <span class="n">raw</span><span class="p">,</span>
         <span class="p">}]</span>
 
     <span class="k">if</span> <span class="n">token</span> <span class="o">==</span> <span class="s2">&quot;축도&quot;</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">[{</span>
             <span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;benediction&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;leader&quot;</span><span class="p">:</span> <span class="n">payload</span><span class="p">,</span>
+            <span class="s2">&quot;leader&quot;</span><span class="p">:</span> <span class="n">_space_person_role_suffix</span><span class="p">(</span><span class="n">payload</span><span class="p">),</span>
             <span class="s2">&quot;raw&quot;</span><span class="p">:</span> <span class="n">raw</span><span class="p">,</span>
         <span class="p">}]</span>
 
@@ -734,7 +759,7 @@
         <span class="n">next_marker</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">compact_text</span><span class="p">)</span>
 
     <span class="n">leader_raw</span> <span class="o">=</span> <span class="n">_slice_by_compact_range</span><span class="p">(</span><span class="n">segment</span><span class="p">,</span> <span class="n">index_map</span><span class="p">,</span> <span class="n">cursor</span><span class="p">,</span> <span class="n">next_marker</span><span class="p">)</span>
-    <span class="n">leader</span> <span class="o">=</span> <span class="n">_clean_praise_service_payload</span><span class="p">(</span><span class="n">leader_raw</span><span class="p">)</span>
+    <span class="n">leader</span> <span class="o">=</span> <span class="n">_space_person_role_suffix</span><span class="p">(</span><span class="n">_clean_praise_service_payload</span><span class="p">(</span><span class="n">leader_raw</span><span class="p">))</span>
     <span class="k">if</span> <span class="n">leader</span><span class="p">:</span>
         <span class="n">entries</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
             <span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;service_leader&quot;</span><span class="p">,</span>
@@ -903,7 +928,7 @@
             <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;post_sermon_prayer&quot;</span><span class="p">,</span> <span class="s2">&quot;raw&quot;</span><span class="p">:</span> <span class="n">line</span><span class="p">}</span>
         <span class="k">return</span> <span class="p">{</span>
             <span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;prayer&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;leader&quot;</span><span class="p">:</span> <span class="n">payload</span><span class="p">,</span>
+            <span class="s2">&quot;leader&quot;</span><span class="p">:</span> <span class="n">_space_person_role_suffix</span><span class="p">(</span><span class="n">payload</span><span class="p">),</span>
             <span class="s2">&quot;raw&quot;</span><span class="p">:</span> <span class="n">line</span><span class="p">,</span>
         <span class="p">}</span>
 
