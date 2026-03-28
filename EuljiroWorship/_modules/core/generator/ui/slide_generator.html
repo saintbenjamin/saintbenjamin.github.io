@@ -1366,7 +1366,7 @@
         <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;communion&quot;</span><span class="p">:</span>
             <span class="k">return</span> <span class="p">[{</span>
                 <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;corner&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;caption&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;caption&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span>
+                <span class="s2">&quot;caption&quot;</span><span class="p">:</span> <span class="s2">&quot;당회장&quot;</span><span class="p">,</span>
                 <span class="s2">&quot;headline&quot;</span><span class="p">:</span> <span class="s2">&quot;성찬식&quot;</span><span class="p">,</span>
             <span class="p">}]</span>
 
@@ -1490,7 +1490,7 @@
             <span class="k">if</span> <span class="n">style</span> <span class="o">==</span> <span class="s2">&quot;corner&quot;</span><span class="p">:</span>
                 <span class="n">imported_caption</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;caption&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
                 <span class="k">if</span> <span class="n">imported_caption</span><span class="p">:</span>
-                    <span class="n">first_slide</span><span class="p">[</span><span class="s2">&quot;caption&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">imported_caption</span>
+                    <span class="n">first_slide</span><span class="p">[</span><span class="s2">&quot;caption&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;당회장&quot;</span>
                 <span class="n">first_slide</span><span class="p">[</span><span class="s2">&quot;headline&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;성찬식&quot;</span>
                 <span class="k">return</span> <span class="n">slides</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_new_worship_order_block</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span>
