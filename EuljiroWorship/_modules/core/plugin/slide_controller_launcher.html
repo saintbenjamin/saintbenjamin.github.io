@@ -91,9 +91,9 @@
 <span class="sd">child process rather than a standalone application.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">subprocess</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">QMessageBox</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">core.utils.runtime_launcher</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_entry_command</span><span class="p">,</span> <span class="n">get_runtime_base_dir</span>
 
 <div class="viewcode-block" id="SlideControllerLauncher">
 <a class="viewcode-back" href="../../../core.plugin.slide_controller_launcher.html#core.plugin.slide_controller_launcher.SlideControllerLauncher">[docs]</a>
@@ -185,7 +185,10 @@
 
         <span class="k">try</span><span class="p">:</span>
             <span class="c1"># Attempt to launch the controller subprocess</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">proc</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">([</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="s2">&quot;controller/slide_controller.py&quot;</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">proc</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span>
+                <span class="n">build_entry_command</span><span class="p">(</span><span class="s2">&quot;--controller&quot;</span><span class="p">),</span>
+                <span class="n">cwd</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">get_runtime_base_dir</span><span class="p">())</span>
+            <span class="p">)</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[✓] Slide controller started&quot;</span><span class="p">)</span>
 
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>

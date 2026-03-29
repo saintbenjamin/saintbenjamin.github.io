@@ -51,6 +51,10 @@
 <li class="toctree-l3"><a class="reference internal" href="#EuljiroWorship._start_ws_server"><code class="docutils literal notranslate"><span class="pre">_start_ws_server()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#EuljiroWorship._terminate_process"><code class="docutils literal notranslate"><span class="pre">_terminate_process()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#EuljiroWorship._ensure_alive"><code class="docutils literal notranslate"><span class="pre">_ensure_alive()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#EuljiroWorship._parse_mode_args"><code class="docutils literal notranslate"><span class="pre">_parse_mode_args()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#EuljiroWorship._run_static_http_server"><code class="docutils literal notranslate"><span class="pre">_run_static_http_server()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#EuljiroWorship._run_mode_from_cli"><code class="docutils literal notranslate"><span class="pre">_run_mode_from_cli()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#EuljiroWorship.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="controller.html">controller</a></li>
@@ -114,8 +118,8 @@
 <p>This module launches the <a class="reference external" href="https://doc.qt.io/qt-6/index.html">Qt</a>-based Slide Generator UI and starts the background
 servers required for the browser-based overlay:</p>
 <ul class="simple">
-<li><p>An HTTP server (static file hosting; default: <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">http.server</span> <span class="pre">8080</span></code>)</p></li>
-<li><p>A <a class="reference external" href="https://websocket-client.readthedocs.io/en/latest/index.html">WebSocket</a> server (real-time slide updates; launched via <code class="docutils literal notranslate"><span class="pre">server/websocket_server.py</span></code>)</p></li>
+<li><p>An HTTP server (static file hosting; default: port <code class="docutils literal notranslate"><span class="pre">8080</span></code>)</p></li>
+<li><p>A <a class="reference external" href="https://websocket-client.readthedocs.io/en/latest/index.html">WebSocket</a> server (real-time slide updates; default: port <code class="docutils literal notranslate"><span class="pre">8765</span></code>)</p></li>
 </ul>
 <p>Typical usage:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">EuljiroWorship</span><span class="o">.</span><span class="n">py</span>
@@ -126,6 +130,7 @@ servers required for the browser-based overlay:</p>
 <ul class="simple">
 <li><p>The HTTP document root is currently set to the project root directory. If your overlay/static files live under a specific subdirectory (e.g. <code class="docutils literal notranslate"><span class="pre">web/</span></code>), update <code class="docutils literal notranslate"><span class="pre">http_cwd</span></code> accordingly.</p></li>
 <li><p>Both servers are started as subprocesses. They are terminated on normal <a class="reference external" href="https://doc.qt.io/qt-6/index.html">Qt</a> exit and also via <code class="docutils literal notranslate"><span class="pre">atexit</span></code> as a fallback.</p></li>
+<li><p>Alternate launcher modes (controller / HTTP server / WebSocket server / interruptor) are exposed so the same entry point can be reused in frozen executable builds.</p></li>
 <li><p>If the server subprocess exits immediately (e.g., port already in use), the launcher raises a <code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code>.</p></li>
 </ul>
 </div>
@@ -133,8 +138,9 @@ servers required for the browser-based overlay:</p>
 <dt class="sig sig-object py" id="EuljiroWorship._project_root">
 <span class="sig-prename descclassname"><span class="pre">EuljiroWorship.</span></span><span class="sig-name descname"><span class="pre">_project_root</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/EuljiroWorship.html#_project_root"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EuljiroWorship._project_root" title="Link to this definition"></a></dt>
 <dd><p>Return the project root directory.</p>
-<p>This function assumes that <code class="docutils literal notranslate"><span class="pre">EuljiroWorship.py</span></code> is located at the repository
-root (i.e., the root directory of the project).</p>
+<p>In source execution, this resolves to the repository root.
+In frozen execution, this resolves to the directory containing the
+bundled executable and its staged resource folders.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Absolute path to the project root directory.</p>
@@ -148,11 +154,10 @@ root (i.e., the root directory of the project).</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="EuljiroWorship._start_http_server">
 <span class="sig-prename descclassname"><span class="pre">EuljiroWorship.</span></span><span class="sig-name descname"><span class="pre">_start_http_server</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cwd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8080</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EuljiroWorship.html#_start_http_server"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EuljiroWorship._start_http_server" title="Link to this definition"></a></dt>
-<dd><p>Start a static-file HTTP server as a subprocess.</p>
-<p>Internally, this runs Python’s built-in module:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">http</span><span class="o">.</span><span class="n">server</span> <span class="o">&lt;</span><span class="n">port</span><span class="o">&gt;</span>
-</pre></div>
-</div>
+<dd><p>Start the static-file HTTP server as a subprocess.</p>
+<p>The subprocess relaunches the main application entry point in dedicated
+<code class="docutils literal notranslate"><span class="pre">--http-server</span></code> mode so the same implementation works in both source
+and frozen executable builds.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -180,23 +185,19 @@ root (i.e., the root directory of the project).</p>
 <dt class="sig sig-object py" id="EuljiroWorship._start_ws_server">
 <span class="sig-prename descclassname"><span class="pre">EuljiroWorship.</span></span><span class="sig-name descname"><span class="pre">_start_ws_server</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EuljiroWorship.html#_start_ws_server"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EuljiroWorship._start_ws_server" title="Link to this definition"></a></dt>
 <dd><p>Start the <a class="reference external" href="https://websocket-client.readthedocs.io/en/latest/index.html">WebSocket</a> server as a subprocess.</p>
-<p>This launches:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">project_root</span><span class="o">&gt;/</span><span class="n">server</span><span class="o">/</span><span class="n">websocket_server</span><span class="o">.</span><span class="n">py</span>
-</pre></div>
-</div>
+<p>The subprocess relaunches the main application entry point in dedicated
+<code class="docutils literal notranslate"><span class="pre">--ws-server</span></code> mode so the same launcher path works in both source
+and frozen executable builds.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>root</strong> (<em>pathlib.Path</em>) – Absolute path to the project root directory.</p>
 </dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>FileNotFoundError</strong> – If <code class="docutils literal notranslate"><span class="pre">server/websocket_server.py</span></code> does not exist under <code class="docutils literal notranslate"><span class="pre">root</span></code>.</p>
-</dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><p>A handle to the spawned <a class="reference external" href="https://websocket-client.readthedocs.io/en/latest/index.html">WebSocket</a> server process.</p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>A handle to the spawned <a class="reference external" href="https://websocket-client.readthedocs.io/en/latest/index.html">WebSocket</a> server process.</p>
 </p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>subprocess.Popen</p>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>subprocess.Popen</p>
 </dd>
 </dl>
 <div class="admonition note">
@@ -251,6 +252,75 @@ If the process has already exited, a <code class="docutils literal notranslate">
 <dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>RuntimeError</strong> – If the subprocess has already exited.</p>
 </dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="EuljiroWorship._parse_mode_args">
+<span class="sig-prename descclassname"><span class="pre">EuljiroWorship.</span></span><span class="sig-name descname"><span class="pre">_parse_mode_args</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">argv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EuljiroWorship.html#_parse_mode_args"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EuljiroWorship._parse_mode_args" title="Link to this definition"></a></dt>
+<dd><p>Parse launcher mode arguments.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>argv</strong> (<em>list</em><em>[</em><em>str</em><em>] </em><em>| </em><em>None</em>) – Optional explicit argument list. If None, <code class="docutils literal notranslate"><span class="pre">sys.argv[1:]</span></code> is used.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Parsed launcher arguments.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>argparse.Namespace</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="EuljiroWorship._run_static_http_server">
+<span class="sig-prename descclassname"><span class="pre">EuljiroWorship.</span></span><span class="sig-name descname"><span class="pre">_run_static_http_server</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8080</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EuljiroWorship.html#_run_static_http_server"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EuljiroWorship._run_static_http_server" title="Link to this definition"></a></dt>
+<dd><p>Run a static-file HTTP server in the current process.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>root</strong> (<em>pathlib.Path</em>) – Directory to expose as the HTTP document root.</p></li>
+<li><p><strong>port</strong> (<em>int</em><em>, </em><em>optional</em>) – TCP port to bind. Defaults to <code class="docutils literal notranslate"><span class="pre">8080</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="EuljiroWorship._run_mode_from_cli">
+<span class="sig-prename descclassname"><span class="pre">EuljiroWorship.</span></span><span class="sig-name descname"><span class="pre">_run_mode_from_cli</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EuljiroWorship.html#_run_mode_from_cli"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EuljiroWorship._run_mode_from_cli" title="Link to this definition"></a></dt>
+<dd><p>Dispatch alternate launcher modes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>args</strong> (<em>argparse.Namespace</em>) – Parsed launcher arguments.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if an alternate mode was executed and normal GUI startup
+should be skipped, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="EuljiroWorship.main">
+<span class="sig-prename descclassname"><span class="pre">EuljiroWorship.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/EuljiroWorship.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EuljiroWorship.main" title="Link to this definition"></a></dt>
+<dd><p>Launch the default Slide Generator application workflow.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>None</p>
 </dd>

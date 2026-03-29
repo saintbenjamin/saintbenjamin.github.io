@@ -123,6 +123,7 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">controller.utils.slide_websocket_manager</span><span class="w"> </span><span class="kn">import</span> <span class="n">SlideWebSocketManager</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">core.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">paths</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">core.generator.settings_generator</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_font_from_settings</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">core.utils.runtime_launcher</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_entry_command</span><span class="p">,</span> <span class="n">ensure_runtime_cwd</span>
 
 <div class="viewcode-block" id="launch_interruptor">
 <a class="viewcode-back" href="../../controller.slide_controller.html#controller.slide_controller.launch_interruptor">[docs]</a>
@@ -146,7 +147,8 @@
     <span class="k">try</span><span class="p">:</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">devnull</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">devnull</span><span class="p">:</span>
             <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span>
-                <span class="p">[</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="s2">&quot;launcher/verse_interruptor.py&quot;</span><span class="p">],</span>
+                <span class="n">build_entry_command</span><span class="p">(</span><span class="s2">&quot;--interruptor&quot;</span><span class="p">),</span>
+                <span class="n">cwd</span><span class="o">=</span><span class="n">paths</span><span class="o">.</span><span class="n">BASE_DIR</span><span class="p">,</span>
                 <span class="n">stdout</span><span class="o">=</span><span class="n">devnull</span><span class="p">,</span>
                 <span class="n">stderr</span><span class="o">=</span><span class="n">devnull</span><span class="p">,</span>
                 <span class="n">stdin</span><span class="o">=</span><span class="n">devnull</span><span class="p">,</span>
@@ -705,13 +707,17 @@
 </div>
 
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+<div class="viewcode-block" id="main">
+<a class="viewcode-back" href="../../controller.slide_controller.html#controller.slide_controller.main">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Entry point for the slide controller application.</span>
 
 <span class="sd">    This launches the verse interruptor, applies font settings,</span>
 <span class="sd">    and starts the GUI event loop.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ensure_runtime_cwd</span><span class="p">()</span>
+
     <span class="n">SlideControllerDataManager</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">SLIDE_FILE</span><span class="p">)</span><span class="o">.</span><span class="n">backup_slides</span><span class="p">()</span>
 
     <span class="n">launch_interruptor</span><span class="p">()</span>
@@ -724,7 +730,11 @@
     <span class="n">controller</span><span class="o">.</span><span class="n">insert_blank_if_needed</span><span class="p">()</span>
     <span class="n">controller</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
-    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">exec</span><span class="p">())</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">exec</span><span class="p">())</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
 </pre></div>
 
            </div>

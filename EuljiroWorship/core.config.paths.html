@@ -129,6 +129,25 @@ including:</p>
 </ul>
 <p>All paths are resolved relative to the project root to ensure
 consistent behavior across platforms (Windows, macOS, Linux).</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="core.config.paths._resolve_base_dir">
+<span class="sig-prename descclassname"><span class="pre">core.config.paths.</span></span><span class="sig-name descname"><span class="pre">_resolve_base_dir</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/config/paths.html#_resolve_base_dir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.config.paths._resolve_base_dir" title="Link to this definition"></a></dt>
+<dd><p>Resolve the runtime application root directory.</p>
+<p>In source execution, the root is derived from this module’s location.
+In frozen execution (e.g., a <a class="reference external" href="https://pyinstaller.org/">PyInstaller</a>
+one-dir build), user-facing resource folders such as <code class="docutils literal notranslate"><span class="pre">data/</span></code> and
+<code class="docutils literal notranslate"><span class="pre">json/</span></code> live next to the executable rather than next to the bundled
+Python modules under <code class="docutils literal notranslate"><span class="pre">_internal/</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Absolute path to the runtime application root directory.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py data">
 <dt class="sig sig-object py" id="core.config.paths.BASE_DIR">
 <span class="sig-prename descclassname"><span class="pre">core.config.paths.</span></span><span class="sig-name descname"><span class="pre">BASE_DIR</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'/home/runner/work/EuljiroWorship/EuljiroWorship'</span></span><a class="headerlink" href="#core.config.paths.BASE_DIR" title="Link to this definition"></a></dt>

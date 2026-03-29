@@ -17,6 +17,7 @@ controller.utils
    controller.utils.interruptor_watcher
    controller.utils.keyword_highlight_delegate
    controller.utils.keyword_result_model_light
+   controller.utils.runtime_launcher
    controller.utils.slide_controller_data_manager
    controller.utils.slide_file_watcher
    controller.utils.slide_websocket_manager

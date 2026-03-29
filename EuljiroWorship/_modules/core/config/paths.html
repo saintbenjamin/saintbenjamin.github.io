@@ -1,0 +1,219 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>core.config.paths &mdash; EuljiroWorship 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=2709fde1"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            EuljiroWorship
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">Modules</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">EuljiroWorship</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">core.config.paths</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for core.config.paths</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">:File: EuljiroWorship/core/config/paths.py</span>
+<span class="sd">:Author: Benjamin Jaedon Choi - https://github.com/saintbenjamin</span>
+<span class="sd">:Affiliated Church: The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</span>
+<span class="sd">:Address: The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</span>
+<span class="sd">:Telephone: +82-2-2266-3070</span>
+<span class="sd">:E-mail: euljirochurch [at] G.M.A.I.L. (replace [at] with @ and G.M.A.I.L as you understood.)</span>
+<span class="sd">:License: MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</span>
+
+<span class="sd">Defines core directory and file paths used across the EuljiroWorship</span>
+<span class="sd">and EuljiroBible systems.</span>
+
+<span class="sd">This module centralizes all filesystem paths required by the project,</span>
+<span class="sd">including:</span>
+
+<span class="sd">- Base project directories (root, store, settings, assets)</span>
+<span class="sd">- Generator and controller output files</span>
+<span class="sd">- Emergency verse output path for overlay systems</span>
+<span class="sd">- Bible data directories and alias/config JSON files</span>
+<span class="sd">- Shared paths used by both GUI and CLI components</span>
+
+<span class="sd">All paths are resolved relative to the project root to ensure</span>
+<span class="sd">consistent behavior across platforms (Windows, macOS, Linux).</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<div class="viewcode-block" id="_resolve_base_dir">
+<a class="viewcode-back" href="../../../core.config.paths.html#core.config.paths._resolve_base_dir">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">_resolve_base_dir</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Resolve the runtime application root directory.</span>
+
+<span class="sd">    In source execution, the root is derived from this module&#39;s location.</span>
+<span class="sd">    In frozen execution (e.g., a `PyInstaller &lt;https://pyinstaller.org/&gt;`_</span>
+<span class="sd">    one-dir build), user-facing resource folders such as ``data/`` and</span>
+<span class="sd">    ``json/`` live next to the executable rather than next to the bundled</span>
+<span class="sd">    Python modules under ``_internal/``.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        str:</span>
+<span class="sd">            Absolute path to the runtime application root directory.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">sys</span><span class="p">,</span> <span class="s2">&quot;frozen&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span><span class="o">.</span><span class="n">parent</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span><span class="o">.</span><span class="n">parents</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span></div>
+
+
+<span class="c1"># ───── Base directories ─────</span>
+<span class="c1">#: Absolute path to the project root directory.</span>
+<span class="n">BASE_DIR</span> <span class="o">=</span> <span class="n">_resolve_base_dir</span><span class="p">()</span>
+
+<span class="c1">#: Directory for slide output and backup files (under ``BASE_DIR/store``).</span>
+<span class="n">STORE_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="s2">&quot;store&quot;</span><span class="p">)</span>
+
+<span class="c1">#: Directory for JSON configs and settings (under ``BASE_DIR/json``).</span>
+<span class="n">SETTING_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="s2">&quot;json&quot;</span><span class="p">)</span>
+
+<span class="c1">#: Directory for SVG icon assets (under ``BASE_DIR/assets/svg``).</span>
+<span class="n">ICON_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="s2">&quot;assets&quot;</span><span class="p">,</span> <span class="s2">&quot;svg&quot;</span><span class="p">)</span>
+
+<span class="c1"># ───── Emergency overlay file ─────</span>
+<span class="c1">#: Emergency verse output file path (typically ``BASE_DIR/verse_output.txt``).</span>
+<span class="c1">#:</span>
+<span class="c1">#: This file is written by the emergency caption flow and monitored by</span>
+<span class="c1">#: helper processes such as the verse interruptor.</span>
+<span class="n">VERSE_FILE</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="s2">&quot;verse_output.txt&quot;</span><span class="p">)</span>
+
+<span class="c1"># ───── Settings files ─────</span>
+<span class="c1">#: Main application settings JSON file (typically ``json/settings.json``).</span>
+<span class="n">SETTING_FILE</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">SETTING_DIR</span><span class="p">,</span> <span class="s2">&quot;settings.json&quot;</span><span class="p">)</span>
+
+<span class="c1">#: JSON file storing the last opened path/session info</span>
+<span class="c1">#: (typically ``json/settings_last_path.json``).</span>
+<span class="n">SETTING_LAST_OPEN_FILE</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">SETTING_DIR</span><span class="p">,</span> <span class="s2">&quot;settings_last_path.json&quot;</span><span class="p">)</span>
+
+<span class="c1"># ───── Slide system output and backup ─────</span>
+<span class="c1">#: Main slide output JSON file written for overlay display</span>
+<span class="c1">#: (typically ``store/slide_output.json``).</span>
+<span class="n">SLIDE_FILE</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">STORE_DIR</span><span class="p">,</span> <span class="s2">&quot;slide_output.json&quot;</span><span class="p">)</span>
+
+<span class="c1">#: Backup of the previous slide output used for restoration after</span>
+<span class="c1">#: emergency mode (typically ``store/slide_output_backup.json``).</span>
+<span class="n">SLIDE_BACKUP_FILE</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">STORE_DIR</span><span class="p">,</span> <span class="s2">&quot;slide_output_backup.json&quot;</span><span class="p">)</span>
+
+<span class="c1"># ───── Bible data directories (EuljiroBible) ─────</span>
+<span class="c1">#: Directory containing Bible version JSON data files (typically ``data/``).</span>
+<span class="n">BIBLE_DATA_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">)</span>
+
+<span class="c1">#: Directory containing JSON configs.</span>
+<span class="c1">#:</span>
+<span class="c1">#: This directory is the same physical location as ``SETTING_DIR``.</span>
+<span class="n">JSON_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="s2">&quot;json&quot;</span><span class="p">)</span>
+
+<span class="c1">#: Directory containing Bible name/version alias JSON files</span>
+<span class="c1">#: (typically ``json/bible/``).</span>
+<span class="n">BIBLE_NAME_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">JSON_DIR</span><span class="p">,</span> <span class="s2">&quot;bible&quot;</span><span class="p">)</span>
+
+<span class="c1"># ───── Bible alias/config files ─────</span>
+<span class="c1">#: GUI Bible version alias mapping JSON file.</span>
+<span class="n">ALIASES_VERSION_FILE</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">BIBLE_NAME_DIR</span><span class="p">,</span> <span class="s2">&quot;aliases_version.json&quot;</span><span class="p">)</span>
+
+<span class="c1">#: CLI Bible version alias mapping JSON file</span>
+<span class="c1">#: (simplified aliases for CLI parsing).</span>
+<span class="n">ALIASES_VERSION_CLI_FILE</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">BIBLE_NAME_DIR</span><span class="p">,</span> <span class="s2">&quot;aliases_version_cli.json&quot;</span><span class="p">)</span>
+
+<span class="c1">#: Book name alias mapping JSON file.</span>
+<span class="n">ALIASES_BOOK_FILE</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">BIBLE_NAME_DIR</span><span class="p">,</span> <span class="s2">&quot;aliases_book.json&quot;</span><span class="p">)</span>
+
+<span class="c1">#: Canonical book list JSON file used as the standard reference.</span>
+<span class="n">STANDARD_BOOK_FILE</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">BIBLE_NAME_DIR</span><span class="p">,</span> <span class="s2">&quot;standard_book.json&quot;</span><span class="p">)</span>
+
+<span class="c1">#: Custom book sort order JSON file.</span>
+<span class="n">SORT_ORDER_FILE</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">BIBLE_NAME_DIR</span><span class="p">,</span> <span class="s2">&quot;your_sort_order.json&quot;</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Benjamin J. Choi.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

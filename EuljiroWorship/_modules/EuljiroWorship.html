@@ -84,8 +84,8 @@
 <span class="sd">This module launches the `Qt &lt;https://doc.qt.io/qt-6/index.html&gt;`_-based Slide Generator UI and starts the background</span>
 <span class="sd">servers required for the browser-based overlay:</span>
 
-<span class="sd">- An HTTP server (static file hosting; default: ``python -m http.server 8080``)</span>
-<span class="sd">- A `WebSocket &lt;https://websocket-client.readthedocs.io/en/latest/index.html&gt;`_ server (real-time slide updates; launched via ``server/websocket_server.py``)</span>
+<span class="sd">- An HTTP server (static file hosting; default: port ``8080``)</span>
+<span class="sd">- A `WebSocket &lt;https://websocket-client.readthedocs.io/en/latest/index.html&gt;`_ server (real-time slide updates; default: port ``8765``)</span>
 
 <span class="sd">Typical usage::</span>
 
@@ -94,22 +94,20 @@
 <span class="sd">Note:</span>
 <span class="sd">    - The HTTP document root is currently set to the project root directory. If your overlay/static files live under a specific subdirectory (e.g. ``web/``), update ``http_cwd`` accordingly.</span>
 <span class="sd">    - Both servers are started as subprocesses. They are terminated on normal `Qt &lt;https://doc.qt.io/qt-6/index.html&gt;`_ exit and also via ``atexit`` as a fallback.</span>
+<span class="sd">    - Alternate launcher modes (controller / HTTP server / WebSocket server / interruptor) are exposed so the same entry point can be reused in frozen executable builds.</span>
 <span class="sd">    - If the server subprocess exits immediately (e.g., port already in use), the launcher raises a ``RuntimeError``.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">atexit</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">argparse</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">subprocess</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">functools</span><span class="w"> </span><span class="kn">import</span> <span class="n">partial</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">http.server</span><span class="w"> </span><span class="kn">import</span> <span class="n">SimpleHTTPRequestHandler</span><span class="p">,</span> <span class="n">ThreadingHTTPServer</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">QApplication</span>
-
-<span class="c1"># Load font settings from persistent configuration</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">core.generator.settings_generator</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_font_from_settings</span>
-
-<span class="c1"># Import the main Slide Generator UI</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">core.generator.ui.slide_generator</span><span class="w"> </span><span class="kn">import</span> <span class="n">SlideGenerator</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">core.utils.runtime_launcher</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_entry_command</span><span class="p">,</span> <span class="n">ensure_runtime_cwd</span><span class="p">,</span> <span class="n">get_runtime_base_dir</span>
 
 <div class="viewcode-block" id="_project_root">
 <a class="viewcode-back" href="../EuljiroWorship.html#EuljiroWorship._project_root">[docs]</a>
@@ -117,25 +115,26 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return the project root directory.</span>
 
-<span class="sd">    This function assumes that ``EuljiroWorship.py`` is located at the repository</span>
-<span class="sd">    root (i.e., the root directory of the project).</span>
+<span class="sd">    In source execution, this resolves to the repository root.</span>
+<span class="sd">    In frozen execution, this resolves to the directory containing the</span>
+<span class="sd">    bundled executable and its staged resource folders.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        pathlib.Path:</span>
 <span class="sd">            Absolute path to the project root directory.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span><span class="o">.</span><span class="n">parent</span></div>
+    <span class="k">return</span> <span class="n">get_runtime_base_dir</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="_start_http_server">
 <a class="viewcode-back" href="../EuljiroWorship.html#EuljiroWorship._start_http_server">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">_start_http_server</span><span class="p">(</span><span class="n">cwd</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">port</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">8080</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Start a static-file HTTP server as a subprocess.</span>
+<span class="sd">    Start the static-file HTTP server as a subprocess.</span>
 
-<span class="sd">    Internally, this runs Python&#39;s built-in module::</span>
-
-<span class="sd">        python -m http.server &lt;port&gt;</span>
+<span class="sd">    The subprocess relaunches the main application entry point in dedicated</span>
+<span class="sd">    ``--http-server`` mode so the same implementation works in both source</span>
+<span class="sd">    and frozen executable builds.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        cwd (pathlib.Path):</span>
@@ -152,7 +151,7 @@
 <span class="sd">        - Standard output/error are inherited by default (``stdout=None``, ``stderr=None``).</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="s2">&quot;-m&quot;</span><span class="p">,</span> <span class="s2">&quot;http.server&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">port</span><span class="p">)]</span>
+    <span class="n">cmd</span> <span class="o">=</span> <span class="n">build_entry_command</span><span class="p">(</span><span class="s2">&quot;--http-server&quot;</span><span class="p">,</span> <span class="s2">&quot;--root&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">cwd</span><span class="p">),</span> <span class="s2">&quot;--port&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">port</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span>
         <span class="n">cmd</span><span class="p">,</span>
         <span class="n">cwd</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">cwd</span><span class="p">),</span>
@@ -169,17 +168,13 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Start the `WebSocket &lt;https://websocket-client.readthedocs.io/en/latest/index.html&gt;`_ server as a subprocess.</span>
 
-<span class="sd">    This launches::</span>
-
-<span class="sd">        &lt;project_root&gt;/server/websocket_server.py</span>
+<span class="sd">    The subprocess relaunches the main application entry point in dedicated</span>
+<span class="sd">    ``--ws-server`` mode so the same launcher path works in both source</span>
+<span class="sd">    and frozen executable builds.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        root (pathlib.Path):</span>
 <span class="sd">            Absolute path to the project root directory.</span>
-
-<span class="sd">    Raises:</span>
-<span class="sd">        FileNotFoundError</span>
-<span class="sd">            If ``server/websocket_server.py`` does not exist under ``root``.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        subprocess.Popen:</span>
@@ -189,11 +184,7 @@
 <span class="sd">        - The process is spawned with its working directory set to the project root.</span>
 <span class="sd">        - ``start_new_session=True`` is used to improve shutdown reliability across platforms.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">ws_path</span> <span class="o">=</span> <span class="n">root</span> <span class="o">/</span> <span class="s2">&quot;server&quot;</span> <span class="o">/</span> <span class="s2">&quot;websocket_server.py&quot;</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">ws_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
-        <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;WebSocket server not found: </span><span class="si">{</span><span class="n">ws_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-    <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">ws_path</span><span class="p">)]</span>
+    <span class="n">cmd</span> <span class="o">=</span> <span class="n">build_entry_command</span><span class="p">(</span><span class="s2">&quot;--ws-server&quot;</span><span class="p">,</span> <span class="s2">&quot;--port&quot;</span><span class="p">,</span> <span class="s2">&quot;8765&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span>
         <span class="n">cmd</span><span class="p">,</span>
         <span class="n">cwd</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">root</span><span class="p">),</span>
@@ -271,8 +262,131 @@
         <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> exited immediately (return code: </span><span class="si">{</span><span class="n">rc</span><span class="si">}</span><span class="s2">).&quot;</span><span class="p">)</span></div>
 
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-    <span class="n">root</span> <span class="o">=</span> <span class="n">_project_root</span><span class="p">()</span>
+<div class="viewcode-block" id="_parse_mode_args">
+<a class="viewcode-back" href="../EuljiroWorship.html#EuljiroWorship._parse_mode_args">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">_parse_mode_args</span><span class="p">(</span><span class="n">argv</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Parse launcher mode arguments.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        argv (list[str] | None):</span>
+<span class="sd">            Optional explicit argument list. If None, ``sys.argv[1:]`` is used.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        argparse.Namespace:</span>
+<span class="sd">            Parsed launcher arguments.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">add_help</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--controller&quot;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--interruptor&quot;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--ws-server&quot;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--http-server&quot;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--port&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--root&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">(</span><span class="n">argv</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="_run_static_http_server">
+<a class="viewcode-back" href="../EuljiroWorship.html#EuljiroWorship._run_static_http_server">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">_run_static_http_server</span><span class="p">(</span><span class="n">root</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">port</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">8080</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Run a static-file HTTP server in the current process.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        root (pathlib.Path):</span>
+<span class="sd">            Directory to expose as the HTTP document root.</span>
+<span class="sd">        port (int, optional):</span>
+<span class="sd">            TCP port to bind. Defaults to ``8080``.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">class</span><span class="w"> </span><span class="nc">QuietStaticHandler</span><span class="p">(</span><span class="n">SimpleHTTPRequestHandler</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Static-file handler that suppresses console-bound request logging.</span>
+
+<span class="sd">        This avoids write failures in windowed executable builds where</span>
+<span class="sd">        ``sys.stderr`` may be unavailable.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">log_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">format</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Suppress per-request log output.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                format (str):</span>
+<span class="sd">                    Logging format string provided by the base handler.</span>
+<span class="sd">                *args:</span>
+<span class="sd">                    Positional values for the format string.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                None</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="k">return</span>
+
+    <span class="n">handler</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">QuietStaticHandler</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">root</span><span class="p">))</span>
+    <span class="n">httpd</span> <span class="o">=</span> <span class="n">ThreadingHTTPServer</span><span class="p">((</span><span class="s2">&quot;0.0.0.0&quot;</span><span class="p">,</span> <span class="n">port</span><span class="p">),</span> <span class="n">handler</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[*] HTTP server starting on http://0.0.0.0:</span><span class="si">{</span><span class="n">port</span><span class="si">}</span><span class="s2">/&quot;</span><span class="p">)</span>
+    <span class="n">httpd</span><span class="o">.</span><span class="n">serve_forever</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="_run_mode_from_cli">
+<a class="viewcode-back" href="../EuljiroWorship.html#EuljiroWorship._run_mode_from_cli">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">_run_mode_from_cli</span><span class="p">(</span><span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Dispatch alternate launcher modes.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        args (argparse.Namespace):</span>
+<span class="sd">            Parsed launcher arguments.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        bool:</span>
+<span class="sd">            True if an alternate mode was executed and normal GUI startup</span>
+<span class="sd">            should be skipped, False otherwise.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ensure_runtime_cwd</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">http_server</span><span class="p">:</span>
+        <span class="n">root</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">root</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span> <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">root</span> <span class="k">else</span> <span class="n">_project_root</span><span class="p">()</span>
+        <span class="n">_run_static_http_server</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">port</span> <span class="ow">or</span> <span class="mi">8080</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">ws_server</span><span class="p">:</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">server.websocket_server</span><span class="w"> </span><span class="kn">import</span> <span class="n">main</span> <span class="k">as</span> <span class="n">websocket_main</span>
+
+        <span class="n">websocket_main</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">port</span> <span class="ow">or</span> <span class="mi">8765</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">controller</span><span class="p">:</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">controller.slide_controller</span><span class="w"> </span><span class="kn">import</span> <span class="n">main</span> <span class="k">as</span> <span class="n">controller_main</span>
+
+        <span class="n">controller_main</span><span class="p">()</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">interruptor</span><span class="p">:</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">controller.helper.verse_interruptor</span><span class="w"> </span><span class="kn">import</span> <span class="n">start_interruptor</span>
+
+        <span class="n">start_interruptor</span><span class="p">()</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="main">
+<a class="viewcode-back" href="../EuljiroWorship.html#EuljiroWorship.main">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Launch the default Slide Generator application workflow.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">_parse_mode_args</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">_run_mode_from_cli</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+        <span class="k">return</span>
+
+    <span class="n">root</span> <span class="o">=</span> <span class="n">ensure_runtime_cwd</span><span class="p">()</span>
 
     <span class="c1"># Adjust this if your overlay/static files live under a specific directory.</span>
     <span class="c1"># For example: http_cwd = root / &quot;web&quot;</span>
@@ -297,6 +411,10 @@
     <span class="n">atexit</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">_terminate_process</span><span class="p">,</span> <span class="n">ws_p</span><span class="p">)</span>
 
     <span class="c1"># Create the Qt application object</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">QApplication</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">core.generator.settings_generator</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_font_from_settings</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">core.generator.ui.slide_generator</span><span class="w"> </span><span class="kn">import</span> <span class="n">SlideGenerator</span>
+
     <span class="n">app</span> <span class="o">=</span> <span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
 
     <span class="c1"># Apply a consistent style across platforms</span>
@@ -314,7 +432,11 @@
     <span class="n">generator</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
     <span class="c1"># Enter Qt event loop and run the application</span>
-    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">exec</span><span class="p">())</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">exec</span><span class="p">())</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
 </pre></div>
 
            </div>
