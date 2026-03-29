@@ -16,3 +16,4 @@ core.utils
    core.utils.bible_keyword_searcher
    core.utils.bible_parser
    core.utils.logger
+   core.utils.runtime_launcher

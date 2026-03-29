@@ -1,0 +1,270 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>core.utils.runtime_launcher &mdash; EuljiroWorship 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=2709fde1"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="server" href="server.html" />
+    <link rel="prev" title="core.utils.logger" href="core.utils.logger.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            EuljiroWorship
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Modules</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="EuljiroWorship.html">EuljiroWorship</a></li>
+<li class="toctree-l2"><a class="reference internal" href="controller.html">controller</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="core.html">core</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="core.config.html">core.config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.generator.html">core.generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.plugin.html">core.plugin</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="core.utils.html">core.utils</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="core.utils.bible_data_loader.html">core.utils.bible_data_loader</a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.utils.bible_keyword_searcher.html">core.utils.bible_keyword_searcher</a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.utils.bible_parser.html">core.utils.bible_parser</a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.utils.logger.html">core.utils.logger</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">core.utils.runtime_launcher</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="server.html">server</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">EuljiroWorship</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">Modules</a></li>
+          <li class="breadcrumb-item"><a href="core.html">core</a></li>
+          <li class="breadcrumb-item"><a href="core.utils.html">core.utils</a></li>
+      <li class="breadcrumb-item active">core.utils.runtime_launcher</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/core.utils.runtime_launcher.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-core.utils.runtime_launcher">
+<span id="core-utils-runtime-launcher"></span><h1>core.utils.runtime_launcher<a class="headerlink" href="#module-core.utils.runtime_launcher" title="Link to this heading"></a></h1>
+<dl class="field-list simple">
+<dt class="field-odd">File<span class="colon">:</span></dt>
+<dd class="field-odd"><p>EuljiroWorship/core/utils/runtime_launcher.py</p>
+</dd>
+<dt class="field-even">Author<span class="colon">:</span></dt>
+<dd class="field-even"><p>Benjamin Jaedon Choi - <a class="reference external" href="https://github.com/saintbenjamin">https://github.com/saintbenjamin</a></p>
+</dd>
+<dt class="field-odd">Affiliated Church<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Eulji-ro Presbyterian Church</p>
+</dd>
+<dt class="field-even">Address<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Eulji-ro Presbyterian Church, 24-10, Eulji-ro 20-gil, Jung-gu, Seoul 04549, South Korea</p>
+</dd>
+<dt class="field-odd">Telephone<span class="colon">:</span></dt>
+<dd class="field-odd"><p>+82-2-2266-3070</p>
+</dd>
+<dt class="field-even">E-mail<span class="colon">:</span></dt>
+<dd class="field-even"><p>euljirochurch [at] G.M.A.I.L. (replace [at] with &#64; and G.M.A.I.L as you understood.)</p>
+</dd>
+<dt class="field-odd">License<span class="colon">:</span></dt>
+<dd class="field-odd"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
+</dd>
+</dl>
+<p>Runtime helpers for source and frozen executable launches.</p>
+<p>This module centralizes small helpers used when the application needs to:</p>
+<ul class="simple">
+<li><p>detect whether it is running from source or from a frozen executable</p></li>
+<li><p>resolve the runtime application root directory</p></li>
+<li><p>relaunch the main entry point in alternate modes (controller/server/helper)</p></li>
+<li><p>normalize the current working directory for relative resource paths</p></li>
+</ul>
+<dl class="py function">
+<dt class="sig sig-object py" id="core.utils.runtime_launcher.is_frozen">
+<span class="sig-prename descclassname"><span class="pre">core.utils.runtime_launcher.</span></span><span class="sig-name descname"><span class="pre">is_frozen</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/utils/runtime_launcher.html#is_frozen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.utils.runtime_launcher.is_frozen" title="Link to this definition"></a></dt>
+<dd><p>Return whether the current process is running as a frozen executable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if the process is running from a frozen bundle
+(for example, a <a class="reference external" href="https://pyinstaller.org/">PyInstaller</a> build),
+False otherwise.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="core.utils.runtime_launcher.get_runtime_base_dir">
+<span class="sig-prename descclassname"><span class="pre">core.utils.runtime_launcher.</span></span><span class="sig-name descname"><span class="pre">get_runtime_base_dir</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/utils/runtime_launcher.html#get_runtime_base_dir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.utils.runtime_launcher.get_runtime_base_dir" title="Link to this definition"></a></dt>
+<dd><p>Resolve the user-facing application root directory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><p>Runtime root directory.</p>
+<ul class="simple">
+<li><p>In source execution, this is the repository root.</p></li>
+<li><p>In frozen execution, this is the directory containing the
+executable file.</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>pathlib.Path</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="core.utils.runtime_launcher.get_entry_script_path">
+<span class="sig-prename descclassname"><span class="pre">core.utils.runtime_launcher.</span></span><span class="sig-name descname"><span class="pre">get_entry_script_path</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/utils/runtime_launcher.html#get_entry_script_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.utils.runtime_launcher.get_entry_script_path" title="Link to this definition"></a></dt>
+<dd><p>Return the source entry script path for non-frozen relaunches.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Absolute path to <code class="docutils literal notranslate"><span class="pre">EuljiroWorship.py</span></code> under the project root.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>pathlib.Path</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="core.utils.runtime_launcher.build_entry_command">
+<span class="sig-prename descclassname"><span class="pre">core.utils.runtime_launcher.</span></span><span class="sig-name descname"><span class="pre">build_entry_command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/utils/runtime_launcher.html#build_entry_command"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.utils.runtime_launcher.build_entry_command" title="Link to this definition"></a></dt>
+<dd><p>Build a subprocess command that relaunches the main application entry point.</p>
+<p>This helper keeps subprocess launch behavior consistent between:</p>
+<ul class="simple">
+<li><p>source execution (<code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">EuljiroWorship.py</span> <span class="pre">...</span></code>)</p></li>
+<li><p>frozen execution (<code class="docutils literal notranslate"><span class="pre">EuljiroWorship.exe</span> <span class="pre">...</span></code>)</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>*args</strong> (<em>str</em>) – Additional command-line arguments passed to the relaunched process.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Command list suitable for <code class="xref py py-class docutils literal notranslate"><span class="pre">subprocess.Popen</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="core.utils.runtime_launcher.ensure_runtime_cwd">
+<span class="sig-prename descclassname"><span class="pre">core.utils.runtime_launcher.</span></span><span class="sig-name descname"><span class="pre">ensure_runtime_cwd</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/utils/runtime_launcher.html#ensure_runtime_cwd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.utils.runtime_launcher.ensure_runtime_cwd" title="Link to this definition"></a></dt>
+<dd><p>Change the current working directory to the runtime application root.</p>
+<p>This is useful for code paths that still rely on relative resource
+directories such as <code class="docutils literal notranslate"><span class="pre">./html</span></code> or <code class="docutils literal notranslate"><span class="pre">./assets</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The runtime application root directory now used as CWD.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>pathlib.Path</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="core.utils.runtime_launcher.set_windows_app_user_model_id">
+<span class="sig-prename descclassname"><span class="pre">core.utils.runtime_launcher.</span></span><span class="sig-name descname"><span class="pre">set_windows_app_user_model_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/utils/runtime_launcher.html#set_windows_app_user_model_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.utils.runtime_launcher.set_windows_app_user_model_id" title="Link to this definition"></a></dt>
+<dd><p>Set the Windows AppUserModelID for the current process when available.</p>
+<p>This helps Windows display the intended application identity and icon in
+the taskbar for GUI processes, especially when launching from Python or
+from a frozen executable that spawns alternate modes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>app_id</strong> (<em>str</em>) – Stable Windows application identifier for the current process.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="core.utils.logger.html" class="btn btn-neutral float-left" title="core.utils.logger" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="server.html" class="btn btn-neutral float-right" title="server" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Benjamin J. Choi.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
