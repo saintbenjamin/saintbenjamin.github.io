@@ -299,6 +299,29 @@ text for the specified version.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="core.utils.bible_data_loader.BibleDataLoader.get_available_versions">
+<span class="sig-name descname"><span class="pre">get_available_versions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/utils/bible_data_loader.html#BibleDataLoader.get_available_versions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.utils.bible_data_loader.BibleDataLoader.get_available_versions" title="Link to this definition"></a></dt>
+<dd><p>Return all Bible version keys that actually exist under the text directory.</p>
+<p>This method inspects the Bible text directory directly and derives
+version keys from the available <code class="docutils literal notranslate"><span class="pre">*.json</span></code> filenames. It is used when
+the application needs the true list of install-time/runtime-available
+Bible versions instead of relying on alias metadata files.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Sorted list of version keys derived from <code class="docutils literal notranslate"><span class="pre">&lt;text_dir&gt;/*.json</span></code>.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list[str]</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Failures while scanning the directory are logged and an empty list
+is returned so callers can fail gracefully.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="core.utils.bible_data_loader.BibleDataLoader._load_json">
 <span class="sig-name descname"><span class="pre">_load_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/utils/bible_data_loader.html#BibleDataLoader._load_json"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.utils.bible_data_loader.BibleDataLoader._load_json" title="Link to this definition"></a></dt>
 <dd><p>Safely load a JSON file and return its contents.</p>
@@ -486,6 +509,35 @@ in the text directory are loaded.</p>
 <dd class="field-odd"><p>dict</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.utils.bible_data_loader.BibleDataLoader.get_version_display_name">
+<span class="sig-name descname"><span class="pre">get_version_display_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lang_code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ko'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/utils/bible_data_loader.html#BibleDataLoader.get_version_display_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.utils.bible_data_loader.BibleDataLoader.get_version_display_name" title="Link to this definition"></a></dt>
+<dd><p>Return a user-facing display label for a Bible version.</p>
+<p>The display label prefers <code class="docutils literal notranslate"><span class="pre">aliases_version.json</span></code> when available and
+falls back to the raw version key (usually the source JSON filename
+without extension).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>version_key</strong> (<em>str</em>) – Bible version key / filename stem.</p></li>
+<li><p><strong>lang_code</strong> (<em>str</em>) – Language code used when alias entries are nested dictionaries.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Alias label when available, otherwise <code class="docutils literal notranslate"><span class="pre">version_key</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This method is intentionally display-oriented. It does not validate
+whether the version exists on disk; callers should pair it with
+<a class="reference internal" href="#core.utils.bible_data_loader.BibleDataLoader.get_available_versions" title="core.utils.bible_data_loader.BibleDataLoader.get_available_versions"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_available_versions()</span></code></a> when availability matters.</p>
+</div>
 </dd></dl>
 
 <dl class="py method">

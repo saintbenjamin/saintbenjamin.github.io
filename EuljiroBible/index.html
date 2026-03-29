@@ -121,9 +121,10 @@ extend, or integrate EuljiroBible into their own workflows.</p>
 <li class="toctree-l3"><a class="reference internal" href="cli.commands.html">cli.commands</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cli.commands.html#cli.commands.handle_cli_metadata"><code class="docutils literal notranslate"><span class="pre">handle_cli_metadata()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cli.commands.html#cli.commands.handle_search_metadata"><code class="docutils literal notranslate"><span class="pre">handle_search_metadata()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cli.commands.html#cli.commands._print_available_versions"><code class="docutils literal notranslate"><span class="pre">_print_available_versions()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cli.commands.html#cli.commands.show_usage_and_versions"><code class="docutils literal notranslate"><span class="pre">show_usage_and_versions()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cli.commands.html#cli.commands.show_search_usage"><code class="docutils literal notranslate"><span class="pre">show_search_usage()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="cli.commands.html#cli.commands.load_cli_alias_map"><code class="docutils literal notranslate"><span class="pre">load_cli_alias_map()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cli.commands.html#cli.commands.load_cli_version_catalog"><code class="docutils literal notranslate"><span class="pre">load_cli_version_catalog()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cli.commands.html#cli.commands.parse_versions_from_args"><code class="docutils literal notranslate"><span class="pre">parse_versions_from_args()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cli.commands.html#cli.commands.resolve_search_version"><code class="docutils literal notranslate"><span class="pre">resolve_search_version()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="cli.commands.html#cli.commands.parse_and_validate_reference"><code class="docutils literal notranslate"><span class="pre">parse_and_validate_reference()</span></code></a></li>
@@ -186,6 +187,7 @@ extend, or integrate EuljiroBible into their own workflows.</p>
 <li class="toctree-l6"><a class="reference internal" href="core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader.__init__"><code class="docutils literal notranslate"><span class="pre">BibleDataLoader.__init__()</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader.get_verses"><code class="docutils literal notranslate"><span class="pre">BibleDataLoader.get_verses()</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader.get_books_for_version"><code class="docutils literal notranslate"><span class="pre">BibleDataLoader.get_books_for_version()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader.get_available_versions"><code class="docutils literal notranslate"><span class="pre">BibleDataLoader.get_available_versions()</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader._load_json"><code class="docutils literal notranslate"><span class="pre">BibleDataLoader._load_json()</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader.get_standard_book"><code class="docutils literal notranslate"><span class="pre">BibleDataLoader.get_standard_book()</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader.get_sort_key"><code class="docutils literal notranslate"><span class="pre">BibleDataLoader.get_sort_key()</span></code></a></li>
@@ -196,6 +198,7 @@ extend, or integrate EuljiroBible into their own workflows.</p>
 <li class="toctree-l6"><a class="reference internal" href="core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader.get_verses_for_display"><code class="docutils literal notranslate"><span class="pre">BibleDataLoader.get_verses_for_display()</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader.get_book_alias"><code class="docutils literal notranslate"><span class="pre">BibleDataLoader.get_book_alias()</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader.get_version_alias"><code class="docutils literal notranslate"><span class="pre">BibleDataLoader.get_version_alias()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader.get_version_display_name"><code class="docutils literal notranslate"><span class="pre">BibleDataLoader.get_version_display_name()</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader.get_verse"><code class="docutils literal notranslate"><span class="pre">BibleDataLoader.get_verse()</span></code></a></li>
 </ul>
 </li>
@@ -243,6 +246,8 @@ extend, or integrate EuljiroBible into their own workflows.</p>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="core.utils.utils_version.html">core.utils.utils_version</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="core.utils.utils_version.html#core.utils.utils_version.refresh_full_version_list"><code class="docutils literal notranslate"><span class="pre">refresh_full_version_list()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="core.utils.utils_version.html#core.utils.utils_version.load_cli_alias_map"><code class="docutils literal notranslate"><span class="pre">load_cli_alias_map()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="core.utils.utils_version.html#core.utils.utils_version.build_cli_version_catalog"><code class="docutils literal notranslate"><span class="pre">build_cli_version_catalog()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="core.utils.verse_version_helper.html">core.utils.verse_version_helper</a><ul>

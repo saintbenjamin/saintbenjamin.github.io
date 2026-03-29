@@ -127,10 +127,16 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">gui.ui.window_main</span><span class="w"> </span><span class="kn">import</span> <span class="n">WindowMain</span>
 
-    <span class="c1"># Get all version strings (sorted and alias-resolved)</span>
+    <span class="c1"># Get all version strings from actual data files</span>
     <span class="n">version_list</span> <span class="o">=</span> <span class="n">refresh_full_version_list</span><span class="p">()</span>
+    <span class="n">available_versions</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">version_list</span><span class="p">)</span>
 
-    <span class="n">saved_versions</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;last_versions&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;대한민국 개역개정 (1998)&quot;</span><span class="p">])</span>
+    <span class="n">saved_versions</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">version</span> <span class="k">for</span> <span class="n">version</span> <span class="ow">in</span> <span class="n">settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;last_versions&quot;</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="k">if</span> <span class="n">version</span> <span class="ow">in</span> <span class="n">available_versions</span>
+    <span class="p">]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">saved_versions</span> <span class="ow">and</span> <span class="n">version_list</span><span class="p">:</span>
+        <span class="n">saved_versions</span> <span class="o">=</span> <span class="p">[</span><span class="n">version_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
 
     <span class="c1"># Load only versions used last session (lazy load)</span>
     <span class="n">bible_loader</span> <span class="o">=</span> <span class="n">BibleDataLoader</span><span class="p">()</span>
@@ -197,10 +203,6 @@
 
     <span class="n">tab_verse</span><span class="o">.</span><span class="n">chapter_input</span><span class="o">.</span><span class="n">setCurrentText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;last_chapter&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
     <span class="n">tab_verse</span><span class="o">.</span><span class="n">verse_input</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;last_verse&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span>
-
-    <span class="n">saved_versions</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;last_versions&quot;</span><span class="p">,</span> <span class="p">[])</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">saved_versions</span><span class="p">:</span>
-        <span class="n">saved_versions</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;대한민국 개역개정 (1998)&quot;</span><span class="p">]</span>
 
     <span class="c1"># Allow change-tracking again</span>
     <span class="n">tab_verse</span><span class="o">.</span><span class="n">initializing</span> <span class="o">=</span> <span class="kc">False</span>

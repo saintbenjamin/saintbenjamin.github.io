@@ -51,9 +51,10 @@
 <li class="toctree-l3 current"><a class="current reference internal" href="#">cli.commands</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#cli.commands.handle_cli_metadata"><code class="docutils literal notranslate"><span class="pre">handle_cli_metadata()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cli.commands.handle_search_metadata"><code class="docutils literal notranslate"><span class="pre">handle_search_metadata()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cli.commands._print_available_versions"><code class="docutils literal notranslate"><span class="pre">_print_available_versions()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cli.commands.show_usage_and_versions"><code class="docutils literal notranslate"><span class="pre">show_usage_and_versions()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cli.commands.show_search_usage"><code class="docutils literal notranslate"><span class="pre">show_search_usage()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#cli.commands.load_cli_alias_map"><code class="docutils literal notranslate"><span class="pre">load_cli_alias_map()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cli.commands.load_cli_version_catalog"><code class="docutils literal notranslate"><span class="pre">load_cli_version_catalog()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cli.commands.parse_versions_from_args"><code class="docutils literal notranslate"><span class="pre">parse_versions_from_args()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cli.commands.resolve_search_version"><code class="docutils literal notranslate"><span class="pre">resolve_search_version()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cli.commands.parse_and_validate_reference"><code class="docutils literal notranslate"><span class="pre">parse_and_validate_reference()</span></code></a></li>
@@ -136,8 +137,9 @@
 <li><p>Argument parsing here is intentionally lightweight. Deep validation and output
 formatting is delegated to shared core logic (e.g., <a class="reference internal" href="core.logic.verse_logic.html#module-core.logic.verse_logic" title="core.logic.verse_logic"><code class="xref py py-mod docutils literal notranslate"><span class="pre">core.logic.verse_logic</span></code></a>).</p></li>
 <li><p>CLI error messages are expected to be English-only by project convention.</p></li>
-<li><p>Version names in the CLI are provided via a simplified alias map loaded from
-<a class="reference internal" href="core.config.paths.html#core.config.paths.ALIASES_VERSION_CLI_FILE" title="core.config.paths.ALIASES_VERSION_CLI_FILE"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.ALIASES_VERSION_CLI_FILE</span></code></a>.</p></li>
+<li><p>Available Bible versions are determined from the actual JSON files under
+<code class="docutils literal notranslate"><span class="pre">data/</span></code>. Alias files are used only to improve display labels and optional
+CLI shorthand tokens.</p></li>
 </ul>
 <p>Limitations:</p>
 <ul class="simple">
@@ -201,12 +203,34 @@ otherwise <code class="docutils literal notranslate"><span class="pre">False</sp
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="cli.commands.show_usage_and_versions">
-<span class="sig-prename descclassname"><span class="pre">cli.commands.</span></span><span class="sig-name descname"><span class="pre">show_usage_and_versions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cli_aliases</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cli/commands.html#show_usage_and_versions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cli.commands.show_usage_and_versions" title="Link to this definition"></a></dt>
-<dd><p>Print general CLI usage for verse lookup and a list of available version aliases.</p>
+<dt class="sig sig-object py" id="cli.commands._print_available_versions">
+<span class="sig-prename descclassname"><span class="pre">cli.commands.</span></span><span class="sig-name descname"><span class="pre">_print_available_versions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version_catalog</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cli/commands.html#_print_available_versions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cli.commands._print_available_versions" title="Link to this definition"></a></dt>
+<dd><p>Print the list of Bible versions currently available to the CLI.</p>
+<p>The catalog is derived from the actual Bible JSON files under <code class="docutils literal notranslate"><span class="pre">data/</span></code>.
+Each entry is printed using the best available user-facing label:</p>
+<ul class="simple">
+<li><p>CLI alias from <code class="docutils literal notranslate"><span class="pre">aliases_version_cli.json</span></code> when available</p></li>
+<li><p>GUI/display alias from <code class="docutils literal notranslate"><span class="pre">aliases_version.json</span></code> as a fallback</p></li>
+<li><p>Raw version key (filename stem) if no alias metadata exists</p></li>
+</ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>cli_aliases</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – List of CLI aliases to display (e.g., <code class="docutils literal notranslate"><span class="pre">[&quot;NKRV&quot;,</span> <span class="pre">&quot;KJV&quot;]</span></code>).</p>
+<dd class="field-odd"><p><strong>version_catalog</strong> (<em>list</em><em>[</em><em>dict</em><em>]</em>) – Catalog rows produced by
+<a class="reference internal" href="core.utils.utils_version.html#core.utils.utils_version.build_cli_version_catalog" title="core.utils.utils_version.build_cli_version_catalog"><code class="xref py py-func docutils literal notranslate"><span class="pre">core.utils.utils_version.build_cli_version_catalog()</span></code></a>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="cli.commands.show_usage_and_versions">
+<span class="sig-prename descclassname"><span class="pre">cli.commands.</span></span><span class="sig-name descname"><span class="pre">show_usage_and_versions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version_catalog</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cli/commands.html#show_usage_and_versions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cli.commands.show_usage_and_versions" title="Link to this definition"></a></dt>
+<dd><p>Print general CLI usage for verse lookup and the currently available versions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>version_catalog</strong> (<em>list</em><em>[</em><em>dict</em><em>]</em>) – Ordered catalog of versions that actually exist under <code class="docutils literal notranslate"><span class="pre">data/</span></code>.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>None</p>
@@ -216,11 +240,11 @@ otherwise <code class="docutils literal notranslate"><span class="pre">False</sp
 
 <dl class="py function">
 <dt class="sig sig-object py" id="cli.commands.show_search_usage">
-<span class="sig-prename descclassname"><span class="pre">cli.commands.</span></span><span class="sig-name descname"><span class="pre">show_search_usage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cli_aliases</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cli/commands.html#show_search_usage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cli.commands.show_search_usage" title="Link to this definition"></a></dt>
-<dd><p>Print usage for keyword search and a list of available version aliases.</p>
+<span class="sig-prename descclassname"><span class="pre">cli.commands.</span></span><span class="sig-name descname"><span class="pre">show_search_usage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version_catalog</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cli/commands.html#show_search_usage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cli.commands.show_search_usage" title="Link to this definition"></a></dt>
+<dd><p>Print CLI usage for keyword search and the currently available versions.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>cli_aliases</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – CLI version aliases to display.</p>
+<dd class="field-odd"><p><strong>version_catalog</strong> (<em>list</em><em>[</em><em>dict</em><em>]</em>) – Ordered catalog of versions that actually exist under <code class="docutils literal notranslate"><span class="pre">data/</span></code>.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>None</p>
@@ -229,49 +253,45 @@ otherwise <code class="docutils literal notranslate"><span class="pre">False</sp
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="cli.commands.load_cli_alias_map">
-<span class="sig-prename descclassname"><span class="pre">cli.commands.</span></span><span class="sig-name descname"><span class="pre">load_cli_alias_map</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/cli/commands.html#load_cli_alias_map"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cli.commands.load_cli_alias_map" title="Link to this definition"></a></dt>
-<dd><p>Load the CLI alias map from the configured JSON file.</p>
-<p>The alias map is expected to be a JSON object mapping <em>full version names</em>
-to <em>CLI-friendly aliases</em> (strings).</p>
-<p>Example shape:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-  <span class="s2">&quot;대한민국 개역개정 (1998)&quot;</span><span class="p">:</span> <span class="s2">&quot;NKRV&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;King James Version&quot;</span><span class="p">:</span> <span class="s2">&quot;KJV&quot;</span>
-<span class="p">}</span>
-</pre></div>
-</div>
+<dt class="sig sig-object py" id="cli.commands.load_cli_version_catalog">
+<span class="sig-prename descclassname"><span class="pre">cli.commands.</span></span><span class="sig-name descname"><span class="pre">load_cli_version_catalog</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/cli/commands.html#load_cli_version_catalog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cli.commands.load_cli_version_catalog" title="Link to this definition"></a></dt>
+<dd><p>Build the CLI version catalog from the actual Bible data directory.</p>
+<p>This helper centralizes the CLI’s notion of “available versions” so the
+CLI no longer depends on alias JSON files as the source of truth.
+Availability is determined by the presence of <code class="docutils literal notranslate"><span class="pre">*.json</span></code> files under
+<code class="docutils literal notranslate"><span class="pre">data/</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><p><code class="docutils literal notranslate"><span class="pre">(alias_map,</span> <span class="pre">cli_aliases)</span></code> where:</p>
+<dd class="field-odd"><p><p><code class="docutils literal notranslate"><span class="pre">(version_catalog,</span> <span class="pre">token_to_version,</span> <span class="pre">version_label_map)</span></code> where:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">alias_map</span></code> maps full version name -&gt; CLI alias.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">cli_aliases</span></code> is a list of CLI aliases (values of the map).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">version_catalog</span></code> is an ordered list of version entries for display.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">token_to_version</span></code> maps accepted CLI input tokens to full version keys.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">version_label_map</span></code> maps full version keys to the preferred CLI label
+used in help text and formatted output.</p></li>
 </ul>
 </p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>tuple[dict, list[str]]</p>
-</dd>
-<dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>FileNotFoundError</strong> – If the alias file does not exist.</p></li>
-<li><p><strong>json.JSONDecodeError</strong> – If the alias file is not valid JSON.</p></li>
-</ul>
+<dd class="field-even"><p>tuple[list[dict], dict, dict]</p>
 </dd>
 </dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Alias metadata is used only to improve labels and shorthand tokens.
+If alias metadata is missing, the raw version key remains usable.</p>
+</div>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="cli.commands.parse_versions_from_args">
-<span class="sig-prename descclassname"><span class="pre">cli.commands.</span></span><span class="sig-name descname"><span class="pre">parse_versions_from_args</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alias_map</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cli/commands.html#parse_versions_from_args"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cli.commands.parse_versions_from_args" title="Link to this definition"></a></dt>
-<dd><p>Parse one or more version aliases from the beginning of CLI arguments.</p>
+<span class="sig-prename descclassname"><span class="pre">cli.commands.</span></span><span class="sig-name descname"><span class="pre">parse_versions_from_args</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token_to_version</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cli/commands.html#parse_versions_from_args"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cli.commands.parse_versions_from_args" title="Link to this definition"></a></dt>
+<dd><p>Parse one or more version tokens from the beginning of CLI arguments.</p>
 <dl class="simple">
 <dt>Parsing strategy:</dt><dd><ul class="simple">
 <li><p>Scan tokens left-to-right.</p></li>
-<li><p>For each token, check if it matches any alias in <code class="docutils literal notranslate"><span class="pre">alias_map.values()</span></code>.</p></li>
-<li><p>Stop at the first token that does not match a known alias.</p></li>
-<li><p>The remaining tokens are treated as the Bible reference portion.</p></li>
+<li><p>For each token, check whether it matches a supported version token.</p></li>
+<li><p>Stop at the first token that does not match a known version.</p></li>
+<li><p>Treat the remaining tokens as the Bible reference portion.</p></li>
 </ul>
 </dd>
 </dl>
@@ -279,14 +299,14 @@ to <em>CLI-friendly aliases</em> (strings).</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>args</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – Raw CLI arguments.</p></li>
-<li><p><strong>alias_map</strong> (<em>dict</em>) – Full-to-short alias mapping (full version -&gt; CLI alias).</p></li>
+<li><p><strong>token_to_version</strong> (<em>dict</em>) – Mapping of accepted CLI tokens to full version keys.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><p><code class="docutils literal notranslate"><span class="pre">(versions,</span> <span class="pre">remaining_args)</span></code> where:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">versions</span></code> is a list of full version names (keys from <code class="docutils literal notranslate"><span class="pre">alias_map</span></code>).</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">remaining_args</span></code> is the remainder of tokens after the version list.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">versions</span></code> is a list of full version keys resolved from the input.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">remaining_args</span></code> is the remainder of tokens after version parsing.</p></li>
 </ul>
 </p>
 </dd>
@@ -298,31 +318,31 @@ to <em>CLI-friendly aliases</em> (strings).</p>
 <p class="admonition-title">Note</p>
 <ul class="simple">
 <li><p>If no version tokens are found, <code class="docutils literal notranslate"><span class="pre">versions</span></code> will be an empty list.</p></li>
-<li><p>Callers should validate and emit a helpful error.</p></li>
+<li><p>Callers should validate that case and emit a helpful error.</p></li>
 </ul>
 </div>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="cli.commands.resolve_search_version">
-<span class="sig-prename descclassname"><span class="pre">cli.commands.</span></span><span class="sig-name descname"><span class="pre">resolve_search_version</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version_alias</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alias_map</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keywords</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cli/commands.html#resolve_search_version"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cli.commands.resolve_search_version" title="Link to this definition"></a></dt>
-<dd><p>Resolve the full Bible version name for keyword search.</p>
+<span class="sig-prename descclassname"><span class="pre">cli.commands.</span></span><span class="sig-name descname"><span class="pre">resolve_search_version</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version_token</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token_to_version</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keywords</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cli/commands.html#resolve_search_version"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cli.commands.resolve_search_version" title="Link to this definition"></a></dt>
+<dd><p>Resolve the full Bible version key used for keyword search.</p>
 <p>Keyword search requires exactly one version. This helper:</p>
 <ul class="simple">
-<li><p>Validates that <code class="docutils literal notranslate"><span class="pre">version_alias</span></code> exists in the alias map.</p></li>
-<li><p>Ensures none of the remaining keyword tokens look like a version alias.</p></li>
-<li><p>Returns the full version name corresponding to <code class="docutils literal notranslate"><span class="pre">version_alias</span></code>.</p></li>
+<li><p>Validates that <code class="docutils literal notranslate"><span class="pre">version_token</span></code> exists in the supported token map.</p></li>
+<li><p>Ensures none of the remaining keyword tokens look like extra version tokens.</p></li>
+<li><p>Returns the full version key corresponding to <code class="docutils literal notranslate"><span class="pre">version_token</span></code>.</p></li>
 </ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>version_alias</strong> (<em>str</em>) – CLI alias provided by the user.</p></li>
-<li><p><strong>alias_map</strong> (<em>dict</em>) – Full-to-short alias map (full version -&gt; CLI alias).</p></li>
-<li><p><strong>keywords</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – User-supplied keyword tokens.</p></li>
+<li><p><strong>version_token</strong> (<em>str</em>) – CLI token provided by the user.</p></li>
+<li><p><strong>token_to_version</strong> (<em>dict</em>) – Mapping of accepted CLI tokens to full version keys.</p></li>
+<li><p><strong>keywords</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – Remaining keyword tokens supplied by the user.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Full version name if resolved; otherwise <code class="docutils literal notranslate"><span class="pre">None</span></code> (after printing an error).</p>
+<dd class="field-even"><p>Full version key if resolved; otherwise <code class="docutils literal notranslate"><span class="pre">None</span></code> (after printing an error).</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str | None</p>
@@ -338,8 +358,8 @@ to <em>CLI-friendly aliases</em> (strings).</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">book</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">chapter</span><span class="p">[:</span><span class="n">verse</span><span class="p">[</span><span class="o">-</span><span class="n">verse</span><span class="p">]]</span><span class="o">&gt;</span>
 </pre></div>
 </div>
-<p>This function joins the two tokens into a single reference string and uses
-<a class="reference internal" href="core.utils.bible_parser.html#core.utils.bible_parser.parse_reference" title="core.utils.bible_parser.parse_reference"><code class="xref py py-func docutils literal notranslate"><span class="pre">core.utils.bible_parser.parse_reference()</span></code></a> for parsing.</p>
+<p>This function joins the remaining tokens into a single reference string and
+uses <a class="reference internal" href="core.utils.bible_parser.html#core.utils.bible_parser.parse_reference" title="core.utils.bible_parser.parse_reference"><code class="xref py py-func docutils literal notranslate"><span class="pre">core.utils.bible_parser.parse_reference()</span></code></a> for parsing.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>remaining</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – Tokens representing the reference portion.</p>
@@ -359,21 +379,20 @@ to <em>CLI-friendly aliases</em> (strings).</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="cli.commands.detect_lang_code_from_aliases">
-<span class="sig-prename descclassname"><span class="pre">cli.commands.</span></span><span class="sig-name descname"><span class="pre">detect_lang_code_from_aliases</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">versions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alias_map</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cli/commands.html#detect_lang_code_from_aliases"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cli.commands.detect_lang_code_from_aliases" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">cli.commands.</span></span><span class="sig-name descname"><span class="pre">detect_lang_code_from_aliases</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">versions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_version_label_map</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cli/commands.html#detect_lang_code_from_aliases"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cli.commands.detect_lang_code_from_aliases" title="Link to this definition"></a></dt>
 <dd><p>Heuristically detect a language code based on selected versions.</p>
-<p>This is a CLI-only heuristic primarily used to warn about potential RTL rendering.
-The detection checks the lowercased version string (full canonical names in this
-module) against a small keyword list.</p>
+<p>This is a CLI-only heuristic primarily used to warn about potential RTL
+rendering. Detection is based on keywords in the resolved version key.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p><code class="docutils literal notranslate"><span class="pre">alias_map</span></code> is currently unused, but kept for signature stability and
-potential future mapping to version metadata.</p>
+<p><code class="docutils literal notranslate"><span class="pre">_version_label_map</span></code> is intentionally unused, but preserved for
+signature stability and possible future metadata-based detection.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>versions</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – Full version names selected for output.</p></li>
-<li><p><strong>alias_map</strong> (<em>dict</em>) – Full-to-short alias mapping (reserved for future use).</p></li>
+<li><p><strong>_version_label_map</strong> (<em>dict</em>) – Reserved for future use.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -387,13 +406,14 @@ potential future mapping to version metadata.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="cli.commands.run_display_logic">
-<span class="sig-prename descclassname"><span class="pre">cli.commands.</span></span><span class="sig-name descname"><span class="pre">run_display_logic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">versions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">book</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chapter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verse_range</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alias_map</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cli/commands.html#run_display_logic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cli.commands.run_display_logic" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">cli.commands.</span></span><span class="sig-name descname"><span class="pre">run_display_logic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">versions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">book</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chapter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verse_range</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version_label_map</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cli/commands.html#run_display_logic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cli.commands.run_display_logic" title="Link to this definition"></a></dt>
 <dd><p>Execute the CLI verse display pipeline.</p>
 <p>This function:</p>
 <ol class="arabic simple">
 <li><p>Loads the selected Bible versions.</p></li>
 <li><p>Validates that the requested book exists in the first version.</p></li>
-<li><p>Invokes <a class="reference internal" href="core.logic.verse_logic.html#core.logic.verse_logic.display_verse_logic" title="core.logic.verse_logic.display_verse_logic"><code class="xref py py-func docutils literal notranslate"><span class="pre">core.logic.verse_logic.display_verse_logic()</span></code></a> in CLI mode, sending output to stdout.</p></li>
+<li><p>Invokes <a class="reference internal" href="core.logic.verse_logic.html#core.logic.verse_logic.display_verse_logic" title="core.logic.verse_logic.display_verse_logic"><code class="xref py py-func docutils literal notranslate"><span class="pre">core.logic.verse_logic.display_verse_logic()</span></code></a> in CLI mode,
+sending formatted output to stdout.</p></li>
 </ol>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -402,7 +422,7 @@ potential future mapping to version metadata.</p>
 <li><p><strong>book</strong> (<em>str</em>) – Canonical book key expected by <code class="xref py py-class docutils literal notranslate"><span class="pre">BibleDataLoader</span></code>.</p></li>
 <li><p><strong>chapter</strong> (<em>int</em>) – Chapter number.</p></li>
 <li><p><strong>verse_range</strong> (<em>tuple</em><em>[</em><em>int</em><em>, </em><em>int</em><em>]</em>) – Verse range <code class="docutils literal notranslate"><span class="pre">(start,</span> <span class="pre">end)</span></code>.</p></li>
-<li><p><strong>alias_map</strong> (<em>dict</em>) – Full-to-short alias mapping (for version aliases in output).</p></li>
+<li><p><strong>version_label_map</strong> (<em>dict</em>) – Full version -&gt; CLI label mapping used in formatted output.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -416,13 +436,14 @@ potential future mapping to version metadata.</p>
 <span class="sig-prename descclassname"><span class="pre">cli.commands.</span></span><span class="sig-name descname"><span class="pre">run_keyword_search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">full_version</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keywords</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cli/commands.html#run_keyword_search"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cli.commands.run_keyword_search" title="Link to this definition"></a></dt>
 <dd><p>Run a keyword search and print results to stdout.</p>
 <p>This function loads the specified Bible version through
-<a class="reference internal" href="core.utils.bible_keyword_searcher.html#core.utils.bible_keyword_searcher.BibleKeywordSearcher" title="core.utils.bible_keyword_searcher.BibleKeywordSearcher"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.utils.bible_keyword_searcher.BibleKeywordSearcher</span></code></a>, runs the search,
-prints each matching verse, then prints per-keyword frequencies and total count.</p>
+<a class="reference internal" href="core.utils.bible_keyword_searcher.html#core.utils.bible_keyword_searcher.BibleKeywordSearcher" title="core.utils.bible_keyword_searcher.BibleKeywordSearcher"><code class="xref py py-class docutils literal notranslate"><span class="pre">core.utils.bible_keyword_searcher.BibleKeywordSearcher</span></code></a>, executes the
+search, prints each matching verse, then prints per-keyword frequencies and
+the total result count.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>full_version</strong> (<em>str</em>) – Full Bible version name.</p></li>
-<li><p><strong>keywords</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – Keywords to search (tokens). They are joined with spaces.</p></li>
+<li><p><strong>full_version</strong> (<em>str</em>) – Full Bible version key.</p></li>
+<li><p><strong>keywords</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – Keywords to search. They are joined with spaces before searching.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -433,14 +454,15 @@ prints each matching verse, then prints per-keyword frequencies and total count.
 
 <dl class="py function">
 <dt class="sig sig-object py" id="cli.commands.handle_version_only">
-<span class="sig-prename descclassname"><span class="pre">cli.commands.</span></span><span class="sig-name descname"><span class="pre">handle_version_only</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alias_map</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cli/commands.html#handle_version_only"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cli.commands.handle_version_only" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">cli.commands.</span></span><span class="sig-name descname"><span class="pre">handle_version_only</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version_label_map</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cli/commands.html#handle_version_only"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cli.commands.handle_version_only" title="Link to this definition"></a></dt>
 <dd><p>Handle the case where only the version is specified.</p>
-<p>This prints the general usage plus the list of available books in that version.</p>
+<p>This prints the general usage plus the list of available books in that
+version.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>version</strong> (<em>str</em>) – Full Bible version name.</p></li>
-<li><p><strong>alias_map</strong> (<em>dict</em>) – Full-to-short alias mapping (full version -&gt; CLI alias).</p></li>
+<li><p><strong>version</strong> (<em>str</em>) – Full Bible version key.</p></li>
+<li><p><strong>version_label_map</strong> (<em>dict</em>) – Full version -&gt; CLI label mapping used for user-facing text.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -457,8 +479,8 @@ prints each matching verse, then prints per-keyword frequencies and total count.
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>version</strong> (<em>str</em>) – Full Bible version name.</p></li>
-<li><p><strong>raw_book</strong> (<em>str</em>) – User-supplied book token (may be localized/abbreviated).</p></li>
+<li><p><strong>version</strong> (<em>str</em>) – Full Bible version key.</p></li>
+<li><p><strong>raw_book</strong> (<em>str</em>) – User-supplied book token (may be localized or abbreviated).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -483,14 +505,16 @@ $ bible KJV NIV John 3:16        # show the same reference in multiple versions
 <p>Behavior:</p>
 <ul class="simple">
 <li><p>Handles metadata flags (<code class="docutils literal notranslate"><span class="pre">--help</span></code>, <code class="docutils literal notranslate"><span class="pre">--version</span></code>, <code class="docutils literal notranslate"><span class="pre">--about</span></code>).</p></li>
-<li><p>Loads alias map and parses one or more version tokens from the front.</p></li>
+<li><p>Builds the CLI version catalog from actual Bible data files.</p></li>
+<li><p>Parses one or more version tokens from the beginning of the argument list.</p></li>
 <li><p>If only a version is given, prints available books.</p></li>
 <li><p>If version + book are given, prints chapter count.</p></li>
 <li><p>If a full reference is provided, prints formatted verse output via shared logic.</p></li>
 </ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>args</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – Command-line arguments excluding the script name and excluding the <code class="docutils literal notranslate"><span class="pre">bible</span></code> token.</p>
+<dd class="field-odd"><p><strong>args</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – Command-line arguments excluding the script name and excluding the
+<code class="docutils literal notranslate"><span class="pre">bible</span></code> token.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>None</p>
@@ -499,8 +523,8 @@ $ bible KJV NIV John 3:16        # show the same reference in multiple versions
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul class="simple">
-<li><p>This function assumes at least one valid version alias is supplied when verse lookup is attempted.</p></li>
-<li><p>If no version is found, callers should see usage.</p></li>
+<li><p>Version availability is determined by the actual contents of <code class="docutils literal notranslate"><span class="pre">data/</span></code>.</p></li>
+<li><p>Alias files affect labels and shorthand parsing only.</p></li>
 </ul>
 </div>
 </dd></dl>
@@ -514,19 +538,21 @@ $ bible KJV NIV John 3:16        # show the same reference in multiple versions
 </pre></div>
 </div>
 <p>Examples:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bible</span> <span class="n">search</span> <span class="n">NKRV</span> <span class="n">믿음</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bible</span> <span class="n">search</span> <span class="n">NKRV</span> <span class="n">faith</span>
 <span class="n">bible</span> <span class="n">search</span> <span class="n">KJV</span> <span class="n">faith</span> <span class="n">grace</span>
 </pre></div>
 </div>
 <p>Behavior:</p>
 <ul class="simple">
 <li><p>Handles metadata flags (<code class="docutils literal notranslate"><span class="pre">--help</span></code>, <code class="docutils literal notranslate"><span class="pre">--version</span></code>, <code class="docutils literal notranslate"><span class="pre">--about</span></code>).</p></li>
-<li><p>Requires exactly one version alias.</p></li>
+<li><p>Builds the CLI version catalog from actual Bible data files.</p></li>
+<li><p>Requires exactly one version token.</p></li>
 <li><p>Runs keyword search and prints matches and keyword frequencies.</p></li>
 </ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>args</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – Command-line arguments excluding the script name and excluding the <code class="docutils literal notranslate"><span class="pre">search</span></code> token.</p>
+<dd class="field-odd"><p><strong>args</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – Command-line arguments excluding the script name and excluding the
+<code class="docutils literal notranslate"><span class="pre">search</span></code> token.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>None</p>

@@ -79,10 +79,10 @@
 <span class="sd">:E-mail: euljirochurch [at] G.M.A.I.L. (replace [at] with @ and G.M.A.I.L as you understood.)</span>
 <span class="sd">:License: MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</span>
 
-<span class="sd">Provides utility to refresh and sort available Bible versions based on loaded metadata.</span>
+<span class="sd">Provides utilities for working with available Bible versions.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">core.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">paths</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">core.utils.bible_data_loader</span><span class="w"> </span><span class="kn">import</span> <span class="n">BibleDataLoader</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">core.utils.logger</span><span class="w"> </span><span class="kn">import</span> <span class="n">log_error</span>
@@ -104,18 +104,103 @@
     <span class="n">loader</span> <span class="o">=</span> <span class="n">BibleDataLoader</span><span class="p">()</span>
 
     <span class="k">try</span><span class="p">:</span>
-        <span class="c1"># Collect .json files as version keys</span>
-        <span class="n">files</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.json&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">BIBLE_DATA_DIR</span><span class="p">)</span> <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.json&quot;</span><span class="p">)]</span>
-
-        <span class="c1"># Apply sorting based on your_sort_order.json from BibleDataLoader</span>
-        <span class="n">version_list</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">files</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="n">loader</span><span class="o">.</span><span class="n">get_sort_key</span><span class="p">())</span>
-
-        <span class="k">return</span> <span class="n">version_list</span>
-
+        <span class="k">return</span> <span class="n">loader</span><span class="o">.</span><span class="n">get_available_versions</span><span class="p">()</span>
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
         <span class="c1"># Log any unexpected error (e.g., folder access, invalid sort key)</span>
         <span class="n">log_error</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
         <span class="k">return</span> <span class="p">[]</span></div>
+
+
+<div class="viewcode-block" id="load_cli_alias_map">
+<a class="viewcode-back" href="../../../core.utils.utils_version.html#core.utils.utils_version.load_cli_alias_map">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_cli_alias_map</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Load the optional CLI alias map from the configured JSON file.</span>
+
+<span class="sd">    The CLI alias map is a convenience layer only. It does not determine</span>
+<span class="sd">    whether a Bible version is available; availability is determined from</span>
+<span class="sd">    the actual files under ``data/``.</span>
+
+<span class="sd">    Expected JSON shape::</span>
+
+<span class="sd">        {</span>
+<span class="sd">            &quot;대한민국 개역개정 (1998)&quot;: &quot;NKRV&quot;,</span>
+<span class="sd">            &quot;영어 King James Version (1611)&quot;: &quot;KJV&quot;</span>
+<span class="sd">        }</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        dict[str, str]:</span>
+<span class="sd">            Mapping of ``version_key -&gt; cli_token``.</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        Invalid, missing, or malformed files return an empty mapping so that the</span>
+<span class="sd">        CLI can continue using raw version keys as fallback tokens.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">ALIASES_VERSION_CLI_FILE</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">data</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="k">else</span> <span class="p">{}</span>
+    <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{}</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">log_error</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">{}</span></div>
+
+
+
+<div class="viewcode-block" id="build_cli_version_catalog">
+<a class="viewcode-back" href="../../../core.utils.utils_version.html#core.utils.utils_version.build_cli_version_catalog">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">build_cli_version_catalog</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Build the CLI-facing version catalog from the actual data directory.</span>
+
+<span class="sd">    Availability is determined strictly by ``data/*.json``. Alias files are used</span>
+<span class="sd">    only to improve display labels and optional shorthand tokens.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tuple[list[dict[str, str]], dict[str, str], dict[str, str]]:</span>
+<span class="sd">            ``(entries, token_to_version, version_to_cli_label)`` where:</span>
+
+<span class="sd">            - ``entries`` is an ordered list of catalog rows containing:</span>
+<span class="sd">              ``version_key``, ``display_name``, and ``cli_label``.</span>
+<span class="sd">            - ``token_to_version`` maps accepted CLI input tokens to version keys.</span>
+<span class="sd">            - ``version_to_cli_label`` maps version keys to the label used in CLI</span>
+<span class="sd">              output/help (CLI alias when present, otherwise the raw version key).</span>
+
+<span class="sd">    Notes:</span>
+<span class="sd">        - This function is the CLI-side source of truth for version availability.</span>
+<span class="sd">        - ``aliases_version_cli.json`` and ``aliases_version.json`` are consulted</span>
+<span class="sd">          only after the actual data file list has been collected.</span>
+<span class="sd">        - The CLI accepts three token styles when available:</span>
+<span class="sd">          explicit CLI alias, display alias, and raw version key.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">loader</span> <span class="o">=</span> <span class="n">BibleDataLoader</span><span class="p">()</span>
+    <span class="n">version_keys</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">get_available_versions</span><span class="p">()</span>
+    <span class="n">cli_alias_map</span> <span class="o">=</span> <span class="n">load_cli_alias_map</span><span class="p">()</span>
+
+    <span class="n">entries</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">token_to_version</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">version_to_cli_label</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">for</span> <span class="n">version_key</span> <span class="ow">in</span> <span class="n">version_keys</span><span class="p">:</span>
+        <span class="n">display_name</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">get_version_display_name</span><span class="p">(</span><span class="n">version_key</span><span class="p">)</span>
+        <span class="n">cli_label</span> <span class="o">=</span> <span class="n">cli_alias_map</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">version_key</span><span class="p">,</span> <span class="n">version_key</span><span class="p">)</span>
+
+        <span class="n">entries</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+            <span class="s2">&quot;version_key&quot;</span><span class="p">:</span> <span class="n">version_key</span><span class="p">,</span>
+            <span class="s2">&quot;display_name&quot;</span><span class="p">:</span> <span class="n">display_name</span><span class="p">,</span>
+            <span class="s2">&quot;cli_label&quot;</span><span class="p">:</span> <span class="n">cli_label</span><span class="p">,</span>
+        <span class="p">})</span>
+
+        <span class="n">version_to_cli_label</span><span class="p">[</span><span class="n">version_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">cli_label</span>
+
+        <span class="c1"># Prefer explicit CLI aliases, but also allow the GUI/display alias and</span>
+        <span class="c1"># the raw version key as fallback CLI tokens when they do not collide.</span>
+        <span class="n">token_to_version</span><span class="p">[</span><span class="n">cli_label</span><span class="p">]</span> <span class="o">=</span> <span class="n">version_key</span>
+        <span class="n">token_to_version</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">display_name</span><span class="p">,</span> <span class="n">version_key</span><span class="p">)</span>
+        <span class="n">token_to_version</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">version_key</span><span class="p">,</span> <span class="n">version_key</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">entries</span><span class="p">,</span> <span class="n">token_to_version</span><span class="p">,</span> <span class="n">version_to_cli_label</span></div>
 
 </pre></div>
 

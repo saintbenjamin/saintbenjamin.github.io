@@ -92,8 +92,9 @@
 <span class="sd">- Argument parsing here is intentionally lightweight. Deep validation and output</span>
 <span class="sd">  formatting is delegated to shared core logic (e.g., :mod:`core.logic.verse_logic`).</span>
 <span class="sd">- CLI error messages are expected to be English-only by project convention.</span>
-<span class="sd">- Version names in the CLI are provided via a simplified alias map loaded from</span>
-<span class="sd">  :data:`core.config.paths.ALIASES_VERSION_CLI_FILE`.</span>
+<span class="sd">- Available Bible versions are determined from the actual JSON files under</span>
+<span class="sd">  ``data/``. Alias files are used only to improve display labels and optional</span>
+<span class="sd">  CLI shorthand tokens.</span>
 
 <span class="sd">Limitations:</span>
 
@@ -102,18 +103,18 @@
 <span class="sd">  likely RTL version is detected.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">core.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">paths</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">core.version</span><span class="w"> </span><span class="kn">import</span> <span class="n">APP_VERSION</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">core.logic.verse_logic</span><span class="w"> </span><span class="kn">import</span> <span class="n">display_verse_logic</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">core.utils.bible_data_loader</span><span class="w"> </span><span class="kn">import</span> <span class="n">BibleDataLoader</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">core.utils.bible_parser</span><span class="w"> </span><span class="kn">import</span> <span class="n">resolve_book_name</span><span class="p">,</span> <span class="n">parse_reference</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">core.utils.bible_keyword_searcher</span><span class="w"> </span><span class="kn">import</span> <span class="n">BibleKeywordSearcher</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">core.utils.utils_version</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_cli_version_catalog</span>
 
-<span class="c1"># Paths to alias and data files</span>
-<span class="n">alias_file</span> <span class="o">=</span> <span class="n">paths</span><span class="o">.</span><span class="n">ALIASES_VERSION_CLI_FILE</span>
+
 <span class="n">name_path</span> <span class="o">=</span> <span class="n">paths</span><span class="o">.</span><span class="n">BIBLE_NAME_DIR</span>
 <span class="n">data_path</span> <span class="o">=</span> <span class="n">paths</span><span class="o">.</span><span class="n">BIBLE_DATA_DIR</span>
+
 
 <div class="viewcode-block" id="handle_cli_metadata">
 <a class="viewcode-back" href="../../cli.commands.html#cli.commands.handle_cli_metadata">[docs]</a>
@@ -168,6 +169,7 @@
     <span class="k">return</span> <span class="kc">False</span></div>
 
 
+
 <div class="viewcode-block" id="handle_search_metadata">
 <a class="viewcode-back" href="../../cli.commands.html#cli.commands.handle_search_metadata">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">handle_search_metadata</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
@@ -194,7 +196,7 @@
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Usage:&quot;</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  bible search &lt;version&gt; &lt;keyword1&gt; [keyword2 ...]</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Examples:&quot;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  bible search NKRV 믿음&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  bible search NKRV faith&quot;</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  bible search KJV faith grace</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Options:&quot;</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  --help       Show this help message and exit&quot;</span><span class="p">)</span>
@@ -217,14 +219,60 @@
     <span class="k">return</span> <span class="kc">False</span></div>
 
 
-<div class="viewcode-block" id="show_usage_and_versions">
-<a class="viewcode-back" href="../../cli.commands.html#cli.commands.show_usage_and_versions">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">show_usage_and_versions</span><span class="p">(</span><span class="n">cli_aliases</span><span class="p">):</span>
+
+<div class="viewcode-block" id="_print_available_versions">
+<a class="viewcode-back" href="../../cli.commands.html#cli.commands._print_available_versions">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">_print_available_versions</span><span class="p">(</span><span class="n">version_catalog</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Print general CLI usage for verse lookup and a list of available version aliases.</span>
+<span class="sd">    Print the list of Bible versions currently available to the CLI.</span>
+
+<span class="sd">    The catalog is derived from the actual Bible JSON files under ``data/``.</span>
+<span class="sd">    Each entry is printed using the best available user-facing label:</span>
+
+<span class="sd">    - CLI alias from ``aliases_version_cli.json`` when available</span>
+<span class="sd">    - GUI/display alias from ``aliases_version.json`` as a fallback</span>
+<span class="sd">    - Raw version key (filename stem) if no alias metadata exists</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        cli_aliases (list[str]): List of CLI aliases to display (e.g., ``[&quot;NKRV&quot;, &quot;KJV&quot;]``).</span>
+<span class="sd">        version_catalog (list[dict]):</span>
+<span class="sd">            Catalog rows produced by</span>
+<span class="sd">            :func:`core.utils.utils_version.build_cli_version_catalog`.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">version_catalog</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[none found]&quot;</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="n">labels</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">version_catalog</span><span class="p">:</span>
+        <span class="n">cli_label</span> <span class="o">=</span> <span class="n">entry</span><span class="p">[</span><span class="s2">&quot;cli_label&quot;</span><span class="p">]</span>
+        <span class="n">display_name</span> <span class="o">=</span> <span class="n">entry</span><span class="p">[</span><span class="s2">&quot;display_name&quot;</span><span class="p">]</span>
+        <span class="n">version_key</span> <span class="o">=</span> <span class="n">entry</span><span class="p">[</span><span class="s2">&quot;version_key&quot;</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">cli_label</span> <span class="o">==</span> <span class="n">version_key</span> <span class="o">==</span> <span class="n">display_name</span><span class="p">:</span>
+            <span class="n">labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cli_label</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">cli_label</span> <span class="o">==</span> <span class="n">version_key</span><span class="p">:</span>
+            <span class="n">labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">cli_label</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">display_name</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">display_name</span> <span class="o">==</span> <span class="n">version_key</span><span class="p">:</span>
+            <span class="n">labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">cli_label</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">version_key</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">cli_label</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">display_name</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">labels</span><span class="p">))</span></div>
+
+
+
+<div class="viewcode-block" id="show_usage_and_versions">
+<a class="viewcode-back" href="../../cli.commands.html#cli.commands.show_usage_and_versions">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">show_usage_and_versions</span><span class="p">(</span><span class="n">version_catalog</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Print general CLI usage for verse lookup and the currently available versions.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        version_catalog (list[dict]):</span>
+<span class="sd">            Ordered catalog of versions that actually exist under ``data/``.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        None</span>
@@ -233,17 +281,19 @@
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;For more information, use: --about or --help</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Usage: bible &lt;version1&gt; [version2 ...] &lt;book&gt; &lt;chapter[:verse[-verse]]&gt;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Available versions:&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cli_aliases</span><span class="p">))</span></div>
+    <span class="n">_print_available_versions</span><span class="p">(</span><span class="n">version_catalog</span><span class="p">)</span></div>
+
 
 
 <div class="viewcode-block" id="show_search_usage">
 <a class="viewcode-back" href="../../cli.commands.html#cli.commands.show_search_usage">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">show_search_usage</span><span class="p">(</span><span class="n">cli_aliases</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">show_search_usage</span><span class="p">(</span><span class="n">version_catalog</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Print usage for keyword search and a list of available version aliases.</span>
+<span class="sd">    Print CLI usage for keyword search and the currently available versions.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        cli_aliases (list[str]): CLI version aliases to display.</span>
+<span class="sd">        version_catalog (list[dict]):</span>
+<span class="sd">            Ordered catalog of versions that actually exist under ``data/``.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        None</span>
@@ -252,116 +302,113 @@
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;For more information, use: --about or --help</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Usage: bible search &lt;version&gt; &lt;keyword1&gt; [keyword2 ...]</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Available versions:&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cli_aliases</span><span class="p">))</span></div>
+    <span class="n">_print_available_versions</span><span class="p">(</span><span class="n">version_catalog</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="load_cli_alias_map">
-<a class="viewcode-back" href="../../cli.commands.html#cli.commands.load_cli_alias_map">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">load_cli_alias_map</span><span class="p">():</span>
+
+<div class="viewcode-block" id="load_cli_version_catalog">
+<a class="viewcode-back" href="../../cli.commands.html#cli.commands.load_cli_version_catalog">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_cli_version_catalog</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Load the CLI alias map from the configured JSON file.</span>
+<span class="sd">    Build the CLI version catalog from the actual Bible data directory.</span>
 
-<span class="sd">    The alias map is expected to be a JSON object mapping *full version names*</span>
-<span class="sd">    to *CLI-friendly aliases* (strings). </span>
-<span class="sd">    </span>
-<span class="sd">    Example shape::</span>
-
-<span class="sd">        {</span>
-<span class="sd">          &quot;대한민국 개역개정 (1998)&quot;: &quot;NKRV&quot;,</span>
-<span class="sd">          &quot;King James Version&quot;: &quot;KJV&quot;</span>
-<span class="sd">        }</span>
+<span class="sd">    This helper centralizes the CLI&#39;s notion of &quot;available versions&quot; so the</span>
+<span class="sd">    CLI no longer depends on alias JSON files as the source of truth.</span>
+<span class="sd">    Availability is determined by the presence of ``*.json`` files under</span>
+<span class="sd">    ``data/``.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        tuple[dict, list[str]]: ``(alias_map, cli_aliases)`` where:</span>
+<span class="sd">        tuple[list[dict], dict, dict]: ``(version_catalog, token_to_version, version_label_map)`` where:</span>
 
-<span class="sd">        - ``alias_map`` maps full version name -&gt; CLI alias.</span>
-<span class="sd">        - ``cli_aliases`` is a list of CLI aliases (values of the map).</span>
+<span class="sd">        - ``version_catalog`` is an ordered list of version entries for display.</span>
+<span class="sd">        - ``token_to_version`` maps accepted CLI input tokens to full version keys.</span>
+<span class="sd">        - ``version_label_map`` maps full version keys to the preferred CLI label</span>
+<span class="sd">          used in help text and formatted output.</span>
 
-<span class="sd">    Raises:</span>
-<span class="sd">        FileNotFoundError: If the alias file does not exist.</span>
-<span class="sd">        json.JSONDecodeError: If the alias file is not valid JSON.</span>
+<span class="sd">    Note:</span>
+<span class="sd">        Alias metadata is used only to improve labels and shorthand tokens.</span>
+<span class="sd">        If alias metadata is missing, the raw version key remains usable.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">alias_file</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-        <span class="n">alias_map</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-    <span class="n">cli_aliases</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">alias_map</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
-    <span class="k">return</span> <span class="n">alias_map</span><span class="p">,</span> <span class="n">cli_aliases</span></div>
+    <span class="k">return</span> <span class="n">build_cli_version_catalog</span><span class="p">()</span></div>
+
 
 
 <div class="viewcode-block" id="parse_versions_from_args">
 <a class="viewcode-back" href="../../cli.commands.html#cli.commands.parse_versions_from_args">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">parse_versions_from_args</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">alias_map</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">parse_versions_from_args</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">token_to_version</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Parse one or more version aliases from the beginning of CLI arguments.</span>
+<span class="sd">    Parse one or more version tokens from the beginning of CLI arguments.</span>
 
 <span class="sd">    Parsing strategy:</span>
 <span class="sd">        - Scan tokens left-to-right.</span>
-<span class="sd">        - For each token, check if it matches any alias in ``alias_map.values()``.</span>
-<span class="sd">        - Stop at the first token that does not match a known alias.</span>
-<span class="sd">        - The remaining tokens are treated as the Bible reference portion.</span>
+<span class="sd">        - For each token, check whether it matches a supported version token.</span>
+<span class="sd">        - Stop at the first token that does not match a known version.</span>
+<span class="sd">        - Treat the remaining tokens as the Bible reference portion.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        args (list[str]): Raw CLI arguments.</span>
-<span class="sd">        alias_map (dict): Full-to-short alias mapping (full version -&gt; CLI alias).</span>
+<span class="sd">        token_to_version (dict):</span>
+<span class="sd">            Mapping of accepted CLI tokens to full version keys.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        tuple[list[str], list[str]]: ``(versions, remaining_args)`` where:</span>
 
-<span class="sd">        - ``versions`` is a list of full version names (keys from ``alias_map``).</span>
-<span class="sd">        - ``remaining_args`` is the remainder of tokens after the version list.</span>
+<span class="sd">        - ``versions`` is a list of full version keys resolved from the input.</span>
+<span class="sd">        - ``remaining_args`` is the remainder of tokens after version parsing.</span>
 
 <span class="sd">    Note:</span>
 <span class="sd">        - If no version tokens are found, ``versions`` will be an empty list.</span>
-<span class="sd">        - Callers should validate and emit a helpful error.</span>
+<span class="sd">        - Callers should validate that case and emit a helpful error.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># Parse versions from args</span>
     <span class="n">versions</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
-        <span class="n">found</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="k">for</span> <span class="n">full</span><span class="p">,</span> <span class="n">short</span> <span class="ow">in</span> <span class="n">alias_map</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="k">if</span> <span class="n">token</span> <span class="o">==</span> <span class="n">short</span><span class="p">:</span>
-                <span class="n">versions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">full</span><span class="p">)</span>
-                <span class="n">found</span> <span class="o">=</span> <span class="kc">True</span>
-                <span class="k">break</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">found</span><span class="p">:</span>
+        <span class="n">version</span> <span class="o">=</span> <span class="n">token_to_version</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">version</span><span class="p">:</span>
+            <span class="n">versions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">version</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
             <span class="k">break</span>
 
-    <span class="c1"># Remaining tokens are book and chapter/verse</span>
     <span class="n">remaining_args</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">versions</span><span class="p">):]</span>
     <span class="k">return</span> <span class="n">versions</span><span class="p">,</span> <span class="n">remaining_args</span></div>
 
 
+
 <div class="viewcode-block" id="resolve_search_version">
 <a class="viewcode-back" href="../../cli.commands.html#cli.commands.resolve_search_version">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">resolve_search_version</span><span class="p">(</span><span class="n">version_alias</span><span class="p">,</span> <span class="n">alias_map</span><span class="p">,</span> <span class="n">keywords</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">resolve_search_version</span><span class="p">(</span><span class="n">version_token</span><span class="p">,</span> <span class="n">token_to_version</span><span class="p">,</span> <span class="n">keywords</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Resolve the full Bible version name for keyword search.</span>
+<span class="sd">    Resolve the full Bible version key used for keyword search.</span>
 
 <span class="sd">    Keyword search requires exactly one version. This helper:</span>
 
-<span class="sd">    - Validates that ``version_alias`` exists in the alias map.</span>
-<span class="sd">    - Ensures none of the remaining keyword tokens look like a version alias.</span>
-<span class="sd">    - Returns the full version name corresponding to ``version_alias``.</span>
+<span class="sd">    - Validates that ``version_token`` exists in the supported token map.</span>
+<span class="sd">    - Ensures none of the remaining keyword tokens look like extra version tokens.</span>
+<span class="sd">    - Returns the full version key corresponding to ``version_token``.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        version_alias (str): CLI alias provided by the user.</span>
-<span class="sd">        alias_map (dict): Full-to-short alias map (full version -&gt; CLI alias).</span>
-<span class="sd">        keywords (list[str]): User-supplied keyword tokens.</span>
+<span class="sd">        version_token (str):</span>
+<span class="sd">            CLI token provided by the user.</span>
+<span class="sd">        token_to_version (dict):</span>
+<span class="sd">            Mapping of accepted CLI tokens to full version keys.</span>
+<span class="sd">        keywords (list[str]):</span>
+<span class="sd">            Remaining keyword tokens supplied by the user.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        str | None: Full version name if resolved; otherwise ``None`` (after printing an error).</span>
+<span class="sd">        str | None:</span>
+<span class="sd">            Full version key if resolved; otherwise ``None`` (after printing an error).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">cli_aliases</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">alias_map</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+    <span class="n">cli_tokens</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">token_to_version</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
 
-    <span class="k">if</span> <span class="n">version_alias</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cli_aliases</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[ERROR] Unknown version: &#39;</span><span class="si">{</span><span class="n">version_alias</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">version_token</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cli_tokens</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[ERROR] Unknown version: &#39;</span><span class="si">{</span><span class="n">version_token</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="kc">None</span>
 
-    <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">k</span> <span class="ow">in</span> <span class="n">cli_aliases</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">keywords</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">keyword</span> <span class="ow">in</span> <span class="n">cli_tokens</span> <span class="k">for</span> <span class="n">keyword</span> <span class="ow">in</span> <span class="n">keywords</span><span class="p">):</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[ERROR] Please specify only one version for keyword search.&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="kc">None</span>
 
-    <span class="n">matches</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">alias_map</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">v</span> <span class="o">==</span> <span class="n">version_alias</span><span class="p">]</span>
-    <span class="k">return</span> <span class="n">matches</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">matches</span> <span class="k">else</span> <span class="kc">None</span></div>
+    <span class="k">return</span> <span class="n">token_to_version</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">version_token</span><span class="p">)</span></div>
+
 
 
 <div class="viewcode-block" id="parse_and_validate_reference">
@@ -374,24 +421,24 @@
 
 <span class="sd">        &lt;book&gt; &lt;chapter[:verse[-verse]]&gt;</span>
 
-<span class="sd">    This function joins the two tokens into a single reference string and uses</span>
-<span class="sd">    :func:`core.utils.bible_parser.parse_reference` for parsing.</span>
+<span class="sd">    This function joins the remaining tokens into a single reference string and</span>
+<span class="sd">    uses :func:`core.utils.bible_parser.parse_reference` for parsing.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        remaining (list[str]): Tokens representing the reference portion.</span>
+<span class="sd">        remaining (list[str]):</span>
+<span class="sd">            Tokens representing the reference portion.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        tuple | None: ``(book, chapter, verse_range)`` if valid; otherwise ``None``.</span>
+<span class="sd">        tuple | None:</span>
+<span class="sd">            ``(book, chapter, verse_range)`` if valid; otherwise ``None``.</span>
 
 <span class="sd">    Side effects:</span>
 <span class="sd">        Prints an ``[ERROR]`` message on invalid input.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># Expecting: &lt;book&gt; &lt;chapter[:verse[-verse]]&gt;</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">remaining</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[ERROR] Invalid input. Usage: bible &lt;version1&gt; [version2 ...] &lt;book&gt; &lt;chapter[:verse[-verse]]&gt;&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="kc">None</span>
 
-     <span class="c1"># Parse Bible reference using shared parser</span>
     <span class="n">raw_ref</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">remaining</span><span class="p">)</span>
     <span class="n">parsed</span> <span class="o">=</span> <span class="n">parse_reference</span><span class="p">(</span><span class="n">raw_ref</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">parsed</span><span class="p">:</span>
@@ -401,46 +448,50 @@
     <span class="k">return</span> <span class="n">parsed</span></div>
 
 
+
 <div class="viewcode-block" id="detect_lang_code_from_aliases">
 <a class="viewcode-back" href="../../cli.commands.html#cli.commands.detect_lang_code_from_aliases">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">detect_lang_code_from_aliases</span><span class="p">(</span><span class="n">versions</span><span class="p">,</span> <span class="n">alias_map</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">detect_lang_code_from_aliases</span><span class="p">(</span><span class="n">versions</span><span class="p">,</span> <span class="n">_version_label_map</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Heuristically detect a language code based on selected versions.</span>
 
-<span class="sd">    This is a CLI-only heuristic primarily used to warn about potential RTL rendering.</span>
-<span class="sd">    The detection checks the lowercased version string (full canonical names in this</span>
-<span class="sd">    module) against a small keyword list.</span>
+<span class="sd">    This is a CLI-only heuristic primarily used to warn about potential RTL</span>
+<span class="sd">    rendering. Detection is based on keywords in the resolved version key.</span>
 
 <span class="sd">    Note:</span>
-<span class="sd">        ``alias_map`` is currently unused, but kept for signature stability and</span>
-<span class="sd">        potential future mapping to version metadata.</span>
+<span class="sd">        ``_version_label_map`` is intentionally unused, but preserved for</span>
+<span class="sd">        signature stability and possible future metadata-based detection.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        versions (list[str]): Full version names selected for output.</span>
-<span class="sd">        alias_map (dict): Full-to-short alias mapping (reserved for future use).</span>
+<span class="sd">        versions (list[str]):</span>
+<span class="sd">            Full version names selected for output.</span>
+<span class="sd">        _version_label_map (dict):</span>
+<span class="sd">            Reserved for future use.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        str: Language code among ``{&quot;he&quot;, &quot;ar&quot;, &quot;fa&quot;, &quot;ur&quot;, &quot;ko&quot;}``.</span>
+<span class="sd">        str:</span>
+<span class="sd">            Language code among ``{&quot;he&quot;, &quot;ar&quot;, &quot;fa&quot;, &quot;ur&quot;, &quot;ko&quot;}``.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">rtl_map</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;he&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;히브리어&quot;</span><span class="p">,</span> <span class="s2">&quot;hebrew&quot;</span><span class="p">,</span> <span class="s2">&quot;heb&quot;</span><span class="p">,</span> <span class="s2">&quot;wlc&quot;</span><span class="p">,</span> <span class="s2">&quot;mhb&quot;</span><span class="p">],</span>
-        <span class="s2">&quot;ar&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;아랍어&quot;</span><span class="p">,</span> <span class="s2">&quot;arabic&quot;</span><span class="p">,</span> <span class="s2">&quot;ar&quot;</span><span class="p">,</span> <span class="s2">&quot;svd&quot;</span><span class="p">],</span>
-        <span class="s2">&quot;fa&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;페르시아어&quot;</span><span class="p">,</span> <span class="s2">&quot;persian&quot;</span><span class="p">,</span> <span class="s2">&quot;fa&quot;</span><span class="p">,</span> <span class="s2">&quot;farsi&quot;</span><span class="p">],</span>
-        <span class="s2">&quot;ur&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;우르두어&quot;</span><span class="p">,</span> <span class="s2">&quot;urdu&quot;</span><span class="p">,</span> <span class="s2">&quot;ur&quot;</span><span class="p">]</span>
+        <span class="s2">&quot;he&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;hebrew&quot;</span><span class="p">,</span> <span class="s2">&quot;heb&quot;</span><span class="p">,</span> <span class="s2">&quot;wlc&quot;</span><span class="p">,</span> <span class="s2">&quot;mhb&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;ar&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;arabic&quot;</span><span class="p">,</span> <span class="s2">&quot;svd&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;fa&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;persian&quot;</span><span class="p">,</span> <span class="s2">&quot;fa&quot;</span><span class="p">,</span> <span class="s2">&quot;farsi&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;ur&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;urdu&quot;</span><span class="p">,</span> <span class="s2">&quot;ur&quot;</span><span class="p">],</span>
     <span class="p">}</span>
 
     <span class="k">for</span> <span class="n">version</span> <span class="ow">in</span> <span class="n">versions</span><span class="p">:</span>
-        <span class="n">alias</span> <span class="o">=</span> <span class="n">version</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="n">lower_name</span> <span class="o">=</span> <span class="n">version</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">code</span><span class="p">,</span> <span class="n">keywords</span> <span class="ow">in</span> <span class="n">rtl_map</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">keyword</span> <span class="ow">in</span> <span class="n">alias</span> <span class="k">for</span> <span class="n">keyword</span> <span class="ow">in</span> <span class="n">keywords</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">keyword</span> <span class="ow">in</span> <span class="n">lower_name</span> <span class="k">for</span> <span class="n">keyword</span> <span class="ow">in</span> <span class="n">keywords</span><span class="p">):</span>
                 <span class="k">return</span> <span class="n">code</span>
 
     <span class="k">return</span> <span class="s2">&quot;ko&quot;</span></div>
 
 
+
 <div class="viewcode-block" id="run_display_logic">
 <a class="viewcode-back" href="../../cli.commands.html#cli.commands.run_display_logic">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">run_display_logic</span><span class="p">(</span><span class="n">versions</span><span class="p">,</span> <span class="n">book</span><span class="p">,</span> <span class="n">chapter</span><span class="p">,</span> <span class="n">verse_range</span><span class="p">,</span> <span class="n">alias_map</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">run_display_logic</span><span class="p">(</span><span class="n">versions</span><span class="p">,</span> <span class="n">book</span><span class="p">,</span> <span class="n">chapter</span><span class="p">,</span> <span class="n">verse_range</span><span class="p">,</span> <span class="n">version_label_map</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Execute the CLI verse display pipeline.</span>
 
@@ -448,21 +499,27 @@
 
 <span class="sd">    1) Loads the selected Bible versions.</span>
 <span class="sd">    2) Validates that the requested book exists in the first version.</span>
-<span class="sd">    3) Invokes :func:`core.logic.verse_logic.display_verse_logic` in CLI mode, sending output to stdout.</span>
+<span class="sd">    3) Invokes :func:`core.logic.verse_logic.display_verse_logic` in CLI mode,</span>
+<span class="sd">       sending formatted output to stdout.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        versions (list[str]): Full version names to load and display.</span>
-<span class="sd">        book (str): Canonical book key expected by :class:`BibleDataLoader`.</span>
-<span class="sd">        chapter (int): Chapter number.</span>
-<span class="sd">        verse_range (tuple[int, int]): Verse range ``(start, end)``.</span>
-<span class="sd">        alias_map (dict): Full-to-short alias mapping (for version aliases in output).</span>
+<span class="sd">        versions (list[str]):</span>
+<span class="sd">            Full version names to load and display.</span>
+<span class="sd">        book (str):</span>
+<span class="sd">            Canonical book key expected by :class:`BibleDataLoader`.</span>
+<span class="sd">        chapter (int):</span>
+<span class="sd">            Chapter number.</span>
+<span class="sd">        verse_range (tuple[int, int]):</span>
+<span class="sd">            Verse range ``(start, end)``.</span>
+<span class="sd">        version_label_map (dict):</span>
+<span class="sd">            Full version -&gt; CLI label mapping used in formatted output.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        None</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">bible_data</span> <span class="o">=</span> <span class="n">BibleDataLoader</span><span class="p">(</span><span class="n">json_dir</span><span class="o">=</span><span class="n">name_path</span><span class="p">,</span> <span class="n">text_dir</span><span class="o">=</span><span class="n">data_path</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">versions</span><span class="p">:</span>
-        <span class="n">bible_data</span><span class="o">.</span><span class="n">load_version</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">version</span> <span class="ow">in</span> <span class="n">versions</span><span class="p">:</span>
+        <span class="n">bible_data</span><span class="o">.</span><span class="n">load_version</span><span class="p">(</span><span class="n">version</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">book</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">bible_data</span><span class="o">.</span><span class="n">get_verses</span><span class="p">(</span><span class="n">versions</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[ERROR] Unknown book name: &#39;</span><span class="si">{</span><span class="n">book</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
@@ -482,15 +539,16 @@
         <span class="n">settings</span><span class="p">,</span>
         <span class="n">lang_code</span><span class="o">=</span><span class="s2">&quot;ko&quot;</span><span class="p">,</span>
         <span class="n">output_func</span><span class="o">=</span><span class="n">print_output</span><span class="p">,</span>
-        <span class="n">version_alias</span><span class="o">=</span><span class="n">alias_map</span><span class="p">,</span>
+        <span class="n">version_alias</span><span class="o">=</span><span class="n">version_label_map</span><span class="p">,</span>
         <span class="n">book_alias</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">is_cli</span><span class="o">=</span><span class="kc">True</span>
+        <span class="n">is_cli</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="p">)</span>
 
-    <span class="n">lang_code</span> <span class="o">=</span> <span class="n">detect_lang_code_from_aliases</span><span class="p">(</span><span class="n">versions</span><span class="p">,</span> <span class="n">alias_map</span><span class="p">)</span>
+    <span class="n">lang_code</span> <span class="o">=</span> <span class="n">detect_lang_code_from_aliases</span><span class="p">(</span><span class="n">versions</span><span class="p">,</span> <span class="n">version_label_map</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">lang_code</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;he&quot;</span><span class="p">,</span> <span class="s2">&quot;ar&quot;</span><span class="p">,</span> <span class="s2">&quot;fa&quot;</span><span class="p">,</span> <span class="s2">&quot;ur&quot;</span><span class="p">}:</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[Note] This is a Right-to-Left (RTL) language. CLI display may not be ideal.&quot;</span><span class="p">)</span></div>
+
 
 
 <div class="viewcode-block" id="run_keyword_search">
@@ -500,20 +558,23 @@
 <span class="sd">    Run a keyword search and print results to stdout.</span>
 
 <span class="sd">    This function loads the specified Bible version through</span>
-<span class="sd">    :class:`core.utils.bible_keyword_searcher.BibleKeywordSearcher`, runs the search,</span>
-<span class="sd">    prints each matching verse, then prints per-keyword frequencies and total count.</span>
+<span class="sd">    :class:`core.utils.bible_keyword_searcher.BibleKeywordSearcher`, executes the</span>
+<span class="sd">    search, prints each matching verse, then prints per-keyword frequencies and</span>
+<span class="sd">    the total result count.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        full_version (str): Full Bible version name.</span>
-<span class="sd">        keywords (list[str]): Keywords to search (tokens). They are joined with spaces.</span>
+<span class="sd">        full_version (str):</span>
+<span class="sd">            Full Bible version key.</span>
+<span class="sd">        keywords (list[str]):</span>
+<span class="sd">            Keywords to search. They are joined with spaces before searching.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        None</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">searcher</span> <span class="o">=</span> <span class="n">BibleKeywordSearcher</span><span class="p">(</span><span class="n">version</span><span class="o">=</span><span class="n">full_version</span><span class="p">)</span>
-    <span class="k">except</span> <span class="ne">FileNotFoundError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[ERROR] </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">FileNotFoundError</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[ERROR] </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">return</span>
 
     <span class="n">results</span> <span class="o">=</span> <span class="n">searcher</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">keywords</span><span class="p">))</span>
@@ -523,27 +584,31 @@
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[INFO] No verses found.&quot;</span><span class="p">)</span>
         <span class="k">return</span>
 
-    <span class="k">for</span> <span class="n">res</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">res</span><span class="p">[</span><span class="s1">&#39;book&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">res</span><span class="p">[</span><span class="s1">&#39;chapter&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">res</span><span class="p">[</span><span class="s1">&#39;verse&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">res</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;book&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;chapter&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;verse&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Keyword Frequencies:&quot;</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">counts</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">keyword</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">counts</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">keyword</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Results: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span><span class="si">}</span><span class="s2"> verses found.&quot;</span><span class="p">)</span></div>
 
 
+
 <div class="viewcode-block" id="handle_version_only">
 <a class="viewcode-back" href="../../cli.commands.html#cli.commands.handle_version_only">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">handle_version_only</span><span class="p">(</span><span class="n">version</span><span class="p">,</span> <span class="n">alias_map</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">handle_version_only</span><span class="p">(</span><span class="n">version</span><span class="p">,</span> <span class="n">version_label_map</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Handle the case where only the version is specified.</span>
 
-<span class="sd">    This prints the general usage plus the list of available books in that version.</span>
+<span class="sd">    This prints the general usage plus the list of available books in that</span>
+<span class="sd">    version.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        version (str): Full Bible version name.</span>
-<span class="sd">        alias_map (dict): Full-to-short alias mapping (full version -&gt; CLI alias).</span>
+<span class="sd">        version (str):</span>
+<span class="sd">            Full Bible version key.</span>
+<span class="sd">        version_label_map (dict):</span>
+<span class="sd">            Full version -&gt; CLI label mapping used for user-facing text.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        None</span>
@@ -555,10 +620,11 @@
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;EuljiroBible v</span><span class="si">{</span><span class="n">APP_VERSION</span><span class="si">}</span><span class="s2"> (CLI interface) - Bible Verse Lookup Tool</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Usage:&quot;</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  bible &lt;version1&gt; [version2 ...] &lt;book&gt; &lt;chapter[:verse[-verse]]&gt;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[INFO] Available books in </span><span class="si">{</span><span class="n">alias_map</span><span class="p">[</span><span class="n">version</span><span class="p">]</span><span class="si">}</span><span class="s2">:&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[INFO] Available books in </span><span class="si">{</span><span class="n">version_label_map</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">version</span><span class="p">,</span><span class="w"> </span><span class="n">version</span><span class="p">)</span><span class="si">}</span><span class="s2">:&quot;</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">books</span><span class="p">))</span>
-    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[ERROR] Failed to load version </span><span class="si">{</span><span class="n">alias_map</span><span class="p">[</span><span class="n">version</span><span class="p">]</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[ERROR] Failed to load version </span><span class="si">{</span><span class="n">version_label_map</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">version</span><span class="p">,</span><span class="w"> </span><span class="n">version</span><span class="p">)</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
 
 
 <div class="viewcode-block" id="handle_book_only">
@@ -570,8 +636,10 @@
 <span class="sd">    This prints the chapter count for the requested book.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        version (str): Full Bible version name.</span>
-<span class="sd">        raw_book (str): User-supplied book token (may be localized/abbreviated).</span>
+<span class="sd">        version (str):</span>
+<span class="sd">            Full Bible version key.</span>
+<span class="sd">        raw_book (str):</span>
+<span class="sd">            User-supplied book token (may be localized or abbreviated).</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        None</span>
@@ -579,17 +647,17 @@
     <span class="n">bible_data</span> <span class="o">=</span> <span class="n">BibleDataLoader</span><span class="p">(</span><span class="n">json_dir</span><span class="o">=</span><span class="n">name_path</span><span class="p">,</span> <span class="n">text_dir</span><span class="o">=</span><span class="n">data_path</span><span class="p">)</span>
     <span class="n">bible_data</span><span class="o">.</span><span class="n">load_version</span><span class="p">(</span><span class="n">version</span><span class="p">)</span>
 
-    <span class="c1"># NOTE: resolve_book_name signature may depend on your parser implementation.</span>
-    <span class="c1"># Here we preserve your current call shape and only document expectations.</span>
     <span class="n">book</span> <span class="o">=</span> <span class="n">resolve_book_name</span><span class="p">(</span><span class="n">raw_book</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">book</span> <span class="ow">or</span> <span class="n">book</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">bible_data</span><span class="o">.</span><span class="n">get_verses</span><span class="p">(</span><span class="n">version</span><span class="p">):</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[ERROR] Unknown book name: &#39;</span><span class="si">{</span><span class="n">raw_book</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
         <span class="k">return</span>
+
     <span class="n">chapter_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">bible_data</span><span class="o">.</span><span class="n">get_verses</span><span class="p">(</span><span class="n">version</span><span class="p">)[</span><span class="n">book</span><span class="p">])</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;EuljiroBible v</span><span class="si">{</span><span class="n">APP_VERSION</span><span class="si">}</span><span class="s2"> (CLI interface) - Bible Verse Lookup Tool</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Usage:&quot;</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  bible &lt;version1&gt; [version2 ...] &lt;book&gt; &lt;chapter[:verse[-verse]]&gt;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[INFO] The Book of </span><span class="si">{</span><span class="n">raw_book</span><span class="si">}</span><span class="s2"> has </span><span class="si">{</span><span class="n">chapter_count</span><span class="si">}</span><span class="s2"> chapters.&quot;</span><span class="p">)</span></div>
+
 
 
 <div class="viewcode-block" id="run_bible_command">
@@ -610,34 +678,42 @@
 <span class="sd">    Behavior:</span>
 
 <span class="sd">    - Handles metadata flags (``--help``, ``--version``, ``--about``).</span>
-<span class="sd">    - Loads alias map and parses one or more version tokens from the front.</span>
+<span class="sd">    - Builds the CLI version catalog from actual Bible data files.</span>
+<span class="sd">    - Parses one or more version tokens from the beginning of the argument list.</span>
 <span class="sd">    - If only a version is given, prints available books.</span>
 <span class="sd">    - If version + book are given, prints chapter count.</span>
 <span class="sd">    - If a full reference is provided, prints formatted verse output via shared logic.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        args (list[str]): Command-line arguments excluding the script name and excluding the ``bible`` token.</span>
+<span class="sd">        args (list[str]):</span>
+<span class="sd">            Command-line arguments excluding the script name and excluding the</span>
+<span class="sd">            ``bible`` token.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        None</span>
 
 <span class="sd">    Note:</span>
-<span class="sd">        - This function assumes at least one valid version alias is supplied when verse lookup is attempted. </span>
-<span class="sd">        - If no version is found, callers should see usage.</span>
+<span class="sd">        - Version availability is determined by the actual contents of ``data/``.</span>
+<span class="sd">        - Alias files affect labels and shorthand parsing only.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">handle_cli_metadata</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
         <span class="k">return</span>
 
-    <span class="n">alias_map</span><span class="p">,</span> <span class="n">cli_aliases</span> <span class="o">=</span> <span class="n">load_cli_alias_map</span><span class="p">()</span>
+    <span class="n">version_catalog</span><span class="p">,</span> <span class="n">token_to_version</span><span class="p">,</span> <span class="n">version_label_map</span> <span class="o">=</span> <span class="n">load_cli_version_catalog</span><span class="p">()</span>
 
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">show_usage_and_versions</span><span class="p">(</span><span class="n">cli_aliases</span><span class="p">)</span>
+        <span class="n">show_usage_and_versions</span><span class="p">(</span><span class="n">version_catalog</span><span class="p">)</span>
         <span class="k">return</span>
 
-    <span class="n">versions</span><span class="p">,</span> <span class="n">remaining</span> <span class="o">=</span> <span class="n">parse_versions_from_args</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">alias_map</span><span class="p">)</span>
+    <span class="n">versions</span><span class="p">,</span> <span class="n">remaining</span> <span class="o">=</span> <span class="n">parse_versions_from_args</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">token_to_version</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">versions</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[ERROR] Please specify at least one valid version.&quot;</span><span class="p">)</span>
+        <span class="n">show_usage_and_versions</span><span class="p">(</span><span class="n">version_catalog</span><span class="p">)</span>
+        <span class="k">return</span>
 
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">remaining</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">handle_version_only</span><span class="p">(</span><span class="n">versions</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">alias_map</span><span class="p">)</span>
+        <span class="n">handle_version_only</span><span class="p">(</span><span class="n">versions</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">version_label_map</span><span class="p">)</span>
         <span class="k">return</span>
 
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">remaining</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
@@ -649,8 +725,8 @@
         <span class="k">return</span>
 
     <span class="n">book</span><span class="p">,</span> <span class="n">chapter</span><span class="p">,</span> <span class="n">verse_range</span> <span class="o">=</span> <span class="n">parsed</span>
+    <span class="n">run_display_logic</span><span class="p">(</span><span class="n">versions</span><span class="p">,</span> <span class="n">book</span><span class="p">,</span> <span class="n">chapter</span><span class="p">,</span> <span class="n">verse_range</span><span class="p">,</span> <span class="n">version_label_map</span><span class="p">)</span></div>
 
-    <span class="n">run_display_logic</span><span class="p">(</span><span class="n">versions</span><span class="p">,</span> <span class="n">book</span><span class="p">,</span> <span class="n">chapter</span><span class="p">,</span> <span class="n">verse_range</span><span class="p">,</span> <span class="n">alias_map</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="run_search_command">
@@ -665,17 +741,20 @@
 
 <span class="sd">    Examples::</span>
 
-<span class="sd">        bible search NKRV 믿음</span>
+<span class="sd">        bible search NKRV faith</span>
 <span class="sd">        bible search KJV faith grace</span>
 
 <span class="sd">    Behavior:</span>
 
 <span class="sd">    - Handles metadata flags (``--help``, ``--version``, ``--about``).</span>
-<span class="sd">    - Requires exactly one version alias.</span>
+<span class="sd">    - Builds the CLI version catalog from actual Bible data files.</span>
+<span class="sd">    - Requires exactly one version token.</span>
 <span class="sd">    - Runs keyword search and prints matches and keyword frequencies.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        args (list[str]): Command-line arguments excluding the script name and excluding the ``search`` token.</span>
+<span class="sd">        args (list[str]):</span>
+<span class="sd">            Command-line arguments excluding the script name and excluding the</span>
+<span class="sd">            ``search`` token.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        None</span>
@@ -683,16 +762,16 @@
     <span class="k">if</span> <span class="n">handle_search_metadata</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
         <span class="k">return</span>
 
-    <span class="n">alias_map</span><span class="p">,</span> <span class="n">cli_aliases</span> <span class="o">=</span> <span class="n">load_cli_alias_map</span><span class="p">()</span>
+    <span class="n">version_catalog</span><span class="p">,</span> <span class="n">token_to_version</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">load_cli_version_catalog</span><span class="p">()</span>
 
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
-        <span class="n">show_search_usage</span><span class="p">(</span><span class="n">cli_aliases</span><span class="p">)</span>
+        <span class="n">show_search_usage</span><span class="p">(</span><span class="n">version_catalog</span><span class="p">)</span>
         <span class="k">return</span>
 
-    <span class="n">version_alias</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">version_token</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">keywords</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
 
-    <span class="n">full_version</span> <span class="o">=</span> <span class="n">resolve_search_version</span><span class="p">(</span><span class="n">version_alias</span><span class="p">,</span> <span class="n">alias_map</span><span class="p">,</span> <span class="n">keywords</span><span class="p">)</span>
+    <span class="n">full_version</span> <span class="o">=</span> <span class="n">resolve_search_version</span><span class="p">(</span><span class="n">version_token</span><span class="p">,</span> <span class="n">token_to_version</span><span class="p">,</span> <span class="n">keywords</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">full_version</span><span class="p">:</span>
         <span class="k">return</span>
 

@@ -231,6 +231,37 @@
         <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">verses</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="k">if</span> <span class="n">verses</span> <span class="k">else</span> <span class="p">[]</span></div>
 
 
+<div class="viewcode-block" id="BibleDataLoader.get_available_versions">
+<a class="viewcode-back" href="../../../core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader.get_available_versions">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_available_versions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return all Bible version keys that actually exist under the text directory.</span>
+
+<span class="sd">        This method inspects the Bible text directory directly and derives</span>
+<span class="sd">        version keys from the available ``*.json`` filenames. It is used when</span>
+<span class="sd">        the application needs the true list of install-time/runtime-available</span>
+<span class="sd">        Bible versions instead of relying on alias metadata files.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list[str]:</span>
+<span class="sd">                Sorted list of version keys derived from ``&lt;text_dir&gt;/*.json``.</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            Failures while scanning the directory are logged and an empty list</span>
+<span class="sd">            is returned so callers can fail gracefully.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">files</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">fname</span><span class="p">[:</span><span class="o">-</span><span class="mi">5</span><span class="p">]</span>
+                <span class="k">for</span> <span class="n">fname</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">text_dir</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">fname</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.json&quot;</span><span class="p">)</span>
+            <span class="p">]</span>
+            <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">files</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">get_sort_key</span><span class="p">())</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">log_error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[BibleDataLoader] Failed to scan versions in &#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">text_dir</span><span class="si">}</span><span class="s2">&#39;: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">[]</span></div>
+
+
 <div class="viewcode-block" id="BibleDataLoader._load_json">
 <a class="viewcode-back" href="../../../core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader._load_json">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">_load_json</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">):</span>
@@ -497,6 +528,37 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">alias_map</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
         <span class="k">return</span> <span class="n">alias_map</span></div>
+
+
+<div class="viewcode-block" id="BibleDataLoader.get_version_display_name">
+<a class="viewcode-back" href="../../../core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader.get_version_display_name">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_version_display_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version_key</span><span class="p">,</span> <span class="n">lang_code</span><span class="o">=</span><span class="s2">&quot;ko&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a user-facing display label for a Bible version.</span>
+
+<span class="sd">        The display label prefers ``aliases_version.json`` when available and</span>
+<span class="sd">        falls back to the raw version key (usually the source JSON filename</span>
+<span class="sd">        without extension).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            version_key (str):</span>
+<span class="sd">                Bible version key / filename stem.</span>
+<span class="sd">            lang_code (str):</span>
+<span class="sd">                Language code used when alias entries are nested dictionaries.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str:</span>
+<span class="sd">                Alias label when available, otherwise ``version_key``.</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            This method is intentionally display-oriented. It does not validate</span>
+<span class="sd">            whether the version exists on disk; callers should pair it with</span>
+<span class="sd">            :meth:`get_available_versions` when availability matters.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">alias</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">aliases_version</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">version_key</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">alias</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">alias</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;aliases&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">lang_code</span><span class="p">,</span> <span class="n">version_key</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">alias</span> <span class="ow">or</span> <span class="n">version_key</span></div>
 
 
     <span class="c1"># For compatibility with EuljiroWorship system    </span>

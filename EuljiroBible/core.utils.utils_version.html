@@ -121,7 +121,7 @@
 <dd class="field-odd"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
 </dd>
 </dl>
-<p>Provides utility to refresh and sort available Bible versions based on loaded metadata.</p>
+<p>Provides utilities for working with available Bible versions.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="core.utils.utils_version.refresh_full_version_list">
 <span class="sig-prename descclassname"><span class="pre">core.utils.utils_version.</span></span><span class="sig-name descname"><span class="pre">refresh_full_version_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/utils/utils_version.html#refresh_full_version_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.utils.utils_version.refresh_full_version_list" title="Link to this definition"></a></dt>
@@ -139,6 +139,67 @@
 <dd class="field-even"><p>list[str]</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="core.utils.utils_version.load_cli_alias_map">
+<span class="sig-prename descclassname"><span class="pre">core.utils.utils_version.</span></span><span class="sig-name descname"><span class="pre">load_cli_alias_map</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/utils/utils_version.html#load_cli_alias_map"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.utils.utils_version.load_cli_alias_map" title="Link to this definition"></a></dt>
+<dd><p>Load the optional CLI alias map from the configured JSON file.</p>
+<p>The CLI alias map is a convenience layer only. It does not determine
+whether a Bible version is available; availability is determined from
+the actual files under <code class="docutils literal notranslate"><span class="pre">data/</span></code>.</p>
+<p>Expected JSON shape:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;대한민국 개역개정 (1998)&quot;</span><span class="p">:</span> <span class="s2">&quot;NKRV&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;영어 King James Version (1611)&quot;</span><span class="p">:</span> <span class="s2">&quot;KJV&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Mapping of <code class="docutils literal notranslate"><span class="pre">version_key</span> <span class="pre">-&gt;</span> <span class="pre">cli_token</span></code>.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict[str, str]</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Invalid, missing, or malformed files return an empty mapping so that the
+CLI can continue using raw version keys as fallback tokens.</p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="core.utils.utils_version.build_cli_version_catalog">
+<span class="sig-prename descclassname"><span class="pre">core.utils.utils_version.</span></span><span class="sig-name descname"><span class="pre">build_cli_version_catalog</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/utils/utils_version.html#build_cli_version_catalog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.utils.utils_version.build_cli_version_catalog" title="Link to this definition"></a></dt>
+<dd><p>Build the CLI-facing version catalog from the actual data directory.</p>
+<p>Availability is determined strictly by <code class="docutils literal notranslate"><span class="pre">data/*.json</span></code>. Alias files are used
+only to improve display labels and optional shorthand tokens.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><p><code class="docutils literal notranslate"><span class="pre">(entries,</span> <span class="pre">token_to_version,</span> <span class="pre">version_to_cli_label)</span></code> where:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">entries</span></code> is an ordered list of catalog rows containing:
+<code class="docutils literal notranslate"><span class="pre">version_key</span></code>, <code class="docutils literal notranslate"><span class="pre">display_name</span></code>, and <code class="docutils literal notranslate"><span class="pre">cli_label</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">token_to_version</span></code> maps accepted CLI input tokens to version keys.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">version_to_cli_label</span></code> maps version keys to the label used in CLI
+output/help (CLI alias when present, otherwise the raw version key).</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>tuple[list[dict[str, str]], dict[str, str], dict[str, str]]</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>This function is the CLI-side source of truth for version availability.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">aliases_version_cli.json</span></code> and <code class="docutils literal notranslate"><span class="pre">aliases_version.json</span></code> are consulted
+only after the actual data file list has been collected.</p></li>
+<li><p>The CLI accepts three token styles when available:
+explicit CLI alias, display alias, and raw version key.</p></li>
+</ul>
 </dd></dl>
 
 </section>
