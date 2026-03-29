@@ -306,6 +306,34 @@
 
 
 
+<div class="viewcode-block" id="handle_search_version_only">
+<a class="viewcode-back" href="../../cli.commands.html#cli.commands.handle_search_version_only">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">handle_search_version_only</span><span class="p">(</span><span class="n">version</span><span class="p">,</span> <span class="n">version_label_map</span><span class="p">,</span> <span class="n">version_catalog</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Handle the case where only the version is specified for keyword search.</span>
+
+<span class="sd">    This keeps the response search-specific instead of falling back to</span>
+<span class="sd">    verse-lookup guidance.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        version (str):</span>
+<span class="sd">            Full Bible version key.</span>
+<span class="sd">        version_label_map (dict):</span>
+<span class="sd">            Full version -&gt; CLI label mapping used for user-facing text.</span>
+<span class="sd">        version_catalog (list[dict]):</span>
+<span class="sd">            Ordered catalog of available versions for usage display.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;EuljiroBible v</span><span class="si">{</span><span class="n">APP_VERSION</span><span class="si">}</span><span class="s2"> (CLI interface) - Bible Keyword Search&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;For more information, use: --about or --help</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Usage: bible search &lt;version&gt; &lt;keyword1&gt; [keyword2 ...]</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[INFO] Selected version: </span><span class="si">{</span><span class="n">version_label_map</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">version</span><span class="p">,</span><span class="w"> </span><span class="n">version</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[INFO] Please enter one or more keywords separated by spaces.&quot;</span><span class="p">)</span></div>
+
+
+
 <div class="viewcode-block" id="load_cli_version_catalog">
 <a class="viewcode-back" href="../../cli.commands.html#cli.commands.load_cli_version_catalog">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">load_cli_version_catalog</span><span class="p">():</span>
@@ -762,14 +790,24 @@
     <span class="k">if</span> <span class="n">handle_search_metadata</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
         <span class="k">return</span>
 
-    <span class="n">version_catalog</span><span class="p">,</span> <span class="n">token_to_version</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">load_cli_version_catalog</span><span class="p">()</span>
+    <span class="n">version_catalog</span><span class="p">,</span> <span class="n">token_to_version</span><span class="p">,</span> <span class="n">version_label_map</span> <span class="o">=</span> <span class="n">load_cli_version_catalog</span><span class="p">()</span>
 
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">show_search_usage</span><span class="p">(</span><span class="n">version_catalog</span><span class="p">)</span>
         <span class="k">return</span>
 
     <span class="n">version_token</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">keywords</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">full_version</span> <span class="o">=</span> <span class="n">token_to_version</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">version_token</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">full_version</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[ERROR] Unknown version: &#39;</span><span class="si">{</span><span class="n">version_token</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+            <span class="n">show_search_usage</span><span class="p">(</span><span class="n">version_catalog</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="n">handle_search_version_only</span><span class="p">(</span><span class="n">full_version</span><span class="p">,</span> <span class="n">version_label_map</span><span class="p">,</span> <span class="n">version_catalog</span><span class="p">)</span>
+        <span class="k">return</span>
 
     <span class="n">full_version</span> <span class="o">=</span> <span class="n">resolve_search_version</span><span class="p">(</span><span class="n">version_token</span><span class="p">,</span> <span class="n">token_to_version</span><span class="p">,</span> <span class="n">keywords</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">full_version</span><span class="p">:</span>

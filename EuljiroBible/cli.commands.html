@@ -54,6 +54,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#cli.commands._print_available_versions"><code class="docutils literal notranslate"><span class="pre">_print_available_versions()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cli.commands.show_usage_and_versions"><code class="docutils literal notranslate"><span class="pre">show_usage_and_versions()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cli.commands.show_search_usage"><code class="docutils literal notranslate"><span class="pre">show_search_usage()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cli.commands.handle_search_version_only"><code class="docutils literal notranslate"><span class="pre">handle_search_version_only()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cli.commands.load_cli_version_catalog"><code class="docutils literal notranslate"><span class="pre">load_cli_version_catalog()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cli.commands.parse_versions_from_args"><code class="docutils literal notranslate"><span class="pre">parse_versions_from_args()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cli.commands.resolve_search_version"><code class="docutils literal notranslate"><span class="pre">resolve_search_version()</span></code></a></li>
@@ -245,6 +246,26 @@ Each entry is printed using the best available user-facing label:</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>version_catalog</strong> (<em>List</em><em>[</em><em>dict</em><em>]</em>) – Ordered catalog of versions that actually exist under <code class="docutils literal notranslate"><span class="pre">data/</span></code>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="cli.commands.handle_search_version_only">
+<span class="sig-prename descclassname"><span class="pre">cli.commands.</span></span><span class="sig-name descname"><span class="pre">handle_search_version_only</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version_label_map</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version_catalog</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cli/commands.html#handle_search_version_only"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cli.commands.handle_search_version_only" title="Link to this definition"></a></dt>
+<dd><p>Handle the case where only the version is specified for keyword search.</p>
+<p>This keeps the response search-specific instead of falling back to
+verse-lookup guidance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>version</strong> (<em>str</em>) – Full Bible version key.</p></li>
+<li><p><strong>version_label_map</strong> (<em>dict</em>) – Full version -&gt; CLI label mapping used for user-facing text.</p></li>
+<li><p><strong>version_catalog</strong> (<em>list</em><em>[</em><em>dict</em><em>]</em>) – Ordered catalog of available versions for usage display.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>None</p>
