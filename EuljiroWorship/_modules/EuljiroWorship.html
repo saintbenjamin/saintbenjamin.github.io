@@ -107,7 +107,15 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">http.server</span><span class="w"> </span><span class="kn">import</span> <span class="n">SimpleHTTPRequestHandler</span><span class="p">,</span> <span class="n">ThreadingHTTPServer</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">core.utils.runtime_launcher</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_entry_command</span><span class="p">,</span> <span class="n">ensure_runtime_cwd</span><span class="p">,</span> <span class="n">get_runtime_base_dir</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtGui</span><span class="w"> </span><span class="kn">import</span> <span class="n">QIcon</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">core.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">paths</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">core.utils.runtime_launcher</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">build_entry_command</span><span class="p">,</span>
+    <span class="n">ensure_runtime_cwd</span><span class="p">,</span>
+    <span class="n">get_runtime_base_dir</span><span class="p">,</span>
+    <span class="n">set_windows_app_user_model_id</span><span class="p">,</span>
+<span class="p">)</span>
 
 <div class="viewcode-block" id="_project_root">
 <a class="viewcode-back" href="../EuljiroWorship.html#EuljiroWorship._project_root">[docs]</a>
@@ -387,6 +395,7 @@
         <span class="k">return</span>
 
     <span class="n">root</span> <span class="o">=</span> <span class="n">ensure_runtime_cwd</span><span class="p">()</span>
+    <span class="n">set_windows_app_user_model_id</span><span class="p">(</span><span class="s2">&quot;org.euljirochurch.EuljiroWorship&quot;</span><span class="p">)</span>
 
     <span class="c1"># Adjust this if your overlay/static files live under a specific directory.</span>
     <span class="c1"># For example: http_cwd = root / &quot;web&quot;</span>
@@ -416,6 +425,8 @@
     <span class="kn">from</span><span class="w"> </span><span class="nn">core.generator.ui.slide_generator</span><span class="w"> </span><span class="kn">import</span> <span class="n">SlideGenerator</span>
 
     <span class="n">app</span> <span class="o">=</span> <span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">Path</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">ICON_FILE</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+        <span class="n">app</span><span class="o">.</span><span class="n">setWindowIcon</span><span class="p">(</span><span class="n">QIcon</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">ICON_FILE</span><span class="p">))</span>
 
     <span class="c1"># Apply a consistent style across platforms</span>
     <span class="n">app</span><span class="o">.</span><span class="n">setStyle</span><span class="p">(</span><span class="s2">&quot;Fusion&quot;</span><span class="p">)</span>
@@ -429,6 +440,8 @@
 
     <span class="c1"># Instantiate and display the main Slide Generator window</span>
     <span class="n">generator</span> <span class="o">=</span> <span class="n">SlideGenerator</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">Path</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">ICON_FILE</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+        <span class="n">generator</span><span class="o">.</span><span class="n">setWindowIcon</span><span class="p">(</span><span class="n">QIcon</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">ICON_FILE</span><span class="p">))</span>
     <span class="n">generator</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
     <span class="c1"># Enter Qt event loop and run the application</span>
