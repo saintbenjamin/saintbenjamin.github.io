@@ -132,7 +132,7 @@
 <span class="sd">        - ``--about``: Print author and license information.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        args (list[str]): Raw CLI arguments *for the bible command* (excluding the script name).</span>
+<span class="sd">        args (List[str]): Raw CLI arguments *for the bible command* (excluding the script name).</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        bool: ``True`` if a metadata option was handled and the command should exit,</span>
@@ -182,7 +182,7 @@
 <span class="sd">        - ``--about``: Print author and license information.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        args (list[str]): Raw CLI arguments for the ``search`` command.</span>
+<span class="sd">        args (List[str]): Raw CLI arguments for the ``search`` command.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        bool: ``True`` if a metadata option was handled and the command should exit,</span>
@@ -234,7 +234,7 @@
 <span class="sd">    - Raw version key (filename stem) if no alias metadata exists</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        version_catalog (list[dict]):</span>
+<span class="sd">        version_catalog (List[dict]):</span>
 <span class="sd">            Catalog rows produced by</span>
 <span class="sd">            :func:`core.utils.utils_version.build_cli_version_catalog`.</span>
 
@@ -271,7 +271,7 @@
 <span class="sd">    Print general CLI usage for verse lookup and the currently available versions.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        version_catalog (list[dict]):</span>
+<span class="sd">        version_catalog (List[dict]):</span>
 <span class="sd">            Ordered catalog of versions that actually exist under ``data/``.</span>
 
 <span class="sd">    Returns:</span>
@@ -292,7 +292,7 @@
 <span class="sd">    Print CLI usage for keyword search and the currently available versions.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        version_catalog (list[dict]):</span>
+<span class="sd">        version_catalog (List[dict]):</span>
 <span class="sd">            Ordered catalog of versions that actually exist under ``data/``.</span>
 
 <span class="sd">    Returns:</span>
@@ -318,7 +318,7 @@
 <span class="sd">    ``data/``.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        tuple[list[dict], dict, dict]: ``(version_catalog, token_to_version, version_label_map)`` where:</span>
+<span class="sd">        Tuple[List[dict], dict, dict]: ``(version_catalog, token_to_version, version_label_map)`` where:</span>
 
 <span class="sd">        - ``version_catalog`` is an ordered list of version entries for display.</span>
 <span class="sd">        - ``token_to_version`` maps accepted CLI input tokens to full version keys.</span>
@@ -346,12 +346,12 @@
 <span class="sd">        - Treat the remaining tokens as the Bible reference portion.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        args (list[str]): Raw CLI arguments.</span>
+<span class="sd">        args (List[str]): Raw CLI arguments.</span>
 <span class="sd">        token_to_version (dict):</span>
 <span class="sd">            Mapping of accepted CLI tokens to full version keys.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        tuple[list[str], list[str]]: ``(versions, remaining_args)`` where:</span>
+<span class="sd">        Tuple[List[str], List[str]]: ``(versions, remaining_args)`` where:</span>
 
 <span class="sd">        - ``versions`` is a list of full version keys resolved from the input.</span>
 <span class="sd">        - ``remaining_args`` is the remainder of tokens after version parsing.</span>
@@ -390,7 +390,7 @@
 <span class="sd">            CLI token provided by the user.</span>
 <span class="sd">        token_to_version (dict):</span>
 <span class="sd">            Mapping of accepted CLI tokens to full version keys.</span>
-<span class="sd">        keywords (list[str]):</span>
+<span class="sd">        keywords (List[str]):</span>
 <span class="sd">            Remaining keyword tokens supplied by the user.</span>
 
 <span class="sd">    Returns:</span>
@@ -425,7 +425,7 @@
 <span class="sd">    uses :func:`core.utils.bible_parser.parse_reference` for parsing.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        remaining (list[str]):</span>
+<span class="sd">        remaining (List[str]):</span>
 <span class="sd">            Tokens representing the reference portion.</span>
 
 <span class="sd">    Returns:</span>
@@ -463,7 +463,7 @@
 <span class="sd">        signature stability and possible future metadata-based detection.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        versions (list[str]):</span>
+<span class="sd">        versions (List[str]):</span>
 <span class="sd">            Full version names selected for output.</span>
 <span class="sd">        _version_label_map (dict):</span>
 <span class="sd">            Reserved for future use.</span>
@@ -503,13 +503,13 @@
 <span class="sd">       sending formatted output to stdout.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        versions (list[str]):</span>
+<span class="sd">        versions (List[str]):</span>
 <span class="sd">            Full version names to load and display.</span>
 <span class="sd">        book (str):</span>
 <span class="sd">            Canonical book key expected by :class:`BibleDataLoader`.</span>
 <span class="sd">        chapter (int):</span>
 <span class="sd">            Chapter number.</span>
-<span class="sd">        verse_range (tuple[int, int]):</span>
+<span class="sd">        verse_range (Tuple[int, int]):</span>
 <span class="sd">            Verse range ``(start, end)``.</span>
 <span class="sd">        version_label_map (dict):</span>
 <span class="sd">            Full version -&gt; CLI label mapping used in formatted output.</span>
@@ -565,7 +565,7 @@
 <span class="sd">    Args:</span>
 <span class="sd">        full_version (str):</span>
 <span class="sd">            Full Bible version key.</span>
-<span class="sd">        keywords (list[str]):</span>
+<span class="sd">        keywords (List[str]):</span>
 <span class="sd">            Keywords to search. They are joined with spaces before searching.</span>
 
 <span class="sd">    Returns:</span>
@@ -685,7 +685,7 @@
 <span class="sd">    - If a full reference is provided, prints formatted verse output via shared logic.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        args (list[str]):</span>
+<span class="sd">        args (List[str]):</span>
 <span class="sd">            Command-line arguments excluding the script name and excluding the</span>
 <span class="sd">            ``bible`` token.</span>
 
@@ -752,7 +752,7 @@
 <span class="sd">    - Runs keyword search and prints matches and keyword frequencies.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        args (list[str]):</span>
+<span class="sd">        args (List[str]):</span>
 <span class="sd">            Command-line arguments excluding the script name and excluding the</span>
 <span class="sd">            ``search`` token.</span>
 

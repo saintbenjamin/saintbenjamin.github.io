@@ -123,7 +123,7 @@
 <span class="sd">        Initialize the TabKeyword UI, logic backend, and Bible data.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            version_list (list[str]): Available Bible version list shown in the UI.</span>
+<span class="sd">            version_list (List[str]): Available Bible version list shown in the UI.</span>
 <span class="sd">            settings (dict): Application-level settings.</span>
 <span class="sd">            tr (Callable[[str], str]): Translation function for UI labels.</span>
 <span class="sd">            get_polling_status (Callable[[], bool] | None): Optional callback to retrieve</span>
@@ -214,7 +214,7 @@
 <span class="sd">        Update the keyword result table with new entries.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            results (list[dict]): List of result dictionaries produced by the search backend.</span>
+<span class="sd">            results (List[dict]): List of result dictionaries produced by the search backend.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logic</span><span class="o">.</span><span class="n">update_table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">results</span><span class="p">)</span></div>
 
@@ -226,7 +226,7 @@
 <span class="sd">        Update the summary box with keyword occurrence counts.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            counts (dict[str, int]): Mapping from keyword to occurrence count.</span>
+<span class="sd">            counts (Dict[str, int]): Mapping from keyword to occurrence count.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logic</span><span class="o">.</span><span class="n">update_summary</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">counts</span><span class="p">)</span></div>
 

@@ -83,6 +83,7 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">QCheckBox</span><span class="p">,</span> <span class="n">QLayoutItem</span>
+
 <span class="kn">from</span><span class="w"> </span><span class="nn">core.logic.verse_logic</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">get_common_books_among_versions</span><span class="p">,</span>
     <span class="n">validate_versions_and_books</span><span class="p">,</span>
@@ -130,7 +131,7 @@
 <span class="sd">        Return a list of selected Bible versions based on checked checkboxes.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            list[str]: List of selected version keys.</span>
+<span class="sd">            List[str]: List of selected version keys.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">selected</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">version_layout</span><span class="o">.</span><span class="n">count</span><span class="p">()):</span>
@@ -152,7 +153,7 @@
 <span class="sd">        Find books common to all selected Bible versions.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            list[str]: List of book names common to all selected versions.</span>
+<span class="sd">            List[str]: List of book names common to all selected versions.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">versions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_selected_versions</span><span class="p">()</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">versions</span><span class="p">:</span>
@@ -178,7 +179,7 @@
 <span class="sd">            initializing (bool): If True, skip validation logic and return the raw selection.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            tuple[list[str], list[str]]: (validated_versions, common_books).</span>
+<span class="sd">            Tuple[List[str], List[str]]: (validated_versions, common_books).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">initializing</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_selected_versions</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_common_books</span><span class="p">()</span>
@@ -196,10 +197,10 @@
 <span class="sd">        Sort a list of version keys using the configured sort order and prefix rules.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            version_list (list[str]): List of version keys to sort.</span>
+<span class="sd">            version_list (List[str]): List of version keys to sort.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            list[str]: Sorted list of version keys.</span>
+<span class="sd">            List[str]: Sorted list of version keys.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Sort by the global sort key first</span>
         <span class="n">version_list</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">bible_data</span><span class="o">.</span><span class="n">get_sort_key</span><span class="p">())</span>

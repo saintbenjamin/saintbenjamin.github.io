@@ -96,6 +96,7 @@
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">core.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">paths</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">core.utils.logger</span><span class="w"> </span><span class="kn">import</span> <span class="n">log_error</span>
@@ -243,7 +244,7 @@
 <span class="sd">        Bible versions instead of relying on alias metadata files.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            list[str]:</span>
+<span class="sd">            List[str]:</span>
 <span class="sd">                Sorted list of version keys derived from ``&lt;text_dir&gt;/*.json``.</span>
 
 <span class="sd">        Note:</span>
@@ -562,9 +563,10 @@
 
 
     <span class="c1"># For compatibility with EuljiroWorship system    </span>
+    <span class="c1"># def get_verse(self, version: str, book: str, chapter: int, verse: int) -&gt; str | None:</span>
 <div class="viewcode-block" id="BibleDataLoader.get_verse">
 <a class="viewcode-back" href="../../../core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader.get_verse">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">get_verse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">book</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">chapter</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">verse</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_verse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">book</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">chapter</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">verse</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Retrieve a single verse from the loaded Bible data.</span>
 

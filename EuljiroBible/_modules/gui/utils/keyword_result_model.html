@@ -96,7 +96,7 @@
 <span class="sd">        2) Verse text</span>
 
 <span class="sd">    Attributes:</span>
-<span class="sd">        results (list[dict]): List of search result entries. Each entry is expected to</span>
+<span class="sd">        results (List[dict]): List of search result entries. Each entry is expected to</span>
 <span class="sd">            contain at least: &quot;book&quot;, &quot;chapter&quot;, &quot;verse&quot;, and &quot;text&quot;.</span>
 <span class="sd">        bible_data (BibleDataLoader): Data loader used to resolve localized/standard</span>
 <span class="sd">            book display names.</span>
@@ -111,7 +111,7 @@
 <span class="sd">        Initialize the model with results and localization helpers.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            results (list[dict] | None): Search results to display. If None, an empty list is used.</span>
+<span class="sd">            results (List[dict] | None): Search results to display. If None, an empty list is used.</span>
 <span class="sd">            bible_data (BibleDataLoader): Bible data loader used for book-name localization.</span>
 <span class="sd">            current_language (str): Language code for localized book names (e.g., &quot;ko&quot;, &quot;en&quot;).</span>
 <span class="sd">            tr (Callable[[str], str]): Translation function for localized header strings.</span>

@@ -100,7 +100,7 @@
 <span class="sd">    - selected-row background rendering remains consistent with Qt styles</span>
 
 <span class="sd">    Attributes:</span>
-<span class="sd">        keywords (list[str]): Keywords to highlight. Each keyword is highlighted by</span>
+<span class="sd">        keywords (List[str]): Keywords to highlight. Each keyword is highlighted by</span>
 <span class="sd">            wrapping exact string matches in an HTML &lt;span&gt; with a colored style.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -111,11 +111,11 @@
 <span class="sd">        Initialize the delegate.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            keywords (list[str]): List of keywords to highlight.</span>
+<span class="sd">            keywords (List[str]): List of keywords to highlight.</span>
 <span class="sd">            parent (QWidget | None): Optional parent widget.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">keywords</span> <span class="o">=</span> <span class="n">keywords</span>  <span class="c1"># list[str]</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">keywords</span> <span class="o">=</span> <span class="n">keywords</span>  <span class="c1"># List[str]</span></div>
 
 
 <div class="viewcode-block" id="KeywordHighlightDelegate.paint">

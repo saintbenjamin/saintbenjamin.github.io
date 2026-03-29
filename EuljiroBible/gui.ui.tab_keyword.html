@@ -211,7 +211,7 @@ avoid duplicate autodoc entries, as they are already documented as class methods
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>version_list</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – Available Bible version list shown in the UI.</p></li>
+<li><p><strong>version_list</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – Available Bible version list shown in the UI.</p></li>
 <li><p><strong>settings</strong> (<em>dict</em>) – Application-level settings.</p></li>
 <li><p><strong>tr</strong> (<em>Callable</em><em>[</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>]</em>) – Translation function for UI labels.</p></li>
 <li><p><strong>get_polling_status</strong> (<em>Callable</em><em>[</em><em>[</em><em>]</em><em>, </em><em>bool</em><em>] </em><em>| </em><em>None</em>) – Optional callback to retrieve
@@ -263,7 +263,7 @@ UI state as needed.</p>
 <dd><p>Update the keyword result table with new entries.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>results</strong> (<em>list</em><em>[</em><em>dict</em><em>]</em>) – List of result dictionaries produced by the search backend.</p>
+<dd class="field-odd"><p><strong>results</strong> (<em>List</em><em>[</em><em>dict</em><em>]</em>) – List of result dictionaries produced by the search backend.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -274,7 +274,7 @@ UI state as needed.</p>
 <dd><p>Update the summary box with keyword occurrence counts.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>counts</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>int</em><em>]</em>) – Mapping from keyword to occurrence count.</p>
+<dd class="field-odd"><p><strong>counts</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>int</em><em>]</em>) – Mapping from keyword to occurrence count.</p>
 </dd>
 </dl>
 </dd></dl>

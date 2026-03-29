@@ -97,6 +97,8 @@
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span>
+
 <span class="kn">from</span><span class="w"> </span><span class="nn">core.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">paths</span>
 
 <div class="viewcode-block" id="BibleKeywordSearcher">
@@ -170,7 +172,7 @@
 
 <div class="viewcode-block" id="BibleKeywordSearcher.search_compact_string">
 <a class="viewcode-back" href="../../../core.utils.bible_keyword_searcher.html#core.utils.bible_keyword_searcher.BibleKeywordSearcher.search_compact_string">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">search_compact_string</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keyword</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">search_compact_string</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keyword</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Perform whitespace-insensitive substring search.</span>
 
@@ -185,7 +187,7 @@
 <span class="sd">                Maximum number of results to return. Defaults to 100.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            list[dict]:</span>
+<span class="sd">            List[dict]:</span>
 <span class="sd">                List of matching verse dictionaries, each containing:</span>
 <span class="sd">                - book</span>
 <span class="sd">                - chapter</span>
@@ -223,7 +225,7 @@
 
 <div class="viewcode-block" id="BibleKeywordSearcher.search_wordwise_and">
 <a class="viewcode-back" href="../../../core.utils.bible_keyword_searcher.html#core.utils.bible_keyword_searcher.BibleKeywordSearcher.search_wordwise_and">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">search_wordwise_and</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keyword</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">search_wordwise_and</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keyword</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Perform word-based AND search.</span>
 
@@ -237,7 +239,7 @@
 <span class="sd">                Maximum number of results to return. Defaults to 100.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            list[dict]:</span>
+<span class="sd">            List[dict]:</span>
 <span class="sd">                List of matching verse dictionaries with highlighted terms.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
@@ -264,7 +266,7 @@
     
 <div class="viewcode-block" id="BibleKeywordSearcher.search">
 <a class="viewcode-back" href="../../../core.utils.bible_keyword_searcher.html#core.utils.bible_keyword_searcher.BibleKeywordSearcher.search">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">search</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keyword</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;and&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">search</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keyword</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;and&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Unified keyword search interface.</span>
 
@@ -282,7 +284,7 @@
 <span class="sd">                - &quot;compact&quot;: whitespace-insensitive substring search</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            list[dict]:</span>
+<span class="sd">            List[dict]:</span>
 <span class="sd">                Search result list.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;compact&quot;</span><span class="p">:</span>
@@ -292,7 +294,7 @@
 
 <div class="viewcode-block" id="BibleKeywordSearcher.count_keywords">
 <a class="viewcode-back" href="../../../core.utils.bible_keyword_searcher.html#core.utils.bible_keyword_searcher.BibleKeywordSearcher.count_keywords">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">count_keywords</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">results</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">],</span> <span class="n">keywords</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">count_keywords</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">results</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">dict</span><span class="p">],</span> <span class="n">keywords</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Count total occurrences of each keyword across search results.</span>
 
@@ -300,13 +302,13 @@
 <span class="sd">        over the raw verse text of each search result.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            results (list[dict]):</span>
+<span class="sd">            results (List[dict]):</span>
 <span class="sd">                List of verse dictionaries returned from a search.</span>
-<span class="sd">            keywords (list[str]):</span>
+<span class="sd">            keywords (List[str]):</span>
 <span class="sd">                List of keywords to count.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            dict[str, int]:</span>
+<span class="sd">            Dict[str, int]:</span>
 <span class="sd">                Mapping of keyword -&gt; total occurrence count.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">counts</span> <span class="o">=</span> <span class="p">{</span><span class="n">w</span><span class="p">:</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">keywords</span><span class="p">}</span>

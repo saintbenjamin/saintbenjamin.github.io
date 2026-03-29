@@ -104,7 +104,7 @@
 <span class="sd">        bible_data (BibleDataLoader): Loader instance to resolve verse limits.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        tuple[int, int]: (start_verse, end_verse)</span>
+<span class="sd">        Tuple[int, int]: (start_verse, end_verse)</span>
 
 <span class="sd">    Raises:</span>
 <span class="sd">        ValueError: If the format is invalid or range is reversed.</span>
@@ -211,7 +211,7 @@
 <span class="sd">        bible_data (BibleDataLoader): For canonical book order.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        list[str]: List of book keys common to all versions.</span>
+<span class="sd">        List[str]: List of book keys common to all versions.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">book_sets</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">version</span> <span class="ow">in</span> <span class="n">versions</span><span class="p">:</span>

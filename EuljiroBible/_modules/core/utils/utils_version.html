@@ -83,6 +83,7 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+
 <span class="kn">from</span><span class="w"> </span><span class="nn">core.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">paths</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">core.utils.bible_data_loader</span><span class="w"> </span><span class="kn">import</span> <span class="n">BibleDataLoader</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">core.utils.logger</span><span class="w"> </span><span class="kn">import</span> <span class="n">log_error</span>
@@ -99,7 +100,7 @@
 <span class="sd">        [&#39;KJV&#39;, &#39;NIV&#39;, &#39;NKRV&#39;, &#39;RSV&#39;]</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        list[str]: Alphabetically or custom-ordered list of available Bible versions.</span>
+<span class="sd">        List[str]: Alphabetically or custom-ordered list of available Bible versions.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">loader</span> <span class="o">=</span> <span class="n">BibleDataLoader</span><span class="p">()</span>
 
@@ -129,7 +130,7 @@
 <span class="sd">        }</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        dict[str, str]:</span>
+<span class="sd">        Dict[str, str]:</span>
 <span class="sd">            Mapping of ``version_key -&gt; cli_token``.</span>
 
 <span class="sd">    Note:</span>
@@ -158,7 +159,7 @@
 <span class="sd">    only to improve display labels and optional shorthand tokens.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        tuple[list[dict[str, str]], dict[str, str], dict[str, str]]:</span>
+<span class="sd">        Tuple[List[Dict[str, str]], Dict[str, str], Dict[str, str]]:</span>
 <span class="sd">            ``(entries, token_to_version, version_to_cli_label)`` where:</span>
 
 <span class="sd">            - ``entries`` is an ordered list of catalog rows containing:</span>

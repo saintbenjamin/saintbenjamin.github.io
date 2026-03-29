@@ -164,7 +164,7 @@ exit early without further parsing.</p>
 </dl>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>args</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – Raw CLI arguments <em>for the bible command</em> (excluding the script name).</p>
+<dd class="field-odd"><p><strong>args</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – Raw CLI arguments <em>for the bible command</em> (excluding the script name).</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if a metadata option was handled and the command should exit,
@@ -190,7 +190,7 @@ otherwise <code class="docutils literal notranslate"><span class="pre">False</sp
 </dl>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>args</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – Raw CLI arguments for the <code class="docutils literal notranslate"><span class="pre">search</span></code> command.</p>
+<dd class="field-odd"><p><strong>args</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – Raw CLI arguments for the <code class="docutils literal notranslate"><span class="pre">search</span></code> command.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if a metadata option was handled and the command should exit,
@@ -215,7 +215,7 @@ Each entry is printed using the best available user-facing label:</p>
 </ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>version_catalog</strong> (<em>list</em><em>[</em><em>dict</em><em>]</em>) – Catalog rows produced by
+<dd class="field-odd"><p><strong>version_catalog</strong> (<em>List</em><em>[</em><em>dict</em><em>]</em>) – Catalog rows produced by
 <a class="reference internal" href="core.utils.utils_version.html#core.utils.utils_version.build_cli_version_catalog" title="core.utils.utils_version.build_cli_version_catalog"><code class="xref py py-func docutils literal notranslate"><span class="pre">core.utils.utils_version.build_cli_version_catalog()</span></code></a>.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -230,7 +230,7 @@ Each entry is printed using the best available user-facing label:</p>
 <dd><p>Print general CLI usage for verse lookup and the currently available versions.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>version_catalog</strong> (<em>list</em><em>[</em><em>dict</em><em>]</em>) – Ordered catalog of versions that actually exist under <code class="docutils literal notranslate"><span class="pre">data/</span></code>.</p>
+<dd class="field-odd"><p><strong>version_catalog</strong> (<em>List</em><em>[</em><em>dict</em><em>]</em>) – Ordered catalog of versions that actually exist under <code class="docutils literal notranslate"><span class="pre">data/</span></code>.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>None</p>
@@ -244,7 +244,7 @@ Each entry is printed using the best available user-facing label:</p>
 <dd><p>Print CLI usage for keyword search and the currently available versions.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>version_catalog</strong> (<em>list</em><em>[</em><em>dict</em><em>]</em>) – Ordered catalog of versions that actually exist under <code class="docutils literal notranslate"><span class="pre">data/</span></code>.</p>
+<dd class="field-odd"><p><strong>version_catalog</strong> (<em>List</em><em>[</em><em>dict</em><em>]</em>) – Ordered catalog of versions that actually exist under <code class="docutils literal notranslate"><span class="pre">data/</span></code>.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>None</p>
@@ -272,7 +272,7 @@ used in help text and formatted output.</p></li>
 </p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>tuple[list[dict], dict, dict]</p>
+<dd class="field-even"><p>Tuple[List[dict], dict, dict]</p>
 </dd>
 </dl>
 <div class="admonition note">
@@ -298,7 +298,7 @@ If alias metadata is missing, the raw version key remains usable.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>args</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – Raw CLI arguments.</p></li>
+<li><p><strong>args</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – Raw CLI arguments.</p></li>
 <li><p><strong>token_to_version</strong> (<em>dict</em>) – Mapping of accepted CLI tokens to full version keys.</p></li>
 </ul>
 </dd>
@@ -311,7 +311,7 @@ If alias metadata is missing, the raw version key remains usable.</p>
 </p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>tuple[list[str], list[str]]</p>
+<dd class="field-odd"><p>Tuple[List[str], List[str]]</p>
 </dd>
 </dl>
 <div class="admonition note">
@@ -338,7 +338,7 @@ If alias metadata is missing, the raw version key remains usable.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>version_token</strong> (<em>str</em>) – CLI token provided by the user.</p></li>
 <li><p><strong>token_to_version</strong> (<em>dict</em>) – Mapping of accepted CLI tokens to full version keys.</p></li>
-<li><p><strong>keywords</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – Remaining keyword tokens supplied by the user.</p></li>
+<li><p><strong>keywords</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – Remaining keyword tokens supplied by the user.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -362,7 +362,7 @@ If alias metadata is missing, the raw version key remains usable.</p>
 uses <a class="reference internal" href="core.utils.bible_parser.html#core.utils.bible_parser.parse_reference" title="core.utils.bible_parser.parse_reference"><code class="xref py py-func docutils literal notranslate"><span class="pre">core.utils.bible_parser.parse_reference()</span></code></a> for parsing.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>remaining</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – Tokens representing the reference portion.</p>
+<dd class="field-odd"><p><strong>remaining</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – Tokens representing the reference portion.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">(book,</span> <span class="pre">chapter,</span> <span class="pre">verse_range)</span></code> if valid; otherwise <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
@@ -391,7 +391,7 @@ signature stability and possible future metadata-based detection.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>versions</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – Full version names selected for output.</p></li>
+<li><p><strong>versions</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – Full version names selected for output.</p></li>
 <li><p><strong>_version_label_map</strong> (<em>dict</em>) – Reserved for future use.</p></li>
 </ul>
 </dd>
@@ -418,10 +418,10 @@ sending formatted output to stdout.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>versions</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – Full version names to load and display.</p></li>
+<li><p><strong>versions</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – Full version names to load and display.</p></li>
 <li><p><strong>book</strong> (<em>str</em>) – Canonical book key expected by <code class="xref py py-class docutils literal notranslate"><span class="pre">BibleDataLoader</span></code>.</p></li>
 <li><p><strong>chapter</strong> (<em>int</em>) – Chapter number.</p></li>
-<li><p><strong>verse_range</strong> (<em>tuple</em><em>[</em><em>int</em><em>, </em><em>int</em><em>]</em>) – Verse range <code class="docutils literal notranslate"><span class="pre">(start,</span> <span class="pre">end)</span></code>.</p></li>
+<li><p><strong>verse_range</strong> (<em>Tuple</em><em>[</em><em>int</em><em>, </em><em>int</em><em>]</em>) – Verse range <code class="docutils literal notranslate"><span class="pre">(start,</span> <span class="pre">end)</span></code>.</p></li>
 <li><p><strong>version_label_map</strong> (<em>dict</em>) – Full version -&gt; CLI label mapping used in formatted output.</p></li>
 </ul>
 </dd>
@@ -443,7 +443,7 @@ the total result count.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>full_version</strong> (<em>str</em>) – Full Bible version key.</p></li>
-<li><p><strong>keywords</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – Keywords to search. They are joined with spaces before searching.</p></li>
+<li><p><strong>keywords</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – Keywords to search. They are joined with spaces before searching.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -513,7 +513,7 @@ $ bible KJV NIV John 3:16        # show the same reference in multiple versions
 </ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>args</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – Command-line arguments excluding the script name and excluding the
+<dd class="field-odd"><p><strong>args</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – Command-line arguments excluding the script name and excluding the
 <code class="docutils literal notranslate"><span class="pre">bible</span></code> token.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -551,7 +551,7 @@ $ bible KJV NIV John 3:16        # show the same reference in multiple versions
 </ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>args</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – Command-line arguments excluding the script name and excluding the
+<dd class="field-odd"><p><strong>args</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – Command-line arguments excluding the script name and excluding the
 <code class="docutils literal notranslate"><span class="pre">search</span></code> token.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>

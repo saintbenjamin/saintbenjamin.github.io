@@ -118,7 +118,7 @@
 <span class="sd">        output_handler (VerseOutputHandler): Handler that applies formatted verse text</span>
 <span class="sd">            to the main display widget and manages output formatting behavior.</span>
 <span class="sd">        logic (TabVerseLogic): Backend verse display/export logic.</span>
-<span class="sd">        version_list (list[str]): Available Bible versions used to populate UI controls.</span>
+<span class="sd">        version_list (List[str]): Available Bible versions used to populate UI controls.</span>
 <span class="sd">        current_language (str): Current UI language code (e.g., &quot;ko&quot;, &quot;en&quot;).</span>
 <span class="sd">        formatted_verse_text (str): Most recently formatted verse output (used for Enter key flow).</span>
 <span class="sd">        enter_state (int): Enter-key state machine (0 = ready to display, 1 = ready to export).</span>
@@ -142,7 +142,7 @@
 <span class="sd">        resetting Enter-state behavior when inputs change.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            version_list (list[str]): Available Bible version identifiers.</span>
+<span class="sd">            version_list (List[str]): Available Bible version identifiers.</span>
 <span class="sd">            settings (dict): Loaded application settings.</span>
 <span class="sd">            tr (Callable[[str], str]): Translation function for UI labels.</span>
 <span class="sd">            get_polling_status (Callable[[], bool] | None): Optional callback that returns</span>
