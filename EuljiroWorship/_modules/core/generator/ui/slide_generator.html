@@ -126,6 +126,7 @@
 <span class="p">)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">core.utils.bible_parser</span><span class="w"> </span><span class="kn">import</span> <span class="n">parse_reference</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">core.utils.bible_data_loader</span><span class="w"> </span><span class="kn">import</span> <span class="n">BibleDataLoader</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">core.version</span><span class="w"> </span><span class="kn">import</span> <span class="n">APP_VERSION</span>
 
 <div class="viewcode-block" id="SlideGenerator">
 <a class="viewcode-back" href="../../../../core.generator.ui.slide_generator.html#core.generator.ui.slide_generator.SlideGenerator">[docs]</a>
@@ -210,7 +211,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s2">&quot;대한예수교장로회(통합) 을지로교회 예배 슬라이드 제너레이터&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;대한예수교장로회(통합) 을지로교회 예배 슬라이드 제너레이터 - v</span><span class="si">{</span><span class="n">APP_VERSION</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">ICON_FILE</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">setWindowIcon</span><span class="p">(</span><span class="n">QIcon</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">ICON_FILE</span><span class="p">))</span>
