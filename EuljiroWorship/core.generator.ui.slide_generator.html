@@ -1221,17 +1221,17 @@ onto the current session using the same start/end markers.</p>
 </dl>
 <p class="rubric">Notes</p>
 <ul class="simple">
-<li><p>Range boundaries are detected by exact headline matching after</p></li>
+<li><p>Range boundaries are detected by exact headline matching after
+stripping leading and trailing whitespace.</p></li>
+<li><p>If the end marker is empty, the import block extends to the end
+of the file.</p></li>
+<li><p>If either the source file or the current session does not contain
+the requested start marker, no changes are applied.</p></li>
+<li><p>This function modifies the generator table in place and does not
+automatically save the session file.</p></li>
+<li><p>User-edited start/end marker values are persisted and reused as
+defaults in subsequent imports.</p></li>
 </ul>
-<p>stripping leading and trailing whitespace.
-- If the end marker is empty, the import block extends to the end
-of the file.
-- If either the source file or the current session does not contain
-the requested start marker, no changes are applied.
-- This function modifies the generator table in place and does not
-automatically save the session file.
-- User-edited start/end marker values are persisted and reused as
-defaults in subsequent imports.</p>
 </dd></dl>
 
 <dl class="py method">
