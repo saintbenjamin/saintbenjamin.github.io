@@ -240,6 +240,7 @@
         <span class="c1"># WebSocket manager</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ws_manager</span> <span class="o">=</span> <span class="n">SlideWebSocketManager</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ws_uri</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ws_manager</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ws_last_healthy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ws_manager</span><span class="o">.</span><span class="n">is_connected</span><span class="p">()</span>
 
         <span class="c1"># UI setup</span>
         <span class="n">SlideControllerUIBuilder</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">build_ui</span><span class="p">()</span>
@@ -247,6 +248,11 @@
         <span class="c1"># Emergency caption handler</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">caption_handler</span> <span class="o">=</span> <span class="n">EmergencyCaptionHandler</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">send_current_slide</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ws_health_timer</span> <span class="o">=</span> <span class="n">QTimer</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ws_health_timer</span><span class="o">.</span><span class="n">setInterval</span><span class="p">(</span><span class="mi">3000</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ws_health_timer</span><span class="o">.</span><span class="n">timeout</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">maintain_websocket_connection</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ws_health_timer</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
 
         <span class="c1"># Set up SlideFileWatcher thread</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">slide_thread</span> <span class="o">=</span> <span class="n">QThread</span><span class="p">()</span>
@@ -359,8 +365,9 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Send the current slide to the overlay via WebSocket.</span>
 
-<span class="sd">        If the WebSocket is connected, the slide dict at ``self.index`` is sent.</span>
-<span class="sd">        If not connected, a warning is printed.</span>
+<span class="sd">        The underlying WebSocket manager will attempt bounded reconnect/retry</span>
+<span class="sd">        recovery if the local WebSocket server was temporarily unavailable.</span>
+<span class="sd">        If the slide still cannot be sent, a warning is printed.</span>
 
 <span class="sd">        When not in emergency mode, also updates ``self.data.index`` so the current</span>
 <span class="sd">        position can be persisted by the data manager.</span>
@@ -370,14 +377,36 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">slide</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">slides</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">]</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ws_manager</span><span class="o">.</span><span class="n">is_connected</span><span class="p">():</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ws_manager</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">slide</span><span class="p">)</span>
-            <span class="c1"># print(f&quot;[→] Sent slide {self.index+1}&quot;)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ws_manager</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">slide</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ws_last_healthy</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ws_last_healthy</span> <span class="o">=</span> <span class="kc">False</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[!] WebSocket not connected.&quot;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">emergency_mode</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span></div>
+
+
+<div class="viewcode-block" id="SlideController.maintain_websocket_connection">
+<a class="viewcode-back" href="../../controller.slide_controller.html#controller.slide_controller.SlideController.maintain_websocket_connection">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">maintain_websocket_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Periodically keep the controller WebSocket connection healthy.</span>
+
+<span class="sd">        This timer probes the existing connection, reconnects if needed, and</span>
+<span class="sd">        re-broadcasts the current slide once a broken connection has been</span>
+<span class="sd">        restored. This prevents a transient local socket failure from requiring</span>
+<span class="sd">        a full controller restart.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">was_healthy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ws_last_healthy</span>
+        <span class="n">is_healthy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ws_manager</span><span class="o">.</span><span class="n">ensure_healthy_connection</span><span class="p">(</span><span class="n">quiet</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ws_last_healthy</span> <span class="o">=</span> <span class="n">is_healthy</span>
+
+        <span class="k">if</span> <span class="n">is_healthy</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">was_healthy</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">slides</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ws_last_healthy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ws_manager</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">slides</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">])</span></div>
 
 
 <div class="viewcode-block" id="SlideController.next_slide">
@@ -700,6 +729,7 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ws_health_timer</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">slide_watcher</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">interruptor_watcher</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">slide_thread</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>

@@ -358,10 +358,26 @@ blank slide at index 0 and writes the updated list back to disk.</p>
 <dt class="sig sig-object py" id="controller.slide_controller.SlideController.send_current_slide">
 <span class="sig-name descname"><span class="pre">send_current_slide</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/slide_controller.html#SlideController.send_current_slide"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.slide_controller.SlideController.send_current_slide" title="Link to this definition"></a></dt>
 <dd><p>Send the current slide to the overlay via WebSocket.</p>
-<p>If the WebSocket is connected, the slide dict at <code class="docutils literal notranslate"><span class="pre">self.index</span></code> is sent.
-If not connected, a warning is printed.</p>
+<p>The underlying WebSocket manager will attempt bounded reconnect/retry
+recovery if the local WebSocket server was temporarily unavailable.
+If the slide still cannot be sent, a warning is printed.</p>
 <p>When not in emergency mode, also updates <code class="docutils literal notranslate"><span class="pre">self.data.index</span></code> so the current
 position can be persisted by the data manager.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.slide_controller.SlideController.maintain_websocket_connection">
+<span class="sig-name descname"><span class="pre">maintain_websocket_connection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/slide_controller.html#SlideController.maintain_websocket_connection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.slide_controller.SlideController.maintain_websocket_connection" title="Link to this definition"></a></dt>
+<dd><p>Periodically keep the controller WebSocket connection healthy.</p>
+<p>This timer probes the existing connection, reconnects if needed, and
+re-broadcasts the current slide once a broken connection has been
+restored. This prevents a transient local socket failure from requiring
+a full controller restart.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>None</p>

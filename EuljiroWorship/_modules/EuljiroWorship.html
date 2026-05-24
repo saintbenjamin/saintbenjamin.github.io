@@ -107,6 +107,7 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">http.server</span><span class="w"> </span><span class="kn">import</span> <span class="n">SimpleHTTPRequestHandler</span><span class="p">,</span> <span class="n">ThreadingHTTPServer</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
 
+<span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtCore</span><span class="w"> </span><span class="kn">import</span> <span class="n">QTimer</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtGui</span><span class="w"> </span><span class="kn">import</span> <span class="n">QIcon</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">core.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">paths</span>
@@ -270,6 +271,44 @@
         <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> exited immediately (return code: </span><span class="si">{</span><span class="n">rc</span><span class="si">}</span><span class="s2">).&quot;</span><span class="p">)</span></div>
 
 
+<div class="viewcode-block" id="_restart_process_if_needed">
+<a class="viewcode-back" href="../EuljiroWorship.html#EuljiroWorship._restart_process_if_needed">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">_restart_process_if_needed</span><span class="p">(</span>
+    <span class="n">p</span><span class="p">:</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">starter</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Restart a background subprocess if it exited unexpectedly.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        p (subprocess.Popen | None):</span>
+<span class="sd">            Current subprocess handle.</span>
+<span class="sd">        name (str):</span>
+<span class="sd">            Human-readable process name for status output.</span>
+<span class="sd">        starter (Callable[[], subprocess.Popen]):</span>
+<span class="sd">            Zero-argument factory that starts a replacement subprocess.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        subprocess.Popen | None:</span>
+<span class="sd">            The still-running original process, a newly restarted process,</span>
+<span class="sd">            or the original handle if restart failed.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">p</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">p</span><span class="o">.</span><span class="n">poll</span><span class="p">()</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">p</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[!] </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> exited unexpectedly (return code: </span><span class="si">{</span><span class="n">p</span><span class="o">.</span><span class="n">returncode</span><span class="si">}</span><span class="s2">). Restarting...&quot;</span><span class="p">)</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">new_process</span> <span class="o">=</span> <span class="n">starter</span><span class="p">()</span>
+        <span class="n">_ensure_alive</span><span class="p">(</span><span class="n">new_process</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[i] </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> restarted successfully.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">new_process</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[x] Failed to restart </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">p</span></div>
+
+
 <div class="viewcode-block" id="_parse_mode_args">
 <a class="viewcode-back" href="../EuljiroWorship.html#EuljiroWorship._parse_mode_args">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">_parse_mode_args</span><span class="p">(</span><span class="n">argv</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">:</span>
@@ -415,9 +454,14 @@
         <span class="n">_terminate_process</span><span class="p">(</span><span class="n">ws_p</span><span class="p">)</span>
         <span class="k">raise</span>
 
+    <span class="n">server_processes</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;http&quot;</span><span class="p">:</span> <span class="n">http_p</span><span class="p">,</span>
+        <span class="s2">&quot;ws&quot;</span><span class="p">:</span> <span class="n">ws_p</span><span class="p">,</span>
+    <span class="p">}</span>
+
     <span class="c1"># Ensure background servers are terminated when the application exits</span>
-    <span class="n">atexit</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">_terminate_process</span><span class="p">,</span> <span class="n">http_p</span><span class="p">)</span>
-    <span class="n">atexit</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">_terminate_process</span><span class="p">,</span> <span class="n">ws_p</span><span class="p">)</span>
+    <span class="n">atexit</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">_terminate_process</span><span class="p">(</span><span class="n">server_processes</span><span class="p">[</span><span class="s2">&quot;http&quot;</span><span class="p">]))</span>
+    <span class="n">atexit</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">_terminate_process</span><span class="p">(</span><span class="n">server_processes</span><span class="p">[</span><span class="s2">&quot;ws&quot;</span><span class="p">]))</span>
 
     <span class="c1"># Create the Qt application object</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">QApplication</span>
@@ -434,9 +478,33 @@
     <span class="c1"># Apply user-configured font settings globally</span>
     <span class="n">app</span><span class="o">.</span><span class="n">setFont</span><span class="p">(</span><span class="n">get_font_from_settings</span><span class="p">())</span>
 
+    <span class="k">def</span><span class="w"> </span><span class="nf">maintain_background_servers</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Keep the embedded HTTP and WebSocket helper servers alive.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">server_processes</span><span class="p">[</span><span class="s2">&quot;http&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_restart_process_if_needed</span><span class="p">(</span>
+            <span class="n">server_processes</span><span class="p">[</span><span class="s2">&quot;http&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;http.server&quot;</span><span class="p">,</span>
+            <span class="k">lambda</span><span class="p">:</span> <span class="n">_start_http_server</span><span class="p">(</span><span class="n">http_cwd</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">8080</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">server_processes</span><span class="p">[</span><span class="s2">&quot;ws&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_restart_process_if_needed</span><span class="p">(</span>
+            <span class="n">server_processes</span><span class="p">[</span><span class="s2">&quot;ws&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;websocket_server&quot;</span><span class="p">,</span>
+            <span class="k">lambda</span><span class="p">:</span> <span class="n">_start_ws_server</span><span class="p">(</span><span class="n">root</span><span class="p">),</span>
+        <span class="p">)</span>
+
+    <span class="n">server_watchdog</span> <span class="o">=</span> <span class="n">QTimer</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+    <span class="n">server_watchdog</span><span class="o">.</span><span class="n">setInterval</span><span class="p">(</span><span class="mi">2000</span><span class="p">)</span>
+    <span class="n">server_watchdog</span><span class="o">.</span><span class="n">timeout</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">maintain_background_servers</span><span class="p">)</span>
+    <span class="n">server_watchdog</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
     <span class="c1"># Also terminate servers on normal Qt shutdown</span>
-    <span class="n">app</span><span class="o">.</span><span class="n">aboutToQuit</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">_terminate_process</span><span class="p">(</span><span class="n">http_p</span><span class="p">))</span>
-    <span class="n">app</span><span class="o">.</span><span class="n">aboutToQuit</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">_terminate_process</span><span class="p">(</span><span class="n">ws_p</span><span class="p">))</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">aboutToQuit</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">server_watchdog</span><span class="o">.</span><span class="n">stop</span><span class="p">)</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">aboutToQuit</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">_terminate_process</span><span class="p">(</span><span class="n">server_processes</span><span class="p">[</span><span class="s2">&quot;http&quot;</span><span class="p">]))</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">aboutToQuit</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">_terminate_process</span><span class="p">(</span><span class="n">server_processes</span><span class="p">[</span><span class="s2">&quot;ws&quot;</span><span class="p">]))</span>
 
     <span class="c1"># Instantiate and display the main Slide Generator window</span>
     <span class="n">generator</span> <span class="o">=</span> <span class="n">SlideGenerator</span><span class="p">()</span>

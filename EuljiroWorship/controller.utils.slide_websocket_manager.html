@@ -122,7 +122,8 @@
 </dd>
 </dl>
 <p>WebSocket manager for broadcasting slide data to overlay clients.</p>
-<p>This module provides a thin wrapper around the <a class="reference external" href="https://pypi.org/project/websocket-client/">websocket-client</a> library
+<p>This module provides a thin wrapper around the
+<a class="reference external" href="https://pypi.org/project/websocket-client/">websocket-client</a> library
 to manage a single outbound WebSocket connection used by the slide controller.
 It is responsible for:</p>
 <ul class="simple">
@@ -130,25 +131,27 @@ It is responsible for:</p>
 <li><p>Serializing slide dictionaries to JSON</p></li>
 <li><p>Sending slide data to overlay clients in real time</p></li>
 <li><p>Tracking basic connection state</p></li>
+<li><p>Performing bounded local reconnect/retry recovery</p></li>
 </ul>
-<p>The manager is intentionally lightweight and synchronous, as it is used
-from the GUI thread with short-lived send operations.</p>
+<p>The manager remains synchronous because it is used from the GUI thread, but
+it now includes small self-healing steps so that a temporarily lost local
+WebSocket server does not leave the controller permanently unable to
+broadcast slides.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="controller.utils.slide_websocket_manager.SlideWebSocketManager">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">controller.utils.slide_websocket_manager.</span></span><span class="sig-name descname"><span class="pre">SlideWebSocketManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uri</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/slide_websocket_manager.html#SlideWebSocketManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.slide_websocket_manager.SlideWebSocketManager" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Manages a WebSocket connection for sending slide data to overlay systems.</p>
+<p>Manage a WebSocket connection for sending slide data to overlay systems.</p>
 <p>This class wraps a single WebSocket connection created via the
-<a class="reference external" href="https://pypi.org/project/websocket-client/">websocket-client</a> library and provides simple methods for:</p>
+<a class="reference external" href="https://pypi.org/project/websocket-client/">websocket-client</a> library
+and provides methods for:</p>
 <ul class="simple">
 <li><p>Connecting to a WebSocket server</p></li>
+<li><p>Probing the connection for local health</p></li>
 <li><p>Sending slide dictionaries as JSON payloads</p></li>
-<li><p>Querying connection state</p></li>
+<li><p>Performing one-shot reconnect/retry recovery</p></li>
 <li><p>Closing the connection safely</p></li>
 </ul>
-<p>It intentionally does <strong>not</strong> implement reconnection logic, background threads,
-or retry loops. Higher-level controller components are expected to manage
-lifecycle and recovery behavior if needed.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="controller.utils.slide_websocket_manager.SlideWebSocketManager.uri">
 <span class="sig-name descname"><span class="pre">uri</span></span><a class="headerlink" href="#controller.utils.slide_websocket_manager.SlideWebSocketManager.uri" title="Link to this definition"></a></dt>
@@ -163,11 +166,23 @@ lifecycle and recovery behavior if needed.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="controller.utils.slide_websocket_manager.SlideWebSocketManager.ws">
 <span class="sig-name descname"><span class="pre">ws</span></span><a class="headerlink" href="#controller.utils.slide_websocket_manager.SlideWebSocketManager.ws" title="Link to this definition"></a></dt>
-<dd><p>Active WebSocket connection object created by <code class="docutils literal notranslate"><span class="pre">websocket.create_connection</span></code>.
-Set to <code class="docutils literal notranslate"><span class="pre">None</span></code> when disconnected or on connection failure.</p>
+<dd><p>Active WebSocket connection object created by
+<code class="docutils literal notranslate"><span class="pre">websocket.create_connection</span></code>. Set to <code class="docutils literal notranslate"><span class="pre">None</span></code> when disconnected
+or on connection failure.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>websocket.WebSocket | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="controller.utils.slide_websocket_manager.SlideWebSocketManager.connect_timeout">
+<span class="sig-name descname"><span class="pre">connect_timeout</span></span><a class="headerlink" href="#controller.utils.slide_websocket_manager.SlideWebSocketManager.connect_timeout" title="Link to this definition"></a></dt>
+<dd><p>Timeout in seconds used for connect and socket operations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
 </dd>
 </dl>
 </dd></dl>
@@ -188,14 +203,71 @@ Set to <code class="docutils literal notranslate"><span class="pre">None</span><
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="controller.utils.slide_websocket_manager.SlideWebSocketManager._drop_connection">
+<span class="sig-name descname"><span class="pre">_drop_connection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/slide_websocket_manager.html#SlideWebSocketManager._drop_connection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.slide_websocket_manager.SlideWebSocketManager._drop_connection" title="Link to this definition"></a></dt>
+<dd><p>Dispose of the current socket object and clear connection state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="controller.utils.slide_websocket_manager.SlideWebSocketManager.connect">
-<span class="sig-name descname"><span class="pre">connect</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/slide_websocket_manager.html#SlideWebSocketManager.connect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.slide_websocket_manager.SlideWebSocketManager.connect" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">connect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">quiet</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/slide_websocket_manager.html#SlideWebSocketManager.connect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.slide_websocket_manager.SlideWebSocketManager.connect" title="Link to this definition"></a></dt>
 <dd><p>Establish a connection to the WebSocket server.</p>
 <p>Attempts to create a WebSocket connection using the configured URI.
 On failure, the internal connection state is cleared.</p>
 <dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>quiet</strong> (<em>bool</em>) – If True, suppress status prints for expected background
+reconnect attempts.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the connection was established successfully,
+False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.utils.slide_websocket_manager.SlideWebSocketManager.probe">
+<span class="sig-name descname"><span class="pre">probe</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/slide_websocket_manager.html#SlideWebSocketManager.probe"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.slide_websocket_manager.SlideWebSocketManager.probe" title="Link to this definition"></a></dt>
+<dd><p>Check whether the existing WebSocket transport is still usable.</p>
+<p>A lightweight WebSocket ping frame is sent to verify that the local
+transport has not silently gone stale. If the probe fails, the socket
+is dropped so a later reconnect can start from a clean state.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None</p>
+<dd class="field-odd"><p>True if the current socket appears healthy,
+False otherwise.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controller.utils.slide_websocket_manager.SlideWebSocketManager.ensure_healthy_connection">
+<span class="sig-name descname"><span class="pre">ensure_healthy_connection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">quiet</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/slide_websocket_manager.html#SlideWebSocketManager.ensure_healthy_connection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.slide_websocket_manager.SlideWebSocketManager.ensure_healthy_connection" title="Link to this definition"></a></dt>
+<dd><p>Ensure that a usable WebSocket connection is available.</p>
+<p>This first probes the current socket. If the probe fails or no socket
+exists, it attempts a fresh reconnect.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>quiet</strong> (<em>bool</em>) – If True, suppress expected background reconnect prints.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if a healthy connection is available after probing and
+optional reconnect, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
 </dd>
 </dl>
 </dd></dl>
@@ -205,13 +277,19 @@ On failure, the internal connection state is cleared.</p>
 <span class="sig-name descname"><span class="pre">send</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slide_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/utils/slide_websocket_manager.html#SlideWebSocketManager.send"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.utils.slide_websocket_manager.SlideWebSocketManager.send" title="Link to this definition"></a></dt>
 <dd><p>Send a slide dictionary to the WebSocket server.</p>
 <p>The slide data is serialized to JSON using UTF-8 encoding
-(<code class="docutils literal notranslate"><span class="pre">ensure_ascii=False</span></code>) before transmission.</p>
+(<code class="docutils literal notranslate"><span class="pre">ensure_ascii=False</span></code>) before transmission. If the existing socket
+has gone stale, this method performs one reconnect and one resend
+attempt before giving up.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>slide_dict</strong> (<em>dict</em>) – Dictionary containing slide data to send.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
+<dd class="field-even"><p>True if the slide payload was sent successfully,
+False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
 </dd>
 </dl>
 </dd></dl>
@@ -222,7 +300,7 @@ On failure, the internal connection state is cleared.</p>
 <dd><p>Check whether the WebSocket connection is active.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>True if a WebSocket connection exists, False otherwise.</p>
+<dd class="field-odd"><p>True if a connected WebSocket object exists, False otherwise.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>bool</p>

@@ -51,6 +51,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#EuljiroWorship._start_ws_server"><code class="docutils literal notranslate"><span class="pre">_start_ws_server()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#EuljiroWorship._terminate_process"><code class="docutils literal notranslate"><span class="pre">_terminate_process()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#EuljiroWorship._ensure_alive"><code class="docutils literal notranslate"><span class="pre">_ensure_alive()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#EuljiroWorship._restart_process_if_needed"><code class="docutils literal notranslate"><span class="pre">_restart_process_if_needed()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#EuljiroWorship._parse_mode_args"><code class="docutils literal notranslate"><span class="pre">_parse_mode_args()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#EuljiroWorship._run_static_http_server"><code class="docutils literal notranslate"><span class="pre">_run_static_http_server()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#EuljiroWorship._run_mode_from_cli"><code class="docutils literal notranslate"><span class="pre">_run_mode_from_cli()</span></code></a></li>
@@ -257,6 +258,28 @@ If the process has already exited, a <code class="docutils literal notranslate">
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="EuljiroWorship._restart_process_if_needed">
+<span class="sig-prename descclassname"><span class="pre">EuljiroWorship.</span></span><span class="sig-name descname"><span class="pre">_restart_process_if_needed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">starter</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EuljiroWorship.html#_restart_process_if_needed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EuljiroWorship._restart_process_if_needed" title="Link to this definition"></a></dt>
+<dd><p>Restart a background subprocess if it exited unexpectedly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>p</strong> (<em>subprocess.Popen</em><em> | </em><em>None</em>) – Current subprocess handle.</p></li>
+<li><p><strong>name</strong> (<em>str</em>) – Human-readable process name for status output.</p></li>
+<li><p><strong>starter</strong> (<em>Callable</em><em>[</em><em>[</em><em>]</em><em>, </em><em>subprocess.Popen</em><em>]</em>) – Zero-argument factory that starts a replacement subprocess.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The still-running original process, a newly restarted process,
+or the original handle if restart failed.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>subprocess.Popen | None</p>
 </dd>
 </dl>
 </dd></dl>
