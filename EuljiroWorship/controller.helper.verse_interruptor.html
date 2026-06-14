@@ -114,11 +114,16 @@
 <dd class="field-odd"><p>MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</p>
 </dd>
 </dl>
-<p>Watches <a class="reference internal" href="core.config.paths.html#core.config.paths.VERSE_FILE" title="core.config.paths.VERSE_FILE"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.VERSE_FILE</span></code></a> and converts it into slide JSON
-written to <a class="reference internal" href="core.config.paths.html#core.config.paths.SLIDE_FILE" title="core.config.paths.SLIDE_FILE"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.SLIDE_FILE</span></code></a> for real-time display by the slide controller.</p>
-<p>This module runs as a small background helper process. It uses <a class="reference external" href="https://pypi.org/project/watchdog/">watchdog</a> to
-monitor the project base directory for changes to the <a class="reference internal" href="core.config.paths.html#core.config.paths.VERSE_FILE" title="core.config.paths.VERSE_FILE"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.VERSE_FILE</span></code></a>, then
-parses the content into one or more slide dictionaries.</p>
+<p>Legacy helper for the deprecated <a class="reference internal" href="core.config.paths.html#core.config.paths.VERSE_FILE" title="core.config.paths.VERSE_FILE"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.VERSE_FILE</span></code></a>
+interrupt channel.</p>
+<p>This module historically ran as a small background helper process. It used
+<a class="reference external" href="https://pypi.org/project/watchdog/">watchdog</a> to monitor the project base
+directory for changes to <a class="reference internal" href="core.config.paths.html#core.config.paths.VERSE_FILE" title="core.config.paths.VERSE_FILE"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.VERSE_FILE</span></code></a>, then parsed
+that text and overwrote <a class="reference internal" href="core.config.paths.html#core.config.paths.SLIDE_FILE" title="core.config.paths.SLIDE_FILE"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.SLIDE_FILE</span></code></a>.</p>
+<p>That automatic bridge is now intentionally disabled. Modern emergency caption
+and emergency Bible workflows write directly to the slide output JSON through
+the controller’s active UI workflow, so changes to <code class="docutils literal notranslate"><span class="pre">verse_output.txt</span></code> must
+never mutate the live slide file.</p>
 <p>Key behaviors:</p>
 <ul class="simple">
 <li><p>If the last line looks like a structured Bible reference header, it generates
@@ -207,10 +212,9 @@ contain any slide whose “style” equals “verse_interrupt”.</p>
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">controller.helper.verse_interruptor.</span></span><span class="sig-name descname"><span class="pre">VerseFileHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/helper/verse_interruptor.html#VerseFileHandler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.helper.verse_interruptor.VerseFileHandler" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">FileSystemEventHandler</span></code></p>
 <p>Watchdog event handler for updates to <a class="reference internal" href="core.config.paths.html#core.config.paths.VERSE_FILE" title="core.config.paths.VERSE_FILE"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.VERSE_FILE</span></code></a>.</p>
-<p>This handler listens for filesystem modification events and, when the target
-file is modified, parses it into slides and writes the resulting JSON to
-<a class="reference internal" href="core.config.paths.html#core.config.paths.SLIDE_FILE" title="core.config.paths.SLIDE_FILE"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.SLIDE_FILE</span></code></a>. If slides are generated, it attempts to create a backup
-via <a class="reference internal" href="#controller.helper.verse_interruptor.backup_slide_if_not_emergency" title="controller.helper.verse_interruptor.backup_slide_if_not_emergency"><code class="xref py py-func docutils literal notranslate"><span class="pre">controller.helper.verse_interruptor.backup_slide_if_not_emergency()</span></code></a> before overwriting the slide file.</p>
+<p>The legacy <code class="docutils literal notranslate"><span class="pre">verse_output.txt</span> <span class="pre">-&gt;</span> <span class="pre">slide_output.json</span></code> bridge is disabled, so
+this handler now observes changes for compatibility logging only and never
+mutates the live slide output file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -225,20 +229,12 @@ via <a class="reference internal" href="#controller.helper.verse_interruptor.bac
 <dl class="py method">
 <dt class="sig sig-object py" id="controller.helper.verse_interruptor.VerseFileHandler.on_modified">
 <span class="sig-name descname"><span class="pre">on_modified</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/helper/verse_interruptor.html#VerseFileHandler.on_modified"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.helper.verse_interruptor.VerseFileHandler.on_modified" title="Link to this definition"></a></dt>
-<dd><p>Handle <a class="reference external" href="https://pypi.org/project/watchdog/">watchdog</a> “modified” events for <a class="reference internal" href="core.config.paths.html#core.config.paths.VERSE_FILE" title="core.config.paths.VERSE_FILE"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.VERSE_FILE</span></code></a>.</p>
-<p>If the modified path matches the target <a class="reference internal" href="core.config.paths.html#core.config.paths.VERSE_FILE" title="core.config.paths.VERSE_FILE"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.VERSE_FILE</span></code></a>, this callback:</p>
-<ol class="arabic">
-<li><p>Parses <a class="reference internal" href="core.config.paths.html#core.config.paths.VERSE_FILE" title="core.config.paths.VERSE_FILE"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.VERSE_FILE</span></code></a> into slide dictionaries.</p></li>
-<li><p>If any slides were produced:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>Creates a backup (if applicable)</p></li>
-<li><p>Writes slides to <a class="reference internal" href="core.config.paths.html#core.config.paths.SLIDE_FILE" title="core.config.paths.SLIDE_FILE"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.SLIDE_FILE</span></code></a></p></li>
-</ul>
-</div></blockquote>
-</li>
-<li><p>Otherwise logs that no slides were generated.</p></li>
-</ol>
+<dd><p>Handle <a class="reference external" href="https://pypi.org/project/watchdog/">watchdog</a> “modified”
+events for <a class="reference internal" href="core.config.paths.html#core.config.paths.VERSE_FILE" title="core.config.paths.VERSE_FILE"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.VERSE_FILE</span></code></a>.</p>
+<p>If the modified path matches the target file, this callback logs the
+event and returns immediately. Automatic promotion of <code class="docutils literal notranslate"><span class="pre">verse_output</span></code>
+text into <code class="docutils literal notranslate"><span class="pre">slide_output.json</span></code> is intentionally blocked so that saving
+or regenerating the verse output file cannot hijack the live controller.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>event</strong> (<em>FileSystemEvent</em>) – <p><a class="reference external" href="https://pypi.org/project/watchdog/">Watchdog</a> event object describing the filesystem change.</p>
@@ -255,10 +251,11 @@ via <a class="reference internal" href="#controller.helper.verse_interruptor.bac
 <dl class="py function">
 <dt class="sig sig-object py" id="controller.helper.verse_interruptor.start_interruptor">
 <span class="sig-prename descclassname"><span class="pre">controller.helper.verse_interruptor.</span></span><span class="sig-name descname"><span class="pre">start_interruptor</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/helper/verse_interruptor.html#start_interruptor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.helper.verse_interruptor.start_interruptor" title="Link to this definition"></a></dt>
-<dd><p>Start the <a class="reference external" href="https://pypi.org/project/watchdog/">watchdog</a> observer loop for <a class="reference internal" href="core.config.paths.html#core.config.paths.VERSE_FILE" title="core.config.paths.VERSE_FILE"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.VERSE_FILE</span></code></a>.</p>
-<p>This sets up an Observer to watch <a class="reference internal" href="core.config.paths.html#core.config.paths.BASE_DIR" title="core.config.paths.BASE_DIR"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.BASE_DIR</span></code></a> (non-recursive) and uses
-<a class="reference internal" href="#controller.helper.verse_interruptor.VerseFileHandler" title="controller.helper.verse_interruptor.VerseFileHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">controller.helper.verse_interruptor.VerseFileHandler</span></code></a> to react to modifications. The function then blocks the
-main thread in a sleep loop until interrupted (Ctrl+C).</p>
+<dd><p>Start the <a class="reference external" href="https://pypi.org/project/watchdog/">watchdog</a> observer loop for
+<a class="reference internal" href="core.config.paths.html#core.config.paths.VERSE_FILE" title="core.config.paths.VERSE_FILE"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.VERSE_FILE</span></code></a>.</p>
+<p>The observer remains available for compatibility, but the handler no longer
+writes to <a class="reference internal" href="core.config.paths.html#core.config.paths.SLIDE_FILE" title="core.config.paths.SLIDE_FILE"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.SLIDE_FILE</span></code></a>. This means the process can
+still log verse-file changes without affecting the live controller state.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>None</p>

@@ -83,17 +83,17 @@
 
 <span class="sd">This module provides the GUI entry point and the main controller widget</span>
 <span class="sd">used by the slide controller application. It wires together the `PySide6 &lt;https://pypi.org/project/PySide6/&gt;`_ UI,</span>
-<span class="sd">file watchers, WebSocket broadcasting, and the emergency verse interruptor.</span>
+<span class="sd">file watchers, WebSocket broadcasting, and the modern emergency caption flow.</span>
 
 <span class="sd">Key responsibilities in this module:</span>
 
 <span class="sd">- Ensure the project root is importable (sys.path injection for direct execution)</span>
-<span class="sd">- Define :func:`controller.slide_controller.launch_interruptor` to start the verse interruptor as a detached process</span>
+<span class="sd">- Preserve the old verse interruptor launch hook as a disabled compatibility stub</span>
 <span class="sd">- Define :class:`controller.slide_controller.SlideController`, the main `QWidget &lt;https://doc.qt.io/qt-6/qwidget.html&gt;`_ that:</span>
 
 <span class="sd">    - loads and displays slide data</span>
 <span class="sd">    - sends slides via WebSocket</span>
-<span class="sd">    - reacts to slide file changes / emergency interruptor clear events</span>
+<span class="sd">    - reacts to slide file changes / emergency caption actions</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">sys</span><span class="o">,</span><span class="w"> </span><span class="nn">os</span>
@@ -106,7 +106,6 @@
     <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">PROJECT_ROOT</span><span class="p">)</span>
 <span class="c1"># ─────────────────────────────────────────────</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">subprocess</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">shutil</span>
 
 <span class="c1"># PySide6 GUI essentials</span>
@@ -117,28 +116,25 @@
 <span class="c1"># Project imports</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">controller.utils.emergency_caption_handler</span><span class="w"> </span><span class="kn">import</span> <span class="n">EmergencyCaptionHandler</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">controller.utils.emergency_slide_factory</span><span class="w"> </span><span class="kn">import</span> <span class="n">EmergencySlideFactory</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">controller.utils.interruptor_watcher</span><span class="w"> </span><span class="kn">import</span> <span class="n">InterruptorWatcher</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">controller.utils.slide_controller_data_manager</span><span class="w"> </span><span class="kn">import</span> <span class="n">SlideControllerDataManager</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">controller.utils.slide_file_watcher</span><span class="w"> </span><span class="kn">import</span> <span class="n">SlideFileWatcher</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">controller.ui.slide_controller_ui_builder</span><span class="w"> </span><span class="kn">import</span> <span class="n">SlideControllerUIBuilder</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">controller.utils.slide_websocket_manager</span><span class="w"> </span><span class="kn">import</span> <span class="n">SlideWebSocketManager</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">core.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">paths</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">core.generator.settings_generator</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_font_from_settings</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">core.utils.runtime_launcher</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_entry_command</span><span class="p">,</span> <span class="n">ensure_runtime_cwd</span><span class="p">,</span> <span class="n">set_windows_app_user_model_id</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">core.utils.runtime_launcher</span><span class="w"> </span><span class="kn">import</span> <span class="n">ensure_runtime_cwd</span><span class="p">,</span> <span class="n">set_windows_app_user_model_id</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">core.version</span><span class="w"> </span><span class="kn">import</span> <span class="n">APP_VERSION</span>
 
 <div class="viewcode-block" id="launch_interruptor">
 <a class="viewcode-back" href="../../controller.slide_controller.html#controller.slide_controller.launch_interruptor">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">launch_interruptor</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Launch the verse interruptor script as a detached background process.</span>
+<span class="sd">    Preserve the legacy interruptor entry point as an inert compatibility stub.</span>
 
-<span class="sd">    This starts :mod:`controller.helper.verse_interruptor` using the current Python</span>
-<span class="sd">    interpreter (``sys.executable``) and suppresses ``stdin``/``stdout``/``stderr`` to</span>
-<span class="sd">    avoid blocking or cluttering the controller GUI.</span>
-
-<span class="sd">    The interruptor script is expected to watch the emergency verse output</span>
-<span class="sd">    file (e.g., :py:data:`core.config.paths.VERSE_FILE`) and handle its own logic independently.</span>
+<span class="sd">    The old ``verse_output.txt`` interrupt path is intentionally disabled.</span>
+<span class="sd">    Modern emergency caption and emergency Bible workflows write directly to</span>
+<span class="sd">    :py:data:`core.config.paths.SLIDE_FILE` and must not depend on the legacy</span>
+<span class="sd">    helper process.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        None</span>
@@ -146,19 +142,7 @@
 <span class="sd">    Returns:</span>
 <span class="sd">        None</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">devnull</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">devnull</span><span class="p">:</span>
-            <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span>
-                <span class="n">build_entry_command</span><span class="p">(</span><span class="s2">&quot;--interruptor&quot;</span><span class="p">),</span>
-                <span class="n">cwd</span><span class="o">=</span><span class="n">paths</span><span class="o">.</span><span class="n">BASE_DIR</span><span class="p">,</span>
-                <span class="n">stdout</span><span class="o">=</span><span class="n">devnull</span><span class="p">,</span>
-                <span class="n">stderr</span><span class="o">=</span><span class="n">devnull</span><span class="p">,</span>
-                <span class="n">stdin</span><span class="o">=</span><span class="n">devnull</span><span class="p">,</span>
-                <span class="n">close_fds</span><span class="o">=</span><span class="kc">True</span>
-            <span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[✓] Launched verse_interruptor.py&quot;</span><span class="p">)</span>
-    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[x] Failed to launch interruptor:&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span></div>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[INFO] Legacy verse_output.txt interruptor launch is disabled.&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="SlideController">
@@ -202,10 +186,9 @@
 <span class="sd">        Initialize the :class:`controller.slide_controller.SlideController` UI and subsystems.</span>
 
 <span class="sd">        This sets up the window, loads slides, connects to the WebSocket server,</span>
-<span class="sd">        builds the UI, and starts background threads for:</span>
-
-<span class="sd">        - Watching slide file changes</span>
-<span class="sd">        - Watching interruptor (emergency verse) clear events</span>
+<span class="sd">        builds the UI, and starts the slide-file watcher thread. The legacy</span>
+<span class="sd">        ``verse_output.txt`` interrupt channel is intentionally disabled; modern</span>
+<span class="sd">        emergency caption flows write directly to the slide output JSON file.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            slide_file (str):</span>
@@ -263,13 +246,12 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">slide_thread</span><span class="o">.</span><span class="n">started</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">slide_watcher</span><span class="o">.</span><span class="n">run</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">slide_thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
 
-        <span class="c1"># Set up InterruptorWatcher thread</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">interruptor_thread</span> <span class="o">=</span> <span class="n">QThread</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">interruptor_watcher</span> <span class="o">=</span> <span class="n">InterruptorWatcher</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">interruptor_watcher</span><span class="o">.</span><span class="n">moveToThread</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">interruptor_thread</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">interruptor_watcher</span><span class="o">.</span><span class="n">interruptor_cleared</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">on_interruptor_cleared</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">interruptor_thread</span><span class="o">.</span><span class="n">started</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">interruptor_watcher</span><span class="o">.</span><span class="n">run</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">interruptor_thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+        <span class="c1"># Disable the legacy verse_output.txt interrupt channel.</span>
+        <span class="c1"># Emergency caption / emergency Bible workflows now write directly</span>
+        <span class="c1"># to slide_output.json via EmergencyCaptionHandler, so this watcher</span>
+        <span class="c1"># is no longer needed for live operation.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">interruptor_thread</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">interruptor_watcher</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="c1"># Apply user font settings (font is set but not directly applied here)</span>
         <span class="n">font</span> <span class="o">=</span> <span class="n">get_font_from_settings</span><span class="p">()</span></div>
@@ -662,10 +644,15 @@
 <a class="viewcode-back" href="../../controller.slide_controller.html#controller.slide_controller.SlideController.clear_emergency_caption">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">clear_emergency_caption</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Clear the emergency verse output file and restore normal slides.</span>
+<span class="sd">        Clear the emergency slide output and restore normal slides.</span>
 
-<span class="sd">        This writes an empty string to :py:data:`core.config.paths.VERSE_FILE`, clears :py:data:`core.config.paths.SLIDE_FILE`,</span>
-<span class="sd">        then attempts restoration from backup via :class:`controller.utils.slide_controller_data_manager.SlideControllerDataManager`.</span>
+<span class="sd">        This clears :py:data:`core.config.paths.SLIDE_FILE` and attempts</span>
+<span class="sd">        restoration from backup via</span>
+<span class="sd">        :class:`controller.utils.slide_controller_data_manager.SlideControllerDataManager`.</span>
+
+<span class="sd">        The legacy ``verse_output.txt`` channel is intentionally not touched</span>
+<span class="sd">        here so that ordinary edits or saves to that file can never influence</span>
+<span class="sd">        the live controller state.</span>
 
 <span class="sd">        After restoration, rebuilds the table, updates the label, and scrolls</span>
 <span class="sd">        the restored index into view.</span>
@@ -673,8 +660,6 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">VERSE_FILE</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">SLIDE_FILE</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">([],</span> <span class="n">f</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
@@ -729,16 +714,31 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ws_health_timer</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+        <span class="c1"># self.ws_health_timer.stop()</span>
+        <span class="c1"># self.slide_watcher.stop()</span>
+        <span class="c1"># self.interruptor_watcher.stop()</span>
+        <span class="c1"># self.slide_thread.quit()</span>
+        <span class="c1"># self.interruptor_thread.quit()</span>
+        <span class="c1"># self.slide_thread.wait()</span>
+        <span class="c1"># self.interruptor_thread.wait()</span>
+        <span class="c1"># self.ws_manager.disconnect()</span>
+        <span class="c1"># super().closeEvent(event)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">slide_watcher</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">interruptor_watcher</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">interruptor_watcher</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">interruptor_watcher</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">slide_thread</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">interruptor_thread</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">slide_thread</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">interruptor_thread</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">interruptor_thread</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">interruptor_thread</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">interruptor_thread</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">ws_manager</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">closeEvent</span><span class="p">(</span><span class="n">event</span><span class="p">)</span></div>
 </div>
+
 
 
 <div class="viewcode-block" id="main">
@@ -747,15 +747,13 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Entry point for the slide controller application.</span>
 
-<span class="sd">    This launches the verse interruptor, applies font settings,</span>
-<span class="sd">    and starts the GUI event loop.</span>
+<span class="sd">    This applies font settings and starts the GUI event loop. The legacy</span>
+<span class="sd">    ``verse_output.txt`` interrupt subprocess is intentionally not launched.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">ensure_runtime_cwd</span><span class="p">()</span>
     <span class="n">set_windows_app_user_model_id</span><span class="p">(</span><span class="s2">&quot;org.euljirochurch.EuljiroWorship.Controller&quot;</span><span class="p">)</span>
 
     <span class="n">SlideControllerDataManager</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">SLIDE_FILE</span><span class="p">)</span><span class="o">.</span><span class="n">backup_slides</span><span class="p">()</span>
-
-    <span class="n">launch_interruptor</span><span class="p">()</span>
 
     <span class="n">app</span> <span class="o">=</span> <span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
     <span class="n">app</span><span class="o">.</span><span class="n">setStyle</span><span class="p">(</span><span class="s2">&quot;Fusion&quot;</span><span class="p">)</span>

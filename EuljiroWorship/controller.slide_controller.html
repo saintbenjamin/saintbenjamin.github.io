@@ -118,17 +118,17 @@
 <p>Main slide controller module for managing and broadcasting slides in real-time.</p>
 <p>This module provides the GUI entry point and the main controller widget
 used by the slide controller application. It wires together the <a class="reference external" href="https://pypi.org/project/PySide6/">PySide6</a> UI,
-file watchers, WebSocket broadcasting, and the emergency verse interruptor.</p>
+file watchers, WebSocket broadcasting, and the modern emergency caption flow.</p>
 <p>Key responsibilities in this module:</p>
 <ul>
 <li><p>Ensure the project root is importable (sys.path injection for direct execution)</p></li>
-<li><p>Define <a class="reference internal" href="#controller.slide_controller.launch_interruptor" title="controller.slide_controller.launch_interruptor"><code class="xref py py-func docutils literal notranslate"><span class="pre">controller.slide_controller.launch_interruptor()</span></code></a> to start the verse interruptor as a detached process</p></li>
+<li><p>Preserve the old verse interruptor launch hook as a disabled compatibility stub</p></li>
 <li><p>Define <a class="reference internal" href="#controller.slide_controller.SlideController" title="controller.slide_controller.SlideController"><code class="xref py py-class docutils literal notranslate"><span class="pre">controller.slide_controller.SlideController</span></code></a>, the main <a class="reference external" href="https://doc.qt.io/qt-6/qwidget.html">QWidget</a> that:</p>
 <blockquote>
 <div><ul class="simple">
 <li><p>loads and displays slide data</p></li>
 <li><p>sends slides via WebSocket</p></li>
-<li><p>reacts to slide file changes / emergency interruptor clear events</p></li>
+<li><p>reacts to slide file changes / emergency caption actions</p></li>
 </ul>
 </div></blockquote>
 </li>
@@ -136,12 +136,11 @@ file watchers, WebSocket broadcasting, and the emergency verse interruptor.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="controller.slide_controller.launch_interruptor">
 <span class="sig-prename descclassname"><span class="pre">controller.slide_controller.</span></span><span class="sig-name descname"><span class="pre">launch_interruptor</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/slide_controller.html#launch_interruptor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.slide_controller.launch_interruptor" title="Link to this definition"></a></dt>
-<dd><p>Launch the verse interruptor script as a detached background process.</p>
-<p>This starts <a class="reference internal" href="controller.helper.verse_interruptor.html#module-controller.helper.verse_interruptor" title="controller.helper.verse_interruptor"><code class="xref py py-mod docutils literal notranslate"><span class="pre">controller.helper.verse_interruptor</span></code></a> using the current Python
-interpreter (<code class="docutils literal notranslate"><span class="pre">sys.executable</span></code>) and suppresses <code class="docutils literal notranslate"><span class="pre">stdin</span></code>/<code class="docutils literal notranslate"><span class="pre">stdout</span></code>/<code class="docutils literal notranslate"><span class="pre">stderr</span></code> to
-avoid blocking or cluttering the controller GUI.</p>
-<p>The interruptor script is expected to watch the emergency verse output
-file (e.g., <a class="reference internal" href="core.config.paths.html#core.config.paths.VERSE_FILE" title="core.config.paths.VERSE_FILE"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.VERSE_FILE</span></code></a>) and handle its own logic independently.</p>
+<dd><p>Preserve the legacy interruptor entry point as an inert compatibility stub.</p>
+<p>The old <code class="docutils literal notranslate"><span class="pre">verse_output.txt</span></code> interrupt path is intentionally disabled.
+Modern emergency caption and emergency Bible workflows write directly to
+<a class="reference internal" href="core.config.paths.html#core.config.paths.SLIDE_FILE" title="core.config.paths.SLIDE_FILE"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.SLIDE_FILE</span></code></a> and must not depend on the legacy
+helper process.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>None</strong></p>
@@ -276,11 +275,9 @@ after the interruptor file is cleared.</p>
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slide_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ws_uri</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/slide_controller.html#SlideController.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.slide_controller.SlideController.__init__" title="Link to this definition"></a></dt>
 <dd><p>Initialize the <a class="reference internal" href="#controller.slide_controller.SlideController" title="controller.slide_controller.SlideController"><code class="xref py py-class docutils literal notranslate"><span class="pre">controller.slide_controller.SlideController</span></code></a> UI and subsystems.</p>
 <p>This sets up the window, loads slides, connects to the WebSocket server,
-builds the UI, and starts background threads for:</p>
-<ul class="simple">
-<li><p>Watching slide file changes</p></li>
-<li><p>Watching interruptor (emergency verse) clear events</p></li>
-</ul>
+builds the UI, and starts the slide-file watcher thread. The legacy
+<code class="docutils literal notranslate"><span class="pre">verse_output.txt</span></code> interrupt channel is intentionally disabled; modern
+emergency caption flows write directly to the slide output JSON file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -562,9 +559,13 @@ If invalid, prints an error message.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="controller.slide_controller.SlideController.clear_emergency_caption">
 <span class="sig-name descname"><span class="pre">clear_emergency_caption</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/slide_controller.html#SlideController.clear_emergency_caption"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.slide_controller.SlideController.clear_emergency_caption" title="Link to this definition"></a></dt>
-<dd><p>Clear the emergency verse output file and restore normal slides.</p>
-<p>This writes an empty string to <a class="reference internal" href="core.config.paths.html#core.config.paths.VERSE_FILE" title="core.config.paths.VERSE_FILE"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.VERSE_FILE</span></code></a>, clears <a class="reference internal" href="core.config.paths.html#core.config.paths.SLIDE_FILE" title="core.config.paths.SLIDE_FILE"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.SLIDE_FILE</span></code></a>,
-then attempts restoration from backup via <a class="reference internal" href="controller.utils.slide_controller_data_manager.html#controller.utils.slide_controller_data_manager.SlideControllerDataManager" title="controller.utils.slide_controller_data_manager.SlideControllerDataManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">controller.utils.slide_controller_data_manager.SlideControllerDataManager</span></code></a>.</p>
+<dd><p>Clear the emergency slide output and restore normal slides.</p>
+<p>This clears <a class="reference internal" href="core.config.paths.html#core.config.paths.SLIDE_FILE" title="core.config.paths.SLIDE_FILE"><code class="xref py py-data docutils literal notranslate"><span class="pre">core.config.paths.SLIDE_FILE</span></code></a> and attempts
+restoration from backup via
+<a class="reference internal" href="controller.utils.slide_controller_data_manager.html#controller.utils.slide_controller_data_manager.SlideControllerDataManager" title="controller.utils.slide_controller_data_manager.SlideControllerDataManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">controller.utils.slide_controller_data_manager.SlideControllerDataManager</span></code></a>.</p>
+<p>The legacy <code class="docutils literal notranslate"><span class="pre">verse_output.txt</span></code> channel is intentionally not touched
+here so that ordinary edits or saves to that file can never influence
+the live controller state.</p>
 <p>After restoration, rebuilds the table, updates the label, and scrolls
 the restored index into view.</p>
 <dl class="field-list simple">
@@ -613,8 +614,8 @@ the WebSocket manager, then delegates to <code class="docutils literal notransla
 <dt class="sig sig-object py" id="controller.slide_controller.main">
 <span class="sig-prename descclassname"><span class="pre">controller.slide_controller.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controller/slide_controller.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controller.slide_controller.main" title="Link to this definition"></a></dt>
 <dd><p>Entry point for the slide controller application.</p>
-<p>This launches the verse interruptor, applies font settings,
-and starts the GUI event loop.</p>
+<p>This applies font settings and starts the GUI event loop. The legacy
+<code class="docutils literal notranslate"><span class="pre">verse_output.txt</span></code> interrupt subprocess is intentionally not launched.</p>
 </dd></dl>
 
 </section>
