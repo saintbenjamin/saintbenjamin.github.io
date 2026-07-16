@@ -117,7 +117,10 @@
     <span class="sa">r</span><span class="s2">&quot;(?:다같이|인도자|설교자|앉아서|[가-힣A-Za-z·0-9()]+(?:목사|장로|집사|권사))+$&quot;</span>
 <span class="p">)</span>
 
-<span class="n">PRAISE_SERVICE_START_MARKER</span> <span class="o">=</span> <span class="s2">&quot;오후2:30인도:&quot;</span>
+<span class="n">PRAISE_SERVICE_START_MARKERS</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">&quot;오후2:00인도:&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;오후2:30인도:&quot;</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="n">PRAISE_SERVICE_END_MARKERS</span> <span class="o">=</span> <span class="p">(</span>
     <span class="s2">&quot;*다음주&quot;</span><span class="p">,</span>
     <span class="s2">&quot;영유아유치부&quot;</span><span class="p">,</span>
@@ -497,6 +500,19 @@
     <span class="k">return</span> <span class="nb">min</span><span class="p">(</span><span class="n">candidates</span><span class="p">)</span> <span class="k">if</span> <span class="n">candidates</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span>
 
 
+<span class="k">def</span><span class="w"> </span><span class="nf">_find_praise_service_start</span><span class="p">(</span><span class="n">compact_text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the earliest supported afternoon-service start marker.&quot;&quot;&quot;</span>
+    <span class="n">matches</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="p">(</span><span class="n">compact_text</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">marker</span><span class="p">),</span> <span class="n">marker</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">marker</span> <span class="ow">in</span> <span class="n">PRAISE_SERVICE_START_MARKERS</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="nb">min</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">match</span> <span class="k">for</span> <span class="n">match</span> <span class="ow">in</span> <span class="n">matches</span> <span class="k">if</span> <span class="n">match</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span>
+        <span class="n">default</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+        <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">match</span><span class="p">:</span> <span class="n">match</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+    <span class="p">)</span>
+
+
 <span class="k">def</span><span class="w"> </span><span class="nf">_extract_praise_service_segment</span><span class="p">(</span><span class="n">paragraphs</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Extract the afternoon praise-service order segment from the bulletin.</span>
@@ -522,13 +538,13 @@
     <span class="n">joined_text</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">paragraphs</span><span class="p">)</span>
     <span class="n">compact_text</span><span class="p">,</span> <span class="n">index_map</span> <span class="o">=</span> <span class="n">_compact_with_index_map</span><span class="p">(</span><span class="n">joined_text</span><span class="p">)</span>
 
-    <span class="n">start_index</span> <span class="o">=</span> <span class="n">compact_text</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">PRAISE_SERVICE_START_MARKER</span><span class="p">)</span>
+    <span class="n">start_index</span><span class="p">,</span> <span class="n">start_marker</span> <span class="o">=</span> <span class="n">_find_praise_service_start</span><span class="p">(</span><span class="n">compact_text</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">start_index</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;HWPX에서 오후찬양예배 순서 시작 지점을 찾지 못했습니다.&quot;</span><span class="p">)</span>
 
     <span class="n">end_index</span> <span class="o">=</span> <span class="n">_find_next_marker</span><span class="p">(</span>
         <span class="n">compact_text</span><span class="p">,</span>
-        <span class="n">start_index</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">PRAISE_SERVICE_START_MARKER</span><span class="p">),</span>
+        <span class="n">start_index</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">start_marker</span><span class="p">),</span>
         <span class="n">PRAISE_SERVICE_END_MARKERS</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">if</span> <span class="n">end_index</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
@@ -743,12 +759,12 @@
 <span class="sd">            Ordered list of normalized afternoon-service entry dictionaries.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">compact_text</span><span class="p">,</span> <span class="n">index_map</span> <span class="o">=</span> <span class="n">_compact_with_index_map</span><span class="p">(</span><span class="n">segment</span><span class="p">)</span>
-    <span class="n">start_index</span> <span class="o">=</span> <span class="n">compact_text</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">PRAISE_SERVICE_START_MARKER</span><span class="p">)</span>
+    <span class="n">start_index</span><span class="p">,</span> <span class="n">start_marker</span> <span class="o">=</span> <span class="n">_find_praise_service_start</span><span class="p">(</span><span class="n">compact_text</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">start_index</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">[]</span>
 
     <span class="n">entries</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">cursor</span> <span class="o">=</span> <span class="n">start_index</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">PRAISE_SERVICE_START_MARKER</span><span class="p">)</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">start_index</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">start_marker</span><span class="p">)</span>
 
     <span class="n">next_marker</span> <span class="o">=</span> <span class="n">_find_next_marker</span><span class="p">(</span>
         <span class="n">compact_text</span><span class="p">,</span>
