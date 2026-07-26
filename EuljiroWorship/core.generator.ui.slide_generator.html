@@ -1194,6 +1194,61 @@ HWPX file.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator.import_worship_order_from_hwpx_danseok">
+<span class="sig-name descname"><span class="pre">import_worship_order_from_hwpx_danseok</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator.import_worship_order_from_hwpx_danseok"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator.import_worship_order_from_hwpx_danseok" title="Link to this definition"></a></dt>
+<dd><p>Import the Sunday morning order from a Danseok Church HWPX bulletin.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator.import_announcements_from_hwpx_danseok">
+<span class="sig-name descname"><span class="pre">import_announcements_from_hwpx_danseok</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator.import_announcements_from_hwpx_danseok"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator.import_announcements_from_hwpx_danseok" title="Link to this definition"></a></dt>
+<dd><p>Import church-news slides from a Danseok Church HWPX bulletin.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator.import_worship_order_and_announcements_from_hwpx_danseok">
+<span class="sig-name descname"><span class="pre">import_worship_order_and_announcements_from_hwpx_danseok</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator.import_worship_order_and_announcements_from_hwpx_danseok"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator.import_worship_order_and_announcements_from_hwpx_danseok" title="Link to this definition"></a></dt>
+<dd><p>Import morning worship order and church news from one Danseok HWPX.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator._apply_worship_order_entries_danseok">
+<span class="sig-name descname"><span class="pre">_apply_worship_order_entries_danseok</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">current_slides</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order_entries</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator._apply_worship_order_entries_danseok"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator._apply_worship_order_entries_danseok" title="Link to this definition"></a></dt>
+<dd><p>Apply Danseok order entries while preserving Korean verse captions.</p>
+<p>Danseok bulletins use display references such as <code class="docutils literal notranslate"><span class="pre">14장</span> <span class="pre">1절-5절</span></code>.
+Verse lookup uses the normalized <code class="docutils literal notranslate"><span class="pre">14:1-5</span></code> value, after which this
+helper restores the original bulletin wording as the slide caption.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>current_slides</strong> (<em>list</em><em>[</em><em>dict</em><em>]</em>)</p></li>
+<li><p><strong>order_entries</strong> (<em>list</em><em>[</em><em>dict</em><em>]</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list[dict]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator._build_verse_slide_from_reference_danseok">
+<span class="sig-name descname"><span class="pre">_build_verse_slide_from_reference_danseok</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reference</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">display_reference</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator._build_verse_slide_from_reference_danseok"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator._build_verse_slide_from_reference_danseok" title="Link to this definition"></a></dt>
+<dd><p>Build a Danseok verse slide with full per-verse display captions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>reference</strong> (<em>str</em>)</p></li>
+<li><p><strong>display_reference</strong> (<em>str</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="core.generator.ui.slide_generator.SlideGenerator.import_announcements">
 <span class="sig-name descname"><span class="pre">import_announcements</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/generator/ui/slide_generator.html#SlideGenerator.import_announcements"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.generator.ui.slide_generator.SlideGenerator.import_announcements" title="Link to this definition"></a></dt>
 <dd><p>Import a configurable slide block from an external slide JSON file and

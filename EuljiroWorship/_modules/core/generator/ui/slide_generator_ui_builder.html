@@ -330,6 +330,20 @@
 
         <span class="n">tool_menu</span><span class="o">.</span><span class="n">addSeparator</span><span class="p">()</span>
 
+        <span class="n">hwpx_worship_order_action_danseok</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="s2">&quot;HWPX 예배순서 가져오기 (단석교회 전용)&quot;</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
+        <span class="n">hwpx_worship_order_action_danseok</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">import_worship_order_from_hwpx_danseok</span><span class="p">)</span>
+        <span class="n">tool_menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="n">hwpx_worship_order_action_danseok</span><span class="p">)</span>
+
+        <span class="n">hwpx_full_action_danseok</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="s2">&quot;HWPX 예배순서+광고 가져오기 (단석교회 전용)&quot;</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
+        <span class="n">hwpx_full_action_danseok</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">import_worship_order_and_announcements_from_hwpx_danseok</span><span class="p">)</span>
+        <span class="n">tool_menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="n">hwpx_full_action_danseok</span><span class="p">)</span>
+
+        <span class="n">hwpx_announcement_action_danseok</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="s2">&quot;HWPX 광고 가져오기 (단석교회 전용)&quot;</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
+        <span class="n">hwpx_announcement_action_danseok</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">import_announcements_from_hwpx_danseok</span><span class="p">)</span>
+        <span class="n">tool_menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="n">hwpx_announcement_action_danseok</span><span class="p">)</span>
+
+        <span class="n">tool_menu</span><span class="o">.</span><span class="n">addSeparator</span><span class="p">()</span>
+
         <span class="n">settings_action</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="s2">&quot;설정&quot;</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
         <span class="n">settings_action</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">open_settings_dialog</span><span class="p">)</span>
         <span class="n">tool_menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="n">settings_action</span><span class="p">)</span>
