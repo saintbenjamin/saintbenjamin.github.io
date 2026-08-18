@@ -70,7 +70,7 @@
              
   <h1>Source code for core.generator.ui.slide_generator_right_contents</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 <span class="sd">:File: EuljiroWorship/core/generator/ui/slide_generator_right_contents.py</span>
 <span class="sd">:Author: Benjamin Jaedon Choi - https://github.com/saintbenjamin</span>
 <span class="sd">:Affiliated Church: The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</span>
@@ -84,11 +84,11 @@
 <span class="sd">This module defines :class:`core.generator.ui.slide_generator_right_contents.SlideGeneratorRightContents`, a `QWidget &lt;https://doc.qt.io/qt-6/qwidget.html&gt;`_ responsible for</span>
 <span class="sd">hosting the style-specific input panes used to edit slide content. The widget</span>
 <span class="sd">acts as a dispatcher that selects and embeds the appropriate sub-pane based on</span>
-<span class="sd">the slide style (e.g., &quot;lyrics&quot;, &quot;verse&quot;, &quot;anthem&quot;).</span>
+<span class="sd">the slide style (e.g., "lyrics", "verse", "anthem").</span>
 
 <span class="sd">Each sub-pane encapsulates its own UI logic and data extraction method, allowing</span>
 <span class="sd">the generator to remain modular and extensible as new slide styles are added.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">QWidget</span><span class="p">,</span> <span class="n">QVBoxLayout</span>
 
@@ -106,7 +106,7 @@
 <div class="viewcode-block" id="SlideGeneratorRightContents">
 <a class="viewcode-back" href="../../../../core.generator.ui.slide_generator_right_contents.html#core.generator.ui.slide_generator_right_contents.SlideGeneratorRightContents">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">SlideGeneratorRightContents</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Right-hand dynamic content panel for editing slide data.</span>
 
 <span class="sd">    This widget selects and embeds a style-specific editor pane based on the</span>
@@ -116,17 +116,17 @@
 
 <span class="sd">    Supported slide styles:</span>
 
-<span class="sd">        - ``&quot;anthem&quot;``: Choir name and anthem title editor</span>
-<span class="sd">        - ``&quot;corner&quot;`` / ``&quot;intro&quot;``: Corner-style caption and headline</span>
-<span class="sd">        - ``&quot;greet&quot;``: Greeting or announcement text</span>
-<span class="sd">        - ``&quot;hymn&quot;``: Hymn editor (exported as lyrics-style slides)</span>
-<span class="sd">        - ``&quot;lyrics&quot;``: General lyrics editor with deferred line splitting</span>
-<span class="sd">        - ``&quot;prayer&quot;``: Prayer title and leader name</span>
-<span class="sd">        - ``&quot;respo&quot;``: Responsive reading editor</span>
-<span class="sd">        - ``&quot;verse&quot;``: Bible verse reference and preview editor</span>
-<span class="sd">        - ``&quot;image&quot;``: Image-based slide editor (path stored in ``headline``)</span>
-<span class="sd">        - ``&quot;video&quot;``: Video-based slide editor (path stored in ``headline``)</span>
-<span class="sd">        - ``&quot;blank&quot;``: Empty slide with no editable content</span>
+<span class="sd">        - ``"anthem"``: Choir name and anthem title editor</span>
+<span class="sd">        - ``"corner"`` / ``"intro"``: Corner-style caption and headline</span>
+<span class="sd">        - ``"greet"``: Greeting or announcement text</span>
+<span class="sd">        - ``"hymn"``: Hymn editor (exported as lyrics-style slides)</span>
+<span class="sd">        - ``"lyrics"``: General lyrics editor with deferred line splitting</span>
+<span class="sd">        - ``"prayer"``: Prayer title and leader name</span>
+<span class="sd">        - ``"respo"``: Responsive reading editor</span>
+<span class="sd">        - ``"verse"``: Bible verse reference and preview editor</span>
+<span class="sd">        - ``"image"``: Image-based slide editor (path stored in ``headline``)</span>
+<span class="sd">        - ``"video"``: Video-based slide editor (path stored in ``headline``)</span>
+<span class="sd">        - ``"blank"``: Empty slide with no editable content</span>
 
 <span class="sd">    Attributes:</span>
 <span class="sd">        style (str):</span>
@@ -134,13 +134,13 @@
 <span class="sd">        generator_window (QWidget):</span>
 <span class="sd">            Reference to the parent generator window, passed through to sub-panes so they can access shared context, settings, or callbacks.</span>
 <span class="sd">        subpane (QWidget):</span>
-<span class="sd">            The instantiated style-specific content widget responsible for rendering input fields and producing slide data. For ``&quot;blank&quot;`` or unsupported styles, this is an empty `QWidget &lt;https://doc.qt.io/qt-6/qwidget.html&gt;`_.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">            The instantiated style-specific content widget responsible for rendering input fields and producing slide data. For ``"blank"`` or unsupported styles, this is an empty `QWidget &lt;https://doc.qt.io/qt-6/qwidget.html&gt;`_.</span>
+<span class="sd">    """</span>
 
 <div class="viewcode-block" id="SlideGeneratorRightContents.__init__">
 <a class="viewcode-back" href="../../../../core.generator.ui.slide_generator_right_contents.html#core.generator.ui.slide_generator_right_contents.SlideGeneratorRightContents.__init__">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">style</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">generator_window</span><span class="p">,</span> <span class="n">caption</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">headline</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">style</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">generator_window</span><span class="p">,</span> <span class="n">caption</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span> <span class="n">headline</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize the right-hand content panel for a specific slide style.</span>
 
 <span class="sd">        This constructor selects the appropriate style-specific sub-pane and</span>
@@ -150,7 +150,7 @@
 
 <span class="sd">        Args:</span>
 <span class="sd">            style (str):</span>
-<span class="sd">                Internal slide style key (e.g., &quot;lyrics&quot;, &quot;verse&quot;, &quot;anthem&quot;).</span>
+<span class="sd">                Internal slide style key (e.g., "lyrics", "verse", "anthem").</span>
 <span class="sd">            generator_window:</span>
 <span class="sd">                Reference to the main slide generator window. This is passed to</span>
 <span class="sd">                sub-panes so they can access shared state or utilities.</span>
@@ -163,34 +163,34 @@
 
 <span class="sd">        Returns:</span>
 <span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="n">style</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">generator_window</span> <span class="o">=</span> <span class="n">generator_window</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">QVBoxLayout</span><span class="p">())</span>
 
         <span class="c1"># Dynamically choose the correct content pane based on the slide style</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">style</span> <span class="o">==</span> <span class="s2">&quot;anthem&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">style</span> <span class="o">==</span> <span class="s2">"anthem"</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">subpane</span> <span class="o">=</span> <span class="n">AnthemContent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">generator_window</span><span class="p">,</span> <span class="n">caption</span><span class="p">,</span> <span class="n">headline</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">style</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;corner&quot;</span><span class="p">,</span> <span class="s2">&quot;intro&quot;</span><span class="p">):</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">style</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"corner"</span><span class="p">,</span> <span class="s2">"intro"</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">subpane</span> <span class="o">=</span> <span class="n">CornerContent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">generator_window</span><span class="p">,</span> <span class="n">caption</span><span class="p">,</span> <span class="n">headline</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">style</span> <span class="o">==</span> <span class="s2">&quot;greet&quot;</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">style</span> <span class="o">==</span> <span class="s2">"greet"</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">subpane</span> <span class="o">=</span> <span class="n">GreetContent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">generator_window</span><span class="p">,</span> <span class="n">caption</span><span class="p">,</span> <span class="n">headline</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">style</span> <span class="o">==</span> <span class="s2">&quot;hymn&quot;</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">style</span> <span class="o">==</span> <span class="s2">"hymn"</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">subpane</span> <span class="o">=</span> <span class="n">HymnContent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">generator_window</span><span class="p">,</span> <span class="n">caption</span><span class="p">,</span> <span class="n">headline</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">style</span> <span class="o">==</span> <span class="s2">&quot;image&quot;</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">style</span> <span class="o">==</span> <span class="s2">"image"</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">subpane</span> <span class="o">=</span> <span class="n">ImageContent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">generator_window</span><span class="p">,</span> <span class="n">caption</span><span class="p">,</span> <span class="n">headline</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">style</span> <span class="o">==</span> <span class="s2">&quot;lyrics&quot;</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">style</span> <span class="o">==</span> <span class="s2">"lyrics"</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">subpane</span> <span class="o">=</span> <span class="n">LyricsContent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">generator_window</span><span class="p">,</span> <span class="n">caption</span><span class="p">,</span> <span class="n">headline</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">style</span> <span class="o">==</span> <span class="s2">&quot;prayer&quot;</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">style</span> <span class="o">==</span> <span class="s2">"prayer"</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">subpane</span> <span class="o">=</span> <span class="n">PrayerContent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">generator_window</span><span class="p">,</span> <span class="n">caption</span><span class="p">,</span> <span class="n">headline</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">style</span> <span class="o">==</span> <span class="s2">&quot;respo&quot;</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">style</span> <span class="o">==</span> <span class="s2">"respo"</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">subpane</span> <span class="o">=</span> <span class="n">RespoContent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">generator_window</span><span class="p">,</span> <span class="n">caption</span><span class="p">,</span> <span class="n">headline</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">style</span> <span class="o">==</span> <span class="s2">&quot;verse&quot;</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">style</span> <span class="o">==</span> <span class="s2">"verse"</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">subpane</span> <span class="o">=</span> <span class="n">VerseContent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">generator_window</span><span class="p">,</span> <span class="n">caption</span><span class="p">,</span> <span class="n">headline</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">style</span> <span class="o">==</span> <span class="s2">&quot;video&quot;</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">style</span> <span class="o">==</span> <span class="s2">"video"</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">subpane</span> <span class="o">=</span> <span class="n">VideoContent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">generator_window</span><span class="p">,</span> <span class="n">caption</span><span class="p">,</span> <span class="n">headline</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">style</span> <span class="o">==</span> <span class="s2">&quot;blank&quot;</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">style</span> <span class="o">==</span> <span class="s2">"blank"</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">subpane</span> <span class="o">=</span> <span class="n">QWidget</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">subpane</span> <span class="o">=</span> <span class="n">QWidget</span><span class="p">()</span>
@@ -201,22 +201,22 @@
 <div class="viewcode-block" id="SlideGeneratorRightContents.get_slide_data">
 <a class="viewcode-back" href="../../../../core.generator.ui.slide_generator_right_contents.html#core.generator.ui.slide_generator_right_contents.SlideGeneratorRightContents.get_slide_data">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_slide_data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Retrieve the slide data from the active content sub-pane.</span>
 
-<span class="sd">        This method delegates to the embedded sub-pane&#39;s :meth:`get_slide_data` method</span>
+<span class="sd">        This method delegates to the embedded sub-pane's :meth:`get_slide_data` method</span>
 <span class="sd">        if it exists. If the current sub-pane does not implement data extraction</span>
-<span class="sd">        (e.g., &quot;blank&quot; slides), an empty dictionary is returned.</span>
+<span class="sd">        (e.g., "blank" slides), an empty dictionary is returned.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            None</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            dict:</span>
-<span class="sd">                Dictionary representing the current slide&#39;s content, suitable for</span>
-<span class="sd">                inclusion in the generator&#39;s internal slide session data.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;subpane&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">subpane</span><span class="p">,</span> <span class="s2">&quot;get_slide_data&quot;</span><span class="p">):</span>
+<span class="sd">                Dictionary representing the current slide's content, suitable for</span>
+<span class="sd">                inclusion in the generator's internal slide session data.</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">"subpane"</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">subpane</span><span class="p">,</span> <span class="s2">"get_slide_data"</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">subpane</span><span class="o">.</span><span class="n">get_slide_data</span><span class="p">()</span>
         
         <span class="k">return</span> <span class="p">{}</span></div>

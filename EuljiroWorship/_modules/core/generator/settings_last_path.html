@@ -70,7 +70,7 @@
              
   <h1>Source code for core.generator.settings_last_path</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 <span class="sd">:File: EuljiroWorship/core/generator/settings_last_path.py</span>
 <span class="sd">:Author: Benjamin Jaedon Choi - https://github.com/saintbenjamin</span>
 <span class="sd">:Affiliated Church: The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</span>
@@ -84,7 +84,7 @@
 <span class="sd">This module provides a minimal persistence layer for remembering</span>
 <span class="sd">the most recently opened slide JSON file in the generator UI.</span>
 <span class="sd">The path is stored as a small JSON file under the generator settings directory.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
@@ -94,12 +94,12 @@
 <div class="viewcode-block" id="load_last_path">
 <a class="viewcode-back" href="../../../core.generator.settings_last_path.html#core.generator.settings_last_path.load_last_path">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">load_last_path</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Load the most recently opened slide file path.</span>
 
 <span class="sd">    This function reads the JSON file defined by</span>
 <span class="sd">    :py:data:`core.config.paths.SETTING_LAST_OPEN_FILE` and extracts the stored</span>
-<span class="sd">    ``&quot;last_opened_file&quot;`` value.</span>
+<span class="sd">    ``"last_opened_file"`` value.</span>
 
 <span class="sd">    If the settings file does not exist or the key is missing,</span>
 <span class="sd">    the function safely returns None.</span>
@@ -108,17 +108,17 @@
 <span class="sd">        str | None:</span>
 <span class="sd">            Absolute path of the last opened slide file,</span>
 <span class="sd">            or None if no previous path is recorded.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">SETTING_LAST_OPEN_FILE</span><span class="p">):</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">SETTING_LAST_OPEN_FILE</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;last_opened_file&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">SETTING_LAST_OPEN_FILE</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"last_opened_file"</span><span class="p">)</span>
     <span class="k">return</span> <span class="kc">None</span></div>
 
 
 <div class="viewcode-block" id="save_last_path">
 <a class="viewcode-back" href="../../../core.generator.settings_last_path.html#core.generator.settings_last_path.save_last_path">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">save_last_path</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Save the most recently opened slide file path.</span>
 
 <span class="sd">    The given path is written to a small JSON file located at</span>
@@ -133,10 +133,10 @@
 
 <span class="sd">    Returns:</span>
 <span class="sd">        None</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">SETTING_LAST_OPEN_FILE</span><span class="p">),</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">SETTING_LAST_OPEN_FILE</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-        <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">({</span><span class="s2">&quot;last_opened_file&quot;</span><span class="p">:</span> <span class="n">path</span><span class="p">},</span> <span class="n">f</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span></div>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">SETTING_LAST_OPEN_FILE</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">({</span><span class="s2">"last_opened_file"</span><span class="p">:</span> <span class="n">path</span><span class="p">},</span> <span class="n">f</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span></div>
 
 </pre></div>
 

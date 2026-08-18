@@ -70,7 +70,7 @@
              
   <h1>Source code for controller.utils.slide_websocket_manager</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 <span class="sd">:File: EuljiroWorship/controller/utils/slide_websocket_manager.py</span>
 <span class="sd">:Author: Benjamin Jaedon Choi - https://github.com/saintbenjamin</span>
 <span class="sd">:Affiliated Church: The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</span>
@@ -96,7 +96,7 @@
 <span class="sd">it now includes small self-healing steps so that a temporarily lost local</span>
 <span class="sd">WebSocket server does not leave the controller permanently unable to</span>
 <span class="sd">broadcast slides.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
 
@@ -104,7 +104,7 @@
 <div class="viewcode-block" id="SlideWebSocketManager">
 <a class="viewcode-back" href="../../../controller.utils.slide_websocket_manager.html#controller.utils.slide_websocket_manager.SlideWebSocketManager">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">SlideWebSocketManager</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Manage a WebSocket connection for sending slide data to overlay systems.</span>
 
 <span class="sd">    This class wraps a single WebSocket connection created via the</span>
@@ -126,12 +126,12 @@
 <span class="sd">            or on connection failure.</span>
 <span class="sd">        connect_timeout (float):</span>
 <span class="sd">            Timeout in seconds used for connect and socket operations.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
 <div class="viewcode-block" id="SlideWebSocketManager.__init__">
 <a class="viewcode-back" href="../../../controller.utils.slide_websocket_manager.html#controller.utils.slide_websocket_manager.SlideWebSocketManager.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uri</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize the WebSocket manager.</span>
 
 <span class="sd">        Args:</span>
@@ -141,7 +141,7 @@
 
 <span class="sd">        Returns:</span>
 <span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">uri</span> <span class="o">=</span> <span class="n">uri</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ws</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">connect_timeout</span> <span class="o">=</span> <span class="mf">1.5</span></div>
@@ -150,12 +150,12 @@
 <div class="viewcode-block" id="SlideWebSocketManager._drop_connection">
 <a class="viewcode-back" href="../../../controller.utils.slide_websocket_manager.html#controller.utils.slide_websocket_manager.SlideWebSocketManager._drop_connection">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">_drop_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Dispose of the current socket object and clear connection state.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ws</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">ws</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
@@ -167,7 +167,7 @@
 <div class="viewcode-block" id="SlideWebSocketManager.connect">
 <a class="viewcode-back" href="../../../controller.utils.slide_websocket_manager.html#controller.utils.slide_websocket_manager.SlideWebSocketManager.connect">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">quiet</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Establish a connection to the WebSocket server.</span>
 
 <span class="sd">        Attempts to create a WebSocket connection using the configured URI.</span>
@@ -182,7 +182,7 @@
 <span class="sd">            bool:</span>
 <span class="sd">                True if the connection was established successfully,</span>
 <span class="sd">                False otherwise.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_drop_connection</span><span class="p">()</span>
 
         <span class="k">try</span><span class="p">:</span>
@@ -194,11 +194,11 @@
             <span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ws</span><span class="o">.</span><span class="n">settimeout</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">connect_timeout</span><span class="p">)</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">quiet</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[OK] Connected to WebSocket: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">uri</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[OK] Connected to WebSocket: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">uri</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
             <span class="k">return</span> <span class="kc">True</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">quiet</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[x] WebSocket connection failed: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[x] WebSocket connection failed: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ws</span> <span class="o">=</span> <span class="kc">None</span>
             <span class="k">return</span> <span class="kc">False</span></div>
 
@@ -206,7 +206,7 @@
 <div class="viewcode-block" id="SlideWebSocketManager.probe">
 <a class="viewcode-back" href="../../../controller.utils.slide_websocket_manager.html#controller.utils.slide_websocket_manager.SlideWebSocketManager.probe">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">probe</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Check whether the existing WebSocket transport is still usable.</span>
 
 <span class="sd">        A lightweight WebSocket ping frame is sent to verify that the local</span>
@@ -217,7 +217,7 @@
 <span class="sd">            bool:</span>
 <span class="sd">                True if the current socket appears healthy,</span>
 <span class="sd">                False otherwise.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_connected</span><span class="p">():</span>
             <span class="k">return</span> <span class="kc">False</span>
 
@@ -232,7 +232,7 @@
 <div class="viewcode-block" id="SlideWebSocketManager.ensure_healthy_connection">
 <a class="viewcode-back" href="../../../controller.utils.slide_websocket_manager.html#controller.utils.slide_websocket_manager.SlideWebSocketManager.ensure_healthy_connection">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">ensure_healthy_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">quiet</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Ensure that a usable WebSocket connection is available.</span>
 
 <span class="sd">        This first probes the current socket. If the probe fails or no socket</span>
@@ -246,7 +246,7 @@
 <span class="sd">            bool:</span>
 <span class="sd">                True if a healthy connection is available after probing and</span>
 <span class="sd">                optional reconnect, False otherwise.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">probe</span><span class="p">():</span>
             <span class="k">return</span> <span class="kc">True</span>
 
@@ -256,7 +256,7 @@
 <div class="viewcode-block" id="SlideWebSocketManager.send">
 <a class="viewcode-back" href="../../../controller.utils.slide_websocket_manager.html#controller.utils.slide_websocket_manager.SlideWebSocketManager.send">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">send</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">slide_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Send a slide dictionary to the WebSocket server.</span>
 
 <span class="sd">        The slide data is serialized to JSON using UTF-8 encoding</span>
@@ -272,30 +272,30 @@
 <span class="sd">            bool:</span>
 <span class="sd">                True if the slide payload was sent successfully,</span>
 <span class="sd">                False otherwise.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">slide_dict</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">ensure_healthy_connection</span><span class="p">(</span><span class="n">quiet</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[!] Cannot send: WebSocket is not connected.&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"[!] Cannot send: WebSocket is not connected."</span><span class="p">)</span>
             <span class="k">return</span> <span class="kc">False</span>
 
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ws</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
             <span class="k">return</span> <span class="kc">True</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[!] Send failed: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[!] Send failed: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_drop_connection</span><span class="p">()</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">quiet</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[!] Reconnect failed after send failure.&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"[!] Reconnect failed after send failure."</span><span class="p">)</span>
             <span class="k">return</span> <span class="kc">False</span>
 
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ws</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[i] Recovered WebSocket connection and resent current slide.&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"[i] Recovered WebSocket connection and resent current slide."</span><span class="p">)</span>
             <span class="k">return</span> <span class="kc">True</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[!] Resend after reconnect failed: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[!] Resend after reconnect failed: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_drop_connection</span><span class="p">()</span>
             <span class="k">return</span> <span class="kc">False</span></div>
 
@@ -303,23 +303,23 @@
 <div class="viewcode-block" id="SlideWebSocketManager.is_connected">
 <a class="viewcode-back" href="../../../controller.utils.slide_websocket_manager.html#controller.utils.slide_websocket_manager.SlideWebSocketManager.is_connected">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">is_connected</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Check whether the WebSocket connection is active.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            bool:</span>
 <span class="sd">                True if a connected WebSocket object exists, False otherwise.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ws</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">False</span>
 
-        <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ws</span><span class="p">,</span> <span class="s2">&quot;connected&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">))</span></div>
+        <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ws</span><span class="p">,</span> <span class="s2">"connected"</span><span class="p">,</span> <span class="kc">False</span><span class="p">))</span></div>
 
 
 <div class="viewcode-block" id="SlideWebSocketManager.disconnect">
 <a class="viewcode-back" href="../../../controller.utils.slide_websocket_manager.html#controller.utils.slide_websocket_manager.SlideWebSocketManager.disconnect">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Close the WebSocket connection safely.</span>
 
 <span class="sd">        Any errors during shutdown are caught and logged, and the internal</span>
@@ -327,13 +327,13 @@
 
 <span class="sd">        Returns:</span>
 <span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ws</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">ws</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[OK] WebSocket closed.&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">"[OK] WebSocket closed."</span><span class="p">)</span>
             <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[!] Error closing WebSocket: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[!] Error closing WebSocket: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ws</span> <span class="o">=</span> <span class="kc">None</span></div>
 </div>
 

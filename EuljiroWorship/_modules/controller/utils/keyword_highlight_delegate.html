@@ -70,7 +70,7 @@
              
   <h1>Source code for controller.utils.keyword_highlight_delegate</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 <span class="sd">:File: EuljiroWorship/controller/utils/keyword_highlight_delegate.py</span>
 <span class="sd">:Author: Benjamin Jaedon Choi - https://github.com/saintbenjamin</span>
 <span class="sd">:Affiliated Church: The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</span>
@@ -90,8 +90,8 @@
 
 <span class="sd">Typical usage::</span>
 
-<span class="sd">    view.setItemDelegate(KeywordHighlightDelegate(keywords=[&quot;하나님&quot;, &quot;세상&quot;]))</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    view.setItemDelegate(KeywordHighlightDelegate(keywords=["하나님", "세상"]))</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">QStyledItemDelegate</span><span class="p">,</span> <span class="n">QStyle</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtGui</span><span class="w"> </span><span class="kn">import</span> <span class="n">QTextDocument</span>
@@ -100,7 +100,7 @@
 <div class="viewcode-block" id="KeywordHighlightDelegate">
 <a class="viewcode-back" href="../../../controller.utils.keyword_highlight_delegate.html#controller.utils.keyword_highlight_delegate.KeywordHighlightDelegate">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">KeywordHighlightDelegate</span><span class="p">(</span><span class="n">QStyledItemDelegate</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Custom item delegate that highlights keywords in model text using HTML rendering.</span>
 
 <span class="sd">    This delegate renders each cell via ``QTextDocument`` so it can support:</span>
@@ -113,12 +113,12 @@
 <span class="sd">        keywords (list[str]):</span>
 <span class="sd">            Keywords to highlight. Empty strings are ignored. Matching is performed</span>
 <span class="sd">            via simple substring replacement after HTML-escaping the cell text.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
 <div class="viewcode-block" id="KeywordHighlightDelegate.__init__">
 <a class="viewcode-back" href="../../../controller.utils.keyword_highlight_delegate.html#controller.utils.keyword_highlight_delegate.KeywordHighlightDelegate.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keywords</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize the delegate with keywords to highlight.</span>
 
 <span class="sd">        Args:</span>
@@ -129,7 +129,7 @@
 
 <span class="sd">        Returns:</span>
 <span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">keywords</span> <span class="o">=</span> <span class="n">keywords</span></div>
 
@@ -137,7 +137,7 @@
 <div class="viewcode-block" id="KeywordHighlightDelegate.paint">
 <a class="viewcode-back" href="../../../controller.utils.keyword_highlight_delegate.html#controller.utils.keyword_highlight_delegate.KeywordHighlightDelegate.paint">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">paint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">painter</span><span class="p">,</span> <span class="n">option</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Paint a single cell using HTML rendering, highlighting configured keywords.</span>
 
 <span class="sd">        Behavior:</span>
@@ -157,7 +157,7 @@
 
 <span class="sd">        Returns:</span>
 <span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">text</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">text</span><span class="p">:</span>
             <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">paint</span><span class="p">(</span><span class="n">painter</span><span class="p">,</span> <span class="n">option</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span>
@@ -189,7 +189,7 @@
 <div class="viewcode-block" id="KeywordHighlightDelegate._highlight_keywords">
 <a class="viewcode-back" href="../../../controller.utils.keyword_highlight_delegate.html#controller.utils.keyword_highlight_delegate.KeywordHighlightDelegate._highlight_keywords">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">_highlight_keywords</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Convert raw text into HTML with keyword highlighting.</span>
 
 <span class="sd">        This method:</span>
@@ -198,7 +198,7 @@
 <span class="sd">        - Converts newline characters to ``&lt;br&gt;``.</span>
 <span class="sd">        - Wraps each keyword occurrence with::</span>
 
-<span class="sd">            &lt;span style=&#39;color:red&#39;&gt;...&lt;/span&gt;</span>
+<span class="sd">            &lt;span style='color:red'&gt;...&lt;/span&gt;</span>
 
 <span class="sd">        Note:</span>
 <span class="sd">            This implementation performs simple string replacement and does not use regex or word-boundary matching.</span>
@@ -210,20 +210,20 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            str:</span>
 <span class="sd">                HTML-formatted string with highlighted keywords.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">escaped_text</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&amp;&quot;</span><span class="p">,</span> <span class="s2">&quot;&amp;amp;&quot;</span><span class="p">)</span>
-                <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&lt;&quot;</span><span class="p">,</span> <span class="s2">&quot;&amp;lt;&quot;</span><span class="p">)</span>
-                <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;&amp;gt;&quot;</span><span class="p">)</span>
-                <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;br&gt;&quot;</span><span class="p">)</span>
+            <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"&amp;"</span><span class="p">,</span> <span class="s2">"&amp;amp;"</span><span class="p">)</span>
+                <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"&lt;"</span><span class="p">,</span> <span class="s2">"&amp;lt;"</span><span class="p">)</span>
+                <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"&gt;"</span><span class="p">,</span> <span class="s2">"&amp;gt;"</span><span class="p">)</span>
+                <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="s2">"&lt;br&gt;"</span><span class="p">)</span>
         <span class="p">)</span>
 
         <span class="k">for</span> <span class="n">kw</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">keywords</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">kw</span><span class="p">:</span>
                 <span class="k">continue</span>
-            <span class="n">escaped_kw</span> <span class="o">=</span> <span class="n">kw</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&amp;&quot;</span><span class="p">,</span> <span class="s2">&quot;&amp;amp;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&lt;&quot;</span><span class="p">,</span> <span class="s2">&quot;&amp;lt;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;&amp;gt;&quot;</span><span class="p">)</span>
+            <span class="n">escaped_kw</span> <span class="o">=</span> <span class="n">kw</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"&amp;"</span><span class="p">,</span> <span class="s2">"&amp;amp;"</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"&lt;"</span><span class="p">,</span> <span class="s2">"&amp;lt;"</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"&gt;"</span><span class="p">,</span> <span class="s2">"&amp;gt;"</span><span class="p">)</span>
             <span class="n">escaped_text</span> <span class="o">=</span> <span class="n">escaped_text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
-                <span class="n">escaped_kw</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;&lt;span style=&#39;color:red&#39;&gt;</span><span class="si">{</span><span class="n">escaped_kw</span><span class="si">}</span><span class="s2">&lt;/span&gt;&quot;</span>
+                <span class="n">escaped_kw</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"&lt;span style='color:red'&gt;</span><span class="si">{</span><span class="n">escaped_kw</span><span class="si">}</span><span class="s2">&lt;/span&gt;"</span>
             <span class="p">)</span>
 
         <span class="k">return</span> <span class="n">escaped_text</span></div>
@@ -232,7 +232,7 @@
 <div class="viewcode-block" id="KeywordHighlightDelegate.sizeHint">
 <a class="viewcode-back" href="../../../controller.utils.keyword_highlight_delegate.html#controller.utils.keyword_highlight_delegate.KeywordHighlightDelegate.sizeHint">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">sizeHint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">option</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Return the preferred size for a cell based on HTML-rendered content.</span>
 
 <span class="sd">        Computes the document size using `QTextDocument &lt;https://doc.qt.io/qt-6/qtextdocument.html&gt;`_ with the same width constraints</span>
@@ -247,7 +247,7 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            QSize:</span>
 <span class="sd">                Preferred size for the rendered cell content.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">text</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">text</span><span class="p">:</span>
             <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">sizeHint</span><span class="p">(</span><span class="n">option</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span>

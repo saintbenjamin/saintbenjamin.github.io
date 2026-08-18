@@ -70,7 +70,7 @@
              
   <h1>Source code for server.websocket_server</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 <span class="sd">:File: EuljiroWorship/server/websocket_server.py</span>
 <span class="sd">:Author: Benjamin Jaedon Choi - https://github.com/saintbenjamin</span>
 <span class="sd">:Affiliated Church: The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</span>
@@ -91,13 +91,13 @@
 <span class="sd">- Real-time broadcast fan-out to multiple connected clients</span>
 <span class="sd">- Ping/pong heartbeat handling to detect dead connections</span>
 <span class="sd">- Error isolation per client connection</span>
-<span class="sd">- Automatic cleanup of disconnected or faulty (&quot;zombie&quot;) clients</span>
+<span class="sd">- Automatic cleanup of disconnected or faulty ("zombie") clients</span>
 <span class="sd">- Graceful shutdown with proper socket closure</span>
 
 <span class="sd">The WebSocket endpoint listens on ``/ws`` and expects incoming messages</span>
 <span class="sd">to be JSON representations of slide data, which are then forwarded to</span>
 <span class="sd">all connected overlay clients.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
@@ -109,12 +109,12 @@
 
 <span class="c1"># ─────────────────────────────</span>
 <span class="c1"># Logging setup</span>
-<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;slide_socket_server&quot;</span><span class="p">)</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">"slide_socket_server"</span><span class="p">)</span>
 <span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
 <span class="n">logger</span><span class="o">.</span><span class="n">propagate</span> <span class="o">=</span> <span class="kc">False</span>
 
 <span class="k">if</span> <span class="ow">not</span> <span class="n">logger</span><span class="o">.</span><span class="n">handlers</span><span class="p">:</span>
-    <span class="n">formatter</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">(</span><span class="s2">&quot;[</span><span class="si">%(asctime)s</span><span class="s2">] [</span><span class="si">%(levelname)s</span><span class="s2">] </span><span class="si">%(message)s</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">formatter</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">(</span><span class="s2">"[</span><span class="si">%(asctime)s</span><span class="s2">] [</span><span class="si">%(levelname)s</span><span class="s2">] </span><span class="si">%(message)s</span><span class="s2">"</span><span class="p">)</span>
 
     <span class="n">stream_handler</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">StreamHandler</span><span class="p">()</span>
     <span class="n">stream_handler</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">formatter</span><span class="p">)</span>
@@ -123,8 +123,8 @@
     <span class="k">try</span><span class="p">:</span>
         <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">STORE_DIR</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">file_handler</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">FileHandler</span><span class="p">(</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">STORE_DIR</span><span class="p">,</span> <span class="s2">&quot;websocket_server.log&quot;</span><span class="p">),</span>
-            <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">,</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">STORE_DIR</span><span class="p">,</span> <span class="s2">"websocket_server.log"</span><span class="p">),</span>
+            <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">file_handler</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">formatter</span><span class="p">)</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">file_handler</span><span class="p">)</span>
@@ -138,13 +138,13 @@
 <div class="viewcode-block" id="websocket_handler">
 <a class="viewcode-back" href="../../server.websocket_server.html#server.websocket_server.websocket_handler">[docs]</a>
 <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">websocket_handler</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Handle a single WebSocket client connection.</span>
 
 <span class="sd">    The handler:</span>
 <span class="sd">      - upgrades the incoming HTTP request to a WebSocket</span>
 <span class="sd">      - registers the client in the global client set</span>
-<span class="sd">      - responds to heartbeat &quot;ping&quot; messages with &quot;pong&quot;</span>
+<span class="sd">      - responds to heartbeat "ping" messages with "pong"</span>
 <span class="sd">      - attempts to parse incoming text frames as JSON and broadcast them</span>
 <span class="sd">      - ensures the client is removed and closed on disconnect/errors</span>
 
@@ -153,39 +153,39 @@
 
 <span class="sd">    Returns:</span>
 <span class="sd">        aiohttp.web.WebSocketResponse: The prepared WebSocket response object.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">ws</span> <span class="o">=</span> <span class="n">web</span><span class="o">.</span><span class="n">WebSocketResponse</span><span class="p">()</span>
     <span class="k">await</span> <span class="n">ws</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
 
     <span class="n">connected_clients</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ws</span><span class="p">)</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;[+] Client connected&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"[+] Client connected"</span><span class="p">)</span>
 
     <span class="k">try</span><span class="p">:</span>
         <span class="k">async</span> <span class="k">for</span> <span class="n">msg</span> <span class="ow">in</span> <span class="n">ws</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">msg</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">WSMsgType</span><span class="o">.</span><span class="n">TEXT</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">msg</span><span class="o">.</span><span class="n">data</span> <span class="o">==</span> <span class="s2">&quot;ping&quot;</span><span class="p">:</span>
-                    <span class="k">await</span> <span class="n">ws</span><span class="o">.</span><span class="n">send_str</span><span class="p">(</span><span class="s2">&quot;pong&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">msg</span><span class="o">.</span><span class="n">data</span> <span class="o">==</span> <span class="s2">"ping"</span><span class="p">:</span>
+                    <span class="k">await</span> <span class="n">ws</span><span class="o">.</span><span class="n">send_str</span><span class="p">(</span><span class="s2">"pong"</span><span class="p">)</span>
                     <span class="k">continue</span>
 
-                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;[WS] Received message (ignored): </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">msg</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;ascii&quot;</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;replace&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">())</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"[WS] Received message (ignored): </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">msg</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">"ascii"</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s2">"replace"</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">())</span>
 
                 <span class="k">try</span><span class="p">:</span>
                     <span class="n">slide_dict</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
                     <span class="k">await</span> <span class="n">broadcast</span><span class="p">(</span><span class="n">slide_dict</span><span class="p">)</span>
                 <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                    <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;[!] Failed to broadcast: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">exc_info</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">"[!] Failed to broadcast: </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">exc_info</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
             <span class="k">elif</span> <span class="n">msg</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">WSMsgType</span><span class="o">.</span><span class="n">ERROR</span><span class="p">:</span>
-                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;[!] WS connection closed with exception: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">ws</span><span class="o">.</span><span class="n">exception</span><span class="p">())</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">"[!] WS connection closed with exception: </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">ws</span><span class="o">.</span><span class="n">exception</span><span class="p">())</span>
 
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;[!] Connection error: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">exc_info</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">"[!] Connection error: </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">exc_info</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="k">finally</span><span class="p">:</span>
         <span class="n">connected_clients</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">ws</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">ws</span><span class="o">.</span><span class="n">closed</span><span class="p">:</span>
             <span class="k">await</span> <span class="n">ws</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;[-] Client disconnected&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"[-] Client disconnected"</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">ws</span></div>
 
@@ -193,13 +193,13 @@
 <div class="viewcode-block" id="broadcast">
 <a class="viewcode-back" href="../../server.websocket_server.html#server.websocket_server.broadcast">[docs]</a>
 <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">broadcast</span><span class="p">(</span><span class="n">slide_dict</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Broadcast a slide payload to all currently connected WebSocket clients.</span>
 
 <span class="sd">    The payload is JSON-serialized and sent as a text frame. The function</span>
 <span class="sd">    also performs basic client hygiene:</span>
 
-<span class="sd">        - detects and removes closed or errored (&quot;zombie&quot;) connections</span>
+<span class="sd">        - detects and removes closed or errored ("zombie") connections</span>
 <span class="sd">        - removes clients that fail to receive within a short timeout</span>
 
 <span class="sd">    Args:</span>
@@ -207,50 +207,50 @@
 
 <span class="sd">    Returns:</span>
 <span class="sd">        None</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">connected_clients</span><span class="p">:</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;[!] No clients connected&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"[!] No clients connected"</span><span class="p">)</span>
         <span class="k">return</span>
 
     <span class="n">message</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">slide_dict</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;[→] Broadcasting: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"[→] Broadcasting: </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
 
     <span class="k">for</span> <span class="n">ws</span> <span class="ow">in</span> <span class="n">connected_clients</span><span class="o">.</span><span class="n">copy</span><span class="p">():</span>
         <span class="k">if</span> <span class="n">ws</span><span class="o">.</span><span class="n">closed</span> <span class="ow">or</span> <span class="n">ws</span><span class="o">.</span><span class="n">close_code</span> <span class="ow">or</span> <span class="n">ws</span><span class="o">.</span><span class="n">exception</span><span class="p">()</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">connected_clients</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">ws</span><span class="p">)</span>
             <span class="k">await</span> <span class="n">ws</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;🧹 Removed zombie client (closed/code/exception)&quot;</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">"🧹 Removed zombie client (closed/code/exception)"</span><span class="p">)</span>
             <span class="k">continue</span>
 
         <span class="k">try</span><span class="p">:</span>
             <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">wait_for</span><span class="p">(</span><span class="n">ws</span><span class="o">.</span><span class="n">send_str</span><span class="p">(</span><span class="n">message</span><span class="p">),</span> <span class="n">timeout</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;[!] Send failed: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">exc_info</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">"[!] Send failed: </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">exc_info</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
             <span class="n">connected_clients</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">ws</span><span class="p">)</span>
             <span class="k">await</span> <span class="n">ws</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;🧹 Removed client after send failure&quot;</span><span class="p">)</span></div>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">"🧹 Removed client after send failure"</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="on_shutdown">
 <a class="viewcode-back" href="../../server.websocket_server.html#server.websocket_server.on_shutdown">[docs]</a>
 <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">on_shutdown</span><span class="p">(</span><span class="n">app</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Close all active WebSocket connections during server shutdown.</span>
 
 <span class="sd">    This coroutine is registered to ``app.on_shutdown`` and is expected</span>
 <span class="sd">    to run when aiohttp is stopping. It attempts to close all active client</span>
-<span class="sd">    sockets with a normal &quot;going away&quot; code.</span>
+<span class="sd">    sockets with a normal "going away" code.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        app (aiohttp.web.Application): The aiohttp application instance.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        None</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># Snapshot first to avoid &quot;Set changed size during iteration&quot;</span>
+<span class="sd">    """</span>
+    <span class="c1"># Snapshot first to avoid "Set changed size during iteration"</span>
     <span class="n">clients</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">connected_clients</span><span class="p">)</span>
 
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;[⇓] Server shutting down: closing </span><span class="si">%d</span><span class="s2"> clients&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">connected_clients</span><span class="p">))</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"[⇓] Server shutting down: closing </span><span class="si">%d</span><span class="s2"> clients"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">connected_clients</span><span class="p">))</span>
 
 
     <span class="c1"># Close sockets best-effort; never hang shutdown indefinitely.</span>
@@ -258,7 +258,7 @@
         <span class="k">try</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">ws</span><span class="o">.</span><span class="n">closed</span><span class="p">:</span>
                 <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">wait_for</span><span class="p">(</span>
-                    <span class="n">ws</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">code</span><span class="o">=</span><span class="mi">1001</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="sa">b</span><span class="s2">&quot;Server shutdown&quot;</span><span class="p">),</span>
+                    <span class="n">ws</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">code</span><span class="o">=</span><span class="mi">1001</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="sa">b</span><span class="s2">"Server shutdown"</span><span class="p">),</span>
                     <span class="n">timeout</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
                 <span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
@@ -270,13 +270,13 @@
 <span class="c1"># ─────────────────────────────</span>
 <span class="c1"># aiohttp Web App setup</span>
 <span class="n">app</span> <span class="o">=</span> <span class="n">web</span><span class="o">.</span><span class="n">Application</span><span class="p">()</span>
-<span class="n">app</span><span class="o">.</span><span class="n">router</span><span class="o">.</span><span class="n">add_get</span><span class="p">(</span><span class="s2">&quot;/ws&quot;</span><span class="p">,</span> <span class="n">websocket_handler</span><span class="p">)</span>
+<span class="n">app</span><span class="o">.</span><span class="n">router</span><span class="o">.</span><span class="n">add_get</span><span class="p">(</span><span class="s2">"/ws"</span><span class="p">,</span> <span class="n">websocket_handler</span><span class="p">)</span>
 <span class="n">app</span><span class="o">.</span><span class="n">on_shutdown</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">on_shutdown</span><span class="p">)</span>
 
 <div class="viewcode-block" id="main">
 <a class="viewcode-back" href="../../server.websocket_server.html#server.websocket_server.main">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">port</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">8765</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Start the WebSocket server.</span>
 
 <span class="sd">    Args:</span>
@@ -286,16 +286,16 @@
 
 <span class="sd">    Returns:</span>
 <span class="sd">        None</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;[*] WebSocket server starting on ws://0.0.0.0:</span><span class="si">%d</span><span class="s2">/ws&quot;</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span>
+<span class="sd">    """</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"[*] WebSocket server starting on ws://0.0.0.0:</span><span class="si">%d</span><span class="s2">/ws"</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">web</span><span class="o">.</span><span class="n">run_app</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">port</span><span class="p">)</span>
     <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;[!] WebSocket server crashed unexpectedly.&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">"[!] WebSocket server crashed unexpectedly."</span><span class="p">)</span>
         <span class="k">raise</span></div>
 
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
 </pre></div>
 

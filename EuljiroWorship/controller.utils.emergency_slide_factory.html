@@ -161,9 +161,9 @@ dictionaries suitable for immediate export to the slide controller.</p>
 and wrapped into screen-friendly chunks using <a class="reference external" href="https://docs.python.org/3/library/textwrap.html#textwrap.wrap">textwrap.wrap</a>.</p>
 <p>Slide dict schema:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>     <span class="c1"># e.g., &quot;verse&quot;, &quot;lyrics&quot;, &quot;greet&quot;, ...</span>
-    <span class="s2">&quot;caption&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>   <span class="c1"># title / reference line</span>
-    <span class="s2">&quot;headline&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>  <span class="c1"># main body text shown on screen</span>
+    <span class="s2">"style"</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>     <span class="c1"># e.g., "verse", "lyrics", "greet", ...</span>
+    <span class="s2">"caption"</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>   <span class="c1"># title / reference line</span>
+    <span class="s2">"headline"</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>  <span class="c1"># main body text shown on screen</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -304,7 +304,7 @@ If loading fails, returns a one-slide fallback with an error message.</p>
 <dd><p>Format responsive reading entries into a single joined string.</p>
 <p>Each entry is converted into one line using an HTML-like emphasis for the
 speaker name:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;&lt;b&gt;</span><span class="si">{speaker}</span><span class="s2">:&lt;/b&gt; </span><span class="si">{headline}</span><span class="s2">&quot;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">"&lt;b&gt;</span><span class="si">{speaker}</span><span class="s2">:&lt;/b&gt; </span><span class="si">{headline}</span><span class="s2">"</span>
 </pre></div>
 </div>
 <dl class="field-list simple">

@@ -70,7 +70,7 @@
              
   <h1>Source code for controller.utils.slide_file_watcher</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 <span class="sd">:File: EuljiroWorship/controller/utils/slide_file_watcher.py</span>
 <span class="sd">:Author: Benjamin Jaedon Choi - https://github.com/saintbenjamin</span>
 <span class="sd">:Affiliated Church: The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</span>
@@ -91,7 +91,7 @@
 
 <span class="sd">The watcher is designed to run inside a `QThread &lt;https://doc.qt.io/qt-6/qthread.html&gt;`_ and communicate with the</span>
 <span class="sd">:class:`controller.slide_controller.SlideController` via `Qt &lt;https://doc.qt.io/qt-6/index.html&gt;`_ signals only.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
@@ -102,11 +102,11 @@
 <div class="viewcode-block" id="SlideFileWatcher">
 <a class="viewcode-back" href="../../../controller.utils.slide_file_watcher.html#controller.utils.slide_file_watcher.SlideFileWatcher">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">SlideFileWatcher</span><span class="p">(</span><span class="n">QObject</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Watches a slide JSON file and emits signals on content changes.</span>
 
 <span class="sd">    This watcher polls the target slide file at a fixed interval and detects</span>
-<span class="sd">    changes using the file&#39;s modified timestamp.</span>
+<span class="sd">    changes using the file's modified timestamp.</span>
 
 <span class="sd">    Signals:</span>
 <span class="sd">        ``slide_changed(list, int)``:</span>
@@ -115,7 +115,7 @@
 <span class="sd">        ``slide_cleared()``:</span>
 <span class="sd">            Emitted when the slide file becomes empty, typically signaling</span>
 <span class="sd">            the end of emergency caption mode.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="n">slide_changed</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>  <span class="c1"># slides, index</span>
     <span class="n">slide_cleared</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">()</span>           <span class="c1"># empty file → need for restore</span>
@@ -123,7 +123,7 @@
 <div class="viewcode-block" id="SlideFileWatcher.__init__">
 <a class="viewcode-back" href="../../../controller.utils.slide_file_watcher.html#controller.utils.slide_file_watcher.SlideFileWatcher.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">slide_file</span><span class="p">,</span> <span class="n">poll_interval</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize the slide file watcher.</span>
 
 <span class="sd">        Args:</span>
@@ -134,7 +134,7 @@
 
 <span class="sd">        Returns:</span>
 <span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">slide_file</span> <span class="o">=</span> <span class="n">slide_file</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">poll_interval</span> <span class="o">=</span> <span class="n">poll_interval</span>
@@ -145,21 +145,21 @@
 <div class="viewcode-block" id="SlideFileWatcher.stop">
 <a class="viewcode-back" href="../../../controller.utils.slide_file_watcher.html#controller.utils.slide_file_watcher.SlideFileWatcher.stop">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Stop the file watching loop.</span>
 
 <span class="sd">        This method signals the watcher to exit its polling loop gracefully.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_running</span> <span class="o">=</span> <span class="kc">False</span></div>
 
 
 <div class="viewcode-block" id="SlideFileWatcher.run">
 <a class="viewcode-back" href="../../../controller.utils.slide_file_watcher.html#controller.utils.slide_file_watcher.SlideFileWatcher.run">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Start monitoring the slide file for changes.</span>
 
 <span class="sd">        This method runs an infinite polling loop while the watcher is active.</span>
@@ -172,7 +172,7 @@
 
 <span class="sd">        Returns:</span>
 <span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">_running</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">slide_file</span><span class="p">):</span>
@@ -185,14 +185,14 @@
                     <span class="c1"># Check for file change</span>
                     <span class="k">elif</span> <span class="n">mtime</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_last_mtime</span><span class="p">:</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">_last_mtime</span> <span class="o">=</span> <span class="n">mtime</span>
-                        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[✓] Detected slide file change&quot;</span><span class="p">)</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="s2">"[✓] Detected slide file change"</span><span class="p">)</span>
 
-                        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">slide_file</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">slide_file</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
                             <span class="n">new_slides</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
 
                         <span class="c1"># Emit appropriate signal based on file content</span>
                         <span class="k">if</span> <span class="ow">not</span> <span class="n">new_slides</span><span class="p">:</span>
-                            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[!] Slide file cleared.&quot;</span><span class="p">)</span>
+                            <span class="nb">print</span><span class="p">(</span><span class="s2">"[!] Slide file cleared."</span><span class="p">)</span>
                             <span class="bp">self</span><span class="o">.</span><span class="n">slide_cleared</span><span class="o">.</span><span class="n">emit</span><span class="p">()</span>
                         <span class="k">else</span><span class="p">:</span>
                             <span class="bp">self</span><span class="o">.</span><span class="n">slide_changed</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="n">new_slides</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
@@ -200,7 +200,7 @@
                 <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">poll_interval</span><span class="p">)</span>
 
             <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[!] SlideFileWatcher error:&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span></div>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">"[!] SlideFileWatcher error:"</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span></div>
 </div>
 
 </pre></div>

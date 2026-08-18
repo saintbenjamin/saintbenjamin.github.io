@@ -70,7 +70,7 @@
              
   <h1>Source code for controller.helper.verse_interruptor</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 <span class="sd">:File: EuljiroWorship/controller/helper/verse_interruptor.py</span>
 <span class="sd">:Author: Benjamin Jaedon Choi - https://github.com/saintbenjamin</span>
 <span class="sd">:Affiliated Church: The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</span>
@@ -89,18 +89,18 @@
 
 <span class="sd">That automatic bridge is now intentionally disabled. Modern emergency caption</span>
 <span class="sd">and emergency Bible workflows write directly to the slide output JSON through</span>
-<span class="sd">the controller&#39;s active UI workflow, so changes to ``verse_output.txt`` must</span>
+<span class="sd">the controller's active UI workflow, so changes to ``verse_output.txt`` must</span>
 <span class="sd">never mutate the live slide file.</span>
 
 <span class="sd">Key behaviors:</span>
 
 <span class="sd">- If the last line looks like a structured Bible reference header, it generates</span>
-<span class="sd">  per-verse slides with wrapped lines (`textwrap.wrap &lt;https://docs.python.org/3/library/textwrap.html#textwrap.wrap&gt;`_) and style &quot;verse&quot;.</span>
+<span class="sd">  per-verse slides with wrapped lines (`textwrap.wrap &lt;https://docs.python.org/3/library/textwrap.html#textwrap.wrap&gt;`_) and style "verse".</span>
 <span class="sd">- Otherwise, it treats the file as a free-form emergency message and generates</span>
-<span class="sd">  style &quot;lyrics&quot; slides grouped by up to 2 lines (or by character budget).</span>
+<span class="sd">  style "lyrics" slides grouped by up to 2 lines (or by character budget).</span>
 <span class="sd">- Before overwriting the slide file, it may create a backup at</span>
 <span class="sd">  :py:data:`core.config.paths.SLIDE_BACKUP_FILE` (only if the backup file does not already exist).</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">sys</span><span class="o">,</span><span class="w"> </span><span class="nn">os</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
@@ -111,7 +111,7 @@
 <span class="c1"># ─────────────────────────────────────────────</span>
 <span class="c1"># Add project root to sys.path</span>
 <span class="n">CURRENT_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))</span>
-<span class="n">PROJECT_ROOT</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CURRENT_DIR</span><span class="p">,</span> <span class="s2">&quot;../..&quot;</span><span class="p">))</span>
+<span class="n">PROJECT_ROOT</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CURRENT_DIR</span><span class="p">,</span> <span class="s2">"../.."</span><span class="p">))</span>
 
 <span class="k">if</span> <span class="n">PROJECT_ROOT</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">:</span>
     <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">PROJECT_ROOT</span><span class="p">)</span>
@@ -123,13 +123,13 @@
 <div class="viewcode-block" id="parse_verse_output">
 <a class="viewcode-back" href="../../../controller.helper.verse_interruptor.html#controller.helper.verse_interruptor.parse_verse_output">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">parse_verse_output</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">max_chars</span><span class="o">=</span><span class="mi">60</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Parse ``file_path`` into a list of slide dictionaries.</span>
 
 <span class="sd">    The input file is interpreted as:</span>
 
-<span class="sd">    - Structured mode: If the last line matches one of the expected header forms (e.g., ``&lt;book&gt; &lt;chapter&gt;장 ...``, ``&lt;book&gt; &lt;chapter&gt;:&lt;verse&gt;, ...``), the earlier lines are treated as verse body lines. Each verse line is wrapped to ``max_chars`` and converted into style &quot;verse&quot; slides.</span>
-<span class="sd">    - Fallback mode: If no header pattern matches, the entire file is treated as a free-form emergency message. Non-empty lines are grouped into slides (up to 2 lines per slide or until the approximate character budget is met) using style &quot;lyrics&quot; and a fixed church caption.</span>
+<span class="sd">    - Structured mode: If the last line matches one of the expected header forms (e.g., ``&lt;book&gt; &lt;chapter&gt;장 ...``, ``&lt;book&gt; &lt;chapter&gt;:&lt;verse&gt;, ...``), the earlier lines are treated as verse body lines. Each verse line is wrapped to ``max_chars`` and converted into style "verse" slides.</span>
+<span class="sd">    - Fallback mode: If no header pattern matches, the entire file is treated as a free-form emergency message. Non-empty lines are grouped into slides (up to 2 lines per slide or until the approximate character budget is met) using style "lyrics" and a fixed church caption.</span>
 
 <span class="sd">    Note:</span>
 <span class="sd">        - This function does not validate that the file is a real Bible reference.</span>
@@ -148,14 +148,14 @@
 <span class="sd">        list[dict]:</span>
 <span class="sd">            List of slide dictionaries. Each slide dict contains:</span>
 
-<span class="sd">            - &quot;style&quot;: &quot;verse&quot; (structured) or &quot;lyrics&quot; (fallback)</span>
-<span class="sd">            - &quot;caption&quot;: caption string</span>
-<span class="sd">            - &quot;headline&quot;: display text (possibly multi-line in fallback mode)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">            - "style": "verse" (structured) or "lyrics" (fallback)</span>
+<span class="sd">            - "caption": caption string</span>
+<span class="sd">            - "headline": display text (possibly multi-line in fallback mode)</span>
+<span class="sd">    """</span>
     <span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
     <span class="kn">import</span><span class="w"> </span><span class="nn">textwrap</span>
 
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">lines</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">lines</span><span class="p">:</span>
@@ -165,8 +165,8 @@
     <span class="n">body_lines</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>         <span class="c1"># Actual verse content</span>
 
     <span class="c1"># Try to match structured formats</span>
-    <span class="n">m1</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\((.+?)\s+(\d+)장&quot;</span><span class="p">,</span> <span class="n">header_line</span><span class="p">)</span>               <span class="c1"># Multi-verse format</span>
-    <span class="n">m2</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\((.+?)\s+(\d+):(\d+),&quot;</span><span class="p">,</span> <span class="n">header_line</span><span class="p">)</span>         <span class="c1"># Single-verse format</span>
+    <span class="n">m1</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s2">"\((.+?)\s+(\d+)장"</span><span class="p">,</span> <span class="n">header_line</span><span class="p">)</span>               <span class="c1"># Multi-verse format</span>
+    <span class="n">m2</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s2">"\((.+?)\s+(\d+):(\d+),"</span><span class="p">,</span> <span class="n">header_line</span><span class="p">)</span>         <span class="c1"># Single-verse format</span>
 
     <span class="k">if</span> <span class="n">m1</span><span class="p">:</span>
         <span class="n">book</span><span class="p">,</span> <span class="n">chapter</span> <span class="o">=</span> <span class="n">m1</span><span class="o">.</span><span class="n">groups</span><span class="p">()</span>
@@ -180,24 +180,24 @@
     <span class="k">if</span> <span class="n">book</span> <span class="ow">and</span> <span class="n">chapter</span><span class="p">:</span>
         <span class="c1"># ─── Structured Bible verse formatting ───</span>
         <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">body_lines</span><span class="p">:</span>
-            <span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;(\d+)\s+\u25CB?(.*)&quot;</span><span class="p">,</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>  <span class="c1"># Match &#39;1 ○text&#39; or &#39;1 text&#39;</span>
+            <span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s2">"(\d+)\s+\u25CB?(.*)"</span><span class="p">,</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>  <span class="c1"># Match '1 ○text' or '1 text'</span>
             <span class="k">if</span> <span class="n">m</span><span class="p">:</span>
                 <span class="n">verse_num</span><span class="p">,</span> <span class="n">verse_text</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">groups</span><span class="p">()</span>
-                <span class="n">caption</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">book</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">chapter</span><span class="si">}</span><span class="s2">장 </span><span class="si">{</span><span class="n">verse_num</span><span class="si">}</span><span class="s2">절&quot;</span>
+                <span class="n">caption</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">book</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">chapter</span><span class="si">}</span><span class="s2">장 </span><span class="si">{</span><span class="n">verse_num</span><span class="si">}</span><span class="s2">절"</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">caption</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">book</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">chapter</span><span class="si">}</span><span class="s2">장&quot;</span>
+                <span class="n">caption</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">book</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">chapter</span><span class="si">}</span><span class="s2">장"</span>
                 <span class="n">verse_text</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
 
             <span class="n">chunks</span> <span class="o">=</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">wrap</span><span class="p">(</span><span class="n">verse_text</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span> <span class="n">max_chars</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">chunks</span><span class="p">:</span>
                 <span class="n">slides</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
-                    <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;verse&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;caption&quot;</span><span class="p">:</span> <span class="n">caption</span><span class="p">,</span>
-                    <span class="s2">&quot;headline&quot;</span><span class="p">:</span> <span class="n">chunk</span>
+                    <span class="s2">"style"</span><span class="p">:</span> <span class="s2">"verse"</span><span class="p">,</span>
+                    <span class="s2">"caption"</span><span class="p">:</span> <span class="n">caption</span><span class="p">,</span>
+                    <span class="s2">"headline"</span><span class="p">:</span> <span class="n">chunk</span>
                 <span class="p">})</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="c1"># ─── Fallback for unstructured emergency messages ───</span>
-        <span class="n">fallback_text</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="n">fallback_text</span> <span class="o">=</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
         <span class="n">raw_lines</span> <span class="o">=</span> <span class="n">fallback_text</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span>
         <span class="n">buffer</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">char_count</span> <span class="o">=</span> <span class="mi">0</span>
@@ -213,18 +213,18 @@
             <span class="c1"># Group 2 lines or if character length exceeded</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">or</span> <span class="n">char_count</span> <span class="o">&gt;=</span> <span class="n">max_chars</span><span class="p">:</span>
                 <span class="n">slides</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
-                    <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;lyrics&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;caption&quot;</span><span class="p">:</span> <span class="s2">&quot;대한예수교장로회(통합) 을지로교회&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;headline&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span>
+                    <span class="s2">"style"</span><span class="p">:</span> <span class="s2">"lyrics"</span><span class="p">,</span>
+                    <span class="s2">"caption"</span><span class="p">:</span> <span class="s2">"대한예수교장로회(통합) 을지로교회"</span><span class="p">,</span>
+                    <span class="s2">"headline"</span><span class="p">:</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span>
                 <span class="p">})</span>
                 <span class="n">buffer</span> <span class="o">=</span> <span class="p">[]</span>
                 <span class="n">char_count</span> <span class="o">=</span> <span class="mi">0</span>
 
         <span class="k">if</span> <span class="n">buffer</span><span class="p">:</span>
             <span class="n">slides</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
-                <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;lyrics&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;caption&quot;</span><span class="p">:</span> <span class="s2">&quot;대한예수교장로회(통합) 을지로교회&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;headline&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span>
+                <span class="s2">"style"</span><span class="p">:</span> <span class="s2">"lyrics"</span><span class="p">,</span>
+                <span class="s2">"caption"</span><span class="p">:</span> <span class="s2">"대한예수교장로회(통합) 을지로교회"</span><span class="p">,</span>
+                <span class="s2">"headline"</span><span class="p">:</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span>
             <span class="p">})</span>
 
     <span class="k">return</span> <span class="n">slides</span></div>
@@ -233,7 +233,7 @@
 <div class="viewcode-block" id="backup_slide_if_not_emergency">
 <a class="viewcode-back" href="../../../controller.helper.verse_interruptor.html#controller.helper.verse_interruptor.backup_slide_if_not_emergency">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">backup_slide_if_not_emergency</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Create a backup copy of the current slide JSON file if no backup exists yet.</span>
 
 <span class="sd">    This function writes :py:data:`core.config.paths.SLIDE_BACKUP_FILE` only when that file does not</span>
@@ -241,28 +241,28 @@
 
 <span class="sd">    The backup is intended to support restoration after an emergency subtitle</span>
 <span class="sd">    session ends. The current implementation skips backup if the loaded slides</span>
-<span class="sd">    contain any slide whose &quot;style&quot; equals &quot;verse_interrupt&quot;.</span>
+<span class="sd">    contain any slide whose "style" equals "verse_interrupt".</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        None</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">SLIDE_BACKUP_FILE</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">SLIDE_FILE</span><span class="p">):</span>
-                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">SLIDE_FILE</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">SLIDE_FILE</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
                     <span class="n">current_slides</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-                <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;style&quot;</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">&quot;verse_interrupt&quot;</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">current_slides</span><span class="p">):</span>
-                    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">SLIDE_BACKUP_FILE</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"style"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"verse_interrupt"</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">current_slides</span><span class="p">):</span>
+                    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">SLIDE_BACKUP_FILE</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
                         <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">current_slides</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[✓] 일반 자막 백업 완료&quot;</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">"[✓] 일반 자막 백업 완료"</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[!] 백업 실패: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[!] 백업 실패: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="save_slides">
 <a class="viewcode-back" href="../../../controller.helper.verse_interruptor.html#controller.helper.verse_interruptor.save_slides">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">save_slides</span><span class="p">(</span><span class="n">slides</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Save a list of slide dictionaries to a JSON file.</span>
 
 <span class="sd">    Args:</span>
@@ -273,27 +273,27 @@
 
 <span class="sd">    Returns:</span>
 <span class="sd">        None</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="sd">    """</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">slides</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="VerseFileHandler">
 <a class="viewcode-back" href="../../../controller.helper.verse_interruptor.html#controller.helper.verse_interruptor.VerseFileHandler">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">VerseFileHandler</span><span class="p">(</span><span class="n">FileSystemEventHandler</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Watchdog event handler for updates to :py:data:`core.config.paths.VERSE_FILE`.</span>
 
 <span class="sd">    The legacy ``verse_output.txt -&gt; slide_output.json`` bridge is disabled, so</span>
 <span class="sd">    this handler now observes changes for compatibility logging only and never</span>
 <span class="sd">    mutates the live slide output file.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
 <div class="viewcode-block" id="VerseFileHandler.on_modified">
 <a class="viewcode-back" href="../../../controller.helper.verse_interruptor.html#controller.helper.verse_interruptor.VerseFileHandler.on_modified">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">on_modified</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Handle `watchdog &lt;https://pypi.org/project/watchdog/&gt;`_ &quot;modified&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Handle `watchdog &lt;https://pypi.org/project/watchdog/&gt;`_ "modified"</span>
 <span class="sd">        events for :py:data:`core.config.paths.VERSE_FILE`.</span>
 
 <span class="sd">        If the modified path matches the target file, this callback logs the</span>
@@ -307,16 +307,16 @@
 
 <span class="sd">        Returns:</span>
 <span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">src_path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">VERSE_FILE</span><span class="p">):</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[INFO] verse_output.txt changed. Legacy slide sync is disabled.&quot;</span><span class="p">)</span></div>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"[INFO] verse_output.txt changed. Legacy slide sync is disabled."</span><span class="p">)</span></div>
 </div>
 
 
 <div class="viewcode-block" id="start_interruptor">
 <a class="viewcode-back" href="../../../controller.helper.verse_interruptor.html#controller.helper.verse_interruptor.start_interruptor">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">start_interruptor</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Start the `watchdog &lt;https://pypi.org/project/watchdog/&gt;`_ observer loop for</span>
 <span class="sd">    :py:data:`core.config.paths.VERSE_FILE`.</span>
 
@@ -326,25 +326,25 @@
 
 <span class="sd">    Returns:</span>
 <span class="sd">        None</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[DEBUG] Watching directory: </span><span class="si">{</span><span class="n">paths</span><span class="o">.</span><span class="n">BASE_DIR</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="sd">    """</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[DEBUG] Watching directory: </span><span class="si">{</span><span class="n">paths</span><span class="o">.</span><span class="n">BASE_DIR</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
     <span class="n">observer</span> <span class="o">=</span> <span class="n">Observer</span><span class="p">()</span>
     <span class="n">handler</span> <span class="o">=</span> <span class="n">VerseFileHandler</span><span class="p">()</span>
     <span class="n">observer</span><span class="o">.</span><span class="n">schedule</span><span class="p">(</span><span class="n">handler</span><span class="p">,</span> <span class="n">paths</span><span class="o">.</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">observer</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[READY] Watching for verse_output.txt changes... Press Ctrl+C to exit.&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"[READY] Watching for verse_output.txt changes... Press Ctrl+C to exit."</span><span class="p">)</span>
 
     <span class="k">try</span><span class="p">:</span>
         <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
             <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
     <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
         <span class="n">observer</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">[EXIT] Interruptor stopped.&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">[EXIT] Interruptor stopped."</span><span class="p">)</span>
     <span class="n">observer</span><span class="o">.</span><span class="n">join</span><span class="p">()</span></div>
 
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
     <span class="n">start_interruptor</span><span class="p">()</span>
 </pre></div>
 

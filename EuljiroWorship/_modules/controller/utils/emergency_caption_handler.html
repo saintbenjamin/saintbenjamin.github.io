@@ -70,7 +70,7 @@
              
   <h1>Source code for controller.utils.emergency_caption_handler</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 <span class="sd">:File: EuljiroWorship/controller/utils/emergency_caption_handler.py</span>
 <span class="sd">:Author: Benjamin Jaedon Choi - https://github.com/saintbenjamin</span>
 <span class="sd">:Affiliated Church: The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</span>
@@ -89,7 +89,7 @@
 
 <span class="sd">The handler acts as a thin orchestration layer between the UI dialog</span>
 <span class="sd">(:class:`controller.ui.emergency_caption_dialog.EmergencyCaptionDialog`), the slide factory, and the slide output file.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
 
@@ -100,7 +100,7 @@
 <div class="viewcode-block" id="EmergencyCaptionHandler">
 <a class="viewcode-back" href="../../../controller.utils.emergency_caption_handler.html#controller.utils.emergency_caption_handler.EmergencyCaptionHandler">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">EmergencyCaptionHandler</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Manages the emergency caption input and export workflow.</span>
 
 <span class="sd">    This class coordinates the full emergency-caption lifecycle:</span>
@@ -123,12 +123,12 @@
 <span class="sd">        slide_factory (EmergencySlideFactory):</span>
 <span class="sd">            Factory instance responsible for constructing emergency</span>
 <span class="sd">            slide dictionaries from validated dialog input.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
 <div class="viewcode-block" id="EmergencyCaptionHandler.__init__">
 <a class="viewcode-back" href="../../../controller.utils.emergency_caption_handler.html#controller.utils.emergency_caption_handler.EmergencyCaptionHandler.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize the emergency caption handler.</span>
 
 <span class="sd">        Args:</span>
@@ -138,7 +138,7 @@
 
 <span class="sd">        Returns:</span>
 <span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="n">parent</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">slide_factory</span> <span class="o">=</span> <span class="n">EmergencySlideFactory</span><span class="p">()</span></div>
 
@@ -146,7 +146,7 @@
 <div class="viewcode-block" id="EmergencyCaptionHandler.handle">
 <a class="viewcode-back" href="../../../controller.utils.emergency_caption_handler.html#controller.utils.emergency_caption_handler.EmergencyCaptionHandler.handle">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">handle</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Launch the emergency caption dialog and export generated slides.</span>
 
 <span class="sd">        This method:</span>
@@ -162,7 +162,7 @@
 <span class="sd">            list[dict] | None:</span>
 <span class="sd">                List of generated emergency slide dictionaries if confirmed,</span>
 <span class="sd">                or None if the dialog was cancelled.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="c1"># Launch emergency input dialog</span>
         <span class="n">dialog</span> <span class="o">=</span> <span class="n">EmergencyCaptionDialog</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">dialog</span><span class="o">.</span><span class="n">exec</span><span class="p">():</span>
@@ -172,7 +172,7 @@
         <span class="n">slides</span> <span class="o">=</span> <span class="n">dialog</span><span class="o">.</span><span class="n">get_final_slides</span><span class="p">()</span>
 
         <span class="c1"># Write emergency slides to output file</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">SLIDE_FILE</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">SLIDE_FILE</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">slides</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">slides</span></div>

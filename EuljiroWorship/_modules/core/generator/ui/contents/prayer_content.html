@@ -70,7 +70,7 @@
              
   <h1>Source code for core.generator.ui.contents.prayer_content</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 <span class="sd">:File: EuljiroWorship/core/generator/ui/contents/prayer_content.py</span>
 <span class="sd">:Author: Benjamin Jaedon Choi - https://github.com/saintbenjamin</span>
 <span class="sd">:Affiliated Church: The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</span>
@@ -79,15 +79,15 @@
 <span class="sd">:E-mail: euljirochurch [at] G.M.A.I.L. (replace [at] with @ and G.M.A.I.L as you understood.)</span>
 <span class="sd">:License: MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</span>
 
-<span class="sd">UI content widget for editing &quot;prayer&quot;-style slides.</span>
+<span class="sd">UI content widget for editing "prayer"-style slides.</span>
 
 <span class="sd">This module defines :class:`core.generator.ui.contents.prayer_content.PrayerContent`, a `QWidget &lt;https://doc.qt.io/qt-6/qwidget.html&gt;`_ that provides input fields</span>
 <span class="sd">for creating prayer slides. A prayer slide typically consists of a short</span>
-<span class="sd">title (e.g., &quot;기도&quot;) and the name of the person leading the prayer.</span>
+<span class="sd">title (e.g., "기도") and the name of the person leading the prayer.</span>
 
 <span class="sd">The widget integrates with :class:`core.generator.utils.slide_input_submitter.SlideInputSubmitter` to support automatic</span>
 <span class="sd">submission and synchronization with the parent slide generator.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">QWidget</span><span class="p">,</span> <span class="n">QVBoxLayout</span><span class="p">,</span> <span class="n">QLabel</span><span class="p">,</span> <span class="n">QLineEdit</span>
 
@@ -96,14 +96,14 @@
 <div class="viewcode-block" id="PrayerContent">
 <a class="viewcode-back" href="../../../../../core.generator.ui.contents.prayer_content.html#core.generator.ui.contents.prayer_content.PrayerContent">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">PrayerContent</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Content editor widget for &quot;prayer&quot;-style slides.</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Content editor widget for "prayer"-style slides.</span>
 
 <span class="sd">    This widget collects minimal structured information required for a</span>
 <span class="sd">    prayer slide:</span>
 
-<span class="sd">    - A short prayer title (e.g., &quot;기도&quot;)</span>
-<span class="sd">    - The name of the prayer leader (e.g., &quot;이승철 장로&quot;)</span>
+<span class="sd">    - A short prayer title (e.g., "기도")</span>
+<span class="sd">    - The name of the prayer leader (e.g., "이승철 장로")</span>
 
 <span class="sd">    The widget focuses purely on data entry and synchronization. It does</span>
 <span class="sd">    not perform any rendering logic itself; instead, it produces a simple</span>
@@ -133,12 +133,12 @@
 <span class="sd">        submitter (SlideInputSubmitter):</span>
 <span class="sd">            Auto-submit helper that observes input widgets and supplies updated</span>
 <span class="sd">            slide data via ``build_prayer_slide()``.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
 <div class="viewcode-block" id="PrayerContent.__init__">
 <a class="viewcode-back" href="../../../../../core.generator.ui.contents.prayer_content.html#core.generator.ui.contents.prayer_content.PrayerContent.__init__">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">generator_window</span><span class="p">,</span> <span class="n">caption</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;기도&quot;</span><span class="p">,</span> <span class="n">headline</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">generator_window</span><span class="p">,</span> <span class="n">caption</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"기도"</span><span class="p">,</span> <span class="n">headline</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize the prayer content editor.</span>
 
 <span class="sd">        Args:</span>
@@ -148,13 +148,13 @@
 <span class="sd">                Reference to the generator main window, used for slide submission</span>
 <span class="sd">                and auto-save behavior.</span>
 <span class="sd">            caption (str):</span>
-<span class="sd">                Initial prayer title. Defaults to &quot;기도&quot;.</span>
+<span class="sd">                Initial prayer title. Defaults to "기도".</span>
 <span class="sd">            headline (str):</span>
 <span class="sd">                Initial name of the prayer leader.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">caption</span> <span class="o">=</span> <span class="n">caption</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">headline</span> <span class="o">=</span> <span class="n">headline</span>
@@ -165,11 +165,11 @@
 <div class="viewcode-block" id="PrayerContent.build_ui">
 <a class="viewcode-back" href="../../../../../core.generator.ui.contents.prayer_content.html#core.generator.ui.contents.prayer_content.PrayerContent.build_ui">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">build_ui</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Construct the UI elements for editing a prayer slide.</span>
 
 <span class="sd">        This method creates labeled input fields for the prayer title and</span>
-<span class="sd">        the prayer leader&#39;s name, arranges them vertically, and registers</span>
+<span class="sd">        the prayer leader's name, arranges them vertically, and registers</span>
 <span class="sd">        the inputs with :class:`core.generator.utils.slide_input_submitter.SlideInputSubmitter` to enable automatic submission.</span>
 
 <span class="sd">        Args:</span>
@@ -177,13 +177,13 @@
 
 <span class="sd">        Returns:</span>
 <span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">layout</span> <span class="o">=</span> <span class="n">QVBoxLayout</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">caption_label</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="s2">&quot;제목 (기본값: 기도)&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">caption_label</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="s2">"제목 (기본값: 기도)"</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">caption_edit</span> <span class="o">=</span> <span class="n">QLineEdit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">caption</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">headline_label</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="s2">&quot;기도인도자 (예: 이승철 장로)&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">headline_label</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="s2">"기도인도자 (예: 이승철 장로)"</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">headline_edit</span> <span class="o">=</span> <span class="n">QLineEdit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">headline</span><span class="p">)</span>
 
         <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">caption_label</span><span class="p">)</span>
@@ -195,8 +195,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">layout</span><span class="p">)</span>
 
         <span class="n">inputs</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">caption_edit</span><span class="p">,</span>
-            <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">headline_edit</span><span class="p">,</span>
+            <span class="s2">"title"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">caption_edit</span><span class="p">,</span>
+            <span class="s2">"body"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">headline_edit</span><span class="p">,</span>
         <span class="p">}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">submitter</span> <span class="o">=</span> <span class="n">SlideInputSubmitter</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">generator_window</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">build_prayer_slide</span><span class="p">)</span></div>
 
@@ -204,7 +204,7 @@
 <div class="viewcode-block" id="PrayerContent.build_prayer_slide">
 <a class="viewcode-back" href="../../../../../core.generator.ui.contents.prayer_content.html#core.generator.ui.contents.prayer_content.PrayerContent.build_prayer_slide">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">build_prayer_slide</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Conditionally generate prayer slide data.</span>
 
 <span class="sd">        If both the title and leader name fields are empty, no slide data is</span>
@@ -218,9 +218,9 @@
 <span class="sd">            dict | None:</span>
 <span class="sd">                Slide data dictionary if at least one field is non-empty;</span>
 <span class="sd">                otherwise, None.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_slide_data</span><span class="p">()</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;caption&quot;</span><span class="p">]</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;headline&quot;</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">data</span><span class="p">[</span><span class="s2">"caption"</span><span class="p">]</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">data</span><span class="p">[</span><span class="s2">"headline"</span><span class="p">]:</span>
             <span class="k">return</span> <span class="kc">None</span>
         <span class="k">return</span> <span class="n">data</span></div>
 
@@ -228,7 +228,7 @@
 <div class="viewcode-block" id="PrayerContent.get_slide_data">
 <a class="viewcode-back" href="../../../../../core.generator.ui.contents.prayer_content.html#core.generator.ui.contents.prayer_content.PrayerContent.get_slide_data">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_slide_data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Generate the slide data dictionary for a prayer slide.</span>
 
 <span class="sd">        Args:</span>
@@ -241,11 +241,11 @@
 <span class="sd">                - style</span>
 <span class="sd">                - caption (prayer title)</span>
 <span class="sd">                - headline (prayer leader name)</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="p">{</span>
-            <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;prayer&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;caption&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">caption_edit</span><span class="o">.</span><span class="n">text</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span>
-            <span class="s2">&quot;headline&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">headline_edit</span><span class="o">.</span><span class="n">text</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="s2">"style"</span><span class="p">:</span> <span class="s2">"prayer"</span><span class="p">,</span>
+            <span class="s2">"caption"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">caption_edit</span><span class="o">.</span><span class="n">text</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span>
+            <span class="s2">"headline"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">headline_edit</span><span class="o">.</span><span class="n">text</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
         <span class="p">}</span></div>
 </div>
 

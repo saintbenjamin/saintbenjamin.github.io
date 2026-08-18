@@ -70,7 +70,7 @@
              
   <h1>Source code for core.generator.ui.contents.verse_content</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 <span class="sd">:File: EuljiroWorship/core/generator/ui/contents/verse_content.py</span>
 <span class="sd">:Author: Benjamin Jaedon Choi - https://github.com/saintbenjamin</span>
 <span class="sd">:Affiliated Church: The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</span>
@@ -79,7 +79,7 @@
 <span class="sd">:E-mail: euljirochurch [at] G.M.A.I.L. (replace [at] with @ and G.M.A.I.L as you understood.)</span>
 <span class="sd">:License: MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</span>
 
-<span class="sd">UI content widget for editing &quot;verse&quot;-style slides.</span>
+<span class="sd">UI content widget for editing "verse"-style slides.</span>
 
 <span class="sd">This module defines :class:`core.generator.ui.contents.verse_content.VerseContent`, a `QWidget &lt;https://doc.qt.io/qt-6/qwidget.html&gt;`_ that provides an interface</span>
 <span class="sd">for entering Bible references, fetching the corresponding verses from</span>
@@ -91,7 +91,7 @@
 <span class="sd">- Parsing and validating Scripture references</span>
 <span class="sd">- Expanding verse ranges and full chapters</span>
 <span class="sd">- Writing fetched verses to :py:data:`core.config.paths.VERSE_FILE` for emergency overlay use</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
@@ -110,13 +110,13 @@
 <div class="viewcode-block" id="VerseContent">
 <a class="viewcode-back" href="../../../../../core.generator.ui.contents.verse_content.html#core.generator.ui.contents.verse_content.VerseContent">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">VerseContent</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Content editor widget for &quot;verse&quot; (Bible verse) slides.</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Content editor widget for "verse" (Bible verse) slides.</span>
 
 <span class="sd">    This widget provides a verse-focused editor workflow:</span>
 
 <span class="sd">    - Select a Bible version (JSON file under :py:data:`core.config.paths.BIBLE_DATA_DIR`)</span>
-<span class="sd">    - Enter a Bible reference string (e.g., &quot;요한복음 3:16&quot;)</span>
+<span class="sd">    - Enter a Bible reference string (e.g., "요한복음 3:16")</span>
 <span class="sd">    - Press Enter to parse the reference, fetch verses, and preview the result</span>
 <span class="sd">    - Export the fetched/assembled text into the slide system and also write the</span>
 <span class="sd">      same formatted output to :py:data:`core.config.paths.VERSE_FILE` for</span>
@@ -125,12 +125,12 @@
 <span class="sd">    Verse resolution is performed by :func:`core.utils.bible_parser.parse_reference`</span>
 <span class="sd">    and verse retrieval uses :class:`core.utils.bible_data_loader.BibleDataLoader`.</span>
 <span class="sd">    When the parsed reference indicates a full chapter request (``(1, -1)``),</span>
-<span class="sd">    the widget expands the verse range using the chapter&#39;s maximum verse count</span>
+<span class="sd">    the widget expands the verse range using the chapter's maximum verse count</span>
 <span class="sd">    when available.</span>
 
 <span class="sd">    Note:</span>
 <span class="sd">        - The preview text shown in the editor is a joined block of</span>
-<span class="sd">          ``&quot;{caption}\\n{headline}&quot;`` entries separated by blank lines.</span>
+<span class="sd">          ``"{caption}\\n{headline}"`` entries separated by blank lines.</span>
 <span class="sd">        - The exported slide data returned by :meth:`get_slide_data` uses the</span>
 <span class="sd">          raw user-entered reference as ``caption`` and the preview text block</span>
 <span class="sd">          as ``headline`` (the detailed per-verse slide dicts are kept separately</span>
@@ -147,7 +147,7 @@
 <span class="sd">        VERSION_ALIASES (dict):</span>
 <span class="sd">            Mapping of Bible version display names to shorter aliases, loaded</span>
 <span class="sd">            from :py:data:`core.config.paths.ALIASES_VERSION_FILE`. Used when</span>
-<span class="sd">            composing per-verse caption strings (e.g., ``&quot;(개역개정)&quot;``).</span>
+<span class="sd">            composing per-verse caption strings (e.g., ``"(개역개정)"``).</span>
 <span class="sd">        versions (list[str]):</span>
 <span class="sd">            Available version keys discovered from JSON files in</span>
 <span class="sd">            :py:data:`core.config.paths.BIBLE_DATA_DIR`.</span>
@@ -168,12 +168,12 @@
 <span class="sd">            fetch. Each entry follows the standard slide schema</span>
 <span class="sd">            (``style``, ``caption``, ``headline``). Present only after a</span>
 <span class="sd">            successful fetch.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
 <div class="viewcode-block" id="VerseContent.__init__">
 <a class="viewcode-back" href="../../../../../core.generator.ui.contents.verse_content.html#core.generator.ui.contents.verse_content.VerseContent.__init__">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">generator_window</span><span class="p">,</span> <span class="n">caption</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">headline</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">generator_window</span><span class="p">,</span> <span class="n">caption</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span> <span class="n">headline</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize the verse slide editor.</span>
 
 <span class="sd">        Args:</span>
@@ -189,12 +189,12 @@
 
 <span class="sd">        Returns:</span>
 <span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">caption</span> <span class="o">=</span> <span class="n">caption</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">headline</span> <span class="o">=</span> <span class="n">headline</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">generator_window</span> <span class="o">=</span> <span class="n">generator_window</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">ALIASES_VERSION_FILE</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">ALIASES_VERSION_FILE</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">VERSION_ALIASES</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>        
         <span class="bp">self</span><span class="o">.</span><span class="n">build_ui</span><span class="p">()</span></div>
 
@@ -202,7 +202,7 @@
 <div class="viewcode-block" id="VerseContent.build_ui">
 <a class="viewcode-back" href="../../../../../core.generator.ui.contents.verse_content.html#core.generator.ui.contents.verse_content.VerseContent.build_ui">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">build_ui</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Construct the UI layout for verse editing.</span>
 
 <span class="sd">        The layout includes:</span>
@@ -213,24 +213,24 @@
 
 <span class="sd">        The reference input is connected to dynamic verse fetching when</span>
 <span class="sd">        the user presses Enter.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">layout</span> <span class="o">=</span> <span class="n">QVBoxLayout</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">version_label</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="s2">&quot;성경 버전&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">version_label</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="s2">"성경 버전"</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">version_dropdown</span> <span class="o">=</span> <span class="n">QComboBox</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">versions</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">([</span>
-            <span class="n">fname</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.json&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="n">fname</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">".json"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">fname</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">BIBLE_DATA_DIR</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">fname</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.json&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">fname</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">".json"</span><span class="p">)</span>
         <span class="p">])</span>
-        <span class="n">DEFAULT_VERSION</span> <span class="o">=</span> <span class="s2">&quot;대한민국 개역개정 (1998)&quot;</span>
+        <span class="n">DEFAULT_VERSION</span> <span class="o">=</span> <span class="s2">"대한민국 개역개정 (1998)"</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">version_dropdown</span><span class="o">.</span><span class="n">addItems</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">versions</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">version_dropdown</span><span class="o">.</span><span class="n">setCurrentText</span><span class="p">(</span><span class="n">DEFAULT_VERSION</span> <span class="k">if</span> <span class="n">DEFAULT_VERSION</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">versions</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">versions</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">caption_label</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="s2">&quot;제목 (예: 요한복음 3:16)&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">caption_label</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="s2">"제목 (예: 요한복음 3:16)"</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">caption_edit</span> <span class="o">=</span> <span class="n">QLineEdit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">caption</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">headline_label</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="s2">&quot;본문&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">headline_label</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="s2">"본문"</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">headline_edit</span> <span class="o">=</span> <span class="n">QTextEdit</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">headline_edit</span><span class="o">.</span><span class="n">setFont</span><span class="p">(</span><span class="n">get_font_from_settings</span><span class="p">())</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">headline_edit</span><span class="o">.</span><span class="n">setPlainText</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">headline</span><span class="p">)</span>
@@ -246,7 +246,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">layout</span><span class="p">)</span>
 
         <span class="n">inputs</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">headline_edit</span><span class="p">,</span>
+            <span class="s2">"body"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">headline_edit</span><span class="p">,</span>
         <span class="p">}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">submitter</span> <span class="o">=</span> <span class="n">SlideInputSubmitter</span><span class="p">(</span>
             <span class="n">inputs</span><span class="p">,</span>
@@ -259,7 +259,7 @@
 <div class="viewcode-block" id="VerseContent.try_fetch_verse_output">
 <a class="viewcode-back" href="../../../../../core.generator.ui.contents.verse_content.html#core.generator.ui.contents.verse_content.VerseContent.try_fetch_verse_output">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">try_fetch_verse_output</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Fetch and display Bible verses based on the entered reference.</span>
 
 <span class="sd">        This method:</span>
@@ -271,14 +271,14 @@
 <span class="sd">        - Writes the output to :py:data:`core.config.paths.VERSE_FILE`</span>
 
 <span class="sd">        Displays an error message in the preview area if parsing or loading fails.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">ref</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">caption_edit</span><span class="o">.</span><span class="n">text</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
         <span class="n">version</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">version_dropdown</span><span class="o">.</span><span class="n">currentText</span><span class="p">()</span>
         <span class="n">alias</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">VERSION_ALIASES</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">version</span><span class="p">,</span> <span class="n">version</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">parsed</span> <span class="o">=</span> <span class="n">parse_reference</span><span class="p">(</span><span class="n">ref</span><span class="p">)</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">parsed</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">headline_edit</span><span class="o">.</span><span class="n">setPlainText</span><span class="p">(</span><span class="s2">&quot;⚠️ 유효하지 않은 성경 구절&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">headline_edit</span><span class="o">.</span><span class="n">setPlainText</span><span class="p">(</span><span class="s2">"⚠️ 유효하지 않은 성경 구절"</span><span class="p">)</span>
                 <span class="k">return</span>
 
             <span class="n">book_id</span><span class="p">,</span> <span class="n">chapter</span><span class="p">,</span> <span class="n">verses</span> <span class="o">=</span> <span class="n">parsed</span>
@@ -290,41 +290,41 @@
                     <span class="n">max_verse</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">loader</span><span class="o">.</span><span class="n">get_verses</span><span class="p">(</span><span class="n">version</span><span class="p">)[</span><span class="n">book_id</span><span class="p">][</span><span class="nb">str</span><span class="p">(</span><span class="n">chapter</span><span class="p">)])</span>
                     <span class="n">verses</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_verse</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
                 <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[ERROR] Failed to expand full chapter: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[ERROR] Failed to expand full chapter: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
                     <span class="k">return</span>
             <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">verses</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
                 <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="n">verses</span>
                 <span class="n">verses</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
 
-            <span class="n">book_alias</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">get_standard_book</span><span class="p">(</span><span class="n">book_id</span><span class="p">,</span> <span class="s2">&quot;ko&quot;</span><span class="p">)</span>
+            <span class="n">book_alias</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">get_standard_book</span><span class="p">(</span><span class="n">book_id</span><span class="p">,</span> <span class="s2">"ko"</span><span class="p">)</span>
             <span class="n">slides</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">verses</span><span class="p">:</span>
                 <span class="n">text</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">get_verse</span><span class="p">(</span><span class="n">version</span><span class="p">,</span> <span class="n">book_id</span><span class="p">,</span> <span class="n">chapter</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">text</span><span class="p">:</span>
-                    <span class="n">reftext</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">book_alias</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">chapter</span><span class="si">}</span><span class="s2">장 </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s2">절 (</span><span class="si">{</span><span class="n">alias</span><span class="si">}</span><span class="s2">)&quot;</span>
+                    <span class="n">reftext</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">book_alias</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">chapter</span><span class="si">}</span><span class="s2">장 </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s2">절 (</span><span class="si">{</span><span class="n">alias</span><span class="si">}</span><span class="s2">)"</span>
                     <span class="n">slides</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
-                        <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;verse&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;caption&quot;</span><span class="p">:</span> <span class="n">reftext</span><span class="p">,</span>
-                        <span class="s2">&quot;headline&quot;</span><span class="p">:</span> <span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                        <span class="s2">"style"</span><span class="p">:</span> <span class="s2">"verse"</span><span class="p">,</span>
+                        <span class="s2">"caption"</span><span class="p">:</span> <span class="n">reftext</span><span class="p">,</span>
+                        <span class="s2">"headline"</span><span class="p">:</span> <span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
                     <span class="p">})</span>
 
-            <span class="n">full_text</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">s</span><span class="p">[</span><span class="s1">&#39;caption&#39;</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="si">{</span><span class="n">s</span><span class="p">[</span><span class="s1">&#39;headline&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">slides</span><span class="p">)</span>
+            <span class="n">full_text</span> <span class="o">=</span> <span class="s2">"</span><span class="se">\n\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">s</span><span class="p">[</span><span class="s1">'caption'</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="si">{</span><span class="n">s</span><span class="p">[</span><span class="s1">'headline'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">slides</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">headline_edit</span><span class="o">.</span><span class="n">setPlainText</span><span class="p">(</span><span class="n">full_text</span><span class="p">)</span>
 
-            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">VERSE_FILE</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">VERSE_FILE</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
                 <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">full_text</span><span class="p">)</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">generated_slides</span> <span class="o">=</span> <span class="n">slides</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✅ verse_output.txt updated and slides generated&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"✅ verse_output.txt updated and slides generated"</span><span class="p">)</span>
 
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">headline_edit</span><span class="o">.</span><span class="n">setPlainText</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;❌ 구절 처리 오류: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">headline_edit</span><span class="o">.</span><span class="n">setPlainText</span><span class="p">(</span><span class="sa">f</span><span class="s2">"❌ 구절 처리 오류: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="VerseContent.build_verse_slide">
 <a class="viewcode-back" href="../../../../../core.generator.ui.contents.verse_content.html#core.generator.ui.contents.verse_content.VerseContent.build_verse_slide">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">build_verse_slide</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Conditionally build verse slide data.</span>
 
 <span class="sd">        Returns slide data only if either the reference or verse text</span>
@@ -333,9 +333,9 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            dict | None:</span>
 <span class="sd">                Slide data dictionary if valid; otherwise, None.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_slide_data</span><span class="p">()</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;caption&quot;</span><span class="p">]</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;headline&quot;</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">data</span><span class="p">[</span><span class="s2">"caption"</span><span class="p">]</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">data</span><span class="p">[</span><span class="s2">"headline"</span><span class="p">]:</span>
             <span class="k">return</span> <span class="kc">None</span>
         <span class="k">return</span> <span class="n">data</span></div>
 
@@ -343,21 +343,21 @@
 <div class="viewcode-block" id="VerseContent.get_slide_data">
 <a class="viewcode-back" href="../../../../../core.generator.ui.contents.verse_content.html#core.generator.ui.contents.verse_content.VerseContent.get_slide_data">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_slide_data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Return the current verse slide data.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            dict:</span>
 <span class="sd">                Dictionary containing:</span>
 
-<span class="sd">                - style: &quot;verse&quot;</span>
+<span class="sd">                - style: "verse"</span>
 <span class="sd">                - caption: Bible reference string</span>
 <span class="sd">                - headline: Verse text content</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="p">{</span>
-            <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;verse&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;caption&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">caption_edit</span><span class="o">.</span><span class="n">text</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span>
-            <span class="s2">&quot;headline&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">headline_edit</span><span class="o">.</span><span class="n">toPlainText</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="s2">"style"</span><span class="p">:</span> <span class="s2">"verse"</span><span class="p">,</span>
+            <span class="s2">"caption"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">caption_edit</span><span class="o">.</span><span class="n">text</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span>
+            <span class="s2">"headline"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">headline_edit</span><span class="o">.</span><span class="n">toPlainText</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
         <span class="p">}</span></div>
 </div>
 

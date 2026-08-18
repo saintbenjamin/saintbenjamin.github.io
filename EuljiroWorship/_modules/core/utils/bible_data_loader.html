@@ -70,7 +70,7 @@
              
   <h1>Source code for core.utils.bible_data_loader</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 <span class="sd">:File: EuljiroWorship/core/utils/bible_data_loader.py</span>
 <span class="sd">:Author: Benjamin Jaedon Choi - https://github.com/saintbenjamin</span>
 <span class="sd">:Affiliated Church: The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</span>
@@ -92,7 +92,7 @@
 
 <span class="sd">All Bible text JSON files are loaded lazily and cached in memory on first access</span>
 <span class="sd">to minimize startup cost and disk I/O.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
@@ -103,7 +103,7 @@
 <div class="viewcode-block" id="BibleDataLoader">
 <a class="viewcode-back" href="../../../core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">BibleDataLoader</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Lazy-loading data manager for Bible text and metadata.</span>
 
 <span class="sd">    This loader provides on-demand (lazy) access to Bible JSON resources and caches</span>
@@ -139,7 +139,7 @@
 
 <span class="sd">        standard_book (dict):</span>
 <span class="sd">            Parsed content of ``standard_book.json``. Maps canonical book IDs to a</span>
-<span class="sd">            per-language display name dictionary (e.g., ``{&quot;John&quot;: {&quot;ko&quot;: &quot;...&quot;, &quot;en&quot;: &quot;John&quot;}}``).</span>
+<span class="sd">            per-language display name dictionary (e.g., ``{"John": {"ko": "...", "en": "John"}}``).</span>
 
 <span class="sd">        sort_order (dict):</span>
 <span class="sd">            Parsed content of the configured sort-order JSON (e.g., prefix → rank).</span>
@@ -152,12 +152,12 @@
 <span class="sd">    Note:</span>
 <span class="sd">        - Version JSON is loaded lazily by :meth:`get_verses`. Use :meth:`load_version` or :meth:`load_versions` to preload explicitly.</span>
 <span class="sd">        - Some methods exist primarily for cross-project compatibility and are not necessarily used by every code path.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
 <div class="viewcode-block" id="BibleDataLoader.__init__">
 <a class="viewcode-back" href="../../../core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">json_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">text_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize the Bible data loader.</span>
 
 <span class="sd">        Optional directory overrides can be supplied for testing or</span>
@@ -172,15 +172,15 @@
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
 <span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">json_dir</span> <span class="o">=</span> <span class="n">json_dir</span> <span class="ow">or</span> <span class="n">paths</span><span class="o">.</span><span class="n">BIBLE_NAME_DIR</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">text_dir</span> <span class="o">=</span> <span class="n">text_dir</span> <span class="ow">or</span> <span class="n">paths</span><span class="o">.</span><span class="n">BIBLE_DATA_DIR</span>
 
         <span class="c1"># Load version and book aliases, canonical book names, and sort order</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">aliases_version</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_json</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">json_dir</span><span class="p">,</span> <span class="s2">&quot;aliases_version.json&quot;</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">aliases_book</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_json</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">json_dir</span><span class="p">,</span> <span class="s2">&quot;aliases_book.json&quot;</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">standard_book</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_json</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">json_dir</span><span class="p">,</span> <span class="s2">&quot;standard_book.json&quot;</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sort_order</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_json</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">json_dir</span><span class="p">,</span> <span class="s2">&quot;your_sort_order.json&quot;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">aliases_version</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_json</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">json_dir</span><span class="p">,</span> <span class="s2">"aliases_version.json"</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">aliases_book</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_json</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">json_dir</span><span class="p">,</span> <span class="s2">"aliases_book.json"</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">standard_book</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_json</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">json_dir</span><span class="p">,</span> <span class="s2">"standard_book.json"</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sort_order</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_json</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">json_dir</span><span class="p">,</span> <span class="s2">"your_sort_order.json"</span><span class="p">))</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># Cache for loaded Bible texts</span></div>
 
@@ -188,7 +188,7 @@
 <div class="viewcode-block" id="BibleDataLoader.get_verses">
 <a class="viewcode-back" href="../../../core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader.get_verses">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_verses</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Retrieve all verses for a given Bible version.</span>
 
 <span class="sd">        The version data is loaded from disk only once and cached</span>
@@ -196,19 +196,19 @@
 
 <span class="sd">        Args:</span>
 <span class="sd">            version (str):</span>
-<span class="sd">                Bible version key (e.g. &quot;NKRV&quot;, &quot;KJV&quot;).</span>
+<span class="sd">                Bible version key (e.g. "NKRV", "KJV").</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            dict:</span>
 <span class="sd">                Nested dictionary structure containing the full Bible</span>
 <span class="sd">                text for the specified version.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="n">version</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">text_dir</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">version</span><span class="si">}</span><span class="s2">.json&quot;</span><span class="p">),</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">text_dir</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">version</span><span class="si">}</span><span class="s2">.json"</span><span class="p">),</span> <span class="s2">"r"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">version</span><span class="p">]</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
             <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                <span class="n">log_error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[BibleDataLoader] Failed to load version &#39;</span><span class="si">{</span><span class="n">version</span><span class="si">}</span><span class="s2">&#39;: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">log_error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[BibleDataLoader] Failed to load version '</span><span class="si">{</span><span class="n">version</span><span class="si">}</span><span class="s2">': </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">version</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">version</span><span class="p">]</span></div>
 
@@ -216,7 +216,7 @@
 <div class="viewcode-block" id="BibleDataLoader.get_books_for_version">
 <a class="viewcode-back" href="../../../core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader.get_books_for_version">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_books_for_version</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Return the list of books available in a given Bible version.</span>
 
 <span class="sd">        Args:</span>
@@ -226,7 +226,7 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            list:</span>
 <span class="sd">                List of book identifiers present in the version.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">verses</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_verses</span><span class="p">(</span><span class="n">version</span><span class="p">)</span>
         <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">verses</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="k">if</span> <span class="n">verses</span> <span class="k">else</span> <span class="p">[]</span></div>
 
@@ -234,7 +234,7 @@
 <div class="viewcode-block" id="BibleDataLoader._load_json">
 <a class="viewcode-back" href="../../../core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader._load_json">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">_load_json</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Safely load a JSON file and return its contents.</span>
 
 <span class="sd">        If loading fails, an empty dictionary is returned and a warning</span>
@@ -247,38 +247,38 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            dict:</span>
 <span class="sd">                Parsed JSON content, or an empty dict on failure.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[Warning] Failed to load </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[Warning] Failed to load </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
             <span class="k">return</span> <span class="p">{}</span></div>
 
 
 <div class="viewcode-block" id="BibleDataLoader.get_standard_book">
 <a class="viewcode-back" href="../../../core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader.get_standard_book">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_standard_book</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">book_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">lang_code</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Return the localized canonical name of a Bible book.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            book_id (str):</span>
-<span class="sd">                Canonical book identifier (e.g. &quot;John&quot;).</span>
+<span class="sd">                Canonical book identifier (e.g. "John").</span>
 <span class="sd">            lang_code (str):</span>
-<span class="sd">                Language code (e.g. &quot;ko&quot;, &quot;en&quot;).</span>
+<span class="sd">                Language code (e.g. "ko", "en").</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            str:</span>
 <span class="sd">                Localized book name if available, otherwise the book ID.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">standard_book</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">book_id</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">lang_code</span><span class="p">,</span> <span class="n">book_id</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="BibleDataLoader.get_sort_key">
 <a class="viewcode-back" href="../../../core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader.get_sort_key">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_sort_key</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Return a sorting key function for Bible version names.</span>
 
 <span class="sd">        The key function sorts versions using a predefined regional</span>
@@ -293,7 +293,7 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            function:</span>
 <span class="sd">                Callable suitable for use as the ``key`` argument in ``sorted()``.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">def</span><span class="w"> </span><span class="nf">sort_key</span><span class="p">(</span><span class="n">version_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
             <span class="n">prefix</span> <span class="o">=</span> <span class="n">version_name</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
             <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sort_order</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="mi">99</span><span class="p">),</span> <span class="n">version_name</span><span class="p">)</span>
@@ -303,7 +303,7 @@
 <div class="viewcode-block" id="BibleDataLoader.load_version">
 <a class="viewcode-back" href="../../../core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader.load_version">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">load_version</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version_key</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Explicitly load a Bible version into memory.</span>
 
 <span class="sd">        This method forces loading even if lazy access has not yet occurred.</span>
@@ -314,20 +314,20 @@
 
 <span class="sd">        Returns:</span>
 <span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">text_dir</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">version_key</span><span class="si">}</span><span class="s2">.json&quot;</span><span class="p">)</span>
+<span class="sd">        """</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">text_dir</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">version_key</span><span class="si">}</span><span class="s2">.json"</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">version_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[ERROR] Failed to load version </span><span class="si">{</span><span class="n">version_key</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[ERROR] Failed to load version </span><span class="si">{</span><span class="n">version_key</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">version_key</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span></div>
 
 
 <div class="viewcode-block" id="BibleDataLoader.load_versions">
 <a class="viewcode-back" href="../../../core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader.load_versions">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">load_versions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target_versions</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Load multiple Bible versions into memory.</span>
 
 <span class="sd">        If no target list is provided, all available versions</span>
@@ -339,13 +339,13 @@
 
 <span class="sd">        Returns:</span>
 <span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="n">target_versions</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
             <span class="n">target_versions</span> <span class="o">=</span> <span class="p">[</span>
-                <span class="n">fname</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.json&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+                <span class="n">fname</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">".json"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span>
                 <span class="k">for</span> <span class="n">fname</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">text_dir</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">fname</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.json&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">fname</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">".json"</span><span class="p">)</span>
             <span class="p">]</span>
         <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">target_versions</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">load_version</span><span class="p">(</span><span class="n">v</span><span class="p">)</span></div>
@@ -354,7 +354,7 @@
 <div class="viewcode-block" id="BibleDataLoader.get_max_verse">
 <a class="viewcode-back" href="../../../core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader.get_max_verse">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_max_verse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">book</span><span class="p">,</span> <span class="n">chapter</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Return the maximum verse number for a given chapter.</span>
 
 <span class="sd">        Args:</span>
@@ -368,7 +368,7 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            int:</span>
 <span class="sd">                Maximum verse number, or 0 if unavailable.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">version_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">version</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">version_data</span><span class="p">:</span>
             <span class="k">return</span> <span class="mi">0</span>
@@ -384,7 +384,7 @@
 <div class="viewcode-block" id="BibleDataLoader.extract_verses">
 <a class="viewcode-back" href="../../../core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader.extract_verses">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">extract_verses</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">versions</span><span class="p">,</span> <span class="n">book</span><span class="p">,</span> <span class="n">chapter</span><span class="p">,</span> <span class="n">verse_range</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Extract a specific verse range across multiple Bible versions.</span>
 
 <span class="sd">        Args:</span>
@@ -400,7 +400,7 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            dict:</span>
 <span class="sd">                Nested dictionary of extracted verses grouped by version.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">chapter_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">chapter</span><span class="p">)</span>
         <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="n">verse_range</span>
@@ -433,7 +433,7 @@
 <div class="viewcode-block" id="BibleDataLoader.get_verses_for_display">
 <a class="viewcode-back" href="../../../core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader.get_verses_for_display">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_verses_for_display</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">versions</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">book</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">chapter</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verse_range</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Return either a filtered verse subset or full Bible data.</span>
 
 <span class="sd">        Args:</span>
@@ -449,7 +449,7 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            dict:</span>
 <span class="sd">                Structured Bible text data.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="n">versions</span> <span class="ow">and</span> <span class="n">book</span> <span class="ow">and</span> <span class="n">chapter</span> <span class="ow">and</span> <span class="n">verse_range</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">extract_verses</span><span class="p">(</span><span class="n">versions</span><span class="p">,</span> <span class="n">book</span><span class="p">,</span> <span class="n">chapter</span><span class="p">,</span> <span class="n">verse_range</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
@@ -458,8 +458,8 @@
 
 <div class="viewcode-block" id="BibleDataLoader.get_book_alias">
 <a class="viewcode-back" href="../../../core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader.get_book_alias">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">get_book_alias</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lang_code</span><span class="o">=</span><span class="s2">&quot;ko&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_book_alias</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lang_code</span><span class="o">=</span><span class="s2">"ko"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Return mapping of book IDs to localized aliases.</span>
 
 <span class="sd">        Args:</span>
@@ -469,7 +469,7 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            dict:</span>
 <span class="sd">                Mapping of ``book_id`` -&gt; localized name.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="p">{</span>
             <span class="n">book_id</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">lang_code</span><span class="p">,</span> <span class="n">book_id</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">book_id</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">standard_book</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
@@ -478,8 +478,8 @@
 
 <div class="viewcode-block" id="BibleDataLoader.get_version_alias">
 <a class="viewcode-back" href="../../../core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader.get_version_alias">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">get_version_alias</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lang_code</span><span class="o">=</span><span class="s2">&quot;ko&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_version_alias</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lang_code</span><span class="o">=</span><span class="s2">"ko"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Return mapping of Bible version keys to localized aliases.</span>
 
 <span class="sd">        Args:</span>
@@ -489,11 +489,11 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            dict:</span>
 <span class="sd">                Mapping of ``version_key`` -&gt; alias string.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">alias_map</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">aliases_version</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-                <span class="n">alias_map</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;aliases&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">lang_code</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+                <span class="n">alias_map</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"aliases"</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">lang_code</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">alias_map</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
         <span class="k">return</span> <span class="n">alias_map</span></div>
@@ -503,7 +503,7 @@
 <div class="viewcode-block" id="BibleDataLoader.get_verse">
 <a class="viewcode-back" href="../../../core.utils.bible_data_loader.html#core.utils.bible_data_loader.BibleDataLoader.get_verse">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_verse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">book</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">chapter</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">verse</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Retrieve a single verse from the loaded Bible data.</span>
 
 <span class="sd">        This method exists for compatibility with the EuljiroWorship system.</span>
@@ -521,7 +521,7 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            str | None:</span>
 <span class="sd">                Verse text if found, otherwise None.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">verses</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_verses</span><span class="p">(</span><span class="n">version</span><span class="p">)</span>
         <span class="k">return</span> <span class="p">(</span>
             <span class="n">verses</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">book</span><span class="p">,</span> <span class="p">{})</span>

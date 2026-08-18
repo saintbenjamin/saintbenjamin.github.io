@@ -70,7 +70,7 @@
              
   <h1>Source code for core.plugin.slide_controller_launcher</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 <span class="sd">:File: EuljiroWorship/core/plugin/controller_launcher.py</span>
 <span class="sd">:Author: Benjamin Jaedon Choi - https://github.com/saintbenjamin</span>
 <span class="sd">:Affiliated Church: The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</span>
@@ -89,7 +89,7 @@
 <span class="sd">The launcher is intended to be used by the slide generator or main</span>
 <span class="sd">application entry point, allowing the controller to behave as a managed</span>
 <span class="sd">child process rather than a standalone application.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">subprocess</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">QMessageBox</span>
@@ -98,7 +98,7 @@
 <div class="viewcode-block" id="SlideControllerLauncher">
 <a class="viewcode-back" href="../../../core.plugin.slide_controller_launcher.html#core.plugin.slide_controller_launcher.SlideControllerLauncher">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">SlideControllerLauncher</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Manages the lifecycle of the slide controller subprocess.</span>
 
 <span class="sd">    This class provides a minimal supervisory layer for launching and tracking</span>
@@ -123,12 +123,12 @@
 <span class="sd">        proc (subprocess.Popen | None):</span>
 <span class="sd">            Handle to the currently running slide controller subprocess, or None</span>
 <span class="sd">            if no controller has been launched.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
 <div class="viewcode-block" id="SlideControllerLauncher.__init__">
 <a class="viewcode-back" href="../../../core.plugin.slide_controller_launcher.html#core.plugin.slide_controller_launcher.SlideControllerLauncher.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize the slide controller launcher.</span>
 
 <span class="sd">        The launcher starts with no active subprocess. Once the slide</span>
@@ -137,14 +137,14 @@
 
 <span class="sd">        Returns:</span>
 <span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">proc</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># Currently tracked controller process</span></div>
 
 
 <div class="viewcode-block" id="SlideControllerLauncher.is_running">
 <a class="viewcode-back" href="../../../core.plugin.slide_controller_launcher.html#core.plugin.slide_controller_launcher.SlideControllerLauncher.is_running">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">is_running</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Check whether the slide controller process is currently running.</span>
 
 <span class="sd">        This method verifies that a subprocess has been launched and that</span>
@@ -154,14 +154,14 @@
 <span class="sd">            bool:</span>
 <span class="sd">                True if the controller subprocess is active,</span>
 <span class="sd">                False otherwise.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proc</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">proc</span><span class="o">.</span><span class="n">poll</span><span class="p">()</span> <span class="ow">is</span> <span class="kc">None</span></div>
 
 
 <div class="viewcode-block" id="SlideControllerLauncher.launch_if_needed">
 <a class="viewcode-back" href="../../../core.plugin.slide_controller_launcher.html#core.plugin.slide_controller_launcher.SlideControllerLauncher.launch_if_needed">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">launch_if_needed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent_widget</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Launch the slide controller subprocess if it is not already running.</span>
 
 <span class="sd">        If the controller process is already active, this method exits</span>
@@ -178,29 +178,29 @@
 
 <span class="sd">        Returns:</span>
 <span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_running</span><span class="p">():</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[i] Slide controller is already running&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"[i] Slide controller is already running"</span><span class="p">)</span>
             <span class="k">return</span>
 
         <span class="k">try</span><span class="p">:</span>
             <span class="c1"># Attempt to launch the controller subprocess</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">proc</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span>
-                <span class="n">build_entry_command</span><span class="p">(</span><span class="s2">&quot;--controller&quot;</span><span class="p">),</span>
+                <span class="n">build_entry_command</span><span class="p">(</span><span class="s2">"--controller"</span><span class="p">),</span>
                 <span class="n">cwd</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">get_runtime_base_dir</span><span class="p">())</span>
             <span class="p">)</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[✓] Slide controller started&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"[✓] Slide controller started"</span><span class="p">)</span>
 
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="c1"># Display error dialog if parent is a Qt widget</span>
             <span class="k">if</span> <span class="n">parent_widget</span><span class="p">:</span>
                 <span class="n">QMessageBox</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
                     <span class="n">parent_widget</span><span class="p">,</span>
-                    <span class="s2">&quot;Failed to launch slide controller&quot;</span><span class="p">,</span>
-                    <span class="sa">f</span><span class="s2">&quot;Error:</span><span class="se">\n</span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span>
+                    <span class="s2">"Failed to launch slide controller"</span><span class="p">,</span>
+                    <span class="sa">f</span><span class="s2">"Error:</span><span class="se">\n</span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span>
                 <span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[!] Failed to launch slide controller: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[!] Failed to launch slide controller: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span></div>
 </div>
 
 </pre></div>

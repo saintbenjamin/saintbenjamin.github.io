@@ -70,7 +70,7 @@
              
   <h1>Source code for core.generator.utils.icon_helpers</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 <span class="sd">:File: EuljiroWorship/core/generator/utils/icon_helpers.py</span>
 <span class="sd">:Author: Benjamin Jaedon Choi - https://github.com/saintbenjamin</span>
 <span class="sd">:Affiliated Church: The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</span>
@@ -84,7 +84,7 @@
 <span class="sd">This module provides small helper functions used throughout the slide</span>
 <span class="sd">generator UI to standardize icon handling, including resolving icon</span>
 <span class="sd">paths and applying SVG icons to `QPushButton` instances.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">QPushButton</span>
@@ -95,7 +95,7 @@
 <div class="viewcode-block" id="set_svg_icon">
 <a class="viewcode-back" href="../../../../core.generator.utils.icon_helpers.html#core.generator.utils.icon_helpers.set_svg_icon">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">set_svg_icon</span><span class="p">(</span><span class="n">button</span><span class="p">:</span> <span class="n">QPushButton</span><span class="p">,</span> <span class="n">svg_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">24</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Apply an SVG icon to a QPushButton.</span>
 
 <span class="sd">    This helper sets the button icon, icon size, and optionally a text</span>
@@ -113,7 +113,7 @@
 
 <span class="sd">    Returns:</span>
 <span class="sd">        None</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">icon</span> <span class="o">=</span> <span class="n">QIcon</span><span class="p">(</span><span class="n">svg_path</span><span class="p">)</span>
     <span class="n">button</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">icon</span><span class="p">)</span>
     <span class="n">button</span><span class="o">.</span><span class="n">setIconSize</span><span class="p">(</span><span class="n">QSize</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">size</span><span class="p">))</span>
@@ -122,13 +122,13 @@
         <span class="n">button</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
         <span class="n">button</span><span class="o">.</span><span class="n">setLayoutDirection</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">LeftToRight</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">button</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span></div>
+        <span class="n">button</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="get_icon_path">
 <a class="viewcode-back" href="../../../../core.generator.utils.icon_helpers.html#core.generator.utils.icon_helpers.get_icon_path">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">get_icon_path</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Resolve the full filesystem path of an icon file.</span>
 
 <span class="sd">    This function prepends the configured icon directory path to the</span>
@@ -136,12 +136,12 @@
 
 <span class="sd">    Args:</span>
 <span class="sd">        name (str):</span>
-<span class="sd">            Icon filename (e.g., ``&quot;save.svg&quot;``).</span>
+<span class="sd">            Icon filename (e.g., ``"save.svg"``).</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        str:</span>
 <span class="sd">            Absolute path to the icon file.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">ICON_DIR</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span></div>
 
 </pre></div>

@@ -70,7 +70,7 @@
              
   <h1>Source code for core.generator.ui.slide_table_manager</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 <span class="sd">:File: EuljiroWorship/core/generator/ui/slide_table_manager.py</span>
 <span class="sd">:Author: Benjamin Jaedon Choi - https://github.com/saintbenjamin</span>
 <span class="sd">:Affiliated Church: The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</span>
@@ -86,7 +86,7 @@
 <span class="sd">It encapsulates all row operations (insert, delete, move, swap) and</span>
 <span class="sd">coordinates with the parent generator to enforce edit restrictions</span>
 <span class="sd">(e.g., when the slide controller is running).</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">QComboBox</span><span class="p">,</span> <span class="n">QTableWidgetItem</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">core.config.style_map</span><span class="w"> </span><span class="kn">import</span> <span class="n">STYLE_LIST</span>
@@ -94,7 +94,7 @@
 <div class="viewcode-block" id="SlideTableManager">
 <a class="viewcode-back" href="../../../../core.generator.ui.slide_table_manager.html#core.generator.ui.slide_table_manager.SlideTableManager">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">SlideTableManager</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Manage row-level operations on the slide table.</span>
 
 <span class="sd">    This class owns all logic related to modifying the table rows that</span>
@@ -109,12 +109,12 @@
 <span class="sd">        generator :</span>
 <span class="sd">            Reference to the main slide generator window, used for edit</span>
 <span class="sd">            permission checks and coordination.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
 <div class="viewcode-block" id="SlideTableManager.__init__">
 <a class="viewcode-back" href="../../../../core.generator.ui.slide_table_manager.html#core.generator.ui.slide_table_manager.SlideTableManager.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">generator</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize the table manager.</span>
 
 <span class="sd">        Args:</span>
@@ -123,7 +123,7 @@
 <span class="sd">            generator:</span>
 <span class="sd">                The main :class:`core.generator.ui.slide_generator.SlideGenerator` window. This object is queried to</span>
 <span class="sd">                determine whether edits are currently allowed.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">table</span> <span class="o">=</span> <span class="n">table</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">generator</span> <span class="o">=</span> <span class="n">generator</span></div>
 
@@ -131,7 +131,7 @@
 <div class="viewcode-block" id="SlideTableManager.add_row">
 <a class="viewcode-back" href="../../../../core.generator.ui.slide_table_manager.html#core.generator.ui.slide_table_manager.SlideTableManager.add_row">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">add_row</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Append a new slide row to the end of the table.</span>
 
 <span class="sd">        If the slide controller is currently running, the operation is</span>
@@ -142,7 +142,7 @@
 
 <span class="sd">        Returns:</span>
 <span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">generator</span><span class="o">.</span><span class="n">warn_if_controller_running</span><span class="p">():</span>
             <span class="k">return</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">insert_row</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">rowCount</span><span class="p">())</span></div>
@@ -151,7 +151,7 @@
 <div class="viewcode-block" id="SlideTableManager.insert_row">
 <a class="viewcode-back" href="../../../../core.generator.ui.slide_table_manager.html#core.generator.ui.slide_table_manager.SlideTableManager.insert_row">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">insert_row</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">above</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">connect_signal</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Insert a new slide row at a specified position.</span>
 
 <span class="sd">        If no explicit row index is provided, the insertion position is</span>
@@ -170,7 +170,7 @@
 
 <span class="sd">        Returns:</span>
 <span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">generator</span><span class="o">.</span><span class="n">warn_if_controller_running</span><span class="p">():</span>
             <span class="k">return</span>
 
@@ -189,13 +189,13 @@
         <span class="n">combo</span><span class="o">.</span><span class="n">setMinimumWidth</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">connect_signal</span><span class="p">:</span>
-            <span class="n">combo</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s2">&quot;row_index&quot;</span><span class="p">,</span> <span class="n">row</span><span class="p">)</span>
+            <span class="n">combo</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s2">"row_index"</span><span class="p">,</span> <span class="n">row</span><span class="p">)</span>
             <span class="n">combo</span><span class="o">.</span><span class="n">currentIndexChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span> <span class="n">_</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="n">row</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_combo_change_by_row</span><span class="p">(</span><span class="n">r</span><span class="p">))</span>
 
         <span class="c1"># Add cells to row</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setCellWidget</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">combo</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">QTableWidgetItem</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">QTableWidgetItem</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">QTableWidgetItem</span><span class="p">(</span><span class="s2">""</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">QTableWidgetItem</span><span class="p">(</span><span class="s2">""</span><span class="p">))</span>
 
         <span class="c1"># Focus the new row</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setCurrentCell</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></div>
@@ -204,7 +204,7 @@
 <div class="viewcode-block" id="SlideTableManager.handle_combo_change_by_row">
 <a class="viewcode-back" href="../../../../core.generator.ui.slide_table_manager.html#core.generator.ui.slide_table_manager.SlideTableManager.handle_combo_change_by_row">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">handle_combo_change_by_row</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Handle a style change in the combo box for a specific row.</span>
 
 <span class="sd">        This method is triggered when the style combo box in the given row</span>
@@ -217,17 +217,17 @@
 
 <span class="sd">        Returns:</span>
 <span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">combo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">cellWidget</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">combo</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[!] No combo found in row </span><span class="si">{</span><span class="n">row</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[!] No combo found in row </span><span class="si">{</span><span class="n">row</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
             <span class="k">return</span></div>
 
 
 <div class="viewcode-block" id="SlideTableManager.delete_selected_row">
 <a class="viewcode-back" href="../../../../core.generator.ui.slide_table_manager.html#core.generator.ui.slide_table_manager.SlideTableManager.delete_selected_row">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">delete_selected_row</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Delete the currently selected slide row from the table.</span>
 
 <span class="sd">        If no row is selected, this method does nothing. If the slide</span>
@@ -238,7 +238,7 @@
 
 <span class="sd">        Returns:</span>
 <span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">generator</span><span class="o">.</span><span class="n">warn_if_controller_running</span><span class="p">():</span>
             <span class="k">return</span>
         <span class="n">selected</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">currentRow</span><span class="p">()</span>
@@ -249,7 +249,7 @@
 <div class="viewcode-block" id="SlideTableManager.duplicate_selected_row">
 <a class="viewcode-back" href="../../../../core.generator.ui.slide_table_manager.html#core.generator.ui.slide_table_manager.SlideTableManager.duplicate_selected_row">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">duplicate_selected_row</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Duplicate the currently selected slide row immediately below itself.</span>
 
 <span class="sd">        The duplicated row copies:</span>
@@ -266,7 +266,7 @@
 
 <span class="sd">        Returns:</span>
 <span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">generator</span><span class="o">.</span><span class="n">warn_if_controller_running</span><span class="p">():</span>
             <span class="k">return</span>
 
@@ -280,8 +280,8 @@
         <span class="n">caption_item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">source_row</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
         <span class="n">headline_item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">source_row</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 
-        <span class="n">caption</span> <span class="o">=</span> <span class="n">caption_item</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="k">if</span> <span class="n">caption_item</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
-        <span class="n">headline</span> <span class="o">=</span> <span class="n">headline_item</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="k">if</span> <span class="n">headline_item</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">caption</span> <span class="o">=</span> <span class="n">caption_item</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="k">if</span> <span class="n">caption_item</span> <span class="k">else</span> <span class="s2">""</span>
+        <span class="n">headline</span> <span class="o">=</span> <span class="n">headline_item</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="k">if</span> <span class="n">headline_item</span> <span class="k">else</span> <span class="s2">""</span>
 
         <span class="c1"># Insert a new row directly below the selected row.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">insert_row</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="n">source_row</span><span class="p">,</span> <span class="n">above</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -299,7 +299,7 @@
 <div class="viewcode-block" id="SlideTableManager.move_row_up">
 <a class="viewcode-back" href="../../../../core.generator.ui.slide_table_manager.html#core.generator.ui.slide_table_manager.SlideTableManager.move_row_up">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">move_row_up</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Move the selected slide row up by one position.</span>
 
 <span class="sd">        If the selected row is already at the top, no action is taken.</span>
@@ -309,7 +309,7 @@
 
 <span class="sd">        Returns:</span>
 <span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">row</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">currentRow</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">row</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">swap_rows</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">row</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
@@ -319,7 +319,7 @@
 <div class="viewcode-block" id="SlideTableManager.move_row_down">
 <a class="viewcode-back" href="../../../../core.generator.ui.slide_table_manager.html#core.generator.ui.slide_table_manager.SlideTableManager.move_row_down">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">move_row_down</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Move the selected slide row down by one position.</span>
 
 <span class="sd">        If the selected row is already at the bottom, no action is taken.</span>
@@ -329,7 +329,7 @@
 
 <span class="sd">        Returns:</span>
 <span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">row</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">currentRow</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">row</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">rowCount</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">swap_rows</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">row</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
@@ -339,7 +339,7 @@
 <div class="viewcode-block" id="SlideTableManager.swap_rows">
 <a class="viewcode-back" href="../../../../core.generator.ui.slide_table_manager.html#core.generator.ui.slide_table_manager.SlideTableManager.swap_rows">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">swap_rows</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row1</span><span class="p">,</span> <span class="n">row2</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Swap the contents of two rows in the slide table.</span>
 
 <span class="sd">        This includes swapping:</span>
@@ -359,7 +359,7 @@
 <span class="sd">        Raises:</span>
 <span class="sd">            IndexError:</span>
 <span class="sd">                If either row index is out of bounds for the table.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">col</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="c1"># Swap combo box selections</span>
@@ -374,8 +374,8 @@
                 <span class="c1"># Swap cell text</span>
                 <span class="n">item1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">row1</span><span class="p">,</span> <span class="n">col</span><span class="p">)</span>
                 <span class="n">item2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">row2</span><span class="p">,</span> <span class="n">col</span><span class="p">)</span>
-                <span class="n">t1</span> <span class="o">=</span> <span class="n">item1</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="k">if</span> <span class="n">item1</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
-                <span class="n">t2</span> <span class="o">=</span> <span class="n">item2</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="k">if</span> <span class="n">item2</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+                <span class="n">t1</span> <span class="o">=</span> <span class="n">item1</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="k">if</span> <span class="n">item1</span> <span class="k">else</span> <span class="s2">""</span>
+                <span class="n">t2</span> <span class="o">=</span> <span class="n">item2</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="k">if</span> <span class="n">item2</span> <span class="k">else</span> <span class="s2">""</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">row1</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">QTableWidgetItem</span><span class="p">(</span><span class="n">t2</span><span class="p">))</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">row2</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">QTableWidgetItem</span><span class="p">(</span><span class="n">t1</span><span class="p">))</span></div>
 </div>

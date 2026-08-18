@@ -70,7 +70,7 @@
              
   <h1>Source code for controller.utils.keyword_result_model_light</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 <span class="sd">:File: EuljiroWorship/controller/utils/keyword_result_model_light.py</span>
 <span class="sd">:Author: Benjamin Jaedon Choi - https://github.com/saintbenjamin</span>
 <span class="sd">:Affiliated Church: The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</span>
@@ -90,7 +90,7 @@
 
 <span class="sd">The model is intentionally lightweight and stateless, suitable for frequent</span>
 <span class="sd">replacement when running new keyword searches.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtCore</span><span class="w"> </span><span class="kn">import</span> <span class="n">Qt</span><span class="p">,</span> <span class="n">QAbstractTableModel</span><span class="p">,</span> <span class="n">QModelIndex</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
@@ -100,7 +100,7 @@
 <div class="viewcode-block" id="KeywordResultTableModelLight">
 <a class="viewcode-back" href="../../../controller.utils.keyword_result_model_light.html#controller.utils.keyword_result_model_light.KeywordResultTableModelLight">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">KeywordResultTableModelLight</span><span class="p">(</span><span class="n">QAbstractTableModel</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Lightweight table model for Bible keyword search results.</span>
 
 <span class="sd">    This model presents search results in exactly two columns:</span>
@@ -129,12 +129,12 @@
 
 <span class="sd">        book_names (dict[str, str]):</span>
 <span class="sd">            Mapping from internal book IDs to localized (Korean) book names.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
 <div class="viewcode-block" id="KeywordResultTableModelLight.__init__">
 <a class="viewcode-back" href="../../../controller.utils.keyword_result_model_light.html#controller.utils.keyword_result_model_light.KeywordResultTableModelLight.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">results</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize the model with keyword search results.</span>
 
 <span class="sd">        Args:</span>
@@ -152,7 +152,7 @@
 
 <span class="sd">        Returns:</span>
 <span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">results</span> <span class="o">=</span> <span class="n">results</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">book_names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_book_names</span><span class="p">()</span></div>
@@ -161,7 +161,7 @@
 <div class="viewcode-block" id="KeywordResultTableModelLight.load_book_names">
 <a class="viewcode-back" href="../../../controller.utils.keyword_result_model_light.html#controller.utils.keyword_result_model_light.KeywordResultTableModelLight.load_book_names">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">load_book_names</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Load localized Bible book names from the standard book definition file.</span>
 
 <span class="sd">        Reads the JSON file defined by :py:data:`core.config.paths.STANDARD_BOOK_FILE` and extracts</span>
@@ -171,12 +171,12 @@
 <span class="sd">            dict[str, str]:</span>
 <span class="sd">                Mapping from internal book ID to Korean book name.</span>
 <span class="sd">                Returns an empty dictionary if loading fails.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">STANDARD_BOOK_FILE</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
                 <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-                <span class="k">return</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ko&quot;</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+                <span class="k">return</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"ko"</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
             <span class="k">return</span> <span class="p">{}</span></div>
 
@@ -184,7 +184,7 @@
 <div class="viewcode-block" id="KeywordResultTableModelLight.rowCount">
 <a class="viewcode-back" href="../../../controller.utils.keyword_result_model_light.html#controller.utils.keyword_result_model_light.KeywordResultTableModelLight.rowCount">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">rowCount</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="n">QModelIndex</span><span class="p">()):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Return the number of rows in the model.</span>
 
 <span class="sd">        Args:</span>
@@ -194,14 +194,14 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            int:</span>
 <span class="sd">                Number of search result entries.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="KeywordResultTableModelLight.columnCount">
 <a class="viewcode-back" href="../../../controller.utils.keyword_result_model_light.html#controller.utils.keyword_result_model_light.KeywordResultTableModelLight.columnCount">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">columnCount</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="n">QModelIndex</span><span class="p">()):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Return the number of columns in the model.</span>
 
 <span class="sd">        This model always exposes exactly two columns:</span>
@@ -216,14 +216,14 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            int:</span>
 <span class="sd">                Number of columns (always 2).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="mi">2</span></div>
 
 
 <div class="viewcode-block" id="KeywordResultTableModelLight.data">
 <a class="viewcode-back" href="../../../controller.utils.keyword_result_model_light.html#controller.utils.keyword_result_model_light.KeywordResultTableModelLight.data">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">role</span><span class="o">=</span><span class="n">Qt</span><span class="o">.</span><span class="n">DisplayRole</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Return data for the given index and role.</span>
 
 <span class="sd">        Supported roles are:</span>
@@ -246,7 +246,7 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            str | None:</span>
 <span class="sd">                Data for the given role, or None if not applicable.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">index</span><span class="o">.</span><span class="n">isValid</span><span class="p">():</span>
             <span class="k">return</span> <span class="kc">None</span>
 
@@ -255,14 +255,14 @@
 
         <span class="k">if</span> <span class="n">role</span> <span class="o">==</span> <span class="n">Qt</span><span class="o">.</span><span class="n">DisplayRole</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">col</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="n">book_id</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;book&quot;</span><span class="p">]</span>
+                <span class="n">book_id</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s2">"book"</span><span class="p">]</span>
                 <span class="n">book_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">book_names</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">book_id</span><span class="p">,</span> <span class="n">book_id</span><span class="p">)</span>
-                <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">book_name</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;chapter&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;verse&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="k">return</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">book_name</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="s1">'chapter'</span><span class="p">]</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="s1">'verse'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span>
             <span class="k">elif</span> <span class="n">col</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">]</span>
+                <span class="k">return</span> <span class="n">result</span><span class="p">[</span><span class="s2">"text"</span><span class="p">]</span>
 
         <span class="k">elif</span> <span class="n">role</span> <span class="o">==</span> <span class="n">Qt</span><span class="o">.</span><span class="n">ToolTipRole</span> <span class="ow">and</span> <span class="n">col</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;highlighted&quot;</span><span class="p">,</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">])</span>
+            <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"highlighted"</span><span class="p">,</span> <span class="n">result</span><span class="p">[</span><span class="s2">"text"</span><span class="p">])</span>
 
         <span class="k">return</span> <span class="kc">None</span></div>
 
@@ -270,7 +270,7 @@
 <div class="viewcode-block" id="KeywordResultTableModelLight.headerData">
 <a class="viewcode-back" href="../../../controller.utils.keyword_result_model_light.html#controller.utils.keyword_result_model_light.KeywordResultTableModelLight.headerData">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">headerData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">,</span> <span class="n">orientation</span><span class="p">,</span> <span class="n">role</span><span class="o">=</span><span class="n">Qt</span><span class="o">.</span><span class="n">DisplayRole</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Return header labels for the table view.</span>
 
 <span class="sd">        Provides Korean column headers for horizontal orientation.</span>
@@ -286,9 +286,9 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            str | None:</span>
 <span class="sd">                Column header label if applicable, otherwise None.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="n">role</span> <span class="o">==</span> <span class="n">Qt</span><span class="o">.</span><span class="n">DisplayRole</span> <span class="ow">and</span> <span class="n">orientation</span> <span class="o">==</span> <span class="n">Qt</span><span class="o">.</span><span class="n">Horizontal</span><span class="p">:</span>
-            <span class="k">return</span> <span class="p">[</span><span class="s2">&quot;성경구절&quot;</span><span class="p">,</span> <span class="s2">&quot;본문&quot;</span><span class="p">][</span><span class="n">section</span><span class="p">]</span>
+            <span class="k">return</span> <span class="p">[</span><span class="s2">"성경구절"</span><span class="p">,</span> <span class="s2">"본문"</span><span class="p">][</span><span class="n">section</span><span class="p">]</span>
         <span class="k">return</span> <span class="kc">None</span></div>
 </div>
 

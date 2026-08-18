@@ -70,7 +70,7 @@
              
   <h1>Source code for core.generator.ui.contents.lyrics_content</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 <span class="sd">:File: EuljiroWorship/core/generator/ui/contents/lyrics_content.py</span>
 <span class="sd">:Author: Benjamin Jaedon Choi - https://github.com/saintbenjamin</span>
 <span class="sd">:Affiliated Church: The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</span>
@@ -79,16 +79,16 @@
 <span class="sd">:E-mail: euljirochurch [at] G.M.A.I.L. (replace [at] with @ and G.M.A.I.L as you understood.)</span>
 <span class="sd">:License: MIT License with Attribution Requirement (see LICENSE file for details); Copyright (c) 2025 The Eulji-ro Presbyterian Church.</span>
 
-<span class="sd">UI content widget for editing &quot;lyrics&quot; style slides.</span>
+<span class="sd">UI content widget for editing "lyrics" style slides.</span>
 
 <span class="sd">This module defines :class:`core.generator.ui.contents.lyrics_content.LyricsContent`, a `QWidget &lt;https://doc.qt.io/qt-6/qwidget.html&gt;`_ that provides input fields</span>
 <span class="sd">for entering a song or praise title and its lyrics. The lyrics are entered</span>
 <span class="sd">as multiline text and are later split into multiple slides according to</span>
-<span class="sd">the generator&#39;s export rules (typically every two lines).</span>
+<span class="sd">the generator's export rules (typically every two lines).</span>
 
 <span class="sd">The widget integrates with :class:`core.generator.utils.slide_input_submitter.SlideInputSubmitter` to support automatic</span>
 <span class="sd">submission and synchronization with the parent generator window.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">QWidget</span><span class="p">,</span> <span class="n">QVBoxLayout</span><span class="p">,</span> <span class="n">QLabel</span><span class="p">,</span>
@@ -100,8 +100,8 @@
 <div class="viewcode-block" id="LyricsContent">
 <a class="viewcode-back" href="../../../../../core.generator.ui.contents.lyrics_content.html#core.generator.ui.contents.lyrics_content.LyricsContent">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">LyricsContent</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Content editor widget for &quot;lyrics&quot; style slides.</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Content editor widget for "lyrics" style slides.</span>
 
 <span class="sd">    This widget collects:</span>
 
@@ -110,7 +110,7 @@
 
 <span class="sd">    The widget intentionally stores lyrics as raw, unsplit text. The slide</span>
 <span class="sd">    export pipeline is responsible for splitting the lyrics into multiple</span>
-<span class="sd">    slides (e.g., two lines per slide, special split markers like &quot;(간주)&quot;,</span>
+<span class="sd">    slides (e.g., two lines per slide, special split markers like "(간주)",</span>
 <span class="sd">    etc.), so the editor remains focused on input and synchronization.</span>
 
 <span class="sd">    This widget integrates with the generator window via</span>
@@ -136,13 +136,13 @@
 <span class="sd">        submitter (SlideInputSubmitter):</span>
 <span class="sd">            Auto-submit helper that observes inputs and provides updated slide</span>
 <span class="sd">            payloads via ``build_lyrics_slide()``.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
 <div class="viewcode-block" id="LyricsContent.__init__">
 <a class="viewcode-back" href="../../../../../core.generator.ui.contents.lyrics_content.html#core.generator.ui.contents.lyrics_content.LyricsContent.__init__">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">generator_window</span><span class="p">,</span> <span class="n">caption</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">headline</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Initialize the &quot;lyrics&quot;-style content editor.</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">generator_window</span><span class="p">,</span> <span class="n">caption</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span> <span class="n">headline</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Initialize the "lyrics"-style content editor.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            parent (QWidget):</span>
@@ -157,7 +157,7 @@
 
 <span class="sd">        Returns:</span>
 <span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">caption</span> <span class="o">=</span> <span class="n">caption</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">headline</span> <span class="o">=</span> <span class="n">headline</span>
@@ -168,8 +168,8 @@
 <div class="viewcode-block" id="LyricsContent.build_ui">
 <a class="viewcode-back" href="../../../../../core.generator.ui.contents.lyrics_content.html#core.generator.ui.contents.lyrics_content.LyricsContent.build_ui">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">build_ui</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Construct the UI elements for editing a &quot;lyrics&quot;-style slide.</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Construct the UI elements for editing a "lyrics"-style slide.</span>
 
 <span class="sd">        This method creates labeled input fields for the lyrics title and</span>
 <span class="sd">        multiline lyrics content, arranges them vertically, and registers</span>
@@ -181,13 +181,13 @@
 
 <span class="sd">        Returns:</span>
 <span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">layout</span> <span class="o">=</span> <span class="n">QVBoxLayout</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">caption_label</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="s2">&quot;찬양 제목&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">caption_label</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="s2">"찬양 제목"</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">caption_edit</span> <span class="o">=</span> <span class="n">QLineEdit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">caption</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">headline_label</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="s2">&quot;찬양 가사 (2줄마다 슬라이드 분할)&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">headline_label</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="s2">"찬양 가사 (2줄마다 슬라이드 분할)"</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">headline_edit</span> <span class="o">=</span> <span class="n">QPlainTextEdit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">headline</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">headline_edit</span><span class="o">.</span><span class="n">setSizePolicy</span><span class="p">(</span><span class="n">QSizePolicy</span><span class="o">.</span><span class="n">Expanding</span><span class="p">,</span> <span class="n">QSizePolicy</span><span class="o">.</span><span class="n">Expanding</span><span class="p">)</span>
 
@@ -199,7 +199,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">layout</span><span class="p">)</span>
 
         <span class="n">inputs</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">caption_edit</span><span class="p">,</span>
+            <span class="s2">"title"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">caption_edit</span><span class="p">,</span>
         <span class="p">}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">submitter</span> <span class="o">=</span> <span class="n">SlideInputSubmitter</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">generator_window</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">build_lyrics_slide</span><span class="p">)</span></div>
 
@@ -207,8 +207,8 @@
 <div class="viewcode-block" id="LyricsContent.build_lyrics_slide">
 <a class="viewcode-back" href="../../../../../core.generator.ui.contents.lyrics_content.html#core.generator.ui.contents.lyrics_content.LyricsContent.build_lyrics_slide">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">build_lyrics_slide</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Conditionally generate &quot;lyrics&quot;-style slide data.</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Conditionally generate "lyrics"-style slide data.</span>
 
 <span class="sd">        If both the title and lyrics fields are empty, no slide data is</span>
 <span class="sd">        generated. Otherwise, the current input values are returned as a</span>
@@ -221,9 +221,9 @@
 <span class="sd">            dict | None:</span>
 <span class="sd">                Slide data dictionary if at least one field is non-empty;</span>
 <span class="sd">                otherwise, None.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_slide_data</span><span class="p">()</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;caption&quot;</span><span class="p">]</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;headline&quot;</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">data</span><span class="p">[</span><span class="s2">"caption"</span><span class="p">]</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">data</span><span class="p">[</span><span class="s2">"headline"</span><span class="p">]:</span>
             <span class="k">return</span> <span class="kc">None</span>
         <span class="k">return</span> <span class="n">data</span></div>
 
@@ -231,8 +231,8 @@
 <div class="viewcode-block" id="LyricsContent.get_slide_data">
 <a class="viewcode-back" href="../../../../../core.generator.ui.contents.lyrics_content.html#core.generator.ui.contents.lyrics_content.LyricsContent.get_slide_data">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_slide_data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Generate the slide data dictionary for a &quot;lyrics&quot;-style slide.</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Generate the slide data dictionary for a "lyrics"-style slide.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            None</span>
@@ -244,11 +244,11 @@
 <span class="sd">                - style</span>
 <span class="sd">                - caption (song title)</span>
 <span class="sd">                - headline (raw lyrics text)</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="p">{</span>
-            <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;lyrics&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;caption&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">caption_edit</span><span class="o">.</span><span class="n">text</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span>
-            <span class="s2">&quot;headline&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">headline_edit</span><span class="o">.</span><span class="n">toPlainText</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="s2">"style"</span><span class="p">:</span> <span class="s2">"lyrics"</span><span class="p">,</span>
+            <span class="s2">"caption"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">caption_edit</span><span class="o">.</span><span class="n">text</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span>
+            <span class="s2">"headline"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">headline_edit</span><span class="o">.</span><span class="n">toPlainText</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
         <span class="p">}</span></div>
 </div>
 

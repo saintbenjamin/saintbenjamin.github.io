@@ -70,7 +70,7 @@
              
   <h1>Source code for controller.utils.slide_controller_data_manager</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 <span class="sd">:File: EuljiroWorship/controller/utils/slide_controller_data_manager.py</span>
 <span class="sd">:Author: Benjamin Jaedon Choi - https://github.com/saintbenjamin</span>
 <span class="sd">:Affiliated Church: The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</span>
@@ -90,7 +90,7 @@
 
 <span class="sd">It intentionally contains no UI logic and serves as a thin I/O and state</span>
 <span class="sd">coordination layer for :class:`controller.slide_controller.SlideController`.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
@@ -101,7 +101,7 @@
 <div class="viewcode-block" id="SlideControllerDataManager">
 <a class="viewcode-back" href="../../../controller.utils.slide_controller_data_manager.html#controller.utils.slide_controller_data_manager.SlideControllerDataManager">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">SlideControllerDataManager</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Manages persistent slide data and controller state.</span>
 
 <span class="sd">    This class is responsible for:</span>
@@ -120,12 +120,12 @@
 <span class="sd">            Current slide index.</span>
 <span class="sd">        last_slide_index (int | None):</span>
 <span class="sd">            Previously active slide index, if tracked.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
 <div class="viewcode-block" id="SlideControllerDataManager.__init__">
 <a class="viewcode-back" href="../../../controller.utils.slide_controller_data_manager.html#controller.utils.slide_controller_data_manager.SlideControllerDataManager.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">slide_file</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize the data manager with a slide file path.</span>
 
 <span class="sd">        Args:</span>
@@ -134,7 +134,7 @@
 
 <span class="sd">        Returns:</span>
 <span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">slide_file</span> <span class="o">=</span> <span class="n">slide_file</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">slides</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
@@ -144,7 +144,7 @@
 <div class="viewcode-block" id="SlideControllerDataManager.load_slides">
 <a class="viewcode-back" href="../../../controller.utils.slide_controller_data_manager.html#controller.utils.slide_controller_data_manager.SlideControllerDataManager.load_slides">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">load_slides</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Load slides from the active slide file into memory.</span>
 
 <span class="sd">        - On success, populates ``self.slides`` with parsed slide dictionaries.</span>
@@ -152,20 +152,20 @@
 
 <span class="sd">        Returns:</span>
 <span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">slide_file</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">slide_file</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">slides</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[✓] Loaded </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">slides</span><span class="p">)</span><span class="si">}</span><span class="s2"> slides.&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[✓] Loaded </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">slides</span><span class="p">)</span><span class="si">}</span><span class="s2"> slides."</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[!] Failed to load slides:&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"[!] Failed to load slides:"</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">slides</span> <span class="o">=</span> <span class="p">[]</span></div>
 
 
 <div class="viewcode-block" id="SlideControllerDataManager.backup_slides">
 <a class="viewcode-back" href="../../../controller.utils.slide_controller_data_manager.html#controller.utils.slide_controller_data_manager.SlideControllerDataManager.backup_slides">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">backup_slides</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Create a backup copy of the active slide file.</span>
 
 <span class="sd">        Copies :py:data:`core.config.paths.SLIDE_FILE` to :py:data:`core.config.paths.SLIDE_BACKUP_FILE`.</span>
@@ -174,17 +174,17 @@
 
 <span class="sd">        Returns:</span>
 <span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">SLIDE_FILE</span><span class="p">,</span> <span class="n">paths</span><span class="o">.</span><span class="n">SLIDE_BACKUP_FILE</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[!] Slide backup failed:&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span></div>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"[!] Slide backup failed:"</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="SlideControllerDataManager.restore_from_backup">
 <a class="viewcode-back" href="../../../controller.utils.slide_controller_data_manager.html#controller.utils.slide_controller_data_manager.SlideControllerDataManager.restore_from_backup">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">restore_from_backup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Restore slide data from the backup file if available.</span>
 
 <span class="sd">        Loads slides from :py:data:`core.config.paths.SLIDE_BACKUP_FILE` into memory.</span>
@@ -193,17 +193,17 @@
 <span class="sd">            bool:</span>
 <span class="sd">                - True if backup restoration succeeded.</span>
 <span class="sd">                - False if no backup exists or restoration failed.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">restored</span> <span class="o">=</span> <span class="kc">False</span>
 
         <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">SLIDE_BACKUP_FILE</span><span class="p">):</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">SLIDE_BACKUP_FILE</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">SLIDE_BACKUP_FILE</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">slides</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[✓] Slide backup restored.&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">"[✓] Slide backup restored."</span><span class="p">)</span>
                 <span class="n">restored</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[!] Failed to restore slides:&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">"[!] Failed to restore slides:"</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">slides</span> <span class="o">=</span> <span class="p">[]</span>
 
         <span class="k">return</span> <span class="n">restored</span></div>
@@ -212,14 +212,14 @@
 <div class="viewcode-block" id="SlideControllerDataManager.clear_backups">
 <a class="viewcode-back" href="../../../controller.utils.slide_controller_data_manager.html#controller.utils.slide_controller_data_manager.SlideControllerDataManager.clear_backups">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">clear_backups</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Remove the slide backup file if it exists.</span>
 
 <span class="sd">        Deletes :py:data:`core.config.paths.SLIDE_BACKUP_FILE` from disk to clear stale backup state.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">SLIDE_BACKUP_FILE</span><span class="p">):</span>
             <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">SLIDE_BACKUP_FILE</span><span class="p">)</span></div>
 </div>

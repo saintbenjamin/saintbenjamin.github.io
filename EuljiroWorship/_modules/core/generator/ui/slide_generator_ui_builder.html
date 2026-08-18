@@ -70,7 +70,7 @@
              
   <h1>Source code for core.generator.ui.slide_generator_ui_builder</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 <span class="sd">:File: EuljiroWorship/core/generator/ui/slide_generator_ui_builder.py</span>
 <span class="sd">:Author: Benjamin Jaedon Choi - https://github.com/saintbenjamin</span>
 <span class="sd">:Affiliated Church: The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</span>
@@ -94,7 +94,7 @@
 <span class="sd">- A central table area for listing and managing slides</span>
 <span class="sd">- A label showing the current worship/session name</span>
 <span class="sd">- Keyboard shortcuts (e.g., Ctrl+S) and signal connections</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">QWidget</span><span class="p">,</span> <span class="n">QVBoxLayout</span><span class="p">,</span> <span class="n">QHBoxLayout</span><span class="p">,</span> 
@@ -107,7 +107,7 @@
 <div class="viewcode-block" id="SlideGeneratorUIBuilder">
 <a class="viewcode-back" href="../../../../core.generator.ui.slide_generator_ui_builder.html#core.generator.ui.slide_generator_ui_builder.SlideGeneratorUIBuilder">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">SlideGeneratorUIBuilder</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Build and wire the full UI layout for the slide generator window.</span>
 
 <span class="sd">    This builder is responsible for composing the visual layout and connecting</span>
@@ -174,12 +174,12 @@
 <span class="sd">        worship_label (QLabel):</span>
 <span class="sd">            Label widget showing the current worship/session name. This is created</span>
 <span class="sd">            during UI setup and updated when a session is loaded or renamed.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
 <div class="viewcode-block" id="SlideGeneratorUIBuilder.__init__">
 <a class="viewcode-back" href="../../../../core.generator.ui.slide_generator_ui_builder.html#core.generator.ui.slide_generator_ui_builder.SlideGeneratorUIBuilder.__init__">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">worship_name</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">worship_name</span><span class="o">=</span><span class="s2">""</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize the UI builder and immediately construct the UI layout.</span>
 
 <span class="sd">        This constructor stores references to the parent window and the initial</span>
@@ -195,7 +195,7 @@
 
 <span class="sd">        Returns:</span>
 <span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="n">parent</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">worship_name</span> <span class="o">=</span> <span class="n">worship_name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setup_ui</span><span class="p">()</span></div>
@@ -204,7 +204,7 @@
 <div class="viewcode-block" id="SlideGeneratorUIBuilder.setup_ui">
 <a class="viewcode-back" href="../../../../core.generator.ui.slide_generator_ui_builder.html#core.generator.ui.slide_generator_ui_builder.SlideGeneratorUIBuilder.setup_ui">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">setup_ui</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Construct and wire the complete slide generator UI.</span>
 
 <span class="sd">        This method performs the following:</span>
@@ -218,40 +218,40 @@
 <span class="sd">          Tools menu</span>
 <span class="sd">        - Applies persisted font settings to the UI</span>
 <span class="sd">        - Connects table double-click events to the slide editor dialog</span>
-<span class="sd">        - Installs the composed layout as the parent&#39;s central widget</span>
+<span class="sd">        - Installs the composed layout as the parent's central widget</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            None</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span>
 
         <span class="c1"># Assign Ctrl+S to trigger save operation</span>
-        <span class="n">QShortcut</span><span class="p">(</span><span class="n">QKeySequence</span><span class="p">(</span><span class="s2">&quot;Ctrl+S&quot;</span><span class="p">),</span> <span class="n">parent</span><span class="p">)</span><span class="o">.</span><span class="n">activated</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">handle_ctrl_s</span><span class="p">)</span>
+        <span class="n">QShortcut</span><span class="p">(</span><span class="n">QKeySequence</span><span class="p">(</span><span class="s2">"Ctrl+S"</span><span class="p">),</span> <span class="n">parent</span><span class="p">)</span><span class="o">.</span><span class="n">activated</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">handle_ctrl_s</span><span class="p">)</span>
 
         <span class="c1"># Generator action buttons with SVG icons</span>
         <span class="n">load_btn</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">()</span>
-        <span class="n">set_svg_icon</span><span class="p">(</span><span class="n">load_btn</span><span class="p">,</span> <span class="n">get_icon_path</span><span class="p">(</span><span class="s2">&quot;load.svg&quot;</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+        <span class="n">set_svg_icon</span><span class="p">(</span><span class="n">load_btn</span><span class="p">,</span> <span class="n">get_icon_path</span><span class="p">(</span><span class="s2">"load.svg"</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
         <span class="n">save_btn</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">()</span>
-        <span class="n">set_svg_icon</span><span class="p">(</span><span class="n">save_btn</span><span class="p">,</span> <span class="n">get_icon_path</span><span class="p">(</span><span class="s2">&quot;save.svg&quot;</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+        <span class="n">set_svg_icon</span><span class="p">(</span><span class="n">save_btn</span><span class="p">,</span> <span class="n">get_icon_path</span><span class="p">(</span><span class="s2">"save.svg"</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
         <span class="n">add_btn</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">()</span>
-        <span class="n">set_svg_icon</span><span class="p">(</span><span class="n">add_btn</span><span class="p">,</span> <span class="n">get_icon_path</span><span class="p">(</span><span class="s2">&quot;add.svg&quot;</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+        <span class="n">set_svg_icon</span><span class="p">(</span><span class="n">add_btn</span><span class="p">,</span> <span class="n">get_icon_path</span><span class="p">(</span><span class="s2">"add.svg"</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
         <span class="n">duplicate_btn</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">()</span>
-        <span class="n">set_svg_icon</span><span class="p">(</span><span class="n">duplicate_btn</span><span class="p">,</span> <span class="n">get_icon_path</span><span class="p">(</span><span class="s2">&quot;clone.svg&quot;</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+        <span class="n">set_svg_icon</span><span class="p">(</span><span class="n">duplicate_btn</span><span class="p">,</span> <span class="n">get_icon_path</span><span class="p">(</span><span class="s2">"clone.svg"</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
         <span class="n">insert_above_btn</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">()</span>
-        <span class="n">set_svg_icon</span><span class="p">(</span><span class="n">insert_above_btn</span><span class="p">,</span> <span class="n">get_icon_path</span><span class="p">(</span><span class="s2">&quot;insert_above.svg&quot;</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+        <span class="n">set_svg_icon</span><span class="p">(</span><span class="n">insert_above_btn</span><span class="p">,</span> <span class="n">get_icon_path</span><span class="p">(</span><span class="s2">"insert_above.svg"</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
         <span class="n">insert_below_btn</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">()</span>
-        <span class="n">set_svg_icon</span><span class="p">(</span><span class="n">insert_below_btn</span><span class="p">,</span> <span class="n">get_icon_path</span><span class="p">(</span><span class="s2">&quot;insert_below.svg&quot;</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+        <span class="n">set_svg_icon</span><span class="p">(</span><span class="n">insert_below_btn</span><span class="p">,</span> <span class="n">get_icon_path</span><span class="p">(</span><span class="s2">"insert_below.svg"</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
         <span class="n">del_btn</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">()</span>
-        <span class="n">set_svg_icon</span><span class="p">(</span><span class="n">del_btn</span><span class="p">,</span> <span class="n">get_icon_path</span><span class="p">(</span><span class="s2">&quot;del.svg&quot;</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+        <span class="n">set_svg_icon</span><span class="p">(</span><span class="n">del_btn</span><span class="p">,</span> <span class="n">get_icon_path</span><span class="p">(</span><span class="s2">"del.svg"</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
         <span class="n">up_btn</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">()</span>
-        <span class="n">set_svg_icon</span><span class="p">(</span><span class="n">up_btn</span><span class="p">,</span> <span class="n">get_icon_path</span><span class="p">(</span><span class="s2">&quot;up.svg&quot;</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+        <span class="n">set_svg_icon</span><span class="p">(</span><span class="n">up_btn</span><span class="p">,</span> <span class="n">get_icon_path</span><span class="p">(</span><span class="s2">"up.svg"</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
         <span class="n">down_btn</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">()</span>
-        <span class="n">set_svg_icon</span><span class="p">(</span><span class="n">down_btn</span><span class="p">,</span> <span class="n">get_icon_path</span><span class="p">(</span><span class="s2">&quot;down.svg&quot;</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+        <span class="n">set_svg_icon</span><span class="p">(</span><span class="n">down_btn</span><span class="p">,</span> <span class="n">get_icon_path</span><span class="p">(</span><span class="s2">"down.svg"</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
         <span class="n">export_btn</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">()</span>
-        <span class="n">set_svg_icon</span><span class="p">(</span><span class="n">export_btn</span><span class="p">,</span> <span class="n">get_icon_path</span><span class="p">(</span><span class="s2">&quot;export.svg&quot;</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+        <span class="n">set_svg_icon</span><span class="p">(</span><span class="n">export_btn</span><span class="p">,</span> <span class="n">get_icon_path</span><span class="p">(</span><span class="s2">"export.svg"</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
 
         <span class="c1"># Apply consistent button height and layout policy</span>
         <span class="k">for</span> <span class="n">btn</span> <span class="ow">in</span> <span class="p">[</span><span class="n">load_btn</span><span class="p">,</span> <span class="n">save_btn</span><span class="p">,</span> <span class="n">add_btn</span><span class="p">,</span> <span class="n">duplicate_btn</span><span class="p">,</span> <span class="n">insert_above_btn</span><span class="p">,</span>
@@ -296,55 +296,55 @@
         <span class="n">main_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">worship_label</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
         <span class="n">main_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">table</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
-        <span class="c1"># Create &#39;Tools&#39; menu</span>
+        <span class="c1"># Create 'Tools' menu</span>
         <span class="n">menubar</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">menuBar</span><span class="p">()</span>
-        <span class="n">tool_menu</span> <span class="o">=</span> <span class="n">menubar</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="s2">&quot;도구&quot;</span><span class="p">)</span>
+        <span class="n">tool_menu</span> <span class="o">=</span> <span class="n">menubar</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="s2">"도구"</span><span class="p">)</span>
 
-        <span class="n">hwpx_worship_order_action</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="s2">&quot;HWPX 예배순서 가져오기 (을지로교회 전용)&quot;</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
+        <span class="n">hwpx_worship_order_action</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="s2">"HWPX 예배순서 가져오기 (을지로교회 전용)"</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
         <span class="n">hwpx_worship_order_action</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">import_worship_order_from_hwpx</span><span class="p">)</span>
         <span class="n">tool_menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="n">hwpx_worship_order_action</span><span class="p">)</span>
 
-        <span class="n">hwpx_full_action</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="s2">&quot;HWPX 예배순서+광고 가져오기 (을지로교회 전용)&quot;</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
+        <span class="n">hwpx_full_action</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="s2">"HWPX 예배순서+광고 가져오기 (을지로교회 전용)"</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
         <span class="n">hwpx_full_action</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">import_worship_order_and_announcements_from_hwpx</span><span class="p">)</span>
         <span class="n">tool_menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="n">hwpx_full_action</span><span class="p">)</span>
 
         <span class="n">tool_menu</span><span class="o">.</span><span class="n">addSeparator</span><span class="p">()</span>
 
-        <span class="n">hwpx_praise_service_action</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="s2">&quot;HWPX 오후찬양예배 순서 가져오기 (을지로교회 전용)&quot;</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
+        <span class="n">hwpx_praise_service_action</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="s2">"HWPX 오후찬양예배 순서 가져오기 (을지로교회 전용)"</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
         <span class="n">hwpx_praise_service_action</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">import_praise_service_order_from_hwpx</span><span class="p">)</span>
         <span class="n">tool_menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="n">hwpx_praise_service_action</span><span class="p">)</span>
 
-        <span class="n">hwpx_praise_service_full_action</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="s2">&quot;HWPX 오후찬양예배 순서+광고 가져오기 (을지로교회 전용)&quot;</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
+        <span class="n">hwpx_praise_service_full_action</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="s2">"HWPX 오후찬양예배 순서+광고 가져오기 (을지로교회 전용)"</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
         <span class="n">hwpx_praise_service_full_action</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">import_praise_service_order_and_announcements_from_hwpx</span><span class="p">)</span>
         <span class="n">tool_menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="n">hwpx_praise_service_full_action</span><span class="p">)</span>
 
         <span class="n">tool_menu</span><span class="o">.</span><span class="n">addSeparator</span><span class="p">()</span>
 
-        <span class="n">hwpx_announcement_action</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="s2">&quot;HWPX 광고 가져오기 (을지로교회 전용)&quot;</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
+        <span class="n">hwpx_announcement_action</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="s2">"HWPX 광고 가져오기 (을지로교회 전용)"</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
         <span class="n">hwpx_announcement_action</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">import_announcements_from_hwpx</span><span class="p">)</span>
         <span class="n">tool_menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="n">hwpx_announcement_action</span><span class="p">)</span>
 
-        <span class="n">import_announcements_action</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="s2">&quot;JSON 광고 가져오기 (을지로교회 전용)&quot;</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
+        <span class="n">import_announcements_action</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="s2">"JSON 광고 가져오기 (을지로교회 전용)"</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
         <span class="n">import_announcements_action</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">import_announcements</span><span class="p">)</span>
         <span class="n">tool_menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="n">import_announcements_action</span><span class="p">)</span>
 
         <span class="n">tool_menu</span><span class="o">.</span><span class="n">addSeparator</span><span class="p">()</span>
 
-        <span class="n">hwpx_worship_order_action_danseok</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="s2">&quot;HWPX 예배순서 가져오기 (단석교회 전용)&quot;</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
+        <span class="n">hwpx_worship_order_action_danseok</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="s2">"HWPX 예배순서 가져오기 (단석교회 전용)"</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
         <span class="n">hwpx_worship_order_action_danseok</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">import_worship_order_from_hwpx_danseok</span><span class="p">)</span>
         <span class="n">tool_menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="n">hwpx_worship_order_action_danseok</span><span class="p">)</span>
 
-        <span class="n">hwpx_full_action_danseok</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="s2">&quot;HWPX 예배순서+광고 가져오기 (단석교회 전용)&quot;</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
+        <span class="n">hwpx_full_action_danseok</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="s2">"HWPX 예배순서+광고 가져오기 (단석교회 전용)"</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
         <span class="n">hwpx_full_action_danseok</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">import_worship_order_and_announcements_from_hwpx_danseok</span><span class="p">)</span>
         <span class="n">tool_menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="n">hwpx_full_action_danseok</span><span class="p">)</span>
 
-        <span class="n">hwpx_announcement_action_danseok</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="s2">&quot;HWPX 광고 가져오기 (단석교회 전용)&quot;</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
+        <span class="n">hwpx_announcement_action_danseok</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="s2">"HWPX 광고 가져오기 (단석교회 전용)"</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
         <span class="n">hwpx_announcement_action_danseok</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">import_announcements_from_hwpx_danseok</span><span class="p">)</span>
         <span class="n">tool_menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="n">hwpx_announcement_action_danseok</span><span class="p">)</span>
 
         <span class="n">tool_menu</span><span class="o">.</span><span class="n">addSeparator</span><span class="p">()</span>
 
-        <span class="n">settings_action</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="s2">&quot;설정&quot;</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
+        <span class="n">settings_action</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="s2">"설정"</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
         <span class="n">settings_action</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">open_settings_dialog</span><span class="p">)</span>
         <span class="n">tool_menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="n">settings_action</span><span class="p">)</span>
 
@@ -363,7 +363,7 @@
 <div class="viewcode-block" id="SlideGeneratorUIBuilder.set_worship_label">
 <a class="viewcode-back" href="../../../../core.generator.ui.slide_generator_ui_builder.html#core.generator.ui.slide_generator_ui_builder.SlideGeneratorUIBuilder.set_worship_label">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">set_worship_label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Update the worship/session name label shown above the slide table.</span>
 
 <span class="sd">        This method is typically called after loading a session file or when the</span>
@@ -375,8 +375,8 @@
 
 <span class="sd">        Returns:</span>
 <span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;worship_label&quot;</span><span class="p">):</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">"worship_label"</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">worship_label</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">name</span><span class="p">)</span></div>
 </div>
 

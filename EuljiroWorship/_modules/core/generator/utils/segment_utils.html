@@ -70,7 +70,7 @@
              
   <h1>Source code for core.generator.utils.segment_utils</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 <span class="sd">:File: EuljiroWorship/core/generator/utils/segment_utils.py</span>
 <span class="sd">:Author: Benjamin Jaedon Choi - https://github.com/saintbenjamin</span>
 <span class="sd">:Affiliated Church: The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</span>
@@ -85,13 +85,13 @@
 <span class="sd">generator slide data into overlay-ready slide units. In particular, it</span>
 <span class="sd">handles segmentation of multi-line lyrics content into multiple slides</span>
 <span class="sd">using blank-line boundaries and fixed two-line grouping rules.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <div class="viewcode-block" id="segment_lyrics_for_export">
 <a class="viewcode-back" href="../../../../core.generator.utils.segment_utils.html#core.generator.utils.segment_utils.segment_lyrics_for_export">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">segment_lyrics_for_export</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Split a single &quot;lyrics&quot; slide into multiple export-ready slides.</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Split a single "lyrics" slide into multiple export-ready slides.</span>
 
 <span class="sd">    This function takes a lyrics-style slide dictionary and divides its</span>
 <span class="sd">    multiline headline text into smaller slides according to the following</span>
@@ -105,21 +105,21 @@
 <span class="sd">        data (dict):</span>
 <span class="sd">            Slide dictionary with at least the keys:</span>
 
-<span class="sd">            - &quot;style&quot;: expected to be &quot;lyrics&quot;</span>
-<span class="sd">            - &quot;caption&quot;: title of the song</span>
-<span class="sd">            - &quot;headline&quot;: multiline lyrics text</span>
+<span class="sd">            - "style": expected to be "lyrics"</span>
+<span class="sd">            - "caption": title of the song</span>
+<span class="sd">            - "headline": multiline lyrics text</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        list[dict]:</span>
 <span class="sd">            A list of slide dictionaries, each containing:</span>
 <span class="sd">    </span>
-<span class="sd">            - &quot;style&quot;</span>
-<span class="sd">            - &quot;caption&quot;</span>
-<span class="sd">            - &quot;headline&quot; (two lines or fewer)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">style</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;style&quot;</span><span class="p">,</span> <span class="s2">&quot;lyrics&quot;</span><span class="p">)</span>
-    <span class="n">caption</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;caption&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
-    <span class="n">headline</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;headline&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="sd">            - "style"</span>
+<span class="sd">            - "caption"</span>
+<span class="sd">            - "headline" (two lines or fewer)</span>
+<span class="sd">    """</span>
+    <span class="n">style</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"style"</span><span class="p">,</span> <span class="s2">"lyrics"</span><span class="p">)</span>
+    <span class="n">caption</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"caption"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span>
+    <span class="n">headline</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"headline"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span>
 
     <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">headline</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()]</span>
     <span class="n">slides</span> <span class="o">=</span> <span class="p">[]</span>
@@ -129,9 +129,9 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="n">line</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">buffer</span><span class="p">:</span>
                 <span class="n">slides</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
-                    <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="n">style</span><span class="p">,</span>
-                    <span class="s2">&quot;caption&quot;</span><span class="p">:</span> <span class="n">caption</span><span class="p">,</span>
-                    <span class="s2">&quot;headline&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span>
+                    <span class="s2">"style"</span><span class="p">:</span> <span class="n">style</span><span class="p">,</span>
+                    <span class="s2">"caption"</span><span class="p">:</span> <span class="n">caption</span><span class="p">,</span>
+                    <span class="s2">"headline"</span><span class="p">:</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span>
                 <span class="p">})</span>
                 <span class="n">buffer</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">continue</span>
@@ -139,17 +139,17 @@
         <span class="n">buffer</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
             <span class="n">slides</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
-                <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="n">style</span><span class="p">,</span>
-                <span class="s2">&quot;caption&quot;</span><span class="p">:</span> <span class="n">caption</span><span class="p">,</span>
-                <span class="s2">&quot;headline&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span>
+                <span class="s2">"style"</span><span class="p">:</span> <span class="n">style</span><span class="p">,</span>
+                <span class="s2">"caption"</span><span class="p">:</span> <span class="n">caption</span><span class="p">,</span>
+                <span class="s2">"headline"</span><span class="p">:</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span>
             <span class="p">})</span>
             <span class="n">buffer</span> <span class="o">=</span> <span class="p">[]</span>
 
     <span class="k">if</span> <span class="n">buffer</span><span class="p">:</span>
         <span class="n">slides</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
-            <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="n">style</span><span class="p">,</span>
-            <span class="s2">&quot;caption&quot;</span><span class="p">:</span> <span class="n">caption</span><span class="p">,</span>
-            <span class="s2">&quot;headline&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span>
+            <span class="s2">"style"</span><span class="p">:</span> <span class="n">style</span><span class="p">,</span>
+            <span class="s2">"caption"</span><span class="p">:</span> <span class="n">caption</span><span class="p">,</span>
+            <span class="s2">"headline"</span><span class="p">:</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span>
         <span class="p">})</span>
 
     <span class="k">return</span> <span class="n">slides</span></div>

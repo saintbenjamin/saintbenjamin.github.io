@@ -70,7 +70,7 @@
              
   <h1>Source code for core.generator.ui.settings_dialog</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 <span class="sd">:File: EuljiroWorship/core/generator/ui/settings_dialog.py</span>
 <span class="sd">:Author: Benjamin Jaedon Choi - https://github.com/saintbenjamin</span>
 <span class="sd">:Affiliated Church: The Eulji-ro Presbyterian Church [대한예수교장로회(통합) 을지로교회]</span>
@@ -92,7 +92,7 @@
 
 <span class="sd">Settings are stored in a JSON file at a well-defined location and are</span>
 <span class="sd">loaded automatically when the dialog is opened.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
@@ -111,7 +111,7 @@
 <div class="viewcode-block" id="SettingsDialog">
 <a class="viewcode-back" href="../../../../core.generator.ui.settings_dialog.html#core.generator.ui.settings_dialog.SettingsDialog">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">SettingsDialog</span><span class="p">(</span><span class="n">QDialog</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Dialog for configuring generator and controller settings.</span>
 
 <span class="sd">    This dialog provides controls for selecting font preferences used</span>
@@ -133,12 +133,12 @@
 <span class="sd">            Font weight selector.</span>
 <span class="sd">        path_line (QLineEdit):</span>
 <span class="sd">            Text field for the emergency subtitle file path.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
 <div class="viewcode-block" id="SettingsDialog.__init__">
 <a class="viewcode-back" href="../../../../core.generator.ui.settings_dialog.html#core.generator.ui.settings_dialog.SettingsDialog.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize the settings dialog.</span>
 
 <span class="sd">        This constructor builds the full UI layout, initializes all input</span>
@@ -151,40 +151,40 @@
 
 <span class="sd">        Returns:</span>
 <span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s2">&quot;대한예수교장로회(통합) 을지로교회 슬라이드 제너레이터/컨트롤러 설정&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s2">"대한예수교장로회(통합) 을지로교회 슬라이드 제너레이터/컨트롤러 설정"</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">250</span><span class="p">)</span>
 
         <span class="c1"># ───────────── Font settings widgets ─────────────</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">font_label</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="s2">&quot;글꼴 종류&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">font_label</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="s2">"글꼴 종류"</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">font_combo</span> <span class="o">=</span> <span class="n">QFontComboBox</span><span class="p">()</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">size_label</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="s2">&quot;글꼴 크기&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">size_label</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="s2">"글꼴 크기"</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">size_spin</span> <span class="o">=</span> <span class="n">QSpinBox</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">size_spin</span><span class="o">.</span><span class="n">setRange</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">72</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">weight_label</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="s2">&quot;글꼴 굵기&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">weight_label</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="s2">"글꼴 굵기"</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">weight_combo</span> <span class="o">=</span> <span class="n">QComboBox</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">weight_combo</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="s2">&quot;Thin&quot;</span><span class="p">,</span> <span class="n">QFont</span><span class="o">.</span><span class="n">Weight</span><span class="o">.</span><span class="n">Thin</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">weight_combo</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="s2">&quot;ExtraLight&quot;</span><span class="p">,</span> <span class="n">QFont</span><span class="o">.</span><span class="n">Weight</span><span class="o">.</span><span class="n">ExtraLight</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">weight_combo</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="s2">&quot;Light&quot;</span><span class="p">,</span> <span class="n">QFont</span><span class="o">.</span><span class="n">Weight</span><span class="o">.</span><span class="n">Light</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">weight_combo</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="s2">&quot;Normal&quot;</span><span class="p">,</span> <span class="n">QFont</span><span class="o">.</span><span class="n">Weight</span><span class="o">.</span><span class="n">Normal</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">weight_combo</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="s2">&quot;Medium&quot;</span><span class="p">,</span> <span class="n">QFont</span><span class="o">.</span><span class="n">Weight</span><span class="o">.</span><span class="n">Medium</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">weight_combo</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="s2">&quot;DemiBold&quot;</span><span class="p">,</span> <span class="n">QFont</span><span class="o">.</span><span class="n">Weight</span><span class="o">.</span><span class="n">DemiBold</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">weight_combo</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="s2">&quot;Bold&quot;</span><span class="p">,</span> <span class="n">QFont</span><span class="o">.</span><span class="n">Weight</span><span class="o">.</span><span class="n">Bold</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">weight_combo</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="s2">&quot;ExtraBold&quot;</span><span class="p">,</span> <span class="n">QFont</span><span class="o">.</span><span class="n">Weight</span><span class="o">.</span><span class="n">ExtraBold</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">weight_combo</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="s2">&quot;Black&quot;</span><span class="p">,</span> <span class="n">QFont</span><span class="o">.</span><span class="n">Weight</span><span class="o">.</span><span class="n">Black</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">weight_combo</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="s2">"Thin"</span><span class="p">,</span> <span class="n">QFont</span><span class="o">.</span><span class="n">Weight</span><span class="o">.</span><span class="n">Thin</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">weight_combo</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="s2">"ExtraLight"</span><span class="p">,</span> <span class="n">QFont</span><span class="o">.</span><span class="n">Weight</span><span class="o">.</span><span class="n">ExtraLight</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">weight_combo</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="s2">"Light"</span><span class="p">,</span> <span class="n">QFont</span><span class="o">.</span><span class="n">Weight</span><span class="o">.</span><span class="n">Light</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">weight_combo</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="s2">"Normal"</span><span class="p">,</span> <span class="n">QFont</span><span class="o">.</span><span class="n">Weight</span><span class="o">.</span><span class="n">Normal</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">weight_combo</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="s2">"Medium"</span><span class="p">,</span> <span class="n">QFont</span><span class="o">.</span><span class="n">Weight</span><span class="o">.</span><span class="n">Medium</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">weight_combo</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="s2">"DemiBold"</span><span class="p">,</span> <span class="n">QFont</span><span class="o">.</span><span class="n">Weight</span><span class="o">.</span><span class="n">DemiBold</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">weight_combo</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="s2">"Bold"</span><span class="p">,</span> <span class="n">QFont</span><span class="o">.</span><span class="n">Weight</span><span class="o">.</span><span class="n">Bold</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">weight_combo</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="s2">"ExtraBold"</span><span class="p">,</span> <span class="n">QFont</span><span class="o">.</span><span class="n">Weight</span><span class="o">.</span><span class="n">ExtraBold</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">weight_combo</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="s2">"Black"</span><span class="p">,</span> <span class="n">QFont</span><span class="o">.</span><span class="n">Weight</span><span class="o">.</span><span class="n">Black</span><span class="p">)</span>
 
         <span class="c1"># ───────────── Emergency caption file path input ─────────────</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">path_label</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="s2">&quot;긴급자막 파일 위치&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">path_label</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="s2">"긴급자막 파일 위치"</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">path_line</span> <span class="o">=</span> <span class="n">QLineEdit</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">browse_btn</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="s2">&quot;찾아보기&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">browse_btn</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="s2">"찾아보기"</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">browse_btn</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">browse_path</span><span class="p">)</span>
 
         <span class="c1"># ───────────── Dialog buttons ─────────────</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ok_btn</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="s2">&quot;확인&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cancel_btn</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="s2">&quot;취소&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ok_btn</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="s2">"확인"</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cancel_btn</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="s2">"취소"</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ok_btn</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">accept</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cancel_btn</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reject</span><span class="p">)</span>
 
@@ -215,7 +215,7 @@
 <div class="viewcode-block" id="SettingsDialog.browse_path">
 <a class="viewcode-back" href="../../../../core.generator.ui.settings_dialog.html#core.generator.ui.settings_dialog.SettingsDialog.browse_path">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">browse_path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Open a file dialog to select the emergency subtitle output file.</span>
 
 <span class="sd">        This method shows a file-open dialog filtered to text files and, if</span>
@@ -226,9 +226,9 @@
 
 <span class="sd">        Returns:</span>
 <span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">file_path</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">QFileDialog</span><span class="o">.</span><span class="n">getOpenFileName</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;긴급자막 파일 선택&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;Text Files (*.txt)&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="s2">"긴급자막 파일 선택"</span><span class="p">,</span> <span class="s2">""</span><span class="p">,</span> <span class="s2">"Text Files (*.txt)"</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">file_path</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">path_line</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span></div>
 
@@ -236,7 +236,7 @@
 <div class="viewcode-block" id="SettingsDialog.load_settings">
 <a class="viewcode-back" href="../../../../core.generator.ui.settings_dialog.html#core.generator.ui.settings_dialog.SettingsDialog.load_settings">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">load_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Load persisted settings from the JSON settings file into the UI.</span>
 
 <span class="sd">        If the settings file exists, this method reads the JSON content and</span>
@@ -254,20 +254,20 @@
 <span class="sd">                If the settings file exists but contains invalid JSON.</span>
 <span class="sd">            OSError:</span>
 <span class="sd">                If the settings file cannot be read.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">SETTINGS_PATH</span><span class="p">):</span>
-            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">SETTINGS_PATH</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">SETTINGS_PATH</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
                 <span class="n">settings</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">font_combo</span><span class="o">.</span><span class="n">setCurrentText</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;font_family&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">size_spin</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;font_size&quot;</span><span class="p">,</span> <span class="mi">24</span><span class="p">))</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">weight_combo</span><span class="o">.</span><span class="n">setCurrentText</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;font_weight&quot;</span><span class="p">,</span> <span class="s2">&quot;Normal&quot;</span><span class="p">))</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">path_line</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;verse_output_path&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span></div>
+                <span class="bp">self</span><span class="o">.</span><span class="n">font_combo</span><span class="o">.</span><span class="n">setCurrentText</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"font_family"</span><span class="p">,</span> <span class="s2">""</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">size_spin</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"font_size"</span><span class="p">,</span> <span class="mi">24</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">weight_combo</span><span class="o">.</span><span class="n">setCurrentText</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"font_weight"</span><span class="p">,</span> <span class="s2">"Normal"</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">path_line</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"verse_output_path"</span><span class="p">,</span> <span class="s2">""</span><span class="p">))</span></div>
 
 
 <div class="viewcode-block" id="SettingsDialog.save_settings">
 <a class="viewcode-back" href="../../../../core.generator.ui.settings_dialog.html#core.generator.ui.settings_dialog.SettingsDialog.save_settings">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">save_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Persist the current settings to the JSON settings file.</span>
 
 <span class="sd">        This method collects values from the UI controls, writes them to the</span>
@@ -285,15 +285,15 @@
 <span class="sd">        Raises:</span>
 <span class="sd">            OSError:</span>
 <span class="sd">                If the settings file cannot be written.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">settings</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;font_family&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">font_combo</span><span class="o">.</span><span class="n">currentText</span><span class="p">(),</span>
-            <span class="s2">&quot;font_size&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">size_spin</span><span class="o">.</span><span class="n">value</span><span class="p">(),</span>
-            <span class="s2">&quot;font_weight&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight_combo</span><span class="o">.</span><span class="n">currentText</span><span class="p">(),</span>
-            <span class="s2">&quot;verse_output_path&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_line</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+            <span class="s2">"font_family"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">font_combo</span><span class="o">.</span><span class="n">currentText</span><span class="p">(),</span>
+            <span class="s2">"font_size"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">size_spin</span><span class="o">.</span><span class="n">value</span><span class="p">(),</span>
+            <span class="s2">"font_weight"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight_combo</span><span class="o">.</span><span class="n">currentText</span><span class="p">(),</span>
+            <span class="s2">"verse_output_path"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_line</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
         <span class="p">}</span>
         <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">SETTINGS_PATH</span><span class="p">),</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">SETTINGS_PATH</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">SETTINGS_PATH</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">settings</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">settings</span></div>
 </div>
