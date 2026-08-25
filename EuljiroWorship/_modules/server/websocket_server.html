@@ -134,6 +134,7 @@
 <span class="c1"># ─────────────────────────────</span>
 <span class="c1"># Connected clients set</span>
 <span class="n">connected_clients</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+<span class="n">last_slide_message</span> <span class="o">=</span> <span class="kc">None</span>
 
 <div class="viewcode-block" id="websocket_handler">
 <a class="viewcode-back" href="../../server.websocket_server.html#server.websocket_server.websocket_handler">[docs]</a>
@@ -159,6 +160,16 @@
 
     <span class="n">connected_clients</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ws</span><span class="p">)</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"[+] Client connected"</span><span class="p">)</span>
+
+    <span class="c1"># A browser source may connect after the controller's initial broadcast.</span>
+    <span class="c1"># Replay the latest state so WebSocket timing never leaves it blank.</span>
+    <span class="k">if</span> <span class="n">last_slide_message</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">await</span> <span class="n">ws</span><span class="o">.</span><span class="n">send_str</span><span class="p">(</span><span class="n">last_slide_message</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="n">connected_clients</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">ws</span><span class="p">)</span>
+            <span class="k">await</span> <span class="n">ws</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">ws</span>
 
     <span class="k">try</span><span class="p">:</span>
         <span class="k">async</span> <span class="k">for</span> <span class="n">msg</span> <span class="ow">in</span> <span class="n">ws</span><span class="p">:</span>
@@ -208,12 +219,14 @@
 <span class="sd">    Returns:</span>
 <span class="sd">        None</span>
 <span class="sd">    """</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">connected_clients</span><span class="p">:</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"[!] No clients connected"</span><span class="p">)</span>
-        <span class="k">return</span>
-
+    <span class="k">global</span> <span class="n">last_slide_message</span>
     <span class="n">message</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">slide_dict</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">last_slide_message</span> <span class="o">=</span> <span class="n">message</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"[→] Broadcasting: </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">connected_clients</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"[!] No clients connected; cached latest slide"</span><span class="p">)</span>
+        <span class="k">return</span>
 
     <span class="k">for</span> <span class="n">ws</span> <span class="ow">in</span> <span class="n">connected_clients</span><span class="o">.</span><span class="n">copy</span><span class="p">():</span>
         <span class="k">if</span> <span class="n">ws</span><span class="o">.</span><span class="n">closed</span> <span class="ow">or</span> <span class="n">ws</span><span class="o">.</span><span class="n">close_code</span> <span class="ow">or</span> <span class="n">ws</span><span class="o">.</span><span class="n">exception</span><span class="p">()</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
