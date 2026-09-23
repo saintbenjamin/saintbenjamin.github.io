@@ -6,7 +6,7 @@
     "a:entry": [
       {
         "a:title": { "_text": "Postdoctoral researcher" },
-        "a:title_jp": { "_text": "研究員(ポスドク)" },
+        "a:title_jp": { "_text": "筑波大学計算科学研究センター 研究員(ポスドク)" },
         "a:location": {
           "_text": "Center for Computational Sciences, University of Tsukuba, 1-1-1 Tennodai, Tsukuba, Ibaraki 305-8577, Japan",
           "_attrs": { "link": "https://www.ccs.tsukuba.ac.jp/ccs_introduction/teacher/list/depart_particle/" }
@@ -50,7 +50,7 @@
       },
       {
         "a:title": { "_text": "Research Associate" },
-        "a:title_jp": { "_text": "ソウル大学総長任命研究員" },
+        "a:title_jp": { "_text": "ソウル大学 総長任命研究員" },
         "a:location": {
           "_text": "The Research Institute of Basic Science, Seoul National University",
           "_attrs": { "link": "https://ribs.snu.ac.kr/" }
