@@ -21,22 +21,6 @@
         }
       },
       {
-        "a:title": { "_text": "Postdoctoral researcher" },
-        "a:item_s": {
-          "a:item": [
-            {
-              "a:title": {
-                "_text": "Center for Computational Sciences, University of Tsukuba, 1-1-1 Tennodai, Tsukuba, Ibaraki 305-8577, Japan",
-                "_attrs": {
-                  "link": "https://www.ccs.tsukuba.ac.jp/ccs_introduction/teacher/list/depart_particle/",
-                  "target": "_blank"
-                }
-              }
-            }
-          ]
-        }
-      },
-      {
         "a:title": { "_text": "Contact" },
         "a:item_s": {
           "a:item": [

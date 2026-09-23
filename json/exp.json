@@ -5,6 +5,18 @@
     "a:id": { "_text": "benji_experiences" },
     "a:entry": [
       {
+        "a:title": { "_text": "Postdoctoral researcher" },
+        "a:title_jp": { "_text": "研究員(ポスドク)" },
+        "a:location": {
+          "_text": "Center for Computational Sciences, University of Tsukuba, 1-1-1 Tennodai, Tsukuba, Ibaraki 305-8577, Japan",
+          "_attrs": { "link": "https://www.ccs.tsukuba.ac.jp/ccs_introduction/teacher/list/depart_particle/" }
+        },
+        "a:desc": {
+          "_text": "Application of Machine Learning to Lattice Quantum Chromodynamics"
+        },
+        "a:date": { "_text": "May 2024 - Oct. 2026" }
+      },
+      {
         "a:title": { "_text": "Co-Chair" },
         "a:title_jp": { "_text": "国際格子理論分野多様性・包括性委員会 共同委員長" },
         "a:location": {
