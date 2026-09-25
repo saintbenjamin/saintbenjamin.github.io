@@ -53,15 +53,6 @@
             },
             {
               "a:title": {
-                "_text": "Large-scale lattice QCD simulation and development of AI technology",
-                "_attrs": {
-                  "link": "https://www-het.ph.tsukuba.ac.jp/~latticeqcd_ai/latticeqcd_ai/",
-                  "target": "_blank"
-                }
-              }
-            },
-            {
-              "a:title": {
                 "_text": "Lattice QCD + ML (Notion page of Akio Tomiya)",
                 "_attrs": {
                   "link": "https://chain-track-dd9.notion.site/Lattice-QCD-ML-f88a01373d394ba28c4ac39821b75a63#0674afe907384f87bfc23eb25381c656",
