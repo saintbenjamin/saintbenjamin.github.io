@@ -40,18 +40,27 @@
             },
             {
               "a:title": {
-                "_text": "Researchmap",
+                "_text": "Google Scholar",
                 "_attrs": {
-                  "link": "https://researchmap.jp/benjaminchoi",
+                  "link": "https://scholar.google.com/citations?user=rqBuyfcAAAAJ",
                   "target": "_blank"
                 }
               }
             },
             {
               "a:title": {
-                "_text": "Google Scholar",
+                "_text": "alphaXiv",
                 "_attrs": {
-                  "link": "https://scholar.google.com/citations?user=rqBuyfcAAAAJ",
+                  "link": "https://www.alphaxiv.org/@benjamin-j-choi",
+                  "target": "_blank"
+                }
+              }
+            },
+            {
+              "a:title": {
+                "_text": "Researchmap",
+                "_attrs": {
+                  "link": "https://researchmap.jp/benjaminchoi",
                   "target": "_blank"
                 }
               }
